@@ -1,12 +1,14 @@
 package com.edricchan.studybuddy;
+
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.support.v7.widget.TooltipCompat;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.List;
 
 
@@ -18,13 +20,16 @@ import java.util.List;
 public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
     private List<TaskItem> mFeedItemList;
     private Context mContext;
+
     public StudyAdapter(Context context, List<TaskItem> feedItemList) {
         mFeedItemList = feedItemList;
         mContext = context;
     }
+
     private Context getContext() {
         return mContext;
     }
+
     @Override
     public StudyAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -40,13 +45,16 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
         TaskItem item = mFeedItemList.get(position);
         TextView textView = holder.textView;
         textView.setText(item.getTaskName());
-        Button button = holder.markDoneBtn;
-        button.setText("Mark as Done");
-        button.setOnClickListener(new View.OnClickListener() {
+        ImageButton imgBtn = holder.markDoneBtn;
+        TooltipCompat.setTooltipText(imgBtn, "Mark as done");
+//        imgBtn.setTooltipText() = TooltipCompat.setTooltipText();
+//        imgBtn.setTooltipText(test);
+        imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 notifyItemRemoved(position);
+                mFeedItemList.remove(position);
+                Snackbar.make(view, "Task marked as done.", 6000).show();
             }
         });
     }
@@ -55,13 +63,14 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
     public int getItemCount() {
         return mFeedItemList.size();
     }
+
     public class Holder extends RecyclerView.ViewHolder {
         TextView textView;
-        Button markDoneBtn;
+        ImageButton markDoneBtn;
 
         public Holder(View view) {
             super(view);
-            markDoneBtn = (Button) view.findViewById(R.id.item_markdone);
+            markDoneBtn = (ImageButton) view.findViewById(R.id.item_markdone);
             textView = (TextView) view.findViewById(R.id.item_description);
         }
     }

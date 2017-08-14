@@ -18,9 +18,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
+import android.support.v7.widget.TooltipCompat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         // specify an adapter (see also next example)
         mAdapter = new StudyAdapter(context, taskItems);
         mRecyclerView.setAdapter(mAdapter);
+
+        // FAB
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                         1000);
             }
         });
+        // Tooltips
+        TooltipCompat.setTooltipText(fab, "New Task");
     }
     public void share() {
         final AlertDialog.Builder shareDialogBuilder = new AlertDialog.Builder(context);
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         View shareDialogView = inflater.inflate(R.layout.dialog_share, null);
         shareDialogBuilder.setView(shareDialogView);
         shareDialogBuilder.setTitle("Share");
-        shareDialogBuilder.setIcon(R.drawable.ic_share_black_24dp);
+        shareDialogBuilder.setIcon(R.drawable.ic_share_white_24dp);
         final TextInputEditText desc = (TextInputEditText) shareDialogView.findViewById(R.id.shareDialogDesc);
         shareDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -157,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 dpd.show();
             }
         });
-        newTaskDialogBuilder.setIcon(R.drawable.pencil);
+        newTaskDialogBuilder.setIcon(R.drawable.ic_pencil_white_24dp);
         newTaskDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
