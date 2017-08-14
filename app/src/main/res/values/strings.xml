@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Study Buddy</string>
+    <string name="action_settings">Settings</string>
+    <string name="custom_dialog_labels_note">Note: Please separate your labels with a comma (,).</string>
+    <string name="task_labels">Task Labels</string>
+    <string name="name_of_task">Name of Task</string>
+    <string name="select_date">Select Date</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_experimental_ui">Enable experimental UI</string>
+    <string name="pref_desc_experimental_ui">Shows a new interface for those who would like to beta test new features.</string>
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="pref_notification_categories">
+        <item>When a task is due/ overdue</item>
+        <item>Weekly agenda</item>
+        <item>Product tips and others</item>
+    </string-array>
+
+    <string-array name="pref_notification_categories_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="pref_notification_categories_default">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="pref_title_experimental_features">Enable Experimental Features</string>
+    <string name="pref_desc_experimental_features">Enables features that may or may not be eventually released to the public.</string>
+    <string name="pref_desc_new_message_notifications">Enable notifications when something happens (This can be configured in the \'Notification Categories\' setting)</string>
+
+    <!-- Actions (menu) -->
+    <string name="action_about">About</string>
+    <string name="action_share">Share this app</string>
+
+    <!-- Share dialog -->
+    <string name="dialog_share_desc">Description</string>
+    <string name="share_intent_value">Share this app via&#8230;</string>
+    <string name="dialog_share_desc_content">Check out a soon-to-be open-source app by Edric Chan! Source code available at https://github.com/Chan4077/StudyBuddy</string>
+</resources>

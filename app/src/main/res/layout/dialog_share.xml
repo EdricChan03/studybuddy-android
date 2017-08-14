@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/shareDialogDescWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/shareDialogDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dialog_share_desc"
+            android:text="@string/dialog_share_desc_content"/>
+    </android.support.design.widget.TextInputLayout>
+</LinearLayout>

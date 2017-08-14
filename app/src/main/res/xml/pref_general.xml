@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="experimental_features"
+        android:summary="@string/pref_desc_experimental_features"
+        android:title="@string/pref_title_experimental_features"
+        android:icon="@drawable/ic_flask_black_24dp"/>
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="experimental_ui"
+        android:summary="@string/pref_desc_experimental_ui"
+        android:title="@string/pref_title_experimental_ui"
+        android:dependency="experimental_features"
+        android:icon="@drawable/ic_flask_black_24dp"/>
+</PreferenceScreen>

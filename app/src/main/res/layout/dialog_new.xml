@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp">
+
+	<android.support.design.widget.TextInputLayout
+		android:id="@+id/customDialogNameWrapper"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/customDialogName"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/name_of_task"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:id="@+id/customDialogLabelsWrapper"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/customDialogNameWrapper">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/customDialogLabels"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/task_labels"/>
+	</android.support.design.widget.TextInputLayout>
+
+	<TextView
+		android:id="@+id/customDialogLabelsNote"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/customDialogLabelsWrapper"
+		android:text="@string/custom_dialog_labels_note"/>
+
+	<android.support.design.widget.TextInputLayout
+		android:id="@+id/customDialogDateWrapper"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/customDialogLabelsNote">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/customDialogDate"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/select_date"
+			android:inputType="date"/>
+	</android.support.design.widget.TextInputLayout>
+</RelativeLayout>
