@@ -6,13 +6,12 @@ This app started when someone told me that since I was excellent in coding (exam
 
 ## Current status
 Currently, the project is in **BETA**.
-There will be an APK download coming soon! Stay tuned! :tada:
+To get the latest pre-release, go to [Releases](https://github.com/Chan4077/StudyBuddy/releases).
 
 ## TODO
 - Add calendar
 - Add different views (Use `Fragment` etc.)
 - Google Sign-in support (aka Firebase) for abilities to save to the cloud
-- Gitignore `.idea` files
 - Add screenshots
 - Add this app to the play store
 
@@ -20,6 +19,7 @@ There will be an APK download coming soon! Stay tuned! :tada:
 - Add a new task and can be undone via a snackbar
 - Mark a todo as done (For some reason, it's a bit broken)
 - Settings (Currently doesn't affect anything)
+- Add tooltips to practically every single view (using `TooltipCompat` recently introduced in Design support `v26.0.0`)
 
 ---
 ## Building/ Contributing
