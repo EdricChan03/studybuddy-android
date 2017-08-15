@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -40,7 +43,7 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
-
+    static String sendFeedbackUrl = "https://goo.gl/forms/tz6cmNguIHuZMZIh2";
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -206,9 +209,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (id == android.R.id.home) {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
+            } else if (id == R.id.action_send_feedback) {
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                builder.addDefaultShareMenuItem();
+                final CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                return true;
             }
             return super.onOptionsItemSelected(item);
         }
+
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             inflater.inflate(R.menu.menu_settings, menu);
@@ -241,13 +252,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (id == android.R.id.home) {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
+            } else if (id == R.id.action_send_feedback) {
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                builder.addDefaultShareMenuItem();
+                final CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                return true;
             }
             return super.onOptionsItemSelected(item);
         }
+
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             inflater.inflate(R.menu.menu_settings, menu);
         }
+
         public void registerOnSharedPreferenceChangeListener() {
             SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
                 @Override
@@ -289,9 +309,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (id == android.R.id.home) {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
+            } else if (id == R.id.action_send_feedback) {
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                builder.addDefaultShareMenuItem();
+                final CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                return true;
             }
             return super.onOptionsItemSelected(item);
         }
+
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             inflater.inflate(R.menu.menu_settings, menu);
@@ -305,15 +333,47 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_versions);
             setHasOptionsMenu(true);
-            Preference pref = getPreferenceManager().findPreference("check_for_updates");
-            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            final Context context = getContext();
+            final String appAuthorUrl = "https://github.com/Chan4077";
+            final String appSrcUrl = "https://github.com/Chan4077/StudyBuddy";
+            String appIssueUrl = "https://github.com/Chan4077/StudyBuddy/issues/new";
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+            builder.addDefaultShareMenuItem();
+            final CustomTabsIntent customTabsIntent = builder.build();
+            Preference checkForUpdates = getPreferenceManager().findPreference("check_for_updates");
+            checkForUpdates.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     if (preference.getKey().equals("check_for_updates")) {
+                        Snackbar.make(getView(), getString(R.string.snackbar_check_updates), 4000).show();
                         AppUpdater appUpdater = new AppUpdater(getActivity())
                                 .setUpdateFrom(UpdateFrom.GITHUB)
-                                .setGitHubUserAndRepo("Chan4077", "StudyBuddy");
+                                .setGitHubUserAndRepo("Chan4077", "StudyBuddy")
+                                .setIcon(R.drawable.ic_alert_decagram_white_24dp);
                         appUpdater.start();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            Preference appAuthor = getPreferenceManager().findPreference("app_author");
+            appAuthor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (preference.getKey().equals("app_author")) {
+                        customTabsIntent.launchUrl(context, Uri.parse(appAuthorUrl));
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            Preference appSrc = getPreferenceManager().findPreference("app_src_code");
+            appSrc.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (preference.getKey().equals("app_src_code")) {
+                        customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
                         return true;
                     }
                     return false;
@@ -327,9 +387,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (id == android.R.id.home) {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
+            } else if (id == R.id.action_send_feedback) {
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                builder.addDefaultShareMenuItem();
+                final CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                return true;
             }
             return super.onOptionsItemSelected(item);
         }
+
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             inflater.inflate(R.menu.menu_settings, menu);

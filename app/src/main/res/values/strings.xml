@@ -76,16 +76,17 @@
     <string name="dialog_share_desc">Description</string>
     <string name="share_intent_value">Share this app via&#8230;</string>
     <string name="dialog_share_desc_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
-    <string name="about_dialog_text">This app started when someone told me that since I was excellent in coding (example &lt;a href="https://github.com/Chan4077/MyFirstGame"&gt;MyFirstGame&lt;/a&gt;) and this app is meant for those who would like a study calendar.</string>
+    <string name="about_dialog_text"><![CDATA[This app started when someone told me that since I was excellent in coding (example <a href="https://github.com/Chan4077/MyFirstGame">MyFirstGame</a>) and this app is meant for those who would like a study calendar.]]></string>
     <string name="pref_title_notification_categories">Notification categories</string>
     <string name="pref_desc_notification_categories">Tick list items that you want to receive notifications for.</string>
     <string name="pref_desc_beta_ver">When checked, the app will check for updates from the beta channel.</string>
     <string name="pref_title_beta_ver">Beta versions</string>
-    <string name="pref_title_app_ver">App version: v1.0.0-beta.542</string>
+    <string name="pref_title_app_ver">App version: v1.0.0-beta.533</string>
     <string name="pref_title_src_ver">Source code</string>
     <string name="pref_desc_src_ver">View source code on Github</string>
-    <string name="pref_title_ver"><![CDATA[Versions & About]]></string>
+    <string name="pref_title_ver">Versions &amp; About</string>
     <string name="pref_title_author">App Author</string>
     <string name="pref_desc_author">View the app\'s author on Github</string>
     <string name="action_send_feedback">Send Feedback</string>
+    <string name="snackbar_check_updates">Checking for updates&#8230;</string>
 </resources>

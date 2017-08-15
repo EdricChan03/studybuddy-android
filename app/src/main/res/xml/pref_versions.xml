@@ -5,7 +5,9 @@
             android:icon="@drawable/ic_flask_white_24dp"
             android:key="enable_beta_ver"
             android:summary="@string/pref_desc_beta_ver"
-            android:title="@string/pref_title_beta_ver" />
+            android:title="@string/pref_title_beta_ver"
+            android:enabled="false"
+            android:defaultValue="true"/>
         <Preference
             android:key="check_for_updates"
             android:title="Check for updates" />
@@ -18,18 +20,10 @@
         <Preference
             android:key="app_src_code"
             android:summary="@string/pref_desc_src_ver"
-            android:title="@string/pref_title_src_ver">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/Chan4077/StudyBuddy" />
-        </Preference>
+            android:title="@string/pref_title_src_ver" />
         <Preference
             android:key="app_author"
             android:summary="@string/pref_desc_author"
-            android:title="@string/pref_title_author">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/Chan4077" />
-        </Preference>
+            android:title="@string/pref_title_author" />
     </PreferenceCategory>
 </PreferenceScreen>
