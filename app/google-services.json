@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "713563449638",
-    "project_id": "studybuddy-e5f46"
+    "firebase_url": "https://studybuddy-e5f46.firebaseio.com",
+    "project_id": "studybuddy-e5f46",
+    "storage_bucket": "studybuddy-e5f46.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "713563449638-ec59ooakmtdjps3595st07klier9mshs.apps.googleusercontent.com",
           "client_type": 1,
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

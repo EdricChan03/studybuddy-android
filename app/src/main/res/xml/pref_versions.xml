@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Updates">
+        <CheckBoxPreference
+            android:icon="@drawable/ic_flask_white_24dp"
+            android:key="enable_beta_ver"
+            android:summary="@string/pref_desc_beta_ver"
+            android:title="@string/pref_title_beta_ver" />
+        <Preference
+            android:key="check_for_updates"
+            android:title="Check for updates" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="About">
+        <Preference
+            android:enabled="false"
+            android:key="app_ver"
+            android:title="@string/pref_title_app_ver" />
+        <Preference
+            android:key="app_src_code"
+            android:summary="@string/pref_desc_src_ver"
+            android:title="@string/pref_title_src_ver">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Chan4077/StudyBuddy" />
+        </Preference>
+        <Preference
+            android:key="app_author"
+            android:summary="@string/pref_desc_author"
+            android:title="@string/pref_title_author">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Chan4077" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -28,8 +28,8 @@
     <MultiSelectListPreference
         android:dependency="notifications_new_message"
         android:key="notifications_categories"
-        android:title="Notification categories"
-        android:summary="Tick list items that you want to receive notifications for."
+        android:title="@string/pref_title_notification_categories"
+        android:summary="@string/pref_desc_notification_categories"
         android:entries="@array/pref_notification_categories"
         android:entryValues="@array/pref_notification_categories_values"
         android:defaultValue="@array/pref_notification_categories_default"

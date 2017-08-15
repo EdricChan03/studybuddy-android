@@ -3,9 +3,9 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.edricchan.studybuddy.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_white_24dp"
-        android:title="@string/pref_header_general" />
+        android:fragment="com.edricchan.studybuddy.SettingsActivity$ExperimentalPreferenceFragment"
+        android:icon="@drawable/ic_flask_white_24dp"
+        android:title="@string/pref_header_experimental" />
 
     <header
         android:fragment="com.edricchan.studybuddy.SettingsActivity$NotificationPreferenceFragment"
@@ -16,5 +16,8 @@
         android:fragment="com.edricchan.studybuddy.SettingsActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_white_24dp"
         android:title="@string/pref_header_data_sync" />
-
+    <header
+        android:fragment="com.edricchan.studybuddy.SettingsActivity$VersionPreferenceFragment"
+        android:title="@string/pref_title_ver"
+        android:icon="@drawable/ic_info_white_24dp"/>
 </preference-headers>

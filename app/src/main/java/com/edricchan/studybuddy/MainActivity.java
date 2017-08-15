@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -14,12 +16,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.support.v7.widget.TooltipCompat;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInApi;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +51,7 @@ import java.util.List;
 
 import static java.lang.System.out;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     final Context context = this;
     private View view;
     private RecyclerView mRecyclerView;
@@ -39,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
     private List<TaskItem> taskItems = new ArrayList<>();
     private String[] taskTest = new String[]{"wow", "test"};
     private Date dueDateTest;
-    private int testInt;
+    private int testInt, RC_SIGN_IN;
+    private FirebaseAuth mAuth;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +117,97 @@ public class MainActivity extends AppCompatActivity {
                         1000);
             }
         });
+        // Firebase
+        RC_SIGN_IN = 9001;
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
         // Tooltips
         TooltipCompat.setTooltipText(fab, "New Task");
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            out.println("Not logged in");
+            final AlertDialog.Builder signInDialogBuilder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View signInDialogView = inflater.inflate(R.layout.dialog_sign_in, null);
+            signInDialogBuilder.setView(signInDialogView);
+            signInDialogBuilder.setTitle("Sign in");
+            final SignInButton signInButton = (SignInButton) signInDialogView.findViewById(R.id.signInDialogGoogle);
+            final AlertDialog signInDialog = signInDialogBuilder.create();
+            signInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                    out.println("TEST");
+                    signInDialog.dismiss();
+                }
+            });
+            signInDialog.show();
+        } else {
+            // Logged in
+            // TODO: Add database
+            Log.d("Tag", "Successfully logged in!");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseGoogle(account);
+            } else {
+                // Somehow it failed
+                Log.d("tag", "failed");
+            }
+        }
+    }
+
+    private void firebaseGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("Tag", "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                            builder.setMessage(user.toString())
+//                                    .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialogInterface, int i) {
+//                                            dialogInterface.dismiss();
+//                                        }
+//                                    });
+//                            AlertDialog dialog = builder.create();
+//                            dialog.show();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("Tag", "signInWithCredential:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
+
     public void share() {
         final AlertDialog.Builder shareDialogBuilder = new AlertDialog.Builder(context);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -127,11 +238,14 @@ public class MainActivity extends AppCompatActivity {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, desc.getText().toString());
                 shareIntent.setType("text/plain");
                 startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_intent_value)));
-            };
+            }
+
+            ;
         });
         AlertDialog shareDialog = shareDialogBuilder.create();
         shareDialog.show();
     }
+
     public void newTask() {
         testInt++;
         final AlertDialog.Builder newTaskDialogBuilder = new AlertDialog.Builder(context);
@@ -228,7 +342,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(prefsIntent);
                 break;
             case R.id.action_about:
-                Snackbar.make(view, "Coming soon!", Snackbar.LENGTH_SHORT).show();
+                String aboutDialogText = getString(R.string.about_dialog_text);
+                AlertDialog.Builder aboutDialogBuilder = new AlertDialog.Builder(context);
+                aboutDialogBuilder.setTitle("About this app");
+                aboutDialogBuilder.setMessage(aboutDialogText);
+                aboutDialogBuilder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                aboutDialogBuilder.setNeutralButton("Visit Source Code", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String githubUrl = "https://github.com/Chan4077/StudyBuddy";
+                        Intent githubIntent = new Intent();
+                        githubIntent.setAction(Intent.ACTION_VIEW);
+                        githubIntent.setData(Uri.parse(githubUrl));
+                        startActivity(githubIntent);
+                    }
+                });
+                AlertDialog aboutDialog = aboutDialogBuilder.create();
+                aboutDialog.show();
                 break;
             case R.id.action_share:
                 share();
@@ -238,4 +373,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d("Tag", "onConnectionFailed:" + connectionResult);
+    }
 }

@@ -2,7 +2,7 @@
 Welcome to StudyBuddy! This project is currently a work in progress and is unfortunately delayed by other events.
 
 ## About
-This app started when someone told me that since I was excellent in coding (example [MyFirstGame](https://github.com/Chan4077/MyFirstGamw)) and this app is meant for those who would like a study calendar.
+This app started when someone told me that since I was excellent in coding (example [MyFirstGame](https://github.com/Chan4077/MyFirstGame)) and this app is meant for those who would like a study calendar.
 
 ## Current status
 Currently, the project is in **BETA**.
