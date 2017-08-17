@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.widget.TooltipCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -374,6 +375,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     if (preference.getKey().equals("app_src_code")) {
                         customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            Preference appIntro = getPreferenceManager().findPreference("app_intro");
+            appIntro.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (preference.getKey().equals("app_intro")) {
+                        Intent appIntroIntent = new Intent(context, IntroActivity.class);
+                        startActivity(appIntroIntent);
                         return true;
                     }
                     return false;

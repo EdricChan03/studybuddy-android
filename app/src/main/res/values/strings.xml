@@ -89,4 +89,7 @@
     <string name="pref_desc_author">View the app\'s author on Github</string>
     <string name="action_send_feedback">Send Feedback</string>
     <string name="snackbar_check_updates">Checking for updates&#8230;</string>
+    <string name="app_intro">App Intro</string>
+    <string name="pref_desc_app_intro">Shows the app intro</string>
+    <string name="pref_title_app_intro">App intro</string>
 </resources>

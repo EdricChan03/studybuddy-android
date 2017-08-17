@@ -25,5 +25,9 @@
             android:key="app_author"
             android:summary="@string/pref_desc_author"
             android:title="@string/pref_title_author" />
+        <Preference
+            android:key="app_intro"
+            android:summary="@string/pref_desc_app_intro"
+            android:title="@string/pref_title_app_intro"/>
     </PreferenceCategory>
 </PreferenceScreen>

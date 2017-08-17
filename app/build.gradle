@@ -36,5 +36,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'com.github.javiersantos:AppUpdater:2.6.3'
     compile 'com.android.support:customtabs:26.0.1'
+    compile 'com.github.apl-devs:appintro:v4.2.2'
 }
 apply plugin: 'com.google.gms.google-services'

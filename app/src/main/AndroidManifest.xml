@@ -30,6 +30,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.edricchan.studybuddy.MainActivity" />
         </activity>
+        <activity android:name=".IntroActivity"
+            android:label="@string/app_intro"/>
     </application>
 
 </manifest>
