@@ -5,10 +5,10 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.edricchan.studybuddy"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.0.0-beta.751"
+        versionCode 6
+        versionName "1.0.0-beta.920"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -17,25 +17,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-    implementation 'com.android.support:support-v4:26.0.1'
+    implementation 'com.android.support:support-v4:26.1.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.0.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:26.0.1'
-    compile 'com.android.support:cardview-v7:26.0.1'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.firebase:firebase-storage:11.0.4'
-    compile 'com.google.firebase:firebase-database:11.0.4'
-    compile 'com.google.firebase:firebase-auth:11.0.4'
-    compile 'com.google.android.gms:play-services-auth:11.0.4'
+    // Firebase stuff
+    compile 'com.google.firebase:firebase-storage:11.4.0'
+    compile 'com.google.firebase:firebase-database:11.4.0'
+    compile 'com.google.firebase:firebase-auth:11.4.0'
+    compile 'com.google.android.gms:play-services-auth:11.4.0'
+    // Provide a way to update the app
     compile 'com.github.javiersantos:AppUpdater:2.6.3'
-    compile 'com.android.support:customtabs:26.0.1'
-    compile 'com.github.apl-devs:appintro:v4.2.2'
+    // Chrome Custom Tabs
+    compile 'com.android.support:customtabs:26.1.0'
+    // The app's intro screen
+    compile 'com.heinrichreimersoftware:material-intro:1.6.2'
+    // Use for new Material Text field boxes recently introduced
+    compile 'com.github.HITGIF:TextFieldBoxes:1.1.0'
+    // Report an issue to Github without having to open a new tab and so on...
+    compile 'com.heinrichreimersoftware:android-issue-reporter:1.3.1'
 }
 apply plugin: 'com.google.gms.google-services'
