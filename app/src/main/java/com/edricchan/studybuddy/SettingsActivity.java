@@ -4,10 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -32,8 +29,6 @@ import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
 import java.util.List;
-
-import com.edricchan.studybuddy.BuildConfig;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -440,6 +435,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         /**
          * Gets the version of the app
+         *
          * @return The version of the app (string)
          */
         public String getVersion() {
@@ -448,6 +444,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         /**
          * Gets the version code of the app
+         *
          * @return The version code of the app (integer)
          */
         public int getVersionCode() {
