@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Updates">
-        <CheckBoxPreference
+        <ListPreference
             android:icon="@drawable/ic_flask_white_24dp"
-            android:key="enable_beta_ver"
-            android:summary="@string/pref_desc_beta_ver"
-            android:title="@string/pref_title_beta_ver"
-            android:enabled="false"
-            android:defaultValue="true"/>
+            android:key="updates_channel"
+            android:title="@string/pref_title_updates_channel"
+            android:entryValues="@array/pref_updates_channels_values"
+            android:entries="@array/pref_updates_channels"
+            android:defaultValue="@string/pref_updates_channel_default"/>
         <Preference
             android:key="check_for_updates"
             android:title="Check for updates" />
