@@ -15,6 +15,10 @@
 
     <string name="pref_title_experimental_ui">Enable experimental UI</string>
     <string name="pref_desc_experimental_ui">Shows a new interface for those who would like to beta test new features.</string>
+    <string name="pref_title_experimental_features">Enable Experimental Features</string>
+    <string name="pref_desc_experimental_features">Enables features that may or may not be eventually released to the public.</string>
+    <string name="pref_title_experimental_calendar">Enable Experimental Calendar</string>
+    <string name="pref_desc_experimental_calendar">Enables the experimental calendar that is current a Work In Progress and will be eventually be released to the public.</string>
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 
@@ -64,8 +68,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="pref_title_experimental_features">Enable Experimental Features</string>
-    <string name="pref_desc_experimental_features">Enables features that may or may not be eventually released to the public.</string>
     <string name="pref_desc_new_message_notifications">Enable notifications when something happens (This can be configured in the \'Notification Categories\' setting)</string>
 
     <!-- Actions (menu) -->
@@ -76,12 +78,14 @@
     <string name="dialog_share_desc">Description</string>
     <string name="share_intent_value">Share this app via&#8230;</string>
     <string name="dialog_share_desc_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
-    <string name="about_dialog_text"><![CDATA[This app started when someone told me that since I was excellent in coding (example <a href="https://github.com/Chan4077/MyFirstGame">MyFirstGame</a>) and this app is meant for those who would like a study calendar.]]></string>
+    <string name="about_dialog_text">This app started due to my excellent coding skills leading to developing this app which is meant for those who would like a study calendar. However, at the moment, there are not many features available.</string>
     <string name="pref_title_notification_categories">Notification categories</string>
     <string name="pref_desc_notification_categories">Tick list items that you want to receive notifications for.</string>
-    <string name="pref_desc_beta_ver">When checked, the app will check for updates from the beta channel.</string>
+    <string name="pref_desc_beta_ver">Whether or not the app will check for updates from the beta channel.</string>
     <string name="pref_title_beta_ver">Beta versions</string>
-    <string name="pref_title_app_ver">App version: v1.0.0-beta.533</string>
+    <string name="pref_title_app_ver">App versions @string/pref_desc_app_ver</string>
+    <string name="pref_desc_app_ver">Version: v1.0.0-beta.920</string>
+    <string name="pref_desc_app_ver_name">Version name: </string>
     <string name="pref_title_src_ver">Source code</string>
     <string name="pref_desc_src_ver">View source code on Github</string>
     <string name="pref_title_ver">Versions &amp; About</string>
@@ -92,4 +96,8 @@
     <string name="app_intro">App Intro</string>
     <string name="pref_desc_app_intro">Shows the app intro</string>
     <string name="pref_title_app_intro">App intro</string>
+    <string name="action_todo_title">TODOs</string>
+    <string name="action_calendar_title">Calendar</string>
+    <string name="action_notifications_title">Notifications</string>
+    <string name="action_help">Help</string>
 </resources>
