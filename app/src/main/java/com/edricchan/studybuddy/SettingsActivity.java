@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy;
 
 import android.annotation.TargetApi;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,18 +13,17 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v7.widget.TooltipCompat;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -207,16 +205,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            } else if (id == R.id.action_send_feedback) {
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                builder.addDefaultShareMenuItem();
-                final CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
-                return true;
+            switch (id) {
+                case android.R.id.home:
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    return true;
+                case R.id.action_send_feedback:
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    builder.addDefaultShareMenuItem();
+                    final CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                    return true;
+                case R.id.action_help:
+                    // TODO: Add some stuff
+                    return true;
             }
             return super.onOptionsItemSelected(item);
         }
@@ -250,16 +252,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            } else if (id == R.id.action_send_feedback) {
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                builder.addDefaultShareMenuItem();
-                final CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
-                return true;
+            switch (id) {
+                case android.R.id.home:
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    return true;
+                case R.id.action_send_feedback:
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    builder.addDefaultShareMenuItem();
+                    final CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                    return true;
+                case R.id.action_help:
+                    // TODO: Add some stuff
+                    return true;
             }
             return super.onOptionsItemSelected(item);
         }
@@ -307,16 +313,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            } else if (id == R.id.action_send_feedback) {
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                builder.addDefaultShareMenuItem();
-                final CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
-                return true;
+            switch (id) {
+                case android.R.id.home:
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    return true;
+                case R.id.action_send_feedback:
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    builder.addDefaultShareMenuItem();
+                    final CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                    return true;
+                case R.id.action_help:
+                    // TODO: Add some stuff
+                    return true;
             }
             return super.onOptionsItemSelected(item);
         }
@@ -349,8 +359,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     if (preference.getKey().equals("check_for_updates")) {
                         Snackbar.make(getView(), getString(R.string.snackbar_check_updates), 4000).show();
                         AppUpdater appUpdater = new AppUpdater(getActivity())
-                                .setUpdateFrom(UpdateFrom.GITHUB)
-                                .setGitHubUserAndRepo("Chan4077", "StudyBuddy")
+                                .setUpdateFrom(UpdateFrom.JSON)
+                                .setUpdateJSON("https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json")
                                 .setIcon(R.drawable.ic_alert_decagram_white_24dp);
                         appUpdater.start();
                         return true;
@@ -385,7 +395,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     if (preference.getKey().equals("app_intro")) {
-                        Intent appIntroIntent = new Intent(context, IntroActivity.class);
+                        Intent appIntroIntent = new Intent(context, MyIntroActivity.class);
                         startActivity(appIntroIntent);
                         return true;
                     }
@@ -397,16 +407,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            } else if (id == R.id.action_send_feedback) {
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                builder.addDefaultShareMenuItem();
-                final CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
-                return true;
+            switch (id) {
+                case android.R.id.home:
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    return true;
+                case R.id.action_send_feedback:
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    builder.addDefaultShareMenuItem();
+                    final CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+                    return true;
+                case R.id.action_help:
+                    // TODO: Add some stuff
+                    return true;
             }
             return super.onOptionsItemSelected(item);
         }
