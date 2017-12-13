@@ -1,11 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.edricchan.studybuddy.SettingsActivity">
     <item
         android:id="@+id/action_send_feedback"
-        android:title="@string/action_send_feedback"
         android:icon="@drawable/ic_message_alert_white_24dp"
-        app:showAsAction="always"/>
-
+        android:title="@string/action_send_feedback" />
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/ic_help_circle_white_24dp"
+        android:title="@string/action_help" />
 </menu>
