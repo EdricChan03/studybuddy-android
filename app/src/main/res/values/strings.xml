@@ -13,12 +13,12 @@
     <!-- Example General settings -->
     <string name="pref_header_experimental">Experimental</string>
 
-    <string name="pref_title_experimental_ui">Enable experimental UI</string>
+    <string name="pref_title_experimental_ui">Experimental UI</string>
     <string name="pref_desc_experimental_ui">Shows a new interface for those who would like to beta test new features.</string>
-    <string name="pref_title_experimental_features">Enable Experimental Features</string>
+    <string name="pref_title_experimental_features">Experimental Features</string>
     <string name="pref_desc_experimental_features">Enables features that may or may not be eventually released to the public.</string>
-    <string name="pref_title_experimental_calendar">Enable Experimental Calendar</string>
-    <string name="pref_desc_experimental_calendar">Enables the experimental calendar that is current a Work In Progress and will be eventually be released to the public.</string>
+    <string name="pref_title_experimental_calendar">Experimental Calendar</string>
+    <string name="pref_desc_experimental_calendar">Enables the experimental calendar that is currently a Work In Progress and will be eventually be released to the public.</string>
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 
