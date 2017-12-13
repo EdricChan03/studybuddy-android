@@ -81,11 +81,8 @@
     <string name="about_dialog_text">This app started due to my excellent coding skills leading to developing this app which is meant for those who would like a study calendar. However, at the moment, there are not many features available.</string>
     <string name="pref_title_notification_categories">Notification categories</string>
     <string name="pref_desc_notification_categories">Tick list items that you want to receive notifications for.</string>
-    <string name="pref_desc_beta_ver">Whether or not the app will check for updates from the beta channel.</string>
-    <string name="pref_title_beta_ver">Beta versions</string>
-    <string name="pref_title_app_ver">App versions @string/pref_desc_app_ver</string>
-    <string name="pref_desc_app_ver">Version: v1.0.0-beta.920</string>
-    <string name="pref_desc_app_ver_name">Version name: </string>
+    <string name="pref_title_updates_channel">Select update channel</string>
+    <string name="pref_title_app_ver">Current app version</string>
     <string name="pref_title_src_ver">Source code</string>
     <string name="pref_desc_src_ver">View source code on Github</string>
     <string name="pref_title_ver">Versions &amp; About</string>
@@ -100,4 +97,16 @@
     <string name="action_calendar_title">Calendar</string>
     <string name="action_notifications_title">Notifications</string>
     <string name="action_help">Help</string>
+
+    <string-array name="pref_updates_channels_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="pref_updates_channels">
+        <item>Stable</item>
+        <item>Beta</item>
+        <item>Canary</item>
+    </string-array>
+    <string name="pref_updates_channel_default">1</string>
 </resources>
