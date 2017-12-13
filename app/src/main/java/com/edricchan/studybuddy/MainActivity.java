@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.StringJoiner;
 
 import static java.lang.System.out;
 
@@ -65,12 +66,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private int testInt, RC_SIGN_IN;
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
-
+    private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        view = (View) findViewById(R.id.content);
+        view = (View) findViewById(R.id.todo_content);
         //  Declare a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
             @Override
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 if (isFirstStart) {
 
                     //  Launch app intro
-                    final Intent i = new Intent(MainActivity.this, IntroActivity.class);
+                    final Intent i = new Intent(MainActivity.this, MyIntroActivity.class);
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -197,8 +198,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             signInDialog.show();
         } else {
             // Logged in
-            // TODO: Add database
+            // TODO: Add firestore
             Log.d("Tag", "Successfully logged in!");
+            String emailAddr = currentUser.getEmail();
+            String[] userNameDots = emailAddr.substring(0, emailAddr.lastIndexOf("@"))
+                        .split(".");
+            StringJoiner joiner = new StringJoiner("");
+            for (String string:userNameDots) joiner.add(string);
+            userName = joiner.toString();
+            out.println(userName);
+//            userName = userNameDots.join("");
         }
     }
 
@@ -226,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Tag", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+//                            FirebaseUser user = mAuth.getCurrentUser();
 //                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
 //                            builder.setMessage(user.toString())
 //                                    .setPositiveButton("Close", new DialogInterface.OnClickListener() {
