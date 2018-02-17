@@ -1,13 +1,19 @@
 <resources>
+    <!-- Web client ID -->
+    <string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com	</string>
     <string name="app_name">Study Buddy</string>
     <string name="action_settings">Settings</string>
     <string name="custom_dialog_labels_note">Note: Please separate your labels with a comma (,).</string>
-    <string name="task_labels">Task Labels</string>
-    <string name="name_of_task">Name of Task</string>
+    <string name="task_project">Task Project</string>
+    <string name="task_title">Task Title</string>
+    <string name="task_content">Task Content</string>
     <string name="select_date">Select Date</string>
-    <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- App shortcuts -->
+    <string name="shortcut_todo_disabled_msg">Todo is disabled</string>
+    <string name="shortcut_todo_long_msg">Create a new todo</string>
+    <string name="shortcut_todo_short_msg">New todo</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -75,9 +81,8 @@
     <string name="action_share">Share this app</string>
 
     <!-- Share dialog -->
-    <string name="dialog_share_desc">Description</string>
     <string name="share_intent_value">Share this app via&#8230;</string>
-    <string name="dialog_share_desc_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
+    <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
     <string name="about_dialog_text">This app started due to my excellent coding skills leading to developing this app which is meant for those who would like a study calendar. However, at the moment, there are not many features available.</string>
     <string name="pref_title_notification_categories">Notification categories</string>
     <string name="pref_desc_notification_categories">Tick list items that you want to receive notifications for.</string>
@@ -109,4 +114,24 @@
         <item>Canary</item>
     </string-array>
     <string name="pref_updates_channel_default">1</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="action_sign_in_btn">Login</string>
+    <string name="action_forgot_password_btn">Forgot password</string>
+    <string name="title_activity_register">Register</string>
+    <string name="action_register_btn">Register</string>
+    <string name="action_link_login_btn">I already have an account</string>
+    <string name="title_activity_reset_password">Reset password</string>
+    <string name="forgot_password_title">Forgot password?</string>
+    <string name="forgot_password_msg">Just enter your email address in the input below and click the "Reset password" button to reset your password.</string>
+    <string name="btn_reset_password">Reset password</string>
+    <string name="btn_back">&lt; Go back</string>
+    <string name="minimum_password">The password that you entered is too short, please enter a minimum of 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password to ensure they are correct or sign up if you haven\'t created an account.</string>
+    <string name="action_link_register_btn">Register for an account</string>
+    <string name="due_date">Due date</string>
+    <string name="due_date_text">Selected due date shows here</string>
 </resources>

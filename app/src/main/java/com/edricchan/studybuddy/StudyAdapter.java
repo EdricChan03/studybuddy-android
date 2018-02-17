@@ -43,9 +43,10 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
     @Override
     public void onBindViewHolder(final StudyAdapter.Holder holder, final int position) {
         TaskItem item = mFeedItemList.get(position);
-        TextView textView = holder.textView;
-        textView.setText(item.getTaskName());
-        ImageButton imgBtn = holder.markDoneBtn;
+        TextView textView = (TextView) holder.textView;
+        System.out.println("Item's task name is: "+item.getTitle());
+        textView.setText(item.getTitle());
+        ImageButton imgBtn = (ImageButton) holder.markDoneBtn;
         TooltipCompat.setTooltipText(imgBtn, "Mark as done");
 //        imgBtn.setTooltipText() = TooltipCompat.setTooltipText();
 //        imgBtn.setTooltipText(test);

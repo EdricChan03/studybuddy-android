@@ -1,15 +1,15 @@
 <resources>
-	<!-- Default screen margins, per the Android Design guidelines. -->
-	<dimen name="fab_margin">16dp</dimen>
-	<dimen name="activity_horizontal_margin">16dp</dimen>
-	<dimen name="activity_vertical_margin">16dp</dimen>
-	<dimen name="chip_padding">12dp</dimen>
-	<dimen name="icon_height">36dp</dimen>
-	<dimen name="remove_icon_dimen">24dp</dimen>
-	<dimen name="remove_icon_margin">4dp</dimen>
-	<dimen name="deletable_chip_padding">12dp</dimen>
-	<dimen name="contact_chip_left_padding">8dp</dimen>
-	<dimen name="contact_chip_right_padding">12dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="chip_padding">12dp</dimen>
+    <dimen name="icon_height">36dp</dimen>
+    <dimen name="remove_icon_dimen">24dp</dimen>
+    <dimen name="remove_icon_margin">4dp</dimen>
+    <dimen name="deletable_chip_padding">12dp</dimen>
+    <dimen name="contact_chip_left_padding">8dp</dimen>
+    <dimen name="contact_chip_right_padding">12dp</dimen>
 
-	<dimen name="padding_top">8dp</dimen>
+    <dimen name="padding_top">8dp</dimen>
 </resources>

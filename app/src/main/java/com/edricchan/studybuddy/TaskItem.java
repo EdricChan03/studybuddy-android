@@ -7,74 +7,72 @@ import java.util.Date;
  */
 
 public class TaskItem {
-	private String taskName;
-	private String[] taskLabels;
-	private Date taskDueDate;
-	private int taskId;
-	public TaskItem(int taskId, String taskName, String[] taskLabels, Date taskDueDate) {
-		this.taskId = taskId;
-		this.taskName = taskName;
-		this.taskLabels = taskLabels;
-		this.taskDueDate = taskDueDate;
-	}
-	/**
-	 * Gets the task id
-	 * @return The ID of the task in integer format.
-	 */
-	public int getTaskId() {
-		return taskId;
-	}
-	/**
-	 * Sets the task id.
-	 * @param taskId The task id.
-	 */
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
+	private String title;
+	private String project;
+	private String content;
+	private Date dueDate;
+	public TaskItem(String title, Date dueDate, String project, String content) {
+		this.title = title;
+		this.dueDate = dueDate;
+		this.project = project;
+		this.content = content;
 	}
 	/**
 	 * Gets the task name.
 	 * @return The name of the task in a string format.
 	 */
-	public String getTaskName() {
-		return taskName;
+	public String getTitle() {
+		return title;
 	}
 	/**
 	 * Sets the task name.
-	 * @param taskName The task name.
+	 * @param title The task name.
 	 */
-	public void setTaskName(String taskName) {
-		this.taskName  = taskName;
-	}
-
-	/**
-	 * Gets the task labels.
-	 * @return The task labels in an array format.
-	 */
-	public String[] getTaskLabels() {
-		return taskLabels;
-	}
-
-	/**
-	 * Sets the task labels.
-	 * @param taskLabels The task labels. (Array)
-	 */
-	public void setTaskLabels(String[] taskLabels) {
-		this.taskLabels = taskLabels;
+	public void setTitle(String title) {
+		this.title  = title;
 	}
 
 	/**
 	 * Gets the task due date.
 	 * @return The task's due date in a `Date` format.
 	 */
-	public Date getTaskDueDate() {
-		return taskDueDate;
+	public Date getDueDate() {
+		return dueDate;
 	}
 
 	/**
 	 * Sets the task's due date.
-	 * @param taskDueDate The task's due date. (Date)
+	 * @param dueDate The task's due date. (Date)
 	 */
-	public void setTaskDueDate(Date taskDueDate) {
-		this.taskDueDate = taskDueDate;
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+	/**
+	 * Gets the task project.
+	 * @return The task's project in a <code>string</code> format.
+	 */
+	public String getProject() {
+		return project;
+	}
+	/**
+	 * Sets the task project.
+	 * @param project The task's project. (String)
+	 */
+	public void setProject(String project) {
+		this.project = project;
+	}
+	/**
+	 * Gets the task content.
+	 * @return The task's content in a <code>string</code> format.
+	 */
+	public String getContent() {
+		return content;
+	}
+	/**
+	 * Sets the task content.
+	 * @param content The task's content. (<code>String</code>)
+	 */
+	public void setContent(String content) {
+		this.content = content;
 	}
 }
