@@ -51,14 +51,15 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_reset_password"
-            android:layout_width="fill_parent"
+            android:id="@+id/sign_up_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/action_forgot_password_btn"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
+            android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
+            android:text="@string/action_register_btn"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
         <!-- Link to Login Screen -->
 
