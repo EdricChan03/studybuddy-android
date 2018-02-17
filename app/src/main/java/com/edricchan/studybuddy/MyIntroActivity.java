@@ -1,6 +1,8 @@
 package com.edricchan.studybuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
@@ -24,6 +26,20 @@ public class MyIntroActivity extends IntroActivity {
                 .description("To add a task, simply tap the plus button and fill in the form, then click save.")
                 .image(R.drawable.ic_onboarding_3)
                 .background(R.color.colorLime).build());
+        addSlide(new SimpleSlide.Builder()
+                .title("Sign in to continue")
+                .description("To continue, sign up/ sign in with your preferred provider.")
+                .buttonCtaLabel("Sign in")
+                .buttonCtaClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MyIntroActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .background(R.color.colorAccent)
+                .build());
+
         autoplay(2500, INFINITE);
     }
 }
