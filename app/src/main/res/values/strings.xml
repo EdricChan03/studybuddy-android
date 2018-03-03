@@ -134,4 +134,18 @@
     <string name="action_link_register_btn">Register for an account</string>
     <string name="due_date">Due date</string>
     <string name="due_date_text">Selected due date shows here</string>
+
+    <!-- Notification channels -->
+    <string name="notification_channel_todo_updates_title">Todo updates</string>
+    <string name="notification_channel_todo_updates_desc">Shows updates on the status of todos</string>
+    <string name="notification_channel_weekly_summary_title">Weekly summary</string>
+    <string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
+    <string name="notification_channel_sync_title">Sync</string>
+    <string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
+    <string name="notification_channel_app_updates_title">App updates</string>
+    <string name="notification_channel_app_updates_desc">Updates to the app</string>
+    <string name="notification_channel_playback_title">Playback</string>
+    <string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
+    <string name="notification_channel_uncategorized_title">Uncategorized</string>
+    <string name="notification_channel_uncategorized_desc">All other notifications that don\'t fit in any of the previous channels</string>
 </resources>

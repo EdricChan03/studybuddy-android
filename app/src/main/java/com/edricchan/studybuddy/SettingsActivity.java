@@ -13,9 +13,12 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.provider.Settings;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -28,7 +31,35 @@ import android.view.MenuItem;
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
+import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * A class used for {@link SettingsActivity.NotificationPreferenceFragment#notificationChannels}
+ */
+class MyNotificationChannel {
+	private int notificationTitle;
+	private int notificationDesc;
+	private int index;
+
+	public MyNotificationChannel(int notificationTitle, int notificationDesc, int index) {
+		this.notificationTitle = notificationTitle;
+		this.notificationDesc = notificationDesc;
+		this.index = index;
+	}
+
+	public int getNotificationTitle() {
+		return this.notificationTitle;
+	}
+
+	public int getNotificationDesc() {
+		return this.notificationDesc;
+	}
+
+	public int getIndex() {
+		return this.index;
+	}
+}
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -235,18 +266,57 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class NotificationPreferenceFragment extends PreferenceFragment {
+		List<MyNotificationChannel> notificationChannels = new ArrayList<MyNotificationChannel>();
+		PreferenceScreen preferenceScreen;
+		String[] notificationChannelIds = new String[]{"todo_updates", "weekly_summary", "sync", "app_updates", "playback", "uncategorized"};
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_notification);
 			setHasOptionsMenu(true);
-
+			preferenceScreen = getPreferenceScreen();
+			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_todo_updates_title, R.string.notification_channel_todo_updates_desc, 0));
+			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_weekly_summary_title, R.string.notification_channel_weekly_summary_desc, 1));
+			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_sync_title, R.string.notification_channel_sync_desc, 2));
+			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_app_updates_title, R.string.notification_channel_app_updates_desc, 3));
+			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_playback_title, R.string.notification_channel_playback_desc, 4));
+			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_uncategorized_title, R.string.notification_channel_uncategorized_desc, 5));
 			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
 			// to their values. When their values change, their summaries are
 			// updated to reflect the new value, per the Android Design
 			// guidelines.
 			bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+			/*
+			Check if user is running on Android Oreo since there's notification channels support
+			- Removes the multi select preference
+			 */
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				preferenceScreen.removePreference(findPreference("notifications_categories"));
+				PreferenceCategory notificationPrefCategory = new PreferenceCategory(preferenceScreen.getContext());
+				notificationPrefCategory.setTitle("Notification Channels");
+				preferenceScreen.addPreference(notificationPrefCategory);
+				for (MyNotificationChannel notificationChannel : notificationChannels) {
+					Preference notificationPreference = new Preference(preferenceScreen.getContext());
+					notificationPreference.setTitle(notificationChannel.getNotificationTitle());
+					notificationPreference.setSummary(notificationChannel.getNotificationDesc());
+					notificationPreference.setKey(notificationChannelIds[notificationChannel.getIndex()]);
+					notificationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+						@Override
+						public boolean onPreferenceClick(Preference preference) {
+							if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+								Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+								intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+								intent.putExtra(Settings.EXTRA_CHANNEL_ID, preference.getKey());
+								startActivity(intent);
+							}
+							return false;
+						}
+					});
+					notificationPrefCategory.addPreference(notificationPreference);
+				}
 
+			}
 		}
 
 		@Override

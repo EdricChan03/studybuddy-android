@@ -254,30 +254,42 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			// Create a new list
 			List<NotificationChannel> channels = new ArrayList<NotificationChannel>();
 
-			// Todos due soon notifications
-			NotificationChannel todosDueSoonChannel = new NotificationChannel("todos_due_soon", "Soon to be due todos", NotificationManager.IMPORTANCE_HIGH);
-			todosDueSoonChannel.setDescription("Shows todos that are due soon");
-			todosDueSoonChannel.enableLights(true);
-			todosDueSoonChannel.setLightColor(Color.YELLOW);
-			todosDueSoonChannel.enableVibration(true);
-			todosDueSoonChannel.setShowBadge(true);
-			channels.add(todosDueSoonChannel);
+			// Task updates notifications
+			NotificationChannel todoUpdatesChannel = new NotificationChannel("todo_updates", getString(R.string.notification_channel_todo_updates_title), NotificationManager.IMPORTANCE_HIGH);
+			todoUpdatesChannel.setDescription(getString(R.string.notification_channel_todo_updates_desc));
+			todoUpdatesChannel.enableLights(true);
+			todoUpdatesChannel.setLightColor(Color.YELLOW);
+			todoUpdatesChannel.enableVibration(true);
+			todoUpdatesChannel.setShowBadge(true);
+			channels.add(todoUpdatesChannel);
 
 			// Weekly summary notifications
-			NotificationChannel weeklySummaryChannel = new NotificationChannel("weekly_summary", "Weekly summary", NotificationManager.IMPORTANCE_LOW);
-			weeklySummaryChannel.setDescription("Shows weekly summary notifications on your todos");
+			NotificationChannel weeklySummaryChannel = new NotificationChannel("weekly_summary", getString(R.string.notification_channel_weekly_summary_title), NotificationManager.IMPORTANCE_LOW);
+			weeklySummaryChannel.setDescription(getString(R.string.notification_channel_weekly_summary_desc));
 			weeklySummaryChannel.setShowBadge(true);
 			channels.add(weeklySummaryChannel);
 
 			// Syncing notifications
-			NotificationChannel syncChannel = new NotificationChannel("sync", "Sync", NotificationManager.IMPORTANCE_LOW);
-			syncChannel.setDescription("Shows the sync progress of settings, todos and other miscellaneous things");
+			NotificationChannel syncChannel = new NotificationChannel("sync", getString(R.string.notification_channel_sync_title), NotificationManager.IMPORTANCE_LOW);
+			syncChannel.setDescription(getString(R.string.notification_channel_sync_desc));
 			syncChannel.setShowBadge(false);
 			channels.add(syncChannel);
 
+			// App notifications
+			NotificationChannel appUpdatesChannel = new NotificationChannel("app_updates", getString(R.string.notification_channel_app_updates_title), NotificationManager.IMPORTANCE_LOW);
+			appUpdatesChannel.setDescription(getString(R.string.notification_channel_app_updates_desc));
+			appUpdatesChannel.setShowBadge(false);
+			channels.add(appUpdatesChannel);
+
+			// Media playback notifications
+			NotificationChannel playbackChannel = new NotificationChannel("playback", getString(R.string.notification_channel_playback_title), NotificationManager.IMPORTANCE_LOW);
+			playbackChannel.setDescription(getString(R.string.notification_channel_playback_desc));
+			playbackChannel.setShowBadge(true);
+			channels.add(playbackChannel);
+
 			// Uncategorized notifications
-			NotificationChannel uncategorizedChannel = new NotificationChannel("uncategorized", "Uncategorized", NotificationManager.IMPORTANCE_DEFAULT);
-			uncategorizedChannel.setDescription("All other notifications which are not sorted");
+			NotificationChannel uncategorizedChannel = new NotificationChannel("uncategorized", getString(R.string.notification_channel_uncategorized_title), NotificationManager.IMPORTANCE_DEFAULT);
+			uncategorizedChannel.setDescription(getString(R.string.notification_channel_uncategorized_desc));
 			uncategorizedChannel.setShowBadge(true);
 			channels.add(uncategorizedChannel);
 			// Pass list to method
