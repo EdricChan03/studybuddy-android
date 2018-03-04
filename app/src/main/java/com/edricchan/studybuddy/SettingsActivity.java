@@ -296,6 +296,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				PreferenceCategory notificationPrefCategory = new PreferenceCategory(preferenceScreen.getContext());
 				notificationPrefCategory.setTitle("Notification Channels");
 				preferenceScreen.addPreference(notificationPrefCategory);
+				Preference allNotificationsPreference = new Preference(preferenceScreen.getContext());
+				allNotificationsPreference.setTitle(R.string.notification_channel_all_channels_title);
+				allNotificationsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference preference) {
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+							Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+							intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+							startActivity(intent);
+						}
+						return false;
+					}
+				});
+				notificationPrefCategory.addPreference(allNotificationsPreference);
 				for (MyNotificationChannel notificationChannel : notificationChannels) {
 					Preference notificationPreference = new Preference(preferenceScreen.getContext());
 					notificationPreference.setTitle(notificationChannel.getNotificationTitle());
