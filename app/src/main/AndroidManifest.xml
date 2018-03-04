@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:appCategory="productivity"
         android:allowBackup="true"
+        android:appCategory="productivity"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -36,6 +36,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".DeepSettingsFragmentDummyActivity"
+            android:label="Deep Settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MyIntroActivity"
