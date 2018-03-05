@@ -8,4 +8,10 @@
     <item
         android:id="@+id/action_help"
         android:title="@string/action_help" />
+    <item
+        android:id="@+id/action_checkbox_ui_for_pre_oreo"
+        android:title="@string/action_pre_oreo_ui"
+        android:checked="false"
+        android:checkable="true"
+        android:visible="false"/>
 </menu>
