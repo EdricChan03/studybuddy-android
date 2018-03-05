@@ -21,6 +21,23 @@ To get the latest pre-release, go to [Releases](https://github.com/Chan4077/Stud
 - Settings (Currently doesn't affect anything)
 - Add tooltips to practically every single view (using `TooltipCompat` recently introduced in Design support `v26.0.0`)
 
+## Screenshots
+
+### Login Activity
+
+Login Activity | Login > Forgot password
+---|---
+[![Login Activity][art-login-activity]][art-login-activity] | [![Login > Forgot password][art-login-forgot-password]][art-login-forgot-password]
+
+### Main Activity
+
+Main Activity | Main Activity > Dialog (Add new task)
+---|---
+[![Main Activity][art-main-activity]][art-main-activity] | [![Main Activity > Dialog (Add new task)][art-main-activity-dialog-add-task]][art-main-activity-dialog-add-task]
+### Settings
+Settings > Experimental | Settings > Notifications (Oreo devices) | Settings > Notifications (Pre-Oreo devices)
+---|---|---
+[![Settings > Experimental][art-settings-experimental]][art-settings-experimental] | [![Settings > Notifications (Oreo devices)][art-settings-notifications-oreo]][art-settings-notifications-oreo] | [![Settings > Notifications (Pre-Oreo devices)][art-settings-notifications-pre-oreo]][art-settings-notifications-pre-oreo]
 ---
 ## Building/ Contributing
 If you would like to build the source code, follow these steps:
@@ -32,3 +49,11 @@ If you would like to build the source code, follow these steps:
    ```
 
 Otherwise, if you would like to contribute, please go ahead and submit a pull request explaining your changes to the code and making sure that you open an issue beforehand.
+
+[art-login-activity]: art/screenshots/login_1.png
+[art-login-forgot-password]: art/screenshots/login_forgot_password.png
+[art-main-activity]: art/screenshots/main_1.png
+[art-main-activity-dialog-add-task]: art/screenshots/main_dialog_add_task.png
+[art-settings-experimental]: art/screenshots/settings_experimental.png
+[art-settings-notifications-oreo]: art/screenshots/settings_notifications_oreo.png
+[art-settings-notifications-pre-oreo]: art/screenshots/settings_notifications_pre_oreo.png
