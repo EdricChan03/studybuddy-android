@@ -102,6 +102,7 @@
     <string name="action_calendar_title">Calendar</string>
     <string name="action_notifications_title">Notifications</string>
     <string name="action_help">Help</string>
+    <string name="action_pre_oreo_ui">Show UI for pre-Oreo devices</string>
 
     <string-array name="pref_updates_channels_values">
         <item>1</item>
@@ -140,14 +141,23 @@
     <!-- Notification channels -->
     <string name="notification_channel_todo_updates_title">Todo updates</string>
     <string name="notification_channel_todo_updates_desc">Shows updates on the status of todos</string>
+    <string name="notification_channel_todo_updates_id">todo_updates</string>
     <string name="notification_channel_weekly_summary_title">Weekly summary</string>
     <string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
+    <string name="notification_channel_weekly_summary_id">weekly_summary</string>
     <string name="notification_channel_sync_title">Sync</string>
     <string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
+    <string name="notification_channel_sync_id">sync</string>
     <string name="notification_channel_app_updates_title">App updates</string>
     <string name="notification_channel_app_updates_desc">Updates to the app</string>
+    <string name="notification_channel_app_updates_id">app_updates</string>
     <string name="notification_channel_playback_title">Playback</string>
     <string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
-    <string name="notification_channel_uncategorized_title">Uncategorized</string>
-    <string name="notification_channel_uncategorized_desc">All other notifications that don\'t fit in any of the previous channels</string>
+    <string name="notification_channel_playback_id">playback</string>
+    <string name="notification_channel_uncategorised_title">Uncategorised</string>
+    <string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the previous channels</string>
+    <string name="notification_channel_uncategorised_id">uncategorised</string>
+
+    <!-- For devices running pre-Android Oreo -->
+    <string name="enable_all_notification_channels_pref_title">Enable all notification channels</string>
 </resources>
