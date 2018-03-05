@@ -1,8 +1,11 @@
-<!-- drawable/check.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="#FFF" android:pathData="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+    android:height="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
+    <path android:pathData="M0 0h24v24H0z" />
+    <path
+        android:fillColor="#FFF"
+        android:pathData="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
 </vector>
