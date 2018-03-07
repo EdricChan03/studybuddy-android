@@ -36,39 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A class used for {@link SettingsActivity.NotificationPreferenceFragment#notificationChannels}
- */
-class MyNotificationChannel {
-	private int notificationTitle;
-	private int notificationDesc;
-	private int notificationId;
-	private int index;
-
-	public MyNotificationChannel(int notificationTitle, int notificationDesc, int notificationId, int index) {
-		this.notificationTitle = notificationTitle;
-		this.notificationDesc = notificationDesc;
-		this.notificationId = notificationId;
-		this.index = index;
-	}
-
-	public int getNotificationTitle() {
-		return this.notificationTitle;
-	}
-
-	public int getNotificationDesc() {
-		return this.notificationDesc;
-	}
-
-	public int getIndex() {
-		return this.index;
-	}
-
-	public int getNotificationId() {
-		return this.notificationId;
-	}
-}
-
-/**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
  * settings are split by category, with category headers shown to the left of
@@ -278,6 +245,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		String[] notificationChannelIds = new String[]{"todo_updates", "weekly_summary", "sync", "app_updates", "playback", "uncategorized"};
 		SharedPreferences sharedPreferences;
 
+		/**
+		 * Shows Oreo settings
+		 */
 		void showOreoSettings() {
 			PreferenceCategory notificationPrefCategory = new PreferenceCategory(preferenceScreen.getContext());
 			notificationPrefCategory.setTitle("Notification Channels");
@@ -317,51 +287,55 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			}
 		}
 
+		/**
+		 * Shows settings for devices that are Android Nougat or lower
+		 */
 		void showPreOreoSettings() {
+			// Toggle to enable all notification channels
 			SwitchPreference enableAllNotificationChannelsPreference = new SwitchPreference(preferenceScreen.getContext());
-			enableAllNotificationChannelsPreference.setTitle(R.string.enable_all_notification_channels_pref_title);
+			enableAllNotificationChannelsPreference.setTitle(R.string.pref_enable_all_notification_channels_title);
 			enableAllNotificationChannelsPreference.setKey("enable_all_notification_channels");
 			preferenceScreen.addPreference(enableAllNotificationChannelsPreference);
+			SwitchPreference enableMoreOptionsPreference = new SwitchPreference(preferenceScreen.getContext());
+			enableMoreOptionsPreference.setTitle(R.string.pref_enable_more_options_title);
+			enableMoreOptionsPreference.setSummary(R.string.pref_enable_more_options_desc);
+			enableMoreOptionsPreference.setKey("enable_more_options_notification_channels");
+			enableMoreOptionsPreference.setDependency("enable_all_notification_channels");
+			enableMoreOptionsPreference.setIcon(R.drawable.ic_plus_box_white_24dp);
+			preferenceScreen.addPreference(enableMoreOptionsPreference);
 			for (MyNotificationChannel notificationChannel : notificationChannels) {
 				PreferenceCategory preOreoNotificationChannelCategory = new PreferenceCategory(preferenceScreen.getContext());
 				preferenceScreen.addPreference(preOreoNotificationChannelCategory);
 				preOreoNotificationChannelCategory.setTitle(notificationChannel.getNotificationTitle());
 				preOreoNotificationChannelCategory.setDependency("enable_all_notification_channels");
+				// Description of notification channel
 				Preference preOreoNotificationDescPreference = new Preference(preferenceScreen.getContext());
 				preOreoNotificationDescPreference.setEnabled(false);
 				preOreoNotificationDescPreference.setTitle("About this channel");
 				preOreoNotificationDescPreference.setSummary(notificationChannel.getNotificationDesc());
 				preOreoNotificationChannelCategory.addPreference(preOreoNotificationDescPreference);
+				// Enable notification preference
 				SwitchPreference enableNotificationPreference = new SwitchPreference(preferenceScreen.getContext());
 				enableNotificationPreference.setChecked(true);
 				enableNotificationPreference.setTitle("Enable notification channel");
-				enableNotificationPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						System.out.println("Preference change: " + newValue);
-						return true;
-					}
-				});
-				enableNotificationPreference.setKey("notification_channel_enabled_" + getString(notificationChannel.getNotificationId()));
-				SwitchPreference enableVibratePreference = new SwitchPreference(preferenceScreen.getContext());
+				enableNotificationPreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_enabled");
 				preOreoNotificationChannelCategory.addPreference(enableNotificationPreference);
+				// Enable vibration preference
+				SwitchPreference enableVibratePreference = new SwitchPreference(preferenceScreen.getContext());
 				enableVibratePreference.setTitle("Vibrate");
 				enableVibratePreference.setSummary("Whether to vibrate when you receive a notification from this channel");
-				enableVibratePreference.setDefaultValue(true);
+				enableVibratePreference.setChecked(true);
 				enableVibratePreference.setIcon(R.drawable.ic_vibrate_white_24dp);
-				enableVibratePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference, Object newValue) {
-						System.out.println("Preference change: " + newValue);
-						return true;
-					}
-				});
+				enableVibratePreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_vibrate_enabled");
 				preOreoNotificationChannelCategory.addPreference(enableVibratePreference);
 				RingtonePreference notificationRingtonePreference = new RingtonePreference(preferenceScreen.getContext());
 				notificationRingtonePreference.setIcon(R.drawable.ic_music_white_24dp);
 				notificationRingtonePreference.setTitle("Set ringtone");
+				notificationRingtonePreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_ringtone");
 				bindPreferenceSummaryToValue(notificationRingtonePreference);
 				preOreoNotificationChannelCategory.addPreference(notificationRingtonePreference);
+				enableVibratePreference.setDependency("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_enabled");
+				notificationRingtonePreference.setDependency("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_enabled");
 			}
 		}
 
@@ -410,7 +384,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				case R.id.action_help:
 					// TODO: Add some stuff
 					return true;
-				case R.id.action_checkbox_ui_for_pre_oreo:
+				case R.id.action_checkbox_ui_pre_oreo:
 					if (item.isChecked()) {
 						item.setChecked(false);
 						System.out.println("Checked -> Unchecked");
@@ -433,7 +407,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 			inflater.inflate(R.menu.menu_settings_notifications, menu);
 			if (BuildConfig.DEBUG) {
-				menu.findItem(R.id.action_checkbox_ui_for_pre_oreo)
+				menu.findItem(R.id.action_checkbox_ui_pre_oreo)
 						.setVisible(true)
 						.setChecked(sharedPreferences.getBoolean("enable_pre_oreo_explicit", false));
 			}
