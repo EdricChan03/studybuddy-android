@@ -300,9 +300,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			enableMoreOptionsPreference.setTitle(R.string.pref_enable_more_options_title);
 			enableMoreOptionsPreference.setSummary(R.string.pref_enable_more_options_desc);
 			enableMoreOptionsPreference.setKey("enable_more_options_notification_channels");
-			enableMoreOptionsPreference.setDependency("enable_all_notification_channels");
 			enableMoreOptionsPreference.setIcon(R.drawable.ic_plus_box_white_24dp);
 			preferenceScreen.addPreference(enableMoreOptionsPreference);
+			enableMoreOptionsPreference.setDependency("enable_all_notification_channels");
 			for (MyNotificationChannel notificationChannel : notificationChannels) {
 				PreferenceCategory preOreoNotificationChannelCategory = new PreferenceCategory(preferenceScreen.getContext());
 				preferenceScreen.addPreference(preOreoNotificationChannelCategory);
