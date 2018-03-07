@@ -102,7 +102,7 @@
     <string name="action_calendar_title">Calendar</string>
     <string name="action_notifications_title">Notifications</string>
     <string name="action_help">Help</string>
-    <string name="action_pre_oreo_ui">Show UI for pre-Oreo devices</string>
+    <string name="action_pre_oreo_ui">Show pre-Oreo UI</string>
 
     <string-array name="pref_updates_channels_values">
         <item>1</item>
@@ -159,5 +159,7 @@
     <string name="notification_channel_uncategorised_id">uncategorised</string>
 
     <!-- For devices running pre-Android Oreo -->
-    <string name="enable_all_notification_channels_pref_title">Enable all notification channels</string>
+    <string name="pref_enable_all_notification_channels_title">Enable all notification channels</string>
+    <string name="pref_enable_more_options_title">Enable more options</string>
+    <string name="pref_enable_more_options_desc">Enables preferences such as whether to group notifications to one bundle, whether to show content of the notification on the lockscreen and more!\nRequires a restart of the app to take effect.</string>
 </resources>
