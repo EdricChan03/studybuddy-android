@@ -47,7 +47,7 @@
         </activity>
         <activity
             android:name=".MyIntroActivity"
-            android:label="@string/app_intro"
+            android:label="@string/title_activity_intro"
             android:theme="@style/Theme.Intro" />
         <activity
             android:name=".LoginActivity"

@@ -253,7 +253,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			notificationPrefCategory.setTitle("Notification Channels");
 			preferenceScreen.addPreference(notificationPrefCategory);
 			Preference allNotificationsPreference = new Preference(preferenceScreen.getContext());
-			allNotificationsPreference.setTitle(R.string.notification_channel_all_channels_title);
+			allNotificationsPreference.setTitle(R.string.pref_notification_channel_all_channels_title);
 			allNotificationsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
@@ -412,21 +412,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 						.setChecked(sharedPreferences.getBoolean("enable_pre_oreo_explicit", false));
 			}
 		}
-
-		public void registerOnSharedPreferenceChangeListener() {
-			SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-				@Override
-				public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-					boolean notifIsOn = sharedPreferences.getBoolean(getString(R.string.pref_title_new_message_notifications), true);
-					// TODO
-//                    SwitchPreference notifSwitchPreference = (SwitchPreference) getFragmentManager().
-					if (notifIsOn) {
-					} else {
-
-					}
-				}
-			};
-		}
 	}
 
 	/**
@@ -521,27 +506,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			appSrc.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					if (preference.getKey().equals("app_src_code")) {
-						customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
-						return true;
-					}
-					return false;
+					customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
+					return true;
 				}
 			});
 			Preference appIntro = getPreferenceManager().findPreference("app_intro");
 			appIntro.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					if (preference.getKey().equals("app_intro")) {
-						Intent appIntroIntent = new Intent(context, MyIntroActivity.class);
-						startActivity(appIntroIntent);
-						return true;
-					}
-					return false;
+					Intent appIntroIntent = new Intent(context, MyIntroActivity.class);
+					startActivity(appIntroIntent);
+					return true;
 				}
 			});
-			Preference appVer = getPreferenceManager().findPreference("app_ver");
-			appVer.setSummary(getVersion());
+			Preference appVersion = getPreferenceManager().findPreference("app_ver");
+			appVersion.setSummary(getVersion());
 			bindPreferenceSummaryToValue(findPreference("updates_channel"));
 		}
 
