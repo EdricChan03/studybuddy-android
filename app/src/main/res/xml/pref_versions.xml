@@ -2,26 +2,28 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Updates">
         <ListPreference
-            android:icon="@drawable/ic_flask_white_24dp"
-            android:key="updates_channel"
-            android:title="@string/pref_update_channel_title"
-            android:entryValues="@array/pref_updates_channels_values"
+            android:defaultValue="@string/pref_updates_channel_default"
             android:entries="@array/pref_updates_channels"
-            android:defaultValue="@string/pref_updates_channel_default"/>
+            android:entryValues="@array/pref_updates_channels_values"
+            android:key="updates_channel"
+            android:title="@string/pref_update_channel_title" />
         <Preference
+            android:icon="@drawable/ic_system_update_white_24dp"
             android:key="check_for_updates"
             android:title="Check for updates" />
     </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
-            android:key="app_version"
             android:enabled="false"
+            android:key="app_version"
             android:title="@string/pref_app_version_title" />
         <Preference
+            android:icon="@drawable/ic_code_white_24dp"
             android:key="app_src_code"
             android:summary="@string/pref_source_code_desc"
             android:title="@string/pref_source_code_title" />
         <Preference
+            android:icon="@drawable/ic_account_circle_white_24dp"
             android:key="app_author"
             android:title="@string/pref_author_title" />
         <Preference

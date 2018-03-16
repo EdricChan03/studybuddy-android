@@ -2,22 +2,22 @@
 
     <SwitchPreference
         android:defaultValue="false"
+        android:icon="@drawable/ic_flask_white_24dp"
         android:key="experimental_features"
         android:summary="@string/pref_experimental_features_desc"
-        android:title="@string/pref_experimental_features_title"
-        android:icon="@drawable/ic_flask_white_24dp"/>
+        android:title="@string/pref_experimental_features_title" />
     <SwitchPreference
         android:defaultValue="false"
+        android:dependency="experimental_features"
+        android:icon="@drawable/ic_view_quilt_white_24dp"
         android:key="experimental_ui"
         android:summary="@string/pref_experimental_ui_desc"
-        android:title="@string/pref_experimental_ui_title"
-        android:dependency="experimental_features"
-        android:icon="@drawable/ic_view_quilt_white_24dp"/>
+        android:title="@string/pref_experimental_ui_title" />
     <SwitchPreference
         android:defaultValue="false"
+        android:dependency="experimental_features"
+        android:icon="@drawable/ic_calendar_white_24dp"
         android:key="experimental_calendar"
         android:summary="@string/pref_experimental_calendar_desc"
-        android:title="@string/pref_experimental_calendar_title"
-        android:dependency="experimental_features"
-        android:icon="@drawable/ic_calendar_white_24dp"/>
+        android:title="@string/pref_experimental_calendar_title" />
 </PreferenceScreen>

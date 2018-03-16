@@ -7,4 +7,5 @@
     <color name="colorLime">#CDDC39</color>
     <color name="colorOrange">#FFC107</color>
     <color name="white">#FFF</color>
+    <color name="colorGrey800">#424242</color>
 </resources>

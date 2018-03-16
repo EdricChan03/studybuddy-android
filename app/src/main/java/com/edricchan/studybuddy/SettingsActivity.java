@@ -519,7 +519,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				}
 			});
-			Preference appVersion = getPreferenceManager().findPreference("app_ver");
+			Preference appVersion = getPreferenceManager().findPreference("app_version");
 			appVersion.setSummary(getVersion());
 			bindPreferenceSummaryToValue(findPreference("updates_channel"));
 		}

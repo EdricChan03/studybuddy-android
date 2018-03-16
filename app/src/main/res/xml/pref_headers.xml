@@ -16,8 +16,9 @@
         android:fragment="com.edricchan.studybuddy.SettingsActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_white_24dp"
         android:title="@string/pref_header_data_sync" />
+
     <header
         android:fragment="com.edricchan.studybuddy.SettingsActivity$VersionPreferenceFragment"
-        android:title="@string/pref_header_version"
-        android:icon="@drawable/ic_info_white_24dp"/>
+        android:icon="@drawable/ic_info_white_24dp"
+        android:title="@string/pref_header_version" />
 </preference-headers>
