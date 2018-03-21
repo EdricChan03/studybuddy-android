@@ -23,6 +23,7 @@ import android.provider.Settings;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -216,7 +217,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
 					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
@@ -385,7 +386,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
 					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
@@ -459,7 +460,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
 					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
@@ -489,7 +490,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			final String appSrcUrl = "https://github.com/Chan4077/StudyBuddy";
 			// String appIssueUrl = "https://github.com/Chan4077/StudyBuddy/issues/new";
 			CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-			builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+			builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 			builder.addDefaultShareMenuItem();
 			final CustomTabsIntent customTabsIntent = builder.build();
 			Preference checkForUpdates = getPreferenceManager().findPreference("check_for_updates");
@@ -550,7 +551,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
 					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
