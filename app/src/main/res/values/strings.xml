@@ -39,14 +39,19 @@
     <string name="shortcut_todo_short_msg">New todo</string>
 
     <!-- Strings related to Settings -->
-    <!-- Experimental settings -->
+    <!--
+    Experimental settings
+    TODO: Change the name of this preference
+    -->
     <string name="pref_header_experimental">Experimental</string>
     <string name="pref_experimental_features_title">Experimental Features</string>
     <string name="pref_experimental_features_desc">Enables features that are in development.</string>
     <string name="pref_experimental_ui_title">Experimental UI</string>
     <string name="pref_experimental_ui_desc">Shows a new and improved user interface. Requires a restart to take effect.</string>
-    <string name="pref_experimental_calendar_title">Experimental Calendar</string>
+    <string name="pref_experimental_calendar_title">Calendar</string>
     <string name="pref_experimental_calendar_desc">Enables a wip calendar which shows all your events. Requires a restart to take effect.</string>
+    <string name="pref_experimental_notifications_title">Notifications</string>
+    <string name="pref_experimental_notifications_desc">Enable notifications support. These can be configured via settings.</string>
     <!-- Settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
     <string name="pref_sync_frequency_title">Sync frequency</string>
@@ -56,7 +61,6 @@
         <item>1 hour</item>
         <item>3 hours</item>
         <item>6 hours</item>
-        <item>Only when I tap \'Sync\'</item>
         <item>Never</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
@@ -65,7 +69,6 @@
         <item>60</item>
         <item>180</item>
         <item>360</item>
-        <item>0</item>
         <item>-1</item>
     </string-array>
     <string name="pref_system_sync_settings_title">System sync settings</string>

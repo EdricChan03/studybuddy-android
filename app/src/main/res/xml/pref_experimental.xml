@@ -20,4 +20,11 @@
         android:key="experimental_calendar"
         android:summary="@string/pref_experimental_calendar_desc"
         android:title="@string/pref_experimental_calendar_title" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="experimental_features"
+        android:icon="@drawable/ic_notifications_white_24dp"
+        android:key="experimental_notifications"
+        android:summary="@string/pref_experimental_notifications_desc"
+        android:title="@string/pref_experimental_notifications_title" />
 </PreferenceScreen>
