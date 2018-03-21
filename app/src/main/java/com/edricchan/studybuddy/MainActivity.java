@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	private String userName;
 	private FirebaseFirestore db = FirebaseFirestore.getInstance();
 	private FirebaseUser currentUser;
-	private BottomNavigationView bottomNav;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 		// Start the thread
 		t.start();
-		bottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 		// FAB
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
