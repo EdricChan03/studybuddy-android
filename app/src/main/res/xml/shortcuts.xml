@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/new_todo"
+        android:icon="@drawable/ic_shortcut_todo"
         android:shortcutDisabledMessage="@string/shortcut_todo_disabled_msg"
         android:shortcutId="new_todo"
         android:shortcutLongLabel="@string/shortcut_todo_long_msg"
