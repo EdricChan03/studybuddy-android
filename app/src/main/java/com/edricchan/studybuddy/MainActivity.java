@@ -13,8 +13,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,12 +45,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	static final int ACTION_NEW_TASK = 1;
 	private static final String ACTION_ADD_NEW_TODO = "com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO";
 	final Context context = this;
+	private final ArrayList taskItems = new ArrayList<>();
 	private int testInt, RC_SIGN_IN;
 	private FirebaseAuth mAuth;
 	private GoogleApiClient mGoogleApiClient;
 	private String userName;
 	private FirebaseFirestore db = FirebaseFirestore.getInstance();
 	private FirebaseUser currentUser;
+	private RecyclerView.Adapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +109,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			}
 		});
 
+		// Handles swiping down to refresh logic
+		final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.recycler_swiperefresh);
+		// Sets a refreshing listener
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				mAdapter.notifyDataSetChanged();
+				new android.os.Handler().postDelayed(
+						new Runnable() {
+							@Override
+							public void run() {
+								swipeRefreshLayout.setRefreshing(false);
+
+							}
+						},
+						1000);
+			}
+		});
+		RecyclerView mRecyclerView = findViewById(R.id.recycler_list);
+
+		// use this setting to improve performance if you know that changes
+		// in content do not change the layout size of the RecyclerView
+		mRecyclerView.setHasFixedSize(true);
+
+		// use a linear layout manager
+		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+		mRecyclerView.setLayoutManager(mLayoutManager);
+
+		// specify an adapter (see also next example)
+		//noinspection unchecked
+		mAdapter = new StudyAdapter(this, taskItems);
+		mRecyclerView.setAdapter(mAdapter);
 		// Check if Android Oreo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			setupNotificationChannels();
