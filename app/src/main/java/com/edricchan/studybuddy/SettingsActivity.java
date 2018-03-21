@@ -138,8 +138,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 	/**
 	 * Restarts the layout specified
-	 * @deprecated Add your implementation instead
+	 *
 	 * @param preferenceRes The resource name of the xml preference file
+	 * @deprecated Add your implementation instead
 	 */
 	public void restartLayout(int preferenceRes) {
 		setPreferenceScreen(null);
@@ -259,6 +260,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		 * Shows Oreo settings
 		 */
 		void showOreoSettings() {
+			// Ensure that all preferences are cleared first
+			preferenceScreen.removeAll();
 			PreferenceCategory notificationPrefCategory = new PreferenceCategory(preferenceScreen.getContext());
 			notificationPrefCategory.setTitle("Notification Channels");
 			preferenceScreen.addPreference(notificationPrefCategory);
@@ -268,6 +271,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+						// Direct user to settings for notification channel
 						Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
 						intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
 						startActivity(intent);
@@ -301,6 +305,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		 * Shows settings for devices that are Android Nougat or lower
 		 */
 		void showPreOreoSettings() {
+			// Ensure that all preferences are cleared first
+			preferenceScreen.removeAll();
 			// Toggle to enable all notification channels
 			SwitchPreference enableAllNotificationChannelsPreference = new SwitchPreference(preferenceScreen.getContext());
 			enableAllNotificationChannelsPreference.setTitle(R.string.pref_enable_all_notification_channels_title);
@@ -355,13 +361,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			addPreferencesFromResource(R.xml.pref_notification);
 			setHasOptionsMenu(true);
 			preferenceScreen = this.getPreferenceScreen();
-			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_todo_updates_title, R.string.notification_channel_todo_updates_desc, R.string.notification_channel_todo_updates_id, 0));
-			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_weekly_summary_title, R.string.notification_channel_weekly_summary_desc, R.string.notification_channel_weekly_summary_id, 1));
-			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_sync_title, R.string.notification_channel_sync_desc, R.string.notification_channel_sync_id, 2));
-			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_app_updates_title, R.string.notification_channel_app_updates_desc, R.string.notification_channel_app_updates_id, 3));
-			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_playback_title, R.string.notification_channel_playback_desc, R.string.notification_channel_playback_id, 4));
-			notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_uncategorised_title, R.string.notification_channel_uncategorised_desc, R.string.notification_channel_uncategorised_id, 5));
 			sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+			// Add notification channels to list
+			// Check if list is empty
+			if (notificationChannels.isEmpty()) {
+				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_todo_updates_title, R.string.notification_channel_todo_updates_desc, R.string.notification_channel_todo_updates_id, 0));
+				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_weekly_summary_title, R.string.notification_channel_weekly_summary_desc, R.string.notification_channel_weekly_summary_id, 1));
+				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_sync_title, R.string.notification_channel_sync_desc, R.string.notification_channel_sync_id, 2));
+				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_app_updates_title, R.string.notification_channel_app_updates_desc, R.string.notification_channel_app_updates_id, 3));
+				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_playback_title, R.string.notification_channel_playback_desc, R.string.notification_channel_playback_id, 4));
+				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_uncategorised_title, R.string.notification_channel_uncategorised_desc, R.string.notification_channel_uncategorised_id, 5));
+			}
 			/*
 			Check if user is running on Android Oreo since there's notification channels support
 			- Removes the multi select preference
@@ -408,13 +418,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 								.putBoolean("enable_pre_oreo_explicit", true)
 								.apply();
 					}
-					setPreferenceScreen(null);
+					preferenceScreen.removeAll();
+//					addPreferencesFromResource(R.xml.pref_notification);
 					onCreate(null);
-					if (sharedPreferences.getBoolean("enable_pre_oreo_explicit", false) || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-						showPreOreoSettings();
-					} else {
-						showOreoSettings();
-					}
+//					if (sharedPreferences.getBoolean("enable_pre_oreo_explicit", false) || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+//						showPreOreoSettings();
+//					} else {
+//						showOreoSettings();
+//					}
 					return true;
 			}
 			return super.onOptionsItemSelected(item);
