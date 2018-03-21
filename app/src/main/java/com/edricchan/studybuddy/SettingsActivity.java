@@ -31,6 +31,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
 import java.util.ArrayList;
@@ -502,6 +503,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 						AppUpdater appUpdater = new AppUpdater(getActivity())
 								.setUpdateFrom(UpdateFrom.JSON)
 								.setUpdateJSON("https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json")
+								.setDisplay(Display.NOTIFICATION)
 								.setIcon(R.drawable.ic_alert_decagram_white_24dp);
 						appUpdater.start();
 						return true;
