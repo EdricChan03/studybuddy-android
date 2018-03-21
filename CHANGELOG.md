@@ -2,10 +2,10 @@
 
 View the latest commits [here](https://github.com/Chan4077/StudyBuddy/commits/master).
 
-The current release is [`v1.0.0-rc.023`](#v1.0.0-rc.023)
+The current release is [`v1.0.0-rc.503`](#v1.0.0-rc.503)
 
-# Download
-- [Download the latest APK](https://github.com/Chan4077/StudyBuddy-builds/raw/master/release/com.edricchan.studybuddy-v1.0.0-rc.023.apk)
+# Links
+- [Download the latest APK](https://github.com/Chan4077/StudyBuddy-builds/raw/master/release/com.edricchan.studybuddy-v1.0.0-rc.503.apk)
 - [View previous releases](https://github.com/Chan4077/StudyBuddy-builds/tree/master/release)
 - [Latest changelog](#latest-changelog)
 # Notes
@@ -49,6 +49,57 @@ SOFTWARE.
 ```
 ---
 <a name="latest-changelog"></a>
+
+<a name="v1.0.0-rc.503"></a>
+
+# [v1.0.0-rc.503 buyer-hotel (2018-03-22) <sub><sup>RC</sup></sub>](https://github.com/Chan4077/StudyBuddy/compare/v1.0.0-rc.023...v1.0.0-rc.503)
+## Highlights
+- Added adaptive icon support for shortcuts on devices running API `26` and later! You can view the commit [here](https://github.com/Chan4077/StudyBuddy/commit/d963121bbcdd9b78f237fff39689cab5f05c0510).
+- Notification settings are now different where its based on whether you are running the app on a device running API `25` and older, or `26` and later.
+
+  This means that devices running Android Oreo will see settings which will take users to the specific notification category in the system Settings app where users can configure the setting of the notification channel.
+
+---
+
+## Docs
+- **readme**: Add updated screenshots of the app
+
+## Features
+- **shortcuts**: add adaptive icon support ([`d963121`](https://github.com/Chan4077/StudyBuddy/commit/d963121bbcdd9b78f237fff39689cab5f05c0510))
+- **shortcuts**: add settings shortcut ([`1305893`](https://github.com/Chan4077/StudyBuddy/commit/1305893b76f21906cd0608283c2d4571850e3e02))
+
+## Bug/Typo fixes
+- **strings**: `uncategorized` -> `uncategorised` ([`dd85b80`](https://github.com/Chan4077/StudyBuddy/commit/dd85b8013785084baa026d462f9bcfd967d4be74))
+- **settings**: use `ContextCompat#getColor` instead of `getResources#getColor` ([`ad5a050`](https://github.com/Chan4077/StudyBuddy/commit/ad5a050a39aec37e3913a3d2042380f0810cfe72))
+- **proguard**: add rules for OkHttp ([`b0fd373`](https://github.com/Chan4077/StudyBuddy/commit/b0fd373764b555a4ed4b859f33a7cd03f9d8dde4))
+
+## Libraries
+- **deps**: bump FirebaseSDK to `12.0.0` ([`b3457cc`](https://github.com/Chan4077/StudyBuddy/commit/b3457cc2f1065363eaa0dc8e82fb64f1b16a5442))
+- **gradle**: upgrade gradle to `4.7` ([`93e03d8`](https://github.com/Chan4077/StudyBuddy/commit/93e03d8ae049313884f95364f0fc1ed65eff9c67))
+
+## Maintainance
+- **main-activity**: move content from fragment to main actvity ([`b687f1d`](https://github.com/Chan4077/StudyBuddy/commit/b687f1db7da832de05f806535e6e79c9a89187cf)), ([`c08dfbf`](https://github.com/Chan4077/StudyBuddy/commit/c08dfbfec9074f0af173f917a5dfb66d106fb6bc))
+- **manifest**: add `intent-filter` for when user taps on settings in app's info ([`7dbac7a`](https://github.com/Chan4077/StudyBuddy/commit/7dbac7a98b20d27d2edd6dcf6d37a6e4f56556a3))
+- **main-activity**: remove bottom navigation ([`560ab35`](https://github.com/Chan4077/StudyBuddy/commit/560ab355b5f18c171e8e3f8af4211d3fa64f4c44))
+- **settings-experimental**: add switch for notifications ([`6693ec1`](https://github.com/Chan4077/StudyBuddy/commit/6693ec111703c0039b8f99b727c2c893c8ea4c61))
+- **settings-notifications**: deprecate method introduced in [`c9c06af`](https://github.com/Chan4077/StudyBuddy/commit/c9c06afc4ed75ed98dbc0a11cf4edc457568e8aa) ([`7aceb9e`](https://github.com/Chan4077/StudyBuddy/commit/7aceb9eaa8bfd6465aed27d4f8686ad35aa9aec2))
+- **settings-notifications**: make checkbox update UI ([`c9c06af`](https://github.com/Chan4077/StudyBuddy/commit/c9c06afc4ed75ed98dbc0a11cf4edc457568e8aa))
+- **icons**: use `colorControlNormal` for fill colour ([`635cd94`](https://github.com/Chan4077/StudyBuddy/commit/635cd94fbc54273de8f59c23eb0ec122c1159f37))
+- **screenshots**: move old screenshots to `art` folder ([`cd05912`](https://github.com/Chan4077/StudyBuddy/commit/cd0591213f0177981c94e41896b9aa628cff3c2b))
+- **settings**: reword more options ([`9858d76`](https://github.com/Chan4077/StudyBuddy/commit/9858d76bc9c81a5cafe7b495da7838108c41bbfd))
+- **icons**: add xml headers ([`672c998`](https://github.com/Chan4077/StudyBuddy/commit/672c9985f48f17f9545521b5dfb3c831fc3725fc))
+- **settings-notification**: dynamically generate settings ([`470bdbe`](https://github.com/Chan4077/StudyBuddy/commit/470bdbe50c5586fc0ea7d3b2dee85e5e0535e02a))
+- **build.gradle**: bump `versionCode` & `versionName` ([`acdd4f2`](https://github.com/Chan4077/StudyBuddy/commit/acdd4f270311a217c58da99f77afe2382ceca97c))
+
+## Refactoring
+- **styles**: remove extra line ([`bb2a0db`](https://github.com/Chan4077/StudyBuddy/commit/bb2a0dbed6465ed963645687ed4301c06691eaad))
+- **strings***: ([`185ca41`](https://github.com/Chan4077/StudyBuddy/commit/185ca412c398ed18d25daa132c38c4e2000a1af9)), ([`3d9c551`](https://github.com/Chan4077/StudyBuddy/commit/3d9c551205e0a87404a40c128dac392515abd108))
+- correctly indent files with tab character ([`bdd5243`](https://github.com/Chan4077/StudyBuddy/commit/bdd5243a99bf94536b6b718d9cadb8f46bbc21b1))
+
+*Note: This bullet point lists all commits which change the naming of strings. This is to reduce the number of lines in the changelog file.
+
+## Art
+- **art**: add app adaptive icon sketch file ([`f310e39`](https://github.com/Chan4077/StudyBuddy/commit/f310e39b2985396e468abac5577c3f6d8f5d8f1c))
 
 <a name="v1.0.0-rc.023"></a>
 
