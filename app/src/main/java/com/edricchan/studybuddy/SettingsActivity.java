@@ -137,6 +137,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	}
 
 	/**
+	 * Restarts the fragment specified
+	 *
+	 * @param preferenceRes The resource name of the xml preference file
+	 */
+	public void restartLayout(int preferenceRes) {
+		setPreferenceScreen(null);
+		addPreferencesFromResource(preferenceRes);
+	}
+
+	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
 	private void setupActionBar() {
@@ -397,6 +407,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 						sharedPreferences.edit()
 								.putBoolean("enable_pre_oreo_explicit", true)
 								.apply();
+					}
+					setPreferenceScreen(null);
+					onCreate(null);
+					if (sharedPreferences.getBoolean("enable_pre_oreo_explicit", false) || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+						showPreOreoSettings();
+					} else {
+						showOreoSettings();
 					}
 					return true;
 			}
