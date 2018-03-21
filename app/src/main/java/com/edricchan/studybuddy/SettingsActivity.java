@@ -137,8 +137,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	}
 
 	/**
-	 * Restarts the fragment specified
-	 *
+	 * Restarts the layout specified
+	 * @deprecated Add your implementation instead
 	 * @param preferenceRes The resource name of the xml preference file
 	 */
 	public void restartLayout(int preferenceRes) {
