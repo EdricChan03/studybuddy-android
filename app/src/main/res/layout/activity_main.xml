@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:src="@drawable/ic_plus_black_24dp"
+        tools:targetApi="O"
         android:tooltipText="Add new todo"
         android:translationZ="16dp"
         app:elevation="8dp"
