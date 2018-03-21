@@ -47,12 +47,12 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
-	static String sendFeedbackUrl = "https://goo.gl/forms/tz6cmNguIHuZMZIh2";
+	private static final String sendFeedbackUrl = "https://goo.gl/forms/tz6cmNguIHuZMZIh2";
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
-	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+	private static final Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
 		@Override
 		public boolean onPreferenceChange(Preference preference, Object value) {
 			String stringValue = value.toString();
@@ -134,17 +134,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupActionBar();
-	}
-
-	/**
-	 * Restarts the layout specified
-	 *
-	 * @param preferenceRes The resource name of the xml preference file
-	 * @deprecated Add your implementation instead
-	 */
-	public void restartLayout(int preferenceRes) {
-		setPreferenceScreen(null);
-		addPreferencesFromResource(preferenceRes);
 	}
 
 	/**
@@ -251,9 +240,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class NotificationPreferenceFragment extends PreferenceFragment {
-		List<MyNotificationChannel> notificationChannels = new ArrayList<MyNotificationChannel>();
+		final List<MyNotificationChannel> notificationChannels = new ArrayList<>();
 		PreferenceScreen preferenceScreen;
-		String[] notificationChannelIds = new String[]{"todo_updates", "weekly_summary", "sync", "app_updates", "playback", "uncategorized"};
+		final String[] notificationChannelIds = new String[]{"todo_updates", "weekly_summary", "sync", "app_updates", "playback", "uncategorised"};
 		SharedPreferences sharedPreferences;
 
 		/**
@@ -498,7 +487,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			final Context context = getContext();
 			final String appAuthorUrl = "https://github.com/Chan4077";
 			final String appSrcUrl = "https://github.com/Chan4077/StudyBuddy";
-			String appIssueUrl = "https://github.com/Chan4077/StudyBuddy/issues/new";
+			// String appIssueUrl = "https://github.com/Chan4077/StudyBuddy/issues/new";
 			CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
 			builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
 			builder.addDefaultShareMenuItem();
@@ -583,6 +572,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		 *
 		 * @return The version of the app (string)
 		 */
+		@SuppressWarnings("SameReturnValue")
 		public String getVersion() {
 			return BuildConfig.VERSION_NAME;
 		}
@@ -592,6 +582,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		 *
 		 * @return The version code of the app (integer)
 		 */
+		@SuppressWarnings("SameReturnValue")
 		public int getVersionCode() {
 			return BuildConfig.VERSION_CODE;
 		}

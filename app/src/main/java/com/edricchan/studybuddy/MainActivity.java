@@ -227,10 +227,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			channels.add(playbackChannel);
 
 			// Uncategorized notifications
-			NotificationChannel uncategorizedChannel = new NotificationChannel("uncategorized", getString(R.string.notification_channel_uncategorised_title), NotificationManager.IMPORTANCE_DEFAULT);
-			uncategorizedChannel.setDescription(getString(R.string.notification_channel_uncategorised_desc));
-			uncategorizedChannel.setShowBadge(true);
-			channels.add(uncategorizedChannel);
+			NotificationChannel uncategorisedChannel = new NotificationChannel("uncategorised", getString(R.string.notification_channel_uncategorised_title), NotificationManager.IMPORTANCE_DEFAULT);
+			uncategorisedChannel.setDescription(getString(R.string.notification_channel_uncategorised_desc));
+			uncategorisedChannel.setShowBadge(true);
+			channels.add(uncategorisedChannel);
 			// Pass list to method
 			notificationManager.createNotificationChannels(channels);
 		}
