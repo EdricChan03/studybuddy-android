@@ -501,8 +501,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					if (preference.getKey().equals("check_for_updates")) {
 						Snackbar.make(getView(), getString(R.string.snackbar_check_updates), 4000).show();
 						AppUpdater appUpdater = new AppUpdater(getActivity())
-								.setUpdateFrom(UpdateFrom.JSON)
-								.setUpdateJSON("https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json")
+								.setUpdateFrom(UpdateFrom.GITHUB)
+								.setGitHubUserAndRepo("Chan4077", "StudyBuddy")
 								.setDisplay(Display.NOTIFICATION)
 								.setIcon(R.drawable.ic_alert_decagram_white_24dp);
 						appUpdater.start();
