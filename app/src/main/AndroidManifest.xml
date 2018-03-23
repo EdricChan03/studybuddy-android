@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.edricchan.studybuddy">
-    
+
     <application
         android:allowBackup="true"
         android:appCategory="productivity"
@@ -17,6 +17,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -31,8 +32,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+
                 <category android:name="android.intent.category.PREFERENCE" />
             </intent-filter>
         </activity>
@@ -93,10 +96,17 @@
             android:name=".DebugActivity"
             android:label="@string/title_activity_debug"
             android:theme="@style/AppTheme">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".GamesActivity"
+            android:label="@string/title_activity_games">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.edricchan.studybuddy.MainActivity" />
         </activity>
     </application>
 

@@ -9,6 +9,7 @@
     <string name="title_activity_help">Help</string>
     <string name="title_activity_new_task">New Task</string>
     <string name="title_activity_debug">Debug</string>
+    <string name="title_activity_games">Games</string>
 
     <!-- Web client ID -->
     <string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
@@ -39,6 +40,8 @@
     <string name="shortcut_todo_short_msg">New todo</string>
     <string name="shortcut_settings_long_msg">Open settings</string>
     <string name="shortcut_settings_short_msg">Settings</string>
+    <string name="shortcut_game_long_msg">Play a game</string>
+    <string name="shortcut_game_short_msg">Games</string>
     <!-- Strings related to Settings -->
     <!--
     Experimental settings

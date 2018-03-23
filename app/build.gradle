@@ -25,21 +25,21 @@ android {
 }
 
 dependencies {
-	// Support Lib
+    // Support Lib
     implementation 'com.android.support:support-v4:27.1.0'
     // Support Annotations
-	implementation 'com.android.support:support-annotations:27.1.0'
+    implementation 'com.android.support:support-annotations:27.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-	// AppCompat
+    // AppCompat
     implementation 'com.android.support:appcompat-v7:27.1.0'
-	// ConstraintLayout
+    // ConstraintLayout
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-	// Design Support
+    // Design Support
     implementation 'com.android.support:design:27.1.0'
-	// Card view
+    // Card view
     implementation 'com.android.support:cardview-v7:27.1.0'
     // Chrome Custom Tabs
     implementation 'com.android.support:customtabs:27.1.0'

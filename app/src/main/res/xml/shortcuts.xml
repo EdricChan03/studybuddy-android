@@ -12,8 +12,8 @@
         <!-- Each one of these intents needs an android:action, even if you don't
              do anything with it. Otherwise you're in for a crash! -->
         <intent
-            android:action="com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO"
-            android:targetClass="com.edricchan.studybuddy.MainActivity"
+            android:action="android.intent.action.ACTION_VIEW"
+            android:targetClass="com.edricchan.studybuddy.NewTaskActivity"
             android:targetPackage="com.edricchan.studybuddy"/>
     </shortcut>
     <shortcut
@@ -28,6 +28,17 @@
             android:targetClass="com.edricchan.studybuddy.SettingsActivity"
             android:targetPackage="com.edricchan.studybuddy" />
     </shortcut>
-
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_game"
+        android:shortcutId="play_game"
+        android:shortcutLongLabel="@string/shortcut_game_long_msg"
+        android:shortcutShortLabel="@string/shortcut_game_short_msg"
+        tools:targetsApi="n_mr1">
+        <intent
+            android:action="android.intent.action.ACTION_VIEW"
+            android:targetClass="com.edricchan.studybuddy.GamesActivity"
+            android:targetPackage="com.edricchan.studybuddy" />
+    </shortcut>
 
 </shortcuts>
