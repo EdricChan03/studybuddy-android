@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <shortcut
-        android:enabled="true"
-        android:icon="@drawable/ic_shortcut_todo"
-        android:shortcutDisabledMessage="@string/shortcut_todo_disabled_msg"
-        android:shortcutId="new_todo"
-        android:shortcutLongLabel="@string/shortcut_todo_long_msg"
-        android:shortcutShortLabel="@string/shortcut_todo_short_msg"
-        tools:targetApi="n_mr1">
-        <!-- Each one of these intents needs an android:action, even if you don't
-             do anything with it. Otherwise you're in for a crash! -->
-        <intent
-            android:action="android.intent.action.ACTION_VIEW"
-            android:targetClass="com.edricchan.studybuddy.NewTaskActivity"
-            android:targetPackage="com.edricchan.studybuddy"/>
-    </shortcut>
-    <shortcut
-        android:enabled="true"
-        android:icon="@drawable/ic_shortcut_settings"
-        android:shortcutId="settings"
-        android:shortcutLongLabel="@string/shortcut_settings_long_msg"
-        android:shortcutShortLabel="@string/shortcut_settings_short_msg"
-        tools:targetApi="n_mr1">
-        <intent
-            android:action="android.intent.action.APPLICATION_PREFERENCE"
-            android:targetClass="com.edricchan.studybuddy.SettingsActivity"
-            android:targetPackage="com.edricchan.studybuddy" />
-    </shortcut>
-    <shortcut
-        android:enabled="true"
-        android:icon="@drawable/ic_shortcut_game"
-        android:shortcutId="play_game"
-        android:shortcutLongLabel="@string/shortcut_game_long_msg"
-        android:shortcutShortLabel="@string/shortcut_game_short_msg"
-        tools:targetsApi="n_mr1">
-        <intent
-            android:action="android.intent.action.ACTION_VIEW"
-            android:targetClass="com.edricchan.studybuddy.GamesActivity"
-            android:targetPackage="com.edricchan.studybuddy" />
-    </shortcut>
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<shortcut
+		android:enabled="true"
+		android:icon="@drawable/ic_shortcut_todo"
+		android:shortcutDisabledMessage="@string/shortcut_todo_disabled_msg"
+		android:shortcutId="new_todo"
+		android:shortcutLongLabel="@string/shortcut_todo_long_msg"
+		android:shortcutShortLabel="@string/shortcut_todo_short_msg"
+		tools:targetApi="n_mr1">
+		<!-- Each one of these intents needs an android:action, even if you don't
+			 do anything with it. Otherwise you're in for a crash! -->
+		<intent
+			android:action="android.intent.action.ACTION_VIEW"
+			android:targetClass="com.edricchan.studybuddy.NewTaskActivity"
+			android:targetPackage="com.edricchan.studybuddy" />
+	</shortcut>
+	<shortcut
+		android:enabled="true"
+		android:icon="@drawable/ic_shortcut_settings"
+		android:shortcutId="settings"
+		android:shortcutLongLabel="@string/shortcut_settings_long_msg"
+		android:shortcutShortLabel="@string/shortcut_settings_short_msg"
+		tools:targetApi="n_mr1">
+		<intent
+			android:action="android.intent.action.APPLICATION_PREFERENCE"
+			android:targetClass="com.edricchan.studybuddy.SettingsActivity"
+			android:targetPackage="com.edricchan.studybuddy" />
+	</shortcut>
+	<shortcut
+		android:enabled="true"
+		android:icon="@drawable/ic_shortcut_game"
+		android:shortcutId="play_game"
+		android:shortcutLongLabel="@string/shortcut_game_long_msg"
+		android:shortcutShortLabel="@string/shortcut_game_short_msg"
+		tools:targetsApi="n_mr1">
+		<intent
+			android:action="android.intent.action.ACTION_VIEW"
+			android:targetClass="com.edricchan.studybuddy.GamesActivity"
+			android:targetPackage="com.edricchan.studybuddy" />
+	</shortcut>
 
 </shortcuts>

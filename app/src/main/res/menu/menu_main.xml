@@ -1,16 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.edricchan.studybuddy.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings" />
-    <item
-        android:id="@+id/action_about"
-        android:title="@string/action_about" />
-    <item
-        android:id="@+id/action_share"
-        android:title="@string/action_share" />
-    <item
-        android:id="@+id/action_help"
-        android:title="@string/action_help" />
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context="com.edricchan.studybuddy.MainActivity">
+	<item
+		android:id="@+id/action_settings"
+		android:title="@string/action_settings" />
+	<item
+		android:id="@+id/action_about"
+		android:title="@string/action_about" />
+	<item
+		android:id="@+id/action_share"
+		android:title="@string/action_share" />
+	<item
+		android:id="@+id/action_help"
+		android:title="@string/action_help" />
 </menu>

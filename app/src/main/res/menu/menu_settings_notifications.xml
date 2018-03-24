@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.edricchan.studybuddy.SettingsActivity">
-    <item
-        android:id="@+id/action_send_feedback"
-        android:title="@string/action_send_feedback" />
-    <item
-        android:id="@+id/action_help"
-        android:title="@string/action_help" />
-    <item
-        android:id="@+id/action_checkbox_ui_pre_oreo"
-        android:title="@string/action_pre_oreo_ui"
-        android:checked="false"
-        android:checkable="true"
-        android:visible="false"/>
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context="com.edricchan.studybuddy.SettingsActivity">
+	<item
+		android:id="@+id/action_send_feedback"
+		android:title="@string/action_send_feedback" />
+	<item
+		android:id="@+id/action_help"
+		android:title="@string/action_help" />
+	<item
+		android:id="@+id/action_checkbox_ui_pre_oreo"
+		android:title="@string/action_pre_oreo_ui"
+		android:checked="false"
+		android:checkable="true"
+		android:visible="false" />
 </menu>

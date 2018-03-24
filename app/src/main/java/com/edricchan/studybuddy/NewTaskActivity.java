@@ -39,7 +39,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
 							@Override
 							public void onDateSet(DatePicker view, int year,
-												  int monthOfYear, int dayOfMonth) {
+							                      int monthOfYear, int dayOfMonth) {
 								dialogDateText.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
 
 							}

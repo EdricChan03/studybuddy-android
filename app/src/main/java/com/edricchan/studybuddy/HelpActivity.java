@@ -16,6 +16,7 @@ public class HelpActivity extends AppCompatActivity {
 
 	List<HelpFeatured> helpFeaturedList;
 	RecyclerView featuredRecyclerView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +61,7 @@ public class HelpActivity extends AppCompatActivity {
 		helpFeaturedList.add(new HelpFeatured("Article #2", "https://google.com"));
 		helpFeaturedList.add(new HelpFeatured("About Study Buddy", "https://github.com/Chan4077/StudyBuddy"));
 	}
+
 	/**
 	 * Initialises the adapter for the recycler view
 	 */

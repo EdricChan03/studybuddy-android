@@ -1,58 +1,58 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
-    defaultConfig {
-        applicationId "com.edricchan.studybuddy"
-        minSdkVersion 24
-        targetSdkVersion 27
-        versionCode 8
-        versionName "1.0.0-rc.503"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        resConfigs "en"
-        multiDexEnabled true
-    }
-    buildTypes {
-        release {
-            minifyEnabled true // Enable minification
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    dataBinding {
-        enabled = true
-    }
+	compileSdkVersion 27
+	buildToolsVersion "27.0.3"
+	defaultConfig {
+		applicationId "com.edricchan.studybuddy"
+		minSdkVersion 24
+		targetSdkVersion 27
+		versionCode 8
+		versionName "1.0.0-rc.503"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+		resConfigs "en"
+		multiDexEnabled true
+	}
+	buildTypes {
+		release {
+			minifyEnabled true // Enable minification
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+	dataBinding {
+		enabled = true
+	}
 }
 
 dependencies {
-    // Support Lib
-    implementation 'com.android.support:support-v4:27.1.0'
-    // Support Annotations
-    implementation 'com.android.support:support-annotations:27.1.0'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    // AppCompat
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    // ConstraintLayout
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    // Design Support
-    implementation 'com.android.support:design:27.1.0'
-    // Card view
-    implementation 'com.android.support:cardview-v7:27.1.0'
-    // Chrome Custom Tabs
-    implementation 'com.android.support:customtabs:27.1.0'
-    testImplementation 'junit:junit:4.12'
-    // Firebase stuff
-    implementation 'com.google.firebase:firebase-storage:12.0.0'
-    implementation 'com.google.firebase:firebase-firestore:12.0.0'
-    implementation 'com.google.firebase:firebase-auth:12.0.0'
-    implementation 'com.google.firebase:firebase-messaging:12.0.0'
-    implementation 'com.google.android.gms:play-services-auth:12.0.0'
-    // Provide a way to update the app
-    implementation 'com.github.javiersantos:AppUpdater:2.6.5'
-    // The app's intro screen
-    implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
+	// Support Lib
+	implementation 'com.android.support:support-v4:27.1.0'
+	// Support Annotations
+	implementation 'com.android.support:support-annotations:27.1.0'
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	})
+	// AppCompat
+	implementation 'com.android.support:appcompat-v7:27.1.0'
+	// ConstraintLayout
+	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+	// Design Support
+	implementation 'com.android.support:design:27.1.0'
+	// Card view
+	implementation 'com.android.support:cardview-v7:27.1.0'
+	// Chrome Custom Tabs
+	implementation 'com.android.support:customtabs:27.1.0'
+	testImplementation 'junit:junit:4.12'
+	// Firebase stuff
+	implementation 'com.google.firebase:firebase-storage:12.0.0'
+	implementation 'com.google.firebase:firebase-firestore:12.0.0'
+	implementation 'com.google.firebase:firebase-auth:12.0.0'
+	implementation 'com.google.firebase:firebase-messaging:12.0.0'
+	implementation 'com.google.android.gms:play-services-auth:12.0.0'
+	// Provide a way to update the app
+	implementation 'com.github.javiersantos:AppUpdater:2.6.5'
+	// The app's intro screen
+	implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
 }
 apply plugin: 'com.google.gms.google-services'
