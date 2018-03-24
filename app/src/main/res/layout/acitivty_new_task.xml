@@ -81,7 +81,7 @@
 					android:layout_gravity="center"
 					android:layout_weight="0"
 					android:background="?selectableItemBackgroundBorderless"
-					android:src="@drawable/ic_calendar_today_white_24dp"
+					android:src="@drawable/ic_calendar_today_24dp"
 					android:contentDescription="Choose a date..." />
 			</LinearLayout>
 		</LinearLayout>

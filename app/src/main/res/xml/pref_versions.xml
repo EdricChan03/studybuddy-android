@@ -8,7 +8,7 @@
 			android:key="updates_channel"
 			android:title="@string/pref_update_channel_title" />
 		<Preference
-			android:icon="@drawable/ic_system_update_white_24dp"
+			android:icon="@drawable/ic_system_update_24dp"
 			android:key="check_for_updates"
 			android:title="Check for updates" />
 	</PreferenceCategory>
@@ -18,12 +18,12 @@
 			android:key="app_version"
 			android:title="@string/pref_app_version_title" />
 		<Preference
-			android:icon="@drawable/ic_code_white_24dp"
+			android:icon="@drawable/ic_code_24dp"
 			android:key="app_src_code"
 			android:summary="@string/pref_source_code_desc"
 			android:title="@string/pref_source_code_title" />
 		<Preference
-			android:icon="@drawable/ic_account_circle_white_24dp"
+			android:icon="@drawable/ic_account_circle_24dp"
 			android:key="app_author"
 			android:title="@string/pref_author_title" />
 		<Preference

@@ -4,6 +4,6 @@
 	<item
 		android:id="@+id/action_submit"
 		android:title="@string/action_submit"
-		android:icon="@drawable/ic_check_white_24dp"
+		android:icon="@drawable/ic_check_24dp"
 		app:showAsAction="always" />
 </menu>

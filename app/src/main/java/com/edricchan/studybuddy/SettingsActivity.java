@@ -307,7 +307,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			enableMoreOptionsPreference.setTitle(R.string.pref_enable_more_options_title);
 			enableMoreOptionsPreference.setSummary(R.string.pref_enable_more_options_desc);
 			enableMoreOptionsPreference.setKey("enable_more_options_notification_channels");
-			enableMoreOptionsPreference.setIcon(R.drawable.ic_plus_box_white_24dp);
+			enableMoreOptionsPreference.setIcon(R.drawable.ic_plus_box_24dp);
 			preferenceScreen.addPreference(enableMoreOptionsPreference);
 			enableMoreOptionsPreference.setDependency("enable_all_notification_channels");
 			for (MyNotificationChannel notificationChannel : notificationChannels) {
@@ -332,11 +332,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				enableVibratePreference.setTitle("Vibrate");
 				enableVibratePreference.setSummary("Whether to vibrate when you receive a notification from this channel");
 				enableVibratePreference.setChecked(true);
-				enableVibratePreference.setIcon(R.drawable.ic_vibrate_white_24dp);
+				enableVibratePreference.setIcon(R.drawable.ic_vibrate_24dp);
 				enableVibratePreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_vibrate_enabled");
 				preOreoNotificationChannelCategory.addPreference(enableVibratePreference);
 				RingtonePreference notificationRingtonePreference = new RingtonePreference(preferenceScreen.getContext());
-				notificationRingtonePreference.setIcon(R.drawable.ic_music_white_24dp);
+				notificationRingtonePreference.setIcon(R.drawable.ic_music_24dp);
 				notificationRingtonePreference.setTitle("Set ringtone");
 				notificationRingtonePreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_ringtone");
 				bindPreferenceSummaryToValue(notificationRingtonePreference);
@@ -504,7 +504,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 								.setUpdateFrom(UpdateFrom.GITHUB)
 								.setGitHubUserAndRepo("Chan4077", "StudyBuddy")
 								.setDisplay(Display.NOTIFICATION)
-								.setIcon(R.drawable.ic_alert_decagram_white_24dp);
+								.setIcon(R.drawable.ic_alert_decagram_24dp);
 						appUpdater.start();
 						return true;
 					}
