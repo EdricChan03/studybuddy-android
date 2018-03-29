@@ -2,6 +2,7 @@ package com.edricchan.studybuddy;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,15 +22,18 @@ import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.support.customtabs.CustomTabsIntent;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.crashlytics.android.Crashlytics;
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -201,7 +205,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_experimental);
 			setHasOptionsMenu(true);
-
+			final PreferenceScreen preferenceScreen = getPreferenceScreen();
+			final PreferenceCategory aboutCategory = (PreferenceCategory) findPreference("experimental_about_category");
+			final SwitchPreference enableExperimental = (SwitchPreference) findPreference("experimental_features_enabled");
+			enableExperimental.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					if (enableExperimental.isChecked()) {
+						preferenceScreen.addPreference(aboutCategory);
+					} else {
+						preferenceScreen.removePreference(aboutCategory);
+					}
+					return true;
+				}
+			});
 			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
 			// to their values. When their values change, their summaries are
 			// updated to reflect the new value, per the Android Design
@@ -243,8 +260,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class NotificationPreferenceFragment extends PreferenceFragment {
 		final List<MyNotificationChannel> notificationChannels = new ArrayList<>();
-		PreferenceScreen preferenceScreen;
 		final String[] notificationChannelIds = new String[]{"todo_updates", "weekly_summary", "sync", "app_updates", "playback", "uncategorised"};
+		PreferenceScreen preferenceScreen;
 		SharedPreferences sharedPreferences;
 
 		/**
@@ -253,9 +270,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		void showOreoSettings() {
 			// Ensure that all preferences are cleared first
 			preferenceScreen.removeAll();
-			PreferenceCategory notificationPrefCategory = new PreferenceCategory(preferenceScreen.getContext());
-			notificationPrefCategory.setTitle("Notification Channels");
-			preferenceScreen.addPreference(notificationPrefCategory);
 			Preference allNotificationsPreference = new Preference(preferenceScreen.getContext());
 			allNotificationsPreference.setTitle(R.string.pref_notification_channel_all_channels_title);
 			allNotificationsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -267,16 +281,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 						intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
 						startActivity(intent);
 					}
-					return false;
+					return true;
 				}
 			});
-			notificationPrefCategory.addPreference(allNotificationsPreference);
+			preferenceScreen.addPreference(allNotificationsPreference);
 			for (MyNotificationChannel notificationChannel : notificationChannels) {
-				Preference notificationPreference = new Preference(preferenceScreen.getContext());
-				notificationPreference.setTitle(notificationChannel.getNotificationTitle());
-				notificationPreference.setSummary(notificationChannel.getNotificationDesc());
-				notificationPreference.setKey(notificationChannelIds[notificationChannel.getIndex()]);
-				notificationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				final PreferenceCategory notificationChannelCategory = new PreferenceCategory(preferenceScreen.getContext());
+				notificationChannelCategory.setTitle(notificationChannel.getNotificationTitle());
+				notificationChannelCategory.setSummary(notificationChannel.getNotificationDesc());
+				notificationChannelCategory.setLayoutResource(R.layout.preference_category_summary);
+				preferenceScreen.addPreference(notificationChannelCategory);
+				final SwitchPreference notificationEnabledPreference = new SwitchPreference(preferenceScreen.getContext());
+				notificationEnabledPreference.setTitle(R.string.pref_notification_channel_enabled_title);
+				notificationEnabledPreference.setKey("notification_channel_" + notificationChannelIds[notificationChannel.getIndex()] + "_enabled");
+				notificationEnabledPreference.setChecked(true);
+				notificationChannelCategory.addPreference(notificationEnabledPreference);
+
+				final Preference notificationAdvancedPreference = new Preference(preferenceScreen.getContext());
+				notificationAdvancedPreference.setTitle(R.string.pref_notification_channel_advanced_title);
+				notificationAdvancedPreference.setSummary(R.string.pref_notification_channel_advanced_desc);
+				notificationAdvancedPreference.setKey(notificationChannelIds[notificationChannel.getIndex()]);
+				notificationAdvancedPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(Preference preference) {
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -285,10 +310,26 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 							intent.putExtra(Settings.EXTRA_CHANNEL_ID, preference.getKey());
 							startActivity(intent);
 						}
-						return false;
+						return true;
 					}
 				});
-				notificationPrefCategory.addPreference(notificationPreference);
+				notificationChannelCategory.addPreference(notificationAdvancedPreference);
+				if (notificationEnabledPreference.isChecked()) {
+					notificationAdvancedPreference.setEnabled(true);
+				} else {
+					notificationAdvancedPreference.setEnabled(false);
+				}
+				notificationEnabledPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick(Preference preference) {
+						if (notificationEnabledPreference.isChecked()) {
+							notificationAdvancedPreference.setEnabled(true);
+						} else {
+							notificationAdvancedPreference.setEnabled(false);
+						}
+						return true;
+					}
+				});
 			}
 		}
 
@@ -450,6 +491,40 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			// updated to reflect the new value, per the Android Design
 			// guidelines.
 			bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+			Preference manualSyncPreference = findPreference("manual_sync");
+			manualSyncPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					Crashlytics.getInstance().crash();
+					return true;
+				}
+			});
+			final SwitchPreference mobileDataSync = (SwitchPreference) findPreference("sync_mobile_data");
+			mobileDataSync.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					if (mobileDataSync.isChecked()) {
+						mobileDataSync.setChecked(false);
+						AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+						builder.setPositiveButton(R.string.dialog_action_yes, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								mobileDataSync.setChecked(true);
+							}
+						});
+						builder.setTitle(R.string.pref_sync_mobile_data_dialog_title);
+						builder.setMessage(R.string.pref_sync_mobile_data_dialog_msg);
+						builder.setNegativeButton(R.string.dialog_action_no, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						});
+						builder.create().show();
+					}
+					return true;
+				}
+			});
 		}
 
 		@Override
@@ -494,21 +569,48 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 			builder.addDefaultShareMenuItem();
 			final CustomTabsIntent customTabsIntent = builder.build();
-			Preference checkForUpdates = getPreferenceManager().findPreference("check_for_updates");
+			final Preference checkForUpdates = getPreferenceManager().findPreference("check_for_updates");
 			checkForUpdates.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 					if (preference.getKey().equals("check_for_updates")) {
-						Snackbar.make(getView(), getString(R.string.snackbar_check_updates), 4000).show();
+						final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+						final NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(getContext(), getString(R.string.notification_channel_app_updates_id))
+								.setSmallIcon(R.drawable.ic_notification_system_update_24dp)
+								.setContentTitle(getString(R.string.notification_check_update))
+								.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+								.setProgress(100, 0, true)
+								.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
+								.setOngoing(true);
+						notificationManager.notify(0, notifyBuilder.build());
+						checkForUpdates.setEnabled(false);
+						new android.os.Handler().postDelayed(
+								new Runnable() {
+									public void run() {
+										notifyBuilder.setContentTitle(getString(R.string.notification_no_updates))
+												.setProgress(0, 0, false)
+												.setOngoing(false);
+										notificationManager.notify(0, notifyBuilder.build());
+										new android.os.Handler().postDelayed(
+												new Runnable() {
+													@Override
+													public void run() {
+														checkForUpdates.setEnabled(true);
+														notificationManager.cancel(0);
+													}
+												},
+												2000);
+									}
+								},
+								10000);
 						AppUpdater appUpdater = new AppUpdater(getActivity())
 								.setUpdateFrom(UpdateFrom.GITHUB)
 								.setGitHubUserAndRepo("Chan4077", "StudyBuddy")
 								.setDisplay(Display.NOTIFICATION)
 								.setIcon(R.drawable.ic_alert_decagram_24dp);
 						appUpdater.start();
-						return true;
 					}
-					return false;
+					return true;
 				}
 			});
 			Preference appAuthor = getPreferenceManager().findPreference("app_author");
@@ -519,7 +621,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 						customTabsIntent.launchUrl(context, Uri.parse(appAuthorUrl));
 						return true;
 					}
-					return false;
+					return true;
 				}
 			});
 			Preference appSrc = getPreferenceManager().findPreference("app_src_code");
