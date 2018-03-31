@@ -16,7 +16,18 @@ public class SharedHelper {
 	 * Intent for notification settings action button for notifications
 	 */
 	public static final String ACTION_NOTIFICATIONS_SETTINGS = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS";
-
+	/**
+	 * Action icon for settings
+	 */
+	public static final String ACTION_SETTINGS_ICON = "settings";
+	/**
+	 * Action icon for notification
+	 */
+	public static final String ACTION_NOTIFICATION_ICON = "notification";
+	/**
+	 * Action icon for mark as done
+	 */
+	public static final String ACTION_MARK_AS_DONE_ICON = "mark_as_done";
 	private Context mContext;
 
 	public SharedHelper(Context context) {
@@ -30,7 +41,7 @@ public class SharedHelper {
 	 */
 	private List<NotificationAction> addDefaultNotificationActions() {
 		List<NotificationAction> notificationActionList = new ArrayList<>();
-		notificationActionList.add(new NotificationAction("Configure notifications", ACTION_NOTIFICATIONS_SETTINGS));
+		notificationActionList.add(new NotificationAction("settings", "Configure notifications", ACTION_NOTIFICATIONS_SETTINGS));
 		return notificationActionList;
 	}
 

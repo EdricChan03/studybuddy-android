@@ -3,13 +3,25 @@ package com.edricchan.studybuddy.interfaces;
 public class NotificationAction {
 	private String mAction;
 	private String mActionType;
-	public NotificationAction(String action, String actionType) {
+	private String mActionIcon;
+
+	public NotificationAction() {
+
+	}
+	public NotificationAction(String action, String actionType, String actionIcon) {
 		this.mAction = action;
 		this.mActionType = actionType;
+		this.mActionIcon = actionIcon;
 	}
+
 	public String getAction() {
 		return this.mAction;
 	}
+
+	public String getActionIcon() {
+		return this.mActionIcon;
+	}
+
 	public String getActionType() {
 		return this.mActionType;
 	}
