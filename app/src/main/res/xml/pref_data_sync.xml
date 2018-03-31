@@ -16,7 +16,6 @@
 		<SwitchPreference
 			android:icon="@drawable/ic_network_cell_24dp"
 			android:key="sync_mobile_data"
-			android:summaryOn="@string/pref_sync_mobile_data_summary_on"
 			android:title="@string/pref_sync_mobile_data_title" />
 		<!-- This preference simply launches an intent when selected. Use this UI sparingly, per
 			 design guidelines. -->
