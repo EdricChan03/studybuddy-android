@@ -205,25 +205,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_experimental);
 			setHasOptionsMenu(true);
-			final PreferenceScreen preferenceScreen = getPreferenceScreen();
-			final PreferenceCategory aboutCategory = (PreferenceCategory) findPreference("experimental_about_category");
-			final SwitchPreference enableExperimental = (SwitchPreference) findPreference("experimental_features_enabled");
-			enableExperimental.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					if (enableExperimental.isChecked()) {
-						preferenceScreen.addPreference(aboutCategory);
-					} else {
-						preferenceScreen.removePreference(aboutCategory);
-					}
-					return true;
-				}
-			});
-			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
-			// to their values. When their values change, their summaries are
-			// updated to reflect the new value, per the Android Design
-			// guidelines.
-//            bindPreferenceSummaryToValue(findPreference("example_text"));
 		}
 
 		@Override
