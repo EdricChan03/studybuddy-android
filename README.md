@@ -28,6 +28,8 @@ Download the latest build [here](https://github.com/Chan4077/StudyBuddy-builds/b
 
 Older versions can be accessed [here](https://github.com/Chan4077/StudyBuddy-builds/blob/master/release).
 
+The changelog for each version can also be viewed in [CHANGELOG.md](/CHANGELOG.md)
+
 ---
 <!-- Should I just delete this whole section? :P -->
 # Dependencies
@@ -93,14 +95,24 @@ Settings > Experimental | Settings > Notifications (Oreo devices) | Settings > N
 ---|---|---
 [![Settings > Experimental][art-settings-experimental]][art-settings-experimental] | [![Settings > Notifications (Oreo devices)][art-settings-notifications-oreo]][art-settings-notifications-oreo] | [![Settings > Notifications (Pre-Oreo devices)][art-settings-notifications-pre-oreo]][art-settings-notifications-pre-oreo]
 ---
-# Building the source code
+# Building the source code (debug only)
 If you would like to build the source code, follow these steps:
-1. Install the Canary version of Android Studio which adds Android O support. [More info](https://developer.android.com/studio/preview/index.html) _(Note: This version uses Canary Beta 2)_
-2. Download the project by either clicking the `Clone or download` > `Download ZIP` or by running the following commands:
+1. Clone the project locally by either clicking the `Clone or download` > `Download ZIP` or by running the following commands:
    ```bash
    cd path/to/your/desired-location
    git clone https://github.com/Chan4077/StudyBuddy.git
    ```
+2. Run the following in your terminal:
+   
+   macOS:
+   ```bash
+   ./gradlew assembleDebug
+   ```
+   Windows:
+   ```shell
+   gradlew.bat assembleDebug
+   ```
+3. The APK should be signed with the debug key and is available at `app/build/outputs/apk`. See [Build a debug APK](https://developer.android.com/studio/build/building-cmdline.html#DebugMode) for more info.
 
 # Contributing
 If you would like to contribute, please go ahead and submit a pull request explaining your changes to the code and also make sure that you open an issue beforehand.
