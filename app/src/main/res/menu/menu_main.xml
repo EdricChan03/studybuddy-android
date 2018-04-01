@@ -13,4 +13,7 @@
 	<item
 		android:id="@+id/action_help"
 		android:title="@string/action_help" />
+	<item
+		android:id="@+id/action_debug_send_notification"
+		android:title="@string/action_debug_notification" />
 </menu>

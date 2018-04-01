@@ -32,9 +32,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static java.lang.System.out;
 
@@ -184,6 +186,32 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 		} else {
 			getTodos();
+			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.getUid());
+		}
+	}
+
+	/**
+	 * Used for debugging.
+	 * Will not be used on release.
+	 */
+	public void sendNotification(int type) {
+		SharedHelper helper = new SharedHelper(this);
+		switch (type) {
+			case 0:
+				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Testing testing", "This is a test notification which will only be sent to a specific device! Hopefully it'll work though.", getString(R.string.notification_channel_uncategorised_id));
+				break;
+			case 1:
+				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Weekly summary", "You have 8 todos left to do for this week. Your total karma is 80%. Keep it up! :D", getString(R.string.notification_channel_weekly_summary_id));
+				break;
+			case 2:
+				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Notification alert", "This notification should create a new notification channel! See the source code for more info.", "test");
+				break;
+			case 3:
+				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Todo due soon", "Your todo will be due soon. Mark as done?", getString(R.string.notification_channel_todo_updates_id));
+				break;
+			case 4:
+				helper.sendNotificationToUser(currentUser.getUid(), "No body", getString(R.string.notification_channel_uncategorised_id));
+				break;
 		}
 	}
 
@@ -312,6 +340,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_main, menu);
+		// Check if build is debug
+		if (!BuildConfig.DEBUG) {
+			menu.removeItem(R.id.action_debug_send_notification);
+		}
 		return true;
 	}
 
@@ -357,6 +389,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				Intent helpIntent = new Intent(this, HelpActivity.class);
 				startActivity(helpIntent);
 				break;
+			case R.id.action_debug_send_notification:
+				Random rand = new Random();
+
+				int randomInt = rand.nextInt(4) + 1;
+				sendNotification(randomInt);
 		}
 
 		return super.onOptionsItemSelected(item);
