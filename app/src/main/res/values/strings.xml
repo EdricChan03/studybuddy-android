@@ -14,10 +14,20 @@
 	<!-- Web client ID -->
 	<string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
 
-	<!-- App updater values -->
-	<!-- TODO: Don't use a snackbar for showing when the app is checking for updates -->
-	<string name="snackbar_check_updates">Checking for updates&#8230;</string>
+	<!-- Notifications -->
+	<string name="notification_check_update">Checking for updates&#8230;</string>
+	<string name="notification_no_updates">No updates available</string>
+	<string name="notification_new_update_title">New update available!</string>
+	<string name="notification_new_update_text">Version %1$s is available! Tap here to download &amp; install</string>
 
+	<!-- Global dialog values -->
+	<string name="dialog_action_cancel">Cancel</string>
+	<string name="dialog_action_ok">Ok</string>
+	<string name="dialog_action_confirm">Confirm</string>
+	<string name="dialog_action_yes">Yes</string>
+	<string name="dialog_action_no">No</string>
+	<string name="dialog_action_close">Close</string>
+	<string name="dialog_action_dismiss">Dismiss</string>
 	<!-- Share bottom sheet -->
 	<string name="share_intent_value">Share this app via&#8230;</string>
 	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
@@ -47,8 +57,10 @@
 	Experimental settings
 	TODO: Change the name of this preference
 	-->
+	<string name="pref_category_experimental_features_about">About</string>
+	<string name="pref_experimental_about_desc">\"Experimental settings\" is basically setting flags (similar to Google Chrome) to the app which enables/disables certain developmental features in the app. Note that some preferences may not affect anything as of now.</string>
+	<string name="pref_category_experimental_features">Experimental Features</string>
 	<string name="pref_header_experimental">Experimental</string>
-	<string name="pref_experimental_features_title">Experimental Features</string>
 	<string name="pref_experimental_features_desc">Enables features that are in development.</string>
 	<string name="pref_experimental_ui_title">Experimental UI</string>
 	<string name="pref_experimental_ui_desc">Shows a new and improved user interface. Requires a restart to take effect.</string>
@@ -76,14 +88,18 @@
 		<item>-1</item>
 	</string-array>
 	<string name="pref_system_sync_settings_title">System sync settings</string>
-	<string name="pref_sync_mobile_data_title">Allow syncing over mobile data</string>
-	<string name="pref_sync_mobile_data_summary_on">Note: I am not responsible for any charges incurred from excessive data usage.</string>
+	<string name="pref_sync_mobile_data_title">Sync using mobile data</string>
+	<string name="pref_sync_mobile_data_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
+	<string name="pref_sync_mobile_data_dialog_title">Enable syncing using mobile data?</string>
 	<string name="pref_manual_sync_title">Manual sync</string>
 	<string name="pref_manual_sync_summary">Tap here to initiate a manual sync</string>
 	<!-- Settings for Notifications -->
 	<string name="pref_header_notifications">Notifications</string>
 	<string name="pref_ringtone_silent">Silent</string>
 	<string name="pref_notification_channel_all_channels_title">All notification channels</string>
+	<string name="pref_notification_channel_enabled_title">Show notifications from this channel</string>
+	<string name="pref_notification_channel_advanced_title">Advanced settings</string>
+	<string name="pref_notification_channel_advanced_desc">Choose importance, sounds and other system options</string>
 	<!-- Notifications > For devices running pre-Android Oreo -->
 	<string name="pref_enable_all_notification_channels_title">Enable all notification channels</string>
 	<string name="pref_enable_more_options_title">Enable more options</string>
@@ -113,6 +129,7 @@
 	<string name="action_about">About</string>
 	<string name="action_share">Share this app</string>
 	<string name="action_settings">Settings</string>
+	<string name="action_debug_notification">Send Notification</string>
 
 	<!-- Actions > Settings activity -->
 	<string name="action_send_feedback">Send Feedback</string>
