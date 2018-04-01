@@ -122,8 +122,7 @@
 
 		<!-- Services -->
 		<service
-			android:name=".providers.fcm.StudyBuddyMessagingService"
-			android:exported="false">
+			android:name=".providers.fcm.StudyBuddyMessagingService">
 			<intent-filter>
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
