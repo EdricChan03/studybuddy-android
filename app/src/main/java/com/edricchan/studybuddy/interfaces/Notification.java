@@ -12,10 +12,27 @@ public class Notification {
 	private String mUsername;
 	private String mMessage;
 	private String mBody;
+	private String mColor;
 	private NotificationData mNotificationData;
 
 	public Notification() {
 
+	}
+
+	public Notification(String username, String message, String body, String color, NotificationData notificationData) {
+		this.mUsername = username;
+		this.mMessage = message;
+		this.mBody = body;
+		this.mColor = color;
+		this.mNotificationData = notificationData;
+	}
+
+	public Notification(Context context, int username, int message, int body, int color, NotificationData notificationData) {
+		this.mUsername = context.getString(username);
+		this.mMessage = context.getString(message);
+		this.mBody = context.getString(body);
+		this.mColor = String.format("#%06X", (0xFFFFFF & context.getColor(color)));
+		this.mNotificationData = notificationData;
 	}
 
 	public Notification(String username, String message, String body, NotificationData notificationData) {
@@ -24,6 +41,7 @@ public class Notification {
 		this.mBody = body;
 		this.mNotificationData = notificationData;
 	}
+
 	public Notification(String username, String message, String body, String notificationChannelId, List<NotificationAction> notificationActions) {
 		this.mUsername = username;
 		this.mMessage = message;
@@ -71,5 +89,9 @@ public class Notification {
 
 	public NotificationData getData() {
 		return this.mNotificationData;
+	}
+
+	public String getColor() {
+		return this.mColor;
 	}
 }
