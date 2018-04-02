@@ -14,7 +14,7 @@
 		tools:targetApi="o">
 		<meta-data
 			android:name="com.google.firebase.messaging.default_notification_icon"
-			android:resource="@drawable/ic_studybuddy_notification_icon" />
+			android:resource="@drawable/ic_notification_studybuddy_24dp" />
 		<meta-data
 			android:name="com.google.firebase.messaging.default_notification_color"
 			android:resource="@color/colorPrimary" />
