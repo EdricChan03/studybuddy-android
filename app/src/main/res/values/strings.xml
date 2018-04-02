@@ -28,6 +28,8 @@
 	<string name="dialog_action_no">No</string>
 	<string name="dialog_action_close">Close</string>
 	<string name="dialog_action_dismiss">Dismiss</string>
+	<string name="dialog_action_sign_up">Sign up</string>
+	<string name="dialog_action_login">Login</string>
 	<!-- Share bottom sheet -->
 	<string name="share_intent_value">Share this app via&#8230;</string>
 	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
@@ -185,4 +187,6 @@
 	<string name="notification_channel_uncategorised_title">Uncategorised</string>
 	<string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the previous channels</string>
 	<string name="notification_channel_uncategorised_id">uncategorised</string>
+	<string name="notification_channel_group_todos_id">todos</string>
+	<string name="notification_channel_group_todos_title">Todos</string>
 </resources>

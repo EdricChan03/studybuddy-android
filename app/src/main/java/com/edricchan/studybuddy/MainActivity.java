@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy;
 
 import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -158,8 +159,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			out.println("Not logged in");
 			AlertDialog signInDialog = new AlertDialog.Builder(context)
 					.setTitle("Sign in")
-					.setMessage("To access the content, please sign in or register an account. Click the \"Sign in\" button to continue. Otherwise, click Cancel.")
-					.setPositiveButton("Sign in", new DialogInterface.OnClickListener() {
+					.setMessage("To access the content, please login or register for an account.")
+					.setPositiveButton(R.string.dialog_action_login, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
 							Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
@@ -167,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 							dialogInterface.dismiss();
 						}
 					})
-					.setNeutralButton("Sign up", new DialogInterface.OnClickListener() {
+					.setNeutralButton(R.string.dialog_action_sign_up, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
 							Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 							dialogInterface.dismiss();
 						}
 					})
-					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					.setNegativeButton(R.string.dialog_action_cancel, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
 							dialogInterface.cancel();
@@ -186,7 +187,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 		} else {
 			getTodos();
+			// User specific topic
 			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.getUid());
+			// By default, subscribe to the "topic_all" topic
+			FirebaseMessaging.getInstance().subscribeToTopic("all");
 		}
 	}
 
@@ -261,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			// Task updates notifications
 			NotificationChannel todoUpdatesChannel = new NotificationChannel("todo_updates", getString(R.string.notification_channel_todo_updates_title), NotificationManager.IMPORTANCE_HIGH);
 			todoUpdatesChannel.setDescription(getString(R.string.notification_channel_todo_updates_desc));
+			todoUpdatesChannel.setGroup(getString(R.string.notification_channel_group_todos_id));
 			todoUpdatesChannel.enableLights(true);
 			todoUpdatesChannel.setLightColor(Color.YELLOW);
 			todoUpdatesChannel.enableVibration(true);
@@ -270,6 +275,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			// Weekly summary notifications
 			NotificationChannel weeklySummaryChannel = new NotificationChannel("weekly_summary", getString(R.string.notification_channel_weekly_summary_title), NotificationManager.IMPORTANCE_LOW);
 			weeklySummaryChannel.setDescription(getString(R.string.notification_channel_weekly_summary_desc));
+			weeklySummaryChannel.setGroup(getString(R.string.notification_channel_group_todos_id));
 			weeklySummaryChannel.setShowBadge(true);
 			channels.add(weeklySummaryChannel);
 
@@ -296,8 +302,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			uncategorisedChannel.setDescription(getString(R.string.notification_channel_uncategorised_desc));
 			uncategorisedChannel.setShowBadge(true);
 			channels.add(uncategorisedChannel);
+			// Notification channel groups
+			notificationManager.createNotificationChannelGroup(new NotificationChannelGroup(getString(R.string.notification_channel_group_todos_id), getString(R.string.notification_channel_group_todos_title)));
 			// Pass list to method
 			notificationManager.createNotificationChannels(channels);
+
 		}
 	}
 
