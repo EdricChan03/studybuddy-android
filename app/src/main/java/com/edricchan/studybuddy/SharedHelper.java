@@ -4,12 +4,13 @@ import android.content.Context;
 
 import com.edricchan.studybuddy.interfaces.Notification;
 import com.edricchan.studybuddy.interfaces.NotificationAction;
+import com.edricchan.studybuddy.interfaces.NotificationData;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SharedHelper {
 	/**
@@ -29,11 +30,18 @@ public class SharedHelper {
 	 */
 	public static final String ACTION_MARK_AS_DONE_ICON = "mark_as_done";
 	private Context mContext;
-
+	private int dynamicId = 0;
+	private AtomicInteger atomicInteger = new AtomicInteger(0);
 	public SharedHelper(Context context) {
 		this.mContext = context;
 	}
 
+	/**
+	 * Dynamically creates a new ID for use with Android's notification manager
+	 */
+	public int getDynamicId() {
+		return atomicInteger.incrementAndGet();
+	}
 	/**
 	 * Creates a notification action
 	 *
@@ -53,10 +61,10 @@ public class SharedHelper {
 	 * @param notificationChannelId The notification channel ID as a string
 	 * @param notificationActions   The notification actions
 	 */
-	public void sendNotificationToUser(String user, String message, String body, String notificationChannelId, List<NotificationAction> notificationActions) {
+	public void sendNotificationToUser(String user, String message, String body, String color, String notificationChannelId, List<NotificationAction> notificationActions) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		CollectionReference notifications = db.collection("notificationRequests");
-		Notification notification = new Notification(user, message, body, notificationChannelId, notificationActions);
+		Notification notification = new Notification(user, message, body, color, new NotificationData(notificationChannelId, notificationActions));
 		notifications.add(notification);
 	}
 
@@ -68,7 +76,7 @@ public class SharedHelper {
 	 * @param notificationChannelId The notification channel ID as a string
 	 */
 	public void sendNotificationToUser(String user, String message, String notificationChannelId) {
-		this.sendNotificationToUser(user, message, "", notificationChannelId, this.addDefaultNotificationActions());
+		this.sendNotificationToUser(user, message, "", notificationChannelId, "#9c27b0", this.addDefaultNotificationActions());
 	}
 
 	/**
@@ -80,7 +88,7 @@ public class SharedHelper {
 	 * @param notificationChannelId The notification channel ID as a string
 	 */
 	public void sendNotificationToUserWithBody(String user, String message, String body, String notificationChannelId) {
-		this.sendNotificationToUser(user, message, body, notificationChannelId, this.addDefaultNotificationActions());
+		this.sendNotificationToUser(user, message, body, "#9c27b0", notificationChannelId, this.addDefaultNotificationActions());
 	}
 
 	/**
@@ -91,7 +99,7 @@ public class SharedHelper {
 	 * @param notificationChannelId The notification channel ID as a resource
 	 */
 	public void sendNotificationToUser(String user, String message, int notificationChannelId) {
-		this.sendNotificationToUser(user, message, "", mContext.getString(notificationChannelId), this.addDefaultNotificationActions());
+		this.sendNotificationToUser(user, message, "", "#9c27b0", mContext.getString(notificationChannelId), this.addDefaultNotificationActions());
 	}
 
 	/**
@@ -103,7 +111,7 @@ public class SharedHelper {
 	 * @param notificationChannelId The notification channel ID as a resource
 	 */
 	public void sendNotificationToUserWithBody(String user, String message, String body, int notificationChannelId) {
-		this.sendNotificationToUser(user, message, body, mContext.getString(notificationChannelId), this.addDefaultNotificationActions());
+		this.sendNotificationToUser(user, message, body, "#9c27b0", mContext.getString(notificationChannelId), this.addDefaultNotificationActions());
 	}
 
 	/**
@@ -114,7 +122,7 @@ public class SharedHelper {
 	 * @param message The message to send
 	 */
 	public void sendNotificationToUser(String user, String message) {
-		this.sendNotificationToUser(user, message, "", mContext.getString(R.string.notification_channel_uncategorised_id), this.addDefaultNotificationActions());
+		this.sendNotificationToUser(user, message, "", "#9c27b0", mContext.getString(R.string.notification_channel_uncategorised_id), this.addDefaultNotificationActions());
 	}
 
 	/**
@@ -126,6 +134,6 @@ public class SharedHelper {
 	 * @param body    The body to send
 	 */
 	public void sendNotificationToUserWithBody(String user, String message, String body) {
-		this.sendNotificationToUser(user, message, body, mContext.getString(R.string.notification_channel_uncategorised_id), this.addDefaultNotificationActions());
+		this.sendNotificationToUser(user, message, body, "#9c27b0", mContext.getString(R.string.notification_channel_uncategorised_id), this.addDefaultNotificationActions());
 	}
 }
