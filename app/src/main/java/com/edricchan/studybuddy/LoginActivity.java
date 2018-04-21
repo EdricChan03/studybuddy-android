@@ -3,6 +3,7 @@ package com.edricchan.studybuddy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -124,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
 										Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
 									}
 								} else {
+									showLoginSnackbar();
 									Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 									startActivity(intent);
 									finish();
@@ -132,6 +134,14 @@ public class LoginActivity extends AppCompatActivity {
 						});
 			}
 		});
+	}
+
+	private void showLoginSnackbar() {
+		if (auth.getCurrentUser() != null) {
+			// TODO(Edric): Figure out a way to show this snackbar before the main activity shows
+//			Snackbar.make(findViewById(android.R.id.content), String.format(getString(R.string.snackbar_user_login), auth.getCurrentUser().getEmail()), Snackbar.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), String.format(getString(R.string.snackbar_user_login), auth.getCurrentUser().getEmail()), Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	private void signInWithGoogle() {
@@ -165,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 						if (task.isSuccessful()) {
 							// Sign in success, update UI with the signed-in user's information
 							Log.d("FAIL", "signInWithCredential:success");
-							FirebaseUser user = auth.getCurrentUser();
+							showLoginSnackbar();
 							Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 							startActivity(intent);
 							finish();
