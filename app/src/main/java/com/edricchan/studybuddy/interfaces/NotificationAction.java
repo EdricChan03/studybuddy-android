@@ -8,6 +8,11 @@ public class NotificationAction {
 	public NotificationAction() {
 
 	}
+	public NotificationAction(NotificationAction notificationAction) {
+		this.mAction = notificationAction.getAction();
+		this.mActionType = notificationAction.getActionType();
+		this.mActionIcon = notificationAction.getActionIcon();
+	}
 	public NotificationAction(String action, String actionType, String actionIcon) {
 		this.mAction = action;
 		this.mActionType = actionType;
