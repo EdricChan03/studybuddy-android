@@ -1,9 +1,23 @@
+# All iml files
 *.iml
+
+# Gradle file
 .gradle
+
+# Local configuration
 /local.properties
+
+# Android Studio
 /.idea/workspace.xml
 .idea/*
+
+# macOS files
 .DS_Store
+
+# Android builds
 /build
 /captures
 .externalNativeBuild
+
+# Ignore the Google Services config file (This should have been done WAY earlier... Oops)
+google-services.json
