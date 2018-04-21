@@ -1,7 +1,7 @@
 <resources>
 	<!-- For android manifest -->
 	<string name="app_name">Study Buddy</string>
-
+	<string name="app_desc">Study Buddy is an app that aims to help students in their studies. Some features of Study Buddy include a calendar, todos as well as cheatsheets.</string>
 	<!-- Activity names -->
 	<string name="title_activity_settings">Settings</string>
 	<string name="title_activity_login">Sign in</string>
@@ -30,6 +30,7 @@
 	<string name="dialog_action_dismiss">Dismiss</string>
 	<string name="dialog_action_sign_up">Sign up</string>
 	<string name="dialog_action_login">Login</string>
+
 	<!-- Share bottom sheet -->
 	<string name="share_intent_value">Share this app via&#8230;</string>
 	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
@@ -155,6 +156,7 @@
 	<string name="email_hint">Email</string>
 	<string name="password_hint">Password</string>
 	<string name="action_sign_in_btn">Login</string>
+	<string name="snackbar_user_login">Signed in as %1$s</string>
 	<string name="action_forgot_password_btn">Forgot password</string>
 	<string name="title_activity_register">Register</string>
 	<string name="action_register_btn">Register</string>
