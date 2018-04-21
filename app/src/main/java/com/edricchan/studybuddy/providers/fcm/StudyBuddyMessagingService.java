@@ -10,6 +10,7 @@ import android.os.Build;
 import android.preference.PreferenceActivity;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.edricchan.studybuddy.MainActivity;
@@ -24,11 +25,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudyBuddyMessagingService extends FirebaseMessagingService {
 	private SharedHelper sharedHelper = new SharedHelper(this);
-
+	// To be used for Android's Log
+	private String TAG = sharedHelper.getTag(this.getClass());
 	@Override
 	public void onMessageReceived(RemoteMessage remoteMessage) {
 		super.onMessageReceived(remoteMessage);
@@ -83,29 +86,19 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 				}
 				// Check if the data of the remote message has a notificationActions
 				if (remoteMessage.getData().containsKey("notificationActions")) {
-					System.out.println(remoteMessage.getData().get("notificationActions"));
+					Log.d(TAG, "notificationActions: " + remoteMessage.getData().get("notificationActions"));
+					List<NotificationAction> notificationActions = new ArrayList<>();
 					try {
 						Gson gson = new Gson();
-						List<NotificationAction> notificationActions = gson.fromJson(remoteMessage.getData().get("notificationActions"), new TypeToken<List<NotificationAction>>() {}.getType());
-						System.out.println("Size: " + notificationActions.size());
-						System.out.println("NotificationAction#action: " + notificationActions.get(0).getAction());
-//						ArrayList<NotificationAction> defaultNotificationActions = null;
-//						defaultNotificationActions.add(new NotificationAction("Test", SharedHelper.ACTION_NOTIFICATIONS_SETTINGS, SharedHelper.ACTION_SETTINGS_ICON));
-//						Gson gson = new Gson();
-//						Type type = new TypeToken<NotificationAction[]>(){}.getType();
-//						notificationActions = gson.fromJson(remoteMessage.getData().get("notificationActions"), type);
-//						int size = Jsoner.deserialize(remoteMessage.getData().get("notificationActions"), new JsonArray()).size();
-//						System.out.println("Size: " + size);
-
-//						defaultNotificationActions = new ArrayList<NotificationAction>(Jsoner.deserialize(remoteMessage.getData().get("notificationActions"), new JsonArray()).toArray(NotificationAction[] notificationActions));
-//						System.out.println("Result: " + remoteMessage.getData().get("notificationActions"));
-//						System.out.println("Result (json array): " + notificationActions.toString());
-//						System.out.println("notificationActions (length): " + notificationActions.length);
+						NotificationAction[] remoteNotificationActions = gson.fromJson(remoteMessage.getData().get("notificationActions"), NotificationAction[].class);
+						notificationActions = Arrays.asList(remoteNotificationActions);
+						Log.d(TAG, "Size: " + remoteNotificationActions.length);
+						Log.d(TAG, "JSON: " + remoteNotificationActions.toString());
+						Log.d(TAG, "NotificationAction#action: " + remoteNotificationActions[0].getAction());
 					} catch (Exception e) {
 						e.printStackTrace();
 						Crashlytics.logException(e);
 					}
-					/*
 					for (NotificationAction notificationAction : notificationActions) {
 						int icon = 0;
 						// Initial intent
@@ -125,7 +118,7 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 								icon = R.drawable.ic_settings_24dp;
 								break;
 						}
-						switch (notificationAction.getActionType()) {
+						switch (notificationAction.actionType) {
 							case SharedHelper.ACTION_NOTIFICATIONS_SETTINGS:
 								intent = new Intent(this, SettingsActivity.class);
 								intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.NotificationPreferenceFragment.class.getName());
@@ -135,7 +128,6 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 						}
 						builder.addAction(new NotificationCompat.Action(icon, notificationAction.getAction(), notificationPendingIntent));
 					}
-					*/
 				}
 			}
 			Intent mainActivityIntent = new Intent(this, MainActivity.class);

@@ -1,33 +1,33 @@
 package com.edricchan.studybuddy.interfaces;
 
 public class NotificationAction {
-	private String mAction;
-	private String mActionType;
-	private String mActionIcon;
+	public String action;
+	public String actionType;
+	public String actionIcon;
 
 	public NotificationAction() {
 
 	}
 	public NotificationAction(NotificationAction notificationAction) {
-		this.mAction = notificationAction.getAction();
-		this.mActionType = notificationAction.getActionType();
-		this.mActionIcon = notificationAction.getActionIcon();
+		this.action = notificationAction.getAction();
+		this.actionType = notificationAction.getActionType();
+		this.actionIcon = notificationAction.getActionIcon();
 	}
 	public NotificationAction(String action, String actionType, String actionIcon) {
-		this.mAction = action;
-		this.mActionType = actionType;
-		this.mActionIcon = actionIcon;
+		this.action = action;
+		this.actionType = actionType;
+		this.actionIcon = actionIcon;
 	}
 
 	public String getAction() {
-		return this.mAction;
+		return this.action;
 	}
 
 	public String getActionIcon() {
-		return this.mActionIcon;
+		return this.actionIcon;
 	}
 
 	public String getActionType() {
-		return this.mActionType;
+		return this.actionType;
 	}
 }

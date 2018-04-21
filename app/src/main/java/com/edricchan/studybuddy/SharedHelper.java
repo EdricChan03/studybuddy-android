@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.edricchan.studybuddy.interfaces.Notification;
@@ -32,27 +33,38 @@ public class SharedHelper {
 	private Context mContext;
 	private int dynamicId = 0;
 	private AtomicInteger atomicInteger = new AtomicInteger(0);
+
 	public SharedHelper(Context context) {
 		this.mContext = context;
 	}
 
+	public SharedHelper() {
+	}
+
+	public static String getTag(Class tagClass) {
+		return tagClass.getSimpleName();
+	}
+
 	/**
 	 * Parses the string (<code>s</code>) into an object (<code>clazz</code>)
-	 * @param s The string to parse
+	 *
+	 * @param s     The string to parse
 	 * @param clazz The class type to parse the string to
-	 * @param <T> Any
+	 * @param <T>   Any
 	 * @return The constructor
 	 * @throws Exception
 	 */
 	public static <T> T parseObjectFromString(String s, Class<T> clazz) throws Exception {
-		return clazz.getConstructor(new Class[] {String.class }).newInstance(s);
+		return clazz.getConstructor(new Class[]{String.class}).newInstance(s);
 	}
+
 	/**
 	 * Dynamically creates a new ID for use with Android's notification manager
 	 */
 	public int getDynamicId() {
 		return atomicInteger.incrementAndGet();
 	}
+
 	/**
 	 * Creates a notification action
 	 *
