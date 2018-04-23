@@ -585,8 +585,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 								},
 								10000);
 						AppUpdater appUpdater = new AppUpdater(getActivity())
-								.setUpdateFrom(UpdateFrom.GITHUB)
-								.setGitHubUserAndRepo("Chan4077", "StudyBuddy")
+								.setUpdateFrom(UpdateFrom.JSON)
+								.setUpdateJSON("https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json")
 								.setDisplay(Display.NOTIFICATION)
 								.setIcon(R.drawable.ic_alert_decagram_24dp);
 						appUpdater.start();
