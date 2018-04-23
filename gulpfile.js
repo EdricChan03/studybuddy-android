@@ -6,7 +6,7 @@ gulp.task('changelog', () => {
 		.pipe(conventionalChangelog({
 			preset: 'angular',
 			// Regenerate everything
-			releaseCount: 0
+			// releaseCount: 0
 		}))
 		.pipe(gulp.dest('./'));
 })
