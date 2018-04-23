@@ -333,14 +333,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			if (resultCode == RESULT_OK) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setTitle("Activity result")
-						.setMessage(data.getData().toString())
+						.setMessage("taskTitle: " + data.getStringExtra("taskTitle") + "\ntaskProject: " + data.getStringExtra("taskProject") + "\ntaskContent: " + data.getStringExtra("taskContent"))
 						.setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								dialog.dismiss();
 							}
 						});
-				builder.create();
+				builder.create().show();
 			}
 		}
 	}
