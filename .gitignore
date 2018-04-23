@@ -21,3 +21,6 @@
 
 # Ignore the Google Services config file (This should have been done WAY earlier... Oops)
 google-services.json
+
+# Node modules
+node_modules
