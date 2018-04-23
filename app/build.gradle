@@ -8,8 +8,8 @@ android {
 		applicationId "com.edricchan.studybuddy"
 		minSdkVersion 24
 		targetSdkVersion 27
-		versionCode 8
-		versionName "1.0.0-rc.503"
+		versionCode 9
+		versionName "1.0.0-rc.543"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 		resConfigs "en"
 		multiDexEnabled true
