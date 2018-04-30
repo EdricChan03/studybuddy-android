@@ -1,4 +1,4 @@
-<p align="center"><img src="art/Logotype/Logotype512.png" alt="Proje ismi" height="60px"></p>
+<p align="center"><img src="art/Logotype/Logotype512.png" alt="Studdy Buddy" height="60px"></p>
 
 # Table of contents
 - [Study Buddy](#study-buddy)
