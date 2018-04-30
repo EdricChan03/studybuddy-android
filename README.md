@@ -119,6 +119,8 @@ If you would like to build the source code, follow these steps:
 # Contributing
 If you would like to contribute, please go ahead and submit a pull request explaining your changes to the code and also make sure that you open an issue beforehand.
 
+Logo-Notification Icon Design: @Yasujizr
+
 [art-login-activity]: art/screenshots/login_1.png
 [art-login-forgot-password]: art/screenshots/login_forgot_password.png
 [art-main-activity]: art/screenshots/main_1.png
