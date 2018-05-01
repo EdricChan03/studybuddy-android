@@ -1,11 +1,21 @@
 package com.edricchan.studybuddy;
 
-import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.edricchan.studybuddy.interfaces.Notification;
 import com.edricchan.studybuddy.interfaces.NotificationAction;
 import com.edricchan.studybuddy.interfaces.NotificationData;
+import com.edricchan.studybuddy.receiver.ActionButtonReceiver;
+import com.github.javiersantos.appupdater.AppUpdaterUtils;
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.github.javiersantos.appupdater.objects.Update;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -17,7 +27,15 @@ public class SharedHelper {
 	/**
 	 * Intent for notification settings action button for notifications
 	 */
-	public static final String ACTION_NOTIFICATIONS_SETTINGS = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS";
+	public static final String ACTION_NOTIFICATIONS_SETTINGS_INTENT = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT";
+	/**
+	 * Broadcaster for starting download
+	 */
+	public static final String ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER = "com.edricchan.studybuddy.receiver.ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER";
+	/**
+	 * Broadcaster for retrying check for updates
+	 */
+	public static final String ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER = "com.edricchan.studybuddy.receiver.ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER";
 	/**
 	 * Action icon for settings
 	 */
@@ -30,9 +48,20 @@ public class SharedHelper {
 	 * Action icon for mark as done
 	 */
 	public static final String ACTION_MARK_AS_DONE_ICON = "mark_as_done";
+	// IDs for notifications
+	/**
+	 * ID for checking for updates
+	 */
+	public static final int NOTIFICATION_CHECK_FOR_UPDATES = 0;
+	/**
+	 * ID for mMediaPlayer notification
+	 */
+	public static final int NOTIFICATION_MEDIA = 1;
+	// Context
 	private Context mContext;
-	private int dynamicId = 0;
-	private AtomicInteger atomicInteger = new AtomicInteger(0);
+	// Since IDs 0 and 1 have been taken, use 2
+	private int dynamicId = 2;
+	private AtomicInteger atomicInteger = new AtomicInteger(dynamicId);
 
 	public SharedHelper(Context context) {
 		this.mContext = context;
@@ -43,6 +72,85 @@ public class SharedHelper {
 
 	public static String getTag(Class tagClass) {
 		return tagClass.getSimpleName();
+	}
+
+	public static void checkForUpdates(final Context context) {
+		final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+		final NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context, context.getString(R.string.notification_channel_app_updates_id))
+				.setSmallIcon(R.drawable.ic_notification_system_update_24dp)
+				.setContentTitle(context.getString(R.string.notification_check_update))
+				.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+				.setProgress(100, 0, true)
+				.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+				.setOngoing(true);
+		notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES, notifyBuilder.build());
+		final AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(context)
+				.setUpdateFrom(UpdateFrom.JSON)
+				.setUpdateJSON(context.getString(R.string.testing_changelog_url))
+				.withListener(new AppUpdaterUtils.UpdateListener() {
+					@Override
+					public void onSuccess(Update update, Boolean updateAvailable) {
+						if (update.getLatestVersionCode() == BuildConfig.VERSION_CODE && !updateAvailable) {
+							// User is running latest version
+							notifyBuilder.setContentTitle(context.getString(R.string.notification_no_updates))
+									.setProgress(0, 0, false)
+									.setOngoing(false);
+							notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES, notifyBuilder.build());
+						} else {
+							// New update
+							Intent intentAction = new Intent(context, ActionButtonReceiver.class);
+
+							intentAction.putExtra("action", ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER);
+							intentAction.putExtra("downloadUrl", update.getUrlToDownload().toString());
+							intentAction.putExtra("version", update.getLatestVersion().toString());
+							PendingIntent pIntentDownload = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+							notifyBuilder.setContentTitle(context.getString(R.string.notification_new_update_title))
+									.setContentText(context.getString(R.string.notification_new_update_text, update.getLatestVersion()))
+									.setProgress(0, 0, false)
+									.addAction(new NotificationCompat.Action(R.drawable.ic_download_24dp, "Download", pIntentDownload));
+							notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES, notifyBuilder.build());
+						}
+					}
+
+					@Override
+					public void onFailed(AppUpdaterError appUpdaterError) {
+						switch (appUpdaterError) {
+							case NETWORK_NOT_AVAILABLE:
+								Intent intentAction = new Intent(context, ActionButtonReceiver.class);
+
+								//This is optional if you have more than one buttons and want to differentiate between two
+								intentAction.putExtra("action", ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER);
+								PendingIntent pIntentRetry = PendingIntent.getBroadcast(context, 2, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+								notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_no_internet_title))
+										.setContentText(context.getString(R.string.notification_updates_error_no_internet_text))
+										.setProgress(0, 0, false)
+										.setSmallIcon(R.drawable.ic_wifi_strength_4_alert)
+										.setOngoing(false)
+										.setColor(ContextCompat.getColor(context, R.color.colorWarn))
+										.setStyle(new NotificationCompat.BigTextStyle())
+										.addAction(new NotificationCompat.Action(R.drawable.ic_refresh_24dp, "Retry", pIntentRetry));
+								break;
+						}
+						notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES, notifyBuilder.build());
+					}
+				});
+		appUpdaterUtils.start();
+	}
+
+	/**
+	 * Checks if the permission is granted and if it isn't, ask for permission
+	 *
+	 * @param permission The permission to check
+	 * @param context    The context
+	 */
+	public static boolean checkPermission(String permission, Context context) {
+		if (ContextCompat.checkSelfPermission(context, permission)
+				!= PackageManager.PERMISSION_GRANTED) {
+			// Permission is not granted
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
@@ -72,7 +180,7 @@ public class SharedHelper {
 	 */
 	private List<NotificationAction> addDefaultNotificationActions() {
 		List<NotificationAction> notificationActionList = new ArrayList<>();
-		notificationActionList.add(new NotificationAction("settings", "Configure notifications", ACTION_NOTIFICATIONS_SETTINGS));
+		notificationActionList.add(new NotificationAction("settings", "Configure notifications", ACTION_NOTIFICATIONS_SETTINGS_INTENT));
 		return notificationActionList;
 	}
 

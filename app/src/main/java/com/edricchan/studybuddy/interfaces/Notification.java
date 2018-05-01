@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.edricchan.studybuddy.SharedHelper.ACTION_NOTIFICATIONS_SETTINGS;
+import static com.edricchan.studybuddy.SharedHelper.ACTION_NOTIFICATIONS_SETTINGS_INTENT;
 import static com.edricchan.studybuddy.SharedHelper.ACTION_SETTINGS_ICON;
 
 public class Notification {
@@ -62,7 +62,7 @@ public class Notification {
 		this.mBody = "";
 		// Assume default is "uncategorised"
 		List<NotificationAction> notificationActions = new ArrayList<NotificationAction>();
-		notificationActions.add(new NotificationAction(ACTION_SETTINGS_ICON, "Notification settings", ACTION_NOTIFICATIONS_SETTINGS));
+		notificationActions.add(new NotificationAction(ACTION_SETTINGS_ICON, "Notification settings", ACTION_NOTIFICATIONS_SETTINGS_INTENT));
 		this.mNotificationData = new NotificationData("uncategorised", notificationActions);
 	}
 
@@ -71,7 +71,7 @@ public class Notification {
 		this.mMessage = message;
 		this.mBody = body;
 		List<NotificationAction> notificationActions = new ArrayList<NotificationAction>();
-		notificationActions.add(new NotificationAction(ACTION_SETTINGS_ICON, "Notification settings", ACTION_NOTIFICATIONS_SETTINGS));
+		notificationActions.add(new NotificationAction(ACTION_SETTINGS_ICON, "Notification settings", ACTION_NOTIFICATIONS_SETTINGS_INTENT));
 		this.mNotificationData = new NotificationData("uncategorised", notificationActions);
 	}
 

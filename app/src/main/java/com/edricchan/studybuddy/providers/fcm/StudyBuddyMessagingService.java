@@ -119,7 +119,7 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 								break;
 						}
 						switch (notificationAction.actionType) {
-							case SharedHelper.ACTION_NOTIFICATIONS_SETTINGS:
+							case SharedHelper.ACTION_NOTIFICATIONS_SETTINGS_INTENT:
 								intent = new Intent(this, SettingsActivity.class);
 								intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.NotificationPreferenceFragment.class.getName());
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

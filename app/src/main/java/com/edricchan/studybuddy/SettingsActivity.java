@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,9 +23,8 @@ import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -34,9 +34,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
-import com.github.javiersantos.appupdater.AppUpdater;
-import com.github.javiersantos.appupdater.enums.Display;
-import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -216,10 +213,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
-					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+					customTabsIntent.launchUrl(getActivity(), Uri.parse(sendFeedbackUrl));
 					return true;
 				case R.id.action_help:
 					// TODO: Add some stuff
@@ -374,7 +371,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			addPreferencesFromResource(R.xml.pref_notification);
 			setHasOptionsMenu(true);
 			preferenceScreen = this.getPreferenceScreen();
-			sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+			sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			// Add notification channels to list
 			// Check if list is empty
 			if (notificationChannels.isEmpty()) {
@@ -409,10 +406,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
-					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+					customTabsIntent.launchUrl(getActivity(), Uri.parse(sendFeedbackUrl));
 					return true;
 				case R.id.action_help:
 					// TODO: Add some stuff
@@ -486,7 +483,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				public boolean onPreferenceClick(Preference preference) {
 					if (mobileDataSync.isChecked()) {
 						mobileDataSync.setChecked(false);
-						AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 						builder.setPositiveButton(R.string.dialog_action_yes, new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
@@ -517,10 +514,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
-					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+					customTabsIntent.launchUrl(getActivity(), Uri.parse(sendFeedbackUrl));
 					return true;
 				case R.id.action_help:
 					// TODO: Add some stuff
@@ -542,55 +539,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_versions);
 			setHasOptionsMenu(true);
-			final Context context = getContext();
+			final Context context = getActivity();
 			final String appAuthorUrl = "https://github.com/Chan4077";
 			final String appSrcUrl = "https://github.com/Chan4077/StudyBuddy";
 			// String appIssueUrl = "https://github.com/Chan4077/StudyBuddy/issues/new";
 			CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-			builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+			builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 			builder.addDefaultShareMenuItem();
 			final CustomTabsIntent customTabsIntent = builder.build();
 			final Preference checkForUpdates = getPreferenceManager().findPreference("check_for_updates");
 			checkForUpdates.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					if (preference.getKey().equals("check_for_updates")) {
-						final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
-						final NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(getContext(), getString(R.string.notification_channel_app_updates_id))
-								.setSmallIcon(R.drawable.ic_notification_system_update_24dp)
-								.setContentTitle(getString(R.string.notification_check_update))
-								.setPriority(NotificationCompat.PRIORITY_DEFAULT)
-								.setProgress(100, 0, true)
-								.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
-								.setOngoing(true);
-						notificationManager.notify(0, notifyBuilder.build());
-						checkForUpdates.setEnabled(false);
-						new android.os.Handler().postDelayed(
-								new Runnable() {
-									public void run() {
-										notifyBuilder.setContentTitle(getString(R.string.notification_no_updates))
-												.setProgress(0, 0, false)
-												.setOngoing(false);
-										notificationManager.notify(0, notifyBuilder.build());
-										new android.os.Handler().postDelayed(
-												new Runnable() {
-													@Override
-													public void run() {
-														checkForUpdates.setEnabled(true);
-														notificationManager.cancel(0);
-													}
-												},
-												2000);
-									}
-								},
-								10000);
-						AppUpdater appUpdater = new AppUpdater(getActivity())
-								.setUpdateFrom(UpdateFrom.JSON)
-								.setUpdateJSON("https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json")
-								.setDisplay(Display.NOTIFICATION)
-								.setIcon(R.drawable.ic_alert_decagram_24dp);
-						appUpdater.start();
-					}
+					checkPermission();
+					SharedHelper.checkForUpdates(context);
 					return true;
 				}
 			});
@@ -636,10 +598,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					return true;
 				case R.id.action_send_feedback:
 					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+					builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 					builder.addDefaultShareMenuItem();
 					final CustomTabsIntent customTabsIntent = builder.build();
-					customTabsIntent.launchUrl(getContext(), Uri.parse(sendFeedbackUrl));
+					customTabsIntent.launchUrl(getActivity(), Uri.parse(sendFeedbackUrl));
 					return true;
 				case R.id.action_help:
 					// TODO: Add some stuff
@@ -651,6 +613,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		@Override
 		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 			inflater.inflate(R.menu.menu_settings, menu);
+		}
+
+		public void checkPermission() {
+			if (SharedHelper.checkPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, getActivity())) {
+				// Permission granted
+				SharedHelper.checkForUpdates(getActivity());
+			} else {
+				// Permission hasn't been granted
+				if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+						android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+					// Show an explanation to the user *asynchronously* -- don't block
+					// this thread waiting for the user's response! After the user
+					// sees the explanation, try again to request the permission.
+				} else {
+					// No explanation needed; request the permission
+					ActivityCompat.requestPermissions(getActivity(),
+							new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+					checkPermission();
+				}
+
+			}
 		}
 
 		/**

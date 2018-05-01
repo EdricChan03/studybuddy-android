@@ -4,6 +4,9 @@
 	package="com.edricchan.studybuddy">
 	<!-- Required for downloading new updates -->
 	<uses-permission android:name="android.permission.INTERNET" />
+	<!-- Required for writing to external storage -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<application
 		android:allowBackup="true"
 		android:appCategory="productivity"
@@ -128,6 +131,7 @@
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
 		</service>
+		<!-- Receivers -->
+		<receiver android:name=".receiver.ActionButtonReceiver" />
 	</application>
-
 </manifest>
