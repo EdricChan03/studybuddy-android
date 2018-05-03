@@ -29,6 +29,7 @@ ext {
 	// Android Support Library
 	supportLibVersion = "27.1.1"
 	// FirebaseSDK
+	// Notice: Starting from 2 May 2018, the FirebaseSDK has independent version numbers, making this property useless
 	firebaseVersion = "15.0.0"
 }
 task clean(type: Delete) {

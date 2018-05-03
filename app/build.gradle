@@ -48,17 +48,16 @@ dependencies {
 	implementation "com.android.support:customtabs:${rootProject.ext.supportLibVersion}"
 	testImplementation "junit:junit:4.12"
 	// Firebase stuff
-	implementation "com.google.firebase:firebase-storage:${rootProject.ext.firebaseVersion}"
-	implementation "com.google.firebase:firebase-firestore:${rootProject.ext.firebaseVersion}"
-	implementation "com.google.firebase:firebase-auth:${rootProject.ext.firebaseVersion}"
-	implementation "com.google.firebase:firebase-messaging:${rootProject.ext.firebaseVersion}"
-	implementation "com.google.android.gms:play-services-auth:${rootProject.ext.firebaseVersion}"
+	implementation "com.google.firebase:firebase-firestore:16.0.0"
+	implementation "com.google.firebase:firebase-auth:15.1.0"
+	implementation "com.google.firebase:firebase-messaging:15.0.2"
+	implementation "com.google.android.gms:play-services-auth:15.0.0"
 	// Provide a way to update the app
 	implementation "com.github.javiersantos:AppUpdater:2.6.5"
 	// The app"s intro screen
 	implementation "com.heinrichreimersoftware:material-intro:1.6.2"
 	// Crashlytics
-	implementation "com.crashlytics.sdk.android:crashlytics:2.9.1"
+	implementation "com.crashlytics.sdk.android:crashlytics:2.9.2"
 
 	// For JSON parsing
 	implementation 'com.google.code.gson:gson:2.8.2'
