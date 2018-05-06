@@ -1,13 +1,9 @@
 package com.edricchan.studybuddy;
 
-import android.app.NotificationChannel;
-import android.app.NotificationChannelGroup;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,10 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import static java.lang.System.out;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 	/**
@@ -47,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	 */
 	static final int ACTION_NEW_TASK = 1;
 	private static final String ACTION_ADD_NEW_TODO = "com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO";
+	private static final String TAG = SharedHelper.getTag(MainActivity.class);
 	final Context context = this;
 	private final ArrayList taskItems = new ArrayList<>();
 	private int testInt, RC_SIGN_IN;
@@ -146,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		mRecyclerView.setAdapter(mAdapter);
 		// Check if Android Oreo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			setupNotificationChannels();
+			SharedHelper.createNotificationChannels(MainActivity.this);
 		}
 	}
 
@@ -156,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		mAuth = FirebaseAuth.getInstance();
 		currentUser = mAuth.getCurrentUser();
 		if (currentUser == null) {
-			out.println("Not logged in");
+			Log.d(TAG, "Not logged in");
 			AlertDialog signInDialog = new AlertDialog.Builder(context)
 					.setTitle("Sign in")
 					.setMessage("To access the content, please login or register for an account.")
@@ -229,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 					@Override
 					public void onSuccess(QuerySnapshot documentSnapshots) {
 						if (documentSnapshots.isEmpty()) {
-							System.out.println("getTodos: onSuccess: List is empty");
+							Log.d(TAG, "getTodos: onSuccess: List is empty");
 						} else {
 							// Convert the whole Query Snapshot to a list
 							// of objects directly! No need to fetch each
@@ -246,68 +240,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 					@Override
 					public void onFailure(@NonNull Exception e) {
 						Toast.makeText(getApplicationContext(), "Error getting data!", Toast.LENGTH_LONG).show();
-						Log.w("Error", e);
+						Log.w(TAG, "An error occured while retrieving data: ", e);
 					}
 				});
-	}
-
-	/**
-	 * Used for setting up notification channels
-	 * NOTE: This will only work if the device is Android Oreo or later
-	 */
-	public void setupNotificationChannels() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			NotificationManager notificationManager =
-					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			// Create a new list
-			List<NotificationChannel> channels = new ArrayList<NotificationChannel>();
-
-			// Task updates notifications
-			NotificationChannel todoUpdatesChannel = new NotificationChannel("todo_updates", getString(R.string.notification_channel_todo_updates_title), NotificationManager.IMPORTANCE_HIGH);
-			todoUpdatesChannel.setDescription(getString(R.string.notification_channel_todo_updates_desc));
-			todoUpdatesChannel.setGroup(getString(R.string.notification_channel_group_todos_id));
-			todoUpdatesChannel.enableLights(true);
-			todoUpdatesChannel.setLightColor(Color.YELLOW);
-			todoUpdatesChannel.enableVibration(true);
-			todoUpdatesChannel.setShowBadge(true);
-			channels.add(todoUpdatesChannel);
-
-			// Weekly summary notifications
-			NotificationChannel weeklySummaryChannel = new NotificationChannel("weekly_summary", getString(R.string.notification_channel_weekly_summary_title), NotificationManager.IMPORTANCE_LOW);
-			weeklySummaryChannel.setDescription(getString(R.string.notification_channel_weekly_summary_desc));
-			weeklySummaryChannel.setGroup(getString(R.string.notification_channel_group_todos_id));
-			weeklySummaryChannel.setShowBadge(true);
-			channels.add(weeklySummaryChannel);
-
-			// Syncing notifications
-			NotificationChannel syncChannel = new NotificationChannel("sync", getString(R.string.notification_channel_sync_title), NotificationManager.IMPORTANCE_LOW);
-			syncChannel.setDescription(getString(R.string.notification_channel_sync_desc));
-			syncChannel.setShowBadge(false);
-			channels.add(syncChannel);
-
-			// App notifications
-			NotificationChannel appUpdatesChannel = new NotificationChannel("app_updates", getString(R.string.notification_channel_app_updates_title), NotificationManager.IMPORTANCE_LOW);
-			appUpdatesChannel.setDescription(getString(R.string.notification_channel_app_updates_desc));
-			appUpdatesChannel.setShowBadge(false);
-			channels.add(appUpdatesChannel);
-
-			// Media playback notifications
-			NotificationChannel playbackChannel = new NotificationChannel("playback", getString(R.string.notification_channel_playback_title), NotificationManager.IMPORTANCE_LOW);
-			playbackChannel.setDescription(getString(R.string.notification_channel_playback_desc));
-			playbackChannel.setShowBadge(true);
-			channels.add(playbackChannel);
-
-			// Uncategorized notifications
-			NotificationChannel uncategorisedChannel = new NotificationChannel("uncategorised", getString(R.string.notification_channel_uncategorised_title), NotificationManager.IMPORTANCE_DEFAULT);
-			uncategorisedChannel.setDescription(getString(R.string.notification_channel_uncategorised_desc));
-			uncategorisedChannel.setShowBadge(true);
-			channels.add(uncategorisedChannel);
-			// Notification channel groups
-			notificationManager.createNotificationChannelGroup(new NotificationChannelGroup(getString(R.string.notification_channel_group_todos_id), getString(R.string.notification_channel_group_todos_title)));
-			// Pass list to method
-			notificationManager.createNotificationChannels(channels);
-
-		}
 	}
 
 	/**
@@ -410,6 +345,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-		Log.d("Tag", "onConnectionFailed:" + connectionResult);
+		Log.e(TAG, "Connection failed:" + connectionResult);
 	}
 }

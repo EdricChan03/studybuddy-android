@@ -1,9 +1,14 @@
 package com.edricchan.studybuddy;
 
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,11 +21,16 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SharedHelper {
@@ -74,9 +84,108 @@ public class SharedHelper {
 		return tagClass.getSimpleName();
 	}
 
+	public static Task<DocumentReference> addData(String taskTitle, String taskContent, String taskProject, FirebaseUser user, FirebaseFirestore fs) {
+		Map<String, Object> task = new HashMap<>();
+		task.put("content", taskContent);
+		task.put("project", taskProject);
+		task.put("title", taskTitle);
+		return fs.collection("users/" + user.getUid() + "/todos").add(new TaskItem(taskTitle, taskProject, taskContent));
+	}
+
+	/**
+	 * Used for setting up notification channels
+	 * NOTE: This will only work if the device is Android Oreo or later
+	 *
+	 * @param context The context
+	 */
+	public static void createNotificationChannels(Context context) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			NotificationManager notificationManager =
+					(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+			// Create a new list
+			List<NotificationChannel> channels = new ArrayList<>();
+			// Create another list for channel groups
+			List<NotificationChannelGroup> channelGroups = new ArrayList<>();
+			// Task updates notifications
+			NotificationChannel todoUpdatesChannel = new NotificationChannel(context.getString(R.string.notification_channel_todo_updates_id), context.getString(R.string.notification_channel_todo_updates_title), NotificationManager.IMPORTANCE_HIGH);
+			todoUpdatesChannel.setDescription(context.getString(R.string.notification_channel_todo_updates_desc));
+			todoUpdatesChannel.setGroup(context.getString(R.string.notification_channel_group_todos_id));
+			todoUpdatesChannel.enableLights(true);
+			todoUpdatesChannel.setLightColor(Color.YELLOW);
+			todoUpdatesChannel.enableVibration(true);
+			todoUpdatesChannel.setShowBadge(true);
+			channels.add(todoUpdatesChannel);
+
+			// Weekly summary notifications
+			NotificationChannel weeklySummaryChannel = new NotificationChannel(context.getString(R.string.notification_channel_weekly_summary_id), context.getString(R.string.notification_channel_weekly_summary_title), NotificationManager.IMPORTANCE_LOW);
+			weeklySummaryChannel.setDescription(context.getString(R.string.notification_channel_weekly_summary_desc));
+			weeklySummaryChannel.setGroup(context.getString(R.string.notification_channel_group_todos_id));
+			weeklySummaryChannel.setShowBadge(true);
+			channels.add(weeklySummaryChannel);
+
+			// Syncing notifications
+			NotificationChannel syncChannel = new NotificationChannel(context.getString(R.string.notification_channel_sync_id), context.getString(R.string.notification_channel_sync_title), NotificationManager.IMPORTANCE_LOW);
+			syncChannel.setDescription(context.getString(R.string.notification_channel_sync_desc));
+			syncChannel.setShowBadge(false);
+			channels.add(syncChannel);
+
+			// Update error notifications
+			NotificationChannel updateErrorChannel = new NotificationChannel(context.getString(R.string.notification_channel_update_error_id), context.getString(R.string.notification_channel_update_error_title), NotificationManager.IMPORTANCE_HIGH);
+			updateErrorChannel.setDescription(context.getString(R.string.notification_channel_update_error_desc));
+			updateErrorChannel.setGroup(context.getString(R.string.notification_channel_group_updates_id));
+			updateErrorChannel.setShowBadge(false);
+			channels.add(updateErrorChannel);
+			// Update status notifications
+			NotificationChannel updateStatusChannel = new NotificationChannel(context.getString(R.string.notification_channel_update_status_id), context.getString(R.string.notification_channel_update_status_title), NotificationManager.IMPORTANCE_LOW);
+			updateStatusChannel.setDescription(context.getString(R.string.notification_channel_update_status_desc));
+			updateStatusChannel.setGroup(context.getString(R.string.notification_channel_group_updates_id));
+			updateStatusChannel.setShowBadge(false);
+			channels.add(updateStatusChannel);
+			// Update complete notifications
+			NotificationChannel updateCompleteChannel = new NotificationChannel(context.getString(R.string.notification_channel_update_complete_id), context.getString(R.string.notification_channel_update_complete_title), NotificationManager.IMPORTANCE_LOW);
+			updateCompleteChannel.setDescription(context.getString(R.string.notification_channel_update_complete_desc));
+			updateCompleteChannel.setGroup(context.getString(R.string.notification_channel_group_updates_id));
+			updateCompleteChannel.setShowBadge(false);
+			channels.add(updateCompleteChannel);
+			// Update not available notifications
+			NotificationChannel updateNotAvailableChannel = new NotificationChannel(context.getString(R.string.notification_channel_update_not_available_id), context.getString(R.string.notification_channel_update_not_available_title), NotificationManager.IMPORTANCE_DEFAULT);
+			updateNotAvailableChannel.setDescription(context.getString(R.string.notification_channel_update_not_available_desc));
+			updateNotAvailableChannel.setGroup(context.getString(R.string.notification_channel_group_updates_id));
+			updateNotAvailableChannel.setShowBadge(false);
+			channels.add(updateNotAvailableChannel);
+			// Update available notifications
+			NotificationChannel updateAvailableChannel = new NotificationChannel(context.getString(R.string.notification_channel_update_available_id), context.getString(R.string.notification_channel_update_available_title), NotificationManager.IMPORTANCE_HIGH);
+			updateAvailableChannel.setDescription(context.getString(R.string.notification_channel_update_available_desc));
+			updateAvailableChannel.setGroup(context.getString(R.string.notification_channel_group_updates_id));
+			updateAvailableChannel.setShowBadge(false);
+			channels.add(updateAvailableChannel);
+
+			// Media playback notifications
+			NotificationChannel playbackChannel = new NotificationChannel(context.getString(R.string.notification_channel_playback_id), context.getString(R.string.notification_channel_playback_title), NotificationManager.IMPORTANCE_LOW);
+			playbackChannel.setDescription(context.getString(R.string.notification_channel_playback_desc));
+			playbackChannel.setShowBadge(true);
+			channels.add(playbackChannel);
+
+			// Uncategorized notifications
+			NotificationChannel uncategorisedChannel = new NotificationChannel(context.getString(R.string.notification_channel_uncategorised_id), context.getString(R.string.notification_channel_uncategorised_title), NotificationManager.IMPORTANCE_DEFAULT);
+			uncategorisedChannel.setDescription(context.getString(R.string.notification_channel_uncategorised_desc));
+			uncategorisedChannel.setShowBadge(true);
+			channels.add(uncategorisedChannel);
+			// Notification channel groups
+			NotificationChannelGroup todoChannelGroup = new NotificationChannelGroup(context.getString(R.string.notification_channel_group_todos_id), context.getString(R.string.notification_channel_group_todos_title));
+			channelGroups.add(todoChannelGroup);
+			NotificationChannelGroup updatesChannelGroup = new NotificationChannelGroup(context.getString(R.string.notification_channel_group_updates_id), context.getString(R.string.notification_channel_group_updates_title));
+			channelGroups.add(updatesChannelGroup);
+			notificationManager.createNotificationChannelGroups(channelGroups);
+			// Pass list to method
+			notificationManager.createNotificationChannels(channels);
+
+		}
+	}
+
 	public static void checkForUpdates(final Context context) {
 		final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-		final NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context, context.getString(R.string.notification_channel_app_updates_id))
+		final NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context, context.getString(R.string.notification_channel_update_status_id))
 				.setSmallIcon(R.drawable.ic_notification_system_update_24dp)
 				.setContentTitle(context.getString(R.string.notification_check_update))
 				.setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -107,6 +216,8 @@ public class SharedHelper {
 							notifyBuilder.setContentTitle(context.getString(R.string.notification_new_update_title))
 									.setContentText(context.getString(R.string.notification_new_update_text, update.getLatestVersion()))
 									.setProgress(0, 0, false)
+									.setOngoing(false)
+									.setChannelId(context.getString(R.string.notification_channel_update_available_id))
 									.addAction(new NotificationCompat.Action(R.drawable.ic_download_24dp, "Download", pIntentDownload));
 							notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES, notifyBuilder.build());
 						}
@@ -116,22 +227,29 @@ public class SharedHelper {
 					public void onFailed(AppUpdaterError appUpdaterError) {
 						switch (appUpdaterError) {
 							case NETWORK_NOT_AVAILABLE:
-								Intent intentAction = new Intent(context, ActionButtonReceiver.class);
-
-								//This is optional if you have more than one buttons and want to differentiate between two
-								intentAction.putExtra("action", ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER);
-								PendingIntent pIntentRetry = PendingIntent.getBroadcast(context, 2, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
 								notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_no_internet_title))
 										.setContentText(context.getString(R.string.notification_updates_error_no_internet_text))
-										.setProgress(0, 0, false)
-										.setSmallIcon(R.drawable.ic_wifi_strength_4_alert)
-										.setOngoing(false)
-										.setColor(ContextCompat.getColor(context, R.color.colorWarn))
-										.setStyle(new NotificationCompat.BigTextStyle())
-										.addAction(new NotificationCompat.Action(R.drawable.ic_refresh_24dp, "Retry", pIntentRetry));
+										.setSmallIcon(R.drawable.ic_wifi_strength_4_alert);
 								break;
+							case JSON_ERROR:
+								notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_not_found_title))
+										.setContentText(context.getString(R.string.notification_updates_error_not_found_text))
+										.setSmallIcon(R.drawable.ic_file_not_found_24dp);
 						}
-						notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES, notifyBuilder.build());
+						Intent intentAction = new Intent(context, ActionButtonReceiver.class);
+
+						//This is optional if you have more than one buttons and want to differentiate between two
+						intentAction.putExtra("action", ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER);
+						PendingIntent pIntentRetry = PendingIntent.getBroadcast(context, 2, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+						notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES,
+								notifyBuilder
+										.setProgress(0, 0, false)
+										.setOngoing(false)
+										.setChannelId(context.getString(R.string.notification_channel_update_error_id))
+										.setColor(ContextCompat.getColor(context, R.color.colorWarn))
+										.addAction(new NotificationCompat.Action(R.drawable.ic_refresh_24dp, "Retry", pIntentRetry))
+										.setStyle(new NotificationCompat.BigTextStyle())
+										.build());
 					}
 				});
 		appUpdaterUtils.start();
