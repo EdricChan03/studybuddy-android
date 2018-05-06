@@ -12,7 +12,7 @@
 		<!-- Each one of these intents needs an android:action, even if you don't
 			 do anything with it. Otherwise you're in for a crash! -->
 		<intent
-			android:action="android.intent.action.ACTION_VIEW"
+			android:action="com.edricchan.studybuddy.ACTION_NEW_TASK_FROM_SHORTCUT"
 			android:targetClass="com.edricchan.studybuddy.NewTaskActivity"
 			android:targetPackage="com.edricchan.studybuddy" />
 	</shortcut>
