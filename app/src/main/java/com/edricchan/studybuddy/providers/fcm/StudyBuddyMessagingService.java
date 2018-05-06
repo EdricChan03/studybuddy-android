@@ -105,9 +105,6 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 						Intent intent;
 						// Notification pending intent
 						PendingIntent notificationPendingIntent = null;
-						System.out.println("NotificationAction#action: " + notificationAction.getAction());
-						System.out.println("NotificationAction#actionIcon: " + notificationAction.getActionIcon());
-						System.out.println("NotificationAction#actionType: " + notificationAction.getActionType());
 						switch (notificationAction.getActionIcon()) {
 							case SharedHelper.ACTION_MARK_AS_DONE_ICON:
 								break;
