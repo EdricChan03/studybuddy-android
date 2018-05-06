@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.TooltipCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,8 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 	public void onBindViewHolder(final StudyAdapter.Holder holder, final int position) {
 		TaskItem item = mFeedItemList.get(position);
 		TextView textView = (TextView) holder.textView;
-		System.out.println("Item's task name is: " + item.getTitle());
-		textView.setText(item.getTitle());
+		Log.d(SharedHelper.getTag(StudyAdapter.class), "Item's task name is: " + item.title);
+		textView.setText(item.title);
 		ImageButton imgBtn = (ImageButton) holder.markDoneBtn;
 		TooltipCompat.setTooltipText(imgBtn, "Mark as done");
 //        imgBtn.setTooltipText() = TooltipCompat.setTooltipText();

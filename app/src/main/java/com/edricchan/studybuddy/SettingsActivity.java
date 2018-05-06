@@ -2,6 +2,8 @@ package com.edricchan.studybuddy;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +31,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -51,6 +54,7 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 	private static final String sendFeedbackUrl = "https://goo.gl/forms/tz6cmNguIHuZMZIh2";
+	private static final String TAG = SharedHelper.getTag(SettingsActivity.class);
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
@@ -237,8 +241,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class NotificationPreferenceFragment extends PreferenceFragment {
+		private static final String FRAG_TAG = SharedHelper.getTag(NotificationPreferenceFragment.class);
 		final List<MyNotificationChannel> notificationChannels = new ArrayList<>();
-		final String[] notificationChannelIds = new String[]{"todo_updates", "weekly_summary", "sync", "app_updates", "playback", "uncategorised"};
+		final List<String> notificationChannelIds = new ArrayList<>();
 		PreferenceScreen preferenceScreen;
 		SharedPreferences sharedPreferences;
 
@@ -265,20 +270,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			preferenceScreen.addPreference(allNotificationsPreference);
 			for (MyNotificationChannel notificationChannel : notificationChannels) {
 				final PreferenceCategory notificationChannelCategory = new PreferenceCategory(preferenceScreen.getContext());
-				notificationChannelCategory.setTitle(notificationChannel.getNotificationTitle());
-				notificationChannelCategory.setSummary(notificationChannel.getNotificationDesc());
+				notificationChannelCategory.setTitle(notificationChannel.notificationTitle);
+				notificationChannelCategory.setSummary(notificationChannel.notificationDesc);
 				notificationChannelCategory.setLayoutResource(R.layout.preference_category_summary);
 				preferenceScreen.addPreference(notificationChannelCategory);
 				final SwitchPreference notificationEnabledPreference = new SwitchPreference(preferenceScreen.getContext());
 				notificationEnabledPreference.setTitle(R.string.pref_notification_channel_enabled_title);
-				notificationEnabledPreference.setKey("notification_channel_" + notificationChannelIds[notificationChannel.getIndex()] + "_enabled");
+				notificationEnabledPreference.setKey("notification_channel_" + notificationChannelIds.get(notificationChannel.index) + "_enabled");
 				notificationEnabledPreference.setChecked(true);
 				notificationChannelCategory.addPreference(notificationEnabledPreference);
 
 				final Preference notificationAdvancedPreference = new Preference(preferenceScreen.getContext());
 				notificationAdvancedPreference.setTitle(R.string.pref_notification_channel_advanced_title);
 				notificationAdvancedPreference.setSummary(R.string.pref_notification_channel_advanced_desc);
-				notificationAdvancedPreference.setKey(notificationChannelIds[notificationChannel.getIndex()]);
+				notificationAdvancedPreference.setKey(notificationChannelIds.get(notificationChannel.index));
 				notificationAdvancedPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(Preference preference) {
@@ -332,19 +337,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			for (MyNotificationChannel notificationChannel : notificationChannels) {
 				PreferenceCategory preOreoNotificationChannelCategory = new PreferenceCategory(preferenceScreen.getContext());
 				preferenceScreen.addPreference(preOreoNotificationChannelCategory);
-				preOreoNotificationChannelCategory.setTitle(notificationChannel.getNotificationTitle());
+				preOreoNotificationChannelCategory.setTitle(notificationChannel.notificationTitle);
 				preOreoNotificationChannelCategory.setDependency("enable_all_notification_channels");
 				// Description of notification channel
 				Preference preOreoNotificationDescPreference = new Preference(preferenceScreen.getContext());
 				preOreoNotificationDescPreference.setEnabled(false);
 				preOreoNotificationDescPreference.setTitle("About this channel");
-				preOreoNotificationDescPreference.setSummary(notificationChannel.getNotificationDesc());
+				preOreoNotificationDescPreference.setSummary(notificationChannel.notificationDesc);
 				preOreoNotificationChannelCategory.addPreference(preOreoNotificationDescPreference);
 				// Enable notification preference
 				SwitchPreference enableNotificationPreference = new SwitchPreference(preferenceScreen.getContext());
 				enableNotificationPreference.setChecked(true);
 				enableNotificationPreference.setTitle("Enable notification channel");
-				enableNotificationPreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_enabled");
+				enableNotificationPreference.setKey("notification_channel_" + notificationChannel.notificationId + "_enabled");
 				preOreoNotificationChannelCategory.addPreference(enableNotificationPreference);
 				// Enable vibration preference
 				SwitchPreference enableVibratePreference = new SwitchPreference(preferenceScreen.getContext());
@@ -352,16 +357,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				enableVibratePreference.setSummary("Whether to vibrate when you receive a notification from this channel");
 				enableVibratePreference.setChecked(true);
 				enableVibratePreference.setIcon(R.drawable.ic_vibrate_24dp);
-				enableVibratePreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_vibrate_enabled");
+				enableVibratePreference.setKey("notification_channel_" + notificationChannel.notificationId + "_vibrate_enabled");
 				preOreoNotificationChannelCategory.addPreference(enableVibratePreference);
 				RingtonePreference notificationRingtonePreference = new RingtonePreference(preferenceScreen.getContext());
 				notificationRingtonePreference.setIcon(R.drawable.ic_music_24dp);
 				notificationRingtonePreference.setTitle("Set ringtone");
-				notificationRingtonePreference.setKey("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_ringtone");
+				notificationRingtonePreference.setKey("notification_channel_" + notificationChannel.notificationId + "_ringtone");
 				bindPreferenceSummaryToValue(notificationRingtonePreference);
 				preOreoNotificationChannelCategory.addPreference(notificationRingtonePreference);
-				enableVibratePreference.setDependency("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_enabled");
-				notificationRingtonePreference.setDependency("notification_channel_" + getString(notificationChannel.getNotificationId()) + "_enabled");
+				enableVibratePreference.setDependency("notification_channel_" + notificationChannel.notificationId + "_enabled");
+				notificationRingtonePreference.setDependency("notification_channel_" + notificationChannel.notificationId + "_enabled");
 			}
 		}
 
@@ -375,12 +380,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			// Add notification channels to list
 			// Check if list is empty
 			if (notificationChannels.isEmpty()) {
-				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_todo_updates_title, R.string.notification_channel_todo_updates_desc, R.string.notification_channel_todo_updates_id, 0));
-				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_weekly_summary_title, R.string.notification_channel_weekly_summary_desc, R.string.notification_channel_weekly_summary_id, 1));
-				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_sync_title, R.string.notification_channel_sync_desc, R.string.notification_channel_sync_id, 2));
-				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_app_updates_title, R.string.notification_channel_app_updates_desc, R.string.notification_channel_app_updates_id, 3));
-				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_playback_title, R.string.notification_channel_playback_desc, R.string.notification_channel_playback_id, 4));
-				notificationChannels.add(new MyNotificationChannel(R.string.notification_channel_uncategorised_title, R.string.notification_channel_uncategorised_desc, R.string.notification_channel_uncategorised_id, 5));
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					NotificationManager notificationManager =
+							(NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+					int index = 0;
+					for (NotificationChannel notificationChannel : notificationManager.getNotificationChannels()) {
+						notificationChannels.add(new MyNotificationChannel(notificationChannel.getName(), notificationChannel.getDescription(), notificationChannel.getId(), index++));
+						notificationChannelIds.add(notificationChannel.getId());
+					}
+				}
 			}
 			/*
 			Check if user is running on Android Oreo since there's notification channels support
@@ -388,10 +396,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			*/
 			if (sharedPreferences.getBoolean("enable_pre_oreo_explicit", false) || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 				// User is using pre-Oreo or has enabled the explicit pre-Oreo checkbox
-				System.out.println("Showing pre-Oreo settings");
+				Log.d(FRAG_TAG, "Showing pre-Oreo settings");
 				showPreOreoSettings();
 			} else {
-				System.out.println("Showing Oreo settings");
+				Log.d(FRAG_TAG, "Showing Oreo settings");
 				// User is using Android Oreo
 				showOreoSettings();
 			}
@@ -417,13 +425,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				case R.id.action_checkbox_ui_pre_oreo:
 					if (item.isChecked()) {
 						item.setChecked(false);
-						System.out.println("Checked -> Unchecked");
+						Log.d(FRAG_TAG, "Checked -> Unchecked");
 						sharedPreferences.edit()
 								.putBoolean("enable_pre_oreo_explicit", false)
 								.apply();
 					} else {
 						item.setChecked(true);
-						System.out.println("Unchecked -> checked");
+						Log.d(FRAG_TAG, "Unchecked -> checked");
 						sharedPreferences.edit()
 								.putBoolean("enable_pre_oreo_explicit", true)
 								.apply();
