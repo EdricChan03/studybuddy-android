@@ -3,7 +3,6 @@ package com.edricchan.studybuddy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,15 +19,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
+	private static final String TAG = SharedHelper.getTag(LoginActivity.class);
 	private static int RC_SIGN_IN;
 	private EditText inputEmail, inputPassword;
 	private FirebaseAuth auth;
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-		Log.d("FAIL", "firebaseAuthWithGoogle:" + acct.getId());
+		Log.d(TAG, "firebaseAuthWithGoogle: called");
 
 		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 		auth.signInWithCredential(credential)
@@ -174,18 +174,26 @@ public class LoginActivity extends AppCompatActivity {
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
 							// Sign in success, update UI with the signed-in user's information
-							Log.d("FAIL", "signInWithCredential:success");
+							Log.d(TAG, "Successfully signed in!");
 							showLoginSnackbar();
 							Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 							startActivity(intent);
 							finish();
 						} else {
 							// If sign in fails, display a message to the user.
-							Log.w("FAIL", "signInWithCredential:failure", task.getException());
+							Log.e(TAG, "An error occured", task.getException());
 							Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
 						}
 
 						// ...
+					}
+				})
+				.addOnFailureListener(new OnFailureListener() {
+					@Override
+					public void onFailure(@NonNull Exception e) {
+						// If sign in fails, display a message to the user.
+						Log.e(TAG, "An error occured", e);
+						Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
 					}
 				});
 	}
