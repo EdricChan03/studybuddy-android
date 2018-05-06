@@ -6,8 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SharedHelper;
@@ -38,23 +40,22 @@ public class ActionButtonReceiver extends BroadcastReceiver {
 
 	public void downloadUpdate(final Context context, Intent intent) {
 		final DownloadManager.Request request = new DownloadManager.Request(Uri.parse(intent.getStringExtra("downloadUrl")));
-		request.setTitle(context.getString(R.string.notification_downloading_update_title, intent.getStringExtra("version")));
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, context.getString(R.string.download_apk_name, intent.getStringExtra("version")));
 		final DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-		long id = manager.enqueue(request);
+		final long id = manager.enqueue(request);
 		//set BroadcastReceiver to install app when .apk is downloaded
 		BroadcastReceiver onComplete = new BroadcastReceiver() {
-			public void onReceive(Context ctxt, Intent intent) {
-				Intent install = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+			public void onReceive(Context context1, Intent intent) {
+				Intent install = new Intent(Intent.ACTION_VIEW);
 				install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				install.setData(Uri.fromFile(new File(Environment.DIRECTORY_DOWNLOADS, context.getString(R.string.download_apk_name, intent.getStringExtra("version")))));
+				install.setDataAndType(manager.getUriForDownloadedFile(id), "application/vnd.android.package-archive");
 				context.startActivity(install);
 
 				context.unregisterReceiver(this);
 			}
 		};
-		context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+		context.getApplicationContext().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
 	}
 }
