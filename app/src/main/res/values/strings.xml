@@ -20,7 +20,7 @@
 	<string name="notification_new_update_title">New update available!</string>
 	<string name="notification_new_update_text">Version %1$s is available! Tap here to download &amp; install</string>
 	<string name="notification_updates_error_no_internet_title">No internet connection</string>
-	<string name="notification_updates_error_no_internet_text">You are not connected to the internet. Consider checking if WiFi or mobile data is turned on.</string>
+	<string name="notification_updates_error_no_internet_text">You are not connected to the internet. Check your network connection before retrying.</string>
 	<string name="notification_updates_error_not_found_title">File not found</string>
 	<string name="notification_updates_error_not_found_text">The file specified does not exist. Please contact @EdricChan03 on Twitter for more info.</string>
 	<string name="notification_updates_error_other_title">An error occured</string>
@@ -176,30 +176,48 @@
 	<string name="auth_failed">Authentication failed, check your email and password to ensure they are correct or sign up if you haven\'t created an account.</string>
 	<string name="action_link_register_btn">Register for an account</string>
 
-	<!-- Notification channels -->
+
+	<!-- Notification channel groups -->
+	<string name="notification_channel_group_todos_id">todos</string>
+	<string name="notification_channel_group_todos_title">Todos</string>
 	<string name="notification_channel_todo_updates_title">Todo updates</string>
 	<string name="notification_channel_todo_updates_desc">Shows updates on the status of todos</string>
 	<string name="notification_channel_todo_updates_id">todo_updates</string>
 	<string name="notification_channel_weekly_summary_title">Weekly summary</string>
 	<string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
 	<string name="notification_channel_weekly_summary_id">weekly_summary</string>
+
+	<string name="notification_channel_group_updates_id">updates</string>
+	<string name="notification_channel_group_updates_title">App updates</string>
+	<string name="notification_channel_update_error_title">Update error</string>
+	<string name="notification_channel_update_error_desc">Shows when an error occured while downloading/checking for updates</string>
+	<string name="notification_channel_update_error_id">update_error</string>
+	<string name="notification_channel_update_status_title">Update status</string>
+	<string name="notification_channel_update_status_desc">Shows the status of updates</string>
+	<string name="notification_channel_update_status_id">update_status</string>
+	<string name="notification_channel_update_not_available_title">Update unavailable</string>
+	<string name="notification_channel_update_not_available_desc">Shows that an update is unavailable</string>
+	<string name="notification_channel_update_not_available_id">update_not_available</string>
+	<string name="notification_channel_update_available_title">Update available</string>
+	<string name="notification_channel_update_available_desc">Shows that an update is available</string>
+	<string name="notification_channel_update_available_id">update_available</string>
+	<string name="notification_channel_update_complete_title">Update complete</string>
+	<string name="notification_channel_update_complete_desc">Shows that an update has completed download</string>
+	<string name="notification_channel_update_complete_id">update_complete</string>
+
+	<!-- Notification channels -->
 	<string name="notification_channel_sync_title">Sync</string>
 	<string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
 	<string name="notification_channel_sync_id">sync</string>
-	<string name="notification_channel_app_updates_title">App updates</string>
-	<string name="notification_channel_app_updates_desc">Updates to the app</string>
-	<string name="notification_channel_app_updates_id">app_updates</string>
 	<string name="notification_channel_playback_title">Playback</string>
 	<string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
 	<string name="notification_channel_playback_id">playback</string>
 	<string name="notification_channel_uncategorised_title">Uncategorised</string>
 	<string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the previous channels</string>
 	<string name="notification_channel_uncategorised_id">uncategorised</string>
-	<string name="notification_channel_group_todos_id">todos</string>
-	<string name="notification_channel_group_todos_title">Todos</string>
 
 	<!-- Miscallenous -->
-	<string name="download_apk_name">com.edricchan.studybuddy-%1$s</string>
+	<string name="download_apk_name">com.edricchan.studybuddy-v%1$s.apk</string>
 	<string name="changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json</string>
 	<string name="testing_changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
 </resources>
