@@ -12,44 +12,50 @@
 		android:orientation="vertical"
 		android:layout_margin="5dp">
 
-		<android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
 			android:id="@+id/task_title_wrapper"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="10dp">
+			android:layout_margin="10dp"
+			style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
 			<EditText
 				android:id="@+id/task_title_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/task_title" />
-		</android.support.design.widget.TextInputLayout>
+				android:hint="@string/task_title"
+				android:inputType="text"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-		<android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
 			android:id="@+id/task_content_wrapper"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="10dp">
+			android:layout_margin="10dp"
+			style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
 			<EditText
 				android:id="@+id/task_content_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/task_content" />
-		</android.support.design.widget.TextInputLayout>
+				android:hint="@string/task_content"
+				android:inputType="text"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
-		<android.support.design.widget.TextInputLayout
+		<com.google.android.material.textfield.TextInputLayout
 			android:id="@+id/task_project_wrapper"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="10dp">
+			android:layout_margin="10dp"
+			style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
 			<EditText
 				android:id="@+id/task_project_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/task_project" />
-		</android.support.design.widget.TextInputLayout>
+				android:hint="@string/task_project"
+				android:inputType="text"/>
+		</com.google.android.material.textfield.TextInputLayout>
 
 		<LinearLayout
 			android:layout_width="match_parent"

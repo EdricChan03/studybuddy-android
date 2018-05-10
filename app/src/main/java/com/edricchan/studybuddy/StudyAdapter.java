@@ -1,9 +1,9 @@
 package com.edricchan.studybuddy;
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.TooltipCompat;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.TooltipCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +57,7 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 			public void onClick(View view) {
 				notifyItemRemoved(position);
 				mFeedItemList.remove(position);
-				Snackbar.make(view, "Task marked as done.", 6000).show();
+				com.google.android.material.snackbar.Snackbar.make(view, "Task marked as done.", 6000).show();
 			}
 		});
 	}

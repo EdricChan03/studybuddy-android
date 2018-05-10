@@ -1,9 +1,9 @@
 package com.edricchan.studybuddy;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,14 +15,14 @@ import java.util.List;
 public class HelpActivity extends AppCompatActivity {
 
 	List<HelpFeatured> helpFeaturedList;
-	RecyclerView featuredRecyclerView;
+	androidx.recyclerview.widget.RecyclerView featuredRecyclerView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_help);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		featuredRecyclerView = (RecyclerView) findViewById(R.id.help_featured_recyclerview);
+		featuredRecyclerView = (androidx.recyclerview.widget.RecyclerView) findViewById(R.id.help_featured_recyclerview);
 		featuredRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 		addFeaturedItems();
 		initialiseAdapter();

@@ -3,10 +3,10 @@ package com.edricchan.studybuddy;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.TooltipCompat;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.TooltipCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -139,7 +139,7 @@ public class NewTaskActivity extends AppCompatActivity {
 				}
 			} else {
 				taskTitle.setError("Please enter something.");
-				Snackbar.make(findViewById(R.id.new_task_view), "A task title is required.", Snackbar.LENGTH_LONG).show();
+				com.google.android.material.snackbar.Snackbar.make(findViewById(R.id.new_task_view), "A task title is required.", com.google.android.material.snackbar.Snackbar.LENGTH_LONG).show();
 			}
 		}
 
