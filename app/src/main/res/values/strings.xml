@@ -1,6 +1,6 @@
 <resources>
 	<!-- For android manifest -->
-	<string name="app_name">Study Buddy</string>
+	<string name="app_name" translatable="false">Study Buddy</string>
 	<string name="app_desc">Study Buddy is an app that aims to help students in their studies. Some features of Study Buddy include a calendar, todos as well as cheatsheets.</string>
 	<!-- Activity names -->
 	<string name="title_activity_settings">Settings</string>
@@ -74,7 +74,7 @@
 	<string name="pref_weekly_summary_time_desc">Set a time to get your weekly summary\nCurrent value: %s</string>
 	<string name="pref_weekly_summary_configure_notification_title">Configure notification category</string>
 	<string name="pref_weekly_summary_configure_notification_desc">Modify notification-related settings in system settings (Android Oreo devices)</string>
-	<string name="pref_weekly_summary_configure_list_title">Configure notification list</string>
+	<string name="pref_weekly_summary_configure_list_title">Configure weekly summary list</string>
 	<string name="pref_weekly_summary_configure_list_desc">Items to be shown in weekly summary</string>
 	<string-array name="pref_weekly_summary_options_array">
 		<item>Completed todos</item>
