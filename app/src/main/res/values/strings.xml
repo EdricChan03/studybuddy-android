@@ -75,7 +75,7 @@
 	<string name="pref_weekly_summary_configure_notification_title">Configure notification category</string>
 	<string name="pref_weekly_summary_configure_notification_desc">Modify notification-related settings in system settings (Android Oreo devices)</string>
 	<string name="pref_weekly_summary_configure_list_title">Configure notification list</string>
-	<string name="pref_weekly_summary_configure_list_desc">Items to be shown in the notification</string>
+	<string name="pref_weekly_summary_configure_list_desc">Items to be shown in weekly summary</string>
 	<string-array name="pref_weekly_summary_options_array">
 		<item>Completed todos</item>
 		<item>Overdue todos</item>
