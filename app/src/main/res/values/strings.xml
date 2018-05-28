@@ -36,6 +36,7 @@
 	<string name="dialog_action_dismiss">Dismiss</string>
 	<string name="dialog_action_sign_up">Sign up</string>
 	<string name="dialog_action_login">Login</string>
+	<string name="dialog_action_set">Set</string>
 
 	<!-- Share bottom sheet -->
 	<string name="share_intent_value">Share this app via&#8230;</string>
@@ -62,6 +63,55 @@
 	<string name="shortcut_game_long_msg">Play a game</string>
 	<string name="shortcut_game_short_msg">Games</string>
 	<!-- Strings related to Settings -->
+	<!-- Todos settings -->
+	<string name="pref_header_todo">Todos</string>
+	<string name="pref_weekly_summary_enabled_title">Weekly summary</string>
+	<string name="pref_weekly_summary_enabled_desc">Enable a curated weekly summary of your todos, which will be sent as a notification by the end of the week</string>
+	<string name="pref_category_weekly_summary">Weekly summary preferences</string>
+	<string name="pref_weekly_summary_day_title">Day to retrieve weekly summary</string>
+	<string name="pref_weekly_summary_day_desc">Set a day to get your weekly summary\nCurrent value: %s</string>
+	<string name="pref_weekly_summary_time_title">Time to retrieve weekly summary</string>
+	<string name="pref_weekly_summary_time_desc">Set a time to get your weekly summary\nCurrent value: %s</string>
+	<string name="pref_weekly_summary_configure_notification_title">Configure notification category</string>
+	<string name="pref_weekly_summary_configure_notification_desc">Modify notification-related settings in system settings (Android Oreo devices)</string>
+	<string name="pref_weekly_summary_configure_list_title">Configure notification list</string>
+	<string name="pref_weekly_summary_configure_list_desc">Items to be shown in the notification</string>
+	<string-array name="pref_weekly_summary_options_array">
+		<item>Completed todos</item>
+		<item>Overdue todos</item>
+		<item>Todos to complete</item>
+		<item>Total todos</item>
+		<item>Percentage completed</item>
+		<item>Percentage uncompleted</item>
+		<item>Efficiency</item>
+	</string-array>
+	<string-array name="pref_weekly_summary_options_array_values">
+		<item>completed_todos</item>
+		<item>overdue_todos</item>
+		<item>todos_to_complete</item>
+		<item>total_todos</item>
+		<item>completed_percentage</item>
+		<item>uncompleted_percentage</item>
+		<item>efficiency</item>
+	</string-array>
+	<string-array name="pref_weekly_summary_days_array">
+		<item>Monday</item>
+		<item>Tuesday</item>
+		<item>Wednesday</item>
+		<item>Thursday</item>
+		<item>Friday</item>
+		<item>Saturday</item>
+		<item>Sunday</item>
+	</string-array>
+	<string-array name="pref_weekly_summary_days_array_values">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+	</string-array>
 	<!--
 	Experimental settings
 	TODO: Change the name of this preference
@@ -77,7 +127,7 @@
 	<string name="pref_experimental_calendar_desc">Enables a wip calendar which shows all your events. Requires a restart to take effect.</string>
 	<string name="pref_experimental_notifications_title">Notifications</string>
 	<string name="pref_experimental_notifications_desc">Enable notifications support. These can be configured via settings.</string>
-	<!-- Settings for Data & Sync -->
+	<!-- Data & Sync settings -->
 	<string name="pref_header_data_sync">Data &amp; sync</string>
 	<string name="pref_sync_frequency_title">Sync frequency</string>
 	<string-array name="pref_sync_frequency_titles">
@@ -102,7 +152,7 @@
 	<string name="pref_sync_mobile_data_dialog_title">Enable syncing using mobile data?</string>
 	<string name="pref_manual_sync_title">Manual sync</string>
 	<string name="pref_manual_sync_summary">Tap here to initiate a manual sync</string>
-	<!-- Settings for Notifications -->
+	<!-- Notification settings -->
 	<string name="pref_header_notifications">Notifications</string>
 	<string name="pref_ringtone_silent">Silent</string>
 	<string name="pref_notification_channel_all_channels_title">All notification channels</string>

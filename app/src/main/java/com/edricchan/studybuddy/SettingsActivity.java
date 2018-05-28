@@ -37,7 +37,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
+import com.edricchan.studybuddy.preference.TimePreference;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,25 +191,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	 */
 	protected boolean isValidFragment(String fragmentName) {
 		return PreferenceFragment.class.getName().equals(fragmentName)
+				|| TodosPreferenceFragment.class.getName().equals(fragmentName)
 				|| ExperimentalPreferenceFragment.class.getName().equals(fragmentName)
 				|| DataSyncPreferenceFragment.class.getName().equals(fragmentName)
 				|| NotificationPreferenceFragment.class.getName().equals(fragmentName)
 				|| VersionPreferenceFragment.class.getName().equals(fragmentName);
 	}
-
-	/**
-	 * This fragment shows general preferences only. It is used when the
-	 * activity is showing a two-pane settings UI.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public static class ExperimentalPreferenceFragment extends PreferenceFragment {
+	public static class GenericPreferenceFragment extends PreferenceFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.pref_experimental);
 			setHasOptionsMenu(true);
 		}
-
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 			int id = item.getItemId();
@@ -232,6 +227,29 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		@Override
 		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 			inflater.inflate(R.menu.menu_settings, menu);
+		}
+	}
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public static class TodosPreferenceFragment extends GenericPreferenceFragment {
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.pref_todos);
+			TimePreference preference = (TimePreference) findPreference("weekly_summary_time");
+			preference.setDefaultValue(Time.valueOf("12:00").getTime());
+		}
+	}
+
+	/**
+	 * This fragment shows general preferences only. It is used when the
+	 * activity is showing a two-pane settings UI.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public static class ExperimentalPreferenceFragment extends GenericPreferenceFragment {
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.pref_experimental);
 		}
 	}
 
@@ -465,12 +483,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	 * activity is showing a two-pane settings UI.
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public static class DataSyncPreferenceFragment extends PreferenceFragment {
+	public static class DataSyncPreferenceFragment extends GenericPreferenceFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_data_sync);
-			setHasOptionsMenu(true);
 
 			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
 			// to their values. When their values change, their summaries are
@@ -512,41 +529,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				}
 			});
 		}
-
-		@Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			int id = item.getItemId();
-			switch (id) {
-				case android.R.id.home:
-					startActivity(new Intent(getActivity(), SettingsActivity.class));
-					return true;
-				case R.id.action_send_feedback:
-					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-					builder.addDefaultShareMenuItem();
-					final CustomTabsIntent customTabsIntent = builder.build();
-					customTabsIntent.launchUrl(getActivity(), Uri.parse(sendFeedbackUrl));
-					return true;
-				case R.id.action_help:
-					// TODO: Add some stuff
-					return true;
-			}
-			return super.onOptionsItemSelected(item);
-		}
-
-		@Override
-		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-			inflater.inflate(R.menu.menu_settings, menu);
-		}
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public static class VersionPreferenceFragment extends PreferenceFragment {
+	public static class VersionPreferenceFragment extends GenericPreferenceFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_versions);
-			setHasOptionsMenu(true);
 			final Context context = getActivity();
 			final String appAuthorUrl = "https://github.com/Chan4077";
 			final String appSrcUrl = "https://github.com/Chan4077/StudyBuddy";
@@ -595,32 +585,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			Preference appVersion = getPreferenceManager().findPreference("app_version");
 			appVersion.setSummary(getVersion());
 			bindPreferenceSummaryToValue(findPreference("updates_channel"));
-		}
-
-		@Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			int id = item.getItemId();
-			switch (id) {
-				case android.R.id.home:
-					startActivity(new Intent(getActivity(), SettingsActivity.class));
-					return true;
-				case R.id.action_send_feedback:
-					CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-					builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-					builder.addDefaultShareMenuItem();
-					final CustomTabsIntent customTabsIntent = builder.build();
-					customTabsIntent.launchUrl(getActivity(), Uri.parse(sendFeedbackUrl));
-					return true;
-				case R.id.action_help:
-					// TODO: Add some stuff
-					return true;
-			}
-			return super.onOptionsItemSelected(item);
-		}
-
-		@Override
-		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-			inflater.inflate(R.menu.menu_settings, menu);
 		}
 
 		public void checkPermission() {

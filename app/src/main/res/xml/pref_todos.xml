@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<SwitchPreference
+		android:title="@string/pref_weekly_summary_enabled_title"
+		android:summary="@string/pref_weekly_summary_enabled_desc"
+		android:key="weekly_summary_enabled"
+		android:defaultValue="true" />
+	<PreferenceCategory
+		android:dependency="weekly_summary_enabled"
+		android:title="@string/pref_category_weekly_summary">
+		<ListPreference
+			android:key="weekly_summary_day"
+			android:title="@string/pref_weekly_summary_day_title"
+			android:summary="@string/pref_weekly_summary_day_desc"
+			android:entries="@array/pref_weekly_summary_days_array"
+			android:entryValues="@array/pref_weekly_summary_days_array_values"
+			android:defaultValue="1" />
+		<com.edricchan.studybuddy.preference.TimePreference
+			android:key="weekly_summary_time"
+			android:title="@string/pref_weekly_summary_time_title"
+			android:summary="@string/pref_weekly_summary_time_desc" />
+		<MultiSelectListPreference
+			android:key="weekly_summary_list"
+			android:title="@string/pref_weekly_summary_configure_list_title"
+			android:summary="@string/pref_weekly_summary_configure_list_desc"
+			android:entries="@array/pref_weekly_summary_options_array"
+			android:entryValues="@array/pref_weekly_summary_options_array_values" />
+	</PreferenceCategory>
+</PreferenceScreen>
