@@ -87,14 +87,5 @@ public class TimePreference extends DialogPreference {
 				calendar.setTimeInMillis(Long.parseLong((String) defaultValue));
 			}
 		}
-		setSummary(getSummary());
-	}
-
-	@Override
-	public CharSequence getSummary() {
-		if (calendar == null) {
-			return null;
-		}
-		return DateFormat.getTimeFormat(getContext()).format(new Date(calendar.getTimeInMillis()));
 	}
 }

@@ -30,6 +30,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -40,7 +41,9 @@ import com.crashlytics.android.Crashlytics;
 import com.edricchan.studybuddy.preference.TimePreference;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -197,12 +200,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				|| NotificationPreferenceFragment.class.getName().equals(fragmentName)
 				|| VersionPreferenceFragment.class.getName().equals(fragmentName);
 	}
+
 	public static class GenericPreferenceFragment extends PreferenceFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setHasOptionsMenu(true);
 		}
+
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 			int id = item.getItemId();
@@ -229,14 +234,29 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			inflater.inflate(R.menu.menu_settings, menu);
 		}
 	}
+
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class TodosPreferenceFragment extends GenericPreferenceFragment {
+		private static final String FRAG_TAG = SharedHelper.getTag(TodosPreferenceFragment.class);
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_todos);
 			TimePreference preference = (TimePreference) findPreference("weekly_summary_time");
 			preference.setDefaultValue(Time.valueOf("12:00:00").getTime());
+			Preference.OnPreferenceChangeListener timePreferenceOnChangeListener = new Preference.OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object value) {
+					Log.d(FRAG_TAG, "Current value of TimePreference: " + value);
+					long time = Long.parseLong(value.toString());
+					Date dateTime = new Date(time);
+					String timeString = new SimpleDateFormat("hh:mm a / HH:mm").format(dateTime);
+					preference.setSummary(String.format(getString(R.string.pref_weekly_summary_time_desc), timeString));
+					return true;
+				}
+			};
+			preference.setOnPreferenceChangeListener(timePreferenceOnChangeListener);
 		}
 	}
 
@@ -508,7 +528,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				public boolean onPreferenceClick(Preference preference) {
 					if (mobileDataSync.isChecked()) {
 						mobileDataSync.setChecked(false);
-						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_Dialog);
 						builder.setPositiveButton(R.string.dialog_action_yes, new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
