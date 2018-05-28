@@ -1,24 +1,21 @@
 <resources>
 
 	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat">
+	<style name="AppTheme" parent="Theme.MaterialComponents">
 		<!-- Customize your theme here. -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:navigationBarColor">@color/colorPrimary</item>
 		<item name="android:fontFamily">@font/baloo</item>
-		<item name="editTextStyle">@style/AppTheme.EditText</item>
 	</style>
 
 	<style name="AppTheme.NoActionBar" parent="AppTheme">
 		<item name="windowActionBar">false</item>
 		<item name="windowNoTitle">true</item>
 	</style>
-	<style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
-		<item name="android:fontFamily">@font/baloo</item>
-	</style>
-	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+	<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+	<!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />-->
+	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark" />
 </resources>
