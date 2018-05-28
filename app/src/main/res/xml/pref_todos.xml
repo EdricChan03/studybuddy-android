@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<SwitchPreference
-		android:title="@string/pref_weekly_summary_enabled_title"
-		android:summary="@string/pref_weekly_summary_enabled_desc"
+		android:defaultValue="true"
 		android:key="weekly_summary_enabled"
-		android:defaultValue="true" />
+		android:summary="@string/pref_weekly_summary_enabled_desc"
+		android:title="@string/pref_weekly_summary_enabled_title" />
 	<PreferenceCategory
 		android:dependency="weekly_summary_enabled"
 		android:title="@string/pref_category_weekly_summary">
 		<ListPreference
-			android:key="weekly_summary_day"
-			android:title="@string/pref_weekly_summary_day_title"
-			android:summary="@string/pref_weekly_summary_day_desc"
+			android:defaultValue="1"
 			android:entries="@array/pref_weekly_summary_days_array"
 			android:entryValues="@array/pref_weekly_summary_days_array_values"
-			android:defaultValue="1" />
+			android:icon="@drawable/ic_calendar_today_24dp"
+			android:key="weekly_summary_day"
+			android:summary="@string/pref_weekly_summary_day_desc"
+			android:title="@string/pref_weekly_summary_day_title" />
 		<com.edricchan.studybuddy.preference.TimePreference
+			android:icon="@drawable/ic_access_time_24dp"
 			android:key="weekly_summary_time"
-			android:title="@string/pref_weekly_summary_time_title"
-			android:summary="@string/pref_weekly_summary_time_desc" />
+			android:summary="@string/pref_weekly_summary_time_desc"
+			android:title="@string/pref_weekly_summary_time_title" />
 		<MultiSelectListPreference
-			android:key="weekly_summary_list"
-			android:title="@string/pref_weekly_summary_configure_list_title"
-			android:summary="@string/pref_weekly_summary_configure_list_desc"
 			android:entries="@array/pref_weekly_summary_options_array"
-			android:entryValues="@array/pref_weekly_summary_options_array_values" />
+			android:entryValues="@array/pref_weekly_summary_options_array_values"
+			android:icon="@drawable/ic_tune_24dp"
+			android:key="weekly_summary_list"
+			android:summary="@string/pref_weekly_summary_configure_list_desc"
+			android:title="@string/pref_weekly_summary_configure_list_title" />
 	</PreferenceCategory>
 </PreferenceScreen>

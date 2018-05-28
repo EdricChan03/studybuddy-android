@@ -18,4 +18,7 @@
 	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 	<!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />-->
 	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark" />
+	<style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Dialog">
+		<item name="android:fontFamily">@font/baloo</item>
+	</style>
 </resources>
