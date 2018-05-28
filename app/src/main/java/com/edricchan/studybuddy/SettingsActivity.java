@@ -236,7 +236,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_todos);
 			TimePreference preference = (TimePreference) findPreference("weekly_summary_time");
-			preference.setDefaultValue(Time.valueOf("12:00").getTime());
+			preference.setDefaultValue(Time.valueOf("12:00:00").getTime());
 		}
 	}
 
