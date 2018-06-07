@@ -26,8 +26,5 @@
 			android:icon="@drawable/ic_account_circle_24dp"
 			android:key="app_author"
 			android:title="@string/pref_author_title" />
-		<Preference
-			android:key="app_intro"
-			android:title="@string/pref_app_intro_title" />
 	</PreferenceCategory>
 </PreferenceScreen>

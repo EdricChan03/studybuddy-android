@@ -24,13 +24,13 @@ import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NavUtils;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NavUtils;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -528,7 +528,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				public boolean onPreferenceClick(Preference preference) {
 					if (mobileDataSync.isChecked()) {
 						mobileDataSync.setChecked(false);
-						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_Dialog);
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 						builder.setPositiveButton(R.string.dialog_action_yes, new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
@@ -590,15 +590,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 					customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
-					return true;
-				}
-			});
-			Preference appIntro = getPreferenceManager().findPreference("app_intro");
-			appIntro.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					Intent appIntroIntent = new Intent(context, MyIntroActivity.class);
-					startActivity(appIntroIntent);
 					return true;
 				}
 			});

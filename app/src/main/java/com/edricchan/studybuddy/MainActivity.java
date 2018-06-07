@@ -3,36 +3,40 @@ package com.edricchan.studybuddy;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 	/**
@@ -42,61 +46,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	private static final String ACTION_ADD_NEW_TODO = "com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO";
 	private static final String TAG = SharedHelper.getTag(MainActivity.class);
 	final Context context = this;
-	private final ArrayList taskItems = new ArrayList<>();
+	private ArrayList taskItems;
 	private int testInt, RC_SIGN_IN;
 	private FirebaseAuth mAuth;
 	private GoogleApiClient mGoogleApiClient;
 	private String userName;
-	private FirebaseFirestore db = FirebaseFirestore.getInstance();
+	private FirebaseFirestore db;
 	private FirebaseUser currentUser;
 	private RecyclerView.Adapter mAdapter;
+	private RecyclerView mRecyclerView;
+	private ListenerRegistration firestoreListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		db = FirebaseFirestore.getInstance();
 		// Checks if the add new shortcut was tapped
 		if (ACTION_ADD_NEW_TODO.equals(getIntent().getAction())) {
 			newTaskActivity();
 		}
-		//  Declare a new thread to do a preference check
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				//  Initialize SharedPreferences
-				SharedPreferences getPrefs = PreferenceManager
-						.getDefaultSharedPreferences(getBaseContext());
-
-				//  Create a new boolean and preference and set it to true
-				boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
-
-				//  If the activity has never started before...
-				if (isFirstStart) {
-
-					//  Launch app intro
-					final Intent i = new Intent(MainActivity.this, MyIntroActivity.class);
-
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							startActivity(i);
-						}
-					});
-
-					//  Make a new preferences editor
-					SharedPreferences.Editor e = getPrefs.edit();
-
-					//  Edit preference to make it false because we don't want this to run again
-					e.putBoolean("firstStart", false);
-
-					//  Apply changes
-					e.apply();
-				}
-			}
-		});
-
-		// Start the thread
-		t.start();
 		// FAB
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 						1000);
 			}
 		});
-		RecyclerView mRecyclerView = findViewById(R.id.recycler_list);
+		mRecyclerView = findViewById(R.id.recycler_list);
 
 		// use this setting to improve performance if you know that changes
 		// in content do not change the layout size of the RecyclerView
@@ -142,6 +111,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			SharedHelper.createNotificationChannels(MainActivity.this);
 		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		firestoreListener.remove();
 	}
 
 	@Override
@@ -180,7 +156,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			signInDialog.show();
 
 		} else {
-			getTodos();
+			loadTasksList(currentUser.getUid());
+			firestoreListener = db.collection("users/" + currentUser.getUid() + "/todos")
+					.addSnapshotListener(new EventListener<QuerySnapshot>() {
+						@Override
+						public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+							if (e != null) {
+								Log.e(TAG, "Listen failed!", e);
+								return;
+							}
+
+							List<TaskItem> taskItemList = new ArrayList<>();
+
+							for (DocumentSnapshot doc : documentSnapshots) {
+								TaskItem note = doc.toObject(TaskItem.class);
+								note.setId(doc.getId());
+								taskItemList.add(note);
+							}
+
+							mAdapter = new StudyAdapter(getApplicationContext(), taskItemList);
+							mRecyclerView.setAdapter(mAdapter);
+						}
+					});
 			// User specific topic
 			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.getUid());
 			// By default, subscribe to the "topic_all" topic
@@ -214,38 +211,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	}
 
 	/**
-	 * Gets data from Firestore
-	 */
-	public void getTodos() {
-		db.collection("users/" + currentUser.getUid() + "/todos")
-				.get()
-				.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-					@Override
-					public void onSuccess(QuerySnapshot documentSnapshots) {
-						if (documentSnapshots.isEmpty()) {
-							Log.d(TAG, "getTodos: onSuccess: List is empty");
-						} else {
-							// Convert the whole Query Snapshot to a list
-							// of objects directly! No need to fetch each
-							// document.
-//							ArrayList<TaskItem> types = new ArrayList<TaskItem>(documentSnapshots.toObjects(TaskItem.class));
-//
-//							// Add all to your list
-//							taskItems = types;
-//							Log.d("Tag", "onSuccess: " + documentSnapshots.toObjects(TaskItem.class));
-						}
-					}
-				})
-				.addOnFailureListener(new OnFailureListener() {
-					@Override
-					public void onFailure(@NonNull Exception e) {
-						Toast.makeText(getApplicationContext(), "Error getting data!", Toast.LENGTH_LONG).show();
-						Log.w(TAG, "An error occured while retrieving data: ", e);
-					}
-				});
-	}
-
-	/**
 	 * Shares the app
 	 */
 	public void share() {
@@ -259,6 +224,33 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	private void newTaskActivity() {
 		Intent newTaskIntent = new Intent(this, NewTaskActivity.class);
 		startActivityForResult(newTaskIntent, ACTION_NEW_TASK);
+	}
+
+	private void loadTasksList(String uid) {
+		db.collection("users/" + uid + "/todos")
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							List<TaskItem> taskItemList = new ArrayList<>();
+
+							for (DocumentSnapshot doc : task.getResult()) {
+								TaskItem note = doc.toObject(TaskItem.class);
+								note.setId(doc.getId());
+								taskItemList.add(note);
+							}
+
+							mAdapter = new StudyAdapter(getApplicationContext(), taskItemList);
+							RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+							mRecyclerView.setLayoutManager(mLayoutManager);
+							mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+							mRecyclerView.setAdapter(mAdapter);
+						} else {
+							Log.d(TAG, "Error getting documents: ", task.getException());
+						}
+					}
+				});
 	}
 
 	@Override

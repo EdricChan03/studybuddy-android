@@ -11,8 +11,12 @@ public class TaskItem {
 	public String project;
 	public String content;
 	public Date dueDate;
+	public String id;
 	public TaskItem() {
 
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public TaskItem(String title, String project, String content, Date dueDate) {
 		this.title = title;

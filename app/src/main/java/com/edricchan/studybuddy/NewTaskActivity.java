@@ -3,10 +3,10 @@ package com.edricchan.studybuddy;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.TooltipCompat;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.TooltipCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -113,7 +113,7 @@ public class NewTaskActivity extends AppCompatActivity {
 			if (taskTitle.length() != 0) {
 				// Check if activity was launched from app shortcut
 				if (ACTION_NEW_TASK_FROM_SHORTCUT.equals(getIntent().getAction())) {
-					SharedHelper.addData(getEditTextString(taskTitle), getEditTextString(taskContent), getEditTextString(taskProject), currentUser, mFirestore)
+					SharedHelper.addTodo(getEditTextString(taskTitle), getEditTextString(taskContent), getEditTextString(taskProject), currentUser, mFirestore)
 							.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 								@Override
 								public void onSuccess(DocumentReference documentReference) {

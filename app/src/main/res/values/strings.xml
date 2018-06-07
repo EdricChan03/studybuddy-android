@@ -208,7 +208,7 @@
 	<string name="action_calendar_title">Calendar</string>
 	<string name="action_notifications_title">Notifications</string>
 
-	<!-- Strings related to login -->
+	<!-- Strings related to login/register activity -->
 	<string name="email_hint">Email</string>
 	<string name="password_hint">Password</string>
 	<string name="action_sign_in_btn">Login</string>
@@ -225,6 +225,7 @@
 	<string name="minimum_password">The password that you entered is too short, please enter a minimum of 6 characters!</string>
 	<string name="auth_failed">Authentication failed, check your email and password to ensure they are correct or sign up if you haven\'t created an account.</string>
 	<string name="action_link_register_btn">Register for an account</string>
+	<string name="text_or">OR</string>
 
 
 	<!-- Notification channel groups -->

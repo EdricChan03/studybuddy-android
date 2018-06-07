@@ -9,9 +9,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.edricchan.studybuddy.interfaces.Notification;
 import com.edricchan.studybuddy.interfaces.NotificationAction;
@@ -84,14 +84,16 @@ public class SharedHelper {
 		return tagClass.getSimpleName();
 	}
 
-	public static Task<DocumentReference> addData(String taskTitle, String taskContent, String taskProject, FirebaseUser user, FirebaseFirestore fs) {
+	public static Task<DocumentReference> addTodo(String taskTitle, String taskContent, String taskProject, FirebaseUser user, FirebaseFirestore fs) {
 		Map<String, Object> task = new HashMap<>();
 		task.put("content", taskContent);
 		task.put("project", taskProject);
 		task.put("title", taskTitle);
 		return fs.collection("users/" + user.getUid() + "/todos").add(new TaskItem(taskTitle, taskProject, taskContent));
 	}
-
+	public static CollectionReference getTodos(FirebaseUser user, FirebaseFirestore fs) {
+		return fs.collection("users/" + user.getUid() + "/todos");
+	}
 	/**
 	 * Used for setting up notification channels
 	 * NOTE: This will only work if the device is Android Oreo or later
