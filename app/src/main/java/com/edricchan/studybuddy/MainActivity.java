@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	private RecyclerView.Adapter mAdapter;
 	private RecyclerView mRecyclerView;
 	private ListenerRegistration firestoreListener;
+	private Menu mOptionsMenu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,36 +78,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 		// Handles swiping down to refresh logic
 		final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.recycler_swiperefresh);
+		swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 		// Sets a refreshing listener
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
 				mAdapter.notifyDataSetChanged();
-				new android.os.Handler().postDelayed(
-						new Runnable() {
-							@Override
-							public void run() {
-								swipeRefreshLayout.setRefreshing(false);
-
-							}
-						},
-						1000);
+				loadTasksList(currentUser.getUid(), swipeRefreshLayout);
 			}
 		});
 		mRecyclerView = findViewById(R.id.recycler_list);
 
 		// use this setting to improve performance if you know that changes
 		// in content do not change the layout size of the RecyclerView
-		mRecyclerView.setHasFixedSize(true);
+		mRecyclerView.setHasFixedSize(false);
 
 		// use a linear layout manager
 		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
 		mRecyclerView.setLayoutManager(mLayoutManager);
 
-		// specify an adapter (see also next example)
-		//noinspection unchecked
-		mAdapter = new StudyAdapter(this, taskItems);
-		mRecyclerView.setAdapter(mAdapter);
 		// Check if Android Oreo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			SharedHelper.createNotificationChannels(MainActivity.this);
@@ -117,7 +107,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	public void onDestroy() {
 		super.onDestroy();
 
-		firestoreListener.remove();
+		if (firestoreListener != null) {
+			firestoreListener.remove();
+		}
 	}
 
 	@Override
@@ -169,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 							List<TaskItem> taskItemList = new ArrayList<>();
 
 							for (DocumentSnapshot doc : documentSnapshots) {
+
 								TaskItem note = doc.toObject(TaskItem.class);
 								note.setId(doc.getId());
 								taskItemList.add(note);
@@ -190,23 +183,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	 * Will not be used on release.
 	 */
 	public void sendNotification(int type) {
-		SharedHelper helper = new SharedHelper(this);
-		switch (type) {
-			case 0:
-				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Testing testing", "This is a test notification which will only be sent to a specific device! Hopefully it'll work though.", getString(R.string.notification_channel_uncategorised_id));
-				break;
-			case 1:
-				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Weekly summary", "You have 8 todos left to do for this week. Your total karma is 80%. Keep it up! :D", getString(R.string.notification_channel_weekly_summary_id));
-				break;
-			case 2:
-				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Notification alert", "This notification should create a new notification channel! See the source code for more info.", "test");
-				break;
-			case 3:
-				helper.sendNotificationToUserWithBody(currentUser.getUid(), "Todo due soon", "Your todo will be due soon. Mark as done?", getString(R.string.notification_channel_todo_updates_id));
-				break;
-			case 4:
-				helper.sendNotificationToUser(currentUser.getUid(), "No body", getString(R.string.notification_channel_uncategorised_id));
-				break;
+		if (currentUser != null) {
+			SharedHelper helper = new SharedHelper(this);
+			switch (type) {
+				case 0:
+					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Testing testing", "This is a test notification which will only be sent to a specific device! Hopefully it'll work though.", getString(R.string.notification_channel_uncategorised_id));
+					break;
+				case 1:
+					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Weekly summary", "You have 8 todos left to do for this week. Your total karma is 80%. Keep it up! :D", getString(R.string.notification_channel_weekly_summary_id));
+					break;
+				case 2:
+					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Notification alert", "This notification should create a new notification channel! See the source code for more info.", "test");
+					break;
+				case 3:
+					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Todo due soon", "Your todo will be due soon. Mark as done?", getString(R.string.notification_channel_todo_updates_id));
+					break;
+				case 4:
+					helper.sendNotificationToUser(currentUser.getUid(), "No body", getString(R.string.notification_channel_uncategorised_id));
+					break;
+			}
+		} else {
+			Log.e(TAG, "Please login before executing this method.");
 		}
 	}
 
@@ -218,12 +215,42 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		shareIntent.setAction(Intent.ACTION_SEND);
 		shareIntent.putExtra(Intent.EXTRA_TEXT, R.string.share_content);
 		shareIntent.setType("text/plain");
-		startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_intent_value)));
+		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_intent_value)));
 	}
 
 	private void newTaskActivity() {
 		Intent newTaskIntent = new Intent(this, NewTaskActivity.class);
 		startActivityForResult(newTaskIntent, ACTION_NEW_TASK);
+	}
+
+	private void loadTasksList(String uid, final SwipeRefreshLayout swipeRefreshLayout) {
+		swipeRefreshLayout.setRefreshing(true);
+		db.collection("users/" + uid + "/todos")
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							List<TaskItem> taskItemList = new ArrayList<>();
+							int i = 0;
+							for (DocumentSnapshot doc : task.getResult()) {
+								Log.d(TAG, "Projects: " + doc.get("project"));
+								TaskItem taskItem = doc.toObject(TaskItem.class);
+								taskItem.setId(doc.getId());
+								taskItemList.add(taskItem);
+								Log.d(TAG, "Adding item " + i++);
+							}
+							mAdapter = new StudyAdapter(getApplicationContext(), taskItemList);
+							RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+							mRecyclerView.setLayoutManager(mLayoutManager);
+							mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+							mRecyclerView.setAdapter(mAdapter);
+							swipeRefreshLayout.setRefreshing(false);
+						} else {
+							Log.d(TAG, "Error getting documents: ", task.getException());
+						}
+					}
+				});
 	}
 
 	private void loadTasksList(String uid) {
@@ -234,13 +261,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 					public void onComplete(@NonNull Task<QuerySnapshot> task) {
 						if (task.isSuccessful()) {
 							List<TaskItem> taskItemList = new ArrayList<>();
-
+							int i = 0;
 							for (DocumentSnapshot doc : task.getResult()) {
-								TaskItem note = doc.toObject(TaskItem.class);
-								note.setId(doc.getId());
-								taskItemList.add(note);
+								Log.d(TAG, "Projects: " + doc.get("project"));
+								TaskItem taskItem = doc.toObject(TaskItem.class);
+								taskItem.setId(doc.getId());
+								taskItemList.add(taskItem);
+								Log.d(TAG, "Adding item " + i++);
 							}
-
 							mAdapter = new StudyAdapter(getApplicationContext(), taskItemList);
 							RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 							mRecyclerView.setLayoutManager(mLayoutManager);
@@ -280,6 +308,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		if (!BuildConfig.DEBUG) {
 			menu.removeItem(R.id.action_debug_send_notification);
 		}
+		mOptionsMenu = menu;
 		return true;
 	}
 
@@ -295,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				startActivity(prefsIntent);
 				break;
 			case R.id.action_about:
-				String aboutDialogText = getString(R.string.about_dialog_text);
+				String aboutDialogText = String.format(getString(R.string.about_dialog_text), BuildConfig.VERSION_NAME);
 				AlertDialog.Builder aboutDialogBuilder = new AlertDialog.Builder(context);
 				aboutDialogBuilder.setTitle("About this app");
 				aboutDialogBuilder.setMessage(aboutDialogText);
@@ -330,6 +359,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 				int randomInt = rand.nextInt(4) + 1;
 				sendNotification(randomInt);
+				break;
+			case R.id.action_account:
+				if (currentUser != null) {
+					// Sign out
+					mAuth.signOut();
+					item.setTitle(R.string.action_login);
+				} else {
+					Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+					startActivity(loginIntent);
+					item.setTitle(R.string.action_logout);
+				}
 		}
 
 		return super.onOptionsItemSelected(item);

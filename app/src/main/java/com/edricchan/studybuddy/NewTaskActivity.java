@@ -3,28 +3,30 @@ package com.edricchan.studybuddy;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.TooltipCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.TooltipCompat;
 
 /**
  * Created by edricchan on 8/3/18.
@@ -32,9 +34,10 @@ import java.util.Calendar;
 
 public class NewTaskActivity extends AppCompatActivity {
 	static final String ACTION_NEW_TASK_FROM_SHORTCUT = "com.edricchan.studybuddy.ACTION_NEW_TASK_FROM_SHORTCUT";
-	private EditText taskTitle;
-	private EditText taskProject;
-	private EditText taskContent;
+	private TextInputLayout taskTitle;
+	private TextInputLayout taskProject;
+	private TextInputLayout taskContent;
+	private Date taskDate;
 	private FirebaseAuth mAuth;
 	private FirebaseFirestore mFirestore;
 	private FirebaseUser currentUser;
@@ -51,9 +54,6 @@ public class NewTaskActivity extends AppCompatActivity {
 		}
 	}
 
-	private String getEditTextString(EditText editText) {
-		return editText.getText().toString();
-	}
 
 	@Override
 	public void onStart() {
@@ -75,11 +75,11 @@ public class NewTaskActivity extends AppCompatActivity {
 		} else {
 			allowAccess = true;
 		}
-		taskTitle = (EditText) findViewById(R.id.task_title_edittext);
-		taskProject = (EditText) findViewById(R.id.task_project_edittext);
+		taskTitle = (TextInputLayout) findViewById(R.id.task_title_wrapper);
+		taskProject = (TextInputLayout) findViewById(R.id.task_project_wrapper);
+		taskContent = (TextInputLayout) findViewById(R.id.task_content_wrapper);
 		ImageButton dialogDate = (ImageButton) findViewById(R.id.task_datepicker_button);
 		final TextView dialogDateText = (TextView) findViewById(R.id.task_datepicker_textview);
-		taskContent = (EditText) findViewById(R.id.task_content_edittext);
 		TooltipCompat.setTooltipText(dialogDate, "Open datetime dialog");
 		dialogDate.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -97,6 +97,7 @@ public class NewTaskActivity extends AppCompatActivity {
 							}
 						}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
 				dpd.show();
+				taskDate = SharedHelper.getDateFromDatePicker(dpd.getDatePicker());
 			}
 		});
 	}
@@ -110,33 +111,31 @@ public class NewTaskActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_submit && allowAccess) {
-			if (taskTitle.length() != 0) {
-				// Check if activity was launched from app shortcut
-				if (ACTION_NEW_TASK_FROM_SHORTCUT.equals(getIntent().getAction())) {
-					SharedHelper.addTodo(getEditTextString(taskTitle), getEditTextString(taskContent), getEditTextString(taskProject), currentUser, mFirestore)
-							.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-								@Override
-								public void onSuccess(DocumentReference documentReference) {
-									Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-									Toast.makeText(NewTaskActivity.this, "Successfully added data!", Toast.LENGTH_SHORT).show();
-									finish();
-								}
-							})
-							.addOnFailureListener(new OnFailureListener() {
-								@Override
-								public void onFailure(@NonNull Exception e) {
-									Toast.makeText(NewTaskActivity.this, "An error occured while adding data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-									Log.e(TAG, "An error occured while adding data: ", e);
-								}
-							});
-				} else {
-					Intent data = new Intent();
-					data.putExtra("taskTitle", taskTitle.getText().toString());
-					data.putExtra("taskProject", taskProject.getText().toString());
-					data.putExtra("taskContent", taskContent.getText().toString());
-					setResult(RESULT_OK, data);
-					finish();
-				}
+			if (SharedHelper.getEditText(taskTitle).length() != 0) {
+				taskTitle.setErrorEnabled(false);
+				SharedHelper.addTodo(
+						SharedHelper.getEditTextString(taskTitle),
+						SharedHelper.getEditTextString(taskContent),
+						SharedHelper.getEditTextString(taskProject).split(","),
+						taskDate,
+						currentUser,
+						mFirestore
+				)
+						.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+							@Override
+							public void onSuccess(DocumentReference documentReference) {
+								Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+								Toast.makeText(NewTaskActivity.this, "Successfully added data!", Toast.LENGTH_SHORT).show();
+								finish();
+							}
+						})
+						.addOnFailureListener(new OnFailureListener() {
+							@Override
+							public void onFailure(@NonNull Exception e) {
+								Toast.makeText(NewTaskActivity.this, "An error occured while adding data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+								Log.e(TAG, "An error occured while adding data: ", e);
+							}
+						});
 			} else {
 				taskTitle.setError("Please enter something.");
 				Snackbar.make(findViewById(R.id.new_task_view), "A task title is required.", Snackbar.LENGTH_LONG).show();

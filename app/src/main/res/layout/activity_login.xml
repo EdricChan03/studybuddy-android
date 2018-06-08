@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:id="@+id/loginActivity"
 	tools:context=".LoginActivity">
 
 	<LinearLayout
@@ -13,26 +14,35 @@
 		android:orientation="vertical"
 		android:padding="@dimen/activity_horizontal_margin">
 
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:text="@string/sign_in_providers_header"
+			android:textAppearance="?attr/textAppearanceHeadline5" />
+
 		<com.google.android.gms.common.SignInButton
-			android:id="@+id/google_sign_in_btn"
+			android:id="@+id/googleSignInBtn"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:paddingBottom="20dp" />
+			android:layout_marginBottom="10dp" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/text_or" />
+			android:layout_marginBottom="10dp"
+			android:text="@string/sign_in_providers_or"
+			android:textAppearance="?attr/textAppearanceSubtitle1" />
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:id="@+id/emailLogin">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/email"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="10dp"
 				android:hint="@string/email_hint"
 				android:inputType="textEmailAddress" />
 		</com.google.android.material.textfield.TextInputLayout>
@@ -40,13 +50,13 @@
 		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			app:passwordToggleEnabled="true">
+			android:layout_marginBottom="10dp"
+			app:passwordToggleEnabled="true"
+			android:id="@+id/passwordLogin">
 
 			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/password"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="10dp"
 				android:hint="@string/password_hint"
 				android:inputType="textPassword" />
 		</com.google.android.material.textfield.TextInputLayout>
@@ -54,7 +64,7 @@
 		<!-- Login Button -->
 
 		<com.google.android.material.button.MaterialButton
-			android:id="@+id/btn_login"
+			android:id="@+id/loginBtn"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="20dip"
@@ -62,7 +72,7 @@
 
 
 		<com.google.android.material.button.MaterialButton
-			android:id="@+id/btn_reset_password"
+			android:id="@+id/resetPasswordBtn"
 			style="@style/Widget.MaterialComponents.Button.TextButton"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
@@ -72,13 +82,12 @@
 		<!-- Link to Login Screen -->
 
 		<com.google.android.material.button.MaterialButton
-			android:id="@+id/btn_signup"
+			android:id="@+id/signUpBtn"
 			style="@style/Widget.MaterialComponents.Button.TextButton"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="20dip"
-			android:text="@string/action_link_register_btn"
-			android:textAllCaps="false" />
+			android:text="@string/action_link_register_btn" />
 	</LinearLayout>
 
 	<ProgressBar

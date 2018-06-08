@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="4dp"
-	xmlns:tools="http://schemas.android.com/tools">
+	android:clickable="true"
+	android:focusable="true"
+	android:foreground="?android:attr/selectableItemBackground">
 
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="?attr/selectableItemBackground"
 		android:orientation="vertical"
-		android:paddingBottom="10dp"
-		android:paddingTop="10dp">
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp">
 
 		<TextView
-			android:id="@+id/item_date"
+			android:id="@+id/itemTitle"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:textSize="15dp" />
+			android:textAppearance="?attr/textAppearanceHeadline6" />
 
 		<TextView
-			android:id="@+id/item_description"
+			android:id="@+id/itemDesc"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/item_date"
-			android:layout_weight="1"
-			android:textSize="15sp" />
+			android:layout_below="@id/itemTitle"
+			android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-		<ImageButton
+		<TextView
+			android:id="@+id/itemDate"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/itemDesc"
+			android:textAppearance="?attr/textAppearanceBody1" />
+
+		<com.google.android.material.chip.ChipGroup
+			android:id="@+id/itemProject"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/itemMarkAsDone"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:id="@+id/item_markdone"
-			app:srcCompat="@drawable/ic_check_24dp"
-			android:layout_below="@+id/item_description"
+			android:layout_below="@+id/itemDesc"
 			android:layout_alignParentEnd="true"
 			android:layout_marginEnd="17dp"
-			android:tint="@color/colorAccent"
-			tools:targetApi="O"
 			android:contentDescription="Mark as done"
-			android:tooltipText="Test" />
+			android:tooltipText="Test"
+			app:icon="@drawable/ic_check_24dp"
+			tools:targetApi="O" />
 	</RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

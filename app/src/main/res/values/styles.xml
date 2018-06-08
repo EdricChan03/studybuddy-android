@@ -1,22 +1,31 @@
 <resources>
 
 	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+	<style name="Theme.App" parent="Theme.MaterialComponents.Light.DarkActionBar">
 		<!-- Customize your theme here. -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:navigationBarColor">@color/colorPrimary</item>
 		<item name="fontFamily">@font/baloo</item>
+		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
+		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox</item>
+		<item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
 	</style>
-	<style name="AppTheme.NoActionBar" parent="AppTheme">
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
+	<style name="Theme.App.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:navigationBarColor">@color/colorPrimary</item>
+		<item name="fontFamily">@font/baloo</item>
+		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
+		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox</item>
+		<item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
 	</style>
 	<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
-	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
+	<style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
 	<!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />-->
-	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
+	<style name="Theme.App.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
 	<!--<style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Dialog">
 		<item name="fontFamily">@font/baloo</item>
 	</style>-->

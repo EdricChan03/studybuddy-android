@@ -8,10 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
+import android.util.Log;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.edricchan.studybuddy.interfaces.Notification;
 import com.edricchan.studybuddy.interfaces.NotificationAction;
@@ -22,16 +24,23 @@ import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 public class SharedHelper {
 	/**
@@ -80,20 +89,110 @@ public class SharedHelper {
 	public SharedHelper() {
 	}
 
+	/**
+	 * @param datePicker
+	 * @return a java.util.Date
+	 */
+	public static java.util.Date getDateFromDatePicker(DatePicker datePicker) {
+		int day = datePicker.getDayOfMonth();
+		int month = datePicker.getMonth();
+		int year = datePicker.getYear();
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month, day);
+
+		return calendar.getTime();
+	}
+
+	/**
+	 * Checks whether the network is available
+	 *
+	 * @param context The context
+	 * @return A boolean
+	 */
+	public static boolean isNetworkAvailable(Context context) {
+		ConnectivityManager connectivityManager
+				= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+
+	/**
+	 * Retrieves an {@link EditText} from Google Android Material's {@link TextInputLayout}
+	 *
+	 * @param inputLayout The {@link TextInputLayout} in question
+	 * @return The {@link EditText} in the {@link TextInputLayout}
+	 */
+	public static EditText getEditText(TextInputLayout inputLayout) {
+		return inputLayout.getEditText();
+	}
+
+	/**
+	 * Retrieves the text from an {@link EditText} (or {@link com.google.android.material.textfield.TextInputEditText})
+	 *
+	 * @param editText The {@link EditText} in question
+	 * @return The text of the {@link EditText}
+	 */
+	public static String getEditTextString(EditText editText) {
+		return editText.getText().toString();
+	}
+
+	/**
+	 * Retrieves the text from a {@link TextInputLayout}
+	 *
+	 * @param inputLayout The {@link TextInputLayout} in question
+	 * @return The text of the {@link EditText} in {@link TextInputLayout}
+	 */
+	public static String getEditTextString(TextInputLayout inputLayout) {
+		if (inputLayout.getEditText() != null) {
+			return getEditTextString(inputLayout.getEditText());
+		} else {
+			Log.w(getTag(SharedHelper.class), "An EditText/TextInputEditText doesn't exist in the TextInputLayout.");
+			return "";
+		}
+	}
+
+	/**
+	 * Retrieves the tag of a class. Useful for {@link android.util.Log}
+	 *
+	 * @param tagClass The class in question. Accepts any valid Java class (including Android activities, fragments, etc.)
+	 * @return The tag
+	 */
 	public static String getTag(Class tagClass) {
 		return tagClass.getSimpleName();
 	}
 
-	public static Task<DocumentReference> addTodo(String taskTitle, String taskContent, String taskProject, FirebaseUser user, FirebaseFirestore fs) {
+	/**
+	 * Adds a new task to the Firebase Firestore database
+	 *
+	 * @param taskTitle   The title of the task
+	 * @param taskContent The content of the task
+	 * @param taskProject The task's project
+	 * @param user        The currently authenticated user
+	 * @param fs          An instance of {@link FirebaseFirestore}
+	 * @return The task in action.
+	 */
+	public static Task<DocumentReference> addTodo(String taskTitle, String taskContent, String[] taskProject, Date dueDate,
+	                                              FirebaseUser user, FirebaseFirestore fs) {
 		Map<String, Object> task = new HashMap<>();
 		task.put("content", taskContent);
 		task.put("project", taskProject);
+		task.put("dueDate", dueDate);
 		task.put("title", taskTitle);
-		return fs.collection("users/" + user.getUid() + "/todos").add(new TaskItem(taskTitle, taskProject, taskContent));
+		return fs.collection("users/" + user.getUid() + "/todos").add(task);
 	}
+
+	/**
+	 * Retrieves todos from the Firebase Firestore database
+	 *
+	 * @param user The currently authenticated user
+	 * @param fs   An instance of {@link FirebaseFirestore}
+	 * @return A collection reference
+	 */
 	public static CollectionReference getTodos(FirebaseUser user, FirebaseFirestore fs) {
 		return fs.collection("users/" + user.getUid() + "/todos");
 	}
+
 	/**
 	 * Used for setting up notification channels
 	 * NOTE: This will only work if the device is Android Oreo or later
@@ -185,6 +284,11 @@ public class SharedHelper {
 		}
 	}
 
+	/**
+	 * An utility method to check for updates.
+	 *
+	 * @param context The context.
+	 */
 	public static void checkForUpdates(final Context context) {
 		final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 		final NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(context, context.getString(R.string.notification_channel_update_status_id))
@@ -258,10 +362,12 @@ public class SharedHelper {
 	}
 
 	/**
-	 * Checks if the permission is granted and if it isn't, ask for permission
+	 * Checks if the permission is granted.
+	 * Returns false if the permission isn't granted, true otherwise.
 	 *
 	 * @param permission The permission to check
 	 * @param context    The context
+	 * @return A boolean
 	 */
 	public static boolean checkPermission(String permission, Context context) {
 		if (ContextCompat.checkSelfPermission(context, permission)
@@ -288,6 +394,8 @@ public class SharedHelper {
 
 	/**
 	 * Dynamically creates a new ID for use with Android's notification manager
+	 *
+	 * @return The ID in question
 	 */
 	public int getDynamicId() {
 		return atomicInteger.incrementAndGet();

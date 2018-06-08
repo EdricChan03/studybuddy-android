@@ -2,13 +2,9 @@ package com.edricchan.studybuddy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,19 +17,25 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class LoginActivity extends AppCompatActivity {
 
 	private static final String TAG = SharedHelper.getTag(LoginActivity.class);
 	private static int RC_SIGN_IN;
-	private EditText inputEmail, inputPassword;
+	private TextInputLayout inputEmail, inputPassword;
 	private FirebaseAuth auth;
 	private ProgressBar progressBar;
-	private Button btnSignup, btnLogin, btnReset;
+	private MaterialButton btnSignup, btnLogin, btnReset;
 	private SignInButton signInButton;
 	private GoogleSignInClient googleSignInClient;
 
@@ -44,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 		//Get Firebase auth instance
 		auth = FirebaseAuth.getInstance();
 
-		if (auth.getCurrentUser() != null) {
+		if (auth.getCurrentUser() != null && SharedHelper.isNetworkAvailable(this)) {
 			startActivity(new Intent(LoginActivity.this, MainActivity.class));
 			finish();
 		}
@@ -52,13 +54,13 @@ public class LoginActivity extends AppCompatActivity {
 		// set the view now
 		setContentView(R.layout.activity_login);
 
-		inputEmail = (EditText) findViewById(R.id.email);
-		inputPassword = (EditText) findViewById(R.id.password);
+		inputEmail = (TextInputLayout) findViewById(R.id.emailLogin);
+		inputPassword = (TextInputLayout) findViewById(R.id.passwordLogin);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
-		btnSignup = (Button) findViewById(R.id.btn_signup);
-		btnLogin = (Button) findViewById(R.id.btn_login);
-		btnReset = (Button) findViewById(R.id.btn_reset_password);
-		signInButton = (SignInButton) findViewById(R.id.google_sign_in_btn);
+		btnSignup = (MaterialButton) findViewById(R.id.signUpBtn);
+		btnLogin = (MaterialButton) findViewById(R.id.loginBtn);
+		btnReset = (MaterialButton) findViewById(R.id.resetPasswordBtn);
+		signInButton = (SignInButton) findViewById(R.id.googleSignInBtn);
 		signInButton.setColorScheme(SignInButton.COLOR_DARK);
 		signInButton.setSize(SignInButton.SIZE_STANDARD);
 		signInButton.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +95,8 @@ public class LoginActivity extends AppCompatActivity {
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String email = inputEmail.getText().toString();
-				final String password = inputPassword.getText().toString();
+				String email = SharedHelper.getEditTextString(inputEmail);
+				final String password = SharedHelper.getEditTextString(inputPassword);
 
 				if (TextUtils.isEmpty(email)) {
 					Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -107,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
 				}
 
 				progressBar.setVisibility(View.VISIBLE);
-
 				//authenticate user
 				auth.signInWithEmailAndPassword(email, password)
 						.addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -134,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 						});
 			}
 		});
+		checkNetwork();
 	}
 
 	private void showLoginSnackbar() {
@@ -147,6 +149,33 @@ public class LoginActivity extends AppCompatActivity {
 	private void signInWithGoogle() {
 		Intent signInIntent = googleSignInClient.getSignInIntent();
 		startActivityForResult(signInIntent, RC_SIGN_IN);
+	}
+
+	private void checkNetwork() {
+		Log.d(SharedHelper.getTag(LoginActivity.class), "isNetworkAvailable: " + SharedHelper.isNetworkAvailable(this));
+		if (SharedHelper.isNetworkAvailable(this)) {
+			btnSignup.setEnabled(true);
+			btnLogin.setEnabled(true);
+			btnReset.setEnabled(true);
+			signInButton.setEnabled(true);
+			inputEmail.setEnabled(true);
+			inputPassword.setEnabled(true);
+		} else {
+			btnSignup.setEnabled(false);
+			btnLogin.setEnabled(false);
+			btnReset.setEnabled(false);
+			signInButton.setEnabled(false);
+			inputEmail.setEnabled(false);
+			inputPassword.setEnabled(false);
+			Snackbar.make(findViewById(R.id.loginActivity), "No internet connection available. Some actions are disabled", Snackbar.LENGTH_INDEFINITE)
+					.setBehavior(new NoSwipeBehavior())
+					.setAction("Retry", new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							checkNetwork();
+						}
+					}).show();
+		}
 	}
 
 	@Override

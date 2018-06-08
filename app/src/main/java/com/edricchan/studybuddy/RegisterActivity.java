@@ -2,24 +2,26 @@ package com.edricchan.studybuddy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class RegisterActivity extends AppCompatActivity {
 
-	private EditText inputEmail, inputPassword;
-	private Button btnSignIn, btnSignUp, btnResetPassword;
+	private TextInputLayout inputEmail, inputPassword;
+	private MaterialButton btnSignIn, btnSignUp;
 	private ProgressBar progressBar;
 	private FirebaseAuth auth;
 
@@ -30,10 +32,10 @@ public class RegisterActivity extends AppCompatActivity {
 		//Get Firebase auth instance
 		auth = FirebaseAuth.getInstance();
 
-		btnSignIn = (Button) findViewById(R.id.sign_in_button);
-		btnSignUp = (Button) findViewById(R.id.sign_up_button);
-		inputEmail = (EditText) findViewById(R.id.email);
-		inputPassword = (EditText) findViewById(R.id.password);
+		btnSignIn = (MaterialButton) findViewById(R.id.signInBtn);
+		btnSignUp = (MaterialButton) findViewById(R.id.signUpBtn);
+		inputEmail = (TextInputLayout) findViewById(R.id.emailRegister);
+		inputPassword = (TextInputLayout) findViewById(R.id.passwordRegister);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 		btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 
-				String email = inputEmail.getText().toString().trim();
-				String password = inputPassword.getText().toString().trim();
+				String email = SharedHelper.getEditTextString(inputEmail).trim();
+				String password = SharedHelper.getEditTextString(inputPassword).trim();
 
 				if (TextUtils.isEmpty(email)) {
 					Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -89,6 +91,29 @@ public class RegisterActivity extends AppCompatActivity {
 
 			}
 		});
+		checkNetwork();
+	}
+
+	private void checkNetwork() {
+		if (SharedHelper.isNetworkAvailable(this)) {
+			btnSignUp.setEnabled(true);
+			btnSignIn.setEnabled(true);
+			inputEmail.setEnabled(true);
+			inputPassword.setEnabled(true);
+		} else {
+			btnSignUp.setEnabled(false);
+			btnSignIn.setEnabled(false);
+			inputEmail.setEnabled(false);
+			inputPassword.setEnabled(false);
+			Snackbar.make(findViewById(R.id.registerActivity), "No internet connection available. Some actions are disabled", Snackbar.LENGTH_INDEFINITE)
+					.setBehavior(new NoSwipeBehavior())
+					.setAction("Retry", new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							checkNetwork();
+						}
+					}).show();
+		}
 	}
 
 	@Override

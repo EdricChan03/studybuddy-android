@@ -19,7 +19,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp">
 
-			<EditText
+			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/task_title_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp">
 
-			<EditText
+			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/task_content_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -43,9 +43,10 @@
 			android:id="@+id/task_project_wrapper"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			app:helperText="@string/task_project_helper_text"
 			android:layout_margin="10dp">
 
-			<EditText
+			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/task_project_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -86,7 +87,7 @@
 					android:layout_weight="0"
 					android:background="?selectableItemBackgroundBorderless"
 					app:srcCompat="@drawable/ic_calendar_today_24dp"
-					android:contentDescription="Choose a date..." />
+					android:contentDescription="@string/choose_a_date" />
 			</LinearLayout>
 		</LinearLayout>
 	</LinearLayout>

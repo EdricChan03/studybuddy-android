@@ -1,51 +1,70 @@
 package com.edricchan.studybuddy;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.edricchan.studybuddy.interfaces.HelpFeatured;
 
-import java.util.List;
+import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by edricchan on 8/3/18.
  */
 
-public class HelpFeaturedAdapter extends RecyclerView.Adapter<HelpFeaturedAdapter.HelpFeaturedViewHolder> {
-	private List<HelpFeatured> helpFeaturedList;
+public class HelpFeaturedAdapter extends ArrayAdapter<HelpFeatured> {
+	private ArrayList<HelpFeatured> helpFeaturedList;
+	private Context mContext;
 
-	HelpFeaturedAdapter(List<HelpFeatured> myList) {
-		this.helpFeaturedList = myList;
+	// View lookup cache
+	private static class ViewHolder {
+		TextView textView;
+	}
+	public HelpFeaturedAdapter(ArrayList<HelpFeatured> data, Context context) {
+		super(context, R.layout.help_featured_row_item, data);
+		this.helpFeaturedList = data;
+		this.mContext = context;
 	}
 
 	@Override
-	public int getItemCount() {
+	public int getCount() {
 		return helpFeaturedList.size();
 	}
 
 	@Override
-	public HelpFeaturedAdapter.HelpFeaturedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext())
-				.inflate(R.layout.help_featured_row_item, parent, false);
-		HelpFeaturedViewHolder helpFeaturedViewHolder = new HelpFeaturedViewHolder(view);
-		return helpFeaturedViewHolder;
+	public HelpFeatured getItem(int position) {
+		return (HelpFeatured) helpFeaturedList.get(position);
 	}
-
 	@Override
-	public void onBindViewHolder(@NonNull HelpFeaturedViewHolder holder, int position) {
-		holder.textView.setText(helpFeaturedList.get(position).getHelpTxt());
-	}
+	public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
-	public static class HelpFeaturedViewHolder extends RecyclerView.ViewHolder {
-		public TextView textView;
+		ViewHolder viewHolder;
+		final View result;
 
-		HelpFeaturedViewHolder(View itemView) {
-			super(itemView);
-			textView = itemView.findViewById(R.id.help_featured_textview);
+		if (convertView == null) {
+			viewHolder = new ViewHolder();
+			convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.help_featured_row_item, parent, false);
+			viewHolder.textView = (TextView) convertView.findViewById(R.id.textView);
+
+			result=convertView;
+			convertView.setTag(viewHolder);
+
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+			result=convertView;
 		}
+
+		HelpFeatured item = getItem(position);
+
+
+		viewHolder.textView.setText(item.helpTxt);
+
+		return result;
 	}
+
 }
