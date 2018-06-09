@@ -1,94 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/newTaskView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/new_task_view"
 	tools:context=".NewTaskActivity">
 
-	<LinearLayout
+	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:layout_margin="5dp">
-
-		<com.google.android.material.textfield.TextInputLayout
-			android:id="@+id/task_title_wrapper"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="10dp">
-
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/task_title_edittext"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:hint="@string/task_title" />
-		</com.google.android.material.textfield.TextInputLayout>
-
-		<com.google.android.material.textfield.TextInputLayout
-			android:id="@+id/task_content_wrapper"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="10dp">
-
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/task_content_edittext"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:hint="@string/task_content" />
-		</com.google.android.material.textfield.TextInputLayout>
-
-		<com.google.android.material.textfield.TextInputLayout
-			android:id="@+id/task_project_wrapper"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			app:helperText="@string/task_project_helper_text"
-			android:layout_margin="10dp">
-
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/task_project_edittext"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:hint="@string/task_project" />
-		</com.google.android.material.textfield.TextInputLayout>
+		android:layout_height="match_parent"
+		android:fillViewport="true">
 
 		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:orientation="vertical"
-			android:layout_margin="10dp">
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:orientation="vertical">
 
-			<TextView
-				android:id="@+id/task_datepicker_textview"
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/taskTitle"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="@string/due_date" />
+				android:layout_margin="10dp">
 
-			<LinearLayout
-				android:id="@+id/task_datepicker_layout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center_vertical"
-				android:orientation="horizontal">
-
-				<TextView
-					android:id="@+id/task_datepicker_result"
+				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:text="@string/due_date_text" />
+					android:hint="@string/task_title" />
+			</com.google.android.material.textfield.TextInputLayout>
 
-				<ImageButton
-					android:id="@+id/task_datepicker_button"
-					android:layout_width="40dp"
-					android:layout_height="40dp"
-					android:layout_gravity="center"
-					android:layout_weight="0"
-					android:background="?selectableItemBackgroundBorderless"
-					app:srcCompat="@drawable/ic_calendar_today_24dp"
-					android:contentDescription="@string/choose_a_date" />
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/taskContent"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/task_content" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/taskProjects"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				app:helperText="@string/comma_indicates_seperator">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/task_projects" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/taskTags"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				app:helperText="@string/comma_indicates_seperator">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/task_tags" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<CheckBox
+				android:id="@+id/taskHasDone"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/action_mark_as_done" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="10dp"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/taskDatePickerTextView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/due_date" />
+
+				<LinearLayout
+					android:id="@+id/taskDatePickerLayout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center_vertical"
+					android:orientation="horizontal">
+
+					<TextView
+						android:id="@+id/taskDatePickerResult"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="@string/due_date_text" />
+
+					<ImageButton
+						android:id="@+id/taskDatePickerBtn"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_gravity="center"
+						android:layout_weight="0"
+						android:background="?selectableItemBackgroundBorderless"
+						android:contentDescription="@string/choose_a_date"
+						app:srcCompat="@drawable/ic_calendar_today_24dp" />
+				</LinearLayout>
 			</LinearLayout>
 		</LinearLayout>
-	</LinearLayout>
-</ScrollView>
+	</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,11 +17,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -34,9 +37,8 @@ import androidx.appcompat.widget.TooltipCompat;
 
 public class NewTaskActivity extends AppCompatActivity {
 	static final String ACTION_NEW_TASK_FROM_SHORTCUT = "com.edricchan.studybuddy.ACTION_NEW_TASK_FROM_SHORTCUT";
-	private TextInputLayout taskTitle;
-	private TextInputLayout taskProject;
-	private TextInputLayout taskContent;
+	private TextInputLayout taskTitle, taskProjects, taskContent, taskTags;
+	private CheckBox taskHasDone;
 	private Date taskDate;
 	private FirebaseAuth mAuth;
 	private FirebaseFirestore mFirestore;
@@ -75,11 +77,13 @@ public class NewTaskActivity extends AppCompatActivity {
 		} else {
 			allowAccess = true;
 		}
-		taskTitle = (TextInputLayout) findViewById(R.id.task_title_wrapper);
-		taskProject = (TextInputLayout) findViewById(R.id.task_project_wrapper);
-		taskContent = (TextInputLayout) findViewById(R.id.task_content_wrapper);
-		ImageButton dialogDate = (ImageButton) findViewById(R.id.task_datepicker_button);
-		final TextView dialogDateText = (TextView) findViewById(R.id.task_datepicker_textview);
+		taskTitle = (TextInputLayout) findViewById(R.id.taskTitle);
+		taskProjects = (TextInputLayout) findViewById(R.id.taskProjects);
+		taskTags = (TextInputLayout) findViewById(R.id.taskTags);
+		taskContent = (TextInputLayout) findViewById(R.id.taskContent);
+		taskHasDone = (CheckBox) findViewById(R.id.taskHasDone);
+		ImageButton dialogDate = (ImageButton) findViewById(R.id.taskDatePickerBtn);
+		final TextView dialogDateText = (TextView) findViewById(R.id.taskDatePickerTextView);
 		TooltipCompat.setTooltipText(dialogDate, "Open datetime dialog");
 		dialogDate.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -113,19 +117,27 @@ public class NewTaskActivity extends AppCompatActivity {
 		if (item.getItemId() == R.id.action_submit && allowAccess) {
 			if (SharedHelper.getEditText(taskTitle).length() != 0) {
 				taskTitle.setErrorEnabled(false);
-				SharedHelper.addTodo(
-						SharedHelper.getEditTextString(taskTitle),
-						SharedHelper.getEditTextString(taskContent),
-						SharedHelper.getEditTextString(taskProject).split(","),
-						taskDate,
-						currentUser,
-						mFirestore
-				)
+				TaskItem taskItem = new TaskItem();
+				taskItem.setTitle(SharedHelper.getEditTextString(taskTitle));
+				if (SharedHelper.getEditTextString(taskContent).length() != 0) {
+					taskItem.setContent(SharedHelper.getEditTextString(taskContent));
+				}
+				if (SharedHelper.getEditTextString(taskProjects).length() != 0) {
+					taskItem.setProjects(Arrays.asList(SharedHelper.getEditTextString(taskProjects).split(",")));
+				}
+				if (SharedHelper.getEditTextString(taskTags).length() != 0) {
+					taskItem.setTags(Arrays.asList(SharedHelper.getEditTextString(taskTags).split(",")));
+				}
+				if (taskDate != null) {
+					taskItem.setDueDate(new Timestamp(taskDate));
+				}
+				taskItem.setHasDone(taskHasDone.isChecked());
+				SharedHelper.addTodo(taskItem, currentUser, mFirestore)
 						.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 							@Override
 							public void onSuccess(DocumentReference documentReference) {
 								Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-								Toast.makeText(NewTaskActivity.this, "Successfully added data!", Toast.LENGTH_SHORT).show();
+								Toast.makeText(NewTaskActivity.this, "Successfully added todo!", Toast.LENGTH_SHORT).show();
 								finish();
 							}
 						})
@@ -138,7 +150,7 @@ public class NewTaskActivity extends AppCompatActivity {
 						});
 			} else {
 				taskTitle.setError("Please enter something.");
-				Snackbar.make(findViewById(R.id.new_task_view), "A task title is required.", Snackbar.LENGTH_LONG).show();
+				Snackbar.make(findViewById(R.id.newTaskView), "Some errors occurred while attempting to submit the form.", Snackbar.LENGTH_LONG).show();
 			}
 		}
 

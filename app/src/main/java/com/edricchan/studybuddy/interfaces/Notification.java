@@ -13,8 +13,8 @@ public class Notification {
 	private String mMessage;
 	private String mBody;
 	private String mColor;
+	private String mId;
 	private NotificationData mNotificationData;
-
 	public Notification() {
 
 	}
@@ -93,5 +93,13 @@ public class Notification {
 
 	public String getColor() {
 		return this.mColor;
+	}
+
+	public String getId() {
+		return this.mId;
+	}
+
+	public void setId(String id) {
+		this.mId = id;
 	}
 }

@@ -161,13 +161,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 							List<TaskItem> taskItemList = new ArrayList<>();
 
 							for (DocumentSnapshot doc : documentSnapshots) {
-
+								Log.d(TAG, "Document: " + doc.toString());
 								TaskItem note = doc.toObject(TaskItem.class);
 								note.setId(doc.getId());
 								taskItemList.add(note);
 							}
 
-							mAdapter = new StudyAdapter(getApplicationContext(), taskItemList);
+							mAdapter = new StudyAdapter(MainActivity.this, taskItemList, currentUser, db, findViewById(R.id.app_layout));
 							mRecyclerView.setAdapter(mAdapter);
 						}
 					});
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 								taskItemList.add(taskItem);
 								Log.d(TAG, "Adding item " + i++);
 							}
-							mAdapter = new StudyAdapter(getApplicationContext(), taskItemList);
+							mAdapter = new StudyAdapter(MainActivity.this, taskItemList, currentUser, db, findViewById(R.id.app_layout));
 							RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 							mRecyclerView.setLayoutManager(mLayoutManager);
 							mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -263,13 +263,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 							List<TaskItem> taskItemList = new ArrayList<>();
 							int i = 0;
 							for (DocumentSnapshot doc : task.getResult()) {
-								Log.d(TAG, "Projects: " + doc.get("project"));
+								Log.d(TAG, "Documents: " + doc.toString());
 								TaskItem taskItem = doc.toObject(TaskItem.class);
 								taskItem.setId(doc.getId());
 								taskItemList.add(taskItem);
 								Log.d(TAG, "Adding item " + i++);
 							}
-							mAdapter = new StudyAdapter(getApplicationContext(), taskItemList);
+							mAdapter = new StudyAdapter(MainActivity.this, taskItemList, currentUser, db, findViewById(R.id.app_layout));
 							RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 							mRecyclerView.setLayoutManager(mLayoutManager);
 							mRecyclerView.setItemAnimator(new DefaultItemAnimator());

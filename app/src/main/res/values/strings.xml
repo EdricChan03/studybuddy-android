@@ -47,13 +47,14 @@
 
 	<!-- Task activity -->
 	<string name="custom_dialog_labels_note">Note: Please separate your labels with a comma (,).</string>
-	<string name="task_project">Task Project</string>
+	<string name="task_projects">Task Projects</string>
+	<string name="task_tags">Task Tags</string>
 	<string name="task_title">Task Title</string>
 	<string name="task_content">Task Content</string>
 	<string name="select_date">Select Date</string>
 	<string name="due_date">Due date</string>
 	<string name="due_date_text">Selected due date shows here</string>
-	<string name="task_project_helper_text">A comma indicates a separator</string>
+	<string name="comma_indicates_seperator">A comma indicates a separator</string>
 
 	<!-- App shortcuts -->
 	<string name="shortcut_todo_disabled_msg">Todo is disabled</string>
@@ -275,5 +276,8 @@
 	<string name="download_apk_name">com.edricchan.studybuddy-v%1$s.apk</string>
 	<string name="changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json</string>
 	<string name="testing_changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
-	<string name="choose_a_date">Choose a date...</string>
+	<string name="choose_a_date">Choose a date&#8230;</string>
+	<string name="action_mark_as_done">Mark as done</string>
+	<string name="action_mark_as_undone">Mark as undone</string>
+	<string name="action_delete_todo">Delete todo</string>
 </resources>

@@ -23,6 +23,7 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,9 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.core.app.NotificationCompat;
@@ -93,7 +92,7 @@ public class SharedHelper {
 	 * @param datePicker
 	 * @return a java.util.Date
 	 */
-	public static java.util.Date getDateFromDatePicker(DatePicker datePicker) {
+	public static Date getDateFromDatePicker(DatePicker datePicker) {
 		int day = datePicker.getDayOfMonth();
 		int month = datePicker.getMonth();
 		int year = datePicker.getYear();
@@ -165,21 +164,13 @@ public class SharedHelper {
 	/**
 	 * Adds a new task to the Firebase Firestore database
 	 *
-	 * @param taskTitle   The title of the task
-	 * @param taskContent The content of the task
-	 * @param taskProject The task's project
-	 * @param user        The currently authenticated user
-	 * @param fs          An instance of {@link FirebaseFirestore}
-	 * @return The task in action.
+	 * @param item The task item to add
+	 * @param user The currently authenticated user
+	 * @param fs   An instance of {@link FirebaseFirestore}
+	 * @return The result.
 	 */
-	public static Task<DocumentReference> addTodo(String taskTitle, String taskContent, String[] taskProject, Date dueDate,
-	                                              FirebaseUser user, FirebaseFirestore fs) {
-		Map<String, Object> task = new HashMap<>();
-		task.put("content", taskContent);
-		task.put("project", taskProject);
-		task.put("dueDate", dueDate);
-		task.put("title", taskTitle);
-		return fs.collection("users/" + user.getUid() + "/todos").add(task);
+	public static Task<DocumentReference> addTodo(TaskItem item, FirebaseUser user, FirebaseFirestore fs) {
+		return fs.collection("users/" + user.getUid() + "/todos").add(item);
 	}
 
 	/**
@@ -191,6 +182,18 @@ public class SharedHelper {
 	 */
 	public static CollectionReference getTodos(FirebaseUser user, FirebaseFirestore fs) {
 		return fs.collection("users/" + user.getUid() + "/todos");
+	}
+
+	/**
+	 * Removes a task from the Firebase Firestore database
+	 *
+	 * @param docID The document's ID
+	 * @param user  The currently authenticated user
+	 * @param fs    An instance of {@link FirebaseFirestore}
+	 * @return The result of the deletion
+	 */
+	public static Task<Void> removeTodo(String docID, FirebaseUser user, FirebaseFirestore fs) {
+		return fs.document("users/" + user.getUid() + "/todos/" + docID).delete();
 	}
 
 	/**
@@ -422,9 +425,14 @@ public class SharedHelper {
 	 */
 	public void sendNotificationToUser(String user, String message, String body, String color, String notificationChannelId, List<NotificationAction> notificationActions) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		CollectionReference notifications = db.collection("notificationRequests");
+		final CollectionReference notifications = db.collection("notificationRequests");
 		Notification notification = new Notification(user, message, body, color, new NotificationData(notificationChannelId, notificationActions));
-		notifications.add(notification);
+		notifications.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+			@Override
+			public void onSuccess(DocumentReference documentReference) {
+				documentReference.update("id", documentReference.getId());
+			}
+		});
 	}
 
 	/**
