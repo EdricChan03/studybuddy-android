@@ -187,9 +187,9 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 			super(view);
 			markAsDoneBtn = (MaterialButton) view.findViewById(R.id.itemMarkAsDone);
 			deleteBtn = (MaterialButton) view.findViewById(R.id.itemDelete);
-			itemTitle = (TextView) view.findViewById(R.id.itemDesc);
+			itemTitle = (TextView) view.findViewById(R.id.itemTitle);
 			itemDate = (TextView) view.findViewById(R.id.itemDate);
-			itemContent = (TextView) view.findViewById(R.id.itemTitle);
+			itemContent = (TextView) view.findViewById(R.id.itemContent);
 			itemProjects = (ChipGroup) view.findViewById(R.id.itemProjects);
 			itemTags = (ChipGroup) view.findViewById(R.id.itemTags);
 		}
