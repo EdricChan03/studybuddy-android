@@ -151,6 +151,9 @@ public class LoginActivity extends AppCompatActivity {
 		startActivityForResult(signInIntent, RC_SIGN_IN);
 	}
 
+	/**
+	 * A method used to disable all functionality if no internet connection is available
+	 */
 	private void checkNetwork() {
 		Log.d(SharedHelper.getTag(LoginActivity.class), "isNetworkAvailable: " + SharedHelper.isNetworkAvailable(this));
 		if (SharedHelper.isNetworkAvailable(this)) {
@@ -167,9 +170,9 @@ public class LoginActivity extends AppCompatActivity {
 			signInButton.setEnabled(false);
 			inputEmail.setEnabled(false);
 			inputPassword.setEnabled(false);
-			Snackbar.make(findViewById(R.id.loginActivity), "No internet connection available. Some actions are disabled", Snackbar.LENGTH_INDEFINITE)
+			Snackbar.make(findViewById(R.id.loginActivity), R.string.snackbar_internet_unavailable_login, Snackbar.LENGTH_INDEFINITE)
 					.setBehavior(new NoSwipeBehavior())
-					.setAction("Retry", new View.OnClickListener() {
+					.setAction(R.string.snackbar_internet_unavailable_action, new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
 							checkNetwork();

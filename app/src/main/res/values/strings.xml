@@ -10,7 +10,11 @@
 	<string name="title_activity_new_task">New Task</string>
 	<string name="title_activity_debug">Debug</string>
 	<string name="title_activity_games">Games</string>
+	<string name="title_activity_updates">Updates</string>
 
+	<!-- Snackbar text -->
+	<string name="snackbar_internet_unavailable_login">An internet connection is required to login. Please verify that you have an active internet connection before retrying.</string>
+	<string name="snackbar_internet_unavailable_action">Retry</string>
 	<!-- Web client ID -->
 	<string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
 
@@ -37,7 +41,7 @@
 	<string name="dialog_action_sign_up">Sign up</string>
 	<string name="dialog_action_login">Login</string>
 	<string name="dialog_action_set">Set</string>
-
+	<string name="dialog_action_retry">Retry</string>
 	<!-- Share bottom sheet -->
 	<string name="share_intent_value">Share this app via&#8230;</string>
 	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
@@ -55,6 +59,16 @@
 	<string name="due_date">Due date</string>
 	<string name="due_date_text">Selected due date shows here</string>
 	<string name="comma_indicates_seperator">A comma indicates a separator</string>
+
+	<!-- Update activity -->
+	<string name="update_snackbar_checking">Checking for updates&#8230;</string>
+	<string name="update_snackbar_latest">You already have the latest version!</string>
+	<string name="update_dialog_title_new">New version (%1$s) available!</string>
+	<string name="update_dialog_content_new">Note: Please allow the storage permission before continuing as StudyBuddy needs access to your Downloads folder where the update will be saved at.</string>
+	<string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.</string>
+	<string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.</string>
+	<string name="update_snackbar_error_malformed">An error occurred while attempting to check for updates. This may have been caused by a corrupted server or the file in question is corrupted. Try again later.</string>
+	<string name="update_dialog_positive_btn_text">Download build</string>
 
 	<!-- App shortcuts -->
 	<string name="shortcut_todo_disabled_msg">Todo is disabled</string>
@@ -167,7 +181,8 @@
 	<string name="pref_enable_more_options_desc">Enables extra configuration options for notifications\nRequires a restart of the app to take effect.</string>
 	<!-- Settings for Versions & About -->
 	<string name="pref_header_version">Versions &amp; About</string>
-	<string name="pref_update_channel_title">Select update channel</string>
+	<string name="pref_about_category_title">About</string>
+	<string name="pref_updates_title">Updates</string>
 	<string name="pref_app_version_title">Current app version</string>
 	<string name="pref_source_code_title">Source code</string>
 	<string name="pref_source_code_desc">View source code on Github</string>
@@ -207,6 +222,14 @@
 	<!-- Actions > New task activity -->
 	<string name="action_submit">Submit</string>
 
+	<!-- Actions > Update activity -->
+	<string name="action_check_for_updates">Check for updates</string>
+
+	<!-- Update activity -->
+	<string name="update_activity_coming_soon">Coming soon!</string>
+	<string name="update_activity_empty_state_head">No updates available</string>
+	<string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up here.</string>
+	<string name="update_activity_empty_state_icon_desc">Check icon</string>
 	<!-- Sidenav -->
 	<string name="action_todo_title">TODOs</string>
 	<string name="action_calendar_title">Calendar</string>
@@ -272,7 +295,7 @@
 	<string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the previous channels</string>
 	<string name="notification_channel_uncategorised_id">uncategorised</string>
 
-	<!-- Miscallenous -->
+	<!-- Miscellaneous -->
 	<string name="download_apk_name">com.edricchan.studybuddy-v%1$s.apk</string>
 	<string name="changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json</string>
 	<string name="testing_changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>

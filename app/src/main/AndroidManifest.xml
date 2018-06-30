@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	package="com.edricchan.studybuddy">
+
 	<!-- Required for downloading new updates -->
 	<uses-permission android:name="android.permission.INTERNET" />
 	<!-- Required for checking if network is available -->
@@ -9,6 +10,7 @@
 	<!-- Required for writing/reading to external storage -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 	<application
 		android:allowBackup="true"
 		android:appCategory="productivity"
@@ -123,6 +125,12 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value="com.edricchan.studybuddy.MainActivity" />
 		</activity>
+		<activity android:name=".UpdatesActivity"
+			android:label="@string/title_activity_updates">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="com.edricchan.studybuddy.SettingsActivity" />
+		</activity>
 
 		<!-- Services -->
 		<service android:name=".providers.fcm.StudyBuddyMessagingService">
@@ -132,5 +140,7 @@
 		</service>
 		<!-- Receivers -->
 		<receiver android:name=".receiver.ActionButtonReceiver" />
+
 	</application>
+
 </manifest>

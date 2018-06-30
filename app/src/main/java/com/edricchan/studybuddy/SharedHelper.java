@@ -112,8 +112,19 @@ public class SharedHelper {
 	public static boolean isNetworkAvailable(Context context) {
 		ConnectivityManager connectivityManager
 				= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		assert connectivityManager != null;
 		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
+
+	/**
+	 * Checks whether the network is unavailable
+	 * @deprecated Use {@link SharedHelper#isNetworkAvailable(Context)}  instead
+	 * @param context The context
+	 * @return A boolean
+	 */
+	public static boolean isNetworkUnavailable(Context context) {
+		return !isNetworkAvailable(context);
 	}
 
 	/**

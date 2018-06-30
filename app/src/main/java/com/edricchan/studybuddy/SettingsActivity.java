@@ -24,13 +24,6 @@ import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NavUtils;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ContextThemeWrapper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -45,6 +38,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NavUtils;
+import androidx.core.content.ContextCompat;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -565,12 +565,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 			builder.addDefaultShareMenuItem();
 			final CustomTabsIntent customTabsIntent = builder.build();
-			final Preference checkForUpdates = getPreferenceManager().findPreference("check_for_updates");
-			checkForUpdates.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			final Preference updates = getPreferenceManager().findPreference("updates");
+			updates.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					checkPermission();
-					SharedHelper.checkForUpdates(context);
+					Intent updatesIntent = new Intent(getActivity(), UpdatesActivity.class);
+					startActivity(updatesIntent);
 					return true;
 				}
 			});
@@ -595,7 +595,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			});
 			Preference appVersion = getPreferenceManager().findPreference("app_version");
 			appVersion.setSummary(getVersion());
-			bindPreferenceSummaryToValue(findPreference("updates_channel"));
 		}
 
 		public void checkPermission() {

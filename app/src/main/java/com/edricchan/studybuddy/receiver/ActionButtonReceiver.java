@@ -6,15 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
-import android.util.Log;
 
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SharedHelper;
-
-import java.io.File;
 
 public class ActionButtonReceiver extends BroadcastReceiver {
 	@Override
@@ -40,7 +36,7 @@ public class ActionButtonReceiver extends BroadcastReceiver {
 
 	public void downloadUpdate(final Context context, Intent intent) {
 		final DownloadManager.Request request = new DownloadManager.Request(Uri.parse(intent.getStringExtra("downloadUrl")));
-		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, context.getString(R.string.download_apk_name, intent.getStringExtra("version")));
 		final DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 		final long id = manager.enqueue(request);
