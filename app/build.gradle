@@ -32,29 +32,29 @@ android {
 
 dependencies {
 	// Support Lib
-	implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha3'
+	implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
 	// Support Annotations
-	implementation 'androidx.annotation:annotation:1.0.0-alpha3'
+	implementation 'androidx.annotation:annotation:1.0.0-beta01'
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0-alpha3", {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
 	// AppCompat
-	implementation 'androidx.appcompat:appcompat:1.0.0-alpha3'
+	implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
 	// ConstraintLayout
 	implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
 	// Design Support
-	implementation 'com.google.android.material:material:1.0.0-alpha3'
+	implementation 'com.google.android.material:material:1.0.0-beta01'
 	// Card view
-	implementation 'androidx.cardview:cardview:1.0.0-alpha3'
+	implementation 'androidx.cardview:cardview:1.0.0-beta01'
 	// Chrome Custom Tabs
-	implementation 'androidx.browser:browser:1.0.0-alpha3'
+	implementation 'androidx.browser:browser:1.0.0-beta01'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
 	implementation 'com.google.firebase:firebase-core:16.0.1'
-	implementation 'com.google.firebase:firebase-firestore:17.0.1'
+	implementation 'com.google.firebase:firebase-firestore:17.0.2'
 	implementation 'com.google.firebase:firebase-auth:16.0.2'
-	implementation 'com.google.firebase:firebase-messaging:17.0.0'
+	implementation 'com.google.firebase:firebase-messaging:17.1.0'
 	implementation 'com.google.android.gms:play-services-auth:15.0.1'
 	// Provide a way to update the app
 	implementation 'com.github.javiersantos:AppUpdater:2.6.5'
