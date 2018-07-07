@@ -13,7 +13,7 @@
 	<string name="title_activity_updates">Updates</string>
 
 	<!-- Snackbar text -->
-	<string name="snackbar_internet_unavailable_login">An internet connection is required to login. Please verify that you have an active internet connection before retrying.</string>
+	<string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
 	<string name="snackbar_internet_unavailable_action">Retry</string>
 	<!-- Web client ID -->
 	<string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
