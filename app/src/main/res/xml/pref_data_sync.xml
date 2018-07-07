@@ -4,6 +4,7 @@
 		android:title="@string/pref_manual_sync_title"
 		android:icon="@drawable/ic_sync_24dp"
 		android:summary="@string/pref_manual_sync_summary"
+		android:enabled="false"
 		android:key="manual_sync" />
 	<PreferenceCategory android:title="Preferences">
 		<ListPreference
