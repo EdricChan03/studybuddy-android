@@ -10,6 +10,12 @@
 	<!-- Required for writing/reading to external storage -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<!--
+	Required for updating the app without showing a download notification
+	TODO: Remove this permission
+	-->
+	<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
 	<application
 		android:allowBackup="true"
@@ -61,14 +67,16 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".DeepSettingsFragmentDummyActivity"
-			android:label="Deep Settings">
+			android:name=".DeepNotificationSettingsActivity"
+			android:label="Notification settings">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".DeepVersionSettingsActivity"
+			android:label="Version settings" />
 		<activity
 			android:name=".LoginActivity"
 			android:label="@string/title_activity_login"
@@ -125,13 +133,23 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value="com.edricchan.studybuddy.MainActivity" />
 		</activity>
-		<activity android:name=".UpdatesActivity"
+		<activity
+			android:name=".UpdatesActivity"
 			android:label="@string/title_activity_updates">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value="com.edricchan.studybuddy.SettingsActivity" />
 		</activity>
 
+		<provider
+			android:authorities="com.edricchan.studybuddy.provider"
+			android:name="androidx.core.content.FileProvider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/provider_paths"/>
+		</provider>
 		<!-- Services -->
 		<service android:name=".providers.fcm.StudyBuddyMessagingService">
 			<intent-filter>

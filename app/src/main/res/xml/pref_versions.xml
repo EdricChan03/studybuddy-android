@@ -4,6 +4,19 @@
 		android:icon="@drawable/ic_system_update_24dp"
 		android:key="updates"
 		android:title="@string/pref_updates_title" />
+	<SwitchPreference
+		android:defaultValue="false"
+		android:icon="@drawable/ic_network_cell_24dp"
+		android:key="updates_enable_cellular"
+		android:title="@string/pref_updates_cellular_networks_title" />
+	<PreferenceCategory android:title="@string/pref_updates_options_title">
+		<ListPreference
+			android:title="@string/pref_check_for_update_frequency_title"
+			android:key="check_for_updates_frequency"
+			android:entries="@array/pref_check_for_updates_frequencies"
+			android:entryValues="@array/pref_check_for_updates_frequency_values"
+			android:defaultValue="@string/pref_check_for_updates_frequency_default"/>
+	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/pref_about_category_title">
 		<Preference
 			android:enabled="false"

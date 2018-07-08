@@ -67,7 +67,7 @@
 	<string name="update_dialog_content_new">Note: Please allow the storage permission before continuing as StudyBuddy needs access to your Downloads folder where the update will be saved at.</string>
 	<string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.</string>
 	<string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.</string>
-	<string name="update_snackbar_error_malformed">An error occurred while attempting to check for updates. This may have been caused by a corrupted server or the file in question is corrupted. Try again later.</string>
+	<string name="update_snackbar_error_malformed">Could not parse JSON. Please try again later.</string>
 	<string name="update_dialog_positive_btn_text">Download build</string>
 
 	<!-- App shortcuts -->
@@ -163,11 +163,12 @@
 		<item>-1</item>
 	</string-array>
 	<string name="pref_system_sync_settings_title">System sync settings</string>
-	<string name="pref_sync_mobile_data_title">Sync using mobile data</string>
-	<string name="pref_sync_mobile_data_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
-	<string name="pref_sync_mobile_data_dialog_title">Enable syncing using mobile data?</string>
+	<string name="pref_sync_cellular_networks_title">Sync on cellular network</string>
+	<string name="pref_sync_cellular_networks_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
+	<string name="pref_sync_cellular_networks_dialog_title">Enable syncing with cellular networks?</string>
 	<string name="pref_manual_sync_title">Manual sync</string>
-	<string name="pref_manual_sync_summary">Tap here to initiate a manual sync</string>
+	<string name="pref_manual_sync_summary">Tap here to sync manually</string>
+	<string name="pref_manual_sync_summary_done">Done syncing!</string>
 	<!-- Notification settings -->
 	<string name="pref_header_notifications">Notifications</string>
 	<string name="pref_ringtone_silent">Silent</string>
@@ -181,8 +182,11 @@
 	<string name="pref_enable_more_options_desc">Enables extra configuration options for notifications\nRequires a restart of the app to take effect.</string>
 	<!-- Settings for Versions & About -->
 	<string name="pref_header_version">Versions &amp; About</string>
+	<string name="pref_updates_options_title">Update options</string>
+	<string name="pref_check_for_update_frequency_title">Frequency of checking for updates</string>
 	<string name="pref_about_category_title">About</string>
 	<string name="pref_updates_title">Updates</string>
+	<string name="pref_updates_cellular_networks_title">Download updates with cellular network</string>
 	<string name="pref_app_version_title">Current app version</string>
 	<string name="pref_source_code_title">Source code</string>
 	<string name="pref_source_code_desc">View source code on Github</string>
@@ -200,6 +204,29 @@
 		<item>Canary</item>
 	</string-array>
 	<string name="pref_updates_channel_default">1</string>
+	<string-array name="pref_check_for_updates_frequency_values">
+		<!-- Manual/never -->
+		<item>-1</item>
+		<!-- Every 3 hours -->
+		<item>3</item>
+		<!-- Every 6 hours -->
+		<item>6</item>
+		<!-- Every 12 hours -->
+		<item>12</item>
+		<!-- Daily -->
+		<item>24</item>
+		<!-- Weekly -->
+		<item>168</item>
+	</string-array>
+	<string-array name="pref_check_for_updates_frequencies">
+		<item>Manual/Never</item>
+		<item>Every 3 hours</item>
+		<item>Every 6 hours</item>
+		<item>Every 12 hours</item>
+		<item>Daily</item>
+		<item>Weekly</item>
+	</string-array>
+	<string name="pref_check_for_updates_frequency_default">12</string>
 
 	<!-- Actions (menu) -->
 	<string name="action_about">About</string>
@@ -230,6 +257,17 @@
 	<string name="update_activity_empty_state_head">No updates available</string>
 	<string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up here.</string>
 	<string name="update_activity_empty_state_icon_desc">Check icon</string>
+	<string name="update_activity_cannot_download_cellular_dialog_title">Warning</string>
+	<string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve configured your settings to not download updates when on a cellular network.\nIf you still want to download the update, tap on "Download anyway".</string>
+	<string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download anyway</string>
+	<string name="update_activity_update_already_downloaded_dialog_title">Update already downloaded</string>
+	<string name="update_activity_update_already_downloaded_dialog_msg">An update has already been downloaded! Tap on "Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on "Download anyway" will delete the existing file)</string>
+	<string name="update_activity_update_already_downloaded_dialog_negative_btn">Download anyway</string>
+	<string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
+	<string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
+	<string name="update_activity_delete_update_success_toast">Successfully deleted update!</string>
+	<string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app sources" in Settings before continuing. Click on the "Settings" button to configure.</string>
+	<string name="update_activity_enable_unknown_sources_dialog_positive_btn">Settings</string>
 	<!-- Sidenav -->
 	<string name="action_todo_title">TODOs</string>
 	<string name="action_calendar_title">Calendar</string>

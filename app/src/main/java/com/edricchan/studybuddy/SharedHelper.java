@@ -119,12 +119,34 @@ public class SharedHelper {
 
 	/**
 	 * Checks whether the network is unavailable
-	 * @deprecated Use {@link SharedHelper#isNetworkAvailable(Context)}  instead
+	 *
 	 * @param context The context
 	 * @return A boolean
+	 * @deprecated Use {@link SharedHelper#isNetworkAvailable(Context)}  instead
 	 */
 	public static boolean isNetworkUnavailable(Context context) {
 		return !isNetworkAvailable(context);
+	}
+
+	/**
+	 * Checks whether the network is cellular
+	 *
+	 * @param context The context
+	 * @return A boolean
+	 * See https://stackoverflow.com/a/32771164
+	 */
+	public static boolean isCellularNetworkAvailable(Context context) {
+		try {
+			ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+			if (activeNetwork != null) {
+				// connected to the mobile provider's data plan
+				return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return false;
 	}
 
 	/**

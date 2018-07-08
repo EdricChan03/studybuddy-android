@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -64,52 +63,49 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
-	private static final Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
-		@Override
-		public boolean onPreferenceChange(Preference preference, Object value) {
-			String stringValue = value.toString();
+	private static final Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = (preference, value) -> {
+		String stringValue = value.toString();
 
-			if (preference instanceof ListPreference) {
-				// For list preferences, look up the correct display value in
-				// the preference's 'entries' list.
-				ListPreference listPreference = (ListPreference) preference;
-				int index = listPreference.findIndexOfValue(stringValue);
+		if (preference instanceof ListPreference) {
+			// For list preferences, look up the correct display value in
+			// the preference's 'entries' list.
+			ListPreference listPreference = (ListPreference) preference;
+			int index = listPreference.findIndexOfValue(stringValue);
 
-				// Set the summary to reflect the new value.
-				preference.setSummary(
-						index >= 0
-								? listPreference.getEntries()[index]
-								: null);
+			// Set the summary to reflect the new value.
+			preference.setSummary(
+					index >= 0
+							? listPreference.getEntries()[index]
+							: null);
 
-			} else if (preference instanceof RingtonePreference) {
-				// For ringtone preferences, look up the correct display value
-				// using RingtoneManager.
-				if (TextUtils.isEmpty(stringValue)) {
-					// Empty values correspond to 'silent' (no ringtone).
-					preference.setSummary(R.string.pref_ringtone_silent);
-
-				} else {
-					Ringtone ringtone = RingtoneManager.getRingtone(
-							preference.getContext(), Uri.parse(stringValue));
-
-					if (ringtone == null) {
-						// Clear the summary if there was a lookup error.
-						preference.setSummary(null);
-					} else {
-						// Set the summary to reflect the new ringtone display
-						// name.
-						String name = ringtone.getTitle(preference.getContext());
-						preference.setSummary(name);
-					}
-				}
+		} else if (preference instanceof RingtonePreference) {
+			// For ringtone preferences, look up the correct display value
+			// using RingtoneManager.
+			if (TextUtils.isEmpty(stringValue)) {
+				// Empty values correspond to 'silent' (no ringtone).
+				preference.setSummary(R.string.pref_ringtone_silent);
 
 			} else {
-				// For all other preferences, set the summary to the value's
-				// simple string representation.
-				preference.setSummary(stringValue);
+				Ringtone ringtone = RingtoneManager.getRingtone(
+						preference.getContext(), Uri.parse(stringValue));
+
+				if (ringtone == null) {
+					// Clear the summary if there was a lookup error.
+					preference.setSummary(null);
+				} else {
+					// Set the summary to reflect the new ringtone display
+					// name.
+					String name = ringtone.getTitle(preference.getContext());
+					preference.setSummary(name);
+				}
 			}
-			return true;
+
+		} else {
+			// For all other preferences, set the summary to the value's
+			// simple string representation.
+			preference.setSummary(stringValue);
 		}
+		return true;
 	};
 
 	/**
@@ -245,16 +241,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			addPreferencesFromResource(R.xml.pref_todos);
 			TimePreference preference = (TimePreference) findPreference("weekly_summary_time");
 			preference.setDefaultValue(Time.valueOf("12:00:00").getTime());
-			Preference.OnPreferenceChangeListener timePreferenceOnChangeListener = new Preference.OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object value) {
-					Log.d(FRAG_TAG, "Current value of TimePreference: " + value);
-					long time = Long.parseLong(value.toString());
-					Date dateTime = new Date(time);
-					String timeString = new SimpleDateFormat("hh:mm a / HH:mm").format(dateTime);
-					preference.setSummary(String.format(getString(R.string.pref_weekly_summary_time_desc), timeString));
-					return true;
-				}
+			Preference.OnPreferenceChangeListener timePreferenceOnChangeListener = (preference1, value) -> {
+				Log.d(FRAG_TAG, "Current value of TimePreference: " + value);
+				long time = Long.parseLong(value.toString());
+				Date dateTime = new Date(time);
+				String timeString = new SimpleDateFormat("hh:mm a / HH:mm").format(dateTime);
+				preference1.setSummary(String.format(getString(R.string.pref_weekly_summary_time_desc), timeString));
+				return true;
 			};
 			preference.setOnPreferenceChangeListener(timePreferenceOnChangeListener);
 		}
@@ -293,17 +286,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			preferenceScreen.removeAll();
 			Preference allNotificationsPreference = new Preference(preferenceScreen.getContext());
 			allNotificationsPreference.setTitle(R.string.pref_notification_channel_all_channels_title);
-			allNotificationsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-						// Direct user to settings for notification channel
-						Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-						intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
-						startActivity(intent);
-					}
-					return true;
+			allNotificationsPreference.setOnPreferenceClickListener(preference -> {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					// Direct user to settings for notification channel
+					Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+					intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+					startActivity(intent);
 				}
+				return true;
 			});
 			preferenceScreen.addPreference(allNotificationsPreference);
 			for (MyNotificationChannel notificationChannel : notificationChannels) {
@@ -322,17 +312,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				notificationAdvancedPreference.setTitle(R.string.pref_notification_channel_advanced_title);
 				notificationAdvancedPreference.setSummary(R.string.pref_notification_channel_advanced_desc);
 				notificationAdvancedPreference.setKey(notificationChannelIds.get(notificationChannel.index));
-				notificationAdvancedPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-					@Override
-					public boolean onPreferenceClick(Preference preference) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-							Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-							intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
-							intent.putExtra(Settings.EXTRA_CHANNEL_ID, preference.getKey());
-							startActivity(intent);
-						}
-						return true;
+				notificationAdvancedPreference.setOnPreferenceClickListener(preference -> {
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+						Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+						intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+						intent.putExtra(Settings.EXTRA_CHANNEL_ID, preference.getKey());
+						startActivity(intent);
 					}
+					return true;
 				});
 				notificationChannelCategory.addPreference(notificationAdvancedPreference);
 				if (notificationEnabledPreference.isChecked()) {
@@ -340,16 +327,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				} else {
 					notificationAdvancedPreference.setEnabled(false);
 				}
-				notificationEnabledPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-					@Override
-					public boolean onPreferenceClick(Preference preference) {
-						if (notificationEnabledPreference.isChecked()) {
-							notificationAdvancedPreference.setEnabled(true);
-						} else {
-							notificationAdvancedPreference.setEnabled(false);
-						}
-						return true;
+				notificationEnabledPreference.setOnPreferenceClickListener(preference -> {
+					if (notificationEnabledPreference.isChecked()) {
+						notificationAdvancedPreference.setEnabled(true);
+					} else {
+						notificationAdvancedPreference.setEnabled(false);
 					}
+					return true;
 				});
 			}
 		}
@@ -422,9 +406,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					NotificationManager notificationManager =
 							(NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 					int index = 0;
-					for (NotificationChannel notificationChannel : notificationManager.getNotificationChannels()) {
-						notificationChannels.add(new MyNotificationChannel(notificationChannel.getName(), notificationChannel.getDescription(), notificationChannel.getId(), index++));
-						notificationChannelIds.add(notificationChannel.getId());
+					if (notificationManager != null) {
+						for (NotificationChannel notificationChannel : notificationManager.getNotificationChannels()) {
+							notificationChannels.add(new MyNotificationChannel(notificationChannel.getName(), notificationChannel.getDescription(), notificationChannel.getId(), index++));
+							notificationChannelIds.add(notificationChannel.getId());
+						}
 					}
 				}
 			}
@@ -515,38 +501,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			// guidelines.
 			bindPreferenceSummaryToValue(findPreference("sync_frequency"));
 			Preference manualSyncPreference = findPreference("manual_sync");
-			manualSyncPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					Crashlytics.getInstance().crash();
-					return true;
-				}
+			manualSyncPreference.setOnPreferenceClickListener(preference -> {
+				Crashlytics.getInstance().crash();
+				return true;
 			});
-			final SwitchPreference mobileDataSync = (SwitchPreference) findPreference("sync_mobile_data");
-			mobileDataSync.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					if (mobileDataSync.isChecked()) {
-						mobileDataSync.setChecked(false);
-						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-						builder.setPositiveButton(R.string.dialog_action_yes, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								mobileDataSync.setChecked(true);
-							}
-						});
-						builder.setTitle(R.string.pref_sync_mobile_data_dialog_title);
-						builder.setMessage(R.string.pref_sync_mobile_data_dialog_msg);
-						builder.setNegativeButton(R.string.dialog_action_no, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						});
-						builder.create().show();
-					}
-					return true;
+			final SwitchPreference cellularNetworksSync = (SwitchPreference) findPreference("sync_cellular_networks");
+			cellularNetworksSync.setOnPreferenceClickListener(preference -> {
+				if (cellularNetworksSync.isChecked()) {
+					cellularNetworksSync.setChecked(false);
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setPositiveButton(R.string.dialog_action_yes, (dialog, which) -> cellularNetworksSync.setChecked(true));
+					builder.setTitle(R.string.pref_sync_cellular_networks_dialog_title);
+					builder.setMessage(R.string.pref_sync_cellular_networks_dialog_msg);
+					builder.setNegativeButton(R.string.dialog_action_no, (dialog, which) -> dialog.dismiss());
+					builder.create().show();
 				}
+				return true;
 			});
 		}
 	}
@@ -557,6 +527,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_versions);
+			bindPreferenceSummaryToValue(findPreference("check_for_updates_frequency"));
 			final Context context = getActivity();
 			final String appAuthorUrl = "https://github.com/Chan4077";
 			final String appSrcUrl = "https://github.com/Chan4077/StudyBuddy";
@@ -566,32 +537,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			builder.addDefaultShareMenuItem();
 			final CustomTabsIntent customTabsIntent = builder.build();
 			final Preference updates = getPreferenceManager().findPreference("updates");
-			updates.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					Intent updatesIntent = new Intent(getActivity(), UpdatesActivity.class);
-					startActivity(updatesIntent);
-					return true;
-				}
+			updates.setOnPreferenceClickListener(preference -> {
+				Intent updatesIntent = new Intent(getActivity(), UpdatesActivity.class);
+				startActivity(updatesIntent);
+				return true;
 			});
 			Preference appAuthor = getPreferenceManager().findPreference("app_author");
-			appAuthor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					if (preference.getKey().equals("app_author")) {
-						customTabsIntent.launchUrl(context, Uri.parse(appAuthorUrl));
-						return true;
-					}
+			appAuthor.setOnPreferenceClickListener(preference -> {
+				if (preference.getKey().equals("app_author")) {
+					customTabsIntent.launchUrl(context, Uri.parse(appAuthorUrl));
 					return true;
 				}
+				return true;
 			});
 			Preference appSrc = getPreferenceManager().findPreference("app_src_code");
-			appSrc.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
-					return true;
-				}
+			appSrc.setOnPreferenceClickListener(preference -> {
+				customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
+				return true;
 			});
 			Preference appVersion = getPreferenceManager().findPreference("app_version");
 			appVersion.setSummary(getVersion());
