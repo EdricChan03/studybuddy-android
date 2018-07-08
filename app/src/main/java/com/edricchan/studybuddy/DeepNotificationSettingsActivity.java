@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * Created by edricchan on 4/3/18.
  */
 
-public class DeepSettingsFragmentDummyActivity extends AppCompatActivity {
+public class DeepNotificationSettingsActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
