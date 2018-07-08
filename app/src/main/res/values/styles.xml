@@ -2,27 +2,44 @@
 
 	<!-- Base application theme. -->
 	<style name="Theme.App" parent="Theme.MaterialComponents.Light.DarkActionBar">
-		<!-- Customize your theme here. -->
+		<!-- The default primary colour -->
 		<item name="colorPrimary">@color/colorPrimary</item>
+		<!-- The dark primary colour variant -->
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<!-- The accent colour -->
 		<item name="colorAccent">@color/colorAccent</item>
+		<!-- The colour of the navigation bar -->
 		<item name="android:navigationBarColor">@color/colorPrimary</item>
+		<!-- The font family of the app -->
 		<item name="fontFamily">@font/baloo</item>
+		<!-- The text input style -->
 		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
+		<!-- The edit text style -->
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox</item>
+		<!-- The Material CardView style -->
 		<item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
 	</style>
 	<style name="Theme.App.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+		<!-- The default primary colour -->
 		<item name="colorPrimary">@color/colorPrimary</item>
+		<!-- The dark primary colour variant -->
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<!-- The accent colour -->
 		<item name="colorAccent">@color/colorAccent</item>
+		<!-- The colour of the navigation bar -->
 		<item name="android:navigationBarColor">@color/colorPrimary</item>
+		<!-- The font family of the app -->
 		<item name="fontFamily">@font/baloo</item>
-		<item name="android:fontFamily">@font/baloo</item>
+		<!-- The text input style -->
 		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
+		<!-- The edit text style -->
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox</item>
+		<!-- The Material CardView style -->
 		<item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+		<!-- The font family of the app -->
+		<item name="android:fontFamily">@font/baloo</item>
 	</style>
 	<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 	<style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
