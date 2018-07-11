@@ -3,7 +3,7 @@
 # Table of contents
 - [Study Buddy](#study-buddy)
   - [Purpose](#purpose)
-  - [Open source!](#open-source)
+  - [Open source](#open-source)
 - [Downloads](#downloads)
 - [Dependencies](#dependencies)
 - [Current status](#current-status)
@@ -24,7 +24,7 @@ Welcome to Study Buddy!
 
 The purpose of this app is to help teens, especially students, with their studies.
 
-## Open source!
+## Open source
 
 This is a personal project that I created and is 100% open-source. It also uses the following dependencies (see [build.gradle](app/build.gradle) for all the dependencies):
 
@@ -48,33 +48,33 @@ To download the latest pre-release, go to [Releases](https://github.com/Chan4077
 
 If you want to access the web version, please head to <http://studybuddy-e5f46.firebaseapp.com>. The source code for the web app is available [here](https://github.com/Chan4077/StudyBuddy-web).
 
-# TODO
+# Roadmap
 
-
-- [ ] Better navigation
-- Add this app to the play store
-- Implement live syncing to and from the database
-- Add stuff planned for this year
+- [ ] Add more functionality
+- [ ] Add beeter navigation
+- [ ] Add working update functionality
 
 # Screenshots
 
 ## Login Activity
 
-Login Activity | Login > Forgot password
----|---
-[![Login Activity][art-login-activity]][art-login-activity] | [![Login > Forgot password][art-login-forgot-password]][art-login-forgot-password]
+Login Activity | Login > Forgot password | Register Activity
+---|---|---
+[![Login Activity][art-login-activity]][art-login-activity] | [![Login > Forgot password][art-login-forgot-password]][art-login-forgot-password] | [![Register Activity][art-register-activity]][art-register-activity]
 
 ## Main Activity
 
 Main Activity | Main Activity > Dialog (Add new task)
 ---|---
-[![Main Activity][art-main-activity]][art-main-activity] | [![Main Activity > Dialog (Add new task)][art-main-activity-dialog-add-task]][art-main-activity-dialog-add-task]
+[![Main Activity][art-main-activity]][art-main-activity] | [![Main Activity > Dialog (Add new task)][art-main-activity-new-task]][art-main-activity-new-task]
+
 ## Settings
 Settings > Experimental | Settings > Notifications (Oreo devices) | Settings > Notifications (Pre-Oreo devices)
 ---|---|---
 [![Settings > Experimental][art-settings-experimental]][art-settings-experimental] | [![Settings > Notifications (Oreo devices)][art-settings-notifications-oreo]][art-settings-notifications-oreo] | [![Settings > Notifications (Pre-Oreo devices)][art-settings-notifications-pre-oreo]][art-settings-notifications-pre-oreo]
 ---
 # Building the source code (debug only)
+
 If you would like to build the source code, follow these steps:
 1. Clone the project locally by either clicking the `Clone or download` > `Download ZIP` or by running the following commands:
    ```bash
@@ -94,14 +94,16 @@ If you would like to build the source code, follow these steps:
 3. The APK should be signed with the debug key and is available at `app/build/outputs/apk`. See [Build a debug APK](https://developer.android.com/studio/build/building-cmdline.html#DebugMode) for more info.
 
 # Contributing
+
 If you would like to contribute, please go ahead and submit a pull request explaining your changes to the code and also make sure that you open an issue beforehand.
 
 Logo-Notification Icon Design: <a href="https://github.com/Yasujizr" target="_blank">@Yasujizr</a>
 
-[art-login-activity]: art/screenshots/login_1.png
-[art-login-forgot-password]: art/screenshots/login_forgot_password.png
-[art-main-activity]: art/screenshots/main_1.png
-[art-main-activity-dialog-add-task]: art/screenshots/main_dialog_add_task.png
-[art-settings-experimental]: art/screenshots/settings_experimental.png
-[art-settings-notifications-oreo]: art/screenshots/settings_notifications_oreo.png
-[art-settings-notifications-pre-oreo]: art/screenshots/settings_notifications_pre_oreo.png
+[art-login-activity]: art/screenshots-v2/sign_in.png
+[art-login-forgot-password]: art/screenshots-v2/forgot_password.png
+[art-main-activity]: art/screenshots-v2/home.png
+[art-main-activity-new-task]: art/screenshots-v2/new_task.png
+[art-register-activity]: art/screenshots-v2/register.png
+[art-settings-experimental]: art/screenshots-v2/settings_experimental.png
+[art-settings-notifications-oreo]: art/screenshots-v2/settings_notifications_oreo.png
+[art-settings-notifications-pre-oreo]: art/screenshots-v2/settings_notifications_pre_oreo.png
