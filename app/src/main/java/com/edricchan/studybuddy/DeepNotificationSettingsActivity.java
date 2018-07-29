@@ -5,10 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * Created by edricchan on 4/3/18.
- */
-
 public class DeepNotificationSettingsActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
