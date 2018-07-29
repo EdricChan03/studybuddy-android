@@ -2,7 +2,7 @@ package com.edricchan.studybuddy.preference;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import androidx.preference.DialogPreference;
+import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.R;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-//import android.preference.DialogPreference;
+//import androidx.preference.DialogPreference;
 
 /**
  * See https://stackoverflow.com/a/10608622 for more info
