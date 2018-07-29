@@ -23,7 +23,6 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
@@ -89,7 +88,7 @@ public class SharedHelper {
 	}
 
 	/**
-	 * @param datePicker
+	 * @param datePicker The datepicker
 	 * @return a java.util.Date
 	 */
 	public static Date getDateFromDatePicker(DatePicker datePicker) {
@@ -313,6 +312,7 @@ public class SharedHelper {
 			channelGroups.add(todoChannelGroup);
 			NotificationChannelGroup updatesChannelGroup = new NotificationChannelGroup(context.getString(R.string.notification_channel_group_updates_id), context.getString(R.string.notification_channel_group_updates_title));
 			channelGroups.add(updatesChannelGroup);
+			assert notificationManager != null;
 			notificationManager.createNotificationChannelGroups(channelGroups);
 			// Pass list to method
 			notificationManager.createNotificationChannels(channels);
@@ -353,7 +353,7 @@ public class SharedHelper {
 
 							intentAction.putExtra("action", ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER);
 							intentAction.putExtra("downloadUrl", update.getUrlToDownload().toString());
-							intentAction.putExtra("version", update.getLatestVersion().toString());
+							intentAction.putExtra("version", update.getLatestVersion());
 							PendingIntent pIntentDownload = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
 							notifyBuilder.setContentTitle(context.getString(R.string.notification_new_update_title))
 									.setContentText(context.getString(R.string.notification_new_update_text, update.getLatestVersion()))
@@ -406,13 +406,7 @@ public class SharedHelper {
 	 * @return A boolean
 	 */
 	public static boolean checkPermission(String permission, Context context) {
-		if (ContextCompat.checkSelfPermission(context, permission)
-				!= PackageManager.PERMISSION_GRANTED) {
-			// Permission is not granted
-			return false;
-		} else {
-			return true;
-		}
+		return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
 	}
 
 	/**
@@ -460,12 +454,7 @@ public class SharedHelper {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final CollectionReference notifications = db.collection("notificationRequests");
 		Notification notification = new Notification(user, message, body, color, new NotificationData(notificationChannelId, notificationActions));
-		notifications.add(notification).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-			@Override
-			public void onSuccess(DocumentReference documentReference) {
-				documentReference.update("id", documentReference.getId());
-			}
-		});
+		notifications.add(notification).addOnSuccessListener(documentReference -> documentReference.update("id", documentReference.getId()));
 	}
 
 	/**

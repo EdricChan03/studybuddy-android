@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -537,12 +538,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 			builder.addDefaultShareMenuItem();
 			final CustomTabsIntent customTabsIntent = builder.build();
 			final Preference updates = getPreferenceManager().findPreference("updates");
+			assert updates != null;
 			updates.setOnPreferenceClickListener(preference -> {
 				Intent updatesIntent = new Intent(getActivity(), UpdatesActivity.class);
 				startActivity(updatesIntent);
 				return true;
 			});
 			Preference appAuthor = getPreferenceManager().findPreference("app_author");
+			assert appAuthor != null;
 			appAuthor.setOnPreferenceClickListener(preference -> {
 				if (preference.getKey().equals("app_author")) {
 					customTabsIntent.launchUrl(context, Uri.parse(appAuthorUrl));
@@ -551,11 +554,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				return true;
 			});
 			Preference appSrc = getPreferenceManager().findPreference("app_src_code");
+			assert appSrc != null;
 			appSrc.setOnPreferenceClickListener(preference -> {
 				customTabsIntent.launchUrl(context, Uri.parse(appSrcUrl));
 				return true;
 			});
 			Preference appVersion = getPreferenceManager().findPreference("app_version");
+			assert appVersion != null;
 			appVersion.setSummary(getVersion());
 		}
 
@@ -567,9 +572,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 				// Permission hasn't been granted
 				if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
 						android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-					// Show an explanation to the user *asynchronously* -- don't block
-					// this thread waiting for the user's response! After the user
-					// sees the explanation, try again to request the permission.
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setTitle(R.string.settings_permission_requested_dialog_title);
+					builder.setMessage(R.string.settings_permission_requested_dialog_msg_storage);
+					builder.setPositiveButton(R.string.dialog_action_grant, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
+							checkPermission();
+							dialogInterface.dismiss();
+						}
+					});
+					builder.show();
 				} else {
 					// No explanation needed; request the permission
 					ActivityCompat.requestPermissions(getActivity(),

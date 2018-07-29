@@ -38,8 +38,9 @@ public class HelpFeaturedAdapter extends ArrayAdapter<HelpFeatured> {
 
 	@Override
 	public HelpFeatured getItem(int position) {
-		return (HelpFeatured) helpFeaturedList.get(position);
+		return helpFeaturedList.get(position);
 	}
+	@NonNull
 	@Override
 	public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
@@ -49,7 +50,7 @@ public class HelpFeaturedAdapter extends ArrayAdapter<HelpFeatured> {
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.help_featured_row_item, parent, false);
-			viewHolder.textView = (TextView) convertView.findViewById(R.id.textView);
+			viewHolder.textView = convertView.findViewById(R.id.textView);
 
 			result=convertView;
 			convertView.setTag(viewHolder);
@@ -62,6 +63,7 @@ public class HelpFeaturedAdapter extends ArrayAdapter<HelpFeatured> {
 		HelpFeatured item = getItem(position);
 
 
+		assert item != null;
 		viewHolder.textView.setText(item.helpTxt);
 
 		return result;

@@ -15,7 +15,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.edricchan.studybuddy.utils.CustomAlertDialogBuilder;
@@ -43,7 +42,7 @@ public class UpdatesActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_updates);
-		checkForUpdatesBtn = (MaterialButton) findViewById(R.id.empty_view_cta);
+		checkForUpdatesBtn = findViewById(R.id.empty_view_cta);
 		checkForUpdatesBtn.setOnClickListener(click -> checkForUpdates());
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 	}
@@ -90,15 +89,12 @@ public class UpdatesActivity extends AppCompatActivity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(UpdatesActivity.this);
 				builder.setTitle(R.string.update_activity_cannot_download_cellular_dialog_title);
 				builder.setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg);
-				builder.setNegativeButton(R.string.dialog_action_cancel, (DialogInterface dialogInterface, int i) -> {
-					dialogInterface.dismiss();
-				});
+				builder.setNegativeButton(R.string.dialog_action_cancel, (DialogInterface dialogInterface, int i) -> dialogInterface.dismiss());
 				builder.setPositiveButton(R.string.update_activity_cannot_download_cellular_dialog_positive_btn, (dialogInterface, i) -> {
 					dialogInterface.dismiss();
 					downloadUpdate(downloadUrl, version, true, false);
 				});
 				builder.show();
-				return;
 			} else {
 				DownloadManager.Request request1 = new DownloadManager.Request(Uri.parse(downloadUrl));
 
@@ -146,9 +142,7 @@ public class UpdatesActivity extends AppCompatActivity {
 			} else {
 				CustomAlertDialogBuilder builder = new CustomAlertDialogBuilder(UpdatesActivity.this);
 				builder.setMessage(R.string.update_activity_enable_unknown_sources_dialog_msg);
-				builder.setNegativeButton(R.string.dialog_action_cancel, (DialogInterface dialogInterface, int i) -> {
-					dialogInterface.dismiss();
-				});
+				builder.setNegativeButton(R.string.dialog_action_cancel, (DialogInterface dialogInterface, int i) -> dialogInterface.dismiss());
 				builder.setNeutralButton(R.string.dialog_action_retry, (DialogInterface dialogInterface, int i) -> {
 					dialogInterface.dismiss();
 					installUpdate(fileName);
@@ -189,33 +183,21 @@ public class UpdatesActivity extends AppCompatActivity {
 							builder.setTitle(String.format(getString(R.string.update_dialog_title_new), update.getLatestVersion()));
 							builder.setIcon(R.drawable.ic_system_update_24dp);
 							builder.setMessage("What's new:\n" + update.getReleaseNotes());
-							builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialogInterface, int i) {
+							builder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
 
+							});
+							builder.setPositiveButton(R.string.update_dialog_positive_btn_text, (dialogInterface, i) -> {
+								if (SharedHelper.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, UpdatesActivity.this)) {
+									downloadUpdate(update.getUrlToDownload().toString(), update.getLatestVersion());
 								}
 							});
-							builder.setPositiveButton(R.string.update_dialog_positive_btn_text, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialogInterface, int i) {
-									if (SharedHelper.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, UpdatesActivity.this)) {
-										downloadUpdate(update.getUrlToDownload().toString(), update.getLatestVersion());
-									}
-								}
+							builder.setOnDismissListener(dialogInterface -> {
+								isChecking = false;
+								invalidateOptionsMenu();
 							});
-							builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-								@Override
-								public void onDismiss(DialogInterface dialogInterface) {
-									isChecking = false;
-									invalidateOptionsMenu();
-								}
-							});
-							builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-								@Override
-								public void onCancel(DialogInterface dialogInterface) {
-									isChecking = false;
-									invalidateOptionsMenu();
-								}
+							builder.setOnCancelListener(dialogInterface -> {
+								isChecking = false;
+								invalidateOptionsMenu();
 							});
 							builder.create().show();
 						}
@@ -228,32 +210,17 @@ public class UpdatesActivity extends AppCompatActivity {
 						switch (appUpdaterError) {
 							case NETWORK_NOT_AVAILABLE:
 								Snackbar.make(findViewById(R.id.updatesView), R.string.update_snackbar_error_no_internet, Snackbar.LENGTH_LONG)
-										.setAction(R.string.dialog_action_retry, new View.OnClickListener() {
-											@Override
-											public void onClick(View view) {
-												checkForUpdates();
-											}
-										})
+										.setAction(R.string.dialog_action_retry, view -> checkForUpdates())
 										.show();
 								break;
 							case JSON_ERROR:
 								Snackbar.make(findViewById(R.id.updatesView), R.string.update_snackbar_error_malformed, Snackbar.LENGTH_LONG)
-										.setAction(R.string.dialog_action_retry, new View.OnClickListener() {
-											@Override
-											public void onClick(View view) {
-												checkForUpdates();
-											}
-										})
+										.setAction(R.string.dialog_action_retry, view -> checkForUpdates())
 										.show();
 								break;
 							default:
 								Snackbar.make(findViewById(R.id.updatesView), R.string.update_snackbar_error, Snackbar.LENGTH_LONG)
-										.setAction(R.string.dialog_action_retry, new View.OnClickListener() {
-											@Override
-											public void onClick(View view) {
-												checkForUpdates();
-											}
-										})
+										.setAction(R.string.dialog_action_retry, view -> checkForUpdates())
 										.show();
 								break;
 						}

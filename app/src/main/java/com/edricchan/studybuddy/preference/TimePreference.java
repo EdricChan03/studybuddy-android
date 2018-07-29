@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.preference;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
-import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
@@ -11,13 +10,14 @@ import android.widget.TimePicker;
 import com.edricchan.studybuddy.R;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
+
+//import android.preference.DialogPreference;
 
 /**
  * See https://stackoverflow.com/a/10608622 for more info
  */
-public class TimePreference extends DialogPreference {
+public class TimePreference extends DialogPreferandroidx.preference:preference:1.0.0-beta01androidx.preference:preference:1.0.0-beta01ence {
 	private Calendar calendar;
 	private TimePicker picker = null;
 

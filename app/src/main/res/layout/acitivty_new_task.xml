@@ -73,7 +73,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:text="@string/action_mark_as_done"
-				android:theme="@style/Theme.App" />
+				android:fontFamily="@font/baloo"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -100,7 +100,6 @@
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
 						android:text="@string/due_date_text" />
-
 					<ImageButton
 						android:id="@+id/taskDatePickerBtn"
 						android:layout_width="40dp"

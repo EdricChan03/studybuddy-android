@@ -1,14 +1,12 @@
 package com.edricchan.studybuddy;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -59,20 +57,14 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 
 	private void updateDoneStatus(@NonNull TaskItem item, final MaterialButton button) {
 		if (item.hasDone) {
-			mFirestore.document("users/" + mUser.getUid() + "/todos/" + item.id).update("hasDone", false).addOnSuccessListener(new OnSuccessListener<Void>() {
-				@Override
-				public void onSuccess(Void aVoid) {
-					Snackbar.make(snackbarView, "Task marked as undone.", Snackbar.LENGTH_LONG).show();
-					button.setText(R.string.action_mark_as_done);
-				}
+			mFirestore.document("users/" + mUser.getUid() + "/todos/" + item.id).update("hasDone", false).addOnSuccessListener(aVoid -> {
+				Snackbar.make(snackbarView, "Task marked as undone.", Snackbar.LENGTH_LONG).show();
+				button.setText(R.string.action_mark_as_done);
 			});
 		} else {
-			mFirestore.document("users/" + mUser.getUid() + "/todos/" + item.id).update("hasDone", true).addOnSuccessListener(new OnSuccessListener<Void>() {
-				@Override
-				public void onSuccess(Void aVoid) {
-					Snackbar.make(snackbarView, "Task marked as done.", Snackbar.LENGTH_LONG).show();
-					button.setText(R.string.action_mark_as_undone);
-				}
+			mFirestore.document("users/" + mUser.getUid() + "/todos/" + item.id).update("hasDone", true).addOnSuccessListener(aVoid -> {
+				Snackbar.make(snackbarView, "Task marked as done.", Snackbar.LENGTH_LONG).show();
+				button.setText(R.string.action_mark_as_undone);
 			});
 		}
 	}
@@ -109,63 +101,44 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 		if (checkNonEmpty(item.projects)) {
 			for (String project : item.projects) {
 				Chip tempChip = new Chip(mContext);
-				tempChip.setChipText(project);
+				tempChip.setText(project);
 				itemProjects.addView(tempChip);
 			}
 		}
 		if (checkNonEmpty(item.tags)) {
 			for (String tag : item.tags) {
 				Chip tempChip = new Chip(mContext);
-				tempChip.setChipText(tag);
+				tempChip.setText(tag);
 				itemTags.addView(tempChip);
 			}
 		}
 		final MaterialButton markAsDoneBtn = holder.markAsDoneBtn;
 		markAsDoneBtn.setText(R.string.action_mark_as_done);
-		markAsDoneBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(final View view) {
-				updateDoneStatus(item, markAsDoneBtn);
-			}
-		});
+		markAsDoneBtn.setOnClickListener(view -> updateDoneStatus(item, markAsDoneBtn));
 		MaterialButton deleteBtn = holder.deleteBtn;
-		deleteBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(final View view) {
-				TaskItem temp = item;
-				AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-				builder.setTitle("Delete todo?");
-				builder.setPositiveButton(R.string.dialog_action_ok, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialogInterface, int i) {
-						dialogInterface.dismiss();
-						SharedHelper.removeTodo(item.id, mUser, mFirestore).addOnSuccessListener(new OnSuccessListener<Void>() {
-							@Override
-							public void onSuccess(Void aVoid) {
-								notifyItemRemoved(position);
-								Snackbar.make(snackbarView, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-									@Override
-									public void onClick(View view1) {
-										SharedHelper.addTodo(item, mUser, mFirestore).addOnFailureListener(new OnFailureListener() {
-											@Override
-											public void onFailure(@NonNull Exception e) {
-												Snackbar.make(snackbarView, "Couldn't restore todo: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
-											}
-										});
-									}
-								}).show();
-							}
-						});
-					}
+		deleteBtn.setOnClickListener(view -> {
+			TaskItem temp = item;
+			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+			builder.setTitle("Delete todo?");
+			builder.setPositiveButton(R.string.dialog_action_ok, (dialogInterface, i) -> {
+				dialogInterface.dismiss();
+				SharedHelper.removeTodo(item.id, mUser, mFirestore).addOnSuccessListener(aVoid -> {
+					notifyItemRemoved(position);
+					Snackbar.make(snackbarView, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+						@Override
+						public void onClick(View view1) {
+							SharedHelper.addTodo(item, mUser, mFirestore).addOnFailureListener(new OnFailureListener() {
+								@Override
+								public void onFailure(@NonNull Exception e) {
+									Snackbar.make(snackbarView, "Couldn't restore todo: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
+								}
+							});
+						}
+					}).show();
 				});
-				builder.setNegativeButton(R.string.dialog_action_cancel, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialogInterface, int i) {
-						dialogInterface.dismiss();
-					}
-				});
-				builder.show();
-			}
+			});
+			builder.setNegativeButton(R.string.dialog_action_cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+			builder.show();
 		});
 	}
 
@@ -185,13 +158,13 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 
 		public Holder(View view) {
 			super(view);
-			markAsDoneBtn = (MaterialButton) view.findViewById(R.id.itemMarkAsDone);
-			deleteBtn = (MaterialButton) view.findViewById(R.id.itemDelete);
-			itemTitle = (TextView) view.findViewById(R.id.itemTitle);
-			itemDate = (TextView) view.findViewById(R.id.itemDate);
-			itemContent = (TextView) view.findViewById(R.id.itemContent);
-			itemProjects = (ChipGroup) view.findViewById(R.id.itemProjects);
-			itemTags = (ChipGroup) view.findViewById(R.id.itemTags);
+			markAsDoneBtn = view.findViewById(R.id.itemMarkAsDone);
+			deleteBtn = view.findViewById(R.id.itemDelete);
+			itemTitle = view.findViewById(R.id.itemTitle);
+			itemDate = view.findViewById(R.id.itemDate);
+			itemContent = view.findViewById(R.id.itemContent);
+			itemProjects = view.findViewById(R.id.itemProjects);
+			itemTags = view.findViewById(R.id.itemTags);
 		}
 	}
 }

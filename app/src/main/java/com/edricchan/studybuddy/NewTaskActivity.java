@@ -8,26 +8,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.TooltipCompat;
 
@@ -91,15 +86,7 @@ public class NewTaskActivity extends AppCompatActivity {
 				final Calendar c = Calendar.getInstance();
 
 				DatePickerDialog dpd = new DatePickerDialog(NewTaskActivity.this,
-						new DatePickerDialog.OnDateSetListener() {
-
-							@Override
-							public void onDateSet(DatePicker view, int year,
-							                      int monthOfYear, int dayOfMonth) {
-								dialogDateText.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
-
-							}
-						}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
+						(view1, year, monthOfYear, dayOfMonth) -> dialogDateText.setText(dayOfMonth + "/" + monthOfYear + "/" + year), c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
 				dpd.show();
 				taskDate = SharedHelper.getDateFromDatePicker(dpd.getDatePicker());
 			}
@@ -133,20 +120,14 @@ public class NewTaskActivity extends AppCompatActivity {
 				}
 				taskItem.setHasDone(taskHasDone.isChecked());
 				SharedHelper.addTodo(taskItem, currentUser, mFirestore)
-						.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-							@Override
-							public void onSuccess(DocumentReference documentReference) {
-								Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-								Toast.makeText(NewTaskActivity.this, "Successfully added todo!", Toast.LENGTH_SHORT).show();
-								finish();
-							}
+						.addOnSuccessListener(documentReference -> {
+							Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+							Toast.makeText(NewTaskActivity.this, "Successfully added todo!", Toast.LENGTH_SHORT).show();
+							finish();
 						})
-						.addOnFailureListener(new OnFailureListener() {
-							@Override
-							public void onFailure(@NonNull Exception e) {
-								Toast.makeText(NewTaskActivity.this, "An error occured while adding data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-								Log.e(TAG, "An error occured while adding data: ", e);
-							}
+						.addOnFailureListener(e -> {
+							Toast.makeText(NewTaskActivity.this, "An error occured while adding data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+							Log.e(TAG, "An error occured while adding data: ", e);
 						});
 			} else {
 				taskTitle.setError("Please enter something.");

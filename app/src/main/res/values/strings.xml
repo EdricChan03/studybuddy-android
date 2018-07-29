@@ -32,7 +32,7 @@
 
 	<!-- Global dialog values -->
 	<string name="dialog_action_cancel">Cancel</string>
-	<string name="dialog_action_ok">Ok</string>
+	<string name="dialog_action_ok">OK</string>
 	<string name="dialog_action_confirm">Confirm</string>
 	<string name="dialog_action_yes">Yes</string>
 	<string name="dialog_action_no">No</string>
@@ -42,6 +42,8 @@
 	<string name="dialog_action_login">Login</string>
 	<string name="dialog_action_set">Set</string>
 	<string name="dialog_action_retry">Retry</string>
+	<string name="dialog_action_grant">Grant</string>
+
 	<!-- Share bottom sheet -->
 	<string name="share_intent_value">Share this app via&#8230;</string>
 	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
@@ -293,6 +295,9 @@
 	<string name="sign_in_providers_header">Sign in with the below providers:</string>
 	<string name="sign_in_providers_or">OR</string>
 
+	<!-- Strings related to settings activity/fragments -->
+	<string name="settings_permission_requested_dialog_title">Permission requested</string>
+	<string name="settings_permission_requested_dialog_msg_storage">The storage permission is required to save new releases to your phone\'s "Download" folder.</string>
 
 	<!-- Notification channel groups -->
 	<string name="notification_channel_group_todos_id">todos</string>

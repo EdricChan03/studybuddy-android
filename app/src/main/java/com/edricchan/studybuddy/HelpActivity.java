@@ -2,23 +2,18 @@ package com.edricchan.studybuddy;
 
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.edricchan.studybuddy.interfaces.HelpFeatured;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.content.ContextCompat;
 
 public class HelpActivity extends AppCompatActivity {
 
@@ -29,8 +24,8 @@ public class HelpActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_help);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		featuredListView = (ListView) findViewById(R.id.helpFeaturedListView);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+		featuredListView = findViewById(R.id.helpFeaturedListView);
 		addFeaturedItems();
 		initialiseAdapter();
 		setupClickHandler();
@@ -85,18 +80,15 @@ public class HelpActivity extends AppCompatActivity {
 	 * Sets a click handler on an item of the listview
 	 */
 	private void setupClickHandler() {
-		featuredListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				featuredListView.setSelection(position);
-				featuredListView.setPressed(true);
+		featuredListView.setOnItemClickListener((parent, view, position, id) -> {
+			featuredListView.setSelection(position);
+			featuredListView.setPressed(true);
 //				Log.d(SharedHelper.getTag(HelpActivity.class), "Selected: " + helpFeaturedList.get(position).helpUrl);
-				CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-				builder.setToolbarColor(ContextCompat.getColor(HelpActivity.this, R.color.colorPrimary));
-				builder.addDefaultShareMenuItem();
-				final CustomTabsIntent customTabsIntent = builder.build();
-				customTabsIntent.launchUrl(HelpActivity.this, Uri.parse(helpFeaturedList.get(position).helpUrl));
-			}
+			CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+			builder.setToolbarColor(ContextCompat.getColor(HelpActivity.this, R.color.colorPrimary));
+			builder.addDefaultShareMenuItem();
+			final CustomTabsIntent customTabsIntent = builder.build();
+			customTabsIntent.launchUrl(HelpActivity.this, Uri.parse(helpFeaturedList.get(position).helpUrl));
 		});
 	}
 
