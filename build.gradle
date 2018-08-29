@@ -7,7 +7,7 @@ buildscript {
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:3.3.0-alpha06'
+		classpath 'com.android.tools.build:gradle:3.3.0-alpha07'
 		classpath "com.google.firebase:firebase-plugins:1.1.5"
 		classpath "com.google.gms:google-services:4.0.2"
 		classpath "io.fabric.tools:gradle:1.25.4"
@@ -26,15 +26,6 @@ allprojects {
 	}
 }
 
-// Global properties
-ext {
-	// Android Support Library
-	// Notice: This is no longer used
-	// supportLibVersion = "28.0.0-alpha3"
-	// FirebaseSDK
-	// Notice: Starting from 2 May 2018, the FirebaseSDK has independent version numbers, making this property useless
-	firebaseVersion = "15.0.0"
-}
 task clean(type: Delete) {
 	delete rootProject.buildDir
 }
