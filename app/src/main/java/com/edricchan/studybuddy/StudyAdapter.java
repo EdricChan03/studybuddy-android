@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 	private FirebaseUser mUser;
 	private FirebaseFirestore mFirestore;
 	private View snackbarView;
+	private static final String TAG = SharedHelper.getTag(StudyAdapter.class);
 
 	public StudyAdapter(Context context, List<TaskItem> feedItemList, FirebaseUser user, FirebaseFirestore fs, View view) {
 		mFeedItemList = feedItemList;
@@ -48,11 +50,14 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 	}
 
 	private boolean checkNonEmpty(@NonNull String var) {
-		return var != null && var.length() != 0;
+		return var.length() != 0;
+	}
+	private boolean checkStringNonNull(String var) {
+		return var != null;
 	}
 
-	private boolean checkNonEmpty(List var) {
-		return var != null && var.size() != 0;
+	private boolean checkNonEmpty(@NonNull List var) {
+		return var.size() != 0;
 	}
 
 	private void updateDoneStatus(@NonNull TaskItem item, final MaterialButton button) {
@@ -83,22 +88,22 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 	public void onBindViewHolder(@NonNull StudyAdapter.Holder holder, final int position) {
 		final TaskItem item = mFeedItemList.get(position);
 		TextView itemTitle = holder.itemTitle;
-		TextView itemDate = holder.itemDate;
+		// TextView itemDate = holder.itemDate;
 		TextView itemContent = holder.itemContent;
-		ChipGroup itemProjects = holder.itemProjects;
-		ChipGroup itemTags = holder.itemTags;
+		// ChipGroup itemProjects = holder.itemProjects;
+		// ChipGroup itemTags = holder.itemTags;
 		if (checkNonEmpty(item.title)) {
 			itemTitle.setText(item.title);
 		}
-		if (item.dueDate != null) {
+		/*if (item.dueDate != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.ENGLISH);
 			String date = dateFormat.format(item.dueDate.toDate().getTime());
 			itemDate.setText(date);
-		}
-		if (checkNonEmpty(item.content)) {
+		}*/
+		if (checkStringNonNull(item.content)) {
 			itemContent.setText(item.content);
 		}
-		if (checkNonEmpty(item.projects)) {
+		/*if (checkNonEmpty(item.projects)) {
 			for (String project : item.projects) {
 				Chip tempChip = new Chip(mContext);
 				tempChip.setText(project);
@@ -111,13 +116,12 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 				tempChip.setText(tag);
 				itemTags.addView(tempChip);
 			}
-		}
+		}*/
 		final MaterialButton markAsDoneBtn = holder.markAsDoneBtn;
 		markAsDoneBtn.setText(R.string.action_mark_as_done);
 		markAsDoneBtn.setOnClickListener(view -> updateDoneStatus(item, markAsDoneBtn));
 		MaterialButton deleteBtn = holder.deleteBtn;
 		deleteBtn.setOnClickListener(view -> {
-			TaskItem temp = item;
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			builder.setTitle("Delete todo?");
 			builder.setPositiveButton(R.string.dialog_action_ok, (dialogInterface, i) -> {
@@ -149,10 +153,10 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 
 	public class Holder extends RecyclerView.ViewHolder {
 		TextView itemTitle;
-		TextView itemDate;
+		// TextView itemDate;
 		TextView itemContent;
-		ChipGroup itemProjects;
-		ChipGroup itemTags;
+		// ChipGroup itemProjects;
+		// ChipGroup itemTags;
 		MaterialButton markAsDoneBtn;
 		MaterialButton deleteBtn;
 
@@ -161,10 +165,10 @@ public class StudyAdapter extends RecyclerView.Adapter<StudyAdapter.Holder> {
 			markAsDoneBtn = view.findViewById(R.id.itemMarkAsDone);
 			deleteBtn = view.findViewById(R.id.itemDelete);
 			itemTitle = view.findViewById(R.id.itemTitle);
-			itemDate = view.findViewById(R.id.itemDate);
+			// itemDate = view.findViewById(R.id.itemDate);
 			itemContent = view.findViewById(R.id.itemContent);
-			itemProjects = view.findViewById(R.id.itemProjects);
-			itemTags = view.findViewById(R.id.itemTags);
+			// itemProjects = view.findViewById(R.id.itemProjects);
+			// itemTags = view.findViewById(R.id.itemTags);
 		}
 	}
 }

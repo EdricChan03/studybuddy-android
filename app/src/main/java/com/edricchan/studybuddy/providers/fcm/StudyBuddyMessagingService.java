@@ -17,12 +17,10 @@ import com.edricchan.studybuddy.MainActivity;
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SettingsActivity;
 import com.edricchan.studybuddy.SharedHelper;
-import com.edricchan.studybuddy.interfaces.Notification;
 import com.edricchan.studybuddy.interfaces.NotificationAction;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;

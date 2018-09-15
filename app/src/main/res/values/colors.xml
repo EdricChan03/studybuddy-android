@@ -14,4 +14,10 @@
 	<color name="colorGrey800">#424242</color>
 	<color name="lightGrey">#fff5f5f5</color>
 	<color name="colorWarn">#f44336</color>
+
+	<color name="colorPrimaryTextDefaultMaterialLight">#DE000000</color>
+	<color name="colorSecondaryTextDefaultMaterialLight">#8A000000</color>
+
+	<color name="colorPrimaryTextDefaultMaterialDark">#FFFFFFFF</color>
+	<color name="colorSecondaryTextDefaultMaterialDark">#B3FFFFFF</color>
 </resources>

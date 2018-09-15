@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<Preference
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<androidx.preference.Preference
 		android:icon="@drawable/ic_system_update_24dp"
 		android:key="updates"
 		android:title="@string/pref_updates_title" />
-	<SwitchPreference
+	<androidx.preference.SwitchPreference
 		android:defaultValue="false"
 		android:icon="@drawable/ic_network_cell_24dp"
 		android:key="updates_enable_cellular"
 		android:title="@string/pref_updates_cellular_networks_title" />
-	<PreferenceCategory android:title="@string/pref_updates_options_title">
-		<ListPreference
+	<androidx.preference.PreferenceCategory android:title="@string/pref_updates_options_title">
+		<androidx.preference.ListPreference
 			android:title="@string/pref_check_for_update_frequency_title"
 			android:key="check_for_updates_frequency"
 			android:entries="@array/pref_check_for_updates_frequencies"
 			android:entryValues="@array/pref_check_for_updates_frequency_values"
 			android:defaultValue="@string/pref_check_for_updates_frequency_default"/>
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/pref_about_category_title">
-		<Preference
+	</androidx.preference.PreferenceCategory>
+	<androidx.preference.PreferenceCategory android:title="@string/pref_about_category_title">
+		<androidx.preference.Preference
 			android:enabled="false"
 			android:key="app_version"
 			android:title="@string/pref_app_version_title" />
-		<Preference
+		<androidx.preference.Preference
 			android:icon="@drawable/ic_code_24dp"
 			android:key="app_src_code"
 			android:summary="@string/pref_source_code_desc"
 			android:title="@string/pref_source_code_title" />
-		<Preference
+		<androidx.preference.Preference
 			android:icon="@drawable/ic_account_circle_24dp"
 			android:key="app_author"
 			android:title="@string/pref_author_title" />
-	</PreferenceCategory>
-</PreferenceScreen>
+	</androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

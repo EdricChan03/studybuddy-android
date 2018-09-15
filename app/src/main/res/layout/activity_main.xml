@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/app_layout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	app:layout_behavior="@string/appbar_scrolling_view_behavior"
+	android:fitsSystemWindows="true"
 	tools:context=".MainActivity">
-	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-		android:id="@+id/recycler_swiperefresh"
+
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:layout_above="@id/bottom_navigation_view">
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/recycler_list"
+		<FrameLayout
+			android:id="@+id/content_main"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:scrollbars="vertical" />
-	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+			android:layout_height="match_parent" />
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/fab"
-		android:layout_width="wrap_content"
+
+	<com.google.android.material.bottomnavigation.BottomNavigationView
+		android:id="@+id/bottom_navigation_view"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="bottom|end"
-		android:layout_margin="16dp"
-		android:src="@drawable/ic_plus_white_24dp"
-		 />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+		android:layout_alignParentBottom="true"
+		app:menu="@menu/bottom_nav" />
+</RelativeLayout>

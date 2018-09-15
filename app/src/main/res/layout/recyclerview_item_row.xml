@@ -1,76 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="4dp"
-	android:clickable="true"
-	android:focusable="true"
-	android:foreground="?android:attr/selectableItemBackground">
+	android:layout_marginStart="8dp"
+	android:layout_marginTop="8dp"
+	android:layout_marginEnd="8dp"
+	tools:ignore="ContentDescription">
 
-	<RelativeLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="?attr/selectableItemBackground"
-		android:padding="10dp">
+		android:layout_height="wrap_content">
 
 		<TextView
 			android:id="@+id/itemTitle"
-			android:layout_width="match_parent"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:textAppearance="?attr/textAppearanceHeadline6" />
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginEnd="16dp"
+			android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+			android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
+			app:layout_constraintBottom_toTopOf="@id/itemContent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_chainStyle="packed" />
+
+		<!--<TextView
+			android:id="@+id/itemContent"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginEnd="16dp"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			android:textColor="@color/colorSecondaryTextDefaultMaterialLight"
+			app:layout_constraintTop_toBottomOf="@id/itemTitle"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toTopOf="@+id/supporting_text" />-->
 
 		<TextView
 			android:id="@+id/itemContent"
-			android:layout_width="match_parent"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/itemTitle"
-			android:textAppearance="?attr/textAppearanceSubtitle1" />
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="16dp"
+			android:lineSpacingExtra="8dp"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
+			app:layout_constraintBottom_toTopOf="@id/itemMarkAsDone"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/itemTitle" />
 
-		<TextView
-			android:id="@+id/itemDate"
-			android:layout_width="match_parent"
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/itemMarkAsDone"
+			style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/itemContent"
-			android:textAppearance="?attr/textAppearanceBody1" />
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="16dp"
+			android:minWidth="0dp"
+			android:paddingStart="8dp"
+			android:paddingEnd="8dp"
+			android:text="@string/action_mark_as_done"
+			app:icon="@drawable/ic_check_24dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/itemContent" />
 
-		<com.google.android.material.chip.ChipGroup
-			android:id="@+id/itemProjects"
-			android:layout_width="match_parent"
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/itemDelete"
+			style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/itemDate" />
+			android:layout_marginStart="8dp"
+			android:text="@string/action_delete_todo"
+			app:icon="@drawable/ic_delete_24dp"
+			app:layout_constraintStart_toEndOf="@id/itemMarkAsDone"
+			app:layout_constraintTop_toTopOf="@id/itemMarkAsDone" />
 
-		<com.google.android.material.chip.ChipGroup
-			android:id="@+id/itemTags"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/itemDate" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/itemProjects">
-
-			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentEnd="true">
-
-				<com.google.android.material.button.MaterialButton
-					android:id="@+id/itemDelete"
-					style="@style/Widget.MaterialComponents.Button.TextButton"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/action_delete_todo"
-					app:icon="@drawable/ic_delete_24dp" />
-
-				<com.google.android.material.button.MaterialButton
-					android:id="@+id/itemMarkAsDone"
-					style="@style/Widget.MaterialComponents.Button.TextButton"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					app:icon="@drawable/ic_check_24dp" />
-			</LinearLayout>
-		</RelativeLayout>
-	</RelativeLayout>
 </com.google.android.material.card.MaterialCardView>
