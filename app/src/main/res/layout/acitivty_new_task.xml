@@ -108,7 +108,7 @@
 						android:layout_weight="0"
 						android:background="?selectableItemBackgroundBorderless"
 						android:contentDescription="@string/choose_a_date"
-						app:srcCompat="@drawable/ic_calendar_today_24dp" />
+						app:srcCompat="@drawable/ic_calendar_check_24dp" />
 				</LinearLayout>
 			</LinearLayout>
 		</LinearLayout>
