@@ -7,7 +7,7 @@
 		<!-- The dark primary colour variant -->
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<!-- The accent colour -->
-		<item name="colorAccent">@color/colorAccent</item>
+		<item name="colorSecondary">@color/colorSecondary</item>
 		<!-- The colour of the navigation bar -->
 		<item name="android:navigationBarColor">@color/colorPrimary</item>
 		<!-- The font family of the app -->
@@ -16,8 +16,6 @@
 		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
 		<!-- The edit text style -->
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox</item>
-		<!-- The Material CardView style -->
-		<item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
 	</style>
@@ -27,7 +25,7 @@
 		<!-- The dark primary colour variant -->
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<!-- The accent colour -->
-		<item name="colorAccent">@color/colorAccent</item>
+		<item name="colorSecondary">@color/colorSecondary</item>
 		<!-- The colour of the navigation bar -->
 		<item name="android:navigationBarColor">@color/colorPrimary</item>
 		<!-- The font family of the app -->
@@ -36,8 +34,6 @@
 		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
 		<!-- The edit text style -->
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox</item>
-		<!-- The Material CardView style -->
-		<item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
 	</style>
