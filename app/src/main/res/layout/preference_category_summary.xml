@@ -8,15 +8,15 @@
 	android:paddingStart="15dip">
 
 	<TextView
-		android:id="@+android:id/title"
+		android:id="@android:id/title"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:textColor="@color/colorAccent"
+		android:textColor="@color/colorSecondary"
 		android:textStyle="bold"
 		/>
 
 	<TextView
-		android:id="@+android:id/summary"
+		android:id="@android:id/summary"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
 </LinearLayout>
