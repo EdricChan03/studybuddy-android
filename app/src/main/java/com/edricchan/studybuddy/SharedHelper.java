@@ -19,6 +19,7 @@ import com.edricchan.studybuddy.interfaces.Notification;
 import com.edricchan.studybuddy.interfaces.NotificationAction;
 import com.edricchan.studybuddy.interfaces.NotificationData;
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver;
+import com.edricchan.studybuddy.utils.DataUtil;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -43,37 +44,60 @@ import androidx.core.content.ContextCompat;
 public class SharedHelper {
 	/**
 	 * Intent for notification settings action button for notifications
+	 *
+	 * @deprecated Use {@link DataUtil#actionNotificationsSettingsIntent}
 	 */
-	public static final String ACTION_NOTIFICATIONS_SETTINGS_INTENT = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT";
+	public static final String ACTION_NOTIFICATIONS_SETTINGS_INTENT = DataUtil.actionNotificationsSettingsIntent;
 	/**
 	 * Broadcaster for starting download
+	 *
+	 * @deprecated Use {@link DataUtil#actionNotificationsStartDownloadReceiver}
 	 */
-	public static final String ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER = "com.edricchan.studybuddy.receiver.ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER";
+	public static final String ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER = DataUtil.actionNotificationsStartDownloadReceiver;
 	/**
 	 * Broadcaster for retrying check for updates
+	 *
+	 * @deprecated Use {@link DataUtil#actionNotificationsRetryCheckForUpdateReceiver}
 	 */
-	public static final String ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER = "com.edricchan.studybuddy.receiver.ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER";
+	public static final String ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER = DataUtil.actionNotificationsRetryCheckForUpdateReceiver;
 	/**
 	 * Action icon for settings
+	 *
+	 * @deprecated Use {@link DataUtil#fcmSettingsIcon}
 	 */
-	public static final String ACTION_SETTINGS_ICON = "settings";
+	public static final String ACTION_SETTINGS_ICON = DataUtil.fcmSettingsIcon;
 	/**
 	 * Action icon for notification
+	 *
+	 * @deprecated Use {@link DataUtil#fcmNotificationIcon}
 	 */
-	public static final String ACTION_NOTIFICATION_ICON = "notification";
+	public static final String ACTION_NOTIFICATION_ICON = DataUtil.fcmNotificationIcon;
 	/**
 	 * Action icon for mark as done
+	 *
+	 * @deprecated Use {@link DataUtil#fcmMarkAsDoneIcon}
 	 */
-	public static final String ACTION_MARK_AS_DONE_ICON = "mark_as_done";
+	public static final String ACTION_MARK_AS_DONE_ICON = DataUtil.fcmMarkAsDoneIcon;
 	// IDs for notifications
 	/**
 	 * ID for checking for updates
+	 *
+	 * @deprecated Use {@link DataUtil#notificationCheckForUpdatesId}
 	 */
-	public static final int NOTIFICATION_CHECK_FOR_UPDATES = 0;
+	public static final int NOTIFICATION_CHECK_FOR_UPDATES = DataUtil.notificationCheckForUpdatesId;
 	/**
 	 * ID for mMediaPlayer notification
+	 *
+	 * @deprecated Use {@link DataUtil#notificationMediaId}
 	 */
-	public static final int NOTIFICATION_MEDIA = 1;
+	public static final int NOTIFICATION_MEDIA = DataUtil.notificationMediaId;
+	/**
+	 * {@link android.content.SharedPreferences} file used for all classes
+	 *
+	 * @deprecated Use {@link DataUtil#defaultSharedPrefsFile}
+	 */
+	public static final String DEFAULT_SHARED_PREFS_FILE = DataUtil.defaultSharedPrefsFile;
+
 	// Context
 	private Context mContext;
 	// Since IDs 0 and 1 have been taken, use 2
