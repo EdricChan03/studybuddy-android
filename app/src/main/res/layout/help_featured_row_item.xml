@@ -13,7 +13,7 @@
 		android:focusable="false"
 		android:focusableInTouchMode="false"
 		android:src="@drawable/ic_file_document_box_24dp"
-		android:tint="@color/colorPrimary" />
+		android:tint="@color/colorSecondary" />
 
 	<TextView
 		android:id="@+id/textView"
