@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
 	package="com.edricchan.studybuddy">
 
 	<!-- Required for downloading new updates -->
@@ -24,8 +23,7 @@
 		android:icon="@mipmap/ic_launcher"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
-		android:theme="@style/Theme.App"
-		tools:targetApi="o">
+		android:theme="@style/Theme.App">
 		<meta-data
 			android:name="com.google.firebase.messaging.default_notification_icon"
 			android:resource="@drawable/ic_notification_studybuddy_24dp" />
@@ -54,12 +52,7 @@
 		</activity>
 		<activity
 			android:name=".SettingsActivity"
-			android:label="@string/title_activity_settings"
-			android:parentActivityName=".MainActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value=".MainActivity" />
-
+			android:label="@string/title_activity_settings">
 			<intent-filter>
 				<action android:name="android.intent.action.APPLICATION_PREFERENCES" />
 
@@ -79,44 +72,19 @@
 			android:label="Version settings" />
 		<activity
 			android:name=".LoginActivity"
-			android:label="@string/title_activity_login"
-			android:parentActivityName=".MainActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value=".MainActivity" />
-		</activity>
+			android:label="@string/title_activity_login"/>
 		<activity
 			android:name=".RegisterActivity"
-			android:label="@string/title_activity_register"
-			android:parentActivityName=".MainActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value=".MainActivity" />
-		</activity>
+			android:label="@string/title_activity_register" />
 		<activity
 			android:name=".ResetPasswordActivity"
-			android:label="@string/title_activity_reset_password"
-			android:parentActivityName=".LoginActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.edricchan.studybuddy.LoginActivity" />
-		</activity>
+			android:label="@string/title_activity_reset_password" />
 		<activity
 			android:name=".HelpActivity"
-			android:label="@string/title_activity_help"
-			android:parentActivityName=".MainActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.edricchan.studybuddy.MainActivity" />
-		</activity>
+			android:label="@string/title_activity_help" />
 		<activity
 			android:name=".NewTaskActivity"
-			android:label="@string/title_activity_new_task"
-			android:parentActivityName=".MainActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.edricchan.studybuddy.MainActivity" />
-		</activity>
+			android:label="@string/title_activity_new_task" />
 		<activity
 			android:name=".DebugActivity"
 			android:label="@string/title_activity_debug">
@@ -128,27 +96,19 @@
 		</activity>
 		<activity
 			android:name=".GamesActivity"
-			android:label="@string/title_activity_games">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.edricchan.studybuddy.MainActivity" />
-		</activity>
+			android:label="@string/title_activity_games" />
 		<activity
 			android:name=".UpdatesActivity"
-			android:label="@string/title_activity_updates">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.edricchan.studybuddy.SettingsActivity" />
-		</activity>
+			android:label="@string/title_activity_updates" />
 
 		<provider
-			android:authorities="com.edricchan.studybuddy.provider"
 			android:name="androidx.core.content.FileProvider"
+			android:authorities="com.edricchan.studybuddy.provider"
 			android:exported="false"
 			android:grantUriPermissions="true">
 			<meta-data
 				android:name="android.support.FILE_PROVIDER_PATHS"
-				android:resource="@xml/provider_paths"/>
+				android:resource="@xml/provider_paths" />
 		</provider>
 		<!-- Services -->
 		<service android:name=".providers.fcm.StudyBuddyMessagingService">
