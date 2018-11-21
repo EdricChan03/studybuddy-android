@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
 		// set the view now
 		setContentView(R.layout.activity_login);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		inputEmail = findViewById(R.id.emailLogin);
 		inputPassword = findViewById(R.id.passwordLogin);
@@ -111,6 +113,17 @@ public class LoginActivity extends AppCompatActivity {
 					});
 		});
 		checkNetwork();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	private void showLoginSnackBar() {

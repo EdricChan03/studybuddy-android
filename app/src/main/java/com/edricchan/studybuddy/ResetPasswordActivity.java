@@ -2,6 +2,7 @@ package com.edricchan.studybuddy;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reset_password);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		inputEmail = (EditText) findViewById(R.id.email);
 		btnReset = (Button) findViewById(R.id.btn_reset_password);
 		btnBack = (Button) findViewById(R.id.btn_back);
@@ -56,4 +58,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
 		});
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 }

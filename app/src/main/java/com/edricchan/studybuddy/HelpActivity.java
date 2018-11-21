@@ -23,6 +23,7 @@ public class HelpActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_help);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		featuredListView = findViewById(R.id.helpFeaturedListView);
@@ -40,6 +41,9 @@ public class HelpActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
 			case R.id.action_version:
 
 				break;

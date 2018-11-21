@@ -3,6 +3,7 @@ package com.edricchan.studybuddy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		//Get Firebase auth instance
 		auth = FirebaseAuth.getInstance();
 
@@ -79,6 +81,17 @@ public class RegisterActivity extends AppCompatActivity {
 
 		});
 		checkNetwork();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	private void checkNetwork() {

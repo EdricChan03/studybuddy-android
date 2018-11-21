@@ -43,6 +43,7 @@ public class UpdatesActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_updates);
 		checkForUpdatesBtn = findViewById(R.id.empty_view_cta);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		checkForUpdatesBtn.setOnClickListener(click -> checkForUpdates());
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 	}
@@ -56,6 +57,9 @@ public class UpdatesActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
 			case R.id.action_check_for_updates:
 				Log.d(SharedHelper.getTag(getClass()), "Check for updates clicked!");
 				Snackbar.make(findViewById(R.id.updatesView), R.string.update_snackbar_checking, Snackbar.LENGTH_SHORT)
