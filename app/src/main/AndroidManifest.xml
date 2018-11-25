@@ -95,9 +95,6 @@
 			<!-- </intent-filter> -->
 		</activity>
 		<activity
-			android:name=".GamesActivity"
-			android:label="@string/title_activity_games" />
-		<activity
 			android:name=".UpdatesActivity"
 			android:label="@string/title_activity_updates" />
 
