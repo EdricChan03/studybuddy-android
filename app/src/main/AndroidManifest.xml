@@ -56,20 +56,10 @@
 			<intent-filter>
 				<action android:name="android.intent.action.APPLICATION_PREFERENCES" />
 
+				<category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
 				<category android:name="android.intent.category.PREFERENCE" />
 			</intent-filter>
 		</activity>
-		<activity
-			android:name=".DeepNotificationSettingsActivity"
-			android:label="Notification settings">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-
-				<category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".DeepVersionSettingsActivity"
-			android:label="Version settings" />
 		<activity
 			android:name=".LoginActivity"
 			android:label="@string/title_activity_login"/>
