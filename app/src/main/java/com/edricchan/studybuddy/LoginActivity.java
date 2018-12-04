@@ -78,14 +78,17 @@ public class LoginActivity extends AppCompatActivity {
 		btnLogin.setOnClickListener(v -> {
 			String email = SharedHelper.getEditTextString(inputEmail);
 			final String password = SharedHelper.getEditTextString(inputPassword);
+			// Clear any previous errors
+			inputEmail.setError(null);
+			inputPassword.setError(null);
+			if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+				if (TextUtils.isEmpty(email)) {
 
-			if (TextUtils.isEmpty(email)) {
-				Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-				return;
-			}
-
-			if (TextUtils.isEmpty(password)) {
-				Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+					inputEmail.setError("Please enter an email address");
+				}
+				if (TextUtils.isEmpty(password)) {
+					inputPassword.setError("Please enter password");
+				}
 				return;
 			}
 
