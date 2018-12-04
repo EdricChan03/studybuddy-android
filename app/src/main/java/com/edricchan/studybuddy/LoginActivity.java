@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 		if (auth.getCurrentUser() != null) {
 			// TODO(Edric): Figure out a way to show this snackbar before the main activity shows
 //			Snackbar.make(findViewById(android.R.id.content), String.format(getString(R.string.snackbar_user_login), auth.getCurrentUser().getEmail()), Snackbar.LENGTH_LONG).show();
-			Toast.makeText(getApplicationContext(), String.format(getString(R.string.snackbar_user_login), auth.getCurrentUser().getEmail()), Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.snackbar_user_login, auth.getCurrentUser().getEmail()), Toast.LENGTH_SHORT).show();
 		}
 	}
 
