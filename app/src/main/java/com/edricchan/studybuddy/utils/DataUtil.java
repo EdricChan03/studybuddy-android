@@ -1,5 +1,7 @@
 package com.edricchan.studybuddy.utils;
 
+import android.net.Uri;
+
 /**
  * Common properties to be used across the app
  */
@@ -34,6 +36,13 @@ public class DataUtil {
 	public static final int notificationCheckForUpdatesId = 0;
 	public static final int notificationMediaId = 1;
 
+	// URIs
+	public static final String urlSrcCode = "https://github.com/Chan4077/StudyBuddy";
+	public static final Uri uriSrcCode = Uri.parse(urlSrcCode);
+	public static final String urlWiki = "https://github.com/Chan4077/StudyBuddy/wiki";
+	public static final Uri uriWiki = Uri.parse(urlWiki);
+	public static final String urlSendFeedback = "https://goo.gl/forms/tz6cmNguIHuZMZIh2";
+	public static final Uri uriSendFeedback = Uri.parse(urlSendFeedback);
 	// Other
 	public static final String defaultSharedPrefsFile = "Preference";
 }
