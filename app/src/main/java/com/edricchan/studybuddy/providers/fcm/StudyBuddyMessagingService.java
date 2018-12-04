@@ -38,16 +38,16 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 			NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_uncategorised_id));
 			if (remoteMessage.getNotification() != null) {
 				// Check if remote message has a title
-				if (!remoteMessage.getNotification().getTitle().isEmpty()) {
+				if (remoteMessage.getNotification().getTitle() != null) {
 					builder.setContentTitle(remoteMessage.getNotification().getTitle());
 					builder.setStyle(new NotificationCompat.BigTextStyle().bigText(remoteMessage.getNotification().getBody()));
 				}
 				// Check if the remote message has a message body
-				if (!remoteMessage.getNotification().getBody().isEmpty()) {
+				if (remoteMessage.getNotification().getBody() != null) {
 					builder.setContentText(remoteMessage.getNotification().getBody());
 				}
 				// Check if icon property exists
-				if (!remoteMessage.getNotification().getIcon().isEmpty()) {
+				if (remoteMessage.getNotification().getIcon() != null) {
 					// Use the icon
 					builder.setSmallIcon(getResources().getIdentifier(remoteMessage.getNotification().getIcon(), "drawable", getPackageName()));
 				} else {
@@ -55,7 +55,7 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 					builder.setSmallIcon(R.drawable.ic_notification_studybuddy_24dp);
 				}
 				// Check if color property exists
-				if (!remoteMessage.getNotification().getColor().isEmpty()) {
+				if (remoteMessage.getNotification().getColor() != null) {
 					// Use the color
 					builder.setColor(Color.parseColor(remoteMessage.getNotification().getColor()));
 				} else {
@@ -63,7 +63,7 @@ public class StudyBuddyMessagingService extends FirebaseMessagingService {
 					builder.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
 				}
 			}
-			if (remoteMessage.getData() != null && !remoteMessage.getData().isEmpty()) {
+			if (remoteMessage.getData() != null) {
 				// Check if the data of the remote message has a notificationChannelId as well as if the device is Android Oreo and up
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 					/*
