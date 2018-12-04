@@ -147,19 +147,9 @@ public class LoginActivity extends AppCompatActivity {
 	private void checkNetwork() {
 		Log.d(SharedHelper.getTag(LoginActivity.class), "isNetworkAvailable: " + SharedHelper.isNetworkAvailable(this));
 		if (SharedHelper.isNetworkAvailable(this)) {
-			btnSignup.setEnabled(true);
-			btnLogin.setEnabled(true);
-			btnReset.setEnabled(true);
-			signInButton.setEnabled(true);
-			inputEmail.setEnabled(true);
-			inputPassword.setEnabled(true);
+			setViewsEnabled(true);
 		} else {
-			btnSignup.setEnabled(false);
-			btnLogin.setEnabled(false);
-			btnReset.setEnabled(false);
-			signInButton.setEnabled(false);
-			inputEmail.setEnabled(false);
-			inputPassword.setEnabled(false);
+			setViewsEnabled(false);
 			Snackbar.make(findViewById(R.id.loginActivity), R.string.snackbar_internet_unavailable_login, Snackbar.LENGTH_INDEFINITE)
 					.setBehavior(new NoSwipeBehavior())
 					.setAction(R.string.snackbar_internet_unavailable_action, view -> checkNetwork()).show();
@@ -179,6 +169,18 @@ public class LoginActivity extends AppCompatActivity {
 				Log.w("FAIL", "Google sign in failed", e);
 			}
 		}
+	/**
+	 * Sets all views as shown/hidden
+	 *
+	 * @param enabled Whether to show the views
+	 */
+	private void setViewsEnabled(boolean enabled) {
+		btnSignup.setEnabled(enabled);
+		btnLogin.setEnabled(enabled);
+		btnReset.setEnabled(enabled);
+		signInButton.setEnabled(enabled);
+		inputEmail.setEnabled(enabled);
+		inputPassword.setEnabled(enabled);
 	}
 
 	/**
