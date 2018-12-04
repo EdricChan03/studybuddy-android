@@ -17,8 +17,9 @@ import androidx.core.content.ContextCompat;
 
 public class HelpActivity extends AppCompatActivity {
 
-	ArrayList<HelpFeatured> helpFeaturedList;
-	ListView featuredListView;
+	private ArrayList<HelpFeatured> helpFeaturedList;
+	private ListView featuredListView;
+	private CustomTabsIntent tabsIntent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
