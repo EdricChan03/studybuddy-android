@@ -118,6 +118,21 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RC_SIGN_IN) {
+			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+			try {
+				GoogleSignInAccount account = task.getResult(ApiException.class);
+				firebaseAuthWithGoogle(account);
+			} catch (ApiException e) {
+				Log.w(TAG, "Google sign in failed", e);
+			}
+		}
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
@@ -156,19 +171,6 @@ public class LoginActivity extends AppCompatActivity {
 		}
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (requestCode == RC_SIGN_IN) {
-			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-			try {
-				GoogleSignInAccount account = task.getResult(ApiException.class);
-				firebaseAuthWithGoogle(account);
-			} catch (ApiException e) {
-				Log.w("FAIL", "Google sign in failed", e);
-			}
-		}
 	/**
 	 * Sets all views as shown/hidden
 	 *
