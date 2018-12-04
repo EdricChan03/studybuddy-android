@@ -78,11 +78,9 @@
 		<activity
 			android:name=".DebugActivity"
 			android:label="@string/title_activity_debug">
-
-			<!-- <intent-filter> -->
-			<!-- <action android:name="android.intent.action.MAIN" /> -->
-			<!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-			<!-- </intent-filter> -->
+			<intent-filter>
+				<category android:name="android.intent.category.DEVELOPMENT_PREFERENCE" />
+			</intent-filter>
 		</activity>
 		<activity
 			android:name=".UpdatesActivity"
