@@ -158,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
 
 	/**
 	 * A method used to disable all functionality if no internet connection is available
+	 *
+	 * TODO: Bring this to SharedHelper instead
 	 */
 	private void checkNetwork() {
 		Log.d(TAG, "isNetworkAvailable: " + SharedHelper.isNetworkAvailable(this));
