@@ -197,8 +197,8 @@ public class LoginActivity extends AppCompatActivity {
 						finish();
 					} else {
 						// If sign in fails, display a message to the user.
-						Log.e(TAG, "An error occured", task.getException());
-						Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
+						Log.e(TAG, "An error occurred", task.getException());
+						Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
 					}
 
 					// ...
@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
 				.addOnFailureListener(e -> {
 					// If sign in fails, display a message to the user.
 					Log.e(TAG, "An error occured", e);
-					Toast.makeText(getApplicationContext(), "Authentication Failed.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
 				});
 	}
 
