@@ -39,16 +39,16 @@ public class LoginActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Result code used to check for authentication
 		RC_SIGN_IN = 9001;
-		//Get Firebase auth instance
 		auth = FirebaseAuth.getInstance();
-
+		// Check if there's already an authenticated user
 		if (auth.getCurrentUser() != null && SharedHelper.isNetworkAvailable(this)) {
+			// This activity (`LoginActivity`) shouldn't be shown to an already authenticated user
+			// Instead, redirect the user to the main activity and close this activity
 			startActivity(new Intent(LoginActivity.this, MainActivity.class));
 			finish();
 		}
-
-		// set the view now
 		setContentView(R.layout.activity_login);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -62,14 +62,11 @@ public class LoginActivity extends AppCompatActivity {
 		signInButton.setColorScheme(SignInButton.COLOR_DARK);
 		signInButton.setSize(SignInButton.SIZE_STANDARD);
 		signInButton.setOnClickListener(view -> signInWithGoogle());
-		// Google sign in options
 		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 				.requestIdToken(getString(R.string.web_client_id))
 				.requestEmail()
 				.build();
 		googleSignInClient = GoogleSignIn.getClient(this, gso);
-		//Get Firebase auth instance
-		auth = FirebaseAuth.getInstance();
 
 		btnSignup.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
 
@@ -93,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 			}
 
 			progressBar.setVisibility(View.VISIBLE);
-			//authenticate user
+			// Authenticate the user
 			auth.signInWithEmailAndPassword(email, password)
 					.addOnCompleteListener(LoginActivity.this, task -> {
 						// If sign in fails, display a message to the user. If sign in succeeds
@@ -182,6 +179,11 @@ public class LoginActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Authorizes with Google
+	 *
+	 * @param acct The account
+	 */
 	private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 		Log.d(TAG, "firebaseAuthWithGoogle: called");
 
