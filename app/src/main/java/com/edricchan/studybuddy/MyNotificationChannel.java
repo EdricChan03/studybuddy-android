@@ -2,15 +2,18 @@ package com.edricchan.studybuddy;
 
 import android.content.Context;
 
-/**
- * A class used for {@link SettingsActivity.NotificationPreferenceFragment#notificationChannels}
- */
+@Deprecated
 public class MyNotificationChannel {
+	@Deprecated
 	public String notificationTitle;
+	@Deprecated
 	public String notificationDesc;
+	@Deprecated
 	public String notificationId;
+	@Deprecated
 	public int index;
 
+	@Deprecated
 	public MyNotificationChannel(int notificationTitle, int notificationDesc, int notificationId, int index, Context context) {
 		this.notificationTitle = context.getString(notificationTitle);
 		this.notificationDesc = context.getString(notificationDesc);
@@ -18,6 +21,7 @@ public class MyNotificationChannel {
 		this.index = index;
 	}
 
+	@Deprecated
 	public MyNotificationChannel(CharSequence notificationTitle, String notificationDesc, String notificationId, int index) {
 		this.notificationTitle = notificationTitle.toString();
 		this.notificationDesc = notificationDesc;
