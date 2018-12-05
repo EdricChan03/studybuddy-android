@@ -111,6 +111,68 @@ public class SharedHelper {
 	public SharedHelper() {
 	}
 
+
+	/**
+	 * Replaces a view with an initialised fragment.
+	 * Note: This method checks if there's already a fragment in the view.
+	 *
+	 * @param activity       The activity.
+	 * @param fragment       The fragment to replace the view with. (Needs to be initialised with a `new` constructor).
+	 * @param viewId         The ID of the view.
+	 * @param tag            The tag to assign to the fragment.
+	 * @param addToBackStack Whether to add the fragment to the back stack.
+	 * @return True if the fragment was replaced, false if there's already an existing fragment.
+	 */
+	public static boolean replaceFragment(AppCompatActivity activity, Fragment fragment, @IdRes int viewId, String tag, boolean addToBackStack) {
+		// Check if fragment already has been replaced
+		if ((activity.getSupportFragmentManager().findFragmentByTag(tag) != fragment) &&
+				(activity.getSupportFragmentManager().findFragmentById(viewId) != fragment)) {
+			FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+			transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
+			transaction.replace(
+					viewId,
+					fragment,
+					tag
+			);
+			if (addToBackStack) {
+				transaction.addToBackStack(null);
+			}
+			transaction.commit();
+			// Indicate that the fragment replacement has been done.
+			return true;
+		}
+		// Return false if there's already an existing fragment.
+		return false;
+	}
+
+	/**
+	 * Replaces a view with an initialised fragment.
+	 * Note: This method checks if there's already a fragment in the view.
+	 *
+	 * @param activity       The activity.
+	 * @param fragment       The fragment to replace the view with. (Needs to be initialised with a `new` constructor).
+	 * @param viewId         The ID of the view.
+	 * @param addToBackStack Whether to add the fragment to the back stack.
+	 * @return True if the fragment was replaced, false if there's already an existing fragment.
+	 */
+	public static boolean replaceFragment(AppCompatActivity activity, Fragment fragment, @IdRes int viewId, boolean addToBackStack) {
+		if (activity.getSupportFragmentManager().findFragmentById(viewId) != fragment) {
+			FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+			transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
+			transaction.replace(
+					viewId,
+					fragment
+			);
+			if (addToBackStack) {
+				transaction.addToBackStack(null);
+			}
+			transaction.commit();
+			// Indicate that the fragment replacement has been done.
+			return true;
+		}
+		// Return false if there's already an existing fragment.
+		return false;
+	}
 	/**
 	 * @param datePicker The datepicker
 	 * @return a java.util.Date

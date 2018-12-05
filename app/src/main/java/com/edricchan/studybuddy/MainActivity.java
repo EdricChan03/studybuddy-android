@@ -30,8 +30,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.provider.FontRequest;
 import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.text.FontRequestEmojiCompatConfig;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 	/**
@@ -56,57 +54,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	private Menu mOptionsMenu;
 	private BottomNavigationView navigationView;
 	private FrameLayout contentMain;
-
-	/**
-	 * Replaces a view with an initialised fragment.
-	 * Note: This method checks if there's already a fragment in the view.
-	 *
-	 * @param fragment The fragment to replace the view with. (Needs to be initialised with a `new` constructor)
-	 * @param viewId   The ID of the view
-	 * @return True if the fragment was replaced, false if there's already an existing fragment.
-	 */
-	private boolean replaceFragment(Fragment fragment, int viewId, String tag) {
-		// Check if fragment already has been replaced
-		if ((getSupportFragmentManager().findFragmentByTag(tag) != fragment) &&
-				(getSupportFragmentManager().findFragmentById(viewId) != fragment)) {
-			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-			transaction.replace(
-					viewId,
-					fragment,
-					tag
-			);
-			transaction.addToBackStack(null);
-			transaction.commit();
-			// Indicate that the fragment replacement has been done.
-			return true;
-		}
-		// Return false if there's already an existing fragment.
-		return false;
-	}
-
-	/**
-	 * Replaces a view with an initialised fragment.
-	 * Note: This method checks if there's already a fragment in the view.
-	 *
-	 * @param fragment The fragment to replace the view with. (Needs to be initialised with a `new` constructor)
-	 * @param viewId   The ID of the view
-	 * @return True if the fragment was replaced, false if there's already an existing fragment.
-	 */
-	private boolean replaceFragment(Fragment fragment, int viewId) {
-		if (getSupportFragmentManager().findFragmentById(viewId) != fragment) {
-			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-			transaction.replace(
-					viewId,
-					fragment
-			);
-			transaction.addToBackStack(null);
-			transaction.commit();
-			// Indicate that the fragment replacement has been done.
-			return true;
-		}
-		// Return false if there's already an existing fragment.
-		return false;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -164,22 +111,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			SharedHelper.createNotificationChannels(MainActivity.this);
 		}
 		// Initially set a fragment view
-		replaceFragment(new TodoFragment(), R.id.content_main);
+		SharedHelper.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, false);
 		contentMain = findViewById(R.id.content_main);
 		navigationView = findViewById(R.id.bottom_navigation_view);
 		navigationView.setOnNavigationItemSelectedListener((@NonNull MenuItem item) -> {
 			switch (item.getItemId()) {
 				case R.id.navigation_calendar:
-					replaceFragment(new CalendarFragment(), R.id.content_main);
+					SharedHelper.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
 					break;
 				case R.id.navigation_chat:
-					replaceFragment(new ChatFragment(), R.id.content_main);
+					SharedHelper.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
 					break;
 				case R.id.navigation_todos:
-					replaceFragment(new TodoFragment(), R.id.content_main);
+					SharedHelper.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
 					break;
 				case R.id.navigation_tips:
-					replaceFragment(new TipsFragment(), R.id.content_main);
+					SharedHelper.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
 					break;
 			}
 			// Return a boolean to indicate that the listener has been set
