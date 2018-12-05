@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			case R.id.action_settings:
 				Intent prefsIntent = new Intent(this, SettingsActivity.class);
 				startActivity(prefsIntent);
-				break;
+				return true;
 			case R.id.action_about:
 				String aboutDialogText = String.format(getString(R.string.about_dialog_text), BuildConfig.VERSION_NAME);
 				AlertDialog.Builder aboutDialogBuilder = new AlertDialog.Builder(context);
@@ -234,20 +234,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 					startActivity(githubIntent);
 				});
 				aboutDialogBuilder.show();
-				break;
+				return true;
 			case R.id.action_share:
 				share();
-				break;
+				return true;
 			case R.id.action_help:
 				Intent helpIntent = new Intent(this, HelpActivity.class);
 				startActivity(helpIntent);
-				break;
 			case R.id.action_debug_send_notification:
 				Random rand = new Random();
 
 				int randomInt = rand.nextInt(4) + 1;
 				sendNotification(randomInt);
 				break;
+				return true;
 			case R.id.action_account:
 				if (currentUser != null) {
 					// Sign out
@@ -257,9 +257,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 					Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
 					startActivity(loginIntent);
 				}
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
