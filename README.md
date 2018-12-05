@@ -5,15 +5,12 @@
   - [Purpose](#purpose)
   - [Open source](#open-source)
 - [Downloads](#downloads)
-- [Dependencies](#dependencies)
 - [Current status](#current-status)
 - [Web app](#web-app)
-- [TODO](#todo)
 - [Screenshots](#screenshots)
   - [Login Activity](#login-activity)
   - [Main Activity](#main-activity)
   - [Settings](#settings)
-- [Building the source code](#building-the-source-code)
 - [Contributing](#contributing)
 
 # Study Buddy
@@ -50,9 +47,13 @@ If you want to access the web version, please head to <http://studybuddy-e5f46.f
 
 # Roadmap
 
-- [ ] Add more functionality
-- [ ] Add beeter navigation
-- [ ] Add working update functionality
+- [ ] Improve navigation UX
+- [x] Add working update functionality
+- [ ] Revamp/Redesign app
+- [ ] Add working chat, tip and calendar
+- [ ] Improve authentication logic
+- [ ] Change whole project to use Kotlin
+- [ ] Release v1.0.0
 
 # Screenshots
 
