@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	 * The Android tag for use with {@link android.util.Log}
 	 */
 	private static final String TAG = SharedHelper.getTag(MainActivity.class);
-	final Context context = this;
 	private ArrayList taskItems;
 	private int testInt, RC_SIGN_IN;
 	private FirebaseAuth mAuth;
@@ -223,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				return true;
 			case R.id.action_about:
 				String aboutDialogText = String.format(getString(R.string.about_dialog_text), BuildConfig.VERSION_NAME);
-				AlertDialog.Builder aboutDialogBuilder = new AlertDialog.Builder(context);
+				AlertDialog.Builder aboutDialogBuilder = new AlertDialog.Builder(this);
 				aboutDialogBuilder.setTitle("About this app");
 				aboutDialogBuilder.setMessage(aboutDialogText);
 				aboutDialogBuilder.setPositiveButton(R.string.dialog_action_close, (dialogInterface, i) -> dialogInterface.dismiss());
