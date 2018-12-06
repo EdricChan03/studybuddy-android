@@ -30,11 +30,11 @@ public class RegisterActivity extends AppCompatActivity {
 		//Get Firebase auth instance
 		auth = FirebaseAuth.getInstance();
 
-		btnSignIn = (MaterialButton) findViewById(R.id.signInBtn);
-		btnSignUp = (MaterialButton) findViewById(R.id.signUpBtn);
-		inputEmail = (TextInputLayout) findViewById(R.id.emailRegister);
-		inputPassword = (TextInputLayout) findViewById(R.id.passwordRegister);
-		progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		btnSignIn = findViewById(R.id.signInBtn);
+		btnSignUp = findViewById(R.id.signUpBtn);
+		inputEmail = findViewById(R.id.emailRegister);
+		inputPassword = findViewById(R.id.passwordRegister);
+		progressBar = findViewById(R.id.progressBar);
 
 		btnSignIn.setOnClickListener(v -> {
 			startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
