@@ -202,11 +202,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		if (!BuildConfig.DEBUG) {
 			menu.removeItem(R.id.action_debug);
 		}
-//		if (currentUser != null) {
-//			menu.getItem(R.id.action_account).setTitle("Log out");
-//		} else {
-//			menu.getItem(R.id.action_account).setTitle("Sign in");
-//		}
 		mOptionsMenu = menu;
 		return true;
 	}
@@ -249,14 +244,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				startActivity(debugIntent);
 				return true;
 			case R.id.action_account:
-				if (currentUser != null) {
-					// Sign out
-					mAuth.signOut();
-				} else {
-					// Show the Login activity
-					Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-					startActivity(loginIntent);
-				}
+				Intent accountIntent = new Intent(this, AccountActivity.class);
+				startActivity(accountIntent);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/action_refresh_credentials"
+		android:icon="@drawable/ic_refresh_24dp"
+		android:title="@string/action_refresh_credentials"
+		app:showAsAction="ifRoom" />
+	<item
+		android:id="@+id/action_debug"
+		android:icon="@drawable/ic_bug_report_24dp"
+		android:title="@string/action_debug"
+		app:showAsAction="never" />
+</menu>
