@@ -17,6 +17,7 @@ import android.widget.EditText;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
@@ -128,6 +129,30 @@ public class SharedHelper {
 	public SharedHelper() {
 	}
 
+	/**
+	 * Utility method to set the app's theme.
+	 * Note that the activity should be recreated after this function is called in order for the theme to be applied.
+	 *
+	 * @param context The context
+	 */
+	public static void setAppTheme(Context context) {
+		String appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(DataUtil.prefDarkTheme, "1");
+		assert appTheme != null;
+		switch (appTheme) {
+			case "1":
+				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+				break;
+			case "2":
+				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+				break;
+			case "3":
+				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+				break;
+			default:
+				Log.w(getTag(SharedHelper.class), "Please supply a valid string integer (1, 2, or 3)!");
+				break;
+		}
+	}
 
 	/**
 	 * Replaces a view with an initialised fragment.
