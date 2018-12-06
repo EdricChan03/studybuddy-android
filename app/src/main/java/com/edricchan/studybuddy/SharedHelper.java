@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -23,6 +24,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
 import com.edricchan.studybuddy.interfaces.NotificationRequest;
 import com.edricchan.studybuddy.interfaces.TaskItem;
@@ -43,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SharedHelper {
@@ -216,6 +219,103 @@ public class SharedHelper {
 		// Return false if there's already an existing fragment.
 		return false;
 	}
+
+	/**
+	 * Saves preferences to {@link SharedPreferences}
+	 *
+	 * @param context   The context
+	 * @param prefsFile The preference file to save to
+	 * @param mode      The mode of writing the file.
+	 * @param key       The preference key to save to
+	 * @param value     The value to save (as a boolean)
+	 * @return An instance of the {@link SharedPreferences.Editor}
+	 */
+	public static SharedPreferences.Editor putPrefs(Context context, String prefsFile, int mode, String key, boolean value) {
+		SharedPreferences preferences = context.getSharedPreferences(prefsFile, mode);
+		return preferences.edit()
+				.putBoolean(key, value);
+	}
+
+	/**
+	 * Saves preferences to {@link SharedPreferences}
+	 *
+	 * @param context   The context
+	 * @param prefsFile The preference file to save to
+	 * @param mode      The mode of writing the file.
+	 * @param key       The preference key to save to
+	 * @param value     The value to save (as a float)
+	 * @return An instance of the {@link SharedPreferences.Editor}
+	 */
+	public static SharedPreferences.Editor putPrefs(Context context, String prefsFile, int mode, String key, float value) {
+		SharedPreferences preferences = context.getSharedPreferences(prefsFile, mode);
+		return preferences.edit()
+				.putFloat(key, value);
+	}
+
+	/**
+	 * Saves preferences to {@link SharedPreferences}
+	 *
+	 * @param context   The context
+	 * @param prefsFile The preference file to save to
+	 * @param mode      The mode of writing the file.
+	 * @param key       The preference key to save to
+	 * @param value     The value to save (as an integer)
+	 * @return An instance of the {@link SharedPreferences.Editor}
+	 */
+	public static SharedPreferences.Editor putPrefs(Context context, String prefsFile, int mode, String key, int value) {
+		SharedPreferences preferences = context.getSharedPreferences(prefsFile, mode);
+		return preferences.edit()
+				.putInt(key, value);
+	}
+
+	/**
+	 * Saves preferences to {@link SharedPreferences}
+	 *
+	 * @param context   The context
+	 * @param prefsFile The preference file to save to
+	 * @param mode      The mode of writing the file.
+	 * @param key       The preference key to save to
+	 * @param value     The value to save (as a long)
+	 * @return An instance of the {@link SharedPreferences.Editor}
+	 */
+	public static SharedPreferences.Editor putPrefs(Context context, String prefsFile, int mode, String key, long value) {
+		SharedPreferences preferences = context.getSharedPreferences(prefsFile, mode);
+		return preferences.edit()
+				.putLong(key, value);
+	}
+
+	/**
+	 * Saves preferences to {@link SharedPreferences}
+	 *
+	 * @param context   The context
+	 * @param prefsFile The preference file to save to
+	 * @param mode      The mode of writing the file.
+	 * @param key       The preference key to save to
+	 * @param value     The value to save (as a string)
+	 * @return An instance of the {@link SharedPreferences.Editor}
+	 */
+	public static SharedPreferences.Editor putPrefs(Context context, String prefsFile, int mode, String key, String value) {
+		SharedPreferences preferences = context.getSharedPreferences(prefsFile, mode);
+		return preferences.edit()
+				.putString(key, value);
+	}
+
+	/**
+	 * Saves preferences to {@link SharedPreferences}
+	 *
+	 * @param context   The context
+	 * @param prefsFile The preference file to save to
+	 * @param mode      The mode of writing the file.
+	 * @param key       The preference key to save to
+	 * @param value     The value to save (as a {@link Set<String>})
+	 * @return An instance of the {@link SharedPreferences.Editor}
+	 */
+	public static SharedPreferences.Editor putPrefs(Context context, String prefsFile, int mode, String key, Set<String> value) {
+		SharedPreferences preferences = context.getSharedPreferences(prefsFile, mode);
+		return preferences.edit()
+				.putStringSet(key, value);
+	}
+
 	/**
 	 * @param datePicker The datepicker
 	 * @return a java.util.Date
