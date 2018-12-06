@@ -9,6 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.provider.FontRequest;
+import androidx.emoji.text.EmojiCompat;
+import androidx.emoji.text.FontRequestEmojiCompatConfig;
+
 import com.edricchan.studybuddy.fragment.CalendarFragment;
 import com.edricchan.studybuddy.fragment.ChatFragment;
 import com.edricchan.studybuddy.fragment.TipsFragment;
@@ -18,17 +26,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.provider.FontRequest;
-import androidx.emoji.text.EmojiCompat;
-import androidx.emoji.text.FontRequestEmojiCompatConfig;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 	/**
@@ -43,12 +46,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	 * The Android tag for use with {@link android.util.Log}
 	 */
 	private static final String TAG = SharedHelper.getTag(MainActivity.class);
-	private ArrayList taskItems;
-	private int testInt, RC_SIGN_IN;
-	private FirebaseAuth mAuth;
-	private GoogleApiClient mGoogleApiClient;
-	private String userName;
-	private FirebaseUser currentUser;
 	private Menu mOptionsMenu;
 	private BottomNavigationView navigationView;
 	private FrameLayout contentMain;
