@@ -3,28 +3,40 @@ package com.edricchan.studybuddy;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.TooltipCompat;
+
+import com.edricchan.studybuddy.adapter.TaskProjectSpinnerAdapter;
+import com.edricchan.studybuddy.interfaces.TaskItem;
+import com.edricchan.studybuddy.interfaces.TaskProject;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.TooltipCompat;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Created by edricchan on 8/3/18.
@@ -32,65 +44,176 @@ import androidx.appcompat.widget.TooltipCompat;
 
 public class NewTaskActivity extends AppCompatActivity {
 	static final String ACTION_NEW_TASK_FROM_SHORTCUT = "com.edricchan.studybuddy.ACTION_NEW_TASK_FROM_SHORTCUT";
-	private TextInputLayout taskTitle, taskProjects, taskContent, taskTags;
-	private CheckBox taskHasDone;
-	private Date taskDate;
+	private TextInputLayout mTaskTitle, mTaskContent, mTaskTags;
+	private Spinner mTaskProjectSpinner;
+	private CheckBox mTaskIsDone;
+	private Date mTaskDate;
 	private FirebaseAuth mAuth;
 	private FirebaseFirestore mFirestore;
-	private FirebaseUser currentUser;
-	private boolean allowAccess;
+	private FirebaseUser mCurrentUser;
+	private boolean mAllowAccess;
 	private String TAG = SharedHelper.getTag(NewTaskActivity.class);
+	private String tempTaskProject;
+	private TaskProjectSpinnerAdapter mTaskProjectSpinnerAdapter;
+	/**
+	 * Whether the intent is to edit a task
+	 */
+	private boolean mIsEditing;
 
 	private boolean checkSignedIn() {
-		if (mAuth.getCurrentUser() != null) {
-			// User is signed in
-			return true;
-		} else {
-			// User is not signed in!
-			return false;
-		}
-	}
-
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		currentUser = mAuth.getCurrentUser();
+		return mAuth.getCurrentUser() != null;
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acitivty_new_task);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mAuth = FirebaseAuth.getInstance();
 		mFirestore = FirebaseFirestore.getInstance();
+		mIsEditing = getIntent().getStringExtra("taskId") != null;
+		mCurrentUser = mAuth.getCurrentUser();
 		if (!checkSignedIn()) {
 			Toast.makeText(this, "Please sign in before continuing", Toast.LENGTH_SHORT).show();
 			Intent signInIntent = new Intent(NewTaskActivity.this, LoginActivity.class);
 			startActivity(signInIntent);
-			allowAccess = false;
+			mAllowAccess = false;
 		} else {
-			allowAccess = true;
+			mAllowAccess = true;
 		}
-		taskTitle = (TextInputLayout) findViewById(R.id.taskTitle);
-		taskProjects = (TextInputLayout) findViewById(R.id.taskProjects);
-		taskTags = (TextInputLayout) findViewById(R.id.taskTags);
-		taskContent = (TextInputLayout) findViewById(R.id.taskContent);
-		taskHasDone = (CheckBox) findViewById(R.id.taskHasDone);
-		ImageButton dialogDate = (ImageButton) findViewById(R.id.taskDatePickerBtn);
-		final TextView dialogDateText = (TextView) findViewById(R.id.taskDatePickerTextView);
-		TooltipCompat.setTooltipText(dialogDate, "Open datetime dialog");
-		dialogDate.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				final Calendar c = Calendar.getInstance();
+		mTaskTitle = findViewById(R.id.taskTitle);
+		mTaskProjectSpinner = findViewById(R.id.taskProject);
+		mTaskTags = findViewById(R.id.taskTags);
+		mTaskContent = findViewById(R.id.taskContent);
+		mTaskIsDone = findViewById(R.id.taskIsDone);
+		ImageButton mDialogDate = findViewById(R.id.taskDatePickerBtn);
+		final TextView mDialogDateText = findViewById(R.id.taskDatePickerResult);
+		TooltipCompat.setTooltipText(mDialogDate, "Open datepicker dialog");
+		mDialogDate.setOnClickListener(view -> {
+			final Calendar c = Calendar.getInstance();
+			DatePickerDialog dpd = new DatePickerDialog(NewTaskActivity.this,
+					(datePicker, year, monthOfYear, dayOfMonth) -> {
+						SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format_pattern), Locale.ENGLISH);
+						Date datepickerDate = new Date(year, monthOfYear, dayOfMonth);
+						mDialogDateText.setText(format.format(datepickerDate));
+					}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
+			dpd.getDatePicker().setMinDate(c.getTimeInMillis());
+			dpd.show();
+			mTaskDate = SharedHelper.getDateFromDatePicker(dpd.getDatePicker());
+		});
 
-				DatePickerDialog dpd = new DatePickerDialog(NewTaskActivity.this,
-						(view1, year, monthOfYear, dayOfMonth) -> dialogDateText.setText(dayOfMonth + "/" + monthOfYear + "/" + year), c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
-				dpd.show();
-				taskDate = SharedHelper.getDateFromDatePicker(dpd.getDatePicker());
+		ArrayList<TaskProject> projectArrayList = new ArrayList<>();
+		mTaskProjectSpinnerAdapter = new TaskProjectSpinnerAdapter(this, android.R.layout.simple_spinner_item, projectArrayList);
+		mTaskProjectSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mTaskProjectSpinner.setAdapter(mTaskProjectSpinnerAdapter);
+		mFirestore.collection("users/" + mCurrentUser.getUid() + "/todoProjects")
+				.addSnapshotListener((documentSnapshots, e) -> {
+					if (e != null) {
+						Log.e(TAG, "Listen failed!", e);
+						return;
+					}
+					if (!documentSnapshots.isEmpty()) {
+						projectArrayList.clear();
+						projectArrayList.add(new TaskProject(getString(R.string.task_project_create), "#FFFFFF", "PLUS"));
+						for (DocumentSnapshot document : documentSnapshots) {
+							projectArrayList.add(document.toObject(TaskProject.class));
+						}
+						projectArrayList.add(new TaskProject(getString(R.string.task_project_prompt)));
+						mTaskProjectSpinnerAdapter.notifyDataSetChanged();
+					}
+				});
+		mTaskProjectSpinner.setSelection(mTaskProjectSpinnerAdapter.getCount());
+		mTaskProjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				Log.d(TAG, "Task project ID: " + mTaskProjectSpinnerAdapter.getTaskProjectId(position));
+				Log.d(TAG, "Task project name: " + Objects.requireNonNull(mTaskProjectSpinnerAdapter.getItem(position)).name);
+				if (mTaskProjectSpinnerAdapter.getTaskProjectId(position).equals("PLUS")) {
+					View editTextDialogView = getLayoutInflater().inflate(R.layout.edit_text_dialog, null);
+					final TextInputLayout textInputLayout = editTextDialogView.findViewById(R.id.textInputLayout);
+					SharedHelper.getEditText(textInputLayout).setHint("Project name");
+					AlertDialog.Builder builder = new AlertDialog.Builder(NewTaskActivity.this);
+					builder.setTitle("New project")
+							.setView(editTextDialogView)
+							.setPositiveButton(R.string.dialog_action_create, (dialog, which) -> {
+								TaskProject project = new TaskProject();
+								project.setName(SharedHelper.getEditTextString(textInputLayout));
+								mFirestore.collection("users/" + mCurrentUser.getUid() + "/todoProjects")
+										.add(project)
+										.addOnCompleteListener(task -> {
+											if (task.isSuccessful()) {
+												Toast.makeText(NewTaskActivity.this, "Successfully created project!", Toast.LENGTH_SHORT)
+														.show();
+												dialog.dismiss();
+											} else {
+												Toast.makeText(NewTaskActivity.this, "An error occurred while attempting to create the project. Try again later.", Toast.LENGTH_LONG)
+														.show();
+												Log.e(TAG, "An error occurred while attempting to create the project:", task.getException());
+											}
+										});
+							})
+							.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
+							.show();
+				} else {
+					TaskProject selectedProject = (TaskProject) mTaskProjectSpinner.getItemAtPosition(mTaskProjectSpinner.getSelectedItemPosition());
+					tempTaskProject = selectedProject.id;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				tempTaskProject = null;
 			}
 		});
+		if (mIsEditing) {
+			setTitle("Edit task");
+			findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+			findViewById(R.id.newTaskScrollView).setVisibility(View.GONE);
+			String mTaskId = getIntent().getStringExtra("taskId");
+			mFirestore.document("users/" + mCurrentUser.getUid() + "/todos/" + mTaskId)
+					.get()
+					.addOnCompleteListener(task -> {
+						if (task.isSuccessful()) {
+							DocumentSnapshot document = task.getResult();
+							if (document.exists()) {
+								findViewById(R.id.progressBar).setVisibility(View.GONE);
+								findViewById(R.id.newTaskScrollView).setVisibility(View.VISIBLE);
+								TaskItem mItem = document.toObject(TaskItem.class);
+								assert mItem != null;
+								mTaskTitle.getEditText().setText(mItem.getTitle());
+								if (mItem.getContent() != null) {
+									mTaskContent.getEditText().setText(mItem.getContent());
+								}
+								mTaskIsDone.setChecked(mItem.isDone());
+								if (mItem.getDueDate() != null) {
+									SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format_pattern), Locale.ENGLISH);
+									mTaskDate = new Date(mItem.getDueDate().toDate().getTime());
+									mDialogDateText.setText(format.format(mTaskDate));
+								}
+								if (mItem.getProject() != null) {
+									mTaskProjectSpinner.setSelection(mTaskProjectSpinnerAdapter.getPosition(mTaskProjectSpinnerAdapter.getTaskProjectById(mItem.getProject().getId())));
+								}
+								if (mItem.getTags() != null) {
+									mTaskTags.getEditText().setText(TextUtils.join(",", mItem.getTags()));
+								}
+							} else {
+								Log.i(TAG, "Task with ID " + mTaskId + " does not exist!");
+								Toast.makeText(this, "Task does not exist!", Toast.LENGTH_LONG).show();
+							}
+						} else {
+							Log.i(TAG, "Could not load task.", task.getException());
+							Toast.makeText(this, "An error occurred while loading the task", Toast.LENGTH_LONG).show();
+						}
+					});
+		}
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		if (mIsEditing) {
+			menu.findItem(R.id.action_submit).setTitle("Save");
+		}
+		return true;
 	}
 
 	@Override
@@ -101,40 +224,61 @@ public class NewTaskActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.action_submit && allowAccess) {
-			if (SharedHelper.getEditText(taskTitle).length() != 0) {
-				taskTitle.setErrorEnabled(false);
-				TaskItem taskItem = new TaskItem();
-				taskItem.setTitle(SharedHelper.getEditTextString(taskTitle));
-				if (SharedHelper.getEditTextString(taskContent).length() != 0) {
-					taskItem.setContent(SharedHelper.getEditTextString(taskContent));
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+			case R.id.action_submit:
+				if (mAllowAccess) {
+					if (SharedHelper.getEditText(mTaskTitle).length() != 0) {
+						mTaskTitle.setErrorEnabled(false);
+						TaskItem.Builder taskItemBuilder = new TaskItem.Builder();
+						taskItemBuilder.setTitle(SharedHelper.getEditTextString(mTaskTitle));
+						if (SharedHelper.getEditTextString(mTaskContent).length() > 0) {
+							taskItemBuilder.setContent(SharedHelper.getEditTextString(mTaskContent));
+						}
+						if (SharedHelper.getEditTextString(mTaskTags).length() > 0) {
+							taskItemBuilder.setTags(Arrays.asList(SharedHelper.getEditTextString(mTaskTags).split(",")));
+						}
+						if (mTaskDate != null) {
+							taskItemBuilder.setDueDate(new Timestamp(mTaskDate));
+						}
+						if (tempTaskProject != null) {
+							taskItemBuilder.setProject(mFirestore.document("users/" + mCurrentUser.getUid() + "/todoProjects/" + tempTaskProject));
+						}
+						taskItemBuilder.setIsDone(mTaskIsDone.isChecked());
+						if (mIsEditing) {
+							mFirestore.document("users/" + mCurrentUser.getUid() + "/todos/" + getIntent().getStringExtra("taskId"))
+									.set(taskItemBuilder.create())
+									.addOnCompleteListener(task -> {
+										if (task.isSuccessful()) {
+											Toast.makeText(this, "Successfully edited the task!", Toast.LENGTH_SHORT).show();
+											finish();
+										} else {
+											Log.e(TAG, "An error occurred while editing the task:", task.getException());
+											Toast.makeText(this, "An error occurred while editing the task. Try again later.", Toast.LENGTH_LONG).show();
+										}
+									});
+						} else {
+							SharedHelper.addTask(taskItemBuilder.create(), mCurrentUser, mFirestore)
+									.addOnCompleteListener(task -> {
+										if (task.isSuccessful()) {
+											Toast.makeText(this, "Successfully added task!", Toast.LENGTH_SHORT).show();
+											finish();
+										} else {
+											Log.e(TAG, "An error occurred while adding the task:", task.getException());
+											Toast.makeText(this, "An error occurred while adding the task. Try again later.", Toast.LENGTH_LONG).show();
+										}
+									});
+						}
+					} else {
+						mTaskTitle.setError("Please enter something.");
+						Snackbar.make(findViewById(R.id.newTaskView), "Some errors occurred while attempting to submit the form.", Snackbar.LENGTH_LONG).show();
+					}
 				}
-				if (SharedHelper.getEditTextString(taskProjects).length() != 0) {
-					taskItem.setProjects(Arrays.asList(SharedHelper.getEditTextString(taskProjects).split(",")));
-				}
-				if (SharedHelper.getEditTextString(taskTags).length() != 0) {
-					taskItem.setTags(Arrays.asList(SharedHelper.getEditTextString(taskTags).split(",")));
-				}
-				if (taskDate != null) {
-					taskItem.setDueDate(new Timestamp(taskDate));
-				}
-				taskItem.setHasDone(taskHasDone.isChecked());
-				SharedHelper.addTodo(taskItem, currentUser, mFirestore)
-						.addOnSuccessListener(documentReference -> {
-							Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-							Toast.makeText(NewTaskActivity.this, "Successfully added todo!", Toast.LENGTH_SHORT).show();
-							finish();
-						})
-						.addOnFailureListener(e -> {
-							Toast.makeText(NewTaskActivity.this, "An error occured while adding data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-							Log.e(TAG, "An error occured while adding data: ", e);
-						});
-			} else {
-				taskTitle.setError("Please enter something.");
-				Snackbar.make(findViewById(R.id.newTaskView), "Some errors occurred while attempting to submit the form.", Snackbar.LENGTH_LONG).show();
-			}
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-
-		return super.onOptionsItemSelected(item);
 	}
 }

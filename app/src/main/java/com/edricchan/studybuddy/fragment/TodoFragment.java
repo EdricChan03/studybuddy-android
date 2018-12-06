@@ -1,6 +1,8 @@
 package com.edricchan.studybuddy.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,14 +12,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.edricchan.studybuddy.BuildConfig;
+import com.edricchan.studybuddy.DebugActivity;
 import com.edricchan.studybuddy.LoginActivity;
 import com.edricchan.studybuddy.NewTaskActivity;
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.RegisterActivity;
 import com.edricchan.studybuddy.SettingsActivity;
 import com.edricchan.studybuddy.SharedHelper;
-import com.edricchan.studybuddy.StudyAdapter;
-import com.edricchan.studybuddy.TaskItem;
+import com.edricchan.studybuddy.TasksAdapter;
+import com.edricchan.studybuddy.ViewTaskActivity;
+import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,22 +41,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class TodoFragment extends Fragment {
 	private FirebaseAuth mAuth;
@@ -48,11 +56,13 @@ public class TodoFragment extends Fragment {
 	private String mUserName;
 	private FirebaseFirestore mFirestore;
 	private FirebaseUser mCurrentUser;
-	private RecyclerView.Adapter mAdapter;
+	private TasksAdapter mAdapter;
 	private RecyclerView mRecyclerView;
 	private ListenerRegistration mFirestoreListener;
 	private View mFragmentView;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
+	private SharedPreferences mPrefs;
+	private SharedPreferences mTodoFragPrefs;
 	/**
 	 * Request code for new task activity
 	 */
@@ -62,25 +72,81 @@ public class TodoFragment extends Fragment {
 	 */
 	private static final String TAG = SharedHelper.getTag(TodoFragment.class);
 
+	private static final String SHARED_PREFS_FILE = "TodoFragPrefs";
+
+	/**
+	 * @inheritDoc
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_new_todo:
 				newTaskActivity();
-				break;
+				return true;
 			case R.id.action_refresh_todos:
 				loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout);
-				break;
+				return true;
 			case R.id.action_settings:
 				Intent settingsIntent = new Intent(getContext(), SettingsActivity.class);
 				Objects.requireNonNull(getContext()).startActivity(settingsIntent);
-				break;
+				return true;
+			case R.id.action_sort_none:
+				if (!item.isChecked()) {
+					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "none")
+							.commit();
+					item.setChecked(true);
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout);
+				}
+			case R.id.action_sort_title_descending:
+				if (!item.isChecked()) {
+					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_desc")
+							.commit();
+					item.setChecked(true);
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "title", Query.Direction.DESCENDING);
+				}
+				return true;
+			case R.id.action_sort_title_ascending:
+				if (!item.isChecked()) {
+					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_asc")
+							.commit();
+					item.setChecked(true);
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "title", Query.Direction.ASCENDING);
+				}
+				return true;
+			case R.id.action_sort_due_date_new_to_old:
+				if (!item.isChecked()) {
+					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_new_to_old")
+							.commit();
+					item.setChecked(true);
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "dueDate", Query.Direction.DESCENDING);
+				}
+				return true;
+			case R.id.action_sort_due_date_old_to_new:
+				if (!item.isChecked()) {
+					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_old_to_new")
+							.commit();
+					item.setChecked(true);
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "dueDate", Query.Direction.ASCENDING);
+				}
+			case R.id.action_debug:
+				Intent debugIntent = new Intent(getActivity(), DebugActivity.class);
+				startActivity(debugIntent);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-		return true;
+	}
+
+	@Override
+	public void onPrepareOptionsMenu(@NonNull Menu menu) {
+		if (!BuildConfig.DEBUG) {
+			menu.removeItem(R.id.action_debug);
+		}
 	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// Clear the main activity's menu before inflating the fragment's menu
 		menu.clear();
 		inflater.inflate(R.menu.menu_frag_todo, menu);
 		super.onCreateOptionsMenu(menu, inflater);
@@ -100,11 +166,14 @@ public class TodoFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+		mTodoFragPrefs = Objects.requireNonNull(getContext()).getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE);
 		mFirestore = FirebaseFirestore.getInstance();
 		mFragmentView = view;
 
 		// FAB
-		FloatingActionButton fab = (FloatingActionButton) mFragmentView.findViewById(R.id.new_todo_fab);
+		FloatingActionButton fab = mFragmentView.findViewById(R.id.new_todo_fab);
 		fab.setOnClickListener(fabView -> newTaskActivity());
 
 		// Handles swiping down to refresh logic
@@ -113,7 +182,7 @@ public class TodoFragment extends Fragment {
 		// Sets a refreshing listener
 		mSwipeRefreshLayout.setOnRefreshListener(() -> {
 			mAdapter.notifyDataSetChanged();
-			loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout);
+			loadTasksListHandler();
 		});
 		mRecyclerView = mFragmentView.findViewById(R.id.recycler_list);
 
@@ -124,7 +193,20 @@ public class TodoFragment extends Fragment {
 		// use a linear layout manager
 		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 		mRecyclerView.setLayoutManager(mLayoutManager);
+		mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+		new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+			@Override
+			public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+				return false;
+			}
 
+			@Override
+			public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+				mAdapter.deleteTask(viewHolder.getAdapterPosition());
+			}
+		}).attachToRecyclerView(mRecyclerView);
+		mFragmentView.findViewById(R.id.action_new_todo)
+				.setOnClickListener(v -> newTaskActivity());
 	}
 
 	@Override
@@ -136,6 +218,9 @@ public class TodoFragment extends Fragment {
 		}
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -161,36 +246,7 @@ public class TodoFragment extends Fragment {
 			signInDialog.show();
 
 		} else {
-			loadTasksList(mCurrentUser.getUid());
-			mFirestoreListener = mFirestore.collection("users/" + mCurrentUser.getUid() + "/todos")
-					.addSnapshotListener((documentSnapshots, e) -> {
-						if (e != null) {
-							Log.e(TAG, "Listen failed!", e);
-							return;
-						}
-						List<TaskItem> taskItemList = new ArrayList<>();
-
-						for (DocumentSnapshot doc : documentSnapshots) {
-							Log.d(TAG, "Document: " + doc.toString());
-							TaskItem note = doc.toObject(TaskItem.class);
-							note.setId(doc.getId());
-							taskItemList.add(note);
-						}
-
-						mAdapter = new StudyAdapter(getContext(), taskItemList, mCurrentUser, mFirestore, mFragmentView.findViewById(R.id.todo_view));
-						mRecyclerView.setAdapter(mAdapter);
-						if (documentSnapshots.isEmpty()) {
-							Log.d(TAG, "Empty!");
-							mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.VISIBLE);
-						} else {
-							Log.d(TAG, "Not Empty!");
-							mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.GONE);
-						}
-					});
-			// User specific topic
-			FirebaseMessaging.getInstance().subscribeToTopic("user_" + mCurrentUser.getUid());
-			// By default, subscribe to the "topic_all" topic
-			FirebaseMessaging.getInstance().subscribeToTopic("all");
+			loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout);
 		}
 	}
 
@@ -213,68 +269,121 @@ public class TodoFragment extends Fragment {
 		}
 	}
 
-	private void loadTasksList(String uid, final SwipeRefreshLayout mSwipeRefreshLayout) {
+	private void loadTasksListHandler() {
+		if (mPrefs.getString("pref_todo_default_sort", "no_value").equals("no_value")) {
+			if (!mTodoFragPrefs.getString("sortTasksBy", "no_value").equals("no_value")) {
+				switch (Objects.requireNonNull(mTodoFragPrefs.getString("sortTasksBy", "due_date_new_to_old"))) {
+					case "title_desc":
+						loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "title", Query.Direction.DESCENDING);
+						break;
+					case "title_asc":
+						loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "title", Query.Direction.ASCENDING);
+						break;
+					case "due_date_new_to_old":
+						loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "dueDate", Query.Direction.DESCENDING);
+						break;
+					case "due_date_old_to_new":
+						loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "dueDate", Query.Direction.ASCENDING);
+						break;
+					default:
+						loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout);
+						break;
+				}
+			} else {
+				loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout);
+			}
+		} else {
+			switch (Objects.requireNonNull(mPrefs.getString("pref_todo_default_sort", "due_date"))) {
+				case "title_desc":
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "title", Query.Direction.DESCENDING);
+					break;
+				case "title_asc":
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "title", Query.Direction.ASCENDING);
+					break;
+				case "due_date_new_to_old":
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "dueDate", Query.Direction.DESCENDING);
+					break;
+				case "due_date_old_to_new":
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout, "dueDate", Query.Direction.ASCENDING);
+					break;
+				default:
+					loadTasksList(mCurrentUser.getUid(), mSwipeRefreshLayout);
+					break;
+			}
+		}
+	}
+
+	private void loadTasksList(String uid, final SwipeRefreshLayout swipeRefreshLayout, String fieldPath, Query.Direction direction) {
 		mSwipeRefreshLayout.setRefreshing(true);
-		mFirestore.collection("users/" + uid + "/todos")
-				.get()
-				.addOnCompleteListener(task -> {
-					if (task.isSuccessful()) {
-						mSwipeRefreshLayout.setRefreshing(false);
-						List<TaskItem> taskItemList = new ArrayList<>();
-						int i = 0;
-						for (DocumentSnapshot doc : task.getResult()) {
-							Log.d(TAG, "Documents: " + doc.toString());
-							TaskItem taskItem = doc.toObject(TaskItem.class);
-							taskItem.setId(doc.getId());
-							taskItemList.add(taskItem);
-							Log.d(TAG, "Adding item " + i++);
-						}
-						mAdapter = new StudyAdapter(getContext(), taskItemList, mCurrentUser, mFirestore, mFragmentView.findViewById(R.id.todo_view));
-						RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-						mRecyclerView.setLayoutManager(mLayoutManager);
-						mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-						mRecyclerView.setAdapter(mAdapter);
-						if (task.getResult().isEmpty()) {
-							Log.d(TAG, "Empty stuff!");
-							mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.VISIBLE);
-						} else {
-							Log.d(TAG, "Not empty stuff!");
-							mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.GONE);
-						}
+		mFirestoreListener = mFirestore.collection("users/" + mCurrentUser.getUid() + "/todos")
+				.orderBy(fieldPath, direction)
+				.addSnapshotListener((documentSnapshots, e) -> {
+					if (e != null) {
+						Log.e(TAG, "Listen failed!", e);
+						return;
+					}
+					List<TaskItem> taskItemList = new ArrayList<>();
+
+					assert documentSnapshots != null;
+					for (DocumentSnapshot doc : documentSnapshots) {
+						Log.d(TAG, "Document: " + doc.toString());
+						TaskItem note = doc.toObject(TaskItem.class);
+						taskItemList.add(note);
+					}
+
+					mAdapter = new TasksAdapter(getContext(), taskItemList, mCurrentUser, mFirestore, mFragmentView.findViewById(R.id.todo_view));
+					mRecyclerView.setAdapter(mAdapter);
+					mAdapter.setOnItemClickListener((document, position) -> {
+						Intent viewItemIntent = new Intent(getContext(), ViewTaskActivity.class);
+						viewItemIntent.putExtra("taskId", document.getId());
+						getContext().startActivity(viewItemIntent);
+					});
+					swipeRefreshLayout.setRefreshing(false);
+					if (documentSnapshots.isEmpty()) {
+						Log.d(TAG, "Empty!");
+						mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.VISIBLE);
+						mSwipeRefreshLayout.setVisibility(View.GONE);
 					} else {
-						Log.d(TAG, "Error getting documents: ", task.getException());
+						Log.d(TAG, "Not Empty!");
+						mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.GONE);
+						mSwipeRefreshLayout.setVisibility(View.VISIBLE);
 					}
 				});
 	}
 
-	private void loadTasksList(String uid) {
-		mFirestore.collection("users/" + uid + "/todos")
-				.get()
-				.addOnCompleteListener(task -> {
-					if (task.isSuccessful()) {
-						List<TaskItem> taskItemList = new ArrayList<>();
-						int i = 0;
-						for (DocumentSnapshot doc : task.getResult()) {
-							Log.d(TAG, "Documents: " + doc.toString());
-							TaskItem taskItem = doc.toObject(TaskItem.class);
-							taskItem.setId(doc.getId());
-							taskItemList.add(taskItem);
-							Log.d(TAG, "Adding item " + i++);
-						}
-						mAdapter = new StudyAdapter(getContext(), taskItemList, mCurrentUser, mFirestore, mFragmentView.findViewById(R.id.todo_view));
-						RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-						mRecyclerView.setLayoutManager(mLayoutManager);
-						mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-						mRecyclerView.setAdapter(mAdapter);
-						if (task.getResult().isEmpty()) {
-							Log.d(TAG, "Empty meh!");
-							mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.VISIBLE);
-						} else {
-							Log.d(TAG, "Not empty meh!");
-							mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.GONE);
-						}
+	private void loadTasksList(String uid, @NonNull final SwipeRefreshLayout swipeRefreshLayout) {
+		mSwipeRefreshLayout.setRefreshing(true);
+		mFirestoreListener = mFirestore.collection("users/" + mCurrentUser.getUid() + "/todos")
+				.addSnapshotListener((documentSnapshots, e) -> {
+					if (e != null) {
+						Log.e(TAG, "Listen failed!", e);
+						return;
+					}
+					List<TaskItem> taskItemList = new ArrayList<>();
+
+					assert documentSnapshots != null;
+					for (DocumentSnapshot doc : documentSnapshots) {
+						Log.d(TAG, "Document: " + doc.toString());
+						TaskItem note = doc.toObject(TaskItem.class);
+						taskItemList.add(note);
+					}
+
+					mAdapter = new TasksAdapter(getContext(), taskItemList, mCurrentUser, mFirestore, mFragmentView.findViewById(R.id.todo_view));
+					mRecyclerView.setAdapter(mAdapter);
+					mAdapter.setOnItemClickListener((document, position) -> {
+						Intent viewItemIntent = new Intent(getContext(), ViewTaskActivity.class);
+						viewItemIntent.putExtra("taskId", document.getId());
+						getContext().startActivity(viewItemIntent);
+					});
+					swipeRefreshLayout.setRefreshing(false);
+					if (documentSnapshots.isEmpty()) {
+						Log.d(TAG, "Empty!");
+						mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.VISIBLE);
+						mSwipeRefreshLayout.setVisibility(View.GONE);
 					} else {
-						Log.d(TAG, "Error getting documents: ", task.getException());
+						Log.d(TAG, "Not Empty!");
+						mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.GONE);
+						mSwipeRefreshLayout.setVisibility(View.VISIBLE);
 					}
 				});
 	}

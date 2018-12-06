@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/action_new_todo"
-		android:title="@string/action_new_todo" />
+		android:icon="@drawable/ic_plus_24dp"
+		android:title="@string/action_new_todo"
+		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/action_refresh_todos"
-		android:title="@string/action_refresh_todos" />
+		android:icon="@drawable/ic_refresh_24dp"
+		android:title="@string/action_refresh_todos"
+		app:showAsAction="ifRoom" />
+	<item
+		android:icon="@drawable/ic_sort_24dp"
+		android:title="@string/action_sort_by"
+		app:showAsAction="always">
+		<menu>
+			<group android:checkableBehavior="single">
+				<item
+					android:id="@+id/action_sort_none"
+					android:title="@string/action_sort_none" />
+				<item
+					android:id="@+id/action_sort_title_descending"
+					android:title="@string/action_sort_title_descending" />
+				<item
+					android:id="@+id/action_sort_title_ascending"
+					android:title="@string/action_sort_title_ascending" />
+				<item
+					android:id="@+id/action_sort_due_date_new_to_old"
+					android:title="@string/action_sort_due_date_new_to_old" />
+				<item
+					android:id="@+id/action_sort_due_date_old_to_new"
+					android:title="@string/action_sort_due_date_old_to_new" />
+			</group>
+		</menu>
+	</item>
 	<item
 		android:id="@+id/action_settings"
+		android:icon="@drawable/ic_settings_24dp"
 		android:title="@string/action_settings" />
+	<item
+		android:id="@+id/action_debug"
+		android:icon="@drawable/ic_bug_report_24dp"
+		android:title="@string/action_debug" />
 </menu>

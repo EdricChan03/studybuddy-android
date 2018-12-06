@@ -76,6 +76,11 @@ dependencies {
 	// Custom Preferences
 	implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0'
 	implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0'
+
+	// Markwon - Markdown parser for Android
+	// See https://noties.github.io/Markwon for more info
+	implementation 'ru.noties:markwon:2.0.0'
+
 	// Used to handle loading of remote images
 	implementation 'com.github.bumptech.glide:glide:4.8.0'
 	annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'

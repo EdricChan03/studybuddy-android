@@ -6,41 +6,40 @@
 	android:layout_height="match_parent"
 	app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<LinearLayout
+		android:id="@+id/todos_empty_state_view"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp"
+			android:text="@string/todos_empty_state_head"
+			android:textAppearance="?attr/textAppearanceHeadline6" />
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/action_new_todo"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/action_new_todo" />
+
+	</LinearLayout>
+
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		android:id="@+id/recycler_swiperefresh"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:scrollbars="vertical">
+		android:scrollbars="vertical"
+		android:visibility="gone">
 
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/recycler_list"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent" />
-
-		<RelativeLayout
-			android:id="@+id/todos_empty_state_view"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:visibility="gone">
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/todos_empty_state_head" />
-
-			<ImageView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:contentDescription="@string/todos_empty_state_image_desc"
-				android:src="@drawable/ic_undraw_high_five" />
-
-			<androidx.emoji.widget.EmojiAppCompatTextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/todos_empty_state_content" />
-
-		</RelativeLayout>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
