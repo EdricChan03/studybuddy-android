@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/action_submit_tip"
+		android:icon="@drawable/ic_plus_24dp"
+		android:title="@string/action_submit_tip"
+		app:showAsAction="ifRoom" />
+	<item
+		android:id="@+id/action_settings"
+		android:icon="@drawable/ic_settings_24dp"
+		android:title="@string/action_settings" />
+	<item
+		android:id="@+id/action_debug"
+		android:icon="@drawable/ic_bug_report_24dp"
+		android:title="@string/action_debug" />
+</menu>
