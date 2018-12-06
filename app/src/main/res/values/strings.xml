@@ -1,122 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <!-- For android manifest -->
-    <string name="app_name" translatable="false">Study Buddy</string>
-    <string name="app_desc">Study Buddy is an app that aims to help students in their studies. Some features of Study Buddy include a calendar, todos as well as cheatsheets.</string>
-    <!-- Activity names -->
-    <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="title_activity_intro">App Intro</string>
-    <string name="title_activity_help">Help</string>
-    <string name="title_activity_new_task">New Task</string>
-    <string name="title_activity_debug">Debug</string>
-    <string name="title_activity_games">Games</string>
-    <string name="title_activity_updates">Updates</string>
-
-	<!-- Fragments -->
-	<string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
-	<string name="frag_tips_coming_soon">Tips feature coming soon!</string>
-	<string name="frag_chat_coming_soon">Chat feature coming soon!</string>
-    <!-- Snackbar text -->
-    <string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
-    <string name="snackbar_internet_unavailable_action">Retry</string>
-    <!-- Web client ID -->
-    <string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
-
-    <!-- Notifications -->
-    <string name="notification_check_update">Checking for updates&#8230;</string>
-    <string name="notification_no_updates">No updates available</string>
-    <string name="notification_new_update_title">New update available!</string>
-    <string name="notification_new_update_text">Version %1$s is available! Tap here to download &amp; install</string>
-    <string name="notification_updates_error_no_internet_title">No internet connection</string>
-    <string name="notification_updates_error_no_internet_text">You are not connected to the internet. Check your network connection before retrying.</string>
-    <string name="notification_updates_error_not_found_title">File not found</string>
-    <string name="notification_updates_error_not_found_text">The file specified does not exist. Please check that you have enabled the Storage permission.</string>
-    <string name="notification_updates_error_other_title">An error occurred</string>
-    <string name="notification_downloading_update_title">Downloading v%1$s of StudyBuddy&#8230;</string>
-
-    <!-- Global dialog values -->
-    <string name="dialog_action_cancel">Cancel</string>
-    <string name="dialog_action_ok">OK</string>
-    <string name="dialog_action_confirm">Confirm</string>
-    <string name="dialog_action_yes">Yes</string>
-    <string name="dialog_action_no">No</string>
-    <string name="dialog_action_close">Close</string>
-    <string name="dialog_action_dismiss">Dismiss</string>
-    <string name="dialog_action_sign_up">Sign up</string>
-    <string name="dialog_action_login">Login</string>
-    <string name="dialog_action_set">Set</string>
-    <string name="dialog_action_retry">Retry</string>
-    <string name="dialog_action_grant">Grant</string>
-    <string name="dialog_action_view_source_code">View source code</string>
-
-    <!-- Share bottom sheet -->
-    <string name="share_intent_value">Share this app via&#8230;</string>
-    <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
-
-    <!-- About dialog -->
     <string name="about_dialog_text">Purpose: To help students in their studies\nVersion: %1$s\n---\nApp is fully open source. Check it out!</string>
 
-    <!-- Task activity -->
-    <string name="custom_dialog_labels_note">Note: Please separate your labels with a comma (,).</string>
-    <string name="task_projects">Task Projects</string>
-    <string name="task_tags">Task Tags</string>
-    <string name="task_title">Task Title</string>
-    <string name="task_content">Task Content</string>
-    <string name="select_date">Select Date</string>
+    <string name="account_activity_account_actions">Account actions</string>
+    <string-array name="account_activity_account_actions_array">
+        <item>Delete account</item>
+        <item>Sign out</item>
+        <item>Update email</item>
+        <item>Update name</item>
+        <item>Update password</item>
+        <item>Update profile picture</item>
+    </string-array>
+    <string name="account_activity_action_sign_in">Sign in</string>
+    <string name="account_activity_avatar_desc">Account avatar</string>
+    <string name="account_activity_delete_account_dialog_title">Delete account?</string>
+    <string name="account_activity_new_email_dialog_edittext_title">New email address</string>
+    <string name="account_activity_new_email_dialog_title">Set new email address</string>
+    <string name="account_activity_new_name_dialog_edittext_title">New name</string>
+    <string name="account_activity_new_name_dialog_title">Set new name</string>
+    <string name="account_activity_new_password_dialog_edittext_title">New password</string>
+    <string name="account_activity_new_password_dialog_title">Set new password</string>
+    <string name="account_activity_new_profile_pic_dialog_msg">The feature to set a new profile picture is coming soon!</string>
+    <string name="account_activity_new_profile_pic_dialog_title">Set new profile picture</string>
+    <string name="account_activity_sign_out_dialog_title">Sign out?</string>
+
+    <string name="action_about">About</string>
+
+    <string name="action_account">Account</string>
+
+    <string name="action_check_for_updates">Check for updates</string>
+
+    <string name="action_debug">Debug</string>
+
+    <string name="action_delete_todo">Delete todo</string>
+
+    <string name="action_edit">Edit</string>
+
+    <string name="action_forgot_password_btn">Forgot password</string>
+
+    <string name="action_help">Help</string>
+
+    <string name="action_licenses">Licenses</string>
+
+    <string name="action_link_login_btn">I already have an account</string>
+    <string name="action_link_register_btn">Register for an account</string>
+
+    <string name="action_mark_as_done">Mark as done</string>
+    <string name="action_mark_as_undone">Mark as undone</string>
+
+    <string name="action_new_todo">New todo</string>
+
+    <string name="action_refresh_credentials">Refresh</string>
+    <string name="action_refresh_todos">Refresh todos</string>
+
+    <string name="action_register_btn">Register</string>
+
+    <string name="action_send_feedback">Send Feedback</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="action_share">Share this app</string>
+
+    <string name="action_sign_in_btn">Login</string>
+
+    <string name="action_sort_by">Sort by…</string>
+    <string name="action_sort_due_date_new_to_old">Due date (Newest to Oldest)</string>
+    <string name="action_sort_due_date_old_to_new">Due date (Oldest to Newest)</string>
+    <string name="action_sort_none">None</string>
+    <string name="action_sort_title_ascending">Title (Ascending)</string>
+    <string name="action_sort_title_descending">Title (Descending)</string>
+
+    <string name="action_source_code">View source code</string>
+
+    <string name="action_submit">Submit</string>
+    <string name="action_submit_tip">Submit a tip</string>
+
+    <string name="action_version">Version</string>
+
+    <string name="app_desc">Study Buddy is an app that aims to help students in their studies. Some features of Study Buddy include a calendar, todos as well as cheatsheets.</string>
+
+    <string name="app_name" translatable="false">Study Buddy</string>
+
+    <string name="bottom_nav_calendar">Calendar</string>
+    <string name="bottom_nav_chat">Chat</string>
+    <string name="bottom_nav_tips">Tips</string>
+    <string name="bottom_nav_todos">Todos</string>
+
+    <string name="btn_back">&lt; Go back</string>
+
+    <string name="btn_reset_password">Reset password</string>
+
+    <string name="choose_a_date">Choose a date…</string>
+
+    <string name="comma_indicates_separator">Separate each tag/label with a comma</string>
+
+    <string name="date_format_pattern">EEE, MMM d yyyy</string>
+
+    <string name="debug_activity_account_info_summary">Shows information about the currently signed-in Firebase User in a dialog</string>
+    <string name="debug_activity_account_info_title">Account info</string>
+    <string name="debug_activity_category_device">Device</string>
+    <string name="debug_activity_category_firebase">Firebase</string>
+    <string name="debug_activity_category_settings">Settings</string>
+    <string name="debug_activity_confirm_crash_app_dialog_title">Crash app?</string>
+    <string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n(Note that a new ID will be generated after you delete the current ID)</string>
+    <string name="debug_activity_confirm_reset_instance_id_dialog_title">Delete device\'s Instance ID?</string>
+    <string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
+    <string name="debug_activity_crash_app_summary">Programmatically crashes the app using Firebase Crashlytics.</string>
+    <string name="debug_activity_crash_app_title">Crash app</string>
+    <string-array name="debug_activity_device_info_array">
+        <item>Device SDK Info</item>
+        <item>Connectivity Info</item>
+        <item>Night Mode Info</item>
+    </string-array>
+    <string name="debug_activity_device_info_summary">[WIP] Shows information about the current device (includes current API version and phone type) in a dialog</string>
+    <string name="debug_activity_device_info_title">Device info</string>
+    <string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
+    <string name="debug_activity_enable_verbose_log_summary">Notice: This may lag the app if enabled.</string>
+    <string name="debug_activity_enable_verbose_log_title">Enable verbose log</string>
+    <string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
+    <string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
+    <string name="debug_activity_send_notification_dialog_body_hint">Body</string>
+    <string name="debug_activity_send_notification_dialog_channel_id_helpertext">Applicable for devices running Android Oreo and up</string>
+    <string name="debug_activity_send_notification_dialog_channel_id_hint">Notification Channel ID</string>
+    <string name="debug_activity_send_notification_dialog_color_helpertext">Only hexadecimal values are supported.</string>
+    <string name="debug_activity_send_notification_dialog_color_hint">Color</string>
+    <string name="debug_activity_send_notification_dialog_priority_high">High</string>
+    <string name="debug_activity_send_notification_dialog_priority_normal">Normal</string>
+    <string name="debug_activity_send_notification_dialog_priority_title">Priority</string>
+    <string name="debug_activity_send_notification_dialog_title_hint">Title</string>
+    <string name="debug_activity_send_notification_dialog_ttl_helpertext">The time specified (in milliseconds) to keep the notification in FCM storage. (Default: 4 weeks)</string>
+    <string name="debug_activity_send_notification_dialog_ttl_hint">Time-to-live</string>
+    <string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
+    <string name="debug_activity_send_notification_summary">[WIP] Programmatically sends a notification using Firebase Cloud Messaging (FCM) to a topic or to a specific user</string>
+    <string name="debug_activity_send_notification_title">Send notification to…</string>
+
+    <string name="dialog_action_cancel">Cancel</string>
+    <string name="dialog_action_close">Close</string>
+    <string name="dialog_action_crash">Crash</string>
+    <string name="dialog_action_create">Create</string>
+    <string name="dialog_action_delete_account">Delete account</string>
+    <string name="dialog_action_dismiss">Dismiss</string>
+    <string name="dialog_action_login">Login</string>
+    <string name="dialog_action_no">No</string>
+    <string name="dialog_action_ok">OK</string>
+    <string name="dialog_action_retry">Retry</string>
+    <string name="dialog_action_send">Send</string>
+    <string name="dialog_action_sign_out">Sign out</string>
+    <string name="dialog_action_sign_up">Sign up</string>
+    <string name="dialog_action_update_email">Update email</string>
+    <string name="dialog_action_update_name">Update name</string>
+    <string name="dialog_action_update_password">Update password</string>
+    <string name="dialog_action_update_profile_picture">Update profile picture</string>
+    <string name="dialog_action_view_source_code">View source code</string>
+    <string name="dialog_action_yes">Yes</string>
+
+    <string name="download_apk_name">com.edricchan.studybuddy-v%1$s.apk</string>
+
     <string name="due_date">Due date</string>
     <string name="due_date_text">Selected due date shows here</string>
-    <string name="comma_indicates_seperator">A comma indicates a separator</string>
 
-    <!-- Update activity -->
-    <string name="update_snackbar_checking">Checking for updates&#8230;</string>
-    <string name="update_snackbar_latest">You already have the latest version!</string>
-    <string name="update_dialog_title_new">New version (%1$s) available!</string>
-    <string name="update_dialog_content_new">Note: Please allow the storage permission before continuing as StudyBuddy needs access to your Downloads folder where the update will be saved at.</string>
-    <string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.</string>
-    <string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.</string>
-    <string name="update_snackbar_error_malformed">Could not parse JSON. Please try again later.</string>
-    <string name="update_dialog_positive_btn_text">Download build</string>
+    <string name="email_hint">Email</string>
 
-    <!-- App shortcuts -->
-    <string name="shortcut_todo_disabled_msg">Todo is disabled</string>
-    <string name="shortcut_todo_long_msg">Create a new todo</string>
-    <string name="shortcut_todo_short_msg">New todo</string>
-    <string name="shortcut_settings_long_msg">Open settings</string>
-    <string name="shortcut_settings_short_msg">Settings</string>
-    <string name="shortcut_game_long_msg">Play a game</string>
-    <string name="shortcut_game_short_msg">Games</string>
-    <!-- Strings related to Settings -->
-    <!-- Todos settings -->
+    <string name="forgot_password_msg">Just enter your email address in the input below and click the "Reset password" button to reset your password.\nYou\'ll be sent an email ASAP with the reset password.</string>
+    <string name="forgot_password_title">Forgot password?</string>
+
+    <string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
+
+    <string name="frag_chat_coming_soon">Chat feature coming soon!</string>
+
+    <string name="minimum_password">The password that you entered is too short, please enter a minimum of 6 characters!</string>
+
+    <string name="notification_channel_group_todos_id">todos</string>
+    <string name="notification_channel_group_todos_title">Todos</string>
+    <string name="notification_channel_group_updates_id">updates</string>
+    <string name="notification_channel_group_updates_title">App updates</string>
+    <string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
+    <string name="notification_channel_playback_id">playback</string>
+    <string name="notification_channel_playback_title">Playback</string>
+    <string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
+    <string name="notification_channel_sync_id">sync</string>
+    <string name="notification_channel_sync_title">Sync</string>
+    <string name="notification_channel_todo_updates_desc">Shows updates on the status of todos</string>
+    <string name="notification_channel_todo_updates_id">todo_updates</string>
+    <string name="notification_channel_todo_updates_title">Todo updates</string>
+    <string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the previous channels</string>
+    <string name="notification_channel_uncategorised_id">uncategorised</string>
+    <string name="notification_channel_uncategorised_title">Uncategorised</string>
+    <string name="notification_channel_update_available_desc">Shows that an update is available</string>
+    <string name="notification_channel_update_available_id">update_available</string>
+    <string name="notification_channel_update_available_title">Update available</string>
+    <string name="notification_channel_update_complete_desc">Shows that an update has completed download</string>
+    <string name="notification_channel_update_complete_id">update_complete</string>
+    <string name="notification_channel_update_complete_title">Update complete</string>
+    <string name="notification_channel_update_error_desc">Shows when an error occurred while downloading/checking for updates</string>
+    <string name="notification_channel_update_error_id">update_error</string>
+    <string name="notification_channel_update_error_title">Update error</string>
+    <string name="notification_channel_update_not_available_desc">Shows that an update is unavailable</string>
+    <string name="notification_channel_update_not_available_id">update_not_available</string>
+    <string name="notification_channel_update_not_available_title">Update unavailable</string>
+    <string name="notification_channel_update_status_desc">Shows the status of updates</string>
+    <string name="notification_channel_update_status_id">update_status</string>
+    <string name="notification_channel_update_status_title">Update status</string>
+    <string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
+    <string name="notification_channel_weekly_summary_id">weekly_summary</string>
+    <string name="notification_channel_weekly_summary_title">Weekly summary</string>
+
+    <string name="notification_check_update">Checking for updates…</string>
+
+    <string name="notification_new_update_text">Version %1$s is available! Tap here to download &amp; install</string>
+    <string name="notification_new_update_title">New update available!</string>
+
+    <string name="notification_no_updates">No updates available</string>
+
+    <string name="notification_updates_error_no_internet_text">You are not connected to the internet. Check your network connection before retrying.</string>
+    <string name="notification_updates_error_no_internet_title">No internet connection</string>
+    <string name="notification_updates_error_not_found_text">The file specified does not exist. Please check that you have enabled the Storage permission.</string>
+    <string name="notification_updates_error_not_found_title">File not found</string>
+
+    <string name="password_hint">Password</string>
+
+    <string name="pref_about_category_title">About</string>
+
+    <string name="pref_app_version_title">Current app version</string>
+
+    <string name="pref_author_title">App Author</string>
+
+    <string name="pref_category_theme">Theme</string>
+    <string name="pref_category_todo_general">General</string>
+    <string name="pref_category_weekly_summary">Weekly summary</string>
+    <string name="pref_category_weekly_summary_prefs">Weekly summary preferences</string>
+
+    <string name="pref_check_for_update_frequency_title">Frequency of checking for updates</string>
+    <string-array name="pref_check_for_updates_frequencies">
+        <item>Manual/Never</item>
+        <item>Every 3 hours</item>
+        <item>Every 6 hours</item>
+        <item>Every 12 hours</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+    </string-array>
+    <string name="pref_check_for_updates_frequency_default">12</string>
+    <string-array name="pref_check_for_updates_frequency_values">
+        <!-- Manual/never -->
+        <item>-1</item>
+        <!-- Every 3 hours -->
+        <item>3</item>
+        <!-- Every 6 hours -->
+        <item>6</item>
+        <!-- Every 12 hours -->
+        <item>12</item>
+        <!-- Daily -->
+        <item>24</item>
+        <!-- Weekly -->
+        <item>168</item>
+    </string-array>
+
+    <string-array name="pref_dark_theme_options_array">
+        <item>Always</item>
+        <item>Automatic (at night)</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_dark_theme_options_array_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="pref_dark_theme_title">Dark theme</string>
+
+    <string name="pref_daynight_grant_perm_title">Grant location permission</string>
+    <string name="pref_daynight_perm_info_summary">The location permission is required to adjust the automatic theme according to your location.\nIf this permission is not granted, the dark theme will be enabled at 10pm and automatically disable itself at 6am.</string>
+
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <string name="pref_header_debug">Debug</string>
+    <string name="pref_header_general">General</string>
     <string name="pref_header_todo">Todos</string>
-    <string name="pref_weekly_summary_enabled_title">Weekly summary</string>
-    <string name="pref_weekly_summary_enabled_desc">Enable a curated weekly summary of your todos, which will be sent as a notification by the end of the week</string>
-    <string name="pref_category_weekly_summary">Weekly summary preferences</string>
-    <string name="pref_weekly_summary_day_title">Day to retrieve weekly summary</string>
-    <string name="pref_weekly_summary_day_desc">Set a day to get your weekly summary\nCurrent value: %s</string>
-    <string name="pref_weekly_summary_time_title">Time to retrieve weekly summary</string>
-    <string name="pref_weekly_summary_time_desc">Set a time to get your weekly summary\nCurrent value: %s</string>
-    <string name="pref_weekly_summary_configure_notification_title">Configure notification category</string>
-    <string name="pref_weekly_summary_configure_notification_desc">Modify notification-related settings in system settings (Android Oreo devices)</string>
+    <string name="pref_header_version">Versions &amp; About</string>
+
+    <string-array name="pref_language_languages_array">
+        <item>(System Default)</item>
+    </string-array>
+    <string-array name="pref_language_languages_array_values">
+        <!-- Special value to denote the system default language -->
+        <item>1</item>
+        <!-- Valid values:
+		lang_countryCode
+		Example:
+		en_US represents English (United States)
+		-->
+    </string-array>
+    <string name="pref_language_title">Language</string>
+
+    <string name="pref_manual_sync_summary">Tap here to sync manually</string>
+    <string name="pref_manual_sync_title">Manual sync</string>
+
+    <string name="pref_source_code_desc">View source code on Github</string>
+    <string name="pref_source_code_title">Source code</string>
+
+    <string name="pref_sync_cellular_networks_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
+    <string name="pref_sync_cellular_networks_dialog_title">Enable syncing with cellular networks?</string>
+    <string name="pref_sync_cellular_networks_title">Sync on cellular network</string>
+    <string name="pref_sync_frequency_title">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_system_sync_settings_title">System sync settings</string>
+
+    <string-array name="pref_todo_default_sort_options_array">
+        <item>None (Default)</item>
+        <item>Title (Ascending)</item>
+        <item>Title (Descending)</item>
+        <item>Due Date (Newest to Oldest)</item>
+        <item>Due Date (Oldest to Newest)</item>
+    </string-array>
+    <string-array name="pref_todo_default_sort_options_array_values">
+        <item>none</item>
+        <item>title_asc</item>
+        <item>title_desc</item>
+        <item>due_date_new_to_old</item>
+        <item>due_date_old_to_new</item>
+    </string-array>
+    <string name="pref_todo_default_sort_title">Default sorting mode</string>
+
+    <string name="pref_updates_cellular_networks_title">Download updates with cellular network</string>
+    <string name="pref_updates_options_title">Update options</string>
+    <string name="pref_updates_title">Updates</string>
+
+    <string name="pref_weekly_summary_about_desc">A curated summary of the progress of your completion of your todos, sent as a notification</string>
+    <string name="pref_weekly_summary_configure_list_desc">Set the items to be shown in weekly summary</string>
     <string name="pref_weekly_summary_configure_list_title">Configure weekly summary list</string>
-    <string name="pref_weekly_summary_configure_list_desc">Items to be shown in weekly summary</string>
-    <string-array name="pref_weekly_summary_options_array">
-        <item>Completed todos</item>
-        <item>Overdue todos</item>
-        <item>Todos to complete</item>
-        <item>Total todos</item>
-        <item>Percentage completed</item>
-        <item>Percentage uncompleted</item>
-        <item>Efficiency</item>
-    </string-array>
-    <string-array name="pref_weekly_summary_options_array_values">
-        <item>completed_todos</item>
-        <item>overdue_todos</item>
-        <item>todos_to_complete</item>
-        <item>total_todos</item>
-        <item>completed_percentage</item>
-        <item>uncompleted_percentage</item>
-        <item>efficiency</item>
-    </string-array>
+    <string name="pref_weekly_summary_day_desc">Set a day to get your weekly summary</string>
+    <string name="pref_weekly_summary_day_title">Day to retrieve weekly summary</string>
     <string-array name="pref_weekly_summary_days_array">
         <item>Monday</item>
         <item>Tuesday</item>
@@ -135,230 +362,105 @@
         <item>6</item>
         <item>7</item>
     </string-array>
-    <!--
-    Experimental settings
-    TODO: Change the name of this preference
-    -->
-    <string name="pref_category_experimental_features_about">About</string>
-    <string name="pref_experimental_about_desc">\"Experimental settings\" is basically setting flags (similar to Google Chrome) to the app which enables/disables certain developmental features in the app. Note that some preferences may not affect anything as of now.</string>
-    <string name="pref_category_experimental_features">Experimental Features</string>
-    <string name="pref_header_experimental">Experimental</string>
-    <string name="pref_experimental_features_desc">Enables features that are in development.</string>
-    <string name="pref_experimental_ui_title">Experimental UI</string>
-    <string name="pref_experimental_ui_desc">Shows a new and improved user interface. Requires a restart to take effect.</string>
-    <string name="pref_experimental_calendar_title">Calendar</string>
-    <string name="pref_experimental_calendar_desc">Enables a wip calendar which shows all your events. Requires a restart to take effect.</string>
-    <string name="pref_experimental_notifications_title">Notifications</string>
-    <string name="pref_experimental_notifications_desc">Enable notifications support. These can be configured via settings.</string>
-    <!-- Data & Sync settings -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-    <string name="pref_sync_frequency_title">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
+    <string name="pref_weekly_summary_enabled_title">Enable weekly summary</string>
+    <string name="pref_weekly_summary_notification_opts_summary">Customize how the notifications are shown</string>
+    <string name="pref_weekly_summary_notification_opts_title">Notification settings</string>
+    <string-array name="pref_weekly_summary_options_array">
+        <item>Completed todos</item>
+        <item>Overdue todos</item>
+        <item>Todos to complete</item>
+        <item>Total todos</item>
+        <item>Percentage completed</item>
+        <item>Percentage uncompleted</item>
+        <item>Efficiency</item>
     </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
+    <string-array name="pref_weekly_summary_options_array_values">
+        <item>completed_todos</item>
+        <item>overdue_todos</item>
+        <item>todos_to_complete</item>
+        <item>total_todos</item>
+        <item>completed_percentage</item>
+        <item>uncompleted_percentage</item>
+        <item>efficiency</item>
     </string-array>
-    <string name="pref_system_sync_settings_title">System sync settings</string>
-    <string name="pref_sync_cellular_networks_title">Sync on cellular network</string>
-    <string name="pref_sync_cellular_networks_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
-    <string name="pref_sync_cellular_networks_dialog_title">Enable syncing with cellular networks?</string>
-    <string name="pref_manual_sync_title">Manual sync</string>
-    <string name="pref_manual_sync_summary">Tap here to sync manually</string>
-    <string name="pref_manual_sync_summary_done">Done syncing!</string>
-    <!-- Notification settings -->
-    <string name="pref_header_notifications">Notifications</string>
-    <string name="pref_ringtone_silent">Silent</string>
-    <string name="pref_notification_channel_all_channels_title">All notification channels</string>
-    <string name="pref_notification_channel_enabled_title">Show notifications from this channel</string>
-    <string name="pref_notification_channel_advanced_title">Advanced settings</string>
-    <string name="pref_notification_channel_advanced_desc">Choose importance, sounds and other system options</string>
-    <!-- Notifications > For devices running pre-Android Oreo -->
-    <string name="pref_enable_all_notification_channels_title">Enable all notification channels</string>
-    <string name="pref_enable_more_options_title">Enable more options</string>
-    <string name="pref_enable_more_options_desc">Enables extra configuration options for notifications\nRequires a restart of the app to take effect.</string>
-    <!-- Settings for Versions & About -->
-    <string name="pref_header_version">Versions &amp; About</string>
-    <string name="pref_updates_options_title">Update options</string>
-    <string name="pref_check_for_update_frequency_title">Frequency of checking for updates</string>
-    <string name="pref_about_category_title">About</string>
-    <string name="pref_updates_title">Updates</string>
-    <string name="pref_updates_cellular_networks_title">Download updates with cellular network</string>
-    <string name="pref_app_version_title">Current app version</string>
-    <string name="pref_source_code_title">Source code</string>
-    <string name="pref_source_code_desc">View source code on Github</string>
-    <string name="pref_author_title">App Author</string>
-    <string name="pref_author_desc">View the app\'s author on Github</string>
-    <string name="pref_app_intro_title">App intro</string>
-    <string-array name="pref_updates_channels_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string-array name="pref_updates_channels">
-        <item>Stable</item>
-        <item>Beta</item>
-        <item>Canary</item>
-    </string-array>
-    <string name="pref_updates_channel_default">1</string>
-    <string-array name="pref_check_for_updates_frequency_values">
-        <!-- Manual/never -->
-        <item>-1</item>
-        <!-- Every 3 hours -->
-        <item>3</item>
-        <!-- Every 6 hours -->
-        <item>6</item>
-        <!-- Every 12 hours -->
-        <item>12</item>
-        <!-- Daily -->
-        <item>24</item>
-        <!-- Weekly -->
-        <item>168</item>
-    </string-array>
-    <string-array name="pref_check_for_updates_frequencies">
-        <item>Manual/Never</item>
-        <item>Every 3 hours</item>
-        <item>Every 6 hours</item>
-        <item>Every 12 hours</item>
-        <item>Daily</item>
-        <item>Weekly</item>
-    </string-array>
-    <string name="pref_check_for_updates_frequency_default">12</string>
 
-    <!-- Actions (menu) -->
-    <string name="action_about">About</string>
-    <string name="action_share">Share this app</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_debug_notification">Send Notification</string>
-    <string name="action_logout">Log out</string>
-    <string name="action_login">Login</string>
+    <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
 
-    <!-- Actions > Settings activity -->
-    <string name="action_send_feedback">Send Feedback</string>
-    <string name="action_help">Help</string>
-    <string name="action_pre_oreo_ui">Show pre-Oreo UI</string>
+    <string name="share_intent_value">Share this app via…</string>
 
-    <!-- Actions > Help activity -->
-    <string name="action_version">Version</string>
-    <string name="action_source_code">View source code</string>
-    <string name="action_licenses">Licenses</string>
+    <string name="shortcut_settings_long_msg">Open settings</string>
+    <string name="shortcut_settings_short_msg">Settings</string>
 
-    <!-- Actions > New task activity -->
-    <string name="action_submit">Submit</string>
+    <string name="shortcut_todo_disabled_msg">Todo is disabled</string>
+    <string name="shortcut_todo_long_msg">Create a new todo</string>
+    <string name="shortcut_todo_short_msg">New todo</string>
 
-    <!-- Actions > Update activity -->
-    <string name="action_check_for_updates">Check for updates</string>
-
-    <!-- Update activity -->
-    <string name="update_activity_coming_soon">Coming soon!</string>
-    <string name="update_activity_empty_state_head">No updates available</string>
-    <string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up here.</string>
-    <string name="update_activity_empty_state_icon_desc">Check icon</string>
-    <string name="update_activity_cannot_download_cellular_dialog_title">Warning</string>
-    <string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve configured your settings to not download updates when on a cellular network.\nIf you still want to download the update, tap on "Download anyway".</string>
-    <string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download anyway</string>
-    <string name="update_activity_update_already_downloaded_dialog_title">Update already downloaded</string>
-    <string name="update_activity_update_already_downloaded_dialog_msg">An update has already been downloaded! Tap on "Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on "Download anyway" will delete the existing file)</string>
-    <string name="update_activity_update_already_downloaded_dialog_negative_btn">Download anyway</string>
-    <string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
-    <string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
-    <string name="update_activity_delete_update_success_toast">Successfully deleted update!</string>
-    <string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app sources" in Settings before continuing. Click on the "Settings" button to configure.</string>
-    <string name="update_activity_enable_unknown_sources_dialog_positive_btn">Settings</string>
-    <!-- Sidenav -->
-    <string name="action_todo_title">TODOs</string>
-    <string name="action_calendar_title">Calendar</string>
-    <string name="action_notifications_title">Notifications</string>
-
-    <!-- Strings related to todo fragment -->
-    <string name="todos_empty_state_head">All todos done!</string>
-    <string name="todos_empty_state_content">Give yourself a high five! 🙌</string>
-    <string name="todos_empty_state_image_desc">High five!</string>
-	<string name="action_new_todo">New todo</string>
-	<string name="action_refresh_todos">Refresh todos</string>
-    <!-- Strings related to login/register activity -->
-    <string name="email_hint">Email</string>
-    <string name="password_hint">Password</string>
-    <string name="action_sign_in_btn">Login</string>
-    <string name="snackbar_user_login">Signed in as %1$s</string>
-    <string name="action_forgot_password_btn">Forgot password</string>
-    <string name="title_activity_register">Register</string>
-    <string name="action_register_btn">Register</string>
-    <string name="action_link_login_btn">I already have an account</string>
-    <string name="title_activity_reset_password">Reset password</string>
-    <string name="forgot_password_title">Forgot password?</string>
-    <string name="forgot_password_msg">Just enter your email address in the input below and click the "Reset password" button to reset your password.\nYou\'ll be sent an email ASAP with the reset password.</string>
-    <string name="btn_reset_password">Reset password</string>
-    <string name="btn_back">&lt; Go back</string>
-    <string name="minimum_password">The password that you entered is too short, please enter a minimum of 6 characters!</string>
-    <string name="auth_failed">Authentication failed, check your email and password to ensure they are correct or sign up if you haven\'t created an account.</string>
-    <string name="action_link_register_btn">Register for an account</string>
     <string name="sign_in_providers_header">Sign in with the below providers:</string>
     <string name="sign_in_providers_or">OR</string>
 
-    <!-- Strings related to settings activity/fragments -->
-    <string name="settings_permission_requested_dialog_title">Permission requested</string>
-    <string name="settings_permission_requested_dialog_msg_storage">The storage permission is required to save new releases to your phone\'s "Download" folder.</string>
+    <string name="snackbar_internet_unavailable_action">Retry</string>
+    <string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
 
-    <!-- Notification channel groups -->
-    <string name="notification_channel_group_todos_id">todos</string>
-    <string name="notification_channel_group_todos_title">Todos</string>
-    <string name="notification_channel_todo_updates_title">Todo updates</string>
-    <string name="notification_channel_todo_updates_desc">Shows updates on the status of todos</string>
-    <string name="notification_channel_todo_updates_id">todo_updates</string>
-    <string name="notification_channel_weekly_summary_title">Weekly summary</string>
-    <string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
-    <string name="notification_channel_weekly_summary_id">weekly_summary</string>
+    <string name="snackbar_user_login">Signed in as %1$s</string>
 
-    <string name="notification_channel_group_updates_id">updates</string>
-    <string name="notification_channel_group_updates_title">App updates</string>
-    <string name="notification_channel_update_error_title">Update error</string>
-    <string name="notification_channel_update_error_desc">Shows when an error occurred while downloading/checking for updates</string>
-    <string name="notification_channel_update_error_id">update_error</string>
-    <string name="notification_channel_update_status_title">Update status</string>
-    <string name="notification_channel_update_status_desc">Shows the status of updates</string>
-    <string name="notification_channel_update_status_id">update_status</string>
-    <string name="notification_channel_update_not_available_title">Update unavailable</string>
-    <string name="notification_channel_update_not_available_desc">Shows that an update is unavailable</string>
-    <string name="notification_channel_update_not_available_id">update_not_available</string>
-    <string name="notification_channel_update_available_title">Update available</string>
-    <string name="notification_channel_update_available_desc">Shows that an update is available</string>
-    <string name="notification_channel_update_available_id">update_available</string>
-    <string name="notification_channel_update_complete_title">Update complete</string>
-    <string name="notification_channel_update_complete_desc">Shows that an update has completed download</string>
-    <string name="notification_channel_update_complete_id">update_complete</string>
+    <string name="task_content">Task Content</string>
 
-    <!-- Notification channels -->
-    <string name="notification_channel_sync_title">Sync</string>
-    <string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
-    <string name="notification_channel_sync_id">sync</string>
-    <string name="notification_channel_playback_title">Playback</string>
-    <string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
-    <string name="notification_channel_playback_id">playback</string>
-    <string name="notification_channel_uncategorised_title">Uncategorised</string>
-    <string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the previous channels</string>
-    <string name="notification_channel_uncategorised_id">uncategorised</string>
+    <string name="task_project_create">Create a project…</string>
+    <string name="task_project_prompt">Choose a project…</string>
 
-    <!-- Miscellaneous -->
-    <string name="download_apk_name">com.edricchan.studybuddy-v%1$s.apk</string>
-    <string name="changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json</string>
+    <string name="task_tags">Task Tags</string>
+
+    <string name="task_title">Task Title</string>
+
     <string name="testing_changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
-    <string name="choose_a_date">Choose a date&#8230;</string>
-    <string name="action_mark_as_done">Mark as done</string>
-    <string name="action_mark_as_undone">Mark as undone</string>
-    <string name="action_delete_todo">Delete todo</string>
-    <string name="bottom_nav_todos">Todos</string>
-    <string name="bottom_nav_calendar">Calendar</string>
-    <string name="bottom_nav_chat">Chat</string>
-    <string name="bottom_nav_tips">Tips</string>
+
+    <string name="tips_empty_state_cta_text">Submit a tip</string>
+    <string name="tips_empty_state_head">No tips as of now</string>
+
+    <string name="title_activity_account">Account</string>
+    <string name="title_activity_debug">Debug</string>
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_new_task">New Task</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_reset_password">Reset password</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_updates">Updates</string>
+    <string name="title_activity_view_task">Task view</string>
+
+    <string name="todos_empty_state_head">All todos done!</string>
+
+    <string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
+    <string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve configured your settings to not download updates when on a cellular network.\nIf you still want to download the update, tap on "Download anyway".</string>
+    <string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download anyway</string>
+    <string name="update_activity_cannot_download_cellular_dialog_title">Warning</string>
+    <string name="update_activity_delete_update_success_toast">Successfully deleted update!</string>
+    <string name="update_activity_empty_state_head">No updates available</string>
+    <string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up here.</string>
+    <string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app sources" in Settings before continuing. Click on the "Settings" button to configure.</string>
+    <string name="update_activity_enable_unknown_sources_dialog_positive_btn">Settings</string>
+    <string name="update_activity_update_already_downloaded_dialog_msg">An update has already been downloaded! Tap on "Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on "Download anyway" will delete the existing file)</string>
+    <string name="update_activity_update_already_downloaded_dialog_negative_btn">Download anyway</string>
+    <string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
+    <string name="update_activity_update_already_downloaded_dialog_title">Update already downloaded</string>
+
+    <string name="update_dialog_positive_btn_text">Download build</string>
+    <string name="update_dialog_title_new">New version (%1$s) available!</string>
+
+    <string name="update_perm_rationale_dialog_deny">Deny</string>
+    <string name="update_perm_rationale_dialog_grant">Grant</string>
+    <string name="update_perm_rationale_dialog_msg">The storage permission is required in order to download updates to your (default) download folder.</string>
+    <string name="update_perm_rationale_dialog_title">Permission request</string>
+
+    <string name="update_snackbar_checking">Checking for updates…</string>
+    <string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.</string>
+    <string name="update_snackbar_error_malformed">Could not parse JSON. Please try again later.</string>
+    <string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.</string>
+    <string name="update_snackbar_latest">You already have the latest version!</string>
+
+    <string name="view_task_label_icon_content_desc">Label icon</string>
+    <string name="view_task_loading">Loading task\'s contents…</string>
+    <string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
+
+    <string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
 </resources>
