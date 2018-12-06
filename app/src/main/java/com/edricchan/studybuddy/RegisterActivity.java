@@ -83,6 +83,12 @@ public class RegisterActivity extends AppCompatActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		progressBar.setVisibility(View.GONE);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
@@ -104,10 +110,6 @@ public class RegisterActivity extends AppCompatActivity {
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		progressBar.setVisibility(View.GONE);
 	/**
 	 * Sets all views as shown/hidden
 	 *
