@@ -88,6 +88,9 @@
 			android:name=".UpdatesActivity"
 			android:label="@string/title_activity_updates" />
 		<activity
+			android:name=".ViewTaskActivity"
+			android:label="@string/title_activity_view_task" />
+		<activity
 			android:name=".AccountActivity"
 			android:label="@string/title_activity_account" />
 
