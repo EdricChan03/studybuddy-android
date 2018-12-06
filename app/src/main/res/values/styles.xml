@@ -22,30 +22,8 @@
 		<item name="android:fontFamily">@font/baloo</item>
 	</style>
 
-	<style name="Theme.App.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-		<!-- The default primary colour -->
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<!-- The dark primary colour variant -->
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<!-- The accent colour -->
-		<item name="colorSecondary">@color/colorSecondary</item>
-		<!-- The colour of the navigation bar -->
-		<item name="android:navigationBarColor">@color/colorPrimary</item>
-		<!-- The font family of the app -->
-		<item name="fontFamily">@font/baloo</item>
-		<!-- The text input style -->
-		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox
-		</item>
-		<!-- The edit text style -->
-		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox
-		</item>
-		<!-- The font family of the app -->
-		<item name="android:fontFamily">@font/baloo</item>
-	</style>
 	<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
-	<style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
 	<!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />-->
-	<style name="Theme.App.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
 	<!--<style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Dialog">
 		<item name="fontFamily">@font/baloo</item>
 	</style>-->
