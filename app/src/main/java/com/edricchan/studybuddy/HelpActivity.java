@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.edricchan.studybuddy.interfaces.HelpFeatured;
+import com.edricchan.studybuddy.utils.DataUtil;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -28,6 +29,11 @@ public class HelpActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_help);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		featuredListView = findViewById(R.id.helpFeaturedListView);
+		CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+		builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+				.addDefaultShareMenuItem()
+				.setShowTitle(true);
+		tabsIntent = builder.build();
 		addFeaturedItems();
 		initialiseAdapter();
 		setupClickHandler();
@@ -52,12 +58,11 @@ public class HelpActivity extends AppCompatActivity {
 
 				return true;
 			case R.id.action_source_code:
-
-				break;
-
+				tabsIntent.launchUrl(this, DataUtil.uriSrcCode);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -81,6 +86,7 @@ public class HelpActivity extends AppCompatActivity {
 		HelpFeaturedAdapter adapter = new HelpFeaturedAdapter(helpFeaturedList, HelpActivity.this);
 		featuredListView.setAdapter(adapter);
 	}
+
 	/**
 	 * Sets a click handler on an item of the listview
 	 */
@@ -89,11 +95,7 @@ public class HelpActivity extends AppCompatActivity {
 			featuredListView.setSelection(position);
 			featuredListView.setPressed(true);
 //				Log.d(SharedHelper.getTag(HelpActivity.class), "Selected: " + helpFeaturedList.get(position).helpUrl);
-			CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-			builder.setToolbarColor(ContextCompat.getColor(HelpActivity.this, R.color.colorPrimary));
-			builder.addDefaultShareMenuItem();
-			final CustomTabsIntent customTabsIntent = builder.build();
-			customTabsIntent.launchUrl(HelpActivity.this, Uri.parse(helpFeaturedList.get(position).helpUrl));
+			tabsIntent.launchUrl(this, Uri.parse(helpFeaturedList.get(position).helpUrl));
 		});
 	}
 
