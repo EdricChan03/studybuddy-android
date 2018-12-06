@@ -20,7 +20,7 @@ public class ActionButtonReceiver extends BroadcastReceiver {
 		switch (action) {
 			case SharedHelper.ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER:
 				checkPermission(context, intent);
-				//register receiver for when .apk download is compete
+				// Register receiver for when .apk download is compete
 				break;
 			case SharedHelper.ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER:
 				SharedHelper.checkForUpdates(context);
