@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+	<ListPreference
+		app:defaultValue="1"
+		app:entries="@array/pref_language_languages_array"
+		app:entryValues="@array/pref_language_languages_array_values"
+		app:icon="@drawable/ic_language_24dp"
+		app:key="pref_language"
+		app:title="@string/pref_language_title"
+		app:useSimpleSummaryProvider="true" />
+	<PreferenceCategory
+		app:initialExpandedChildrenCount="1"
+		app:key="pref_category_theme"
+		app:title="@string/pref_category_theme">
+		<ListPreference
+			app:defaultValue="1"
+			app:entries="@array/pref_dark_theme_options_array"
+			app:entryValues="@array/pref_dark_theme_options_array_values"
+			app:key="pref_dark_theme"
+			app:title="@string/pref_dark_theme_title"
+			app:useSimpleSummaryProvider="true" />
+		<Preference
+			app:icon="@drawable/ic_info_24dp"
+			app:key="pref_daynight_perm_info"
+			app:enabled="false"
+			app:title="@string/pref_daynight_perm_info_summary" />
+		<Preference
+			app:icon="@drawable/ic_open_in_new_24dp"
+			app:key="pref_daynight_grant_perm"
+			app:title="@string/pref_daynight_grant_perm_title" />
+	</PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

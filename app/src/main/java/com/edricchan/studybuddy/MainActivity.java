@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 		// Check if build is debug
 		if (!BuildConfig.DEBUG) {
-			menu.removeItem(R.id.action_debug_send_notification);
+			menu.removeItem(R.id.action_debug);
 		}
 //		if (currentUser != null) {
 //			menu.getItem(R.id.action_account).setTitle("Log out");
@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		mOptionsMenu = menu;
 		return true;
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -242,6 +243,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			case R.id.action_help:
 				Intent helpIntent = new Intent(this, HelpActivity.class);
 				startActivity(helpIntent);
+				return true;
+			case R.id.action_debug:
+				Intent debugIntent = new Intent(this, DebugActivity.class);
+				startActivity(debugIntent);
 				return true;
 			case R.id.action_account:
 				if (currentUser != null) {
