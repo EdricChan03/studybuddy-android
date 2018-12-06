@@ -47,10 +47,10 @@ public class HelpActivity extends AppCompatActivity {
 				return true;
 			case R.id.action_version:
 
-				break;
+				return true;
 			case R.id.action_licenses:
 
-				break;
+				return true;
 			case R.id.action_source_code:
 
 				break;
