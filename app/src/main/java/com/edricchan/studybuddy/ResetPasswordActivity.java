@@ -2,13 +2,14 @@ package com.edricchan.studybuddy;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 	private Button btnReset, btnBack;
 	private FirebaseAuth auth;
 	private ProgressBar progressBar;
+	private static final String TAG = SharedHelper.getTag(ResetPasswordActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 			String email = inputEmail.getText().toString().trim();
 
 			if (TextUtils.isEmpty(email)) {
-				Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+				Snackbar.make(findViewById(R.id.mainView), "Please enter an email address", Snackbar.LENGTH_LONG).show();
 				return;
 			}
 
@@ -47,9 +49,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
 			auth.sendPasswordResetEmail(email)
 					.addOnCompleteListener(task -> {
 						if (task.isSuccessful()) {
-							Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+							Snackbar.make(findViewById(R.id.mainView), "An email has been sent to the email address that you have specified", Snackbar.LENGTH_LONG)
+									.show();
 						} else {
-							Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+							Snackbar.make(findViewById(R.id.mainView), "An error occurred while attempting to send an email. Please try again later", Snackbar.LENGTH_LONG)
+									.show();
+							Log.e(TAG, "An error occurred while attempting to send a reset password email.", task.getException());
 						}
 
 						progressBar.setVisibility(View.GONE);
