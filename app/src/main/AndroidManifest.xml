@@ -14,7 +14,9 @@
 	TODO: Remove this permission
 	-->
 	<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+	<!-- Needed for DayNight theme auto detection -->
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 	<application
 		android:allowBackup="true"
