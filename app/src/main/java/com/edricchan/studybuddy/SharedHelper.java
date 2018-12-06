@@ -44,36 +44,42 @@ public class SharedHelper {
 	 *
 	 * @deprecated Use {@link DataUtil#actionNotificationsSettingsIntent}
 	 */
+	@Deprecated
 	public static final String ACTION_NOTIFICATIONS_SETTINGS_INTENT = DataUtil.actionNotificationsSettingsIntent;
 	/**
 	 * Broadcaster for starting download
 	 *
 	 * @deprecated Use {@link DataUtil#actionNotificationsStartDownloadReceiver}
 	 */
+	@Deprecated
 	public static final String ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER = DataUtil.actionNotificationsStartDownloadReceiver;
 	/**
 	 * Broadcaster for retrying check for updates
 	 *
 	 * @deprecated Use {@link DataUtil#actionNotificationsRetryCheckForUpdateReceiver}
 	 */
+	@Deprecated
 	public static final String ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER = DataUtil.actionNotificationsRetryCheckForUpdateReceiver;
 	/**
 	 * Action icon for settings
 	 *
 	 * @deprecated Use {@link DataUtil#fcmSettingsIcon}
 	 */
+	@Deprecated
 	public static final String ACTION_SETTINGS_ICON = DataUtil.fcmSettingsIcon;
 	/**
 	 * Action icon for notification
 	 *
 	 * @deprecated Use {@link DataUtil#fcmNotificationIcon}
 	 */
+	@Deprecated
 	public static final String ACTION_NOTIFICATION_ICON = DataUtil.fcmNotificationIcon;
 	/**
 	 * Action icon for mark as done
 	 *
 	 * @deprecated Use {@link DataUtil#fcmMarkAsDoneIcon}
 	 */
+	@Deprecated
 	public static final String ACTION_MARK_AS_DONE_ICON = DataUtil.fcmMarkAsDoneIcon;
 	// IDs for notifications
 	/**
@@ -81,18 +87,21 @@ public class SharedHelper {
 	 *
 	 * @deprecated Use {@link DataUtil#notificationCheckForUpdatesId}
 	 */
+	@Deprecated
 	public static final int NOTIFICATION_CHECK_FOR_UPDATES = DataUtil.notificationCheckForUpdatesId;
 	/**
 	 * ID for mMediaPlayer notification
 	 *
 	 * @deprecated Use {@link DataUtil#notificationMediaId}
 	 */
+	@Deprecated
 	public static final int NOTIFICATION_MEDIA = DataUtil.notificationMediaId;
 	/**
 	 * {@link android.content.SharedPreferences} file used for all classes
 	 *
 	 * @deprecated Use {@link DataUtil#defaultSharedPrefsFile}
 	 */
+	@Deprecated
 	public static final String DEFAULT_SHARED_PREFS_FILE = DataUtil.defaultSharedPrefsFile;
 
 	// Context
@@ -101,10 +110,16 @@ public class SharedHelper {
 	private int dynamicId = 2;
 	private AtomicInteger atomicInteger = new AtomicInteger(dynamicId);
 
+	/**
+	 * @param context The context used for all methods
+	 */
 	public SharedHelper(Context context) {
 		this.mContext = context;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public SharedHelper() {
 	}
 
@@ -204,7 +219,7 @@ public class SharedHelper {
 	 *
 	 * @param context The context
 	 * @return A boolean
-	 * @deprecated Use {@link SharedHelper#isNetworkAvailable(Context)}  instead
+	 * @deprecated Use {@link SharedHelper#isNetworkAvailable(Context)}
 	 */
 	public static boolean isNetworkUnavailable(Context context) {
 		return !isNetworkAvailable(context);
@@ -232,11 +247,13 @@ public class SharedHelper {
 	}
 
 	/**
-	 * Retrieves an {@link EditText} from Google Android Material's {@link TextInputLayout}
+	 * Retrieves an {@link EditText} from Material's {@link TextInputLayout}
 	 *
-	 * @param inputLayout The {@link TextInputLayout} in question
+	 * @param inputLayout The {@link TextInputLayout}
 	 * @return The {@link EditText} in the {@link TextInputLayout}
+	 * @deprecated Use {@link TextInputLayout#getEditText()}
 	 */
+	@Deprecated
 	public static EditText getEditText(TextInputLayout inputLayout) {
 		return inputLayout.getEditText();
 	}
@@ -244,7 +261,7 @@ public class SharedHelper {
 	/**
 	 * Retrieves the text from an {@link EditText} (or {@link com.google.android.material.textfield.TextInputEditText})
 	 *
-	 * @param editText The {@link EditText} in question
+	 * @param editText The {@link EditText}
 	 * @return The text of the {@link EditText}
 	 */
 	public static String getEditTextString(EditText editText) {
@@ -254,8 +271,8 @@ public class SharedHelper {
 	/**
 	 * Retrieves the text from a {@link TextInputLayout}
 	 *
-	 * @param inputLayout The {@link TextInputLayout} in question
-	 * @return The text of the {@link EditText} in {@link TextInputLayout}
+	 * @param inputLayout The {@link TextInputLayout}
+	 * @return The text of the {@link com.google.android.material.textfield.TextInputEditText} in {@link TextInputLayout}, or an empty string if no such {@link com.google.android.material.textfield.TextInputEditText} exists
 	 */
 	public static String getEditTextString(TextInputLayout inputLayout) {
 		if (inputLayout.getEditText() != null) {
@@ -269,7 +286,7 @@ public class SharedHelper {
 	/**
 	 * Retrieves the tag of a class. Useful for {@link android.util.Log}
 	 *
-	 * @param tagClass The class in question. Accepts any valid Java class (including Android activities, fragments, etc.)
+	 * @param tagClass The class to retrieve the simple name of. Can be any Java class extending {@link Class}.
 	 * @return The tag
 	 */
 	public static String getTag(Class tagClass) {
