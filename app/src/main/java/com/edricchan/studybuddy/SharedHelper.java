@@ -15,9 +15,6 @@ import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.edricchan.studybuddy.interfaces.Notification;
-import com.edricchan.studybuddy.interfaces.NotificationAction;
-import com.edricchan.studybuddy.interfaces.NotificationData;
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver;
 import com.edricchan.studybuddy.utils.DataUtil;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
@@ -517,98 +514,36 @@ public class SharedHelper {
 		return atomicInteger.incrementAndGet();
 	}
 
+
 	/**
-	 * Creates a notification action
+	 * A newer implementation of the former <code>sendNotificationToUser</code> method.
+	 * <p>
+	 * This implementation reinforces that notifications are sent as requests to Cloud Firestore
+	 * (which gets saved as a document under the <code>notificationRequests</code> collection) and are automatically sent to the associated topic or username.
+	 * <p>
+	 * This implementation also uses only 1 parameter to save on the amount of characters required to call the former method.
 	 *
-	 * @return {@link NotificationAction} The notification action
+	 * @param request The notification request to send to Cloud Firestore
+	 * @return A reference of the task
 	 */
-	private List<NotificationAction> addDefaultNotificationActions() {
-		List<NotificationAction> notificationActionList = new ArrayList<>();
-		notificationActionList.add(new NotificationAction("settings", "Configure notifications", ACTION_NOTIFICATIONS_SETTINGS_INTENT));
-		return notificationActionList;
+	public Task<DocumentReference> sendNotificationRequest(NotificationRequest request) {
+		FirebaseFirestore fs = FirebaseFirestore.getInstance();
+		return fs.collection("notificationRequests").add(request);
 	}
 
 	/**
-	 * Sends a notification to the user
+	 * A newer implementation of the former <code>sendNotificationToUser</code> method.
+	 * <p>
+	 * This implementation reinforces that notifications are sent as requests to Cloud Firestore
+	 * (which gets saved as a document under the <code>notificationRequests</code> collection) and are automatically sent to the associated topic or username.
+	 * <p>
+	 * This implementation also uses only 2 parameters to save on the amount of characters required to call the former method.
 	 *
-	 * @param user                  The username
-	 * @param message               The message to send
-	 * @param notificationChannelId The notification channel ID as a string
-	 * @param notificationActions   The notification actions
+	 * @param fs      An instance of {@link FirebaseFirestore} (TIP: Use {@link FirebaseFirestore#getInstance()} to get the instance)
+	 * @param request The notification request to send to Cloud Firestore
+	 * @return A reference of the task
 	 */
-	public void sendNotificationToUser(String user, String message, String body, String color, String notificationChannelId, List<NotificationAction> notificationActions) {
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		final CollectionReference notifications = db.collection("notificationRequests");
-		Notification notification = new Notification(user, message, body, color, new NotificationData(notificationChannelId, notificationActions));
-		notifications.add(notification).addOnSuccessListener(documentReference -> documentReference.update("id", documentReference.getId()));
-	}
-
-	/**
-	 * Sends a notification to the user
-	 *
-	 * @param user                  The username
-	 * @param message               The message to send
-	 * @param notificationChannelId The notification channel ID as a string
-	 */
-	public void sendNotificationToUser(String user, String message, String notificationChannelId) {
-		this.sendNotificationToUser(user, message, "", notificationChannelId, "#9c27b0", this.addDefaultNotificationActions());
-	}
-
-	/**
-	 * Sends a notification to the user
-	 *
-	 * @param user                  The username
-	 * @param message               The message to send
-	 * @param body                  The body to send
-	 * @param notificationChannelId The notification channel ID as a string
-	 */
-	public void sendNotificationToUserWithBody(String user, String message, String body, String notificationChannelId) {
-		this.sendNotificationToUser(user, message, body, "#9c27b0", notificationChannelId, this.addDefaultNotificationActions());
-	}
-
-	/**
-	 * Sends a notification to the user
-	 *
-	 * @param user                  The username
-	 * @param message               The message to send
-	 * @param notificationChannelId The notification channel ID as a resource
-	 */
-	public void sendNotificationToUser(String user, String message, int notificationChannelId) {
-		this.sendNotificationToUser(user, message, "", "#9c27b0", mContext.getString(notificationChannelId), this.addDefaultNotificationActions());
-	}
-
-	/**
-	 * Sends a notification to the user
-	 *
-	 * @param user                  The username
-	 * @param message               The message to send
-	 * @param body                  The body to send
-	 * @param notificationChannelId The notification channel ID as a resource
-	 */
-	public void sendNotificationToUserWithBody(String user, String message, String body, int notificationChannelId) {
-		this.sendNotificationToUser(user, message, body, "#9c27b0", mContext.getString(notificationChannelId), this.addDefaultNotificationActions());
-	}
-
-	/**
-	 * Sends a notification to the user
-	 * Note: The channel id will be assumed to be <code>uncategorised</code>
-	 *
-	 * @param user    The username
-	 * @param message The message to send
-	 */
-	public void sendNotificationToUser(String user, String message) {
-		this.sendNotificationToUser(user, message, "", "#9c27b0", mContext.getString(R.string.notification_channel_uncategorised_id), this.addDefaultNotificationActions());
-	}
-
-	/**
-	 * Sends a notification to the user
-	 * Note: The channel id will be assumed to be <code>uncategorised</code>
-	 *
-	 * @param user    The username
-	 * @param message The message to send
-	 * @param body    The body to send
-	 */
-	public void sendNotificationToUserWithBody(String user, String message, String body) {
-		this.sendNotificationToUser(user, message, body, "#9c27b0", mContext.getString(R.string.notification_channel_uncategorised_id), this.addDefaultNotificationActions());
+	public static Task<DocumentReference> sendNotificationRequest(FirebaseFirestore fs, NotificationRequest request) {
+		return fs.collection("notificationRequests").add(request);
 	}
 }
