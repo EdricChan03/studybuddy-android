@@ -132,33 +132,36 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		});
 	}
 
-	/**
-	 * Used for debugging.
-	 * Will not be used on release.
-	 */
-	public void sendNotification(int type) {
+	@Override
+	protected void onStart() {
+		super.onStart();
+		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+		FirebaseFirestore fs = FirebaseFirestore.getInstance();
 		if (currentUser != null) {
-			SharedHelper helper = new SharedHelper(this);
-			switch (type) {
-				case 0:
-					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Testing testing", "This is a test notification which will only be sent to a specific device! Hopefully it'll work though.", getString(R.string.notification_channel_uncategorised_id));
-					break;
-				case 1:
-					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Weekly summary", "You have 8 todos left to do for this week. Your total karma is 80%. Keep it up! :D", getString(R.string.notification_channel_weekly_summary_id));
-					break;
-				case 2:
-					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Notification alert", "This notification should create a new notification channel! See the source code for more info.", "test");
-					break;
-				case 3:
-					helper.sendNotificationToUserWithBody(currentUser.getUid(), "Todo due soon", "Your todo will be due soon. Mark as done?", getString(R.string.notification_channel_todo_updates_id));
-					break;
-				case 4:
-					helper.sendNotificationToUser(currentUser.getUid(), "No body", getString(R.string.notification_channel_uncategorised_id));
-					break;
-			}
-		} else {
-			Log.e(TAG, "Please login before executing this method.");
+			// User specific topic
+			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.getUid());
+			FirebaseInstanceId.getInstance().getInstanceId()
+					.addOnCompleteListener(task -> {
+						if (task.isSuccessful()) {
+							Log.d(TAG, "Successfully retrieved instance ID!");
+							Map<String, Object> docData = new HashMap<>();
+							docData.put("registrationToken", task.getResult().getToken());
+							fs.document("users/" + currentUser.getUid())
+									.set(docData)
+									.addOnCompleteListener(updateTask -> {
+										if (updateTask.isSuccessful()) {
+											Log.d(TAG, "Successfully updated token!");
+										} else {
+											Log.e(TAG, "An error occurred while attempting to update the token:", updateTask.getException());
+										}
+									});
+						} else {
+							Log.e(TAG, "An error occurred while attempting to retrieve the instance ID:", task.getException());
+						}
+					});
 		}
+		// By default, subscribe to the "topic_all" topic
+		FirebaseMessaging.getInstance().subscribeToTopic("all");
 	}
 
 	/**
@@ -239,12 +242,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			case R.id.action_help:
 				Intent helpIntent = new Intent(this, HelpActivity.class);
 				startActivity(helpIntent);
-			case R.id.action_debug_send_notification:
-				Random rand = new Random();
-
-				int randomInt = rand.nextInt(4) + 1;
-				sendNotification(randomInt);
-				break;
 				return true;
 			case R.id.action_account:
 				if (currentUser != null) {
