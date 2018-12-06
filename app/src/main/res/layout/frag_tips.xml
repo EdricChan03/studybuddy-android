@@ -3,12 +3,25 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<TextView
-		android:id="@+id/tips_coming_soon_view"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="@string/frag_tips_coming_soon"
-		android:textAppearance="?attr/textAppearanceHeadline5" />
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center"
+		android:orientation="vertical"
+		android:visibility="visible">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp"
+			android:text="@string/tips_empty_state_head"
+			android:textAppearance="?attr/textAppearanceHeadline6" />
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/tips_empty_state_cta"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/tips_empty_state_cta_text" />
+	</LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
