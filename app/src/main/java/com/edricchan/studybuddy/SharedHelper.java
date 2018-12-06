@@ -493,19 +493,6 @@ public class SharedHelper {
 	}
 
 	/**
-	 * Parses the string (<code>s</code>) into an object (<code>clazz</code>)
-	 *
-	 * @param s     The string to parse
-	 * @param clazz The class type to parse the string to
-	 * @param <T>   Any
-	 * @return The constructor
-	 * @throws Exception
-	 */
-	public static <T> T parseObjectFromString(String s, Class<T> clazz) throws Exception {
-		return clazz.getConstructor(new Class[]{String.class}).newInstance(s);
-	}
-
-	/**
 	 * Dynamically creates a new ID for use with Android's notification manager
 	 *
 	 * @return The ID in question
