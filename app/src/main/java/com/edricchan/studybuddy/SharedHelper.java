@@ -432,7 +432,7 @@ public class SharedHelper {
 	 * @param fs   An instance of {@link FirebaseFirestore}
 	 * @return The result.
 	 */
-	public static Task<DocumentReference> addTodo(TaskItem item, FirebaseUser user, FirebaseFirestore fs) {
+	public static Task<DocumentReference> addTask(TaskItem item, FirebaseUser user, FirebaseFirestore fs) {
 		return fs.collection("users/" + user.getUid() + "/todos").add(item);
 	}
 
@@ -443,7 +443,7 @@ public class SharedHelper {
 	 * @param fs   An instance of {@link FirebaseFirestore}
 	 * @return A collection reference
 	 */
-	public static CollectionReference getTodos(FirebaseUser user, FirebaseFirestore fs) {
+	public static CollectionReference getTasks(FirebaseUser user, FirebaseFirestore fs) {
 		return fs.collection("users/" + user.getUid() + "/todos");
 	}
 
@@ -455,7 +455,7 @@ public class SharedHelper {
 	 * @param fs    An instance of {@link FirebaseFirestore}
 	 * @return The result of the deletion
 	 */
-	public static Task<Void> removeTodo(String docID, FirebaseUser user, FirebaseFirestore fs) {
+	public static Task<Void> removeTask(String docID, FirebaseUser user, FirebaseFirestore fs) {
 		return fs.document("users/" + user.getUid() + "/todos/" + docID).delete();
 	}
 
