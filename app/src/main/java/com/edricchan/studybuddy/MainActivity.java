@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SharedHelper.setAppTheme(this);
 		// Use a downloadable font for EmojiCompat
 		FontRequest fontRequest = new FontRequest(
 				"com.google.android.gms.fonts",
