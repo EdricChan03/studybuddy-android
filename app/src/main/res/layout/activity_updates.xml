@@ -10,10 +10,11 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_gravity="center"
+		android:id="@+id/updates_empty_state_view"
 		android:gravity="center">
 
 		<TextView
-			android:id="@+id/empty_view_heading"
+			android:id="@+id/empty_state_view_heading"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_centerHorizontal="true"
@@ -21,21 +22,33 @@
 			android:textAppearance="?attr/textAppearanceHeadline5" />
 
 		<TextView
-			android:id="@+id/empty_view_subheading"
+			android:id="@+id/empty_state_view_subheading"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/empty_view_heading"
+			android:layout_below="@id/empty_state_view_heading"
 			android:layout_centerHorizontal="true"
 			android:text="@string/update_activity_empty_state_subhead"
 			android:textAppearance="?attr/textAppearanceCaption" />
 
 		<com.google.android.material.button.MaterialButton
-			android:id="@+id/empty_view_cta"
+			android:id="@+id/empty_state_view_cta"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/action_check_for_updates"
-			android:layout_below="@id/empty_view_subheading"
+			android:layout_below="@id/empty_state_view_subheading"
 			android:layout_centerHorizontal="true"
 			android:layout_marginTop="8dp"/>
 	</RelativeLayout>
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/recycler_swiperefresh"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scrollbars="vertical"
+		android:visibility="gone">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/recycler_list"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

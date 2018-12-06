@@ -15,9 +15,9 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.edricchan.studybuddy.utils.CustomAlertDialogBuilder;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -28,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.File;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -35,16 +36,19 @@ import androidx.core.content.FileProvider;
 public class UpdatesActivity extends AppCompatActivity {
 
 	boolean isChecking = false;
+	Update appUpdate;
 	MaterialButton checkForUpdatesBtn;
+	RelativeLayout emptyStateLayout;
 	SharedPreferences preferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_updates);
-		checkForUpdatesBtn = findViewById(R.id.empty_view_cta);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		checkForUpdatesBtn = findViewById(R.id.empty_state_view_cta);
 		checkForUpdatesBtn.setOnClickListener(click -> checkForUpdates());
+		emptyStateLayout = findViewById(R.id.updates_empty_state_view);
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 	}
 
@@ -65,9 +69,10 @@ public class UpdatesActivity extends AppCompatActivity {
 				Snackbar.make(findViewById(R.id.updatesView), R.string.update_snackbar_checking, Snackbar.LENGTH_SHORT)
 						.show();
 				checkForUpdates();
-				break;
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -82,6 +87,13 @@ public class UpdatesActivity extends AppCompatActivity {
 		return true;
 	}
 
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		if (requestCode == 0) {
+			showUpdateDialog();
+		}
+	}
+
 	private void downloadUpdate(String downloadUrl, String version) {
 		downloadUpdate(downloadUrl, version, false, false);
 	}
@@ -89,7 +101,7 @@ public class UpdatesActivity extends AppCompatActivity {
 	private void downloadUpdate(String downloadUrl, String version, boolean mobileDataSkip, boolean downloadAgain) {
 		String fileName = "com.edricchan.studybuddy-" + version + ".apk";
 		if (downloadAgain || !new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileName).exists()) {
-			if (mobileDataSkip || (SharedHelper.isCellularNetworkAvailable(UpdatesActivity.this) && preferences.getBoolean("updates_enable_cellular", false))) {
+			if (mobileDataSkip || SharedHelper.isCellularNetworkAvailable(UpdatesActivity.this)) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(UpdatesActivity.this);
 				builder.setTitle(R.string.update_activity_cannot_download_cellular_dialog_title);
 				builder.setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg);
@@ -102,7 +114,8 @@ public class UpdatesActivity extends AppCompatActivity {
 			} else {
 				DownloadManager.Request request1 = new DownloadManager.Request(Uri.parse(downloadUrl));
 
-				request1.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+				request1.setAllowedOverRoaming(false);
+				request1.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 				request1.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
 				request1.setMimeType("application/vnd.android.package-archive");
 				DownloadManager manager1 = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
@@ -144,19 +157,20 @@ public class UpdatesActivity extends AppCompatActivity {
 				installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 				startActivity(installIntent);
 			} else {
-				CustomAlertDialogBuilder builder = new CustomAlertDialogBuilder(UpdatesActivity.this);
-				builder.setMessage(R.string.update_activity_enable_unknown_sources_dialog_msg);
-				builder.setNegativeButton(R.string.dialog_action_cancel, (DialogInterface dialogInterface, int i) -> dialogInterface.dismiss());
-				builder.setNeutralButton(R.string.dialog_action_retry, (DialogInterface dialogInterface, int i) -> {
-					dialogInterface.dismiss();
-					installUpdate(fileName);
-				});
-				builder.setPositiveButton(R.string.update_activity_enable_unknown_sources_dialog_positive_btn, (DialogInterface dialogInterface, int i) -> {
-					Intent allowUnknownAppsIntent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-					allowUnknownAppsIntent.setData(Uri.parse("package:com.edricchan.studybuddy"));
-					startActivity(allowUnknownAppsIntent);
-				});
-				builder.show();
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setMessage(R.string.update_activity_enable_unknown_sources_dialog_msg)
+						.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
+						.setNeutralButton(R.string.dialog_action_retry, (dialog, which) -> {
+							dialog.dismiss();
+							installUpdate(fileName);
+						})
+						.setPositiveButton(R.string.update_activity_enable_unknown_sources_dialog_positive_btn, (dialog, which) -> {
+							Intent allowUnknownAppsIntent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+							allowUnknownAppsIntent.setData(Uri.parse("package:" + getPackageName()));
+							startActivity(allowUnknownAppsIntent);
+						})
+						.setCancelable(false)
+						.show();
 			}
 		} else {
 			Intent installIntent = new Intent(Intent.ACTION_VIEW);
@@ -168,6 +182,47 @@ public class UpdatesActivity extends AppCompatActivity {
 		}
 	}
 
+	private void showUpdateDialog() {
+		// New update
+		AlertDialog.Builder builder = new AlertDialog.Builder(UpdatesActivity.this);
+		builder.setTitle(getString(R.string.update_dialog_title_new, appUpdate.getLatestVersion()));
+		builder.setIcon(R.drawable.ic_system_update_24dp);
+		builder.setMessage("What's new:\n" + appUpdate.getReleaseNotes());
+		builder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
+		});
+		builder.setPositiveButton(R.string.update_dialog_positive_btn_text, (dialogInterface, i) -> {
+			// Check if the device is running Android Marshmallow or higher
+			// Marshmallow introduces the capability for runtime permissions
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				if (SharedHelper.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, UpdatesActivity.this)) {
+					downloadUpdate(appUpdate.getUrlToDownload().toString(), appUpdate.getLatestVersion());
+				} else {
+					if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+						AlertDialog.Builder permBuilder = new AlertDialog.Builder(UpdatesActivity.this);
+						permBuilder.setTitle(R.string.update_perm_rationale_dialog_title)
+								.setMessage(R.string.update_perm_rationale_dialog_msg)
+								.setNegativeButton(R.string.update_perm_rationale_dialog_deny, (dialog, which) -> dialog.dismiss())
+								.setPositiveButton(R.string.update_perm_rationale_dialog_grant, (dialog, which) -> requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0))
+								.show();
+					} else {
+						requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+					}
+				}
+			} else {
+				downloadUpdate(appUpdate.getUrlToDownload().toString(), appUpdate.getLatestVersion());
+			}
+		});
+		builder.setOnDismissListener(dialogInterface -> {
+			isChecking = false;
+			invalidateOptionsMenu();
+		});
+		builder.setOnCancelListener(dialogInterface -> {
+			isChecking = false;
+			invalidateOptionsMenu();
+		});
+		builder.show();
+	}
+
 	private void checkForUpdates() {
 		isChecking = true;
 		invalidateOptionsMenu();
@@ -177,33 +232,13 @@ public class UpdatesActivity extends AppCompatActivity {
 				.withListener(new AppUpdaterUtils.UpdateListener() {
 					@Override
 					public void onSuccess(final Update update, Boolean updateAvailable) {
+						appUpdate = update;
 						if (update.getLatestVersionCode() == BuildConfig.VERSION_CODE && !updateAvailable) {
 							// User is running latest version
 							Snackbar.make(findViewById(R.id.updatesView), R.string.update_snackbar_latest, Snackbar.LENGTH_SHORT)
 									.show();
 						} else {
-							// New update
-							AlertDialog.Builder builder = new AlertDialog.Builder(UpdatesActivity.this);
-							builder.setTitle(String.format(getString(R.string.update_dialog_title_new), update.getLatestVersion()));
-							builder.setIcon(R.drawable.ic_system_update_24dp);
-							builder.setMessage("What's new:\n" + update.getReleaseNotes());
-							builder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
-
-							});
-							builder.setPositiveButton(R.string.update_dialog_positive_btn_text, (dialogInterface, i) -> {
-								if (SharedHelper.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, UpdatesActivity.this)) {
-									downloadUpdate(update.getUrlToDownload().toString(), update.getLatestVersion());
-								}
-							});
-							builder.setOnDismissListener(dialogInterface -> {
-								isChecking = false;
-								invalidateOptionsMenu();
-							});
-							builder.setOnCancelListener(dialogInterface -> {
-								isChecking = false;
-								invalidateOptionsMenu();
-							});
-							builder.create().show();
+							showUpdateDialog();
 						}
 					}
 
