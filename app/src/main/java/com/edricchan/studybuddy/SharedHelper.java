@@ -313,7 +313,7 @@ public class SharedHelper {
 
 	/**
 	 * Used for setting up notification channels
-	 * NOTE: This will only work if the device is Android Oreo or later
+	 * <p>NOTE: This will only work if the device is Android Oreo or later
 	 *
 	 * @param context The context
 	 */
