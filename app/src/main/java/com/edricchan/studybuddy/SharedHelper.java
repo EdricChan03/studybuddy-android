@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.edricchan.studybuddy.interfaces.NotificationRequest;
+import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver;
 import com.edricchan.studybuddy.utils.DataUtil;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
