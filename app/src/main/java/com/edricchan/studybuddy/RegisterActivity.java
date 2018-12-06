@@ -95,15 +95,9 @@ public class RegisterActivity extends AppCompatActivity {
 
 	private void checkNetwork() {
 		if (SharedHelper.isNetworkAvailable(this)) {
-			btnSignUp.setEnabled(true);
-			btnSignIn.setEnabled(true);
-			inputEmail.setEnabled(true);
-			inputPassword.setEnabled(true);
+			setViewsEnabled(true);
 		} else {
-			btnSignUp.setEnabled(false);
-			btnSignIn.setEnabled(false);
-			inputEmail.setEnabled(false);
-			inputPassword.setEnabled(false);
+			setViewsEnabled(false);
 			Snackbar.make(findViewById(R.id.registerActivity), "No internet connection available. Some actions are disabled", Snackbar.LENGTH_INDEFINITE)
 					.setBehavior(new NoSwipeBehavior())
 					.setAction("Retry", view -> checkNetwork()).show();
@@ -114,5 +108,15 @@ public class RegisterActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 		progressBar.setVisibility(View.GONE);
+	/**
+	 * Sets all views as shown/hidden
+	 *
+	 * @param enabled Whether to show the views
+	 */
+	private void setViewsEnabled(boolean enabled) {
+		btnSignUp.setEnabled(enabled);
+		btnSignIn.setEnabled(enabled);
+		inputEmail.setEnabled(enabled);
+		inputPassword.setEnabled(enabled);
 	}
 }
