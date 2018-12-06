@@ -6,10 +6,24 @@ import android.net.Uri;
  * Common properties to be used across the app
  */
 public class DataUtil {
+	// Preference headers
+	public static final String prefHeaderGeneral = "pref_header_general";
+	public static final String prefHeaderTodo = "pref_header_todo";
+	public static final String prefHeaderSync = "pref_header_sync";
+	public static final String prefHeaderDebug = "pref_header_debug";
+	public static final String prefHeaderVersion = "pref_header_version";
 	// Preferences > General
 	public static final String prefCategoryGeneral = "pref_category_general";
-	public static final String prefAppTheme = "pref_app_theme";
+	public static final String prefCategoryTheme = "pref_category_theme";
+
+	public static final String prefDarkTheme = "pref_dark_theme";
+	/**
+	 * @deprecated Use {@link DataUtil#prefDarkTheme}
+	 */
+	public static final String prefAppTheme = prefDarkTheme;
 	public static final String prefLanguage = "pref_language";
+	public static final String prefDayNightPermInfo = "pref_daynight_perm_info";
+	public static final String prefDaynightGrantPerm = "pref_daynight_grant_perm";
 	/**
 	 * @deprecated Use {@link DataUtil#prefLanguage} instead
 	 */
@@ -21,6 +35,19 @@ public class DataUtil {
 	public static final String prefWeeklySummaryDay = "pref_weekly_summary_day";
 	public static final String prefWeeklySummaryTime = "pref_weekly_summary_time";
 	public static final String prefWeeklySummaryList = "pref_weekly_summary_list";
+	public static final String prefWeeklySummaryNotificationOpts = "pref_weekly_summary_notification_opts";
+	// Prefrences > About
+	public static final String prefCategoryAbout = "pref_category_about";
+	public static final String prefUpdateActivity = "pref_update_activity";
+	public static final String prefAppInfo = "pref_app_info";
+
+	// Debug preferences
+	public static final String debugEnableVerboseLog = "debug_enable_verbose_log";
+	public static final String debugDeviceInfo = "debug_device_info";
+	public static final String debugAccountInfo = "debug_account_info";
+	public static final String debugCrashApp = "debug_crash_app";
+	public static final String debugSendNotification = "debug_send_notification";
+	public static final String debugResetInstanceId = "debug_reset_instance_id";
 
 	// Actions
 	public static final String actionNotificationsSettingsIntent = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT";
@@ -28,9 +55,9 @@ public class DataUtil {
 	public static final String actionNotificationsRetryCheckForUpdateReceiver = "com.edricchan.studybuddy.receiver.ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER";
 
 	// FCM-related strings
-	public static final String fcmSettingsIcon = "settings";
-	public static final String fcmNotificationIcon = "notification";
-	public static final String fcmMarkAsDoneIcon = "mark_as_done";
+	public static final String fcmSettingsIcon = "ic_settings_24dp";
+	public static final String fcmNotificationIcon = "ic_notifications_24dp";
+	public static final String fcmMarkAsDoneIcon = "ic_check_24dp";
 
 	// Notification IDs
 	public static final int notificationCheckForUpdatesId = 0;
@@ -43,6 +70,9 @@ public class DataUtil {
 	public static final Uri uriWiki = Uri.parse(urlWiki);
 	public static final String urlSendFeedback = "https://goo.gl/forms/tz6cmNguIHuZMZIh2";
 	public static final Uri uriSendFeedback = Uri.parse(urlSendFeedback);
+	public static final String urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92";
+	public static final Uri uriSubmitTip = Uri.parse(urlSubmitTip);
+
 	// Other
 	public static final String defaultSharedPrefsFile = "Preference";
 }
