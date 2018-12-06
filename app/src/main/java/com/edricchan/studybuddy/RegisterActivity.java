@@ -3,6 +3,7 @@ package com.edricchan.studybuddy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -75,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
 						} else {
 							Snackbar.make(findViewById(R.id.registerActivity), "An error occurred while authenticating. Try again later.", Snackbar.LENGTH_LONG)
 									.show();
+							Log.e(TAG, "An error occurred while authenticating.", task.getException());
 						}
 					});
 
