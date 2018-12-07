@@ -1,16 +1,16 @@
 package com.edricchan.studybuddy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import com.edricchan.studybuddy.settings.AboutSettingsFragment;
 import com.edricchan.studybuddy.settings.DebugSettingsFragment;
@@ -21,8 +21,8 @@ import com.edricchan.studybuddy.settings.TodoSettingsFragment;
 import com.edricchan.studybuddy.utils.DataUtil;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+	private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 	private static final String TAG = SharedHelper.getTag(SettingsActivity.class);
-	private CustomTabsIntent tabsIntent;
 
 	/**
 	 * {@inheritDoc}
@@ -31,11 +31,6 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-		builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-				.addDefaultShareMenuItem()
-				.setShowTitle(true);
-		tabsIntent = builder.build();
 		if (savedInstanceState == null) {
 			SharedHelper.replaceFragment(this, new SettingsFragment(), android.R.id.content, false);
 		}
@@ -60,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 				onBackPressed();
 				return true;
 			case R.id.action_send_feedback:
-				tabsIntent.launchUrl(this, DataUtil.uriSendFeedback);
+				SharedHelper.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_help:
 				Intent helpIntent = new Intent(this, HelpActivity.class);

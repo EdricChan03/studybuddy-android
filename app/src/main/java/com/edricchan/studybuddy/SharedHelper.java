@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.widget.DatePicker;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
@@ -649,6 +651,26 @@ public class SharedHelper {
 		return atomicInteger.incrementAndGet();
 	}
 
+	/**
+	 * Helper method to launch a URI
+	 * @param context The context
+	 * @param uri The URI to launch
+	 * @param useCustomTabs Whether to use Chrome Custom Tabs
+	 */
+	public static void launchUri(Context context, Uri uri, boolean useCustomTabs) {
+		if (useCustomTabs) {
+			CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+			builder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+					.addDefaultShareMenuItem()
+					.setShowTitle(true);
+			builder
+					.build()
+					.launchUrl(context, uri);
+		} else {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+			context.startActivity(browserIntent);
+		}
+	}
 
 	/**
 	 * A newer implementation of the former <code>sendNotificationToUser</code> method.

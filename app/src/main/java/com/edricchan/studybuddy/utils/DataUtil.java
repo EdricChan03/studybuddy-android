@@ -21,6 +21,7 @@ public class DataUtil {
 	 * @deprecated Use {@link DataUtil#prefDarkTheme}
 	 */
 	public static final String prefAppTheme = prefDarkTheme;
+	public static final String prefUseCustomTabs = "pref_use_custom_tabs";
 	public static final String prefLanguage = "pref_language";
 	public static final String prefDayNightPermInfo = "pref_daynight_perm_info";
 	public static final String prefDaynightGrantPerm = "pref_daynight_grant_perm";

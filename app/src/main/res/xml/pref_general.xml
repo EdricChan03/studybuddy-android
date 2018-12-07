@@ -8,6 +8,10 @@
 		app:key="pref_language"
 		app:title="@string/pref_language_title"
 		app:useSimpleSummaryProvider="true" />
+	<SwitchPreferenceCompat
+		app:defaultValue="true"
+		app:key="pref_use_custom_tabs"
+		app:title="@string/pref_use_custom_tabs_title" />
 	<PreferenceCategory
 		app:initialExpandedChildrenCount="1"
 		app:key="pref_category_theme"
@@ -20,9 +24,9 @@
 			app:title="@string/pref_dark_theme_title"
 			app:useSimpleSummaryProvider="true" />
 		<Preference
+			app:enabled="false"
 			app:icon="@drawable/ic_info_24dp"
 			app:key="pref_daynight_perm_info"
-			app:enabled="false"
 			app:title="@string/pref_daynight_perm_info_summary" />
 		<Preference
 			app:icon="@drawable/ic_open_in_new_24dp"

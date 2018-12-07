@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,8 +13,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.edricchan.studybuddy.BuildConfig;
 import com.edricchan.studybuddy.DebugActivity;
@@ -25,6 +26,7 @@ import com.edricchan.studybuddy.utils.DataUtil;
 public class TipsFragment extends Fragment {
 	private View mFragmentView;
 	private CustomTabsIntent mTabsIntent;
+	private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
@@ -46,13 +48,8 @@ public class TipsFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		mFragmentView = view;
-		CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-		builder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
-				.addDefaultShareMenuItem()
-				.setShowTitle(true);
-		mTabsIntent = builder.build();
 		view.findViewById(R.id.tips_empty_state_cta)
-				.setOnClickListener(v -> mTabsIntent.launchUrl(getContext(), DataUtil.uriSubmitTip));
+				.setOnClickListener(v -> SharedHelper.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
 	}
 
 
@@ -75,7 +72,7 @@ public class TipsFragment extends Fragment {
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_submit_tip:
-				mTabsIntent.launchUrl(getContext(), DataUtil.uriSubmitTip);
+				SharedHelper.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_debug:
 				Intent debugIntent = new Intent(getActivity(), DebugActivity.class);
