@@ -5,8 +5,8 @@
 	android:layout_height="match_parent"
 	tools:context="com.edricchan.studybuddy.HelpActivity">
 
-	<ListView
-		android:id="@+id/helpFeaturedListView"
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/helpFeaturedRecyclerView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

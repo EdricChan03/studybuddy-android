@@ -1,26 +1,36 @@
 package com.edricchan.studybuddy;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.edricchan.studybuddy.interfaces.HelpArticle;
 import com.edricchan.studybuddy.utils.DataUtil;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class HelpActivity extends AppCompatActivity {
 
 	private List<HelpArticle> helpArticleList;
-	private ListView featuredListView;
+	private RecyclerView featuredRecyclerView;
 	private CustomTabsIntent tabsIntent;
+	private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+	private static final String TAG = SharedHelper.getTag(HelpActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +38,15 @@ public class HelpActivity extends AppCompatActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_help);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-		featuredListView = findViewById(R.id.helpFeaturedListView);
+		featuredRecyclerView = findViewById(R.id.helpFeaturedRecyclerView);
 		CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
 		builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
 				.addDefaultShareMenuItem()
 				.setShowTitle(true);
 		tabsIntent = builder.build();
-		addFeaturedItems();
+		initRecyclerView();
+		parseFeaturedList();
 		initialiseAdapter();
-		setupClickHandler();
 	}
 
 	@Override
@@ -58,7 +68,7 @@ public class HelpActivity extends AppCompatActivity {
 
 				return true;
 			case R.id.action_source_code:
-				tabsIntent.launchUrl(this, DataUtil.uriSrcCode);
+				SharedHelper.launchUri(this, DataUtil.uriSrcCode, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -66,17 +76,26 @@ public class HelpActivity extends AppCompatActivity {
 	}
 
 	/**
+	 * Initialises the recycler view by calling the needed methods
+	 */
+	private void initRecyclerView() {
+		featuredRecyclerView.setHasFixedSize(true);
+		featuredRecyclerView.setItemAnimator(new DefaultItemAnimator());
+		featuredRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+	}
+
+	/**
 	 * Adds featured items
 	 */
-	private void addFeaturedItems() {
-		helpArticleList = new ArrayList<>();
-		helpArticleList.add(new HelpArticle("About Study Buddy", "https://github.com/Chan4077/StudyBuddy"));
-		helpArticleList.add(new HelpArticle("Getting Started", "https://github.com/Chan4077/StudyBuddy"));
-		helpArticleList.add(new HelpArticle("About the new todo dialog", "https://github.com/Chan4077/StudyBuddy"));
-		helpArticleList.add(new HelpArticle("Markdown support", "https://github.com/Chan4077/StudyBuddy"));
-		helpArticleList.add(new HelpArticle("Experimenting with experiments", "https://github.com/Chan4077/StudyBuddy"));
-		helpArticleList.add(new HelpArticle("Configuring settings", "https://github.com/Chan4077/StudyBuddy"));
-		helpArticleList.add(new HelpArticle("How to contribute to the project (for developers)", "https://github.com/Chan4077/StudyBuddy"));
+	private void parseFeaturedList() {
+		try {
+			URL url = new URL(DataUtil.urlHelpFeatured);
+			InputStreamReader reader = new InputStreamReader(url.openStream());
+			HelpArticle[] helpArticles = new Gson().fromJson(reader, HelpArticle[].class);
+			helpArticleList = Arrays.asList(helpArticles);
+		} catch (Exception e) {
+			Log.e(TAG, "An error occurred while attempting to parse the JSON:", e);
+		}
 	}
 
 	/**
@@ -84,20 +103,9 @@ public class HelpActivity extends AppCompatActivity {
 	 * TODO: Use a RecyclerView instead of the now deprecated ListView
 	 */
 	private void initialiseAdapter() {
-		HelpFeaturedAdapter adapter = new HelpFeaturedAdapter(helpArticleList, HelpActivity.this);
-		featuredListView.setAdapter(adapter);
-	}
-
-	/**
-	 * Sets a click handler on an item of the listview
-	 */
-	private void setupClickHandler() {
-		featuredListView.setOnItemClickListener((parent, view, position, id) -> {
-			featuredListView.setSelection(position);
-			featuredListView.setPressed(true);
-//				Log.d(SharedHelper.getTag(HelpActivity.class), "Selected: " + helpArticleList.get(position).helpUrl);
-			tabsIntent.launchUrl(this, helpArticleList.get(position).getArticleUri());
-		});
+		HelpArticleAdapter adapter = new HelpArticleAdapter(helpArticleList);
+		adapter.setOnItemClickListener((article, position) -> SharedHelper.launchUri(this, article.getArticleUri(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
+		featuredRecyclerView.setAdapter(adapter);
 	}
 
 }

@@ -6,11 +6,22 @@ import android.net.Uri;
  * An interface for {@link com.edricchan.studybuddy.HelpActivity}
  */
 public class HelpArticle {
+	private String articleDesc;
 	private String articleTitle;
 	private Uri articleUri;
 
 	/**
+	 * Retrieves the help article's description
+	 *
+	 * @return The help article's description
+	 */
+	public String getArticleDesc() {
+		return articleDesc;
+	}
+
+	/**
 	 * Retrieves the help article's title
+	 *
 	 * @return The help article's title
 	 */
 	public String getArticleTitle() {
@@ -19,6 +30,7 @@ public class HelpArticle {
 
 	/**
 	 * Retrieves the help article's URI
+	 *
 	 * @return The help article's URI
 	 */
 	public Uri getArticleUri() {
@@ -28,11 +40,14 @@ public class HelpArticle {
 	/**
 	 * Creates a new instance of {@link HelpArticle}
 	 */
-	public HelpArticle() {}
+	public HelpArticle() {
+	}
+
 	/**
 	 * Creates a new instance of {@link HelpArticle}
+	 *
 	 * @param articleTitle The title of the help article
-	 * @param articleUrl The URL of the help article
+	 * @param articleUrl   The URL of the help article
 	 * @deprecated Use {@link Builder}
 	 */
 	@Deprecated
@@ -53,6 +68,7 @@ public class HelpArticle {
 
 		/**
 		 * Creates a builder, but allows for a predefined help article to be specified
+		 *
 		 * @param article The predefined article
 		 * @deprecated Use {@link Builder#Builder()}
 		 */
@@ -62,7 +78,19 @@ public class HelpArticle {
 		}
 
 		/**
+		 * Sets the description of this help article
+		 *
+		 * @param articleDesc The description of this help article
+		 * @return The builder object to allow for chaining of methods
+		 */
+		public Builder setArticleDesc(String articleDesc) {
+			article.articleDesc = articleDesc;
+			return this;
+		}
+
+		/**
 		 * Sets the title of this help article
+		 *
 		 * @param articleTitle The title of this help article
 		 * @return The builder object to allow for chaining of methods
 		 */
@@ -73,6 +101,7 @@ public class HelpArticle {
 
 		/**
 		 * Sets the URI of this help article
+		 *
 		 * @param articleUri The URI of this help article
 		 * @return The builder object to allow for chaining of methods
 		 */
@@ -83,6 +112,7 @@ public class HelpArticle {
 
 		/**
 		 * Sets the URI of this help article
+		 *
 		 * @param articleUri The URL of this help article, which will be parsed as an URI
 		 * @return The builder object to allow for chaining of methods
 		 * @deprecated Use {@link Builder#setArticleUri(Uri)}
@@ -95,6 +125,7 @@ public class HelpArticle {
 
 		/**
 		 * Checks if all values in this help article and returns this help article
+		 *
 		 * @return The created help article
 		 */
 		public HelpArticle create() {

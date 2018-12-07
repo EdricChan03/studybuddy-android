@@ -65,14 +65,16 @@ public class DataUtil {
 	public static final int notificationMediaId = 1;
 
 	// URIs
+	public static final String urlHelpFeatured = "https://chan4077.github.io/res/studybuddy/help-featured-articles.json";
+	public static final Uri uriHelpFeatured = Uri.parse(urlHelpFeatured);
 	public static final String urlSrcCode = "https://github.com/Chan4077/StudyBuddy";
 	public static final Uri uriSrcCode = Uri.parse(urlSrcCode);
-	public static final String urlWiki = "https://github.com/Chan4077/StudyBuddy/wiki";
-	public static final Uri uriWiki = Uri.parse(urlWiki);
 	public static final String urlSendFeedback = "https://goo.gl/forms/tz6cmNguIHuZMZIh2";
 	public static final Uri uriSendFeedback = Uri.parse(urlSendFeedback);
 	public static final String urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92";
 	public static final Uri uriSubmitTip = Uri.parse(urlSubmitTip);
+	public static final String urlWiki = "https://github.com/Chan4077/StudyBuddy/wiki";
+	public static final Uri uriWiki = Uri.parse(urlWiki);
 
 	// Other
 	public static final String defaultSharedPrefsFile = "Preference";
