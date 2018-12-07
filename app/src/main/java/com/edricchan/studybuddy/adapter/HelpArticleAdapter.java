@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy;
+package com.edricchan.studybuddy.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.edricchan.studybuddy.R;
+import com.edricchan.studybuddy.SharedHelper;
 import com.edricchan.studybuddy.interfaces.HelpArticle;
 
 import java.util.List;

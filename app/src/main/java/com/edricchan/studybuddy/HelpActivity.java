@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.edricchan.studybuddy.adapter.HelpArticleAdapter;
 import com.edricchan.studybuddy.interfaces.HelpArticle;
 import com.edricchan.studybuddy.utils.DataUtil;
 import com.google.gson.Gson;

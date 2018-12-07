@@ -31,7 +31,7 @@ import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.RegisterActivity;
 import com.edricchan.studybuddy.SettingsActivity;
 import com.edricchan.studybuddy.SharedHelper;
-import com.edricchan.studybuddy.TasksAdapter;
+import com.edricchan.studybuddy.adapter.TasksAdapter;
 import com.edricchan.studybuddy.ViewTaskActivity;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.gms.common.api.GoogleApiClient;
