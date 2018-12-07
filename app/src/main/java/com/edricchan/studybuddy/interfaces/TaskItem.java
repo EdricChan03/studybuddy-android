@@ -1,5 +1,7 @@
 package com.edricchan.studybuddy.interfaces;
 
+import android.text.TextUtils;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -242,7 +244,8 @@ public class TaskItem {
 
 		/**
 		 * Sets the project assigned to this task
-		 * @param fs An instance of {@link FirebaseFirestore}. Use {@link FirebaseFirestore#getInstance()} to retrieve an instance
+		 *
+		 * @param fs      An instance of {@link FirebaseFirestore}. Use {@link FirebaseFirestore#getInstance()} to retrieve an instance
 		 * @param docPath The document path of the project. Must contain an even number of paths
 		 * @return The builder object to allow for chaining of methods
 		 * @deprecated Use {@link Builder#setProject(DocumentReference)}
@@ -314,7 +317,7 @@ public class TaskItem {
 				task.tags = taskTags;
 			}
 			// Null checks to prevent values from being null on the document
-			if (task.title.isEmpty()) {
+			if (TextUtils.isEmpty(task.title)) {
 				throw new RuntimeException("Please supply a title!");
 			}
 

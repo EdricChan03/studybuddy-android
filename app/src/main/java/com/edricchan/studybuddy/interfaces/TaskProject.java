@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.interfaces;
 
 import android.graphics.Color;
+import android.text.TextUtils;
 
 import androidx.annotation.ColorRes;
 
@@ -185,7 +186,7 @@ public class TaskProject {
 		 * @return The created project
 		 */
 		public TaskProject create() {
-			if (project.color.isEmpty()) {
+			if (TextUtils.isEmpty(project.color)) {
 				// Use the default color
 				project.color = "#F5F5F5";
 			}
