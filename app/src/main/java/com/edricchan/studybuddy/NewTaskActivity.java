@@ -109,27 +109,25 @@ public class NewTaskActivity extends AppCompatActivity {
 		mFirestore.collection("users/" + mCurrentUser.getUid() + "/todoProjects")
 				.addSnapshotListener((documentSnapshots, e) -> {
 					if (e != null) {
-						Log.e(TAG, "Listen failed!", e);
+						Log.e(TAG, "An error occurred while listening to changes:", e);
 						return;
 					}
-					if (!documentSnapshots.isEmpty()) {
-						projectArrayList.clear();
-						TaskProject.Builder createProjectBuilder = new TaskProject.Builder();
-						createProjectBuilder
-								.setColor("#FFFFFF")
-								.setId("PLUS")
-								.setName(getString(R.string.task_project_create));
-						projectArrayList.add(createProjectBuilder.create());
-						for (DocumentSnapshot document : documentSnapshots) {
-							projectArrayList.add(document.toObject(TaskProject.class));
-						}
-						TaskProject.Builder chooseProjectBuilder = new TaskProject.Builder();
-						chooseProjectBuilder
-								.setId("CHOOSE")
-								.setName(getString(R.string.task_project_prompt));
-						projectArrayList.add(chooseProjectBuilder.create());
-						mTaskProjectSpinnerAdapter.notifyDataSetChanged();
+					projectArrayList.clear();
+					TaskProject.Builder createProjectBuilder = new TaskProject.Builder();
+					createProjectBuilder
+							.setColor("#FFFFFF")
+							.setId("PLUS")
+							.setName(getString(R.string.task_project_create));
+					projectArrayList.add(createProjectBuilder.create());
+					for (DocumentSnapshot document : documentSnapshots) {
+						projectArrayList.add(document.toObject(TaskProject.class));
 					}
+					TaskProject.Builder chooseProjectBuilder = new TaskProject.Builder();
+					chooseProjectBuilder
+							.setId("CHOOSE")
+							.setName(getString(R.string.task_project_prompt));
+					projectArrayList.add(chooseProjectBuilder.create());
+					mTaskProjectSpinnerAdapter.notifyDataSetChanged();
 				});
 		mTaskProjectSpinner.setSelection(mTaskProjectSpinnerAdapter.getCount());
 		mTaskProjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
