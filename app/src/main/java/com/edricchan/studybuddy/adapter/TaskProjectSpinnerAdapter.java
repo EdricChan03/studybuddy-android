@@ -6,13 +6,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.interfaces.TaskProject;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class TaskProjectSpinnerAdapter extends ArrayAdapter<TaskProject> {
 
@@ -63,7 +63,7 @@ public class TaskProjectSpinnerAdapter extends ArrayAdapter<TaskProject> {
 	 * @return The task project's ID
 	 */
 	public String getTaskProjectId(int position) {
-		return projects.get(position).id;
+		return projects.get(position).getId();
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class TaskProjectSpinnerAdapter extends ArrayAdapter<TaskProject> {
 	 */
 	public TaskProject getTaskProjectById(String id) {
 		for (TaskProject project : projects) {
-			if (project.id.equals(id)) {
+			if (project.getId().equals(id)) {
 				return project;
 			}
 		}
@@ -92,7 +92,7 @@ public class TaskProjectSpinnerAdapter extends ArrayAdapter<TaskProject> {
 			label.setText("");
 			label.setHint(R.string.task_project_prompt);
 		} else {
-			label.setText(projects.get(position).name);
+			label.setText(projects.get(position).getName());
 		}
 		return label;
 	}
@@ -104,7 +104,7 @@ public class TaskProjectSpinnerAdapter extends ArrayAdapter<TaskProject> {
 	public View getDropDownView(int position, View convertView,
 	                            @NonNull ViewGroup parent) {
 		TextView label = (TextView) super.getDropDownView(position, convertView, parent);
-		label.setText(projects.get(position).name);
+		label.setText(projects.get(position).getName());
 
 		return label;
 	}

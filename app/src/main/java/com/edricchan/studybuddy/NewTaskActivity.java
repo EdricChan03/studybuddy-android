@@ -114,11 +114,20 @@ public class NewTaskActivity extends AppCompatActivity {
 					}
 					if (!documentSnapshots.isEmpty()) {
 						projectArrayList.clear();
-						projectArrayList.add(new TaskProject(getString(R.string.task_project_create), "#FFFFFF", "PLUS"));
+						TaskProject.Builder createProjectBuilder = new TaskProject.Builder();
+						createProjectBuilder
+								.setColor("#FFFFFF")
+								.setId("PLUS")
+								.setName(getString(R.string.task_project_create));
+						projectArrayList.add(createProjectBuilder.create());
 						for (DocumentSnapshot document : documentSnapshots) {
 							projectArrayList.add(document.toObject(TaskProject.class));
 						}
-						projectArrayList.add(new TaskProject(getString(R.string.task_project_prompt)));
+						TaskProject.Builder chooseProjectBuilder = new TaskProject.Builder();
+						chooseProjectBuilder
+								.setId("CHOOSE")
+								.setName(getString(R.string.task_project_prompt));
+						projectArrayList.add(chooseProjectBuilder.create());
 						mTaskProjectSpinnerAdapter.notifyDataSetChanged();
 					}
 				});
@@ -127,7 +136,7 @@ public class NewTaskActivity extends AppCompatActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				Log.d(TAG, "Task project ID: " + mTaskProjectSpinnerAdapter.getTaskProjectId(position));
-				Log.d(TAG, "Task project name: " + Objects.requireNonNull(mTaskProjectSpinnerAdapter.getItem(position)).name);
+				Log.d(TAG, "Task project name: " + Objects.requireNonNull(mTaskProjectSpinnerAdapter.getItem(position)).getName());
 				if (mTaskProjectSpinnerAdapter.getTaskProjectId(position).equals("PLUS")) {
 					View editTextDialogView = getLayoutInflater().inflate(R.layout.edit_text_dialog, null);
 					final TextInputLayout textInputLayout = editTextDialogView.findViewById(R.id.textInputLayout);
@@ -136,10 +145,10 @@ public class NewTaskActivity extends AppCompatActivity {
 					builder.setTitle("New project")
 							.setView(editTextDialogView)
 							.setPositiveButton(R.string.dialog_action_create, (dialog, which) -> {
-								TaskProject project = new TaskProject();
+								TaskProject.Builder project = new TaskProject.Builder();
 								project.setName(SharedHelper.getEditTextString(textInputLayout));
 								mFirestore.collection("users/" + mCurrentUser.getUid() + "/todoProjects")
-										.add(project)
+										.add(project.create())
 										.addOnCompleteListener(task -> {
 											if (task.isSuccessful()) {
 												Toast.makeText(NewTaskActivity.this, "Successfully created project!", Toast.LENGTH_SHORT)
@@ -156,7 +165,7 @@ public class NewTaskActivity extends AppCompatActivity {
 							.show();
 				} else {
 					TaskProject selectedProject = (TaskProject) mTaskProjectSpinner.getItemAtPosition(mTaskProjectSpinner.getSelectedItemPosition());
-					tempTaskProject = selectedProject.id;
+					tempTaskProject = selectedProject.getId();
 				}
 			}
 
