@@ -26,7 +26,7 @@ import com.edricchan.studybuddy.utils.DataUtil;
 public class TipsFragment extends Fragment {
 	private View mFragmentView;
 	private CustomTabsIntent mTabsIntent;
-	private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+	private SharedPreferences preferences;
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
@@ -37,6 +37,7 @@ public class TipsFragment extends Fragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+		preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 	}
 
 	@Override

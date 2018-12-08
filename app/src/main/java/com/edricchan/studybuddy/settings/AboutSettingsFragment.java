@@ -17,12 +17,13 @@ import com.edricchan.studybuddy.UpdatesActivity;
 import com.edricchan.studybuddy.utils.DataUtil;
 
 public class AboutSettingsFragment extends PreferenceFragmentCompat {
-	private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+	private SharedPreferences preferences;
 
 	@Override
 	public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 		setPreferencesFromResource(R.xml.pref_versions, rootKey);
 		final Context context = getActivity();
+		preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 		final Uri appAuthorUrl = Uri.parse("https://github.com/Chan4077");
 		Intent updatesIntent = new Intent(getActivity(), UpdatesActivity.class);
 		findPreference("updates").setIntent(updatesIntent);
