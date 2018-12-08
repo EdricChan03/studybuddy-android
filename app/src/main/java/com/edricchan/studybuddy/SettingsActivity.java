@@ -21,7 +21,7 @@ import com.edricchan.studybuddy.settings.TodoSettingsFragment;
 import com.edricchan.studybuddy.utils.DataUtil;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-	private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+	private SharedPreferences preferences;
 	private static final String TAG = SharedHelper.getTag(SettingsActivity.class);
 
 	/**
@@ -31,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		if (savedInstanceState == null) {
 			SharedHelper.replaceFragment(this, new SettingsFragment(), android.R.id.content, false);
 		}
