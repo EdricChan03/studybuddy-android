@@ -50,7 +50,11 @@ public class HelpArticleAdapter extends RecyclerView.Adapter<HelpArticleAdapter.
 
 	@Override
 	public int getItemCount() {
-		return mHelpArticles.size();
+		if (mHelpArticles != null) {
+			return mHelpArticles.size();
+		}
+		// Return 0 if the help articles don't exist
+		return 0;
 	}
 
 	public class Holder extends RecyclerView.ViewHolder {

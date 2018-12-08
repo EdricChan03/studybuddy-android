@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.interfaces;
 
 import android.net.Uri;
+import android.text.TextUtils;
 
 /**
  * An interface for {@link com.edricchan.studybuddy.HelpActivity}
@@ -8,7 +9,8 @@ import android.net.Uri;
 public class HelpArticle {
 	private String articleDesc;
 	private String articleTitle;
-	private Uri articleUri;
+	// Note: The Gson library is unable to parse Uris. Instead, use a string and then parse it to a Uri in the relevant code.
+	private String articleUri;
 
 	/**
 	 * Retrieves the help article's description
@@ -34,7 +36,7 @@ public class HelpArticle {
 	 * @return The help article's URI
 	 */
 	public Uri getArticleUri() {
-		return articleUri;
+		return Uri.parse(articleUri);
 	}
 
 	/**
@@ -53,7 +55,7 @@ public class HelpArticle {
 	@Deprecated
 	public HelpArticle(String articleTitle, String articleUrl) {
 		this.articleTitle = articleTitle;
-		this.articleUri = Uri.parse(articleUrl);
+		this.articleUri = articleUrl;
 	}
 
 	public static class Builder {
@@ -106,7 +108,18 @@ public class HelpArticle {
 		 * @return The builder object to allow for chaining of methods
 		 */
 		public Builder setArticleUri(Uri articleUri) {
-			article.articleUri = articleUri;
+			article.articleUri = articleUri.toString();
+			return this;
+		}
+
+		/**
+		 * Sets the URL of this help article
+		 *
+		 * @param articleUrl The URL of this help article as a raw string
+		 * @return The builder object to allow for chaining of methods
+		 */
+		public Builder setArticleUrl(String articleUrl) {
+			article.articleUri = articleUrl;
 			return this;
 		}
 
@@ -115,11 +128,11 @@ public class HelpArticle {
 		 *
 		 * @param articleUri The URL of this help article, which will be parsed as an URI
 		 * @return The builder object to allow for chaining of methods
-		 * @deprecated Use {@link Builder#setArticleUri(Uri)}
+		 * @deprecated Use {@link Builder#setArticleUrl(String)}
 		 */
 		@Deprecated
 		public Builder setArticleUri(String articleUri) {
-			article.articleUri = Uri.parse(articleUri);
+			article.articleUri = articleUri;
 			return this;
 		}
 
@@ -130,8 +143,8 @@ public class HelpArticle {
 		 */
 		public HelpArticle create() {
 			// Null checks
-			if (article.articleUri == null) {
-				throw new RuntimeException("Please supply a URI!");
+			if (TextUtils.isEmpty(article.articleUri)) {
+				throw new RuntimeException("Please supply a URL!");
 			}
 
 			// Finally, return the help article

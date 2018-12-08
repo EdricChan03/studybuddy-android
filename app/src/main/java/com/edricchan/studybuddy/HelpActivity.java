@@ -1,14 +1,16 @@
 package com.edricchan.studybuddy;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,17 +23,16 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class HelpActivity extends AppCompatActivity {
 
-	private List<HelpArticle> helpArticleList;
 	private RecyclerView featuredRecyclerView;
-	private CustomTabsIntent tabsIntent;
-	private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+	private LinearLayout progressBarLayout;
+	private SharedPreferences preferences;
 	private static final String TAG = SharedHelper.getTag(HelpActivity.class);
 
 	@Override
@@ -39,16 +40,11 @@ public class HelpActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_help);
-		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		progressBarLayout = findViewById(R.id.progressBar);
 		featuredRecyclerView = findViewById(R.id.helpFeaturedRecyclerView);
-		CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-		builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-				.addDefaultShareMenuItem()
-				.setShowTitle(true);
-		tabsIntent = builder.build();
 		initRecyclerView();
 		parseFeaturedList();
-		initialiseAdapter();
 	}
 
 	@Override
@@ -92,23 +88,53 @@ public class HelpActivity extends AppCompatActivity {
 	 */
 	private void parseFeaturedList() {
 		try {
-			URL url = new URL(DataUtil.urlHelpFeatured);
-			InputStreamReader reader = new InputStreamReader(url.openStream());
-			HelpArticle[] helpArticles = new Gson().fromJson(reader, HelpArticle[].class);
-			helpArticleList = Arrays.asList(helpArticles);
+			new GetHelpArticlesAsyncTask(this).execute(new URL(DataUtil.urlHelpFeatured));
 		} catch (Exception e) {
 			Log.e(TAG, "An error occurred while attempting to parse the JSON:", e);
 		}
 	}
 
-	/**
-	 * Initialises the adapter for the listview
-	 * TODO: Use a RecyclerView instead of the now deprecated ListView
-	 */
-	private void initialiseAdapter() {
-		HelpArticleAdapter adapter = new HelpArticleAdapter(helpArticleList);
-		adapter.setOnItemClickListener((article, position) -> SharedHelper.launchUri(this, article.getArticleUri(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
-		featuredRecyclerView.setAdapter(adapter);
+	private static class GetHelpArticlesAsyncTask extends AsyncTask<URL, Void, List<HelpArticle>> {
+
+		// Weak reference to the current activity
+		// See this great post on StackOverflow for more info (to prevent memory leaks): https://stackoverflow.com/a/46166223
+		private WeakReference<HelpActivity> activityRef;
+
+		GetHelpArticlesAsyncTask(HelpActivity activity) {
+			this.activityRef = new WeakReference<>(activity);
+		}
+
+		@Override
+		protected List<HelpArticle> doInBackground(URL... urls) {
+			InputStreamReader reader = null;
+			try {
+				reader = new InputStreamReader(urls[0].openStream());
+			} catch (Exception e) {
+				Log.e(TAG, "An error occurred while attempting to parse the JSON file:", e);
+			}
+			if (reader != null) {
+				HelpArticle[] helpArticles = new Gson().fromJson(reader, HelpArticle[].class);
+				return Arrays.asList(helpArticles);
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(List<HelpArticle> helpArticles) {
+			super.onPostExecute(helpArticles);
+
+			if (helpArticles != null) {
+				// Try to get a reference to the activity
+				HelpActivity activity = activityRef.get();
+				if (activity == null || activity.isFinishing()) return;
+				// Update the adapter
+				HelpArticleAdapter adapter = new HelpArticleAdapter(helpArticles);
+				adapter.setOnItemClickListener((article, position) -> SharedHelper.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
+				activity.featuredRecyclerView.setAdapter(adapter);
+				// Hide the progress bar
+				activity.progressBarLayout.setVisibility(View.GONE);
+			}
+		}
 	}
 
 }
