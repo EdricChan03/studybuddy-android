@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.edricchan.studybuddy.adapter.HelpArticleAdapter;
 import com.edricchan.studybuddy.interfaces.HelpArticle;
 import com.edricchan.studybuddy.utils.DataUtil;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
@@ -66,7 +67,8 @@ public class HelpActivity extends AppCompatActivity {
 
 				return true;
 			case R.id.action_licenses:
-
+				Intent licensesIntent = new Intent(this, OssLicensesMenuActivity.class);
+				startActivity(licensesIntent);
 				return true;
 			case R.id.action_source_code:
 				SharedHelper.launchUri(this, DataUtil.uriSrcCode, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
