@@ -24,6 +24,7 @@ public class HelpArticleAdapter extends RecyclerView.Adapter<HelpArticleAdapter.
 	public HelpArticleAdapter(List<HelpArticle> helpArticles) {
 		this.mHelpArticles = helpArticles;
 	}
+
 	@NonNull
 	@Override
 	public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,7 +70,9 @@ public class HelpArticleAdapter extends RecyclerView.Adapter<HelpArticleAdapter.
 			descTextView = itemView.findViewById(R.id.descTextView);
 			titleTextView = itemView.findViewById(R.id.titleTextView);
 			itemView.setOnClickListener(v -> {
-				mListener.onItemClick(mHelpArticles.get(getAdapterPosition()), getAdapterPosition());
+				if (getAdapterPosition() != RecyclerView.NO_POSITION && mListener != null) {
+					mListener.onItemClick(mHelpArticles.get(getAdapterPosition()), getAdapterPosition());
+				}
 			});
 		}
 	}
