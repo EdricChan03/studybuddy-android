@@ -340,7 +340,7 @@
 	<string name="pref_updates_options_title">Update options</string>
 	<string name="pref_updates_title">Updates</string>
 
-	<string name="pref_use_custom_tabs_title">Use Chrome Custom Tabs</string>
+	<string name="pref_use_custom_tabs_title">Open web links in-app</string>
 
 	<string name="pref_weekly_summary_about_desc">A curated summary of the progress of your completion of your todos, sent as a notification</string>
 	<string name="pref_weekly_summary_configure_list_desc">Set the items to be shown in weekly summary</string>
