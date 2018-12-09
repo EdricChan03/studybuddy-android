@@ -13,7 +13,6 @@
 		app:key="pref_use_custom_tabs"
 		app:title="@string/pref_use_custom_tabs_title" />
 	<PreferenceCategory
-		app:initialExpandedChildrenCount="1"
 		app:key="pref_category_theme"
 		app:title="@string/pref_category_theme">
 		<ListPreference

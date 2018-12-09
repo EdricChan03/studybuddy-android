@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.edricchan.studybuddy.R;
-import com.edricchan.studybuddy.SharedHelper;
-import com.edricchan.studybuddy.utils.DataUtil;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.edricchan.studybuddy.R;
+import com.edricchan.studybuddy.SharedHelper;
+import com.edricchan.studybuddy.utils.DataUtil;
 
 public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 	private Preference prefDayNightPermInfo;
@@ -29,8 +29,6 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 		prefDayNightPermInfo = findPreference(DataUtil.prefDayNightPermInfo);
 		prefCategoryTheme = (PreferenceCategory) findPreference(DataUtil.prefCategoryTheme);
 		if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-			// Remove expansion
-			prefCategoryTheme.setInitialExpandedChildrenCount(Integer.MAX_VALUE);
 			// Hide permission-related Preferences as the permission is already granted
 			prefDayNightGrantPerm.setVisible(false);
 			prefDayNightPermInfo.setVisible(false);
@@ -55,13 +53,11 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 							// Update the UI accordingly
 							prefDayNightGrantPerm.setVisible(false);
 							prefDayNightPermInfo.setVisible(false);
-							prefCategoryTheme.setInitialExpandedChildrenCount(Integer.MAX_VALUE);
 							break;
 						case PackageManager.PERMISSION_DENIED:
 							Toast.makeText(getContext(), "Please grant the permission!", Toast.LENGTH_LONG).show();
 							prefDayNightGrantPerm.setVisible(true);
 							prefDayNightPermInfo.setVisible(true);
-							prefCategoryTheme.setInitialExpandedChildrenCount(1);
 							break;
 						default:
 							Toast.makeText(getContext(), "An unknown error occurred.", Toast.LENGTH_SHORT).show();
