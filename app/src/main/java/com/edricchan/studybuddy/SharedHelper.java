@@ -532,7 +532,8 @@ public class SharedHelper {
 			// Media playback notifications
 			NotificationChannel playbackChannel = new NotificationChannel(context.getString(R.string.notification_channel_playback_id), context.getString(R.string.notification_channel_playback_title), NotificationManager.IMPORTANCE_LOW);
 			playbackChannel.setDescription(context.getString(R.string.notification_channel_playback_desc));
-			playbackChannel.setShowBadge(true);
+			// We don't want to consider a playback notification to show a badge
+			playbackChannel.setShowBadge(false);
 			channels.add(playbackChannel);
 
 			// Uncategorized notifications
