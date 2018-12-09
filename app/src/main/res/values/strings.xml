@@ -50,6 +50,7 @@
 
 	<string name="action_new_todo">New todo</string>
 
+	<string name="action_refresh_articles">Refresh articles</string>
 	<string name="action_refresh_credentials">Refresh</string>
 	<string name="action_refresh_todos">Refresh todos</string>
 

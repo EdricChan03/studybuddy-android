@@ -11,10 +11,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.transition.Fade;
+import androidx.transition.TransitionManager;
 
 import com.edricchan.studybuddy.adapter.HelpArticleAdapter;
 import com.edricchan.studybuddy.interfaces.HelpArticle;
@@ -31,7 +35,9 @@ import java.util.List;
 public class HelpActivity extends AppCompatActivity {
 
 	private RecyclerView featuredRecyclerView;
+	private ConstraintLayout constraintLayout;
 	private LinearLayout progressBarLayout;
+	private SwipeRefreshLayout swipeRefreshLayout;
 	private SharedPreferences preferences;
 	private static final String TAG = SharedHelper.getTag(HelpActivity.class);
 
@@ -41,10 +47,14 @@ public class HelpActivity extends AppCompatActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_help);
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		progressBarLayout = findViewById(R.id.progressBar);
 		featuredRecyclerView = findViewById(R.id.helpFeaturedRecyclerView);
+		constraintLayout = findViewById(R.id.constraintLayout);
+		progressBarLayout = findViewById(R.id.progressBar);
+		swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+		swipeRefreshLayout.setOnRefreshListener(this::loadFeaturedList);
+		swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 		initRecyclerView();
-		parseFeaturedList();
+		loadFeaturedList();
 	}
 
 	@Override
@@ -59,8 +69,15 @@ public class HelpActivity extends AppCompatActivity {
 			case android.R.id.home:
 				onBackPressed();
 				return true;
+			case R.id.action_refresh:
+				swipeRefreshLayout.setRefreshing(true);
+				loadFeaturedList();
+				return true;
+			case R.id.action_send_feedback:
+				SharedHelper.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				return true;
 			case R.id.action_version:
-
+				// TODO: Show a version dialog
 				return true;
 			case R.id.action_licenses:
 				Intent licensesIntent = new Intent(this, OssLicensesMenuActivity.class);
@@ -84,9 +101,9 @@ public class HelpActivity extends AppCompatActivity {
 	}
 
 	/**
-	 * Adds featured items
+	 * Loads the featured items from the JSON file
 	 */
-	private void parseFeaturedList() {
+	private void loadFeaturedList() {
 		try {
 			new GetHelpArticlesAsyncTask(this).execute(new URL(DataUtil.urlHelpFeatured));
 		} catch (Exception e) {
@@ -131,7 +148,8 @@ public class HelpActivity extends AppCompatActivity {
 				HelpArticleAdapter adapter = new HelpArticleAdapter(helpArticles);
 				adapter.setOnItemClickListener((article, position) -> SharedHelper.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
 				activity.featuredRecyclerView.setAdapter(adapter);
-				// Hide the progress bar
+				activity.swipeRefreshLayout.setRefreshing(false);
+				TransitionManager.beginDelayedTransition(activity.constraintLayout, new Fade(Fade.IN));
 				activity.progressBarLayout.setVisibility(View.GONE);
 			}
 		}
