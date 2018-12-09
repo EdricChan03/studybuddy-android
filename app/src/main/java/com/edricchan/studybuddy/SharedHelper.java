@@ -654,8 +654,9 @@ public class SharedHelper {
 
 	/**
 	 * Helper method to launch a URI
-	 * @param context The context
-	 * @param uri The URI to launch
+	 *
+	 * @param context       The context
+	 * @param uri           The URI to launch
 	 * @param useCustomTabs Whether to use Chrome Custom Tabs
 	 */
 	public static void launchUri(Context context, Uri uri, boolean useCustomTabs) {
