@@ -10,6 +10,7 @@
 		app:useSimpleSummaryProvider="true" />
 	<SwitchPreferenceCompat
 		app:defaultValue="true"
+		app:icon="@drawable/ic_open_in_browser_24dp"
 		app:key="pref_use_custom_tabs"
 		app:title="@string/pref_use_custom_tabs_title" />
 	<PreferenceCategory
