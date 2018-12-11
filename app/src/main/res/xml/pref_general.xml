@@ -13,6 +13,11 @@
 		app:icon="@drawable/ic_open_in_browser_24dp"
 		app:key="pref_use_custom_tabs"
 		app:title="@string/pref_use_custom_tabs_title" />
+	<SwitchPreferenceCompat
+		app:defaultValue="false"
+		app:key="pref_enable_crashlytics_user_tracking"
+		app:summary="@string/pref_enable_crashlytics_user_tracking_summary"
+		app:title="@string/pref_enable_crashlytics_user_tracking_title" />
 	<PreferenceCategory
 		app:key="pref_category_theme"
 		app:title="@string/pref_category_theme">

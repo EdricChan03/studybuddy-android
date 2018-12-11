@@ -30,6 +30,7 @@ public class DataUtil {
 	public static final String prefAppTheme = prefDarkTheme;
 	public static final String prefLanguage = "pref_language";
 	public static final String prefUseCustomTabs = "pref_use_custom_tabs";
+	public static final String prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking";
 	public static final String prefDayNightPermInfo = "pref_daynight_perm_info";
 	public static final String prefDaynightGrantPerm = "pref_daynight_grant_perm";
 	/**

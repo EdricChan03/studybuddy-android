@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
+import com.crashlytics.android.Crashlytics;
 import com.edricchan.studybuddy.interfaces.NotificationRequest;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver;
@@ -43,6 +44,7 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -164,6 +166,35 @@ public class SharedHelper {
 				Log.w(TAG, "Please supply a valid string integer (1, 2, or 3)!");
 				break;
 		}
+	}
+
+	/**
+	 * Enables Crashlytics user tracking
+	 *
+	 * @param context The context
+	 * @param user    The current logged-in user, retrieved from {@link FirebaseAuth#getCurrentUser()}
+	 */
+	public static void setCrashlyticsUserTracking(Context context, FirebaseUser user) {
+		boolean enableUserTrack = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(DataUtil.prefEnableCrashlyticsUserTracking, false);
+		if (enableUserTrack) {
+			if (user != null) {
+				Crashlytics.setUserEmail(user.getEmail());
+				Crashlytics.setUserIdentifier(user.getUid());
+				Crashlytics.setUserName(user.getDisplayName());
+			} else {
+				Log.w(TAG, "No current logged-in user exists!");
+			}
+		}
+	}
+
+	/**
+	 * Enables Crashlytics user tracking
+	 *
+	 * @param context The context
+	 * @param auth    An instance of {@link FirebaseAuth}, retrieved from {@link FirebaseAuth#getInstance()}
+	 */
+	public static void setCrashlyticsUserTracking(Context context, FirebaseAuth auth) {
+		setCrashlyticsUserTracking(context, auth.getCurrentUser());
 	}
 
 	/**

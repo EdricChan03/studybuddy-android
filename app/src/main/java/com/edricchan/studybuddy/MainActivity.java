@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 		FirebaseFirestore fs = FirebaseFirestore.getInstance();
 		if (currentUser != null) {
+			SharedHelper.setCrashlyticsUserTracking(this, currentUser);
 			// User specific topic
 			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.getUid());
 			FirebaseInstanceId.getInstance().getInstanceId()
