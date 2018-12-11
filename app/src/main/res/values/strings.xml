@@ -272,11 +272,18 @@
 	<string name="pref_daynight_grant_perm_title">Grant location permission</string>
 	<string name="pref_daynight_perm_info_summary">The location permission is required to adjust the automatic theme according to your location.\nIf this permission is not granted, the dark theme will be enabled at 10pm and automatically disable itself at 6am.</string>
 
-	<string name="pref_header_data_sync">Data &amp; sync</string>
-	<string name="pref_header_debug">Debug</string>
-	<string name="pref_header_general">General</string>
-	<string name="pref_header_todo">Todos</string>
-	<string name="pref_header_version">Versions &amp; About</string>
+	<string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture</string>
+	<string name="pref_header_account_title">Account options</string>
+	<string name="pref_header_data_sync_summary">Manual sync, sync frequency, sync on metered networks, system sync settings</string>
+	<string name="pref_header_data_sync_title">Data &amp; sync</string>
+	<string name="pref_header_debug_summary">Enable verbose log, device info, account info, crash app, send notification, delete device\'s instance ID</string>
+	<string name="pref_header_debug_title">Debug</string>
+	<string name="pref_header_general_summary">Language, in-app browser, Firebase Crashlytics user tracking, dark theme</string>
+	<string name="pref_header_general_title">General</string>
+	<string name="pref_header_todo_summary">Default sorting mode, weekly summary preferences</string>
+	<string name="pref_header_todo_title">Todos</string>
+	<string name="pref_header_version_summary">Updates, download updates with metered networks, update frequency, about app, about app author</string>
+	<string name="pref_header_version_title">Versions &amp; About</string>
 
 	<string-array name="pref_language_languages_array">
 		<item>(System Default)</item>

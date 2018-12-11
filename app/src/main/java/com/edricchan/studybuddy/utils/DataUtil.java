@@ -11,19 +11,25 @@ public class DataUtil {
 	public static final String prefHeaderTodo = "pref_header_todo";
 	public static final String prefHeaderSync = "pref_header_sync";
 	public static final String prefHeaderDebug = "pref_header_debug";
-	public static final String prefHeaderVersion = "pref_header_version";
+	public static final String prefHeaderAbout = "pref_header_about";
+	/**
+	 * @deprecated Use {@link DataUtil#prefHeaderAbout} instead
+	 */
+	@Deprecated
+	public static final String prefHeaderVersion = prefHeaderAbout;
+	public static final String prefHeaderAccount = "pref_header_account";
+
 	// Preferences > General
 	public static final String prefCategoryGeneral = "pref_category_general";
 	public static final String prefCategoryTheme = "pref_category_theme";
-
 	public static final String prefDarkTheme = "pref_dark_theme";
 	/**
 	 * @deprecated Use {@link DataUtil#prefDarkTheme}
 	 */
 	@Deprecated
 	public static final String prefAppTheme = prefDarkTheme;
-	public static final String prefUseCustomTabs = "pref_use_custom_tabs";
 	public static final String prefLanguage = "pref_language";
+	public static final String prefUseCustomTabs = "pref_use_custom_tabs";
 	public static final String prefDayNightPermInfo = "pref_daynight_perm_info";
 	public static final String prefDaynightGrantPerm = "pref_daynight_grant_perm";
 	/**
