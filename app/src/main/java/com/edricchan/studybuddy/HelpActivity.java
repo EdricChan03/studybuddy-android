@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -98,6 +99,7 @@ public class HelpActivity extends AppCompatActivity {
 		featuredRecyclerView.setHasFixedSize(true);
 		featuredRecyclerView.setItemAnimator(new DefaultItemAnimator());
 		featuredRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+		featuredRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 	}
 
 	/**
@@ -105,6 +107,8 @@ public class HelpActivity extends AppCompatActivity {
 	 */
 	private void loadFeaturedList() {
 		try {
+			progressBarLayout.setVisibility(View.VISIBLE);
+			featuredRecyclerView.setVisibility(View.GONE);
 			new GetHelpArticlesAsyncTask(this).execute(new URL(DataUtil.urlHelpFeatured));
 		} catch (Exception e) {
 			Log.e(TAG, "An error occurred while attempting to parse the JSON:", e);
@@ -148,6 +152,7 @@ public class HelpActivity extends AppCompatActivity {
 				HelpArticleAdapter adapter = new HelpArticleAdapter(helpArticles);
 				adapter.setOnItemClickListener((article, position) -> SharedHelper.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
 				activity.featuredRecyclerView.setAdapter(adapter);
+				activity.featuredRecyclerView.setVisibility(View.VISIBLE);
 				activity.swipeRefreshLayout.setRefreshing(false);
 				TransitionManager.beginDelayedTransition(activity.constraintLayout, new Fade(Fade.IN));
 				activity.progressBarLayout.setVisibility(View.GONE);
