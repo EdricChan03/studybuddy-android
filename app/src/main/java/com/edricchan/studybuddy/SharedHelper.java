@@ -121,6 +121,7 @@ public class SharedHelper {
 	@Deprecated
 	public static final String DEFAULT_SHARED_PREFS_FILE = DataUtil.defaultSharedPrefsFile;
 
+	private static final String TAG = getTag(SharedHelper.class);
 	// Context
 	private Context mContext;
 	// Since IDs 0 and 1 have been taken, use 2
@@ -160,7 +161,7 @@ public class SharedHelper {
 				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 				break;
 			default:
-				Log.w(getTag(SharedHelper.class), "Please supply a valid string integer (1, 2, or 3)!");
+				Log.w(TAG, "Please supply a valid string integer (1, 2, or 3)!");
 				break;
 		}
 	}
@@ -416,7 +417,7 @@ public class SharedHelper {
 		if (inputLayout.getEditText() != null) {
 			return getEditTextString(inputLayout.getEditText());
 		} else {
-			Log.w(getTag(SharedHelper.class), "An EditText/TextInputEditText doesn't exist in the TextInputLayout.");
+			Log.w(TAG, "An EditText/TextInputEditText doesn't exist in the TextInputLayout.");
 			return "";
 		}
 	}
@@ -479,7 +480,7 @@ public class SharedHelper {
 		try {
 			appIconImageView.setImageDrawable(context.getPackageManager().getApplicationIcon(BuildConfig.APPLICATION_ID));
 		} catch (PackageManager.NameNotFoundException e) {
-			Log.e(getTag(SharedHelper.class), "An error occurred while attempting to retrieve the app's icon:", e);
+			Log.e(TAG, "An error occurred while attempting to retrieve the app's icon:", e);
 		}
 		appNameTextView.setText(context.getApplicationInfo().loadLabel(context.getPackageManager()));
 		appVersionTextView.setText(BuildConfig.VERSION_NAME);
