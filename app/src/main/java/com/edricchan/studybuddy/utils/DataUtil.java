@@ -20,6 +20,7 @@ public class DataUtil {
 	/**
 	 * @deprecated Use {@link DataUtil#prefDarkTheme}
 	 */
+	@Deprecated
 	public static final String prefAppTheme = prefDarkTheme;
 	public static final String prefUseCustomTabs = "pref_use_custom_tabs";
 	public static final String prefLanguage = "pref_language";
@@ -28,6 +29,7 @@ public class DataUtil {
 	/**
 	 * @deprecated Use {@link DataUtil#prefLanguage} instead
 	 */
+	@Deprecated
 	public static final String prefLocale = prefLanguage;
 	// Preferences > Weekly summary
 	public static final String prefCategoryWeeklySummary = "pref_category_weekly_summary";
@@ -39,7 +41,15 @@ public class DataUtil {
 	public static final String prefWeeklySummaryNotificationOpts = "pref_weekly_summary_notification_opts";
 	// Prefrences > About
 	public static final String prefCategoryAbout = "pref_category_about";
-	public static final String prefUpdateActivity = "pref_update_activity";
+	public static final String prefUpdates = "pref_updates";
+	/**
+	 * @deprecated Use {@link DataUtil#prefUpdates} instead
+	 */
+	@Deprecated
+	public static final String prefUpdateActivity = prefUpdates;
+	public static final String prefAppVersion = "pref_app_version";
+	public static final String prefAppSrcCode = "pref_app_src_code";
+	public static final String prefAppAuthor = "pref_app_author";
 	public static final String prefAppInfo = "pref_app_info";
 
 	// Debug preferences

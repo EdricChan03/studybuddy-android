@@ -222,6 +222,7 @@
 
 	<string name="pref_about_category_title">About</string>
 
+	<string name="pref_app_info_title">App info</string>
 	<string name="pref_app_version_title">Current app version</string>
 
 	<string name="pref_author_title">App Author</string>
@@ -290,7 +291,6 @@
 		-->
 	</string-array>
 	<string name="pref_language_title">Language</string>
-
 
 	<string name="pref_manual_sync_summary">Tap here to sync manually</string>
 	<string name="pref_manual_sync_title">Manual sync</string>

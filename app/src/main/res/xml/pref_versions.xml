@@ -2,35 +2,39 @@
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 	<Preference
 		app:icon="@drawable/ic_system_update_24dp"
-		app:key="updates"
+		app:key="pref_updates"
 		app:title="@string/pref_updates_title" />
 	<SwitchPreferenceCompat
 		app:defaultValue="false"
 		app:icon="@drawable/ic_network_cell_24dp"
-		app:key="updates_enable_cellular"
+		app:key="pref_updates_enable_cellular"
 		app:title="@string/pref_updates_cellular_networks_title" />
 	<PreferenceCategory app:title="@string/pref_updates_options_title">
 		<ListPreference
 			app:defaultValue="@string/pref_check_for_updates_frequency_default"
 			app:entries="@array/pref_check_for_updates_frequencies"
 			app:entryValues="@array/pref_check_for_updates_frequency_values"
-			app:key="check_for_updates_frequency"
+			app:key="pref_updates_frequency"
 			app:title="@string/pref_check_for_update_frequency_title"
 			app:useSimpleSummaryProvider="true" />
 	</PreferenceCategory>
 	<PreferenceCategory app:title="@string/pref_about_category_title">
 		<Preference
 			app:enabled="false"
-			app:key="app_version"
+			app:key="pref_app_version"
 			app:title="@string/pref_app_version_title" />
 		<Preference
 			app:icon="@drawable/ic_code_24dp"
-			app:key="app_src_code"
+			app:key="pref_app_src_code"
 			app:summary="@string/pref_source_code_desc"
 			app:title="@string/pref_source_code_title" />
 		<Preference
 			app:icon="@drawable/ic_account_circle_24dp"
-			app:key="app_author"
+			app:key="pref_app_author"
 			app:title="@string/pref_author_title" />
+		<Preference
+			app:icon="@drawable/ic_info_24dp"
+			app:key="pref_app_info"
+			app:title="@string/pref_app_info_title" />
 	</PreferenceCategory>
 </androidx.preference.PreferenceScreen>
