@@ -6,19 +6,19 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.google.android.material.button.MaterialButton;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class RegisterActivity extends AppCompatActivity {
 
 	private TextInputLayout inputEmail, inputPassword;
-	private MaterialButton btnSignIn, btnSignUp;
+	private Button btnSignIn, btnSignUp;
 	private ProgressBar progressBar;
 	private FirebaseAuth auth;
 	private static final String TAG = SharedHelper.getTag(RegisterActivity.class);

@@ -2,9 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/registerActivity"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/registerActivity"
 	tools:context=".RegisterActivity">
 
 	<ScrollView
@@ -20,9 +20,9 @@
 			android:padding="@dimen/activity_horizontal_margin">
 
 			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/emailRegister"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/emailRegister">
+				android:layout_height="wrap_content">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
@@ -36,10 +36,10 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/passwordRegister"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				app:passwordToggleEnabled="true"
-				android:id="@+id/passwordRegister">
+				app:passwordToggleEnabled="true">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
@@ -54,7 +54,7 @@
 
 			</com.google.android.material.textfield.TextInputLayout>
 
-			<com.google.android.material.button.MaterialButton
+			<Button
 				android:id="@+id/signUpBtn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -63,12 +63,12 @@
 
 			<!-- Link to Login Screen -->
 
-			<com.google.android.material.button.MaterialButton
+			<Button
 				android:id="@+id/signInBtn"
+				style="@style/Widget.MaterialComponents.Button.TextButton"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="20dip"
-				style="@style/Widget.MaterialComponents.Button.TextButton"
 				android:text="@string/action_link_login_btn" />
 
 			<ProgressBar

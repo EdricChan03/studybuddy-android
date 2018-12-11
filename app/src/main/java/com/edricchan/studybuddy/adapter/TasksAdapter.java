@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SharedHelper;
 import com.edricchan.studybuddy.interfaces.TaskItem;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,7 +56,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 		return var.size() != 0;
 	}
 
-	private void updateDoneStatus(@NonNull TaskItem item, final MaterialButton button, int position) {
+	private void updateDoneStatus(@NonNull TaskItem item, final Button button, int position) {
 		if (item.isDone()) {
 			mFirestore.document("users/" + mUser.getUid() + "/todos/" + item.getId()).update("hasDone", false).addOnSuccessListener(aVoid -> {
 				Snackbar.make(snackbarView, "Task marked as undone.", Snackbar.LENGTH_LONG).show();
@@ -125,10 +125,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 				itemTags.addView(tempChip);
 			}
 		}*/
-		final MaterialButton markAsDoneBtn = holder.markAsDoneBtn;
+		final Button markAsDoneBtn = holder.markAsDoneBtn;
 		markAsDoneBtn.setText(R.string.action_mark_as_done);
 		markAsDoneBtn.setOnClickListener(view -> updateDoneStatus(item, markAsDoneBtn, position));
-		MaterialButton deleteBtn = holder.deleteBtn;
+		Button deleteBtn = holder.deleteBtn;
 		deleteBtn.setOnClickListener(view -> {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			builder.setTitle("Delete todo?");
@@ -165,8 +165,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 		TextView itemContent;
 		// ChipGroup itemProjects;
 		// ChipGroup itemTags;
-		MaterialButton markAsDoneBtn;
-		MaterialButton deleteBtn;
+		Button markAsDoneBtn;
+		Button deleteBtn;
 		MaterialCardView cardView;
 
 		public Holder(View view) {

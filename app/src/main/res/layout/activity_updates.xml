@@ -7,10 +7,10 @@
 	tools:context=".UpdatesActivity">
 
 	<RelativeLayout
+		android:id="@+id/updates_empty_state_view"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_gravity="center"
-		android:id="@+id/updates_empty_state_view"
 		android:gravity="center">
 
 		<TextView
@@ -30,15 +30,16 @@
 			android:text="@string/update_activity_empty_state_subhead"
 			android:textAppearance="?attr/textAppearanceCaption" />
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/empty_state_view_cta"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/action_check_for_updates"
 			android:layout_below="@id/empty_state_view_subheading"
 			android:layout_centerHorizontal="true"
-			android:layout_marginTop="8dp"/>
+			android:layout_marginTop="8dp"
+			android:text="@string/action_check_for_updates" />
 	</RelativeLayout>
+
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		android:id="@+id/recycler_swiperefresh"
 		android:layout_width="match_parent"

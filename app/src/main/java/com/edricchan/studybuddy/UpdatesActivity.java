@@ -15,29 +15,29 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.github.javiersantos.appupdater.AppUpdaterUtils;
-import com.github.javiersantos.appupdater.enums.AppUpdaterError;
-import com.github.javiersantos.appupdater.enums.UpdateFrom;
-import com.github.javiersantos.appupdater.objects.Update;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.io.File;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.github.javiersantos.appupdater.AppUpdaterUtils;
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.github.javiersantos.appupdater.objects.Update;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.io.File;
+import java.util.Objects;
+
 public class UpdatesActivity extends AppCompatActivity {
 
 	boolean isChecking = false;
 	Update appUpdate;
-	MaterialButton checkForUpdatesBtn;
+	Button checkForUpdatesBtn;
 	RelativeLayout emptyStateLayout;
 	SharedPreferences preferences;
 

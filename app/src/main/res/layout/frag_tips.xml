@@ -17,7 +17,7 @@
 			android:text="@string/tips_empty_state_head"
 			android:textAppearance="?attr/textAppearanceHeadline6" />
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/tips_empty_state_cta"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

@@ -53,7 +53,7 @@
 			app:layout_constraintTop_toBottomOf="@id/accountName"
 			tools:text="johnappleseed@hello.world" />
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/accountActionSignIn"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent" />
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/accountActions"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

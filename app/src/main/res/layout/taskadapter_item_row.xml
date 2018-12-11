@@ -60,7 +60,7 @@
 			app:layout_constraintTop_toBottomOf="@id/itemTitle"
 			tools:text="Task contents" />
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/itemMarkAsDone"
 			style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
 			android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/itemContent" />
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/itemDelete"
 			style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
 			android:layout_width="wrap_content"

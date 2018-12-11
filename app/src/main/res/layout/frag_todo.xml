@@ -21,7 +21,7 @@
 			android:text="@string/todos_empty_state_head"
 			android:textAppearance="?attr/textAppearanceHeadline6" />
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/action_new_todo"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

@@ -2,9 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/loginActivity"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/loginActivity"
 	tools:context=".LoginActivity">
 
 	<LinearLayout
@@ -35,10 +35,10 @@
 			android:textAppearance="?attr/textAppearanceSubtitle1" />
 
 		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/emailLogin"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/emailLogin">
+			android:layout_marginBottom="10dp">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:layout_width="match_parent"
@@ -48,11 +48,11 @@
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/passwordLogin"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="10dp"
-			app:passwordToggleEnabled="true"
-			android:id="@+id/passwordLogin">
+			app:passwordToggleEnabled="true">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:layout_width="match_parent"
@@ -63,7 +63,7 @@
 
 		<!-- Login Button -->
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/loginBtn"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
 			android:text="@string/action_sign_in_btn" />
 
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/resetPasswordBtn"
 			style="@style/Widget.MaterialComponents.Button.TextButton"
 			android:layout_width="fill_parent"
@@ -81,7 +81,7 @@
 
 		<!-- Link to Login Screen -->
 
-		<com.google.android.material.button.MaterialButton
+		<Button
 			android:id="@+id/signUpBtn"
 			style="@style/Widget.MaterialComponents.Button.TextButton"
 			android:layout_width="fill_parent"

@@ -6,8 +6,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -16,14 +19,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 	private TextInputLayout inputEmail, inputPassword;
 	private FirebaseAuth auth;
 	private ProgressBar progressBar;
-	private MaterialButton btnSignup, btnLogin, btnReset;
+	private Button btnSignup, btnLogin, btnReset;
 	private SignInButton signInButton;
 	private GoogleSignInClient googleSignInClient;
 
@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
 
 	/**
 	 * A method used to disable all functionality if no internet connection is available
-	 *
+	 * <p>
 	 * TODO: Bring this to SharedHelper instead
 	 */
 	private void checkNetwork() {
