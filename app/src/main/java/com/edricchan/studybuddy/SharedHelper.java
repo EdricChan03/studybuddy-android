@@ -14,10 +14,15 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.IdRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -459,6 +464,29 @@ public class SharedHelper {
 	 */
 	public static Task<Void> removeTask(String docID, FirebaseUser user, FirebaseFirestore fs) {
 		return fs.document("users/" + user.getUid() + "/todos/" + docID).delete();
+	}
+
+	/**
+	 * Shows a version dialog
+	 *
+	 * @param context The context to retrieve a {@link LayoutInflater} instance from & instantiate {@link AlertDialog.Builder}
+	 */
+	public static void showVersionDialog(Context context) {
+		View versionDialogView = LayoutInflater.from(context).inflate(R.layout.version_dialog, null);
+		ImageView appIconImageView = versionDialogView.findViewById(R.id.appIconImageView);
+		TextView appNameTextView = versionDialogView.findViewById(R.id.appNameTextView);
+		TextView appVersionTextView = versionDialogView.findViewById(R.id.appVersionTextView);
+		try {
+			appIconImageView.setImageDrawable(context.getPackageManager().getApplicationIcon(BuildConfig.APPLICATION_ID));
+		} catch (PackageManager.NameNotFoundException e) {
+			Log.e(getTag(SharedHelper.class), "An error occurred while attempting to retrieve the app's icon:", e);
+		}
+		appNameTextView.setText(context.getApplicationInfo().loadLabel(context.getPackageManager()));
+		appVersionTextView.setText(BuildConfig.VERSION_NAME);
+		AlertDialog.Builder versionDialogBuilder = new AlertDialog.Builder(context);
+		versionDialogBuilder
+				.setView(versionDialogView)
+				.show();
 	}
 
 	/**

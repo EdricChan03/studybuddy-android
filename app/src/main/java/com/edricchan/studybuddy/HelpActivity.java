@@ -77,7 +77,7 @@ public class HelpActivity extends AppCompatActivity {
 				SharedHelper.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_version:
-				// TODO: Show a version dialog
+				SharedHelper.showVersionDialog(this);
 				return true;
 			case R.id.action_licenses:
 				Intent licensesIntent = new Intent(this, OssLicensesMenuActivity.class);
