@@ -272,7 +272,7 @@
 	<string name="pref_daynight_grant_perm_title">Grant location permission</string>
 	<string name="pref_daynight_perm_info_summary">The location permission is required to adjust the automatic theme according to your location.\nIf this permission is not granted, the dark theme will be enabled at 10pm and automatically disable itself at 6am.</string>
 
-	<string name="pref_enable_crashlytics_user_tracking_summary">Enables the sending of your email address and your name along with Crashlytics reports.\nWe promise to only use this for the sake of diagnosing crashes.</string>
+	<string name="pref_enable_crashlytics_user_tracking_summary">Enables the sending of your email address and your name along with Crashlytics reports.\nThis data will only be used for crash reports.</string>
 	<string name="pref_enable_crashlytics_user_tracking_title">Enable Firebase Crashlytics user tracking</string>
 
 	<string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture</string>
