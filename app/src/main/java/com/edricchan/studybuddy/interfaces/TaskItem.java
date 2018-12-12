@@ -310,8 +310,9 @@ public class TaskItem {
 		 * Checks if all values in this task are valid and returns this task
 		 *
 		 * @return The created task
+		 * @throws RuntimeException If the task's title is empty/not instantiated
 		 */
-		public TaskItem create() {
+		public TaskItem create() throws RuntimeException {
 			// Set the tags
 			if (!taskTags.isEmpty()) {
 				task.tags = taskTags;
