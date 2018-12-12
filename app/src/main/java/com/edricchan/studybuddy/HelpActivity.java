@@ -23,6 +23,7 @@ import androidx.transition.TransitionManager;
 
 import com.edricchan.studybuddy.adapter.HelpArticleAdapter;
 import com.edricchan.studybuddy.interfaces.HelpArticle;
+import com.edricchan.studybuddy.interfaces.HelpArticles;
 import com.edricchan.studybuddy.utils.DataUtil;
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.google.gson.Gson;
@@ -134,8 +135,8 @@ public class HelpActivity extends AppCompatActivity {
 				Log.e(TAG, "An error occurred while attempting to parse the JSON file:", e);
 			}
 			if (reader != null) {
-				HelpArticle[] helpArticles = new Gson().fromJson(reader, HelpArticle[].class);
-				return Arrays.asList(helpArticles);
+				HelpArticles helpArticlesJSON = new Gson().fromJson(reader, HelpArticles.class);
+				return Arrays.asList(helpArticlesJSON.getArticles());
 			}
 			return null;
 		}

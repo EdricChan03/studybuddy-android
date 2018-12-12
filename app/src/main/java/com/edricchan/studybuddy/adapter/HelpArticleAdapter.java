@@ -66,6 +66,10 @@ public class HelpArticleAdapter extends RecyclerView.Adapter<HelpArticleAdapter.
 
 		public Holder(@NonNull View itemView) {
 			super(itemView);
+			if (getAdapterPosition() != RecyclerView.NO_POSITION) {
+				itemView.setEnabled(!mHelpArticles.get(getAdapterPosition()).isDisabled());
+				itemView.setVisibility(mHelpArticles.get(getAdapterPosition()).isHidden() ? View.GONE : View.VISIBLE);
+			}
 			articleImageView = itemView.findViewById(R.id.articleImageView);
 			descTextView = itemView.findViewById(R.id.descTextView);
 			titleTextView = itemView.findViewById(R.id.titleTextView);
@@ -93,7 +97,7 @@ public class HelpArticleAdapter extends RecyclerView.Adapter<HelpArticleAdapter.
 	/**
 	 * Retrieves the current on click listener assigned to the view
 	 *
-	 * @returns The current on click listener
+	 * @return The current on click listener
 	 */
 	public OnItemClickListener getOnItemClickListener() {
 		if (this.mListener != null) {
