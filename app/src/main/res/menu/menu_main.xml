@@ -1,26 +1,33 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/action_settings"
 		android:icon="@drawable/ic_settings_24dp"
-		android:title="@string/action_settings" />
+		android:title="@string/action_settings"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/action_account"
 		android:icon="@drawable/ic_account_circle_24dp"
-		android:title="@string/action_account" />
+		android:title="@string/action_account"
+		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/action_about"
 		android:icon="@drawable/ic_info_24dp"
-		android:title="@string/action_about" />
+		android:title="@string/action_about"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/action_share"
 		android:icon="@drawable/ic_share_24dp"
-		android:title="@string/action_share" />
+		android:title="@string/action_share"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/action_help"
 		android:icon="@drawable/ic_help_circle_24dp"
-		android:title="@string/action_help" />
+		android:title="@string/action_help"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/action_debug"
 		android:icon="@drawable/ic_bug_report_24dp"
-		android:title="@string/action_debug" />
+		android:title="@string/action_debug"
+		app:showAsAction="never" />
 </menu>
