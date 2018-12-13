@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.provider.FontRequest;
 import androidx.emoji.text.EmojiCompat;
@@ -25,6 +24,7 @@ import com.edricchan.studybuddy.fragment.TodoFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		// Checks if the activity was from the New task activity
 		if (requestCode == ACTION_NEW_TASK) {
 			if (resultCode == RESULT_OK) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 				builder.setTitle("Activity result")
 						.setMessage("taskTitle: " + data.getStringExtra("taskTitle") + "\ntaskProject: " + data.getStringExtra("taskProject") + "\ntaskContent: " + data.getStringExtra("taskContent"))
 						.setPositiveButton("Dismiss", (dialog, which) -> dialog.dismiss());
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				return true;
 			case R.id.action_about:
 				String aboutDialogText = String.format(getString(R.string.about_dialog_text), BuildConfig.VERSION_NAME);
-				AlertDialog.Builder aboutDialogBuilder = new AlertDialog.Builder(this);
+				MaterialAlertDialogBuilder aboutDialogBuilder = new MaterialAlertDialogBuilder(this);
 				aboutDialogBuilder.setTitle("About this app");
 				aboutDialogBuilder.setMessage(aboutDialogText);
 				aboutDialogBuilder.setPositiveButton(R.string.dialog_action_close, (dialogInterface, i) -> dialogInterface.dismiss());
