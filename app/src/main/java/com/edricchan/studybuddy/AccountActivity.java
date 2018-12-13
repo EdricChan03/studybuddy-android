@@ -14,12 +14,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
@@ -59,7 +59,7 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 		});
 		mAccountActions
 				.setOnClickListener(v -> {
-					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 					builder.setTitle(R.string.account_activity_account_actions)
 							.setItems(R.array.account_activity_account_actions_array, (dialog, which) -> {
 								switch (which) {
@@ -165,7 +165,7 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 	}
 
 	private void deleteAccount(DialogInterface parentDialog) {
-		AlertDialog.Builder confirmBuilder = new AlertDialog.Builder(this);
+		MaterialAlertDialogBuilder confirmBuilder = new MaterialAlertDialogBuilder(this);
 		confirmBuilder.setTitle(R.string.account_activity_delete_account_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
 				.setPositiveButton(R.string.dialog_action_delete_account, (dialog, which) -> mUser.delete()
@@ -212,7 +212,7 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 	}
 
 	private void signOut(DialogInterface parentDialog) {
-		AlertDialog.Builder confirmBuilder = new AlertDialog.Builder(this);
+		MaterialAlertDialogBuilder confirmBuilder = new MaterialAlertDialogBuilder(this);
 		confirmBuilder.setTitle(R.string.account_activity_sign_out_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
 				.setPositiveButton(R.string.dialog_action_sign_out, (dialog, which) -> {
@@ -230,7 +230,7 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 		SharedHelper.getEditText(textInputLayout)
 				.setHint(R.string.account_activity_new_email_dialog_edittext_title);
 		// TODO: Add check for email address
-		AlertDialog.Builder promptBuilder = new AlertDialog.Builder(this);
+		MaterialAlertDialogBuilder promptBuilder = new MaterialAlertDialogBuilder(this);
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_email_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_email, (dialog, which) -> mUser.updateEmail(SharedHelper.getEditTextString(textInputLayout))
@@ -252,7 +252,7 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 		final TextInputLayout textInputLayout = promptDialogView.findViewById(R.id.textInputLayout);
 		SharedHelper.getEditText(textInputLayout)
 				.setHint(R.string.account_activity_new_name_dialog_edittext_title);
-		AlertDialog.Builder promptBuilder = new AlertDialog.Builder(this);
+		MaterialAlertDialogBuilder promptBuilder = new MaterialAlertDialogBuilder(this);
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_name_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_name, (dialog, which) -> {
@@ -278,7 +278,7 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 		final TextInputLayout textInputLayout = promptDialogView.findViewById(R.id.textInputLayout);
 		SharedHelper.getEditText(textInputLayout)
 				.setHint(R.string.account_activity_new_password_dialog_edittext_title);
-		AlertDialog.Builder promptBuilder = new AlertDialog.Builder(this);
+		MaterialAlertDialogBuilder promptBuilder = new MaterialAlertDialogBuilder(this);
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_password_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_password, (dialog, which) -> mUser.updatePassword(SharedHelper.getEditTextString(textInputLayout))
@@ -297,7 +297,7 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 
 	private void updateProfilePicture(DialogInterface parentDialog) {
 		// TODO: Add support for updating a profile picture
-		AlertDialog.Builder promptBuilder = new AlertDialog.Builder(this);
+		MaterialAlertDialogBuilder promptBuilder = new MaterialAlertDialogBuilder(this);
 		promptBuilder.setTitle(R.string.account_activity_new_profile_pic_dialog_title)
 				.setMessage(R.string.account_activity_new_profile_pic_dialog_msg)
 				.setPositiveButton(R.string.dialog_action_update_profile_picture, (dialog, which) -> {
