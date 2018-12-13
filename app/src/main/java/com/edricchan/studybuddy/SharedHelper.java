@@ -25,7 +25,6 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -47,6 +46,7 @@ import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -598,7 +598,7 @@ public class SharedHelper {
 	/**
 	 * Shows a version dialog
 	 *
-	 * @param context The context to retrieve a {@link LayoutInflater} instance from & instantiate {@link AlertDialog.Builder}
+	 * @param context The context to retrieve a {@link LayoutInflater} instance from & instantiate {@link com.google.android.material.dialog.MaterialAlertDialogBuilder}
 	 */
 	public static void showVersionDialog(Context context) {
 		View versionDialogView = LayoutInflater.from(context).inflate(R.layout.version_dialog, null);
@@ -612,7 +612,7 @@ public class SharedHelper {
 		}
 		appNameTextView.setText(context.getApplicationInfo().loadLabel(context.getPackageManager()));
 		appVersionTextView.setText(BuildConfig.VERSION_NAME);
-		AlertDialog.Builder versionDialogBuilder = new AlertDialog.Builder(context);
+		MaterialAlertDialogBuilder versionDialogBuilder = new MaterialAlertDialogBuilder(context);
 		versionDialogBuilder
 				.setView(versionDialogView)
 				.show();
