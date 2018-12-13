@@ -18,14 +18,14 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="16dp"
-			android:text="@string/todos_empty_state_head"
+			android:text="@string/todo_frag_empty_state_head"
 			android:textAppearance="?attr/textAppearanceHeadline6" />
 
 		<Button
 			android:id="@+id/actionNewTodo"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/action_new_todo" />
+			android:text="@string/todo_frag_empty_state_cta" />
 
 	</LinearLayout>
 
