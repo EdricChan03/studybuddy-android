@@ -314,7 +314,7 @@ public class TaskItem {
 		 */
 		public TaskItem create() throws RuntimeException {
 			// Set the tags
-			if (!taskTags.isEmpty()) {
+			if (taskTags != null && !taskTags.isEmpty()) {
 				task.tags = taskTags;
 			}
 			// Null checks to prevent values from being null on the document
