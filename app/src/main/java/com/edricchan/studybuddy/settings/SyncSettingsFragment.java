@@ -3,12 +3,12 @@ package com.edricchan.studybuddy.settings;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.edricchan.studybuddy.R;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
+
+import com.edricchan.studybuddy.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class SyncSettingsFragment extends PreferenceFragmentCompat {
 	@Override
@@ -23,7 +23,7 @@ public class SyncSettingsFragment extends PreferenceFragmentCompat {
 		cellularNetworksSync.setOnPreferenceClickListener(preference -> {
 			if (cellularNetworksSync.isChecked()) {
 				cellularNetworksSync.setChecked(false);
-				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
 				builder.setPositiveButton(R.string.dialog_action_yes, (dialog, which) -> cellularNetworksSync.setChecked(true));
 				builder.setTitle(R.string.pref_sync_cellular_networks_dialog_title);
 				builder.setMessage(R.string.pref_sync_cellular_networks_dialog_msg);
