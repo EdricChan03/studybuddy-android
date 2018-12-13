@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -28,6 +27,7 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
@@ -101,8 +101,8 @@ public class UpdatesActivity extends AppCompatActivity {
 	private void downloadUpdate(String downloadUrl, String version, boolean mobileDataSkip, boolean downloadAgain) {
 		String fileName = "com.edricchan.studybuddy-" + version + ".apk";
 		if (downloadAgain || !new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileName).exists()) {
-			if (mobileDataSkip || SharedHelper.isCellularNetworkAvailable(UpdatesActivity.this)) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(UpdatesActivity.this);
+			if (mobileDataSkip || SharedHelper.isCellularNetworkAvailable(this)) {
+				MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 				builder.setTitle(R.string.update_activity_cannot_download_cellular_dialog_title);
 				builder.setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg);
 				builder.setNegativeButton(R.string.dialog_action_cancel, (DialogInterface dialogInterface, int i) -> dialogInterface.dismiss());
@@ -126,7 +126,7 @@ public class UpdatesActivity extends AppCompatActivity {
 				}
 			}
 		} else {
-			AlertDialog.Builder builder = new AlertDialog.Builder(UpdatesActivity.this);
+			MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 			builder.setTitle(R.string.update_activity_update_already_downloaded_dialog_title);
 			builder.setMessage(R.string.update_activity_update_already_downloaded_dialog_msg);
 			builder.setPositiveButton(R.string.update_activity_update_already_downloaded_dialog_positive_btn, (DialogInterface dialogInterface, int i) -> {
@@ -157,7 +157,7 @@ public class UpdatesActivity extends AppCompatActivity {
 				installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 				startActivity(installIntent);
 			} else {
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 				builder.setMessage(R.string.update_activity_enable_unknown_sources_dialog_msg)
 						.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
 						.setNeutralButton(R.string.dialog_action_retry, (dialog, which) -> {
@@ -184,7 +184,7 @@ public class UpdatesActivity extends AppCompatActivity {
 
 	private void showUpdateDialog() {
 		// New update
-		AlertDialog.Builder builder = new AlertDialog.Builder(UpdatesActivity.this);
+		MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 		builder.setTitle(getString(R.string.update_dialog_title_new, appUpdate.getLatestVersion()));
 		builder.setIcon(R.drawable.ic_system_update_24dp);
 		builder.setMessage("What's new:\n" + appUpdate.getReleaseNotes());
@@ -198,7 +198,7 @@ public class UpdatesActivity extends AppCompatActivity {
 					downloadUpdate(appUpdate.getUrlToDownload().toString(), appUpdate.getLatestVersion());
 				} else {
 					if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-						AlertDialog.Builder permBuilder = new AlertDialog.Builder(UpdatesActivity.this);
+						MaterialAlertDialogBuilder permBuilder = new MaterialAlertDialogBuilder(this);
 						permBuilder.setTitle(R.string.update_perm_rationale_dialog_title)
 								.setMessage(R.string.update_perm_rationale_dialog_msg)
 								.setNegativeButton(R.string.update_perm_rationale_dialog_deny, (dialog, which) -> dialog.dismiss())
