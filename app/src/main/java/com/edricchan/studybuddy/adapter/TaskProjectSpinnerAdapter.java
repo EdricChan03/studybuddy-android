@@ -34,7 +34,7 @@ public class TaskProjectSpinnerAdapter extends ArrayAdapter<TaskProject> {
 	@Override
 	public int getCount() {
 		int count = super.getCount();
-		return count > 0 ? count - 2 : count;
+		return count > 0 ? count - 1 : count;
 	}
 
 	/**

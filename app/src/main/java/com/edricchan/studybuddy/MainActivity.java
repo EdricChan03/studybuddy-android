@@ -19,11 +19,12 @@ import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
 import com.edricchan.studybuddy.fragment.CalendarFragment;
 import com.edricchan.studybuddy.fragment.ChatFragment;
+import com.edricchan.studybuddy.fragment.NavBottomSheetDialogFragment;
 import com.edricchan.studybuddy.fragment.TipsFragment;
 import com.edricchan.studybuddy.fragment.TodoFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	 */
 	private static final String TAG = SharedHelper.getTag(MainActivity.class);
 	private Menu mOptionsMenu;
-	private BottomNavigationView navigationView;
+	//	private BottomNavigationView navigationView;
 	private FrameLayout contentMain;
+	private BottomAppBar bar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +77,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				});
 		EmojiCompat.init(config);
 		setContentView(R.layout.activity_main);
+		bar = findViewById(R.id.bottomAppBar);
+		setSupportActionBar(bar);
 		// Checks if the add new shortcut was tapped
 		if (ACTION_ADD_NEW_TODO.equals(getIntent().getAction())) {
 			newTaskActivity();
 		}
-		/*
-		// FAB
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(view -> newTaskActivity());
 
+		/*
 		// Handles swiping down to refresh logic
 		final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.recycler_swiperefresh);
 		swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		// Initially set a fragment view
 		SharedHelper.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, false);
 		contentMain = findViewById(R.id.content_main);
-		navigationView = findViewById(R.id.bottom_navigation_view);
+		/*navigationView = findViewById(R.id.bottom_navigation_view);
 		navigationView.setOnNavigationItemSelectedListener((@NonNull MenuItem item) -> {
 			switch (item.getItemId()) {
 				case R.id.navigation_calendar:
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 			}
 			// Return a boolean to indicate that the listener has been set
 			return true;
-		});
+		});*/
 	}
 
 	@Override
@@ -213,6 +214,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		switch (id) {
+			case android.R.id.home:
+				NavBottomSheetDialogFragment navBottomSheet = new NavBottomSheetDialogFragment();
+				navBottomSheet.setNavigationItemSelectedListener(navItem -> {
+					switch (navItem.getItemId()) {
+						case R.id.navigation_calendar:
+							SharedHelper.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
+							return true;
+						case R.id.navigation_chat:
+							SharedHelper.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
+							return true;
+						case R.id.navigation_todos:
+							SharedHelper.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
+							return true;
+						case R.id.navigation_tips:
+							SharedHelper.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
+							return true;
+						default:
+							return false;
+					}
+				});
+				navBottomSheet.show(getSupportFragmentManager(), navBottomSheet.getTag());
+				return true;
 			case R.id.action_settings:
 				Intent prefsIntent = new Intent(this, SettingsActivity.class);
 				startActivity(prefsIntent);

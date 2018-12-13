@@ -52,6 +52,7 @@ dependencies {
 	implementation 'androidx.cardview:cardview:1.0.0'
 	// RecyclerView
 	implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
+	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha01'
 	// Chrome Custom Tabs
 	implementation 'androidx.browser:browser:1.0.0'
 	testImplementation 'junit:junit:4.12'
@@ -87,5 +88,7 @@ dependencies {
 	annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 	// OSS licenses library to show open source licenses
 	implementation 'com.google.android.gms:play-services-oss-licenses:16.0.1'
+	// Backported Java Stream library for Java 6/7
+	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.0'
 }
 apply plugin: "com.google.gms.google-services"

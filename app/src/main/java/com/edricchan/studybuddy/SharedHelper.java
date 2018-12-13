@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -21,7 +22,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -30,6 +33,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
@@ -43,6 +47,7 @@ import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -141,6 +146,98 @@ public class SharedHelper {
 	 * @deprecated
 	 */
 	public SharedHelper() {
+	}
+
+	/**
+	 * Clears the on click listener for the {@link com.google.android.material.bottomappbar.BottomAppBar}'s {@link FloatingActionButton}
+	 *
+	 * @param activity An instnace of the activity (use {@link Fragment#getActivity()} if you're in a {@link Fragment}, or the current instance if you're in an activity which extends {@link AppCompatActivity})
+	 */
+	public static void clearBottomAppBarFabOnClickListener(AppCompatActivity activity) {
+		if (activity instanceof MainActivity) {
+			FloatingActionButton fab = activity.findViewById(R.id.fab);
+			fab.setOnClickListener(null);
+		}
+	}
+
+	/**
+	 * Clears the on click listener for the {@link com.google.android.material.bottomappbar.BottomAppBar}'s {@link FloatingActionButton}
+	 *
+	 * @param activity An instnace of the activity (use {@link Fragment#getActivity()} if you're in a {@link Fragment}, or the current instance if you're in an activity which extends {@link AppCompatActivity})
+	 */
+	public static void clearBottomAppBarFabOnClickListener(FragmentActivity activity) {
+		if (activity instanceof MainActivity) {
+			FloatingActionButton fab = activity.findViewById(R.id.fab);
+			fab.setOnClickListener(null);
+		}
+	}
+
+	/**
+	 * Sets the on click listener for the {@link com.google.android.material.bottomappbar.BottomAppBar}'s {@link com.google.android.material.floatingactionbutton.FloatingActionButton}
+	 *
+	 * @param activity An instnace of the activity (use {@link Fragment#getActivity()} if you're in a {@link Fragment}, or the current instance if you're in an activity which extends {@link AppCompatActivity})
+	 * @param listener The on click listener to set
+	 */
+	public static void setBottomAppBarFabOnClickListener(AppCompatActivity activity, View.OnClickListener listener) {
+		if (activity instanceof MainActivity) {
+			FloatingActionButton fab = activity.findViewById(R.id.fab);
+			fab.setOnClickListener(listener);
+		}
+	}
+
+	/**
+	 * Sets the on click listener for the {@link com.google.android.material.bottomappbar.BottomAppBar}'s {@link com.google.android.material.floatingactionbutton.FloatingActionButton}
+	 *
+	 * @param activity An instnace of the activity (use {@link Fragment#getActivity()} if you're in a {@link Fragment}, or the current instance if you're in an activity which extends {@link AppCompatActivity})
+	 * @param listener The on click listener to set
+	 */
+	public static void setBottomAppBarFabOnClickListener(FragmentActivity activity, View.OnClickListener listener) {
+		if (activity instanceof MainActivity) {
+			FloatingActionButton fab = activity.findViewById(R.id.fab);
+			fab.setOnClickListener(listener);
+		}
+	}
+
+	/**
+	 * Retrieves the image drawable of the FAB in the main activity
+	 *
+	 * @param activity An instnace of the activity (use {@link Fragment#getActivity()} if you're in a {@link Fragment}, or the current instance if you're in an activity which extends {@link AppCompatActivity})
+	 * @return The drawable of the FAB
+	 */
+	@Nullable
+	public static Drawable getBottomAppBarFabSrc(AppCompatActivity activity) {
+		if (activity instanceof MainActivity) {
+			FloatingActionButton fab = activity.findViewById(R.id.fab);
+			return fab.getDrawable();
+		}
+		return null;
+	}
+
+	/**
+	 * Sets the image drawable of the FAB in the main activity
+	 *
+	 * @param activity An instance of the activity (use {@link Fragment#getActivity()} if you're in a {@link Fragment}, or the current instance if you're in an activity which extends {@link AppCompatActivity})
+	 * @param src      The drawable to set
+	 */
+	public static void setBottomAppBarFabSrc(AppCompatActivity activity, Drawable src) {
+		if (activity instanceof MainActivity) {
+			FloatingActionButton fab = activity.findViewById(R.id.fab);
+			fab.setImageDrawable(src);
+		}
+	}
+
+
+	/**
+	 * Sets the image drawable of the FAB in the main activity
+	 *
+	 * @param activity An instance of the activity (use {@link Fragment#getActivity()} if you're in a {@link Fragment}, or the current instance if you're in an activity which extends {@link AppCompatActivity})
+	 * @param srcRes   The drawable resource to set
+	 */
+	public static void setBottomAppBarFabSrc(AppCompatActivity activity, @DrawableRes int srcRes) {
+		if (activity instanceof MainActivity) {
+			FloatingActionButton fab = activity.findViewById(R.id.fab);
+			fab.setImageResource(srcRes);
+		}
 	}
 
 	/**

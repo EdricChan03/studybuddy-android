@@ -9,7 +9,8 @@
 	android:layout_marginTop="8dp"
 	android:layout_marginEnd="8dp"
 	android:clickable="true"
-	android:focusable="true">
+	android:focusable="true"
+	app:cardBackgroundColor="@color/tasksadapter_item_row_state">
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
@@ -23,26 +24,12 @@
 			android:layout_marginTop="24dp"
 			android:layout_marginEnd="16dp"
 			android:textAppearance="?attr/textAppearanceHeadline5"
-			android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
 			app:layout_constraintBottom_toTopOf="@id/itemContent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_chainStyle="packed"
 			tools:text="Task name" />
-
-		<!--<TextView
-			android:id="@+id/itemContent"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="16dp"
-			android:layout_marginEnd="16dp"
-			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-			android:textColor="@color/colorSecondaryTextDefaultMaterialLight"
-			app:layout_constraintTop_toBottomOf="@id/itemTitle"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintBottom_toTopOf="@+id/supporting_text" />-->
 
 		<TextView
 			android:id="@+id/itemContent"
@@ -53,7 +40,6 @@
 			android:layout_marginEnd="16dp"
 			android:lineSpacingExtra="8dp"
 			android:textAppearance="?attr/textAppearanceBody1"
-			android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
 			app:layout_constraintBottom_toTopOf="@id/itemMarkAsDone"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"

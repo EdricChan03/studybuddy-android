@@ -11,10 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SharedHelper;
+import com.edricchan.studybuddy.adapter.itemdetails.TaskItemDetail;
+import com.edricchan.studybuddy.adapter.itemdetailslookup.TaskItemLookup;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +38,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 	private static final String TAG = SharedHelper.getTag(TasksAdapter.class);
 	private int lastPosition = 1;
 	private OnItemClickListener mListener;
+	private SelectionTracker<String> mSelectionTracker;
 
 	public TasksAdapter(Context context, List<TaskItem> feedItemList, FirebaseUser user, FirebaseFirestore fs, View view) {
 		mFeedItemList = feedItemList;
@@ -185,6 +189,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 					mListener.onItemClick(mFirestore.document("users/" + mUser.getUid() + "/todos/" + mFeedItemList.get(position).getId()), position);
 				}
 			});
+			if (mSelectionTracker != null) {
+				if (mSelectionTracker.isSelected(getItemDetails().getSelectionKey())) {
+					view.setActivated(true);
+				} else {
+					view.setActivated(false);
+				}
+			}
+		}
+
+		public TaskItemLookup.ItemDetails<String> getItemDetails() {
+			return new TaskItemDetail(getAdapterPosition(), mFeedItemList.get(getAdapterPosition()).getId());
 		}
 	}
 
@@ -194,5 +209,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 
 	public void setOnItemClickListener(OnItemClickListener listener) {
 		this.mListener = listener;
+	}
+
+	/**
+	 * Sets the selection tracker for this adapter
+	 *
+	 * @param selectionTracker The selection tracker
+	 */
+	public void setSelectionTracker(SelectionTracker<String> selectionTracker) {
+		this.mSelectionTracker = selectionTracker;
 	}
 }

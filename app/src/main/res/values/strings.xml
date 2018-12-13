@@ -91,6 +91,17 @@
 
 	<string name="btn_reset_password">Reset password</string>
 
+	<string name="cab_action_delete_selected">Delete selected</string>
+	<string name="cab_action_edit_selected">Edit selected</string>
+	<string name="cab_action_select_all">Select all</string>
+
+	<plurals name="cab_subtitle">
+		<item quantity="zero">None selected</item>
+		<item quantity="other">%d selected</item>
+	</plurals>
+
+	<string name="cab_title">Select</string>
+
 	<string name="choose_a_date">Choose a date…</string>
 
 	<string name="comma_indicates_separator">Separate each tag/label with a comma</string>
