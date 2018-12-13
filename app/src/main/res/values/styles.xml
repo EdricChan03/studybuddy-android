@@ -20,6 +20,30 @@
 		</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
+		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Theme.SmallComponent
+		</item>
+		<item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Theme.MediumComponent
+		</item>
+		<item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Theme.LargeComponent
+		</item>
+	</style>
+	<!--
+	TODO: Customize the ShapeAppearance
+	Note that such styles should come in the next release
+	-->
+	<style name="ShapeAppearance.Theme.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerSize">4dp</item>
+	</style>
+
+	<style name="ShapeAppearance.Theme.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerSize">8dp</item>
+	</style>
+
+	<style name="ShapeAppearance.Theme.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerSize">24dp</item>
 	</style>
 
 	<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
