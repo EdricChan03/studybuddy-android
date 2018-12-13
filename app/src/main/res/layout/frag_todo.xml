@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/todo_view"
+	android:id="@+id/todoView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 	<LinearLayout
-		android:id="@+id/todos_empty_state_view"
+		android:id="@+id/todoEmptyStateView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:gravity="center"
@@ -22,7 +22,7 @@
 			android:textAppearance="?attr/textAppearanceHeadline6" />
 
 		<Button
-			android:id="@+id/action_new_todo"
+			android:id="@+id/actionNewTodo"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/action_new_todo" />
@@ -30,14 +30,14 @@
 	</LinearLayout>
 
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-		android:id="@+id/recycler_swiperefresh"
+		android:id="@+id/swipeRefreshLayout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:scrollbars="vertical"
 		android:visibility="gone">
 
 		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/recycler_list"
+			android:id="@+id/recyclerView"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent" />
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

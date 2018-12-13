@@ -1,6 +1,8 @@
 package com.edricchan.studybuddy.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,9 +21,10 @@ import com.edricchan.studybuddy.adapter.itemdetails.TaskItemDetail;
 import com.edricchan.studybuddy.adapter.itemdetailslookup.TaskItemLookup;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -30,52 +32,133 @@ import java.util.List;
 import ru.noties.markwon.Markwon;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
-	private List<TaskItem> mFeedItemList;
+	private List<TaskItem> mTaskItemList;
 	private Context mContext;
 	private FirebaseUser mUser;
 	private FirebaseFirestore mFirestore;
-	private View snackbarView;
+	private View mSnackbarView;
 	private static final String TAG = SharedHelper.getTag(TasksAdapter.class);
 	private int lastPosition = 1;
-	private OnItemClickListener mListener;
+	private OnItemClickListener mItemListener;
 	private SelectionTracker<String> mSelectionTracker;
+	private boolean mUseDeprecatedListener;
 
-	public TasksAdapter(Context context, List<TaskItem> feedItemList, FirebaseUser user, FirebaseFirestore fs, View view) {
-		mFeedItemList = feedItemList;
+	/**
+	 * Initialises a new adapter and uses the new listener
+	 *
+	 * @param context      The context
+	 * @param taskItemList The list of items to show
+	 */
+	public TasksAdapter(Context context, List<TaskItem> taskItemList) {
+		this(context, taskItemList, false);
+	}
+
+	/**
+	 * Initialises a new adapter
+	 *
+	 * @param context               The context
+	 * @param taskItemList          The list of items to show
+	 * @param useDeprecatedListener Whether to use the deprecated listener methods
+	 * @throws IllegalStateException If <code>useDeprecatedListener</code>, this throws as such operations are unsupported.
+	 */
+	public TasksAdapter(Context context, List<TaskItem> taskItemList, boolean useDeprecatedListener) throws IllegalStateException {
+		mTaskItemList = taskItemList;
+		mContext = context;
+		if (useDeprecatedListener) {
+			throw new IllegalStateException("Please use the deprecated method (TasksAdapter#TasksAdapter(Context, List, FirebaseUser, FirebaseFirestore, View)!");
+		}
+		mUseDeprecatedListener = useDeprecatedListener;
+	}
+
+	/**
+	 * Initialises a new adapter
+	 *
+	 * @param context      The context
+	 * @param taskItemList The list of items to show
+	 * @param user         An instance of the currently logged-in user. (This can be retrieved with {@link FirebaseAuth#getCurrentUser()})
+	 * @param fs           An instance of {@link FirebaseFirestore}. (This can be retrieved with {@link FirebaseFirestore#getInstance()})
+	 * @param snackbarView The view to show a snackbar in
+	 * @deprecated Use {@link TasksAdapter#TasksAdapter(Context, List)}
+	 */
+	@Deprecated
+	public TasksAdapter(Context context, List<TaskItem> taskItemList, FirebaseUser user, FirebaseFirestore fs, View snackbarView) {
+		mTaskItemList = taskItemList;
 		mContext = context;
 		mUser = user;
 		mFirestore = fs;
-		snackbarView = view;
+		mSnackbarView = snackbarView;
 	}
 
+	/**
+	 * Checks if a string is non-empty
+	 *
+	 * @param var The string to check
+	 * @return True if it is empty, false otherwise
+	 * @deprecated Use {@link TextUtils#isEmpty(CharSequence)}
+	 */
+	@Deprecated
 	private boolean checkNonEmpty(@NonNull String var) {
 		return var.length() != 0;
 	}
 
+	/**
+	 * Checks if a string is not null
+	 *
+	 * @param var The string to check
+	 * @return True if it is not null, false otherwise
+	 * @deprecated Use {@link TextUtils#isEmpty(CharSequence)}
+	 */
+	@Deprecated
 	private boolean checkStringNonNull(String var) {
 		return var != null;
 	}
 
+	/**
+	 * Checks if a list is not empty
+	 *
+	 * @param var The list to check
+	 * @return True if is not empty, false otherwise
+	 * @implNote Note that this method doesn't check if the list is null.
+	 * @deprecated Use {@link List#isEmpty()}
+	 */
+	@Deprecated
 	private boolean checkNonEmpty(@NonNull List var) {
 		return var.size() != 0;
 	}
 
+	/**
+	 * Updates the done status
+	 *
+	 * @param item     The item
+	 * @param button   The button to update the text
+	 * @param position The adapter position
+	 * @deprecated This should ideally be left up to the consumer, instead of handling it in the adapter
+	 */
+	@Deprecated
 	private void updateDoneStatus(@NonNull TaskItem item, final Button button, int position) {
 		if (item.isDone()) {
 			mFirestore.document("users/" + mUser.getUid() + "/todos/" + item.getId()).update("hasDone", false).addOnSuccessListener(aVoid -> {
-				Snackbar.make(snackbarView, "Task marked as undone.", Snackbar.LENGTH_LONG).show();
+				Snackbar.make(mSnackbarView, "Task marked as undone.", Snackbar.LENGTH_LONG).show();
 				notifyItemChanged(position);
 				button.setText(R.string.action_mark_as_done);
 			});
 		} else {
 			mFirestore.document("users/" + mUser.getUid() + "/todos/" + item.getId()).update("hasDone", true).addOnSuccessListener(aVoid -> {
-				Snackbar.make(snackbarView, "Task marked as done.", Snackbar.LENGTH_LONG).show();
+				Snackbar.make(mSnackbarView, "Task marked as done.", Snackbar.LENGTH_LONG).show();
 				notifyItemChanged(position);
 				button.setText(R.string.action_mark_as_undone);
 			});
 		}
 	}
 
+	/**
+	 * Sets the animation of the item view
+	 *
+	 * @param viewToAnimate The view to animate
+	 * @param position      The adapter position
+	 * @deprecated This doesn't really work.
+	 */
+	@Deprecated
 	private void setAnimation(View viewToAnimate, int position) {
 		// If the bound view wasn't previously displayed on screen, it's animated
 		if (position > lastPosition) {
@@ -98,13 +181,29 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 
 	@Override
 	public void onBindViewHolder(@NonNull TasksAdapter.Holder holder, final int position) {
-		final TaskItem item = mFeedItemList.get(position);
+		final TaskItem item = mTaskItemList.get(position);
+
+		holder.cardView.setOnClickListener(v -> {
+			if (mItemListener != null) {
+				mItemListener.onItemClick(item, position);
+			} else {
+				Log.w(TAG, "Please supply a listener for the item view!");
+			}
+		});
+
+		if (mSelectionTracker != null) {
+			if (mSelectionTracker.isSelected(holder.getItemDetails().getSelectionKey())) {
+				holder.itemView.setActivated(true);
+			} else {
+				holder.itemView.setActivated(false);
+			}
+		}
 		TextView itemTitle = holder.itemTitle;
 		// TextView itemDate = holder.itemDate;
 		TextView itemContent = holder.itemContent;
 		// ChipGroup itemProjects = holder.itemProjects;
 		// ChipGroup itemTags = holder.itemTags;
-		if (checkNonEmpty(item.getTitle())) {
+		if (TextUtils.isEmpty(item.getTitle())) {
 			itemTitle.setText(item.getTitle());
 		}
 		/*if (item.dueDate != null) {
@@ -131,36 +230,81 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 		}*/
 		final Button markAsDoneBtn = holder.markAsDoneBtn;
 		markAsDoneBtn.setText(R.string.action_mark_as_done);
-		markAsDoneBtn.setOnClickListener(view -> updateDoneStatus(item, markAsDoneBtn, position));
+		markAsDoneBtn.setOnClickListener(view -> {
+			if (mItemListener != null) {
+				if (mUseDeprecatedListener) {
+					updateDoneStatus(item, markAsDoneBtn, position);
+				} else {
+					mItemListener.onMarkAsDoneButtonClick(item, position);
+				}
+			} else {
+				if (!mUseDeprecatedListener) {
+					Log.w(TAG, "Please supply a listener for the mark as done button!");
+				} else {
+					updateDoneStatus(item, markAsDoneBtn, position);
+				}
+			}
+		});
 		Button deleteBtn = holder.deleteBtn;
 		deleteBtn.setOnClickListener(view -> {
-			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-			builder.setTitle("Delete todo?");
-			builder.setPositiveButton(R.string.dialog_action_ok, (dialogInterface, i) -> {
-				dialogInterface.dismiss();
-				deleteTask(item.getId(), position);
-			});
-			builder.setNegativeButton(R.string.dialog_action_cancel, (dialogInterface, i) -> dialogInterface.dismiss());
-			builder.show();
+			if (mItemListener != null) {
+				if (mUseDeprecatedListener) {
+					deleteTask(position);
+				} else {
+					mItemListener.onDeleteButtonClick(item, position);
+				}
+			} else {
+				if (!mUseDeprecatedListener) {
+					Log.w(TAG, "Please supply a listener for the delete button!");
+				} else {
+					if (mContext != null) {
+						MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
+						builder.setTitle("Delete todo?");
+						builder.setPositiveButton(R.string.dialog_action_ok, (dialogInterface, i) -> {
+							dialogInterface.dismiss();
+							deleteTask(item.getId(), position);
+						});
+						builder.setNegativeButton(R.string.dialog_action_cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+						builder.show();
+					} else {
+						Log.w(TAG, "Please supply a context for the dialog!");
+					}
+				}
+			}
 		});
 		setAnimation(holder.itemView, position);
 	}
 
+	/**
+	 * Deletes a task at a specific position
+	 *
+	 * @param position The adapter position
+	 * @deprecated This should ideally be left up to the consumer, instead of handling it in the adapter
+	 */
+	@Deprecated
 	public void deleteTask(int position) {
-		deleteTask(mFeedItemList.get(position).getId(), position);
+		deleteTask(mTaskItemList.get(position).getId(), position);
 	}
 
+	/**
+	 * Deletes a task at a specific position
+	 *
+	 * @param taskId   The document ID
+	 * @param position The adapter position
+	 * @deprecated This should ideally be left up to the consumer, instead of handling it in the adapter
+	 */
+	@Deprecated
 	public void deleteTask(String taskId, int position) {
-		TaskItem item = mFeedItemList.get(position);
+		TaskItem item = mTaskItemList.get(position);
 		SharedHelper.removeTask(taskId, mUser, mFirestore).addOnSuccessListener(aVoid -> {
 			notifyItemRemoved(position);
-			Snackbar.make(snackbarView, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo", view1 -> SharedHelper.addTask(item, mUser, mFirestore).addOnFailureListener(e -> Snackbar.make(snackbarView, "Couldn't restore todo: " + e.getMessage(), Snackbar.LENGTH_LONG).show())).show();
+			Snackbar.make(mSnackbarView, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo", view1 -> SharedHelper.addTask(item, mUser, mFirestore).addOnFailureListener(e -> Snackbar.make(mSnackbarView, "Couldn't restore todo: " + e.getMessage(), Snackbar.LENGTH_LONG).show())).show();
 		});
 	}
 
 	@Override
 	public int getItemCount() {
-		return mFeedItemList.size();
+		return mTaskItemList.size();
 	}
 
 	public class Holder extends RecyclerView.ViewHolder {
@@ -183,32 +327,51 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 			itemContent = view.findViewById(R.id.itemContent);
 			// itemProjects = view.findViewById(R.id.itemProjects);
 			// itemTags = view.findViewById(R.id.itemTags);
-			view.setOnClickListener(v -> {
-				int position = getAdapterPosition();
-				if (position != RecyclerView.NO_POSITION && mListener != null) {
-					mListener.onItemClick(mFirestore.document("users/" + mUser.getUid() + "/todos/" + mFeedItemList.get(position).getId()), position);
-				}
-			});
-			if (mSelectionTracker != null) {
-				if (mSelectionTracker.isSelected(getItemDetails().getSelectionKey())) {
-					view.setActivated(true);
-				} else {
-					view.setActivated(false);
-				}
-			}
 		}
 
+		/**
+		 * Retrieves the item details of the item
+		 *
+		 * @return The item details of the item
+		 */
 		public TaskItemLookup.ItemDetails<String> getItemDetails() {
-			return new TaskItemDetail(getAdapterPosition(), mFeedItemList.get(getAdapterPosition()).getId());
+			return new TaskItemDetail(getAdapterPosition(), mTaskItemList.get(getAdapterPosition()).getId());
 		}
 	}
 
 	public interface OnItemClickListener {
-		void onItemClick(DocumentReference document, int position);
+		/**
+		 * Called when the item view is clicked on
+		 *
+		 * @param item     The task item at this position
+		 * @param position The position of the adapter
+		 */
+		void onItemClick(TaskItem item, int position);
+
+		/**
+		 * Called when the delete button is clicked on
+		 *
+		 * @param item     The task item at this position
+		 * @param position The position of the adapter
+		 */
+		void onDeleteButtonClick(TaskItem item, int position);
+
+		/**
+		 * Called when the mark as done button is clicked on
+		 *
+		 * @param item     The task item at this position
+		 * @param position The position of the adapter
+		 */
+		void onMarkAsDoneButtonClick(TaskItem item, int position);
 	}
 
+	/**
+	 * Sets the on click listener for views in the holder
+	 *
+	 * @param listener The on click listener
+	 */
 	public void setOnItemClickListener(OnItemClickListener listener) {
-		this.mListener = listener;
+		this.mItemListener = listener;
 	}
 
 	/**

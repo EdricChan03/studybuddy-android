@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
@@ -44,6 +44,8 @@ import com.edricchan.studybuddy.adapter.itemkeyprovider.TaskItemKeyProvider;
 import com.edricchan.studybuddy.adapter.predicate.TaskItemPredicate;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -185,14 +187,14 @@ public class TodoFragment extends Fragment {
 		SharedHelper.setBottomAppBarFabOnClickListener(mParentActivity, v -> newTaskActivity());
 
 		// Handles swiping down to refresh logic
-		mSwipeRefreshLayout = mFragmentView.findViewById(R.id.recycler_swiperefresh);
+		mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 		// Sets a refreshing listener
 		mSwipeRefreshLayout.setOnRefreshListener(() -> {
 			mAdapter.notifyDataSetChanged();
 			loadTasksListHandler();
 		});
-		mRecyclerView = mFragmentView.findViewById(R.id.recycler_list);
+		mRecyclerView = findViewById(R.id.recyclerView);
 
 		// use this setting to improve performance if you know that changes
 		// in content do not change the layout size of the RecyclerView
@@ -213,7 +215,7 @@ public class TodoFragment extends Fragment {
 				mAdapter.deleteTask(viewHolder.getAdapterPosition());
 			}
 		}).attachToRecyclerView(mRecyclerView);
-		mFragmentView.findViewById(R.id.action_new_todo)
+		findViewById(R.id.actionNewTodo)
 				.setOnClickListener(v -> newTaskActivity());
 	}
 
@@ -235,8 +237,8 @@ public class TodoFragment extends Fragment {
 		mCurrentUser = mAuth.getCurrentUser();
 		if (mCurrentUser == null) {
 			Log.d(TAG, "Not logged in");
-			AlertDialog signInDialog = new AlertDialog.Builder(getContext())
-					.setTitle("Sign in")
+			MaterialAlertDialogBuilder signInDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+			signInDialogBuilder.setTitle("Sign in")
 					.setMessage("To access the content, please login or register for an account.")
 					.setPositiveButton(R.string.dialog_action_login, (dialogInterface, i) -> {
 						Intent loginIntent = new Intent(getContext(), LoginActivity.class);
@@ -249,8 +251,7 @@ public class TodoFragment extends Fragment {
 						dialogInterface.dismiss();
 					})
 					.setNegativeButton(R.string.dialog_action_cancel, (dialogInterface, i) -> dialogInterface.cancel())
-					.create();
-			signInDialog.show();
+					.show();
 
 		} else {
 			loadTasksList(mCurrentUser.getUid());
@@ -335,13 +336,65 @@ public class TodoFragment extends Fragment {
 				taskItemList.add(note);
 			}
 
-			mAdapter = new TasksAdapter(getContext(), taskItemList, mCurrentUser, mFirestore, mParentActivity.findViewById(R.id.coordinatorLayout));
+			mAdapter = new TasksAdapter(getContext(), taskItemList);
 			mRecyclerView.setAdapter(mAdapter);
-			mAdapter.setOnItemClickListener((document, position) -> {
-				Intent viewItemIntent = new Intent(getContext(), ViewTaskActivity.class);
-				viewItemIntent.putExtra("taskId", document.getId());
-				getContext().startActivity(viewItemIntent);
-			});
+			mAdapter
+					.setOnItemClickListener(new TasksAdapter.OnItemClickListener() {
+						@Override
+						public void onItemClick(TaskItem item, int position) {
+							Intent viewItemIntent = new Intent(getContext(), ViewTaskActivity.class);
+							viewItemIntent.putExtra("taskId", item.getId());
+							startActivity(viewItemIntent);
+						}
+
+						@Override
+						public void onDeleteButtonClick(TaskItem item, int position) {
+							MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
+							builder
+									.setTitle(R.string.todo_frag_delete_task_dialog_title)
+									.setMessage(R.string.todo_frag_delete_task_dialog_msg)
+									.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
+									.setPositiveButton(R.string.dialog_action_ok, (dialog, which) -> mFirestore.document("users/" + mCurrentUser.getUid() + "/todos/" + item.getId())
+											.delete()
+											.addOnCompleteListener(task -> {
+												if (task.isSuccessful()) {
+													Snackbar.make(
+															findViewById(R.id.coordinatorLayout),
+															"Successfully deleted todo!",
+															Snackbar.LENGTH_SHORT)
+															.show();
+													mAdapter.notifyItemRemoved(position);
+													dialog.dismiss();
+												} else {
+													Log.e(TAG, "An error occurred while attempting to delete the todo:", task.getException());
+												}
+											}))
+									.show();
+						}
+
+						@Override
+						public void onMarkAsDoneButtonClick(TaskItem item, int position) {
+							mFirestore.document("users/" + mCurrentUser.getUid() + "/todos/" + item.getId())
+									.update("isDone", !item.isDone())
+									.addOnCompleteListener(task -> {
+										if (task.isSuccessful()) {
+											Snackbar.make(
+													findViewById(R.id.coordinatorLayout),
+													"Successfully marked task as " + (!item.isDone() ? "done" : "undone") + "!",
+													Snackbar.LENGTH_SHORT)
+													.show();
+											mAdapter.notifyItemChanged(position);
+										} else {
+											Snackbar.make(
+													findViewById(R.id.coordinatorLayout),
+													"An error occurred while attempting to mark the todo as " + (!item.isDone() ? "done" : "undone"),
+													Snackbar.LENGTH_LONG)
+													.show();
+											Log.e(TAG, "An error occurred while attempting to mark the todo as " + (!item.isDone() ? "done" : "undone") + ":", task.getException());
+										}
+									});
+						}
+					});
 			mSelectionTracker = new SelectionTracker.Builder<>(
 					"selection-id",
 					mRecyclerView,
@@ -353,11 +406,11 @@ public class TodoFragment extends Fragment {
 			mSwipeRefreshLayout.setRefreshing(false);
 			if (documentSnapshots.isEmpty()) {
 				Log.d(TAG, "Empty!");
-				mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.VISIBLE);
+				findViewById(R.id.todoEmptyStateView).setVisibility(View.VISIBLE);
 				mSwipeRefreshLayout.setVisibility(View.GONE);
 			} else {
 				Log.d(TAG, "Not Empty!");
-				mFragmentView.findViewById(R.id.todos_empty_state_view).setVisibility(View.GONE);
+				findViewById(R.id.todoEmptyStateView).setVisibility(View.GONE);
 				mSwipeRefreshLayout.setVisibility(View.VISIBLE);
 			}
 			mActionModeCallback = new ActionMode.Callback() {
@@ -429,6 +482,11 @@ public class TodoFragment extends Fragment {
 		} else {
 			mFirestoreListener = collectionRef.addSnapshotListener(listener);
 		}
+	}
+
+
+	private <T extends View> T findViewById(@IdRes int id) {
+		return mFragmentView.findViewById(id);
 	}
 
 	/**

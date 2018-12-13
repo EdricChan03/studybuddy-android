@@ -80,7 +80,7 @@
 
 	<string name="app_desc">Study Buddy is an app that aims to help students in their studies. Some features of Study Buddy include a calendar, todos as well as cheatsheets.</string>
 
-	<string name="app_name" translatable="false">Study Buddy</string>
+	<string name="app_name">Study Buddy</string>
 
 	<string name="bottom_nav_calendar">Calendar</string>
 	<string name="bottom_nav_chat">Chat</string>
@@ -453,7 +453,10 @@
 	<string name="title_activity_updates">Updates</string>
 	<string name="title_activity_view_task">Task view</string>
 
-	<string name="todos_empty_state_head">All todos done!</string>
+	<string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is irreversible.</string>
+	<string name="todo_frag_delete_task_dialog_title">Delete task?</string>
+	<string name="todo_frag_empty_state_cta">New todo</string>
+	<string name="todo_frag_empty_state_head">All todos done!</string>
 
 	<string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
 	<string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve configured your settings to not download updates when on a cellular network.\nIf you still want to download the update, tap on "Download anyway".</string>
