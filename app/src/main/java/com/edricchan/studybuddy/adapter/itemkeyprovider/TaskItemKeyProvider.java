@@ -1,11 +1,9 @@
 package com.edricchan.studybuddy.adapter.itemkeyprovider;
 
 import android.os.Build;
-import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.collection.LongSparseArray;
 import androidx.recyclerview.selection.ItemKeyProvider;
 
 import com.edricchan.studybuddy.interfaces.TaskItem;
@@ -18,8 +16,6 @@ import java8.util.stream.IntStreams;
 public class TaskItemKeyProvider extends ItemKeyProvider<String> {
 
 	private final List<TaskItem> itemList;
-	private final SparseArray<Long> mPositionToKey = new SparseArray<>();
-	private final LongSparseArray<Integer> mKeyToPosition = new LongSparseArray<>();
 
 	/**
 	 * Creates a new provider with the given scope.
