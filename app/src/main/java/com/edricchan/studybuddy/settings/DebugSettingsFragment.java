@@ -28,6 +28,7 @@ import com.edricchan.studybuddy.SharedHelper;
 import com.edricchan.studybuddy.interfaces.NotificationAction;
 import com.edricchan.studybuddy.interfaces.NotificationRequest;
 import com.edricchan.studybuddy.utils.DataUtil;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -82,7 +83,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 						dialogMsg = "No current signed-in Firebase user exists!";
 					}
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 					builder.setTitle(R.string.debug_activity_account_info_title)
 							.setMessage(dialogMsg)
 							.setPositiveButton(R.string.dialog_action_dismiss, (dialog, which) -> dialog.dismiss())
@@ -91,7 +92,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 				});
 		findPreference(DataUtil.debugCrashApp)
 				.setOnPreferenceClickListener(preference -> {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 					builder.setTitle(R.string.debug_activity_confirm_crash_app_dialog_title)
 							.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
 							.setPositiveButton(R.string.dialog_action_crash, (dialog, which) -> mCrashlytics.crash())
@@ -110,7 +111,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 
 					final RadioGroup priorityRadioGroup = debugSendNotificationDialogView.findViewById(R.id.priorityRadioGroup);
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 					builder.setTitle(R.string.debug_activity_send_notification_title)
 							.setView(debugSendNotificationDialogView)
 							.setIcon(R.drawable.ic_send_24dp)
@@ -274,7 +275,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 				});
 		findPreference(DataUtil.debugResetInstanceId)
 				.setOnPreferenceClickListener(preference -> {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 					builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
 							.setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
 							.setPositiveButton(R.string.dialog_action_ok, (dialog, which) -> {
@@ -294,7 +295,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 
 	}
 
-	private AlertDialog.Builder createSdkInfoDialog() {
+	private MaterialAlertDialogBuilder createSdkInfoDialog() {
 		String dialogMsg = "";
 
 		final int deviceSdk = Build.VERSION.SDK_INT;
@@ -306,14 +307,14 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 				dialogMsg += "\nPreview SDK: " + previewSdkInt;
 			}
 		}
-		return new AlertDialog.Builder(getContext())
+		return new MaterialAlertDialogBuilder(getContext())
 				.setTitle(R.string.debug_activity_device_sdk_info_dialog_title)
 				.setMessage(dialogMsg)
 				.setPositiveButton(R.string.dialog_action_dismiss, (dialog, which) -> dialog.dismiss());
 	}
 
 	@SuppressLint("SwitchIntDef")
-	private AlertDialog.Builder createNightModeInfoDialog() {
+	private MaterialAlertDialogBuilder createNightModeInfoDialog() {
 		String dialogMsg = "";
 
 		final int defaultNightMode = AppCompatDelegate.getDefaultNightMode();
@@ -347,13 +348,13 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 				dialogMsg += "\nIs location permission granted: Unknown";
 				break;
 		}
-		return new AlertDialog.Builder(getContext())
+		return new MaterialAlertDialogBuilder(getContext())
 				.setTitle(R.string.debug_activity_night_mode_info_dialog_title)
 				.setMessage(dialogMsg)
 				.setPositiveButton(R.string.dialog_action_dismiss, (dialog, which) -> dialog.dismiss());
 	}
 
-	private AlertDialog.Builder createConnectivityInfoDialog() {
+	private MaterialAlertDialogBuilder createConnectivityInfoDialog() {
 		String dialogMsg = "";
 
 		final boolean isNetworkMetered = mConnectivityManager.isActiveNetworkMetered();
@@ -373,14 +374,14 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 				dialogMsg += "\nIs network permission granted: Unknown";
 				break;
 		}
-		return new AlertDialog.Builder(getContext())
+		return new MaterialAlertDialogBuilder(getContext())
 				.setTitle(R.string.debug_activity_connectivity_info_dialog_title)
 				.setMessage(dialogMsg)
 				.setPositiveButton(R.string.dialog_action_dismiss, (dialog, which) -> dialog.dismiss());
 	}
 
 	private void showDeviceInfoDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+		MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 		builder.setTitle(R.string.debug_activity_device_info_title)
 				.setItems(R.array.debug_activity_device_info_array, (dialog, which) -> {
 					switch (which) {
