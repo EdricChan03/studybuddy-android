@@ -12,12 +12,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,7 +66,8 @@ public class ViewTaskActivity extends AppCompatActivity {
 		mCurrentUser = mAuth.getCurrentUser();
 		if (mCurrentUser == null) {
 			Log.d(TAG, "Not logged in");
-			AlertDialog signInDialog = new AlertDialog.Builder(this)
+			MaterialAlertDialogBuilder signInDialogBuilder = new MaterialAlertDialogBuilder(this);
+			signInDialogBuilder
 					.setTitle("Sign in")
 					.setMessage("To access the content, please login or register for an account.")
 					.setPositiveButton(R.string.dialog_action_login, (dialogInterface, i) -> {
@@ -80,9 +81,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 						dialogInterface.dismiss();
 					})
 					.setNegativeButton(R.string.dialog_action_cancel, (dialogInterface, i) -> dialogInterface.cancel())
-					.create();
-			signInDialog.show();
-
+					.show();
 		} else {
 			loadTask();
 		}
@@ -115,7 +114,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 				onBackPressed();
 				return true;
 			case R.id.action_delete:
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 				builder.setTitle("Delete todo?")
 						.setPositiveButton(R.string.dialog_action_ok, (dialog, which) -> {
 							mFirestore.document("users/" + mCurrentUser.getUid() + "/todos/" + mTaskId)
