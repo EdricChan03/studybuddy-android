@@ -15,13 +15,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.TooltipCompat;
 
 import com.edricchan.studybuddy.adapter.TaskProjectSpinnerAdapter;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.edricchan.studybuddy.interfaces.TaskProject;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
@@ -139,7 +139,7 @@ public class NewTaskActivity extends AppCompatActivity {
 					View editTextDialogView = getLayoutInflater().inflate(R.layout.edit_text_dialog, null);
 					final TextInputLayout textInputLayout = editTextDialogView.findViewById(R.id.textInputLayout);
 					SharedHelper.getEditText(textInputLayout).setHint("Project name");
-					AlertDialog.Builder builder = new AlertDialog.Builder(NewTaskActivity.this);
+					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(NewTaskActivity.this);
 					builder.setTitle("New project")
 							.setView(editTextDialogView)
 							.setPositiveButton(R.string.dialog_action_create, (dialog, which) -> {
