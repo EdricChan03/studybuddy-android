@@ -65,7 +65,7 @@ If you want to access the web version, please head to <http://studybuddy-e5f46.f
 - [ ] Improve on contributing guide
   - [ ] Add testing infrastructure
   - [ ] Improve on code of conduct]
-- Reword/improve readme
+- [ ] Reword/improve readme
   - [ ] Use a linter to lint Markdown files
 - [ ] Release v1.0.0
 
