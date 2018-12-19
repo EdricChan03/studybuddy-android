@@ -1,5 +1,7 @@
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-	<!-- TODO: Add A/B testing for this summary feature -->
+	<SwitchPreferenceCompat
+		app:key="pref_show_header_summary"
+		app:title="@string/pref_show_header_summary_title" />
 	<Preference
 		app:fragment="com.edricchan.studybuddy.settings.GeneralSettingsFragment"
 		app:icon="@drawable/ic_settings_24dp"

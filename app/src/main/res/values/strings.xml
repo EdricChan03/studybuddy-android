@@ -316,6 +316,8 @@
 	<string name="pref_manual_sync_summary">Tap here to sync manually</string>
 	<string name="pref_manual_sync_title">Manual sync</string>
 
+	<string name="pref_show_header_summary_title">Show header summaries</string>
+
 	<string name="pref_source_code_desc">View source code on Github</string>
 	<string name="pref_source_code_title">Source code</string>
 

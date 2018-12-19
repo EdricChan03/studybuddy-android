@@ -19,6 +19,9 @@ public class DataUtil {
 	public static final String prefHeaderVersion = prefHeaderAbout;
 	public static final String prefHeaderAccount = "pref_header_account";
 
+	// Preferences
+	public static final String prefShowHeaderSummary = "pref_show_header_summary";
+
 	// Preferences > General
 	public static final String prefCategoryGeneral = "pref_category_general";
 	public static final String prefCategoryTheme = "pref_category_theme";
@@ -46,7 +49,7 @@ public class DataUtil {
 	public static final String prefWeeklySummaryTime = "pref_weekly_summary_time";
 	public static final String prefWeeklySummaryList = "pref_weekly_summary_list";
 	public static final String prefWeeklySummaryNotificationOpts = "pref_weekly_summary_notification_opts";
-	// Prefrences > About
+	// Preferences > About
 	public static final String prefCategoryAbout = "pref_category_about";
 	public static final String prefUpdates = "pref_updates";
 	/**
