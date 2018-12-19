@@ -23,7 +23,7 @@ The purpose of this app is to help teens, especially students, with their studie
 
 ## Open source
 
-This is a personal project that I created and is 100% open-source. It also uses the following dependencies (see [build.gradle](app/build.gradle) for all the dependencies):
+This is a personal project that I created and is 100% open-source (well, except for cloud-syncing). It also uses the following dependencies (see [build.gradle](app/build.gradle) for all the dependencies):
 
 ---
 
@@ -47,12 +47,26 @@ If you want to access the web version, please head to <http://studybuddy-e5f46.f
 
 # Roadmap
 
+## Quarter 1 2019
+
 - [ ] Improve navigation UX
+  - [x] Initial navigation UI
+  - [ ] Use Architecture components
 - [x] Add working update functionality
-- [ ] Revamp/Redesign app
+- [x] Revamp/Redesign app (WIP)
+  - Note: This todo is currently blocked by a broken todo fragment
 - [ ] Add working chat, tip and calendar
 - [ ] Improve authentication logic
-- [ ] Change whole project to use Kotlin
+  - [x] Add account management
+  - [ ] Improve UX/UI on sign in/sign up screen
+  - [ ] Add support for other platforms
+- [ ] Migrate project to Kotlin
+- [ ] Initial privacy policy
+- [ ] Improve on contributing guide
+  - [ ] Add testing infrastructure
+  - [ ] Improve on code of conduct]
+- Reword/improve readme
+  - [ ] Use a linter to lint Markdown files
 - [ ] Release v1.0.0
 
 # Screenshots
