@@ -6,36 +6,48 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ItemKeyProvider;
 
+import com.edricchan.studybuddy.SharedHelper;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 import java8.util.stream.IntStreams;
 
 public class TaskItemKeyProvider extends ItemKeyProvider<String> {
 
-	private final List<TaskItem> itemList;
+	private final List<TaskItem> mItemList;
+	private final Map<String, Integer> mKeyToPosition;
+	private static final String TAG = SharedHelper.getTag(TaskItemKeyProvider.class);
 
 	/**
-	 * Creates a new provider with the given scope.
+	 * Creates a new provider.
 	 *
-	 * @param scope Scope can't be changed at runtime.
+	 * @param itemList The list of tasks
 	 */
-	public TaskItemKeyProvider(@Scope int scope, List<TaskItem> itemList) {
-		super(scope);
-		this.itemList = itemList;
+	public TaskItemKeyProvider(List<TaskItem> itemList) {
+		super(SCOPE_CACHED);
+		this.mItemList = itemList;
+		this.mKeyToPosition = new HashMap<>(mItemList.size());
+		int i = 0;
+		for (TaskItem item : itemList) {
+			mKeyToPosition.put(item.getId(), i);
+			i++;
+		}
+
 	}
 
 	@Nullable
 	@Override
 	public String getKey(int position) {
-		return itemList.get(position).getId();
+		return mItemList.get(position).getId();
 	}
 
 	@Override
 	public int getPosition(@NonNull String key) {
-		return getTaskItemPosition(itemList, key);
+		return mKeyToPosition.get(key);
 	}
 
 	/**
@@ -45,6 +57,7 @@ public class TaskItemKeyProvider extends ItemKeyProvider<String> {
 	 * @param id   The ID of the document
 	 * @return The position of the first occurrence of the document ID
 	 */
+	@Deprecated
 	private int getTaskItemPosition(final List<TaskItem> list, final String id) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 			return IntStream.range(0, list.size())

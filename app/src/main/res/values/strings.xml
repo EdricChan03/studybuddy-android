@@ -430,6 +430,9 @@
 
 	<string name="snackbar_user_login">Signed in as %1$s</string>
 
+	<string name="task_adapter_empty_content">&lt;No content&gt;</string>
+	<string name="task_adapter_empty_title">&lt;No title&gt;</string>
+
 	<string name="task_content">Task Content</string>
 
 	<string name="task_project_create">Create a project…</string>
@@ -455,6 +458,8 @@
 	<string name="title_activity_updates">Updates</string>
 	<string name="title_activity_view_task">Task view</string>
 
+	<string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is irreversible and that it may take a while to delete the selected tasks.</string>
+	<string name="todo_frag_delete_selected_tasks_dialog_title">Delete selected tasks?</string>
 	<string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is irreversible.</string>
 	<string name="todo_frag_delete_task_dialog_title">Delete task?</string>
 	<string name="todo_frag_empty_state_cta">New todo</string>

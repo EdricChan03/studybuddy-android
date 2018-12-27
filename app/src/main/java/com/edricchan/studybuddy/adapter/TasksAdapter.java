@@ -12,13 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.selection.SelectionTracker;
+import androidx.recyclerview.selection.OnItemActivatedListener;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SharedHelper;
-import com.edricchan.studybuddy.adapter.itemdetails.TaskItemDetail;
-import com.edricchan.studybuddy.adapter.itemdetailslookup.TaskItemLookup;
+import com.edricchan.studybuddy.adapter.itemdetails.TaskItemDetails;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -40,7 +39,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 	private static final String TAG = SharedHelper.getTag(TasksAdapter.class);
 	private int lastPosition = 1;
 	private OnItemClickListener mItemListener;
-	private SelectionTracker<String> mSelectionTracker;
 	private boolean mUseDeprecatedListener;
 
 	/**
@@ -59,7 +57,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 	 * @param context               The context
 	 * @param taskItemList          The list of items to show
 	 * @param useDeprecatedListener Whether to use the deprecated listener methods
-	 * @throws IllegalStateException If <code>useDeprecatedListener</code>, this throws as such operations are unsupported.
+	 * @throws IllegalStateException If <code>useDeprecatedListener</code> is set to <code>true</code>, this throws as such operations are unsupported.
 	 */
 	public TasksAdapter(Context context, List<TaskItem> taskItemList, boolean useDeprecatedListener) throws IllegalStateException {
 		mTaskItemList = taskItemList;
@@ -183,36 +181,25 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 	public void onBindViewHolder(@NonNull TasksAdapter.Holder holder, final int position) {
 		final TaskItem item = mTaskItemList.get(position);
 
-		holder.cardView.setOnClickListener(v -> {
-			if (mItemListener != null) {
-				mItemListener.onItemClick(item, position);
-			} else {
-				Log.w(TAG, "Please supply a listener for the item view!");
-			}
-		});
-
-		if (mSelectionTracker != null) {
-			if (mSelectionTracker.isSelected(holder.getItemDetails().getSelectionKey())) {
-				holder.itemView.setActivated(true);
-			} else {
-				holder.itemView.setActivated(false);
-			}
-		}
 		TextView itemTitle = holder.itemTitle;
 		// TextView itemDate = holder.itemDate;
 		TextView itemContent = holder.itemContent;
 		// ChipGroup itemProjects = holder.itemProjects;
 		// ChipGroup itemTags = holder.itemTags;
-		if (TextUtils.isEmpty(item.getTitle())) {
+		if (!TextUtils.isEmpty(item.getTitle())) {
 			itemTitle.setText(item.getTitle());
+		} else {
+			itemTitle.setText(R.string.task_adapter_empty_title);
 		}
 		/*if (item.dueDate != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.ENGLISH);
 			String date = dateFormat.format(item.dueDate.toDate().getTime());
 			itemDate.setText(date);
 		}*/
-		if (checkStringNonNull(item.getContent())) {
+		if (!TextUtils.isEmpty(item.getContent())) {
 			Markwon.setMarkdown(itemContent, item.getContent());
+		} else {
+			itemContent.setText(R.string.task_adapter_empty_content);
 		}
 		/*if (checkNonEmpty(item.projects)) {
 			for (String project : item.projects) {
@@ -272,7 +259,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 				}
 			}
 		});
-		setAnimation(holder.itemView, position);
+		if (mUseDeprecatedListener) {
+			setAnimation(holder.itemView, position);
+		}
 	}
 
 	/**
@@ -316,6 +305,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 		Button markAsDoneBtn;
 		Button deleteBtn;
 		MaterialCardView cardView;
+		TaskItemDetails itemDetail;
 
 		public Holder(View view) {
 			super(view);
@@ -327,6 +317,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 			itemContent = view.findViewById(R.id.itemContent);
 			// itemProjects = view.findViewById(R.id.itemProjects);
 			// itemTags = view.findViewById(R.id.itemTags);
+			try {
+				itemDetail = new TaskItemDetails(getAdapterPosition(), mTaskItemList.get(getAdapterPosition()).getId());
+			} catch (IndexOutOfBoundsException e) {
+				Log.e(TAG, "An error occurred while attempting to set the item details:", e);
+			}
 		}
 
 		/**
@@ -334,8 +329,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 		 *
 		 * @return The item details of the item
 		 */
-		public TaskItemLookup.ItemDetails<String> getItemDetails() {
-			return new TaskItemDetail(getAdapterPosition(), mTaskItemList.get(getAdapterPosition()).getId());
+		public TaskItemDetails getItemDetails() {
+			return itemDetail;
 		}
 	}
 
@@ -345,7 +340,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 		 *
 		 * @param item     The task item at this position
 		 * @param position The position of the adapter
+		 * @deprecated Use {@link androidx.recyclerview.selection.SelectionTracker.Builder#withOnItemActivatedListener(OnItemActivatedListener)}
 		 */
+		@Deprecated
 		void onItemClick(TaskItem item, int position);
 
 		/**
@@ -372,14 +369,5 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 	 */
 	public void setOnItemClickListener(OnItemClickListener listener) {
 		this.mItemListener = listener;
-	}
-
-	/**
-	 * Sets the selection tracker for this adapter
-	 *
-	 * @param selectionTracker The selection tracker
-	 */
-	public void setSelectionTracker(SelectionTracker<String> selectionTracker) {
-		this.mSelectionTracker = selectionTracker;
 	}
 }

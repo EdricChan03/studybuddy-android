@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-import androidx.recyclerview.selection.ItemKeyProvider;
+import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -41,7 +42,6 @@ import com.edricchan.studybuddy.ViewTaskActivity;
 import com.edricchan.studybuddy.adapter.TasksAdapter;
 import com.edricchan.studybuddy.adapter.itemdetailslookup.TaskItemLookup;
 import com.edricchan.studybuddy.adapter.itemkeyprovider.TaskItemKeyProvider;
-import com.edricchan.studybuddy.adapter.predicate.TaskItemPredicate;
 import com.edricchan.studybuddy.interfaces.TaskItem;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -59,6 +59,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
+
+import java8.util.stream.IntStreams;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -90,7 +93,7 @@ public class TodoFragment extends Fragment {
 	private static final String SHARED_PREFS_FILE = "TodoFragPrefs";
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_new_todo:
 				newTaskActivity();
@@ -179,6 +182,10 @@ public class TodoFragment extends Fragment {
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		if (savedInstanceState != null && mSelectionTracker != null) {
+			mSelectionTracker.onRestoreInstanceState(savedInstanceState);
+		}
+
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 		mTodoFragPrefs = Objects.requireNonNull(getContext()).getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE);
 		mFirestore = FirebaseFirestore.getInstance();
@@ -217,6 +224,14 @@ public class TodoFragment extends Fragment {
 		}).attachToRecyclerView(mRecyclerView);
 		findViewById(R.id.actionNewTodo)
 				.setOnClickListener(v -> newTaskActivity());
+	}
+
+	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (mSelectionTracker != null) {
+			mSelectionTracker.onSaveInstanceState(outState);
+		}
 	}
 
 	@Override
@@ -359,7 +374,7 @@ public class TodoFragment extends Fragment {
 											.addOnCompleteListener(task -> {
 												if (task.isSuccessful()) {
 													Snackbar.make(
-															findViewById(R.id.coordinatorLayout),
+															findParentActivityViewById(R.id.coordinatorLayout),
 															"Successfully deleted todo!",
 															Snackbar.LENGTH_SHORT)
 															.show();
@@ -379,14 +394,14 @@ public class TodoFragment extends Fragment {
 									.addOnCompleteListener(task -> {
 										if (task.isSuccessful()) {
 											Snackbar.make(
-													findViewById(R.id.coordinatorLayout),
+													findParentActivityViewById(R.id.coordinatorLayout),
 													"Successfully marked task as " + (!item.isDone() ? "done" : "undone") + "!",
 													Snackbar.LENGTH_SHORT)
 													.show();
 											mAdapter.notifyItemChanged(position);
 										} else {
 											Snackbar.make(
-													findViewById(R.id.coordinatorLayout),
+													findParentActivityViewById(R.id.coordinatorLayout),
 													"An error occurred while attempting to mark the todo as " + (!item.isDone() ? "done" : "undone"),
 													Snackbar.LENGTH_LONG)
 													.show();
@@ -395,14 +410,22 @@ public class TodoFragment extends Fragment {
 									});
 						}
 					});
-			mSelectionTracker = new SelectionTracker.Builder<>(
-					"selection-id",
-					mRecyclerView,
-					new TaskItemKeyProvider(ItemKeyProvider.SCOPE_MAPPED, taskItemList),
-					new TaskItemLookup(mRecyclerView),
-					StorageStrategy.createStringStorage())
-					.withSelectionPredicate(new TaskItemPredicate())
-					.build();
+			if (mSelectionTracker == null) {
+				mSelectionTracker = new SelectionTracker.Builder<>(
+						"selection-id",
+						mRecyclerView,
+						new TaskItemKeyProvider(taskItemList),
+						new TaskItemLookup(mRecyclerView),
+						StorageStrategy.createStringStorage())
+						.withOnItemActivatedListener((item, event) -> {
+							Intent viewItemIntent = new Intent(getContext(), ViewTaskActivity.class);
+							viewItemIntent.putExtra("taskId", taskItemList.get(item.getPosition()).getId());
+							startActivity(viewItemIntent);
+							return true;
+						})
+						.withSelectionPredicate(SelectionPredicates.createSelectAnything())
+						.build();
+			}
 			mSwipeRefreshLayout.setRefreshing(false);
 			if (documentSnapshots.isEmpty()) {
 				Log.d(TAG, "Empty!");
@@ -427,8 +450,6 @@ public class TodoFragment extends Fragment {
 						if (mSelectionTracker.getSelection().size() == taskItemList.size()) {
 							menu.removeItem(R.id.cab_action_select_all);
 						}
-						mode.setTitle(R.string.cab_title);
-						mode.setSubtitle(getResources().getQuantityString(R.plurals.cab_subtitle, mSelectionTracker.getSelection().size(), mSelectionTracker.getSelection().size()));
 					}
 					return true;
 				}
@@ -437,18 +458,31 @@ public class TodoFragment extends Fragment {
 				public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 					switch (item.getItemId()) {
 						case R.id.cab_action_delete_selected:
-							for (String id : mSelectionTracker.getSelection()) {
-								mFirestore.document("users/" + mCurrentUser.getUid() + "/todos/" + id)
-										.delete()
-										.addOnCompleteListener(task -> {
-											if (task.isSuccessful()) {
-												Log.d(TAG, "Successfully deleted todo!");
-											} else {
-												Log.e(TAG, "An error occurred while attempting to delete the todo at ID " + id, task.getException());
-												Toast.makeText(mParentActivity, "An error occurred while attempting to delete the todo at ID " + id, Toast.LENGTH_SHORT).show();
-											}
-										});
-							}
+							MaterialAlertDialogBuilder confirmBuilder = new MaterialAlertDialogBuilder(getContext());
+							confirmBuilder
+									.setTitle(R.string.todo_frag_delete_selected_tasks_dialog_title)
+									.setMessage(R.string.todo_frag_delete_selected_tasks_dialog_msg)
+									.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> {
+										mode.finish();
+										dialog.dismiss();
+									})
+									.setPositiveButton(R.string.dialog_action_ok, (dialog, which) -> {
+										for (String id : mSelectionTracker.getSelection()) {
+											mFirestore.document("users/" + mCurrentUser.getUid() + "/todos/" + id)
+													.delete()
+													.addOnCompleteListener(task -> {
+														if (task.isSuccessful()) {
+															Log.d(TAG, "Successfully deleted todo!");
+															mAdapter.notifyItemRemoved(getTaskItemPosition(taskItemList, id));
+														} else {
+															Log.e(TAG, "An error occurred while attempting to delete the todo at ID " + id + ":", task.getException());
+															Toast.makeText(mParentActivity, "An error occurred while attempting to delete the todo at ID " + id, Toast.LENGTH_SHORT).show();
+														}
+													});
+										}
+										dialog.dismiss();
+									})
+									.show();
 							return true;
 						case R.id.cab_action_select_all:
 							Toast.makeText(mParentActivity, "Not implemented!", Toast.LENGTH_SHORT).show();
@@ -470,7 +504,12 @@ public class TodoFragment extends Fragment {
 						@Override
 						public void onSelectionChanged() {
 							super.onSelectionChanged();
-							mParentActivity.startSupportActionMode(mActionModeCallback);
+							Log.d(TAG, "Current size of selection: " + mSelectionTracker.getSelection().size());
+							if (mSelectionTracker.hasSelection()) {
+								ActionMode mode = mParentActivity.startSupportActionMode(mActionModeCallback);
+								mode.setTitle(R.string.cab_title);
+								mode.setSubtitle(getResources().getQuantityString(R.plurals.cab_subtitle, mSelectionTracker.getSelection().size(), mSelectionTracker.getSelection().size()));
+							}
 						}
 					});
 		};
@@ -484,6 +523,32 @@ public class TodoFragment extends Fragment {
 		}
 	}
 
+
+	/**
+	 * Gets the position of the first occurrence of the document ID
+	 *
+	 * @param list The list to get the position for
+	 * @param id   The ID of the document
+	 * @return The position of the first occurrence of the document ID
+	 */
+	private int getTaskItemPosition(final List<TaskItem> list, final String id) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			return IntStream.range(0, list.size())
+					.filter(index -> list.get(index).getId().equals(id))
+					.findFirst()
+					.orElse(-1);
+		} else {
+			return IntStreams
+					.range(0, list.size())
+					.filter(index -> list.get(index).getId().equals(id))
+					.findFirst()
+					.orElse(-1);
+		}
+	}
+
+	private <T extends View> T findParentActivityViewById(@IdRes int id) {
+		return mParentActivity.findViewById(id);
+	}
 
 	private <T extends View> T findViewById(@IdRes int id) {
 		return mFragmentView.findViewById(id);
