@@ -17,7 +17,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private var preferences: SharedPreferences? = null
 
-	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String) {
+	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_headers, rootKey)
 		preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
 		if (BuildConfig.DEBUG) {
