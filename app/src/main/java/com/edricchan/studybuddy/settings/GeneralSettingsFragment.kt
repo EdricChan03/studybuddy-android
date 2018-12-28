@@ -19,7 +19,7 @@ class GeneralSettingsFragment : PreferenceFragmentCompat() {
 	private var prefDayNightGrantPerm: Preference? = null
 	private var prefCategoryTheme: PreferenceCategory? = null
 
-	override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_general, rootKey)
 		prefDayNightGrantPerm = findPreference(DataUtil.prefDaynightGrantPerm)
 		prefDayNightPermInfo = findPreference(DataUtil.prefDayNightPermInfo)
