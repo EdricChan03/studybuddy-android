@@ -5,19 +5,15 @@ import android.text.TextUtils
 
 import androidx.annotation.ColorRes
 
-// Default constructor for Cloud Firestore
+/**
+ * A task project
+ * @property color The color/colour of this project as a hexadecimal value
+ * @property id The document ID of this project
+ * @property name The name of this project
+ */
 data class TaskProject(
-		/**
-		 * Specifies the color/colour (as a hexadecimal color/colour) of the project
-		 */
 		var color: String? = null,
-		/**
-		 * Specifies the document ID of the project
-		 */
 		var id: String? = null,
-		/**
-		 * Specifies the name of the project
-		 */
 		var name: String? = null
 ) {
 	class Builder {
