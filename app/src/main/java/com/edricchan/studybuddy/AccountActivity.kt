@@ -201,8 +201,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 	private fun updateEmail(parentDialog: DialogInterface) {
 		val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
 		val textInputLayout = promptDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
-		SharedHelper.getEditText(textInputLayout)!!
-				.setHint(R.string.account_activity_new_email_dialog_edittext_title)
+		textInputLayout.editText?.setHint(R.string.account_activity_new_email_dialog_edittext_title)
 		// TODO: Add check for email address
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setView(promptDialogView)
@@ -226,8 +225,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 	private fun updateName(parentDialog: DialogInterface) {
 		val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
 		val textInputLayout = promptDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
-		SharedHelper.getEditText(textInputLayout)!!
-				.setHint(R.string.account_activity_new_name_dialog_edittext_title)
+		textInputLayout.editText?.setHint(R.string.account_activity_new_name_dialog_edittext_title)
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_name_dialog_title)
@@ -252,8 +250,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 	private fun updatePassword(parentDialog: DialogInterface) {
 		val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
 		val textInputLayout = promptDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
-		SharedHelper.getEditText(textInputLayout)!!
-				.setHint(R.string.account_activity_new_password_dialog_edittext_title)
+		textInputLayout.editText?.setHint(R.string.account_activity_new_password_dialog_edittext_title)
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_password_dialog_title)
