@@ -5,19 +5,13 @@ import android.text.TextUtils
 
 /**
  * A Kotlin class representation of the JSON schema
+ * @property version The version of the schema to use
+ * @property `$schema` The schema's URL
+ * @property articles The list of help articles
  */
 data class HelpArticles(
-		/**
-		 * The version of the schema to use
-		 */
 		var version: Int? = 0,
-		/**
-		 * The schema's URL
-		 */
 		var `$schema`: String? = null,
-		/**
-		 * The list of help articles
-		 */
 		var articles: Array<HelpArticle>? = null
 ) {
 	// I don't think people would actually use this class.
