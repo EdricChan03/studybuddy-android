@@ -52,19 +52,19 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
-class SharedHelper {
+/**
+ * Shared utility methods
+ * @property context The context used for non-static methods
+ */
+class SharedHelper
+(
+		context: Context
+) {
 	// Context
-	private val mContext: Context
+	private val mContext: Context = context
 	// Since IDs 0 and 1 have been taken, use 2
 	private val dynamicId = 2
 	private val atomicInteger = AtomicInteger(dynamicId)
-
-	/**
-	 * @param context The context used for all methods
-	 */
-	constructor(context: Context) {
-		this.mContext = context
-	}
 
 	/**
 	 * Dynamically creates a new ID for use with Android's notification manager
