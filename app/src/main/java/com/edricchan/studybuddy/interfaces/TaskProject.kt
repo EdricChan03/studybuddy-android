@@ -26,7 +26,7 @@ data class TaskProject(
 		 * @return True if it is valid, false otherwise
 		 */
 		private fun checkValidRGBCode(code: Int): Boolean {
-			return code >= 0 && code <= 255
+			return code in 0..255
 		}
 
 		/**
