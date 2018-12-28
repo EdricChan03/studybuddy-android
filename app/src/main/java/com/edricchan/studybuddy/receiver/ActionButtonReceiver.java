@@ -11,6 +11,7 @@ import android.os.Environment;
 
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SharedHelper;
+import com.edricchan.studybuddy.utils.DataUtil;
 
 public class ActionButtonReceiver extends BroadcastReceiver {
 	@Override
@@ -18,11 +19,11 @@ public class ActionButtonReceiver extends BroadcastReceiver {
 		String TAG = "ActionButtonReceiver";
 		String action = intent.getStringExtra("action");
 		switch (action) {
-			case SharedHelper.Companion.getACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER():
+			case DataUtil.actionNotificationsStartDownloadReceiver:
 				checkPermission(context, intent);
 				// Register receiver for when .apk download is compete
 				break;
-			case SharedHelper.Companion.getACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER():
+			case DataUtil.actionNotificationsRetryCheckForUpdateReceiver:
 				SharedHelper.Companion.checkForUpdates(context);
 				break;
 		}
