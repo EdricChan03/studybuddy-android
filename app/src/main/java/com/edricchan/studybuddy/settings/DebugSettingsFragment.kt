@@ -107,11 +107,11 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					builder.setTitle(R.string.debug_activity_send_notification_title)
 							.setView(debugSendNotificationDialogView)
 							.setIcon(R.drawable.ic_send_24dp)
-							.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-							.setPositiveButton(R.string.dialog_action_send) { dialog, which ->
-								if (SharedHelper.getEditTextString(userOrTopicTextInputLayout).trim { it <= ' ' }.length > 0 &&
-										SharedHelper.getEditTextString(titleTextInputLayout).trim { it <= ' ' }.length > 0 &&
-										SharedHelper.getEditTextString(bodyTextInputLayout).trim { it <= ' ' }.length > 0) {
+							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+							.setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
+								if (SharedHelper.getEditTextString(userOrTopicTextInputLayout).isNotEmpty() &&
+										SharedHelper.getEditTextString(titleTextInputLayout).isNotEmpty() &&
+										SharedHelper.getEditTextString(bodyTextInputLayout).isNotEmpty()) {
 									// TODO: Cleanup code
 									Log.d(TAG, "Value of bodyTextInputEditText: \"" + SharedHelper.getEditTextString(bodyTextInputLayout) + "\"")
 									Log.d(TAG, "Value of channelIdTextInputEditText: \"" + SharedHelper.getEditTextString(channelIdTextInputLayout) + "\"")
