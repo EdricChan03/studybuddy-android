@@ -778,7 +778,7 @@ class SharedHelper {
 								// New update
 								val intentAction = Intent(context, ActionButtonReceiver::class.java)
 
-								intentAction.putExtra("action", ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER)
+								intentAction.putExtra("action", DataUtil.actionNotificationsStartDownloadReceiver)
 								intentAction.putExtra("downloadUrl", update.urlToDownload.toString())
 								intentAction.putExtra("version", update.latestVersion)
 								val pIntentDownload = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -788,7 +788,7 @@ class SharedHelper {
 										.setOngoing(false)
 										.setChannelId(context.getString(R.string.notification_channel_update_available_id))
 										.addAction(NotificationCompat.Action(R.drawable.ic_download_24dp, "Download", pIntentDownload))
-								notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES, notifyBuilder.build())
+								notificationManager.notify(DataUtil.notificationCheckForUpdatesId, notifyBuilder.build())
 							}
 						}
 
@@ -804,9 +804,9 @@ class SharedHelper {
 							val intentAction = Intent(context, ActionButtonReceiver::class.java)
 
 							//This is optional if you have more than one buttons and want to differentiate between two
-							intentAction.putExtra("action", ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER)
+							intentAction.putExtra("action", DataUtil.actionNotificationsRetryCheckForUpdateReceiver)
 							val pIntentRetry = PendingIntent.getBroadcast(context, 2, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
-							notificationManager.notify(NOTIFICATION_CHECK_FOR_UPDATES,
+							notificationManager.notify(DataUtil.notificationCheckForUpdatesId,
 									notifyBuilder
 											.setProgress(0, 0, false)
 											.setOngoing(false)
