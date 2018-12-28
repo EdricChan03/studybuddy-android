@@ -7,32 +7,20 @@ import androidx.annotation.StringDef
 
 /**
  * An interface for [com.edricchan.studybuddy.HelpActivity]
+ * @property articleDesc The description of this help article
+ * @property articleIcon The icon of this help article
+ * @property articleTitle The title of this help article
+ * @property articleUri The URI of this help article as a [String]
+ * @property isDisabled Whether this help article is clickable (Set to [true] to be unclickable, [false] otherwise)
+ * @property isHidden Whether this help article should be hidden (Set to [true] to be hidden, [false] otherwise)
  */
 data class HelpArticle(
-		/**
-		 * The description of this help article
-		 */
 		var articleDesc: String? = null,
-		/**
-		 * The icon of this help article
-		 */
 		@ArticleIcon var articleIcon: String? = null,
-		/**
-		 * The title of this help article
-		 */
 		var articleTitle: String? = null,
 		// Note: The Gson library is unable to parse Uris. Instead, use a string and then parse it to a Uri in the relevant code.
-		/**
-		 * The URI of this help article
-		 */
 		var articleUri: String? = null,
-		/**
-		 * Specifies whether this help article is unclickable
-		 */
 		var isDisabled: Boolean? = false,
-		/**
-		 * Specifies whether this help article is hidden from the list of help articles
-		 */
 		var isHidden: Boolean? = false
 ) {
 	@StringDef(ICON_CONTACT, ICON_DOCUMENT, ICON_GITHUB, ICON_HELP, ICON_OPEN_IN_NEW, ICON_SEND_FEEDBACK)
