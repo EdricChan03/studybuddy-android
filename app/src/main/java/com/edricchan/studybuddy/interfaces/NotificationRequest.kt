@@ -6,44 +6,28 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringDef
 import java.util.*
 
+/**
+ * Specifies a notification request to be sent to a device/user/topic
+ * @property notificationActions The notification's actions as a [List<NotificationAction>]
+ * @property notificationBody The body/message of the notification
+ * @property notificationChannelId The notification channel ID of the notification
+ *                                 Applicable for devices running Android Oreo ([android.os.Build.VERSION_CODES.O]) and up.
+ * @property notificationColor The color/colour of the notification
+ * @property notificationIcon The icon of the notification
+ * @property notificationPriority The priority of the notification
+ * @property notificationTitle The title of the notification
+ * @property notificationTtl The time-to-live (TTL) of the notification
+ * @property userOrTopic The user ID or the topic ID to send the notification to
+ */
 data class NotificationRequest(
-		/**
-		 * Specifies the notification's actions
-		 */
 		var notificationActions: List<NotificationAction>? = null,
-		/**
-		 * Specifies the body/message of the notification
-		 */
 		var notificationBody: String? = null,
-		/**
-		 * Specifies the notification channel ID of the notification
-		 *
-		 * Applicable for devices Android Oreo ([android.os.Build.VERSION_CODES.O]) and up.
-		 */
 		var notificationChannelId: String? = "uncategorised",
-		/**
-		 * Specifies the colour/color of the notification
-		 */
 		var notificationColor: String? = "#3f51b5",
-		/**
-		 * Specifies the icon name of the notification
-		 */
 		var notificationIcon: String? = null,
-		/**
-		 * Specifies the priority of the notification
-		 */
 		@NotificationPriority var notificationPriority: String? = null,
-		/**
-		 * Specifies the title of the notification
-		 */
 		var notificationTitle: String? = null,
-		/**
-		 * Specifies the time-to-live (TTL) of the notification in milliseconds
-		 */
 		var notificationTtl: Long? = null,
-		/**
-		 * Specifies the user ID or topic ID to send the notification to
-		 */
 		var userOrTopic: String? = null
 ) {
 
