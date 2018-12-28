@@ -17,7 +17,7 @@ import com.edricchan.studybuddy.utils.DataUtil
 class AboutSettingsFragment : PreferenceFragmentCompat() {
 	private var preferences: SharedPreferences? = null
 
-	override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_versions, rootKey)
 		val context = activity
 		preferences = PreferenceManager.getDefaultSharedPreferences(getContext()!!)
