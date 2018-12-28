@@ -6,35 +6,23 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
-// Default constructor for Cloud Firestore
+/**
+ * Specifies a task
+ * @property content The contents of this task
+ * @property dueDate The due date of this task
+ * @property isDone Whether the task is initially marked as done
+ * @property id The document's ID of this task
+ * @property project The project assigned to this task as a document reference
+ * @property tags A list of tags assigned to this task
+ * @property title The title of this task
+ */
 data class TaskItem(
-		/**
-		 * Specifies the contents of this task
-		 */
 		var content: String? = null,
-		/**
-		 * Specifies the due date of this task
-		 */
 		var dueDate: Timestamp? = null,
-		/**
-		 * Specifies if the task is marked as done
-		 */
 		var isDone: Boolean? = false,
-		/**
-		 * Specifies the document's ID of this task in the database
-		 */
 		var id: String? = null,
-		/**
-		 * Specifies the project assigned to this task as a document reference to the project's document
-		 */
 		var project: DocumentReference? = null,
-		/**
-		 * Specifies the list of tags assigned to this task
-		 */
 		var tags: List<String>? = null,
-		/**
-		 * Secifies the title of this task
-		 */
 		var title: String? = null
 ) {
 	constructor() : this(null, null, false, null, null, null, null)
