@@ -9,7 +9,7 @@ import com.edricchan.studybuddy.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SyncSettingsFragment : PreferenceFragmentCompat() {
-	override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_data_sync, rootKey)
 		val manualSyncPreference = findPreference<Preference>("manual_sync")
 		manualSyncPreference.setOnPreferenceClickListener {
