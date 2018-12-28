@@ -189,7 +189,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 						override fun afterTextChanged(s: Editable) {
 							when {
-								SharedHelper.getEditText(userOrTopicTextInputLayout)!!.text.hashCode() == s.hashCode() -> {
+								userOrTopicTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 									// Change is from user/topic TextInputLayout's TextInputEditText
 									// Show error is TextInputEditText is empty
 									if (TextUtils.isEmpty(s)) {
@@ -204,7 +204,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									// or if the body TextInputLayout's TextInputEditText is empty
 									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !TextUtils.isEmpty(s) && !SharedHelper.getEditTextString(titleTextInputLayout).isEmpty() && !SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty()
 								}
-								SharedHelper.getEditText(titleTextInputLayout)!!.text.hashCode() == s.hashCode() -> {
+								titleTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 									// Change is from title TextInputLayout's TextInputEditText
 									// Show error is TextInputEditText is empty
 									if (TextUtils.isEmpty(s)) {
@@ -219,7 +219,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									// or if the body TextInputLayout's TextInputEditText is empty
 									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(TextUtils.isEmpty(s) || SharedHelper.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty())
 								}
-								SharedHelper.getEditText(bodyTextInputLayout)!!.text.hashCode() == s.hashCode() -> {
+								bodyTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 									// Change is from title TextInputLayout's TextInputEditText
 									// Show error is TextInputEditText is empty
 									if (TextUtils.isEmpty(s)) {
@@ -238,12 +238,9 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 						}
 					}
 					// Add the watchers to the associated TextInputEditTexts
-					SharedHelper.getEditText(userOrTopicTextInputLayout)!!
-							.addTextChangedListener(validatorTextWatcher)
-					SharedHelper.getEditText(titleTextInputLayout)!!
-							.addTextChangedListener(validatorTextWatcher)
-					SharedHelper.getEditText(bodyTextInputLayout)!!
-							.addTextChangedListener(validatorTextWatcher)
+					userOrTopicTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
+					titleTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
+					bodyTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
 					true
 				}
 		findPreference<Preference>(DataUtil.debugResetInstanceId)
