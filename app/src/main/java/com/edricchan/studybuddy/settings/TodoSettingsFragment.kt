@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.utils.DataUtil
 
 class TodoSettingsFragment : PreferenceFragmentCompat() {
-	override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_todos, rootKey)
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
