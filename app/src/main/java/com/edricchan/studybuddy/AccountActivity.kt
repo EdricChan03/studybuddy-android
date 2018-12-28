@@ -40,13 +40,13 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 		mAccountActions = findViewById(R.id.accountActions)
 		mAuth = FirebaseAuth.getInstance()
 
-		mActionSignInButton!!.setOnClickListener { v ->
+		mActionSignInButton!!.setOnClickListener {
 			val signInIntent = Intent(this, LoginActivity::class.java)
 			startActivity(signInIntent)
 			finish()
 		}
 		mAccountActions!!
-				.setOnClickListener { v ->
+				.setOnClickListener {
 					val builder = MaterialAlertDialogBuilder(this)
 					builder.setTitle(R.string.account_activity_account_actions)
 							.setItems(R.array.account_activity_account_actions_array) { dialog, which ->
@@ -139,8 +139,8 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 	private fun deleteAccount(parentDialog: DialogInterface) {
 		val confirmBuilder = MaterialAlertDialogBuilder(this)
 		confirmBuilder.setTitle(R.string.account_activity_delete_account_dialog_title)
-				.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-				.setPositiveButton(R.string.dialog_action_delete_account) { dialog, which ->
+				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+				.setPositiveButton(R.string.dialog_action_delete_account) { _, _ ->
 					mUser!!.delete()
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
@@ -179,7 +179,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 					if (!task.isSuccessful) {
 						Log.e(TAG, "An error occurred while attempting to refresh the credentials:", task.exception)
 						Snackbar.make(findViewById(R.id.constraintLayout), "An error occurred while attempting to refresh the credentials", Snackbar.LENGTH_LONG)
-								.setAction("Retry") { v -> refreshCredentials() }
+								.setAction("Retry") { refreshCredentials() }
 								.show()
 					}
 				}
@@ -188,8 +188,8 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 	private fun signOut(parentDialog: DialogInterface) {
 		val confirmBuilder = MaterialAlertDialogBuilder(this)
 		confirmBuilder.setTitle(R.string.account_activity_sign_out_dialog_title)
-				.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-				.setPositiveButton(R.string.dialog_action_sign_out) { dialog, which ->
+				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+				.setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
 					mAuth!!.signOut()
 					Toast.makeText(this, "Successfully signed out!", Toast.LENGTH_SHORT).show()
 					dialog.dismiss()
@@ -218,7 +218,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 								}
 							}
 				}
-				.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 				.show()
 	}
 
@@ -229,7 +229,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_name_dialog_title)
-				.setPositiveButton(R.string.dialog_action_update_name) { dialog, which ->
+				.setPositiveButton(R.string.dialog_action_update_name) { dialog, _ ->
 					val requestBuilder = UserProfileChangeRequest.Builder()
 					requestBuilder.setDisplayName(SharedHelper.getEditTextString(textInputLayout))
 					mUser!!.updateProfile(requestBuilder.build())
@@ -254,7 +254,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_password_dialog_title)
-				.setPositiveButton(R.string.dialog_action_update_password) { dialog, which ->
+				.setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
 					mUser!!.updatePassword(SharedHelper.getEditTextString(textInputLayout))
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
@@ -275,7 +275,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setTitle(R.string.account_activity_new_profile_pic_dialog_title)
 				.setMessage(R.string.account_activity_new_profile_pic_dialog_msg)
-				.setPositiveButton(R.string.dialog_action_update_profile_picture) { dialog, which ->
+				.setPositiveButton(R.string.dialog_action_update_profile_picture) { dialog, _ ->
 					Toast.makeText(this, "Successfully updated profile picture!", Toast.LENGTH_SHORT).show()
 					dialog.dismiss()
 					parentDialog.dismiss()
