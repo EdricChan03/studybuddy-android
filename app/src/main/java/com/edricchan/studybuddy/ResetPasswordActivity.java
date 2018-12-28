@@ -20,7 +20,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 	private Button btnReset, btnBack;
 	private FirebaseAuth auth;
 	private ProgressBar progressBar;
-	private static final String TAG = SharedHelper.getTag(ResetPasswordActivity.class);
+	private static final String TAG = SharedHelper.Companion.getTag(ResetPasswordActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

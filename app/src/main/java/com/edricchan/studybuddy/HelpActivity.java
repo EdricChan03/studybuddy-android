@@ -41,7 +41,7 @@ public class HelpActivity extends AppCompatActivity {
 	private LinearLayout progressBarLayout;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private SharedPreferences preferences;
-	private static final String TAG = SharedHelper.getTag(HelpActivity.class);
+	private static final String TAG = SharedHelper.Companion.getTag(HelpActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +76,17 @@ public class HelpActivity extends AppCompatActivity {
 				loadFeaturedList();
 				return true;
 			case R.id.action_send_feedback:
-				SharedHelper.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedHelper.Companion.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_version:
-				SharedHelper.showVersionDialog(this);
+				SharedHelper.Companion.showVersionDialog(this);
 				return true;
 			case R.id.action_licenses:
 				Intent licensesIntent = new Intent(this, OssLicensesMenuActivity.class);
 				startActivity(licensesIntent);
 				return true;
 			case R.id.action_source_code:
-				SharedHelper.launchUri(this, DataUtil.uriSrcCode, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedHelper.Companion.launchUri(this, DataUtil.uriSrcCode, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -151,7 +151,7 @@ public class HelpActivity extends AppCompatActivity {
 				if (activity == null || activity.isFinishing()) return;
 				// Update the adapter
 				HelpArticleAdapter adapter = new HelpArticleAdapter(helpArticles);
-				adapter.setOnItemClickListener((article, position) -> SharedHelper.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
+				adapter.setOnItemClickListener((article, position) -> SharedHelper.Companion.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
 				activity.featuredRecyclerView.setAdapter(adapter);
 				activity.featuredRecyclerView.setVisibility(View.VISIBLE);
 				activity.swipeRefreshLayout.setRefreshing(false);

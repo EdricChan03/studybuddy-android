@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
 	private Button btnSignIn, btnSignUp;
 	private ProgressBar progressBar;
 	private FirebaseAuth auth;
-	private static final String TAG = SharedHelper.getTag(RegisterActivity.class);
+	private static final String TAG = SharedHelper.Companion.getTag(RegisterActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 		btnSignUp.setOnClickListener(v -> {
 
-			String email = SharedHelper.getEditTextString(inputEmail).trim();
-			String password = SharedHelper.getEditTextString(inputPassword).trim();
+			String email = SharedHelper.Companion.getEditTextString(inputEmail).trim();
+			String password = SharedHelper.Companion.getEditTextString(inputPassword).trim();
 
 			if (TextUtils.isEmpty(email)) {
 				Snackbar.make(findViewById(R.id.registerActivity), "Please enter an email address", Snackbar.LENGTH_LONG)
@@ -102,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
 	}
 
 	private void checkNetwork() {
-		if (SharedHelper.isNetworkAvailable(this)) {
+		if (SharedHelper.Companion.isNetworkAvailable(this)) {
 			setViewsEnabled(true);
 		} else {
 			setViewsEnabled(false);

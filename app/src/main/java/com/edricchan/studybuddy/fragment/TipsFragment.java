@@ -30,7 +30,7 @@ public class TipsFragment extends Fragment {
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.getTag(TipsFragment.class);
+	private static final String TAG = SharedHelper.Companion.getTag(TipsFragment.class);
 
 
 	@Override
@@ -50,7 +50,7 @@ public class TipsFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		mFragmentView = view;
 		view.findViewById(R.id.tips_empty_state_cta)
-				.setOnClickListener(v -> SharedHelper.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
+				.setOnClickListener(v -> SharedHelper.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
 	}
 
 
@@ -73,7 +73,7 @@ public class TipsFragment extends Fragment {
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_submit_tip:
-				SharedHelper.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedHelper.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_debug:
 				Intent debugIntent = new Intent(getActivity(), DebugActivity.class);

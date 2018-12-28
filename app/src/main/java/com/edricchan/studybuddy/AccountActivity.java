@@ -33,7 +33,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class AccountActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener {
 	private FirebaseAuth mAuth;
 	private FirebaseUser mUser;
-	private String TAG = SharedHelper.getTag(AccountActivity.class);
+	private String TAG = SharedHelper.Companion.getTag(AccountActivity.class);
 	private Button mAccountActions;
 	private Button mActionSignInButton;
 	private ImageView mAvatarImageView;
@@ -227,13 +227,13 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 	private void updateEmail(DialogInterface parentDialog) {
 		View promptDialogView = getLayoutInflater().inflate(R.layout.edit_text_dialog, null);
 		final TextInputLayout textInputLayout = promptDialogView.findViewById(R.id.textInputLayout);
-		SharedHelper.getEditText(textInputLayout)
+		SharedHelper.Companion.getEditText(textInputLayout)
 				.setHint(R.string.account_activity_new_email_dialog_edittext_title);
 		// TODO: Add check for email address
 		MaterialAlertDialogBuilder promptBuilder = new MaterialAlertDialogBuilder(this);
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_email_dialog_title)
-				.setPositiveButton(R.string.dialog_action_update_email, (dialog, which) -> mUser.updateEmail(SharedHelper.getEditTextString(textInputLayout))
+				.setPositiveButton(R.string.dialog_action_update_email, (dialog, which) -> mUser.updateEmail(SharedHelper.Companion.getEditTextString(textInputLayout))
 						.addOnCompleteListener(task -> {
 							if (task.isSuccessful()) {
 								Toast.makeText(this, "Successfully updated email address!", Toast.LENGTH_SHORT).show();
@@ -250,14 +250,14 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 	private void updateName(DialogInterface parentDialog) {
 		View promptDialogView = getLayoutInflater().inflate(R.layout.edit_text_dialog, null);
 		final TextInputLayout textInputLayout = promptDialogView.findViewById(R.id.textInputLayout);
-		SharedHelper.getEditText(textInputLayout)
+		SharedHelper.Companion.getEditText(textInputLayout)
 				.setHint(R.string.account_activity_new_name_dialog_edittext_title);
 		MaterialAlertDialogBuilder promptBuilder = new MaterialAlertDialogBuilder(this);
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_name_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_name, (dialog, which) -> {
 					UserProfileChangeRequest.Builder requestBuilder = new UserProfileChangeRequest.Builder();
-					requestBuilder.setDisplayName(SharedHelper.getEditTextString(textInputLayout));
+					requestBuilder.setDisplayName(SharedHelper.Companion.getEditTextString(textInputLayout));
 					mUser.updateProfile(requestBuilder.build())
 							.addOnCompleteListener(task -> {
 								if (task.isSuccessful()) {
@@ -276,12 +276,12 @@ public class AccountActivity extends AppCompatActivity implements FirebaseAuth.A
 	private void updatePassword(DialogInterface parentDialog) {
 		View promptDialogView = getLayoutInflater().inflate(R.layout.edit_text_dialog, null);
 		final TextInputLayout textInputLayout = promptDialogView.findViewById(R.id.textInputLayout);
-		SharedHelper.getEditText(textInputLayout)
+		SharedHelper.Companion.getEditText(textInputLayout)
 				.setHint(R.string.account_activity_new_password_dialog_edittext_title);
 		MaterialAlertDialogBuilder promptBuilder = new MaterialAlertDialogBuilder(this);
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_password_dialog_title)
-				.setPositiveButton(R.string.dialog_action_update_password, (dialog, which) -> mUser.updatePassword(SharedHelper.getEditTextString(textInputLayout))
+				.setPositiveButton(R.string.dialog_action_update_password, (dialog, which) -> mUser.updatePassword(SharedHelper.Companion.getEditTextString(textInputLayout))
 						.addOnCompleteListener(task -> {
 							if (task.isSuccessful()) {
 								Toast.makeText(this, "Successfully updated password!", Toast.LENGTH_SHORT).show();

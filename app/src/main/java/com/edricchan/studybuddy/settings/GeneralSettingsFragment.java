@@ -20,7 +20,7 @@ public class GeneralSettingsFragment extends PreferenceFragmentCompat {
 	private Preference prefDayNightPermInfo;
 	private Preference prefDayNightGrantPerm;
 	private PreferenceCategory prefCategoryTheme;
-	private static final String TAG = SharedHelper.getTag(GeneralSettingsFragment.class);
+	private static final String TAG = SharedHelper.Companion.getTag(GeneralSettingsFragment.class);
 
 	@Override
 	public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

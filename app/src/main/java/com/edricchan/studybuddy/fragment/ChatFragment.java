@@ -17,7 +17,7 @@ public class ChatFragment extends Fragment {
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.getTag(ChatFragment.class);
+	private static final String TAG = SharedHelper.Companion.getTag(ChatFragment.class);
 
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

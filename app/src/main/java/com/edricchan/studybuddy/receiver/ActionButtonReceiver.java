@@ -18,18 +18,18 @@ public class ActionButtonReceiver extends BroadcastReceiver {
 		String TAG = "ActionButtonReceiver";
 		String action = intent.getStringExtra("action");
 		switch (action) {
-			case SharedHelper.ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER:
+			case SharedHelper.Companion.getACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER():
 				checkPermission(context, intent);
 				// Register receiver for when .apk download is compete
 				break;
-			case SharedHelper.ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER:
-				SharedHelper.checkForUpdates(context);
+			case SharedHelper.Companion.getACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER():
+				SharedHelper.Companion.checkForUpdates(context);
 				break;
 		}
 	}
 
 	public void checkPermission(Context context, Intent intent) {
-		if (SharedHelper.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
+		if (SharedHelper.Companion.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
 			downloadUpdate(context, intent);
 		}
 	}

@@ -19,7 +19,7 @@ import java.util.List;
 public class HelpArticleAdapter extends RecyclerView.Adapter<HelpArticleAdapter.Holder> {
 	private List<HelpArticle> mHelpArticles;
 	private OnItemClickListener mListener;
-	private static final String TAG = SharedHelper.getTag(HelpArticleAdapter.class);
+	private static final String TAG = SharedHelper.Companion.getTag(HelpArticleAdapter.class);
 
 	public HelpArticleAdapter(List<HelpArticle> helpArticles) {
 		this.mHelpArticles = helpArticles;

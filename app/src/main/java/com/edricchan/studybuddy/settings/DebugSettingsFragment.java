@@ -44,7 +44,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 	private FirebaseUser mUser;
 	private Crashlytics mCrashlytics;
 	private ConnectivityManager mConnectivityManager;
-	private static final String TAG = SharedHelper.getTag(DebugSettingsFragment.class);
+	private static final String TAG = SharedHelper.Companion.getTag(DebugSettingsFragment.class);
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,16 +118,16 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 							.setNegativeButton(R.string.dialog_action_cancel, (dialog, which) -> dialog.dismiss())
 							.setPositiveButton(R.string.dialog_action_send, (dialog, which) -> {
 								if (
-										SharedHelper.getEditTextString(userOrTopicTextInputLayout).trim().length() > 0 &&
-												SharedHelper.getEditTextString(titleTextInputLayout).trim().length() > 0 &&
-												SharedHelper.getEditTextString(bodyTextInputLayout).trim().length() > 0
+										SharedHelper.Companion.getEditTextString(userOrTopicTextInputLayout).trim().length() > 0 &&
+												SharedHelper.Companion.getEditTextString(titleTextInputLayout).trim().length() > 0 &&
+												SharedHelper.Companion.getEditTextString(bodyTextInputLayout).trim().length() > 0
 								) {
 									// TODO: Cleanup code
-									Log.d(TAG, "Value of bodyTextInputEditText: \"" + SharedHelper.getEditTextString(bodyTextInputLayout) + "\"");
-									Log.d(TAG, "Value of channelIdTextInputEditText: \"" + SharedHelper.getEditTextString(channelIdTextInputLayout) + "\"");
-									Log.d(TAG, "Value of colorTextInputLayout: \"" + SharedHelper.getEditTextString(colorTextInputLayout) + "\"");
-									Log.d(TAG, "Value of userOrTopicTextInputEditText: \"" + SharedHelper.getEditTextString(userOrTopicTextInputLayout) + "\"");
-									Log.d(TAG, "Value of titleTextInputEditText: \"" + SharedHelper.getEditTextString(titleTextInputLayout) + "\"");
+									Log.d(TAG, "Value of bodyTextInputEditText: \"" + SharedHelper.Companion.getEditTextString(bodyTextInputLayout) + "\"");
+									Log.d(TAG, "Value of channelIdTextInputEditText: \"" + SharedHelper.Companion.getEditTextString(channelIdTextInputLayout) + "\"");
+									Log.d(TAG, "Value of colorTextInputLayout: \"" + SharedHelper.Companion.getEditTextString(colorTextInputLayout) + "\"");
+									Log.d(TAG, "Value of userOrTopicTextInputEditText: \"" + SharedHelper.Companion.getEditTextString(userOrTopicTextInputLayout) + "\"");
+									Log.d(TAG, "Value of titleTextInputEditText: \"" + SharedHelper.Companion.getEditTextString(titleTextInputLayout) + "\"");
 									@NotificationRequest.NotificationPriority String priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL;
 									switch (priorityRadioGroup.getCheckedRadioButtonId()) {
 										case R.id.priorityNormalRadioButton:
@@ -140,26 +140,26 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 											break;
 									}
 									NotificationRequest.Builder notificationRequestBuilder = new NotificationRequest.Builder();
-									if (!SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationBody(SharedHelper.getEditTextString(bodyTextInputLayout));
+									if (!SharedHelper.Companion.getEditTextString(bodyTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationBody(SharedHelper.Companion.getEditTextString(bodyTextInputLayout));
 									}
-									if (!SharedHelper.getEditTextString(channelIdTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationChannelId(SharedHelper.getEditTextString(channelIdTextInputLayout));
+									if (!SharedHelper.Companion.getEditTextString(channelIdTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationChannelId(SharedHelper.Companion.getEditTextString(channelIdTextInputLayout));
 									}
-									if (!SharedHelper.getEditTextString(colorTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationColor(SharedHelper.getEditTextString(colorTextInputLayout));
+									if (!SharedHelper.Companion.getEditTextString(colorTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationColor(SharedHelper.Companion.getEditTextString(colorTextInputLayout));
 									}
 									if (!priority.isEmpty()) {
 										notificationRequestBuilder.setNotificationPriority(priority);
 									}
-									if (!SharedHelper.getEditTextString(titleTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationTitle(SharedHelper.getEditTextString(titleTextInputLayout));
+									if (!SharedHelper.Companion.getEditTextString(titleTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationTitle(SharedHelper.Companion.getEditTextString(titleTextInputLayout));
 									}
-									if (!SharedHelper.getEditTextString(userOrTopicTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setUserOrTopic(SharedHelper.getEditTextString(userOrTopicTextInputLayout));
+									if (!SharedHelper.Companion.getEditTextString(userOrTopicTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setUserOrTopic(SharedHelper.Companion.getEditTextString(userOrTopicTextInputLayout));
 									}
-									if (!SharedHelper.getEditTextString(ttlTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationTtl(Integer.parseInt(SharedHelper.getEditTextString(ttlTextInputLayout)));
+									if (!SharedHelper.Companion.getEditTextString(ttlTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationTtl(Integer.parseInt(SharedHelper.Companion.getEditTextString(ttlTextInputLayout)));
 									}
 									NotificationAction.Builder notificationSettingsActionBuilder = new NotificationAction.Builder();
 									notificationSettingsActionBuilder
@@ -201,7 +201,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 
 						@Override
 						public void afterTextChanged(Editable s) {
-							if (SharedHelper.getEditText(userOrTopicTextInputLayout).getText().hashCode() == s.hashCode()) {
+							if (SharedHelper.Companion.getEditText(userOrTopicTextInputLayout).getText().hashCode() == s.hashCode()) {
 								// Change is from user/topic TextInputLayout's TextInputEditText
 								// Show error is TextInputEditText is empty
 								if (TextUtils.isEmpty(s)) {
@@ -214,14 +214,14 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 								}
 								// Check if TextInputEditText is empty or if the title TextInputLayout's TextInputEditText is empty
 								// or if the body TextInputLayout's TextInputEditText is empty
-								if (TextUtils.isEmpty(s) || SharedHelper.getEditTextString(titleTextInputLayout).isEmpty() || SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty()) {
+								if (TextUtils.isEmpty(s) || SharedHelper.Companion.getEditTextString(titleTextInputLayout).isEmpty() || SharedHelper.Companion.getEditTextString(bodyTextInputLayout).isEmpty()) {
 									// TextInputEditText is empty! Disable the dialog's positive button
 									dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
 								} else {
 									// TextInputEditText is not empty!
 									dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
 								}
-							} else if (SharedHelper.getEditText(titleTextInputLayout).getText().hashCode() == s.hashCode()) {
+							} else if (SharedHelper.Companion.getEditText(titleTextInputLayout).getText().hashCode() == s.hashCode()) {
 								// Change is from title TextInputLayout's TextInputEditText
 								// Show error is TextInputEditText is empty
 								if (TextUtils.isEmpty(s)) {
@@ -234,14 +234,14 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 								}
 								// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 								// or if the body TextInputLayout's TextInputEditText is empty
-								if (TextUtils.isEmpty(s) || SharedHelper.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty()) {
+								if (TextUtils.isEmpty(s) || SharedHelper.Companion.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedHelper.Companion.getEditTextString(bodyTextInputLayout).isEmpty()) {
 									// TextInputEditText is empty! Disable the dialog's positive button
 									dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
 								} else {
 									// TextInputEditText is not empty!
 									dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
 								}
-							} else if (SharedHelper.getEditText(bodyTextInputLayout).getText().hashCode() == s.hashCode()) {
+							} else if (SharedHelper.Companion.getEditText(bodyTextInputLayout).getText().hashCode() == s.hashCode()) {
 								// Change is from title TextInputLayout's TextInputEditText
 								// Show error is TextInputEditText is empty
 								if (TextUtils.isEmpty(s)) {
@@ -254,7 +254,7 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 								}
 								// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 								// or if the title TextInputLayout's TextInputEditText is empty
-								if (TextUtils.isEmpty(s) || SharedHelper.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedHelper.getEditTextString(titleTextInputLayout).isEmpty()) {
+								if (TextUtils.isEmpty(s) || SharedHelper.Companion.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedHelper.Companion.getEditTextString(titleTextInputLayout).isEmpty()) {
 									// TextInputEditText is empty! Disable the dialog's positive button
 									dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
 								} else {
@@ -265,11 +265,11 @@ public class DebugSettingsFragment extends PreferenceFragmentCompat {
 						}
 					};
 					// Add the watchers to the associated TextInputEditTexts
-					SharedHelper.getEditText(userOrTopicTextInputLayout)
+					SharedHelper.Companion.getEditText(userOrTopicTextInputLayout)
 							.addTextChangedListener(validatorTextWatcher);
-					SharedHelper.getEditText(titleTextInputLayout)
+					SharedHelper.Companion.getEditText(titleTextInputLayout)
 							.addTextChangedListener(validatorTextWatcher);
-					SharedHelper.getEditText(bodyTextInputLayout)
+					SharedHelper.Companion.getEditText(bodyTextInputLayout)
 							.addTextChangedListener(validatorTextWatcher);
 					return true;
 				});

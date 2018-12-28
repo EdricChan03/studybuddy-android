@@ -20,7 +20,7 @@ public class TaskItemKeyProvider extends ItemKeyProvider<String> {
 
 	private final List<TaskItem> mItemList;
 	private final Map<String, Integer> mKeyToPosition;
-	private static final String TAG = SharedHelper.getTag(TaskItemKeyProvider.class);
+	private static final String TAG = SharedHelper.Companion.getTag(TaskItemKeyProvider.class);
 
 	/**
 	 * Creates a new provider.

@@ -18,7 +18,7 @@ public class CalendarFragment extends Fragment {
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.getTag(CalendarFragment.class);
+	private static final String TAG = SharedHelper.Companion.getTag(CalendarFragment.class);
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.frag_calendar, container, false);

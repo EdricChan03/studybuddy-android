@@ -52,7 +52,7 @@ public class NewTaskActivity extends AppCompatActivity {
 	private FirebaseFirestore mFirestore;
 	private FirebaseUser mCurrentUser;
 	private boolean mAllowAccess;
-	private String TAG = SharedHelper.getTag(NewTaskActivity.class);
+	private String TAG = SharedHelper.Companion.getTag(NewTaskActivity.class);
 	private String tempTaskProject;
 	private TaskProjectSpinnerAdapter mTaskProjectSpinnerAdapter;
 	/**
@@ -99,7 +99,7 @@ public class NewTaskActivity extends AppCompatActivity {
 					}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
 			dpd.getDatePicker().setMinDate(c.getTimeInMillis());
 			dpd.show();
-			mTaskDate = SharedHelper.getDateFromDatePicker(dpd.getDatePicker());
+			mTaskDate = SharedHelper.Companion.getDateFromDatePicker(dpd.getDatePicker());
 		});
 
 		ArrayList<TaskProject> projectArrayList = new ArrayList<>();
@@ -138,13 +138,13 @@ public class NewTaskActivity extends AppCompatActivity {
 				if (mTaskProjectSpinnerAdapter.getTaskProjectId(position).equals("PLUS")) {
 					View editTextDialogView = getLayoutInflater().inflate(R.layout.edit_text_dialog, null);
 					final TextInputLayout textInputLayout = editTextDialogView.findViewById(R.id.textInputLayout);
-					SharedHelper.getEditText(textInputLayout).setHint("Project name");
+					SharedHelper.Companion.getEditText(textInputLayout).setHint("Project name");
 					MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(NewTaskActivity.this);
 					builder.setTitle("New project")
 							.setView(editTextDialogView)
 							.setPositiveButton(R.string.dialog_action_create, (dialog, which) -> {
 								TaskProject.Builder project = new TaskProject.Builder();
-								project.setName(SharedHelper.getEditTextString(textInputLayout));
+								project.setName(SharedHelper.Companion.getEditTextString(textInputLayout));
 								mFirestore.collection("users/" + mCurrentUser.getUid() + "/todoProjects")
 										.add(project.create())
 										.addOnCompleteListener(task -> {
@@ -237,15 +237,15 @@ public class NewTaskActivity extends AppCompatActivity {
 				return true;
 			case R.id.action_submit:
 				if (mAllowAccess) {
-					if (SharedHelper.getEditText(mTaskTitle).length() != 0) {
+					if (SharedHelper.Companion.getEditText(mTaskTitle).length() != 0) {
 						mTaskTitle.setErrorEnabled(false);
 						TaskItem.Builder taskItemBuilder = new TaskItem.Builder();
-						taskItemBuilder.setTitle(SharedHelper.getEditTextString(mTaskTitle));
-						if (SharedHelper.getEditTextString(mTaskContent).length() > 0) {
-							taskItemBuilder.setContent(SharedHelper.getEditTextString(mTaskContent));
+						taskItemBuilder.setTitle(SharedHelper.Companion.getEditTextString(mTaskTitle));
+						if (SharedHelper.Companion.getEditTextString(mTaskContent).length() > 0) {
+							taskItemBuilder.setContent(SharedHelper.Companion.getEditTextString(mTaskContent));
 						}
-						if (SharedHelper.getEditTextString(mTaskTags).length() > 0) {
-							taskItemBuilder.setTags(Arrays.asList(SharedHelper.getEditTextString(mTaskTags).split(",")));
+						if (SharedHelper.Companion.getEditTextString(mTaskTags).length() > 0) {
+							taskItemBuilder.setTags(Arrays.asList(SharedHelper.Companion.getEditTextString(mTaskTags).split(",")));
 						}
 						if (mTaskDate != null) {
 							taskItemBuilder.setDueDate(new Timestamp(mTaskDate));
@@ -267,7 +267,7 @@ public class NewTaskActivity extends AppCompatActivity {
 										}
 									});
 						} else {
-							SharedHelper.addTask(taskItemBuilder.create(), mCurrentUser, mFirestore)
+							SharedHelper.Companion.addTask(taskItemBuilder.create(), mCurrentUser, mFirestore)
 									.addOnCompleteListener(task -> {
 										if (task.isSuccessful()) {
 											Toast.makeText(this, "Successfully added task!", Toast.LENGTH_SHORT).show();

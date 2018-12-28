@@ -33,7 +33,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 	private FirebaseAuth mAuth;
 	private FirebaseFirestore mFirestore;
 	private FirebaseUser mCurrentUser;
-	private String TAG = SharedHelper.getTag(ViewTaskActivity.class);
+	private String TAG = SharedHelper.Companion.getTag(ViewTaskActivity.class);
 	private String mTaskId;
 	private TextView mTaskTitle;
 	private TextView mTaskContent;

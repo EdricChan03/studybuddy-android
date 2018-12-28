@@ -22,7 +22,7 @@ import com.edricchan.studybuddy.utils.DataUtil;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	private SharedPreferences preferences;
-	private static final String TAG = SharedHelper.getTag(SettingsActivity.class);
+	private static final String TAG = SharedHelper.Companion.getTag(SettingsActivity.class);
 
 	/**
 	 * {@inheritDoc}
@@ -33,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		if (savedInstanceState == null) {
-			SharedHelper.replaceFragment(this, new SettingsFragment(), android.R.id.content, false);
+			SharedHelper.Companion.replaceFragment(this, new SettingsFragment(), android.R.id.content, false);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 				onBackPressed();
 				return true;
 			case R.id.action_send_feedback:
-				SharedHelper.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedHelper.Companion.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_help:
 				Intent helpIntent = new Intent(this, HelpActivity.class);
@@ -91,7 +91,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 		fragment.setArguments(args);
 		fragment.setTargetFragment(caller, 0);
 		// Replace the existing Fragment with the new Fragment
-		SharedHelper.replaceFragment(this, fragment, android.R.id.content, true);
+		SharedHelper.Companion.replaceFragment(this, fragment, android.R.id.content, true);
 		return true;
 	}
 }

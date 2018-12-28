@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: "io.fabric"
 apply plugin: "com.google.firebase.firebase-perf"
 apply plugin: "com.google.android.gms.oss-licenses-plugin"
@@ -90,5 +92,10 @@ dependencies {
 	implementation 'com.google.android.gms:play-services-oss-licenses:16.0.1'
 	// Backported Java Stream library for Java 6/7
 	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.0'
+	compile "androidx.core:core-ktx:+"
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply plugin: "com.google.gms.google-services"
+repositories {
+	mavenCentral()
+}

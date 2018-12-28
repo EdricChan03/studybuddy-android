@@ -88,7 +88,7 @@ public class TodoFragment extends Fragment {
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.getTag(TodoFragment.class);
+	private static final String TAG = SharedHelper.Companion.getTag(TodoFragment.class);
 
 	private static final String SHARED_PREFS_FILE = "TodoFragPrefs";
 
@@ -107,14 +107,14 @@ public class TodoFragment extends Fragment {
 				return true;
 			case R.id.action_sort_none:
 				if (!item.isChecked()) {
-					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "none")
+					SharedHelper.Companion.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "none")
 							.commit();
 					item.setChecked(true);
 					loadTasksList(mCurrentUser.getUid());
 				}
 			case R.id.action_sort_title_descending:
 				if (!item.isChecked()) {
-					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_desc")
+					SharedHelper.Companion.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_desc")
 							.commit();
 					item.setChecked(true);
 					loadTasksList(mCurrentUser.getUid(), "title", Query.Direction.DESCENDING);
@@ -122,7 +122,7 @@ public class TodoFragment extends Fragment {
 				return true;
 			case R.id.action_sort_title_ascending:
 				if (!item.isChecked()) {
-					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_asc")
+					SharedHelper.Companion.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_asc")
 							.commit();
 					item.setChecked(true);
 					loadTasksList(mCurrentUser.getUid(), "title", Query.Direction.ASCENDING);
@@ -130,7 +130,7 @@ public class TodoFragment extends Fragment {
 				return true;
 			case R.id.action_sort_due_date_new_to_old:
 				if (!item.isChecked()) {
-					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_new_to_old")
+					SharedHelper.Companion.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_new_to_old")
 							.commit();
 					item.setChecked(true);
 					loadTasksList(mCurrentUser.getUid(), "dueDate", Query.Direction.DESCENDING);
@@ -138,7 +138,7 @@ public class TodoFragment extends Fragment {
 				return true;
 			case R.id.action_sort_due_date_old_to_new:
 				if (!item.isChecked()) {
-					SharedHelper.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_old_to_new")
+					SharedHelper.Companion.putPrefs(Objects.requireNonNull(getContext()), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_old_to_new")
 							.commit();
 					item.setChecked(true);
 					loadTasksList(mCurrentUser.getUid(), "dueDate", Query.Direction.ASCENDING);
@@ -191,7 +191,7 @@ public class TodoFragment extends Fragment {
 		mFirestore = FirebaseFirestore.getInstance();
 		mFragmentView = view;
 
-		SharedHelper.setBottomAppBarFabOnClickListener(mParentActivity, v -> newTaskActivity());
+		SharedHelper.Companion.setBottomAppBarFabOnClickListener(mParentActivity, v -> newTaskActivity());
 
 		// Handles swiping down to refresh logic
 		mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
@@ -242,7 +242,7 @@ public class TodoFragment extends Fragment {
 			mFirestoreListener.remove();
 		}
 
-		SharedHelper.clearBottomAppBarFabOnClickListener(mParentActivity);
+		SharedHelper.Companion.clearBottomAppBarFabOnClickListener(mParentActivity);
 	}
 
 	@Override

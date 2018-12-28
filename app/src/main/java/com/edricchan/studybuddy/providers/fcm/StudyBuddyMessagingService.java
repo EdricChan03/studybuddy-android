@@ -32,7 +32,7 @@ import java.util.List;
 public class StudyBuddyMessagingService extends FirebaseMessagingService {
 	private SharedHelper sharedHelper = new SharedHelper(this);
 	// To be used for Android's Log
-	private String TAG = SharedHelper.getTag(this.getClass());
+	private String TAG = SharedHelper.Companion.getTag(this.getClass());
 
 	@Override
 	public void onMessageReceived(RemoteMessage remoteMessage) {

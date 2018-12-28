@@ -16,7 +16,7 @@ public class DebugActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		SharedHelper.replaceFragment(this, new DebugSettingsFragment(), android.R.id.content, false);
+		SharedHelper.Companion.replaceFragment(this, new DebugSettingsFragment(), android.R.id.content, false);
 	}
 
 	@Override

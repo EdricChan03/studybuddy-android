@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.getTag(MainActivity.class);
+	private static final String TAG = SharedHelper.Companion.getTag(MainActivity.class);
 	private Menu mOptionsMenu;
 	//	private BottomNavigationView navigationView;
 	private FrameLayout contentMain;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedHelper.setAppTheme(this);
+		SharedHelper.Companion.setAppTheme(this);
 		// Use a downloadable font for EmojiCompat
 		FontRequest fontRequest = new FontRequest(
 				"com.google.android.gms.fonts",
@@ -105,10 +105,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         */
 		// Check if Android Oreo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			SharedHelper.createNotificationChannels(MainActivity.this);
+			SharedHelper.Companion.createNotificationChannels(MainActivity.this);
 		}
 		// Initially set a fragment view
-		SharedHelper.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, false);
+		SharedHelper.Companion.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, false);
 		contentMain = findViewById(R.id.content_main);
 		/*navigationView = findViewById(R.id.bottom_navigation_view);
 		navigationView.setOnNavigationItemSelectedListener((@NonNull MenuItem item) -> {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 		FirebaseFirestore fs = FirebaseFirestore.getInstance();
 		if (currentUser != null) {
-			SharedHelper.setCrashlyticsUserTracking(this, currentUser);
+			SharedHelper.Companion.setCrashlyticsUserTracking(this, currentUser);
 			// User specific topic
 			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.getUid());
 			FirebaseInstanceId.getInstance().getInstanceId()
@@ -219,16 +219,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				navBottomSheet.setNavigationItemSelectedListener(navItem -> {
 					switch (navItem.getItemId()) {
 						case R.id.navigation_calendar:
-							SharedHelper.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
+							SharedHelper.Companion.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
 							return true;
 						case R.id.navigation_chat:
-							SharedHelper.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
+							SharedHelper.Companion.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
 							return true;
 						case R.id.navigation_todos:
-							SharedHelper.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
+							SharedHelper.Companion.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
 							return true;
 						case R.id.navigation_tips:
-							SharedHelper.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
+							SharedHelper.Companion.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
 							return true;
 						default:
 							return false;

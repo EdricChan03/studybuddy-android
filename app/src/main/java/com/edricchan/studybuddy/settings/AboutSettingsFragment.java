@@ -29,12 +29,12 @@ public class AboutSettingsFragment extends PreferenceFragmentCompat {
 		findPreference(DataUtil.prefUpdates).setIntent(new Intent(getActivity(), UpdatesActivity.class));
 		Preference appAuthor = findPreference(DataUtil.prefAppAuthor);
 		appAuthor.setOnPreferenceClickListener(preference -> {
-			SharedHelper.launchUri(context, appAuthorUrl, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+			SharedHelper.Companion.launchUri(context, appAuthorUrl, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 			return true;
 		});
 		Preference appSrc = findPreference(DataUtil.prefAppSrcCode);
 		appSrc.setOnPreferenceClickListener(preference -> {
-			SharedHelper.launchUri(context, DataUtil.uriSrcCode, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+			SharedHelper.Companion.launchUri(context, DataUtil.uriSrcCode, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 			return true;
 		});
 		Preference appVersion = findPreference(DataUtil.prefAppVersion);

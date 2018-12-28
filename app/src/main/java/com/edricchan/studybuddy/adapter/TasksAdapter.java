@@ -36,7 +36,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 	private FirebaseUser mUser;
 	private FirebaseFirestore mFirestore;
 	private View mSnackbarView;
-	private static final String TAG = SharedHelper.getTag(TasksAdapter.class);
+	private static final String TAG = SharedHelper.Companion.getTag(TasksAdapter.class);
 	private int lastPosition = 1;
 	private OnItemClickListener mItemListener;
 	private boolean mUseDeprecatedListener;
@@ -285,9 +285,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.Holder> {
 	@Deprecated
 	public void deleteTask(String taskId, int position) {
 		TaskItem item = mTaskItemList.get(position);
-		SharedHelper.removeTask(taskId, mUser, mFirestore).addOnSuccessListener(aVoid -> {
+		SharedHelper.Companion.removeTask(taskId, mUser, mFirestore).addOnSuccessListener(aVoid -> {
 			notifyItemRemoved(position);
-			Snackbar.make(mSnackbarView, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo", view1 -> SharedHelper.addTask(item, mUser, mFirestore).addOnFailureListener(e -> Snackbar.make(mSnackbarView, "Couldn't restore todo: " + e.getMessage(), Snackbar.LENGTH_LONG).show())).show();
+			Snackbar.make(mSnackbarView, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo", view1 -> SharedHelper.Companion.addTask(item, mUser, mFirestore).addOnFailureListener(e -> Snackbar.make(mSnackbarView, "Couldn't restore todo: " + e.getMessage(), Snackbar.LENGTH_LONG).show())).show();
 		});
 	}
 
