@@ -78,16 +78,16 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					val builder = MaterialAlertDialogBuilder(context!!)
 					builder.setTitle(R.string.debug_activity_account_info_title)
 							.setMessage(dialogMsg)
-							.setPositiveButton(R.string.dialog_action_dismiss) { dialog, which -> dialog.dismiss() }
+							.setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
 							.show()
 					true
 				}
 		findPreference<Preference>(DataUtil.debugCrashApp)
-				.setOnPreferenceClickListener { preference ->
+				.setOnPreferenceClickListener {
 					val builder = MaterialAlertDialogBuilder(context!!)
 					builder.setTitle(R.string.debug_activity_confirm_crash_app_dialog_title)
-							.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-							.setPositiveButton(R.string.dialog_action_crash) { dialog, which -> mCrashlytics!!.crash() }
+							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+							.setPositiveButton(R.string.dialog_action_crash) { _, _ -> mCrashlytics!!.crash() }
 							.show()
 					true
 				}
@@ -251,7 +251,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					val builder = MaterialAlertDialogBuilder(context!!)
 					builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
 							.setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
-							.setPositiveButton(R.string.dialog_action_ok) { dialog, which ->
+							.setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
 								try {
 									mInstanceId!!.deleteInstanceId()
 									Toast.makeText(context, "Successfully deleted instance ID!", Toast.LENGTH_LONG).show()
@@ -262,7 +262,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 								dialog.dismiss()
 							}
-							.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 							.show()
 					true
 				}
