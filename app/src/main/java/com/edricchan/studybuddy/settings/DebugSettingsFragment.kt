@@ -50,7 +50,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		mConnectivityManager = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 	}
 
-	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String) {
+	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_debug, rootKey)
 		findPreference<Preference>(DataUtil.debugDeviceInfo)
 				.setOnPreferenceClickListener {
