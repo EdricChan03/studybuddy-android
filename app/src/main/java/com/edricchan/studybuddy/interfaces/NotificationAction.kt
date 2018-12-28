@@ -4,35 +4,17 @@ import android.content.Context
 
 import androidx.annotation.DrawableRes
 
-class NotificationAction {
-	/**
-	 * Specifies the action's icon
-	 */
-	/**
-	 * Retrives the action's icon
-	 * @return The action's icon's name
-	 */
-	var actionIcon: String? = null
-		private set
-	/**
-	 * Specifies the action's title
-	 */
-	/**
-	 * Retrieves the action's title
-	 * @return The action's title
-	 */
-	var actionTitle: String? = null
-		private set
-	/**
-	 * Specifies the action's Intent to launch
-	 */
-	/**
-	 * Retrieves the action's type of Intent to launch when clicked on
-	 * @return The action's type
-	 */
-	var actionType: String? = null
-		private set
-
+/**
+ * Specifies a notification request's action
+ * @property actionIcon The action's icon
+ * @property actionTitle The action's title
+ * @property actionType The action's type
+ */
+data class NotificationAction(
+		var actionIcon: String? = null,
+		var actionTitle: String? = null,
+		var actionType: String? = null
+) {
 	// TODO: Add support for creating multiple actions using the builder
 	class Builder {
 		private var action: NotificationAction? = null
