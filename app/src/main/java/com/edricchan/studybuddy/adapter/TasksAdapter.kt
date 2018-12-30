@@ -279,24 +279,20 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 		internal var markAsDoneBtn: Button = view.findViewById(R.id.itemMarkAsDone)
 		internal var deleteBtn: Button = view.findViewById(R.id.itemDelete)
 		internal var cardView: MaterialCardView = view.findViewById(R.id.itemCardView)
-		/**
-		 * Retrieves the item details of the item
-		 *
-		 * @return The item details of the item
-		 */
-		internal var itemDetails: TaskItemDetails? = null
 
 		init {
 			// itemDate = view.findViewById(R.id.itemDate);
 			itemContent = view.findViewById(R.id.itemContent)
 			// itemProjects = view.findViewById(R.id.itemProjects);
 			// itemTags = view.findViewById(R.id.itemTags);
-			try {
-				itemDetails = TaskItemDetails(adapterPosition, mTaskItemList!![adapterPosition].id!!)
-			} catch (e: IndexOutOfBoundsException) {
-				Log.e(TAG, "An error occurred while attempting to set the item details:", e)
-			}
 
+		}
+
+		fun getItemDetails(): TaskItemDetails {
+			Log.d(TAG, "Adapter position: $adapterPosition")
+			val id = mTaskItemList!![adapterPosition].id!!
+			Log.d(TAG, "ID at adapter position $adapterPosition: $id")
+			return TaskItemDetails(adapterPosition, id)
 		}
 	}
 

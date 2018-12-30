@@ -15,7 +15,7 @@ class TaskItemLookup(
 		if (view != null) {
 			val viewHolder = recyclerView.getChildViewHolder(view)
 			if (viewHolder is TasksAdapter.Holder) {
-				return viewHolder.itemDetails
+				return viewHolder.getItemDetails()
 			}
 		}
 		return null
