@@ -33,8 +33,7 @@ class TaskItemKeyProvider(
 	}
 
 	override fun getPosition(key: String): Int {
-//		return mKeyToPosition[key]!!
-		return getTaskItemPosition(mItemList, key)
+		return mKeyToPosition[key]!!
 	}
 
 	/**
