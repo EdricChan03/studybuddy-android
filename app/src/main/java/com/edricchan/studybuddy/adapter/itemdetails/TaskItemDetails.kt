@@ -24,6 +24,6 @@ class TaskItemDetails(
 	}
 
 	override fun inSelectionHotspot(e: MotionEvent): Boolean {
-		return true
+		return false
 	}
 }
