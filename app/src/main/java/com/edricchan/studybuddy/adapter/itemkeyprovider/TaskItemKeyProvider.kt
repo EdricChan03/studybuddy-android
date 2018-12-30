@@ -11,7 +11,7 @@ import java.util.stream.IntStream
 /**
  * Creates a new provider.
  *
- * @param itemList The list of tasks
+ * @param mItemList The list of tasks
  */
 class TaskItemKeyProvider(
 		private val mItemList: List<TaskItem>
@@ -21,7 +21,7 @@ class TaskItemKeyProvider(
 	init {
 		this.mKeyToPosition = HashMap(mItemList.size)
 		var i = 0
-		for ((_, _, _, id) in mItemList) {
+		for ((id) in mItemList) {
 			mKeyToPosition[id!!] = i
 			i++
 		}
@@ -33,7 +33,8 @@ class TaskItemKeyProvider(
 	}
 
 	override fun getPosition(key: String): Int {
-		return mKeyToPosition[key]!!
+//		return mKeyToPosition[key]!!
+		return getTaskItemPosition(mItemList, key)
 	}
 
 	/**
