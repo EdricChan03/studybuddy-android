@@ -346,6 +346,6 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	companion object {
-		private val TAG = SharedUtils.getTag(DebugSettingsFragment::class.java)
+		private val TAG = SharedUtils.getTag(this::class.java)
 	}
 }
