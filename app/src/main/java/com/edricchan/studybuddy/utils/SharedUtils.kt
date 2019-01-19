@@ -190,7 +190,7 @@ class SharedUtils
 		)
 		val DEFAULT_SHARED_PREFS_FILE = DataUtils.defaultSharedPrefsFile
 
-		private val TAG = getTag(SharedUtils::class.java)
+		private val TAG = getTag(this::class.java)
 
 		/**
 		 * Clears the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [FloatingActionButton]
