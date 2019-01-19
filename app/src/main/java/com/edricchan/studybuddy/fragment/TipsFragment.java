@@ -50,7 +50,7 @@ public class TipsFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		mFragmentView = view;
 		view.findViewById(R.id.tips_empty_state_cta)
-				.setOnClickListener(v -> SharedUtils.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
+				.setOnClickListener(v -> SharedUtils.Companion.launchUri(getContext(), DataUtil.INSTANCE.getUriSubmitTip(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
 	}
 
 
@@ -73,7 +73,7 @@ public class TipsFragment extends Fragment {
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_submit_tip:
-				SharedUtils.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedUtils.Companion.launchUri(getContext(), DataUtil.INSTANCE.getUriSubmitTip(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_debug:
 				Intent debugIntent = new Intent(getActivity(), DebugActivity.class);

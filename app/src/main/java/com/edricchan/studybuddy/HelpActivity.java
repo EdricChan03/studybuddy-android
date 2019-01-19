@@ -77,7 +77,7 @@ public class HelpActivity extends AppCompatActivity {
 				loadFeaturedList();
 				return true;
 			case R.id.action_send_feedback:
-				SharedUtils.Companion.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedUtils.Companion.launchUri(this, DataUtil.INSTANCE.getUriSendFeedback(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_version:
 				SharedUtils.Companion.showVersionDialog(this);
@@ -87,7 +87,7 @@ public class HelpActivity extends AppCompatActivity {
 				startActivity(licensesIntent);
 				return true;
 			case R.id.action_source_code:
-				SharedUtils.Companion.launchUri(this, DataUtil.uriSrcCode, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedUtils.Companion.launchUri(this, DataUtil.INSTANCE.getUriSrcCode(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

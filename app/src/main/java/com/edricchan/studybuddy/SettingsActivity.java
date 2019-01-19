@@ -57,7 +57,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 				onBackPressed();
 				return true;
 			case R.id.action_send_feedback:
-				SharedUtils.Companion.launchUri(this, DataUtil.uriSendFeedback, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedUtils.Companion.launchUri(this, DataUtil.INSTANCE.getUriSendFeedback(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_help:
 				Intent helpIntent = new Intent(this, HelpActivity.class);
