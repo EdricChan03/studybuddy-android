@@ -290,11 +290,17 @@ class SharedUtils
 		 * @param context The context
 		 */
 		fun setAppTheme(context: Context) {
-			val appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(DataUtil.prefDarkTheme, "1")!!
+			val appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(DataUtil.prefDarkTheme, DataUtil.prefDarkThemeAuto)!!
 			when (appTheme) {
+				// Note: The old values of the preference will still be supported
 				"1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 				"2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
 				"3" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+				// New values
+				DataUtil.prefDarkThemeAlways -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+				DataUtil.prefDarkThemeAuto -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+				DataUtil.prefDarkThemeFollowSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+				DataUtil.prefDarkThemeNever -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 				else -> Log.w(TAG, "Please supply a valid string integer (1, 2, or 3)!")
 			}
 		}

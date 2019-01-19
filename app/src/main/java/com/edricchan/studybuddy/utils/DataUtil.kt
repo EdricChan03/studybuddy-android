@@ -14,7 +14,7 @@ object DataUtil {
 	const val prefHeaderAbout = "pref_header_about"
 
 	@Deprecated(
-			"Use DataUtil#prefHeaderAbout",
+			"Use DataUtil.prefHeaderAbout",
 			ReplaceWith(
 					"DataUtil.prefHeaderAbout",
 					"com.edricchan.studybuddy.utils.DataUtil"
@@ -30,6 +30,10 @@ object DataUtil {
 	const val prefCategoryGeneral = "pref_category_general"
 	const val prefCategoryTheme = "pref_category_theme"
 	const val prefDarkTheme = "pref_dark_theme"
+	const val prefDarkThemeAuto = "automatic"
+	const val prefDarkThemeAlways = "always"
+	const val prefDarkThemeFollowSystem = "follow_system"
+	const val prefDarkThemeNever = "never"
 
 	@Deprecated(
 			"Use DataUtil.prefDarkTheme",

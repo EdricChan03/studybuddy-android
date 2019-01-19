@@ -271,12 +271,14 @@
 	<string-array name="pref_dark_theme_options_array">
 		<item>Always</item>
 		<item>Automatic (at night)</item>
+		<item>Follow system</item>
 		<item>Never</item>
 	</string-array>
 	<string-array name="pref_dark_theme_options_array_values">
-		<item>1</item>
-		<item>2</item>
-		<item>3</item>
+		<item>always</item>
+		<item>automatic</item>
+		<item>follow_system</item>
+		<item>never</item>
 	</string-array>
 	<string name="pref_dark_theme_title">Dark theme</string>
 
