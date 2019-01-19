@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.interfaces.HelpArticle
+import com.edricchan.studybuddy.utils.SharedUtils
 
 class HelpArticleAdapter(
 		private val mHelpArticles: List<HelpArticle>?
@@ -16,9 +16,7 @@ class HelpArticleAdapter(
 	private var mListener: OnItemClickListener? = null
 
 	var onItemClickListener: OnItemClickListener?
-		get() = if (this.mListener != null) {
-			this.mListener
-		} else null
+		get() = this.mListener
 		set(listener) {
 			this.mListener = listener
 		}
