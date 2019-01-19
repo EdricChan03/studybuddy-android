@@ -40,7 +40,7 @@ class NewTaskActivity : AppCompatActivity() {
 	private var mFirestore: FirebaseFirestore? = null
 	private var mCurrentUser: FirebaseUser? = null
 	private var mAllowAccess: Boolean = false
-	private val TAG = SharedUtils.getTag(NewTaskActivity::class.java)
+	private val TAG = SharedUtils.getTag(this::class.java)
 	private var tempTaskProject: String? = null
 	private var mTaskProjectSpinnerAdapter: TaskProjectSpinnerAdapter? = null
 	/**
