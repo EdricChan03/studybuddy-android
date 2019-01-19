@@ -12,7 +12,7 @@ import androidx.preference.PreferenceFragmentCompat
 
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.utils.SharedUtils
-import com.edricchan.studybuddy.utils.DataUtil
+import com.edricchan.studybuddy.utils.DataUtils
 
 class GeneralSettingsFragment : PreferenceFragmentCompat() {
 	private var prefDayNightPermInfo: Preference? = null
@@ -21,9 +21,9 @@ class GeneralSettingsFragment : PreferenceFragmentCompat() {
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_general, rootKey)
-		prefDayNightGrantPerm = findPreference(DataUtil.prefDaynightGrantPerm)
-		prefDayNightPermInfo = findPreference(DataUtil.prefDayNightPermInfo)
-		prefCategoryTheme = findPreference<Preference>(DataUtil.prefCategoryTheme) as PreferenceCategory
+		prefDayNightGrantPerm = findPreference(DataUtils.prefDaynightGrantPerm)
+		prefDayNightPermInfo = findPreference(DataUtils.prefDayNightPermInfo)
+		prefCategoryTheme = findPreference<Preference>(DataUtils.prefCategoryTheme) as PreferenceCategory
 		if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 			// Hide permission-related Preferences as the permission is already granted
 			prefDayNightGrantPerm!!.isVisible = false

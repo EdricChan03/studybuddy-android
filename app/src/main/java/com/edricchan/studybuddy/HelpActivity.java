@@ -24,7 +24,7 @@ import androidx.transition.TransitionManager;
 import com.edricchan.studybuddy.adapter.HelpArticleAdapter;
 import com.edricchan.studybuddy.interfaces.HelpArticle;
 import com.edricchan.studybuddy.interfaces.HelpArticles;
-import com.edricchan.studybuddy.utils.DataUtil;
+import com.edricchan.studybuddy.utils.DataUtils;
 import com.edricchan.studybuddy.utils.SharedUtils;
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.google.gson.Gson;
@@ -77,7 +77,7 @@ public class HelpActivity extends AppCompatActivity {
 				loadFeaturedList();
 				return true;
 			case R.id.action_send_feedback:
-				SharedUtils.Companion.launchUri(this, DataUtil.INSTANCE.getUriSendFeedback(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedUtils.Companion.launchUri(this, DataUtils.INSTANCE.getUriSendFeedback(), preferences.getBoolean(DataUtils.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_version:
 				SharedUtils.Companion.showVersionDialog(this);
@@ -87,7 +87,7 @@ public class HelpActivity extends AppCompatActivity {
 				startActivity(licensesIntent);
 				return true;
 			case R.id.action_source_code:
-				SharedUtils.Companion.launchUri(this, DataUtil.INSTANCE.getUriSrcCode(), preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedUtils.Companion.launchUri(this, DataUtils.INSTANCE.getUriSrcCode(), preferences.getBoolean(DataUtils.prefUseCustomTabs, true));
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -111,7 +111,7 @@ public class HelpActivity extends AppCompatActivity {
 		try {
 			progressBarLayout.setVisibility(View.VISIBLE);
 			featuredRecyclerView.setVisibility(View.GONE);
-			new GetHelpArticlesAsyncTask(this).execute(new URL(DataUtil.urlHelpFeatured));
+			new GetHelpArticlesAsyncTask(this).execute(new URL(DataUtils.urlHelpFeatured));
 		} catch (Exception e) {
 			Log.e(TAG, "An error occurred while attempting to parse the JSON:", e);
 		}
@@ -152,7 +152,7 @@ public class HelpActivity extends AppCompatActivity {
 				if (activity == null || activity.isFinishing()) return;
 				// Update the adapter
 				HelpArticleAdapter adapter = new HelpArticleAdapter(helpArticles);
-				adapter.setOnItemClickListener((article, position) -> SharedUtils.Companion.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
+				adapter.setOnItemClickListener((article, position) -> SharedUtils.Companion.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(DataUtils.prefUseCustomTabs, true)));
 				activity.featuredRecyclerView.setAdapter(adapter);
 				activity.featuredRecyclerView.setVisibility(View.VISIBLE);
 				activity.swipeRefreshLayout.setRefreshing(false);

@@ -16,7 +16,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.SettingsActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.interfaces.NotificationAction
-import com.edricchan.studybuddy.utils.DataUtil
+import com.edricchan.studybuddy.utils.DataUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -108,7 +108,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 							icon = drawableIcon
 						}
 						when (notificationAction.actionType) {
-							DataUtil.actionNotificationsSettingsIntent -> {
+							DataUtils.actionNotificationsSettingsIntent -> {
 								intent = Intent(this, SettingsActivity::class.java)
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 								notificationPendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)

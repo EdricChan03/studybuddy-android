@@ -9,7 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.DataUtil
+import com.edricchan.studybuddy.utils.DataUtils
 
 class TodoSettingsFragment : PreferenceFragmentCompat() {
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -18,10 +18,10 @@ class TodoSettingsFragment : PreferenceFragmentCompat() {
 			val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
 			intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity!!.packageName)
 			intent.putExtra(Settings.EXTRA_CHANNEL_ID, getString(R.string.notification_channel_weekly_summary_id))
-			findPreference<Preference>(DataUtil.prefWeeklySummaryNotificationOpts).intent = intent
+			findPreference<Preference>(DataUtils.prefWeeklySummaryNotificationOpts).intent = intent
 		} else {
 			// Hide the preference as notification channels aren't implemented on lower versions of Android
-			findPreference<Preference>(DataUtil.prefWeeklySummaryNotificationOpts).isVisible = false
+			findPreference<Preference>(DataUtils.prefWeeklySummaryNotificationOpts).isVisible = false
 		}
 	}
 }

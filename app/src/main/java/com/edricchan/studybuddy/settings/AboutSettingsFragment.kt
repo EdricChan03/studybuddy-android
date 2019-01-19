@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.UpdatesActivity
-import com.edricchan.studybuddy.utils.DataUtil
+import com.edricchan.studybuddy.utils.DataUtils
 
 class AboutSettingsFragment : PreferenceFragmentCompat() {
 	private var preferences: SharedPreferences? = null
@@ -22,21 +22,21 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
 		val context = activity
 		preferences = PreferenceManager.getDefaultSharedPreferences(getContext()!!)
 		val appAuthorUrl = Uri.parse("https://github.com/Chan4077")
-		findPreference<Preference>(DataUtil.prefUpdates).intent = Intent(activity, UpdatesActivity::class.java)
-		val appAuthor = findPreference<Preference>(DataUtil.prefAppAuthor)
+		findPreference<Preference>(DataUtils.prefUpdates).intent = Intent(activity, UpdatesActivity::class.java)
+		val appAuthor = findPreference<Preference>(DataUtils.prefAppAuthor)
 		appAuthor.setOnPreferenceClickListener {
-			SharedUtils.launchUri(context!!, appAuthorUrl, preferences!!.getBoolean(DataUtil.prefUseCustomTabs, true))
+			SharedUtils.launchUri(context!!, appAuthorUrl, preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true))
 			true
 		}
-		val appSrc = findPreference<Preference>(DataUtil.prefAppSrcCode)
+		val appSrc = findPreference<Preference>(DataUtils.prefAppSrcCode)
 		appSrc.setOnPreferenceClickListener {
-			SharedUtils.launchUri(context!!, DataUtil.uriSrcCode, preferences!!.getBoolean(DataUtil.prefUseCustomTabs, true))
+			SharedUtils.launchUri(context!!, DataUtils.uriSrcCode, preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true))
 			true
 		}
-		val appVersion = findPreference<Preference>(DataUtil.prefAppVersion)
+		val appVersion = findPreference<Preference>(DataUtils.prefAppVersion)
 		appVersion.summary = BuildConfig.VERSION_NAME
 
-		val appInfo = findPreference<Preference>(DataUtil.prefAppInfo)
+		val appInfo = findPreference<Preference>(DataUtils.prefAppInfo)
 		appInfo.intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + BuildConfig.APPLICATION_ID))
 	}
 }

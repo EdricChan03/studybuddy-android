@@ -5,7 +5,7 @@ import android.net.Uri
 /**
  * Common properties to be used across the app
  */
-object DataUtil {
+object DataUtils {
 	// Preference headers
 	const val prefHeaderGeneral = "pref_header_general"
 	const val prefHeaderTodo = "pref_header_todo"
@@ -14,10 +14,10 @@ object DataUtil {
 	const val prefHeaderAbout = "pref_header_about"
 
 	@Deprecated(
-			"Use DataUtil.prefHeaderAbout",
+			"Use DataUtils.prefHeaderAbout",
 			ReplaceWith(
-					"DataUtil.prefHeaderAbout",
-					"com.edricchan.studybuddy.utils.DataUtil"
+					"DataUtils.prefHeaderAbout",
+					"com.edricchan.studybuddy.utils.DataUtils"
 			)
 	)
 	const val prefHeaderVersion = prefHeaderAbout
@@ -36,10 +36,10 @@ object DataUtil {
 	const val prefDarkThemeNever = "never"
 
 	@Deprecated(
-			"Use DataUtil.prefDarkTheme",
+			"Use DataUtils.prefDarkTheme",
 			ReplaceWith(
-					"DataUtil.prefAppTheme",
-					"com.edricchan.studybuddy.utils.DataUtil"
+					"DataUtils.prefAppTheme",
+					"com.edricchan.studybuddy.utils.DataUtils"
 			)
 	)
 	const val prefAppTheme = prefDarkTheme
@@ -50,10 +50,10 @@ object DataUtil {
 	const val prefDaynightGrantPerm = "pref_daynight_grant_perm"
 
 	@Deprecated(
-			"Use DataUtil.prefLanguage",
+			"Use DataUtils.prefLanguage",
 			ReplaceWith(
-					"DataUtil.prefLanguage",
-					"com.edricchan.studybuddy.utils.DataUtil"
+					"DataUtils.prefLanguage",
+					"com.edricchan.studybuddy.utils.DataUtils"
 			)
 	)
 	const val prefLocale = prefLanguage
@@ -69,7 +69,13 @@ object DataUtil {
 	const val prefCategoryAbout = "pref_category_about"
 	const val prefUpdates = "pref_updates"
 
-	@Deprecated("Use {@link DataUtil#prefUpdates} instead")
+	@Deprecated(
+			"Use DataUtils.prefUpdates",
+			ReplaceWith(
+					"DataUtils.prefUpdates",
+					"com.edricchan.studybuddy.utils.DataUtils"
+			)
+	)
 	const val prefUpdateActivity = prefUpdates
 	const val prefAppVersion = "pref_app_version"
 	const val prefAppSrcCode = "pref_app_src_code"
@@ -100,15 +106,15 @@ object DataUtil {
 
 	// URIs
 	const val urlHelpFeatured = "https://chan4077.github.io/res/studybuddy/help-featured-articles.json"
-	val uriHelpFeatured = Uri.parse(urlHelpFeatured)
+	val uriHelpFeatured: Uri = Uri.parse(urlHelpFeatured)
 	const val urlSrcCode = "https://github.com/Chan4077/StudyBuddy"
-	val uriSrcCode = Uri.parse(urlSrcCode)
+	val uriSrcCode: Uri = Uri.parse(urlSrcCode)
 	const val urlSendFeedback = "https://goo.gl/forms/tz6cmNguIHuZMZIh2"
-	val uriSendFeedback = Uri.parse(urlSendFeedback)
+	val uriSendFeedback: Uri = Uri.parse(urlSendFeedback)
 	const val urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92"
-	val uriSubmitTip = Uri.parse(urlSubmitTip)
+	val uriSubmitTip: Uri = Uri.parse(urlSubmitTip)
 	const val urlWiki = "https://github.com/Chan4077/StudyBuddy/wiki"
-	val uriWiki = Uri.parse(urlWiki)
+	val uriWiki: Uri = Uri.parse(urlWiki)
 	// Other
 	const val defaultSharedPrefsFile = "Preference"
 }
