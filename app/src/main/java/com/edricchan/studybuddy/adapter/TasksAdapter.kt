@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.SharedHelper
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.adapter.itemdetails.TaskItemDetails
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.google.android.material.card.MaterialCardView
@@ -260,9 +260,9 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 	@Deprecated("This should ideally be left up to the consumer, instead of handling it in the adapter")
 	fun deleteTask(taskId: String?, position: Int) {
 		val item = mTaskItemList!![position]
-		SharedHelper.removeTask(taskId!!, mUser!!, mFirestore!!).addOnSuccessListener {
+		SharedUtils.removeTask(taskId!!, mUser!!, mFirestore!!).addOnSuccessListener {
 			notifyItemRemoved(position)
-			mSnackbarView?.let { Snackbar.make(it, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo") { view1 -> SharedHelper.addTask(item, mUser!!, mFirestore!!).addOnFailureListener { e -> Snackbar.make(mSnackbarView!!, "Couldn't restore todo: " + e.message, Snackbar.LENGTH_LONG).show() } }.show() }
+			mSnackbarView?.let { Snackbar.make(it, "Todo was deleted", Snackbar.LENGTH_LONG).setAction("Undo") { view1 -> SharedUtils.addTask(item, mUser!!, mFirestore!!).addOnFailureListener { e -> Snackbar.make(mSnackbarView!!, "Couldn't restore todo: " + e.message, Snackbar.LENGTH_LONG).show() } }.show() }
 		}
 	}
 
@@ -333,6 +333,6 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 	}
 
 	companion object {
-		private val TAG = SharedHelper.getTag(TasksAdapter::class.java)
+		private val TAG = SharedUtils.getTag(TasksAdapter::class.java)
 	}
 }

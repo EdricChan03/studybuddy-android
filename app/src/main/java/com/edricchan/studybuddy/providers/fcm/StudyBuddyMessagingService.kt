@@ -14,7 +14,7 @@ import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.MainActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.SettingsActivity
-import com.edricchan.studybuddy.SharedHelper
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.utils.DataUtil
 import com.google.firebase.auth.FirebaseAuth
@@ -25,9 +25,9 @@ import com.google.gson.Gson
 import java.util.*
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
-	private val sharedHelper = SharedHelper(this)
+	private val sharedHelper = SharedUtils(this)
 	// To be used for Android's Log
-	private val TAG = SharedHelper.getTag(this::class.java)
+	private val TAG = SharedUtils.getTag(this::class.java)
 
 	override fun onMessageReceived(remoteMessage: RemoteMessage?) {
 		super.onMessageReceived(remoteMessage)

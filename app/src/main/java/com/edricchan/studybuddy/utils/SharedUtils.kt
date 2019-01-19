@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy
+package com.edricchan.studybuddy.utils
 
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
@@ -32,10 +32,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
+import com.edricchan.studybuddy.BuildConfig
+import com.edricchan.studybuddy.MainActivity
+import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver
-import com.edricchan.studybuddy.utils.DataUtil
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
@@ -56,7 +58,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * Shared utility methods
  * @property context The context used for non-static methods
  */
-class SharedHelper
+class SharedUtils
 (
 		context: Context
 ) {
@@ -188,7 +190,7 @@ class SharedHelper
 		)
 		val DEFAULT_SHARED_PREFS_FILE = DataUtil.defaultSharedPrefsFile
 
-		private val TAG = getTag(SharedHelper::class.java)
+		private val TAG = getTag(SharedUtils::class.java)
 
 		/**
 		 * Clears the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [FloatingActionButton]
@@ -516,7 +518,7 @@ class SharedHelper
 		 * @param context The context
 		 * @return A boolean
 		 */
-		@Deprecated("Use {@link SharedHelper#isNetworkAvailable(Context)}")
+		@Deprecated("Use {@link SharedUtils#isNetworkAvailable(Context)}")
 		fun isNetworkUnavailable(context: Context): Boolean {
 			return !isNetworkAvailable(context)
 		}

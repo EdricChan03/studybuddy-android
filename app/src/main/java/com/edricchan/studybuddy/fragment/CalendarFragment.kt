@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.SharedHelper
+import com.edricchan.studybuddy.utils.SharedUtils
 
 class CalendarFragment : Fragment() {
 	private var fragmentView: View? = null
@@ -23,6 +23,6 @@ class CalendarFragment : Fragment() {
 		/**
 		 * The Android tag for use with [android.util.Log]
 		 */
-		private val TAG = SharedHelper.getTag(this::class.java)
+		private val TAG = SharedUtils.getTag(this::class.java)
 	}
 }

@@ -27,6 +27,7 @@ import com.edricchan.studybuddy.adapter.TasksAdapter
 import com.edricchan.studybuddy.adapter.itemdetailslookup.TaskItemLookup
 import com.edricchan.studybuddy.adapter.itemkeyprovider.TaskItemKeyProvider
 import com.edricchan.studybuddy.interfaces.TaskItem
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -75,13 +76,13 @@ class TodoFragment : Fragment() {
 			}
 			R.id.action_sort_none -> {
 				if (!item.isChecked) {
-					SharedHelper.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "none")
+					SharedUtils.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "none")
 							.commit()
 					item.isChecked = true
 					loadTasksList(mCurrentUser!!.uid)
 				}
 				if (!item.isChecked) {
-					SharedHelper.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_desc")
+					SharedUtils.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_desc")
 							.commit()
 					item.isChecked = true
 					loadTasksList(mCurrentUser!!.uid, "title", Query.Direction.DESCENDING)
@@ -90,7 +91,7 @@ class TodoFragment : Fragment() {
 			}
 			R.id.action_sort_title_descending -> {
 				if (!item.isChecked) {
-					SharedHelper.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_desc").commit()
+					SharedUtils.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_desc").commit()
 					item.isChecked = true
 					loadTasksList(mCurrentUser!!.uid, "title", Query.Direction.DESCENDING)
 				}
@@ -98,7 +99,7 @@ class TodoFragment : Fragment() {
 			}
 			R.id.action_sort_title_ascending -> {
 				if (!item.isChecked) {
-					SharedHelper.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_asc")
+					SharedUtils.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "title_asc")
 							.commit()
 					item.isChecked = true
 					loadTasksList(mCurrentUser!!.uid, "title", Query.Direction.ASCENDING)
@@ -107,7 +108,7 @@ class TodoFragment : Fragment() {
 			}
 			R.id.action_sort_due_date_new_to_old -> {
 				if (!item.isChecked) {
-					SharedHelper.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_new_to_old")
+					SharedUtils.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_new_to_old")
 							.commit()
 					item.isChecked = true
 					loadTasksList(mCurrentUser!!.uid, "dueDate", Query.Direction.DESCENDING)
@@ -116,7 +117,7 @@ class TodoFragment : Fragment() {
 			}
 			R.id.action_sort_due_date_old_to_new -> {
 				if (!item.isChecked) {
-					SharedHelper.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_old_to_new")
+					SharedUtils.putPrefs(Objects.requireNonNull<Context>(context), SHARED_PREFS_FILE, MODE_PRIVATE, "sortTasksBy", "due_date_old_to_new")
 							.commit()
 					item.isChecked = true
 					loadTasksList(mCurrentUser!!.uid, "dueDate", Query.Direction.ASCENDING)
@@ -168,7 +169,7 @@ class TodoFragment : Fragment() {
 		mFirestore = FirebaseFirestore.getInstance()
 		mFragmentView = view
 
-		SharedHelper.setBottomAppBarFabOnClickListener(mParentActivity!!, View.OnClickListener { newTaskActivity() })
+		SharedUtils.setBottomAppBarFabOnClickListener(mParentActivity!!, View.OnClickListener { newTaskActivity() })
 
 		// Handles swiping down to refresh logic
 		mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
@@ -215,7 +216,7 @@ class TodoFragment : Fragment() {
 			mFirestoreListener!!.remove()
 		}
 
-		SharedHelper.clearBottomAppBarFabOnClickListener(mParentActivity!!)
+		SharedUtils.clearBottomAppBarFabOnClickListener(mParentActivity!!)
 	}
 
 	override fun onStart() {
@@ -510,7 +511,7 @@ class TodoFragment : Fragment() {
 		/**
 		 * The Android tag for use with [android.util.Log]
 		 */
-		private val TAG = SharedHelper.getTag(TodoFragment::class.java)
+		private val TAG = SharedUtils.getTag(TodoFragment::class.java)
 
 		private val SHARED_PREFS_FILE = "TodoFragPrefs"
 	}

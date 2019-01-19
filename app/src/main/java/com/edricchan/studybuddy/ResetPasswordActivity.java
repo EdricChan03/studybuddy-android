@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.edricchan.studybuddy.utils.SharedUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -20,7 +21,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 	private Button btnReset, btnBack;
 	private FirebaseAuth auth;
 	private ProgressBar progressBar;
-	private static final String TAG = SharedHelper.Companion.getTag(ResetPasswordActivity.class);
+	private static final String TAG = SharedUtils.Companion.getTag(ResetPasswordActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

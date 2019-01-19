@@ -11,7 +11,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.SharedHelper
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.DataUtil
 
 class GeneralSettingsFragment : PreferenceFragmentCompat() {
@@ -65,6 +65,6 @@ class GeneralSettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	companion object {
-		private val TAG = SharedHelper.getTag(GeneralSettingsFragment::class.java)
+		private val TAG = SharedUtils.getTag(GeneralSettingsFragment::class.java)
 	}
 }

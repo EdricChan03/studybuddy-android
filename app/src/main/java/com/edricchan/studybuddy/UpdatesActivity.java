@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.edricchan.studybuddy.utils.SharedUtils;
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -65,7 +66,7 @@ public class UpdatesActivity extends AppCompatActivity {
 				onBackPressed();
 				return true;
 			case R.id.action_check_for_updates:
-				Log.d(SharedHelper.Companion.getTag(getClass()), "Check for updates clicked!");
+				Log.d(SharedUtils.Companion.getTag(getClass()), "Check for updates clicked!");
 				Snackbar.make(findViewById(R.id.updatesView), R.string.update_snackbar_checking, Snackbar.LENGTH_SHORT)
 						.show();
 				checkForUpdates();
@@ -101,7 +102,7 @@ public class UpdatesActivity extends AppCompatActivity {
 	private void downloadUpdate(String downloadUrl, String version, boolean mobileDataSkip, boolean downloadAgain) {
 		String fileName = "com.edricchan.studybuddy-" + version + ".apk";
 		if (downloadAgain || !new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileName).exists()) {
-			if (mobileDataSkip || SharedHelper.Companion.isCellularNetworkAvailable(this)) {
+			if (mobileDataSkip || SharedUtils.Companion.isCellularNetworkAvailable(this)) {
 				MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
 				builder.setTitle(R.string.update_activity_cannot_download_cellular_dialog_title);
 				builder.setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg);
@@ -194,7 +195,7 @@ public class UpdatesActivity extends AppCompatActivity {
 			// Check if the device is running Android Marshmallow or higher
 			// Marshmallow introduces the capability for runtime permissions
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				if (SharedHelper.Companion.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, UpdatesActivity.this)) {
+				if (SharedUtils.Companion.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, UpdatesActivity.this)) {
 					downloadUpdate(appUpdate.getUrlToDownload().toString(), appUpdate.getLatestVersion());
 				} else {
 					if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

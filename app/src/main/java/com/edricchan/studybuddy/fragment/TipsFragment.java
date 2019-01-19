@@ -20,7 +20,7 @@ import com.edricchan.studybuddy.BuildConfig;
 import com.edricchan.studybuddy.DebugActivity;
 import com.edricchan.studybuddy.R;
 import com.edricchan.studybuddy.SettingsActivity;
-import com.edricchan.studybuddy.SharedHelper;
+import com.edricchan.studybuddy.utils.SharedUtils;
 import com.edricchan.studybuddy.utils.DataUtil;
 
 public class TipsFragment extends Fragment {
@@ -30,7 +30,7 @@ public class TipsFragment extends Fragment {
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.Companion.getTag(TipsFragment.class);
+	private static final String TAG = SharedUtils.Companion.getTag(TipsFragment.class);
 
 
 	@Override
@@ -50,7 +50,7 @@ public class TipsFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		mFragmentView = view;
 		view.findViewById(R.id.tips_empty_state_cta)
-				.setOnClickListener(v -> SharedHelper.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
+				.setOnClickListener(v -> SharedUtils.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true)));
 	}
 
 
@@ -73,7 +73,7 @@ public class TipsFragment extends Fragment {
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_submit_tip:
-				SharedHelper.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
+				SharedUtils.Companion.launchUri(getContext(), DataUtil.uriSubmitTip, preferences.getBoolean(DataUtil.prefUseCustomTabs, true));
 				return true;
 			case R.id.action_debug:
 				Intent debugIntent = new Intent(getActivity(), DebugActivity.class);

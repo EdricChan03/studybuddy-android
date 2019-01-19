@@ -20,7 +20,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.SharedHelper
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.utils.DataUtil
@@ -33,7 +33,7 @@ import java.io.IOException
 import java.util.*
 
 class DebugSettingsFragment : PreferenceFragmentCompat() {
-	private var mHelper: SharedHelper? = null
+	private var mUtils: SharedUtils? = null
 	private var mInstanceId: FirebaseInstanceId? = null
 	private var mAuth: FirebaseAuth? = null
 	private var mUser: FirebaseUser? = null
@@ -42,7 +42,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		mHelper = SharedHelper(context!!)
+		mUtils = SharedUtils(context!!)
 		mInstanceId = FirebaseInstanceId.getInstance()
 		mCrashlytics = Crashlytics.getInstance()
 		mAuth = FirebaseAuth.getInstance()
@@ -109,15 +109,15 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							.setIcon(R.drawable.ic_send_24dp)
 							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 							.setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
-								if (SharedHelper.getEditTextString(userOrTopicTextInputLayout).isNotEmpty() &&
-										SharedHelper.getEditTextString(titleTextInputLayout).isNotEmpty() &&
-										SharedHelper.getEditTextString(bodyTextInputLayout).isNotEmpty()) {
+								if (SharedUtils.getEditTextString(userOrTopicTextInputLayout).isNotEmpty() &&
+										SharedUtils.getEditTextString(titleTextInputLayout).isNotEmpty() &&
+										SharedUtils.getEditTextString(bodyTextInputLayout).isNotEmpty()) {
 									// TODO: Cleanup code
-									Log.d(TAG, "Value of bodyTextInputEditText: \"" + SharedHelper.getEditTextString(bodyTextInputLayout) + "\"")
-									Log.d(TAG, "Value of channelIdTextInputEditText: \"" + SharedHelper.getEditTextString(channelIdTextInputLayout) + "\"")
-									Log.d(TAG, "Value of colorTextInputLayout: \"" + SharedHelper.getEditTextString(colorTextInputLayout) + "\"")
-									Log.d(TAG, "Value of userOrTopicTextInputEditText: \"" + SharedHelper.getEditTextString(userOrTopicTextInputLayout) + "\"")
-									Log.d(TAG, "Value of titleTextInputEditText: \"" + SharedHelper.getEditTextString(titleTextInputLayout) + "\"")
+									Log.d(TAG, "Value of bodyTextInputEditText: \"" + SharedUtils.getEditTextString(bodyTextInputLayout) + "\"")
+									Log.d(TAG, "Value of channelIdTextInputEditText: \"" + SharedUtils.getEditTextString(channelIdTextInputLayout) + "\"")
+									Log.d(TAG, "Value of colorTextInputLayout: \"" + SharedUtils.getEditTextString(colorTextInputLayout) + "\"")
+									Log.d(TAG, "Value of userOrTopicTextInputEditText: \"" + SharedUtils.getEditTextString(userOrTopicTextInputLayout) + "\"")
+									Log.d(TAG, "Value of titleTextInputEditText: \"" + SharedUtils.getEditTextString(titleTextInputLayout) + "\"")
 									@NotificationRequest.NotificationPriority var priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
 									when (priorityRadioGroup.checkedRadioButtonId) {
 										R.id.priorityNormalRadioButton -> {
@@ -130,26 +130,26 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 										}
 									}
 									val notificationRequestBuilder = NotificationRequest.Builder()
-									if (!SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationBody(SharedHelper.getEditTextString(bodyTextInputLayout))
+									if (!SharedUtils.getEditTextString(bodyTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationBody(SharedUtils.getEditTextString(bodyTextInputLayout))
 									}
-									if (!SharedHelper.getEditTextString(channelIdTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationChannelId(SharedHelper.getEditTextString(channelIdTextInputLayout))
+									if (!SharedUtils.getEditTextString(channelIdTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationChannelId(SharedUtils.getEditTextString(channelIdTextInputLayout))
 									}
-									if (!SharedHelper.getEditTextString(colorTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationColor(SharedHelper.getEditTextString(colorTextInputLayout))
+									if (!SharedUtils.getEditTextString(colorTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationColor(SharedUtils.getEditTextString(colorTextInputLayout))
 									}
 									if (!priority.isEmpty()) {
 										notificationRequestBuilder.setNotificationPriority(priority)
 									}
-									if (!SharedHelper.getEditTextString(titleTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationTitle(SharedHelper.getEditTextString(titleTextInputLayout))
+									if (!SharedUtils.getEditTextString(titleTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationTitle(SharedUtils.getEditTextString(titleTextInputLayout))
 									}
-									if (!SharedHelper.getEditTextString(userOrTopicTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setUserOrTopic(SharedHelper.getEditTextString(userOrTopicTextInputLayout))
+									if (!SharedUtils.getEditTextString(userOrTopicTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setUserOrTopic(SharedUtils.getEditTextString(userOrTopicTextInputLayout))
 									}
-									if (!SharedHelper.getEditTextString(ttlTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationTtl(Integer.parseInt(SharedHelper.getEditTextString(ttlTextInputLayout)))
+									if (!SharedUtils.getEditTextString(ttlTextInputLayout).isEmpty()) {
+										notificationRequestBuilder.setNotificationTtl(Integer.parseInt(SharedUtils.getEditTextString(ttlTextInputLayout)))
 									}
 									val notificationSettingsActionBuilder = NotificationAction.Builder()
 									notificationSettingsActionBuilder
@@ -157,7 +157,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 											.setActionIcon("ic_settings_24dp")
 											.setActionType(DataUtil.actionNotificationsSettingsIntent)
 									notificationRequestBuilder.addNotificationAction(notificationSettingsActionBuilder.create()!!)
-									mHelper!!.sendNotificationRequest(notificationRequestBuilder.create())
+									mUtils!!.sendNotificationRequest(notificationRequestBuilder.create())
 											.addOnCompleteListener { task ->
 												if (task.isSuccessful) {
 													Log.d(TAG, "Successfully sent notification request to Cloud Firestore!")
@@ -202,7 +202,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									}
 									// Check if TextInputEditText is empty or if the title TextInputLayout's TextInputEditText is empty
 									// or if the body TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !TextUtils.isEmpty(s) && !SharedHelper.getEditTextString(titleTextInputLayout).isEmpty() && !SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty()
+									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !TextUtils.isEmpty(s) && !SharedUtils.getEditTextString(titleTextInputLayout).isEmpty() && !SharedUtils.getEditTextString(bodyTextInputLayout).isEmpty()
 								}
 								titleTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 									// Change is from title TextInputLayout's TextInputEditText
@@ -217,7 +217,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									}
 									// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 									// or if the body TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(TextUtils.isEmpty(s) || SharedHelper.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedHelper.getEditTextString(bodyTextInputLayout).isEmpty())
+									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(TextUtils.isEmpty(s) || SharedUtils.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedUtils.getEditTextString(bodyTextInputLayout).isEmpty())
 								}
 								bodyTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 									// Change is from title TextInputLayout's TextInputEditText
@@ -232,7 +232,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									}
 									// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 									// or if the title TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(TextUtils.isEmpty(s) || SharedHelper.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedHelper.getEditTextString(titleTextInputLayout).isEmpty())
+									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(TextUtils.isEmpty(s) || SharedUtils.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedUtils.getEditTextString(titleTextInputLayout).isEmpty())
 								}
 							}
 						}
@@ -346,6 +346,6 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	companion object {
-		private val TAG = SharedHelper.getTag(DebugSettingsFragment::class.java)
+		private val TAG = SharedUtils.getTag(DebugSettingsFragment::class.java)
 	}
 }

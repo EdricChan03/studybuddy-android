@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.edricchan.studybuddy.R;
-import com.edricchan.studybuddy.SharedHelper;
+import com.edricchan.studybuddy.utils.SharedUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +17,7 @@ public class ChatFragment extends Fragment {
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.Companion.getTag(ChatFragment.class);
+	private static final String TAG = SharedUtils.Companion.getTag(ChatFragment.class);
 
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -10,21 +10,21 @@ import android.net.Uri
 import android.os.Environment
 
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.SharedHelper
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.DataUtil
 
 class ActionButtonReceiver : BroadcastReceiver() {
 	override fun onReceive(context: Context, intent: Intent) {
-		val TAG = SharedHelper.getTag(this::class.java)
+		val TAG = SharedUtils.getTag(this::class.java)
 		val action = intent.getStringExtra("action")
 		when (action) {
 			DataUtil.actionNotificationsStartDownloadReceiver -> checkPermission(context, intent)
-			DataUtil.actionNotificationsRetryCheckForUpdateReceiver -> SharedHelper.checkForUpdates(context)
+			DataUtil.actionNotificationsRetryCheckForUpdateReceiver -> SharedUtils.checkForUpdates(context)
 		}// Register receiver for when .apk download is compete
 	}
 
 	fun checkPermission(context: Context, intent: Intent) {
-		if (SharedHelper.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
+		if (SharedUtils.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
 			downloadUpdate(context, intent)
 		}
 	}

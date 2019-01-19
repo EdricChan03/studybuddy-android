@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.edricchan.studybuddy.utils.SharedUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
 	private Button btnSignIn, btnSignUp;
 	private ProgressBar progressBar;
 	private FirebaseAuth auth;
-	private static final String TAG = SharedHelper.Companion.getTag(RegisterActivity.class);
+	private static final String TAG = SharedUtils.Companion.getTag(RegisterActivity.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 		btnSignUp.setOnClickListener(v -> {
 
-			String email = SharedHelper.Companion.getEditTextString(inputEmail).trim();
-			String password = SharedHelper.Companion.getEditTextString(inputPassword).trim();
+			String email = SharedUtils.Companion.getEditTextString(inputEmail).trim();
+			String password = SharedUtils.Companion.getEditTextString(inputPassword).trim();
 
 			if (TextUtils.isEmpty(email)) {
 				Snackbar.make(findViewById(R.id.registerActivity), "Please enter an email address", Snackbar.LENGTH_LONG)
@@ -102,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
 	}
 
 	private void checkNetwork() {
-		if (SharedHelper.Companion.isNetworkAvailable(this)) {
+		if (SharedUtils.Companion.isNetworkAvailable(this)) {
 			setViewsEnabled(true);
 		} else {
 			setViewsEnabled(false);

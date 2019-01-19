@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.edricchan.studybuddy.utils.SharedUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,7 +28,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
-	private static final String TAG = SharedHelper.Companion.getTag(LoginActivity.class);
+	private static final String TAG = SharedUtils.Companion.getTag(LoginActivity.class);
 	private static int RC_SIGN_IN;
 	private TextInputLayout inputEmail, inputPassword;
 	private FirebaseAuth auth;
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 		RC_SIGN_IN = 9001;
 		auth = FirebaseAuth.getInstance();
 		// Check if there's already an authenticated user
-		if (auth.getCurrentUser() != null && SharedHelper.Companion.isNetworkAvailable(this)) {
+		if (auth.getCurrentUser() != null && SharedUtils.Companion.isNetworkAvailable(this)) {
 			// This activity (`LoginActivity`) shouldn't be shown to an already authenticated user
 			// Instead, redirect the user to the main activity and close this activity
 			startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -73,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
 		btnReset.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class)));
 
 		btnLogin.setOnClickListener(v -> {
-			String email = SharedHelper.Companion.getEditTextString(inputEmail);
-			final String password = SharedHelper.Companion.getEditTextString(inputPassword);
+			String email = SharedUtils.Companion.getEditTextString(inputEmail);
+			final String password = SharedUtils.Companion.getEditTextString(inputPassword);
 			// Clear any previous errors
 			inputEmail.setError(null);
 			inputPassword.setError(null);
@@ -159,11 +160,11 @@ public class LoginActivity extends AppCompatActivity {
 	/**
 	 * A method used to disable all functionality if no internet connection is available
 	 * <p>
-	 * TODO: Bring this to SharedHelper instead
+	 * TODO: Bring this to SharedUtils instead
 	 */
 	private void checkNetwork() {
-		Log.d(TAG, "isNetworkAvailable: " + SharedHelper.Companion.isNetworkAvailable(this));
-		if (SharedHelper.Companion.isNetworkAvailable(this)) {
+		Log.d(TAG, "isNetworkAvailable: " + SharedUtils.Companion.isNetworkAvailable(this));
+		if (SharedUtils.Companion.isNetworkAvailable(this)) {
 			setViewsEnabled(true);
 		} else {
 			setViewsEnabled(false);

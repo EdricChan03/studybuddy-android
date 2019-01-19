@@ -21,6 +21,7 @@ import com.edricchan.studybuddy.fragment.ChatFragment;
 import com.edricchan.studybuddy.fragment.NavBottomSheetDialogFragment;
 import com.edricchan.studybuddy.fragment.TipsFragment;
 import com.edricchan.studybuddy.fragment.TodoFragment;
+import com.edricchan.studybuddy.utils.SharedUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	/**
 	 * The Android tag for use with {@link android.util.Log}
 	 */
-	private static final String TAG = SharedHelper.Companion.getTag(MainActivity.class);
+	private static final String TAG = SharedUtils.Companion.getTag(MainActivity.class);
 	private Menu mOptionsMenu;
 	//	private BottomNavigationView navigationView;
 	private FrameLayout contentMain;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedHelper.Companion.setAppTheme(this);
+		SharedUtils.Companion.setAppTheme(this);
 		// Use a downloadable font for EmojiCompat
 		FontRequest fontRequest = new FontRequest(
 				"com.google.android.gms.fonts",
@@ -105,25 +106,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         */
 		// Check if Android Oreo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			SharedHelper.Companion.createNotificationChannels(MainActivity.this);
+			SharedUtils.Companion.createNotificationChannels(MainActivity.this);
 		}
 		// Initially set a fragment view
-		SharedHelper.Companion.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, false);
+		SharedUtils.Companion.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, false);
 		contentMain = findViewById(R.id.content_main);
 		/*navigationView = findViewById(R.id.bottom_navigation_view);
 		navigationView.setOnNavigationItemSelectedListener((@NonNull MenuItem item) -> {
 			switch (item.getItemId()) {
 				case R.id.navigation_calendar:
-					SharedHelper.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
+					SharedUtils.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
 					break;
 				case R.id.navigation_chat:
-					SharedHelper.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
+					SharedUtils.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
 					break;
 				case R.id.navigation_todos:
-					SharedHelper.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
+					SharedUtils.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
 					break;
 				case R.id.navigation_tips:
-					SharedHelper.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
+					SharedUtils.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
 					break;
 			}
 			// Return a boolean to indicate that the listener has been set
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 		FirebaseFirestore fs = FirebaseFirestore.getInstance();
 		if (currentUser != null) {
-			SharedHelper.Companion.setCrashlyticsUserTracking(this, currentUser);
+			SharedUtils.Companion.setCrashlyticsUserTracking(this, currentUser);
 			// User specific topic
 			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.getUid());
 			FirebaseInstanceId.getInstance().getInstanceId()
@@ -219,16 +220,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				navBottomSheet.setNavigationItemSelectedListener(navItem -> {
 					switch (navItem.getItemId()) {
 						case R.id.navigation_calendar:
-							SharedHelper.Companion.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
+							SharedUtils.Companion.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
 							return true;
 						case R.id.navigation_chat:
-							SharedHelper.Companion.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
+							SharedUtils.Companion.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
 							return true;
 						case R.id.navigation_todos:
-							SharedHelper.Companion.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
+							SharedUtils.Companion.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
 							return true;
 						case R.id.navigation_tips:
-							SharedHelper.Companion.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
+							SharedUtils.Companion.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
 							return true;
 						default:
 							return false;
