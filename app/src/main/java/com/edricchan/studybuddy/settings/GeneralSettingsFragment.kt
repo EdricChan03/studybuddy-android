@@ -65,6 +65,6 @@ class GeneralSettingsFragment : PreferenceFragmentCompat() {
 	}
 
 	companion object {
-		private val TAG = SharedUtils.getTag(GeneralSettingsFragment::class.java)
+		private val TAG = SharedUtils.getTag(this::class.java)
 	}
 }
