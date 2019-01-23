@@ -20,10 +20,10 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.utils.DataUtils
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -318,10 +318,10 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 		dialogMsg += "\nIs network metered: $isNetworkMetered"
 		dialogMsg += "\nIs network active: $isNetworkActive"
-		when (isNetworkPermGranted) {
-			PackageManager.PERMISSION_GRANTED -> dialogMsg += "\nIs network permission granted: Yes"
-			PackageManager.PERMISSION_DENIED -> dialogMsg += "\nIs network permission granted: No"
-			else -> dialogMsg += "\nIs network permission granted: Unknown"
+		dialogMsg += when (isNetworkPermGranted) {
+			PackageManager.PERMISSION_GRANTED -> "\nIs network permission granted: Yes"
+			PackageManager.PERMISSION_DENIED -> "\nIs network permission granted: No"
+			else -> "\nIs network permission granted: Unknown"
 		}
 		return MaterialAlertDialogBuilder(context!!)
 				.setTitle(R.string.debug_activity_connectivity_info_dialog_title)
