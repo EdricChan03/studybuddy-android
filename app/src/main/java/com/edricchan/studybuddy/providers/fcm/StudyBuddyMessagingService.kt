@@ -14,9 +14,9 @@ import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.MainActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.SettingsActivity
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.utils.DataUtils
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -46,8 +46,14 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 				}
 				// Check if icon property exists
 				if (remoteMessage.notification!!.icon != null) {
-					// Use the icon
-					builder.setSmallIcon(resources.getIdentifier(remoteMessage.notification!!.icon, "drawable", packageName))
+					val icon = resources.getIdentifier(remoteMessage.notification!!.icon, "drawable", packageName)
+					if (icon != 0) {
+						// Use the icon
+						builder.setSmallIcon(icon)
+					} else {
+						// Use the default icon
+						builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
+					}
 				} else {
 					// Use the default icon
 					builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
