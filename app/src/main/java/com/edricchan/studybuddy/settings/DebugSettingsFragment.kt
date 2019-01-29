@@ -22,7 +22,7 @@ import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
-import com.edricchan.studybuddy.utils.DataUtils
+import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
@@ -52,12 +52,12 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_debug, rootKey)
-		findPreference<Preference>(DataUtils.debugDeviceInfo)
+		findPreference<Preference>(Constants.debugDeviceInfo)
 				.setOnPreferenceClickListener {
 					showDeviceInfoDialog()
 					true
 				}
-		findPreference<Preference>(DataUtils.debugAccountInfo)
+		findPreference<Preference>(Constants.debugAccountInfo)
 				.setOnPreferenceClickListener {
 
 					var dialogMsg = ""
@@ -82,7 +82,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							.show()
 					true
 				}
-		findPreference<Preference>(DataUtils.debugCrashApp)
+		findPreference<Preference>(Constants.debugCrashApp)
 				.setOnPreferenceClickListener {
 					val builder = MaterialAlertDialogBuilder(context!!)
 					builder.setTitle(R.string.debug_activity_confirm_crash_app_dialog_title)
@@ -91,7 +91,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							.show()
 					true
 				}
-		findPreference<Preference>(DataUtils.debugSendNotification)
+		findPreference<Preference>(Constants.debugSendNotification)
 				.setOnPreferenceClickListener {
 					val debugSendNotificationDialogView = layoutInflater.inflate(R.layout.debug_send_fcm_notification_dialog, null)
 					val bodyTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.bodyTextInputLayout)
@@ -155,7 +155,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									notificationSettingsActionBuilder
 											.setActionTitle("Configure Notifications")
 											.setActionIcon("ic_settings_24dp")
-											.setActionType(DataUtils.actionNotificationsSettingsIntent)
+											.setActionType(Constants.actionNotificationsSettingsIntent)
 									notificationRequestBuilder.addNotificationAction(notificationSettingsActionBuilder.create()!!)
 									mUtils!!.sendNotificationRequest(notificationRequestBuilder.create())
 											.addOnCompleteListener { task ->
@@ -243,7 +243,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					bodyTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
 					true
 				}
-		findPreference<Preference>(DataUtils.debugResetInstanceId)
+		findPreference<Preference>(Constants.debugResetInstanceId)
 				.setOnPreferenceClickListener {
 					val builder = MaterialAlertDialogBuilder(context!!)
 					builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)

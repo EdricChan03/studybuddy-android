@@ -10,7 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.settings.*
-import com.edricchan.studybuddy.utils.DataUtils
+import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -46,7 +46,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 				return true
 			}
 			R.id.action_send_feedback -> {
-				SharedUtils.launchUri(this, DataUtils.uriSendFeedback, preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true))
+				SharedUtils.launchUri(this, Constants.uriSendFeedback, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
 				return true
 			}
 			R.id.action_help -> {

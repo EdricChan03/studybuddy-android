@@ -18,7 +18,7 @@ import com.edricchan.studybuddy.DebugActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.SettingsActivity
 import com.edricchan.studybuddy.utils.SharedUtils
-import com.edricchan.studybuddy.utils.DataUtils
+import com.edricchan.studybuddy.utils.Constants
 
 class TipsFragment : Fragment() {
 	private var mFragmentView: View? = null
@@ -40,7 +40,7 @@ class TipsFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		mFragmentView = view
 		view.findViewById<View>(R.id.tips_empty_state_cta)
-				.setOnClickListener { v -> SharedUtils.launchUri(context!!, DataUtils.uriSubmitTip, preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true)) }
+				.setOnClickListener { v -> SharedUtils.launchUri(context!!, Constants.uriSubmitTip, preferences!!.getBoolean(Constants.prefUseCustomTabs, true)) }
 	}
 
 
@@ -60,7 +60,7 @@ class TipsFragment : Fragment() {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			R.id.action_submit_tip -> {
-				SharedUtils.launchUri(context!!, DataUtils.uriSubmitTip, preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true))
+				SharedUtils.launchUri(context!!, Constants.uriSubmitTip, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
 				return true
 			}
 			R.id.action_debug -> {

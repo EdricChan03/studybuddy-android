@@ -5,7 +5,7 @@ import android.net.Uri
 /**
  * Common properties to be used across the app
  */
-object DataUtils {
+object Constants {
 	// Preference headers
 	const val prefHeaderGeneral = "pref_header_general"
 	const val prefHeaderTodo = "pref_header_todo"
@@ -14,10 +14,10 @@ object DataUtils {
 	const val prefHeaderAbout = "pref_header_about"
 
 	@Deprecated(
-			"Use DataUtils.prefHeaderAbout",
+			"Use Constants.prefHeaderAbout",
 			ReplaceWith(
-					"DataUtils.prefHeaderAbout",
-					"com.edricchan.studybuddy.utils.DataUtils"
+					"Constants.prefHeaderAbout",
+					"com.edricchan.studybuddy.utils.Constants"
 			)
 	)
 	const val prefHeaderVersion = prefHeaderAbout
@@ -36,10 +36,10 @@ object DataUtils {
 	const val prefDarkThemeNever = "never"
 
 	@Deprecated(
-			"Use DataUtils.prefDarkTheme",
+			"Use Constants.prefDarkTheme",
 			ReplaceWith(
-					"DataUtils.prefAppTheme",
-					"com.edricchan.studybuddy.utils.DataUtils"
+					"Constants.prefAppTheme",
+					"com.edricchan.studybuddy.utils.Constants"
 			)
 	)
 	const val prefAppTheme = prefDarkTheme
@@ -50,10 +50,10 @@ object DataUtils {
 	const val prefDaynightGrantPerm = "pref_daynight_grant_perm"
 
 	@Deprecated(
-			"Use DataUtils.prefLanguage",
+			"Use Constants.prefLanguage",
 			ReplaceWith(
-					"DataUtils.prefLanguage",
-					"com.edricchan.studybuddy.utils.DataUtils"
+					"Constants.prefLanguage",
+					"com.edricchan.studybuddy.utils.Constants"
 			)
 	)
 	const val prefLocale = prefLanguage
@@ -70,10 +70,10 @@ object DataUtils {
 	const val prefUpdates = "pref_updates"
 
 	@Deprecated(
-			"Use DataUtils.prefUpdates",
+			"Use Constants.prefUpdates",
 			ReplaceWith(
-					"DataUtils.prefUpdates",
-					"com.edricchan.studybuddy.utils.DataUtils"
+					"Constants.prefUpdates",
+					"com.edricchan.studybuddy.utils.Constants"
 			)
 	)
 	const val prefUpdateActivity = prefUpdates

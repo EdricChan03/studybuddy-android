@@ -22,7 +22,7 @@ import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.interfaces.HelpArticles
-import com.edricchan.studybuddy.utils.DataUtils
+import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.gson.Gson
@@ -70,7 +70,7 @@ class HelpActivity : AppCompatActivity() {
 				return true
 			}
 			R.id.action_send_feedback -> {
-				SharedUtils.launchUri(this, DataUtils.uriSendFeedback, preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true))
+				SharedUtils.launchUri(this, Constants.uriSendFeedback, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
 				return true
 			}
 			R.id.action_version -> {
@@ -83,7 +83,7 @@ class HelpActivity : AppCompatActivity() {
 				return true
 			}
 			R.id.action_source_code -> {
-				SharedUtils.launchUri(this, DataUtils.uriSrcCode, preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true))
+				SharedUtils.launchUri(this, Constants.uriSrcCode, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
 				return true
 			}
 			else -> return super.onOptionsItemSelected(item)
@@ -107,7 +107,7 @@ class HelpActivity : AppCompatActivity() {
 		try {
 			progressBarLayout!!.visibility = View.VISIBLE
 			featuredRecyclerView!!.visibility = View.GONE
-			GetHelpArticlesAsyncTask(this).execute(URL(DataUtils.urlHelpFeatured))
+			GetHelpArticlesAsyncTask(this).execute(URL(Constants.urlHelpFeatured))
 		} catch (e: Exception) {
 			Log.e(TAG, "An error occurred while attempting to parse the JSON:", e)
 		}
@@ -150,7 +150,7 @@ class HelpActivity : AppCompatActivity() {
 				val adapter = HelpArticleAdapter(helpArticles)
 				adapter.onItemClickListener = object : HelpArticleAdapter.OnItemClickListener {
 					override fun onItemClick(article: HelpArticle, position: Int) {
-						SharedUtils.launchUri(activity, article.getArticleUri(), activity.preferences!!.getBoolean(DataUtils.prefUseCustomTabs, true))
+						SharedUtils.launchUri(activity, article.getArticleUri(), activity.preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
 					}
 				}
 				activity.featuredRecyclerView!!.adapter = adapter

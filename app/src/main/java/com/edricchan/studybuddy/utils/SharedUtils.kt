@@ -99,96 +99,96 @@ class SharedUtils
 		/**
 		 * Intent for notification settings action button for notifications
 		 */
-		@Deprecated("Use {@link DataUtils#actionNotificationsSettingsIntent}")
-		val ACTION_NOTIFICATIONS_SETTINGS_INTENT = DataUtils.actionNotificationsSettingsIntent
+		@Deprecated("Use {@link Constants#actionNotificationsSettingsIntent}")
+		val ACTION_NOTIFICATIONS_SETTINGS_INTENT = Constants.actionNotificationsSettingsIntent
 		/**
 		 * Broadcaster for starting download
 		 */
 		@Deprecated(
-				"Use DataUtils#actionNotificationsStartDownloadReceiver",
+				"Use Constants#actionNotificationsStartDownloadReceiver",
 				ReplaceWith(
-						"DataUtils.actionNotificationsStartDownloadReceiver",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.actionNotificationsStartDownloadReceiver",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER = DataUtils.actionNotificationsStartDownloadReceiver
+		val ACTION_NOTIFICATIONS_START_DOWNLOAD_RECEIVER = Constants.actionNotificationsStartDownloadReceiver
 		/**
 		 * Broadcaster for retrying check for updates
 		 */
 		@Deprecated(
-				"Use DataUtils#actionNotificationsRetryCheckForUpdateReceiver",
+				"Use Constants#actionNotificationsRetryCheckForUpdateReceiver",
 				ReplaceWith(
-						"DataUtils.actionNotificationsRetryCheckForUpdateReceiver",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.actionNotificationsRetryCheckForUpdateReceiver",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER = DataUtils.actionNotificationsRetryCheckForUpdateReceiver
+		val ACTION_NOTIFICATIONS_RETRY_CHECK_FOR_UPDATE_RECEIVER = Constants.actionNotificationsRetryCheckForUpdateReceiver
 		/**
 		 * Action icon for settings
 		 */
 		@Deprecated(
-				"Use DataUtils#fcmSettingsIcon",
+				"Use Constants#fcmSettingsIcon",
 				ReplaceWith(
-						"DataUtils.fcmSettingsIcon",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.fcmSettingsIcon",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val ACTION_SETTINGS_ICON = DataUtils.fcmSettingsIcon
+		val ACTION_SETTINGS_ICON = Constants.fcmSettingsIcon
 		/**
 		 * Action icon for notification
 		 */
 		@Deprecated(
-				"Use DataUtils#fcmNotificationIcon",
+				"Use Constants#fcmNotificationIcon",
 				ReplaceWith(
-						"DataUtils.fcmNotificationIcon",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.fcmNotificationIcon",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val ACTION_NOTIFICATION_ICON = DataUtils.fcmNotificationIcon
+		val ACTION_NOTIFICATION_ICON = Constants.fcmNotificationIcon
 		/**
 		 * Action icon for mark as done
 		 */
 		@Deprecated(
-				"Use DataUtils#fcmMarkAsDoneIcon}",
+				"Use Constants#fcmMarkAsDoneIcon}",
 				ReplaceWith(
-						"DataUtils.fcmMarkAsDoneIcon",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.fcmMarkAsDoneIcon",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val ACTION_MARK_AS_DONE_ICON = DataUtils.fcmMarkAsDoneIcon
+		val ACTION_MARK_AS_DONE_ICON = Constants.fcmMarkAsDoneIcon
 		// IDs for notifications
 		/**
 		 * ID for checking for updates
 		 */
 		@Deprecated(
-				"Use DataUtils#notificationCheckForUpdatesId",
+				"Use Constants#notificationCheckForUpdatesId",
 				ReplaceWith(
-						"DataUtils.notificationCheckForUpdatesId",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.notificationCheckForUpdatesId",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val NOTIFICATION_CHECK_FOR_UPDATES = DataUtils.notificationCheckForUpdatesId
+		val NOTIFICATION_CHECK_FOR_UPDATES = Constants.notificationCheckForUpdatesId
 		/**
 		 * ID for media player notification
 		 */
-		@Deprecated("Use DataUtils#notificationMediaId",
+		@Deprecated("Use Constants#notificationMediaId",
 				ReplaceWith(
-						"DataUtils.notificationMediaId",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.notificationMediaId",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val NOTIFICATION_MEDIA = DataUtils.notificationMediaId
+		val NOTIFICATION_MEDIA = Constants.notificationMediaId
 		/**
 		 * [android.content.SharedPreferences] file used for all classes
 		 */
 		@Deprecated(
-				"Use DataUtils#defaultSharedPrefsFile",
+				"Use Constants#defaultSharedPrefsFile",
 				ReplaceWith(
-						"DataUtils.defaultSharedPrefsFile",
-						"com.edricchan.studybuddy.utils.DataUtils"
+						"Constants.defaultSharedPrefsFile",
+						"com.edricchan.studybuddy.utils.Constants"
 				)
 		)
-		val DEFAULT_SHARED_PREFS_FILE = DataUtils.defaultSharedPrefsFile
+		val DEFAULT_SHARED_PREFS_FILE = Constants.defaultSharedPrefsFile
 
 		private val TAG = getTag(this::class.java)
 
@@ -290,7 +290,7 @@ class SharedUtils
 		 * @param context The context
 		 */
 		fun setAppTheme(context: Context) {
-			val appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(DataUtils.prefDarkTheme, DataUtils.prefDarkThemeAuto)!!
+			val appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.prefDarkTheme, Constants.prefDarkThemeAuto)!!
 			when (appTheme) {
 				// Note: The old values of the preference will still be supported
 				// TODO: Completely remove support for old values
@@ -298,10 +298,10 @@ class SharedUtils
 				"2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
 				"3" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 				// New values
-				DataUtils.prefDarkThemeAlways -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-				DataUtils.prefDarkThemeAuto -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
-				DataUtils.prefDarkThemeFollowSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-				DataUtils.prefDarkThemeNever -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+				Constants.prefDarkThemeAlways -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+				Constants.prefDarkThemeAuto -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+				Constants.prefDarkThemeFollowSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+				Constants.prefDarkThemeNever -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 				else -> Log.w(TAG, "Please supply a valid string integer (1, 2, or 3), or a valid option (\"always\", \"automatic\", \"follow_system\" or \"never\")!")
 			}
 		}
@@ -313,7 +313,7 @@ class SharedUtils
 		 * @param user    The current logged-in user, retrieved from [FirebaseAuth.getCurrentUser]
 		 */
 		fun setCrashlyticsUserTracking(context: Context, user: FirebaseUser?) {
-			val enableUserTrack = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(DataUtils.prefEnableCrashlyticsUserTracking, false)
+			val enableUserTrack = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Constants.prefEnableCrashlyticsUserTracking, false)
 			if (enableUserTrack) {
 				if (user != null) {
 					Crashlytics.setUserEmail(user.email)
@@ -771,7 +771,7 @@ class SharedUtils
 					.setProgress(100, 0, true)
 					.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
 					.setOngoing(true)
-			notificationManager.notify(DataUtils.notificationCheckForUpdatesId, notifyBuilder.build())
+			notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
 			val appUpdaterUtils = AppUpdaterUtils(context)
 					.setUpdateFrom(UpdateFrom.JSON)
 					.setUpdateJSON(context.getString(R.string.testing_changelog_url))
@@ -782,12 +782,12 @@ class SharedUtils
 								notifyBuilder.setContentTitle(context.getString(R.string.notification_no_updates))
 										.setProgress(0, 0, false)
 										.setOngoing(false)
-								notificationManager.notify(DataUtils.notificationCheckForUpdatesId, notifyBuilder.build())
+								notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
 							} else {
 								// New update
 								val intentAction = Intent(context, ActionButtonReceiver::class.java)
 
-								intentAction.putExtra("action", DataUtils.actionNotificationsStartDownloadReceiver)
+								intentAction.putExtra("action", Constants.actionNotificationsStartDownloadReceiver)
 								intentAction.putExtra("downloadUrl", update.urlToDownload.toString())
 								intentAction.putExtra("version", update.latestVersion)
 								val pIntentDownload = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -797,7 +797,7 @@ class SharedUtils
 										.setOngoing(false)
 										.setChannelId(context.getString(R.string.notification_channel_update_available_id))
 										.addAction(NotificationCompat.Action(R.drawable.ic_download_24dp, "Download", pIntentDownload))
-								notificationManager.notify(DataUtils.notificationCheckForUpdatesId, notifyBuilder.build())
+								notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
 							}
 						}
 
@@ -813,9 +813,9 @@ class SharedUtils
 							val intentAction = Intent(context, ActionButtonReceiver::class.java)
 
 							//This is optional if you have more than one buttons and want to differentiate between two
-							intentAction.putExtra("action", DataUtils.actionNotificationsRetryCheckForUpdateReceiver)
+							intentAction.putExtra("action", Constants.actionNotificationsRetryCheckForUpdateReceiver)
 							val pIntentRetry = PendingIntent.getBroadcast(context, 2, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
-							notificationManager.notify(DataUtils.notificationCheckForUpdatesId,
+							notificationManager.notify(Constants.notificationCheckForUpdatesId,
 									notifyBuilder
 											.setProgress(0, 0, false)
 											.setOngoing(false)
