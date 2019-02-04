@@ -64,7 +64,7 @@ dependencies {
 	implementation 'com.google.android.gms:play-services-auth:16.0.1'
 	implementation 'com.google.firebase:firebase-perf:16.2.3'
 	// Provide a way to update the app
-	implementation 'com.github.javiersantos:AppUpdater:2.6.5'
+	implementation 'com.github.javiersantos:AppUpdater:2.7'
 	// The app"s intro screen
 	// implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
 	// Crashlytics
