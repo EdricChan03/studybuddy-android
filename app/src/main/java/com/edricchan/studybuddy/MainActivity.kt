@@ -19,6 +19,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
@@ -188,27 +189,27 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 		when (id) {
 			android.R.id.home -> {
 				val navBottomSheet = NavBottomSheetDialogFragment()
-				navBottomSheet.setNavigationItemSelectedListener { navItem ->
-					when (navItem.itemId) {
+				navBottomSheet.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {
+					when (it.itemId) {
 						R.id.navigation_calendar -> {
 							SharedUtils.replaceFragment(this@MainActivity, CalendarFragment(), R.id.content_main, true)
-							return@setNavigationItemSelectedListener true
+							return@OnNavigationItemSelectedListener true
 						}
 						R.id.navigation_chat -> {
 							SharedUtils.replaceFragment(this@MainActivity, ChatFragment(), R.id.content_main, true)
-							return@setNavigationItemSelectedListener true
+							return@OnNavigationItemSelectedListener true
 						}
 						R.id.navigation_todos -> {
 							SharedUtils.replaceFragment(this@MainActivity, TodoFragment(), R.id.content_main, true)
-							return@setNavigationItemSelectedListener true
+							return@OnNavigationItemSelectedListener true
 						}
 						R.id.navigation_tips -> {
 							SharedUtils.replaceFragment(this@MainActivity, TipsFragment(), R.id.content_main, true)
-							return@setNavigationItemSelectedListener true
+							return@OnNavigationItemSelectedListener true
 						}
-						else -> return@setNavigationItemSelectedListener false
+						else -> return@OnNavigationItemSelectedListener false
 					}
-				}
+				})
 				navBottomSheet.show(supportFragmentManager, navBottomSheet.tag)
 				return true
 			}
