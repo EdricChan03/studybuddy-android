@@ -199,7 +199,7 @@ class TodoFragment : Fragment() {
 			}
 		}).attachToRecyclerView(mRecyclerView)
 		findViewById<View>(R.id.actionNewTodo)
-				.setOnClickListener { v -> newTaskActivity() }
+				.setOnClickListener { newTaskActivity() }
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
