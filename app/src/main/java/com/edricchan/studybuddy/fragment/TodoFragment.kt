@@ -297,7 +297,7 @@ class TodoFragment : Fragment() {
 			val taskItemList = ArrayList<TaskItem>()
 
 			for (doc in documentSnapshots!!) {
-				Log.d(TAG, "Document: " + doc.toString())
+				Log.d(TAG, "Document: $doc")
 				val note = doc.toObject(TaskItem::class.java)
 				taskItemList.add(note)
 			}
