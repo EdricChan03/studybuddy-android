@@ -2,15 +2,12 @@ package com.edricchan.studybuddy
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
-
 import androidx.appcompat.app.AppCompatActivity
-
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -28,8 +25,7 @@ class RegisterActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_register)
-		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-		//Get Firebase auth instance
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		auth = FirebaseAuth.getInstance()
 
 		btnSignIn = findViewById(R.id.signInBtn)
@@ -38,39 +34,35 @@ class RegisterActivity : AppCompatActivity() {
 		inputPassword = findViewById(R.id.passwordRegister)
 		progressBar = findViewById(R.id.progressBar)
 
-		btnSignIn!!.setOnClickListener {
-			startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+		btnSignIn?.setOnClickListener {
+			startActivity(Intent(this@RegisterActivity, this::class.java))
 			finish()
 		}
 
-		btnSignUp!!.setOnClickListener {
-
+		btnSignUp?.setOnClickListener {
 			val email = SharedUtils.getEditTextString(inputEmail!!).trim { it <= ' ' }
 			val password = SharedUtils.getEditTextString(inputPassword!!).trim { it <= ' ' }
 
-			if (TextUtils.isEmpty(email)) {
-				Snackbar.make(findViewById(R.id.registerActivity), "Please enter an email address", Snackbar.LENGTH_LONG)
-						.show()
+			// Clear any previous errors
+			inputEmail?.error = null
+			inputPassword?.error = null
+			if (email.isEmpty() || password.isEmpty() || password.length < 6) {
+				if (email.isEmpty()) {
+					inputEmail?.error = "Please enter a valid email address"
+				}
+				if (password.isEmpty()) {
+					inputPassword?.error = "Please enter a password"
+				} else if (password.length < 6) {
+					inputPassword?.error = "A minimum of 6 characters is required"
+				}
 				return@setOnClickListener
 			}
 
-			if (TextUtils.isEmpty(password)) {
-				Snackbar.make(findViewById(R.id.registerActivity), "Please enter a password!", Snackbar.LENGTH_LONG)
-						.show()
-				return@setOnClickListener
-			}
-
-			if (password.length < 6) {
-				Snackbar.make(findViewById(R.id.registerActivity), "A minimum of 6 characters is required for a password", Snackbar.LENGTH_LONG)
-						.show()
-				return@setOnClickListener
-			}
-
-			progressBar!!.visibility = View.VISIBLE
+			progressBar?.visibility = View.VISIBLE
 			//create user
-			auth!!.createUserWithEmailAndPassword(email, password)
-					.addOnCompleteListener(this@RegisterActivity) { task ->
-						progressBar!!.visibility = View.GONE
+			auth?.createUserWithEmailAndPassword(email, password)
+					?.addOnCompleteListener(this@RegisterActivity) { task ->
+						progressBar?.visibility = View.GONE
 						if (task.isSuccessful) {
 							startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
 							finish()
@@ -87,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
 
 	override fun onResume() {
 		super.onResume()
-		progressBar!!.visibility = View.GONE
+		progressBar?.visibility = View.GONE
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -107,7 +99,7 @@ class RegisterActivity : AppCompatActivity() {
 			setViewsEnabled(false)
 			Snackbar.make(findViewById(R.id.registerActivity), "No internet connection available. Some actions are disabled", Snackbar.LENGTH_INDEFINITE)
 					.setBehavior(NoSwipeBehavior())
-					.setAction("Retry") { view -> checkNetwork() }.show()
+					.setAction("Retry") { checkNetwork() }.show()
 		}
 	}
 
@@ -117,10 +109,10 @@ class RegisterActivity : AppCompatActivity() {
 	 * @param enabled Whether to show the views
 	 */
 	private fun setViewsEnabled(enabled: Boolean) {
-		btnSignUp!!.isEnabled = enabled
-		btnSignIn!!.isEnabled = enabled
-		inputEmail!!.isEnabled = enabled
-		inputPassword!!.isEnabled = enabled
+		btnSignUp?.isEnabled = enabled
+		btnSignIn?.isEnabled = enabled
+		inputEmail?.isEnabled = enabled
+		inputPassword?.isEnabled = enabled
 	}
 
 	companion object {
