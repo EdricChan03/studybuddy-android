@@ -127,7 +127,7 @@
 	<string name="debug_activity_device_info_summary">[WIP] Shows information about the current device (includes current API version and phone type) in a dialog</string>
 	<string name="debug_activity_device_info_title">Device info</string>
 	<string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
-	<string name="debug_activity_enable_verbose_log_summary">Notice: This may lag the app if enabled.</string>
+	<string name="debug_activity_enable_verbose_log_summary">Outputs more verbose logs in the logcat.</string>
 	<string name="debug_activity_enable_verbose_log_title">Enable verbose log</string>
 	<string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
 	<string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
@@ -144,7 +144,7 @@
 	<string name="debug_activity_send_notification_dialog_ttl_hint">Time-to-live</string>
 	<string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
 	<string name="debug_activity_send_notification_summary">[WIP] Programmatically sends a notification using Firebase Cloud Messaging (FCM) to a topic or to a specific user</string>
-	<string name="debug_activity_send_notification_title">Send notification to…</string>
+	<string name="debug_activity_send_notification_title">Send FCM notification</string>
 
 	<string name="dialog_action_cancel">Cancel</string>
 	<string name="dialog_action_close">Close</string>
@@ -290,8 +290,8 @@
 	<string name="pref_daynight_grant_perm_title">Grant location permission</string>
 	<string name="pref_daynight_perm_info_summary">The location permission is required to adjust the automatic theme according to your location.\nIf this permission is not granted, the dark theme will be enabled at 10pm and automatically disable itself at 6am.</string>
 
-	<string name="pref_enable_crashlytics_user_tracking_summary">Enables the sending of your email address and your name along with Crashlytics reports.\nThis data will only be used for crash reports.</string>
-	<string name="pref_enable_crashlytics_user_tracking_title">Enable Firebase Crashlytics user tracking</string>
+	<string name="pref_enable_crashlytics_user_tracking_summary">Allow tracking your email address and your name onto future crash reports.\nThis data will only be used for crash reports.</string>
+	<string name="pref_enable_crashlytics_user_tracking_title">Crash report tracking</string>
 
 	<string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture</string>
 	<string name="pref_header_account_title">Account options</string>
