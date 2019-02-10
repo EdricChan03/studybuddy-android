@@ -65,12 +65,20 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					var dialogMsg = ""
 
 					if (mUser != null) {
-						dialogMsg += "Display name: " + mUser!!.displayName!!
-						dialogMsg += "\nEmail: " + mUser!!.email!!
+						if (mUser!!.displayName != null) {
+							dialogMsg += "Display name: " + mUser!!.displayName!!
+						}
+						if (mUser!!.email != null) {
+							dialogMsg += "\nEmail: " + mUser!!.email!!
+						}
 						dialogMsg += "\nMetadata:\n- Creation timestamp: " + Date(mUser!!.metadata!!.creationTimestamp).toString()
 						dialogMsg += "\n- Last signed in timestamp: " + Date(mUser!!.metadata!!.lastSignInTimestamp).toString()
-						dialogMsg += "\nPhone number: " + mUser!!.phoneNumber!!
-						dialogMsg += "\nPhoto URL: " + mUser!!.photoUrl!!
+						if (mUser!!.phoneNumber != null) {
+							dialogMsg += "\nPhone number: " + mUser!!.phoneNumber!!
+						}
+						if (mUser!!.photoUrl != null) {
+							dialogMsg += "\nPhoto URL: " + mUser!!.photoUrl!!
+						}
 						dialogMsg += "\nUID: " + mUser!!.uid
 						dialogMsg += "\nIs anonymous: " + if (mUser!!.isAnonymous) "yes" else "no"
 					} else {
