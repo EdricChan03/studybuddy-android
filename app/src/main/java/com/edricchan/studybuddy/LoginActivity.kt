@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -68,16 +69,16 @@ class LoginActivity : AppCompatActivity() {
 		btnReset?.setOnClickListener { startActivity(Intent(this@LoginActivity, ResetPasswordActivity::class.java)) }
 
 		btnLogin?.setOnClickListener {
-			val email = SharedUtils.getEditTextString(inputEmail!!)
-			val password = SharedUtils.getEditTextString(inputPassword!!)
+			val email = inputEmail!!.editTextStrValue
+			val password = inputPassword!!.editTextStrValue
 			// Clear any previous errors
 			inputEmail?.error = null
 			inputPassword?.error = null
-			if (email.isEmpty() || password.isEmpty()) {
+			if (email!!.isEmpty() || password!!.isEmpty()) {
 				if (email.isEmpty()) {
 					inputEmail?.error = "Please enter a valid email address"
 				}
-				if (password.isEmpty()) {
+				if (password!!.isEmpty()) {
 					inputPassword?.error = "Please enter a password"
 				}
 				return@setOnClickListener
