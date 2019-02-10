@@ -2,9 +2,6 @@ package com.edricchan.studybuddy.utils
 
 import android.net.Uri
 
-/**
- * Common properties to be used across the app
- */
 object Constants {
 	// Preference headers
 	const val prefHeaderGeneral = "pref_header_general"
