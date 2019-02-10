@@ -11,18 +11,16 @@ import android.view.animation.ScaleAnimation
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.adapter.itemdetails.TaskItemDetails
 import com.edricchan.studybuddy.interfaces.TaskItem
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-
 import ru.noties.markwon.Markwon
 
 class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
@@ -151,7 +149,6 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 		val context = parent.context
 		val inflater = LayoutInflater.from(context)
 		val itemView = inflater.inflate(R.layout.taskadapter_item_row, parent, false)
-
 		return Holder(itemView)
 	}
 
@@ -239,6 +236,8 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 		if (mUseDeprecatedListener!!) {
 			setAnimation(holder.itemView, position)
 		}
+		// TODO: Remove the following line once selection is fixed
+		mItemListener?.onItemClick(mTaskItemList!![position], position)
 	}
 
 	/**
@@ -285,7 +284,6 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 			itemContent = view.findViewById(R.id.itemContent)
 			// itemProjects = view.findViewById(R.id.itemProjects);
 			// itemTags = view.findViewById(R.id.itemTags);
-
 		}
 
 		fun getItemDetails(): TaskItemDetails {
