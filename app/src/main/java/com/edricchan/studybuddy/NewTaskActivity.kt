@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.TooltipCompat
 import com.edricchan.studybuddy.adapter.TaskProjectSpinnerAdapter
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -132,7 +133,7 @@ class NewTaskActivity : AppCompatActivity() {
 							.setView(editTextDialogView)
 							.setPositiveButton(R.string.dialog_action_create) { dialog, which ->
 								val project = TaskProject.Builder()
-								project.setName(SharedUtils.getEditTextString(textInputLayout))
+								project.setName(textInputLayout.editTextStrValue!!)
 								mFirestore!!.collection("users/" + mCurrentUser!!.uid + "/todoProjects")
 										.add(project.create())
 										.addOnCompleteListener { task ->
@@ -224,12 +225,12 @@ class NewTaskActivity : AppCompatActivity() {
 					if (mTaskTitle!!.editText!!.length() != 0) {
 						mTaskTitle!!.isErrorEnabled = false
 						val taskItemBuilder = TaskItem.Builder()
-						taskItemBuilder.setTitle(SharedUtils.getEditTextString(mTaskTitle!!))
-						if (SharedUtils.getEditTextString(mTaskContent!!).isNotEmpty()) {
-							taskItemBuilder.setContent(SharedUtils.getEditTextString(mTaskContent!!))
+						taskItemBuilder.setTitle(mTaskTitle!!.editTextStrValue!!)
+						if (mTaskContent!!.editTextStrValue!!.isNotEmpty()) {
+							taskItemBuilder.setContent(mTaskContent!!.editTextStrValue!!)
 						}
-						if (SharedUtils.getEditTextString(mTaskTags!!).isNotEmpty()) {
-							taskItemBuilder.setTags(Arrays.asList(*SharedUtils.getEditTextString(mTaskTags!!).split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()))
+						if (mTaskTags!!.editTextStrValue!!.isNotEmpty()) {
+							taskItemBuilder.setTags(mTaskTags!!.editTextStrValue!!.split(",").map { it.trim() }.toMutableList())
 						}
 						if (mTaskDate != null) {
 							taskItemBuilder.setDueDate(Timestamp(mTaskDate!!))
