@@ -35,6 +35,7 @@ import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.MainActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver
@@ -62,8 +63,6 @@ class SharedUtils
 (
 		context: Context
 ) {
-	// Context
-	private val mContext: Context = context
 	// Since IDs 0 and 1 have been taken, use 2
 	private val dynamicId = 2
 	private val atomicInteger = AtomicInteger(dynamicId)
@@ -99,7 +98,13 @@ class SharedUtils
 		/**
 		 * Intent for notification settings action button for notifications
 		 */
-		@Deprecated("Use {@link Constants#actionNotificationsSettingsIntent}")
+		@Deprecated(
+				"Use Constants#actionNotificationsSettingsIntent}",
+				ReplaceWith(
+						"Constants.actionNotificationsSettingsIntent",
+						"com.edricchan.studybuddy.utils.Constants"
+				)
+		)
 		val ACTION_NOTIFICATIONS_SETTINGS_INTENT = Constants.actionNotificationsSettingsIntent
 		/**
 		 * Broadcaster for starting download
@@ -525,7 +530,6 @@ class SharedUtils
 		 * @param context The context
 		 * @return A boolean
 		 */
-		@Deprecated("Use {@link SharedUtils#isNetworkAvailable(Context)}")
 		fun isNetworkUnavailable(context: Context): Boolean {
 			return !isNetworkAvailable(context)
 		}
@@ -537,6 +541,7 @@ class SharedUtils
 		 * @return A boolean
 		 * See https://stackoverflow.com/a/32771164
 		 * TODO: Use other way of checking for mobile data
+		 * TODO: Deprecate this method
 		 */
 		fun isCellularNetworkAvailable(context: Context): Boolean {
 			try {
@@ -563,12 +568,12 @@ class SharedUtils
 		@Deprecated(
 				"Use TextInputLayout#getEditText()",
 				ReplaceWith(
-						"getEditText(x)",
-						"com.google.android.material.textfield.TextInputLayout.getEditText"
+						"inputLayout.editText",
+						"com.google.android.material.textfield.TextInputLayout"
 				)
 		)
-		fun getEditText(inputLayout: TextInputLayout): EditText? {
-			return inputLayout.editText
+		fun getEditText(inputLayout: TextInputLayout?): EditText? {
+			return inputLayout?.editText
 		}
 
 		/**
@@ -577,22 +582,36 @@ class SharedUtils
 		 * @param editText The [EditText]
 		 * @return The text of the [EditText]
 		 */
-		fun getEditTextString(editText: EditText): String {
-			return editText.text.toString()
+		@Deprecated(
+				"Use the EditText.editTextStrValue Kotlin extension function",
+				ReplaceWith(
+						"editText.strValue",
+						"com.edricchan.studybuddy.extensions.strValue"
+				)
+		)
+		fun getEditTextString(editText: EditText?): String {
+			return editText?.text.toString()
 		}
 
 		/**
 		 * Retrieves the text from a [TextInputLayout]
 		 *
 		 * @param inputLayout The [TextInputLayout]
-		 * @return The text of the [com.google.android.material.textfield.TextInputEditText] in [TextInputLayout], or an empty string if no such [com.google.android.material.textfield.TextInputEditText] exists
+		 * @return The text of the [com.google.android.material.textfield.TextInputEditText] in [TextInputLayout], or [null] if no such [com.google.android.material.textfield.TextInputEditText] exists
 		 */
-		fun getEditTextString(inputLayout: TextInputLayout): String {
-			if (inputLayout.editText != null) {
-				return getEditTextString(inputLayout.editText!!)
+		@Deprecated(
+				"Use the TextInputLayout.editTextStrValue Kotlin extension function",
+				ReplaceWith(
+						"inputLayout.editTextStrValue",
+						"com.edricchan.studybuddy.editTextStrValue"
+				)
+		)
+		fun getEditTextString(inputLayout: TextInputLayout?): String? {
+			return if (inputLayout?.editText != null) {
+				inputLayout.editTextStrValue
 			} else {
 				Log.w(TAG, "An EditText/TextInputEditText doesn't exist in the TextInputLayout.")
-				return ""
+				null
 			}
 		}
 
