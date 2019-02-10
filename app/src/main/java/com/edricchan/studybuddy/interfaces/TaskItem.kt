@@ -190,6 +190,16 @@ data class TaskItem(
 		 * @param tags The list of tags to assign to this task
 		 * @return The builder object to allow for chaining of methods
 		 */
+		fun setTags(tags: ArrayList<String>): Builder {
+			taskTags = tags.toMutableList()
+			return this
+		}
+		/**
+		 * Sets the list of tags assigned to this task
+		 *
+		 * @param tags The list of tags to assign to this task
+		 * @return The builder object to allow for chaining of methods
+		 */
 		fun setTags(tags: MutableList<String>): Builder {
 			taskTags = tags
 			return this
