@@ -237,7 +237,9 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 			setAnimation(holder.itemView, position)
 		}
 		// TODO: Remove the following line once selection is fixed
-		mItemListener?.onItemClick(mTaskItemList!![position], position)
+		holder.itemView.setOnClickListener {
+			mItemListener?.onItemClick(mTaskItemList!![position], position)
+		}
 	}
 
 	/**
