@@ -171,6 +171,11 @@
 	<string name="due_date">Due date</string>
 	<string name="due_date_text">Selected due date shows here</string>
 
+	<string name="edittext_errors_empty_email">Please enter an email address</string>
+	<string name="edittext_errors_empty_password">Please enter a password</string>
+	<string name="edittext_errors_invalid_email">Please enter a valid email address</string>
+	<string name="edittext_errors_invalid_password">Please enter a valid password</string>
+
 	<string name="email_hint">Email</string>
 
 	<string name="forgot_password_msg">Just enter your email address in the input below and click the "Reset password" button to reset your password.\nYou\'ll be sent an email ASAP with the reset password.</string>
