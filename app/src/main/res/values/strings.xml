@@ -102,6 +102,10 @@
 
 	<string name="cab_title">Select</string>
 
+	<string name="chat_frag_new_chat_dialog_desc_editext_hint">Chat description</string>
+	<string name="chat_frag_new_chat_dialog_name_editext_hint">Chat name</string>
+	<string name="chat_frag_new_chat_dialog_title">New chat</string>
+
 	<string name="choose_a_date">Choose a date…</string>
 
 	<string name="comma_indicates_separator">Separate each tag/label with a comma</string>
@@ -290,8 +294,8 @@
 	<string name="pref_daynight_grant_perm_title">Grant location permission</string>
 	<string name="pref_daynight_perm_info_summary">The location permission is required to adjust the automatic theme according to your location.\nIf this permission is not granted, the dark theme will be enabled at 10pm and automatically disable itself at 6am.</string>
 
-	<string name="pref_enable_crashlytics_user_tracking_summary">Allow tracking your email address and your name onto future crash reports.\nThis data will only be used for crash reports.</string>
-	<string name="pref_enable_crashlytics_user_tracking_title">Crash report tracking</string>
+	<string name="pref_enable_crashlytics_user_tracking_summary">Add your email address and your name to future crash reports.\nThis data will only be used for crash reports and will be applied once the app has restarted.</string>
+	<string name="pref_enable_crashlytics_user_tracking_title">Track user info on crash reports</string>
 
 	<string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture</string>
 	<string name="pref_header_account_title">Account options</string>
