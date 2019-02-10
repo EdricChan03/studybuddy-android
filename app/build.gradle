@@ -78,7 +78,7 @@ dependencies {
 	// implementation 'androidx.preference:preference:1.1.0-alpha03'
 	// Revert to the previous version for now
 	//noinspection GradleDependency
-	implementation 'androidx.preference:preference:1.1.0-alpha02'
+	implementation 'androidx.preference:preference:1.1.0-alpha03'
 	// Kotlin support for AndroidX Preference library
 	// implementation 'androidx.preference:preference-ktx:1.1.0-alpha03'
 	// Revert to the previous version for now
