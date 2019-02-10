@@ -8,15 +8,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,8 +19,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.edricchan.studybuddy.*
 import com.edricchan.studybuddy.adapter.TasksAdapter
-import com.edricchan.studybuddy.adapter.itemdetailslookup.TaskItemLookup
-import com.edricchan.studybuddy.adapter.itemkeyprovider.TaskItemKeyProvider
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.common.api.GoogleApiClient
@@ -55,9 +48,9 @@ class TodoFragment : Fragment() {
 	private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
 	private var mPrefs: SharedPreferences? = null
 	private var mTodoFragPrefs: SharedPreferences? = null
-	private var mSelectionTracker: SelectionTracker<String>? = null
+//	private var mSelectionTracker: SelectionTracker<String>? = null
 	private var mParentActivity: AppCompatActivity? = null
-	private var mActionModeCallback: ActionMode.Callback? = null
+//	private var mActionModeCallback: ActionMode.Callback? = null
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
@@ -160,9 +153,9 @@ class TodoFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		if (savedInstanceState != null && mSelectionTracker != null) {
+		/*if (savedInstanceState != null && mSelectionTracker != null) {
 			mSelectionTracker!!.onRestoreInstanceState(savedInstanceState)
-		}
+		}*/
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(context!!)
 		mTodoFragPrefs = Objects.requireNonNull<Context>(context).getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE)
@@ -202,12 +195,12 @@ class TodoFragment : Fragment() {
 				.setOnClickListener { newTaskActivity() }
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
+	/*override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)
 		if (mSelectionTracker != null) {
 			mSelectionTracker!!.onSaveInstanceState(outState)
 		}
-	}
+	}*/
 
 	override fun onDestroyView() {
 		super.onDestroyView()
@@ -361,7 +354,7 @@ class TodoFragment : Fragment() {
 									}
 						}
 					})
-			if (mSelectionTracker == null) {
+			/*if (mSelectionTracker == null) {
 				mSelectionTracker = SelectionTracker.Builder(
 						"selection-id",
 						mRecyclerView!!,
@@ -376,7 +369,7 @@ class TodoFragment : Fragment() {
 						}
 						.withSelectionPredicate(SelectionPredicates.createSelectAnything())
 						.build()
-			}
+			}*/
 			mSwipeRefreshLayout!!.isRefreshing = false
 			if (documentSnapshots.isEmpty) {
 				Log.d(TAG, "Empty!")
@@ -387,7 +380,7 @@ class TodoFragment : Fragment() {
 				findViewById<View>(R.id.todoEmptyStateView).visibility = View.GONE
 				mSwipeRefreshLayout!!.visibility = View.VISIBLE
 			}
-			mActionModeCallback = object : ActionMode.Callback {
+			/*mActionModeCallback = object : ActionMode.Callback {
 				override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
 					val inflater = mode.menuInflater
 					inflater.inflate(R.menu.cab_tasks, menu)
@@ -461,6 +454,7 @@ class TodoFragment : Fragment() {
 							}
 						}
 					})
+			*/
 		}
 		mSwipeRefreshLayout!!.isRefreshing = true
 		val collectionRef = mFirestore!!.collection("users/" + mCurrentUser!!.uid + "/todos")
