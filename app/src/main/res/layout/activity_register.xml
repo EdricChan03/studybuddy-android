@@ -20,7 +20,7 @@
 			android:padding="@dimen/activity_horizontal_margin">
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/emailRegister"
+				android:id="@+id/emailTextInputLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 
@@ -36,7 +36,7 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/passwordRegister"
+				android:id="@+id/passwordTextInputLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				app:passwordToggleEnabled="true">
