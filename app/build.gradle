@@ -83,7 +83,7 @@ dependencies {
 	// implementation 'androidx.preference:preference-ktx:1.1.0-alpha03'
 	// Revert to the previous version for now
 	//noinspection GradleDependency
-	implementation 'androidx.preference:preference-ktx:1.1.0-alpha02'
+	implementation 'androidx.preference:preference-ktx:1.1.0-alpha03'
 
 	// Custom Preferences
 	implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0'
