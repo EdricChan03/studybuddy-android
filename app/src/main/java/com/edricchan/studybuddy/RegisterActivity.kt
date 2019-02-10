@@ -5,22 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
-	private var inputEmail: TextInputLayout? = null
-	private var inputPassword: TextInputLayout? = null
-	private var btnSignIn: Button? = null
-	private var btnSignUp: Button? = null
-	private var progressBar: ProgressBar? = null
-	private var auth: FirebaseAuth? = null
+	private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -28,40 +23,65 @@ class RegisterActivity : AppCompatActivity() {
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		auth = FirebaseAuth.getInstance()
 
-		btnSignIn = findViewById(R.id.signInBtn)
-		btnSignUp = findViewById(R.id.signUpBtn)
-		inputEmail = findViewById(R.id.emailRegister)
-		inputPassword = findViewById(R.id.passwordRegister)
-		progressBar = findViewById(R.id.progressBar)
-
-		btnSignIn?.setOnClickListener {
-			startActivity(Intent(this@RegisterActivity, this::class.java))
+		signInBtn.setOnClickListener {
+			startActivity(Intent(this, LoginActivity::class.java))
 			finish()
 		}
 
-		btnSignUp?.setOnClickListener {
-			val email = SharedUtils.getEditTextString(inputEmail!!).trim { it <= ' ' }
-			val password = SharedUtils.getEditTextString(inputPassword!!).trim { it <= ' ' }
+		signUpBtn.setOnClickListener {
+			val email = emailTextInputLayout.editTextStrValue
+			val password = passwordTextInputLayout.editTextStrValue
 
-			// Clear any previous errors
-			inputEmail?.error = null
-			inputPassword?.error = null
-			if (email.isEmpty() || password.isEmpty() || password.length < 6) {
-				if (email.isEmpty()) {
-					inputEmail?.error = "Please enter a valid email address"
+			if (email.isNullOrBlank()) {
+				if (
+						emailTextInputLayout.error.isNullOrEmpty() ||
+						emailTextInputLayout.error == getString(R.string.edittext_errors_invalid_email)
+				) {
+					emailTextInputLayout.error = getString(R.string.edittext_errors_empty_email)
 				}
-				if (password.isEmpty()) {
-					inputPassword?.error = "Please enter a password"
-				} else if (password.length < 6) {
-					inputPassword?.error = "A minimum of 6 characters is required"
+			} else if (email.isInvalidEmail()) {
+				if (
+						emailTextInputLayout.error.isNullOrEmpty() ||
+						emailTextInputLayout.error == getString(R.string.edittext_errors_empty_email)
+				) {
+					emailTextInputLayout.error = getString(R.string.edittext_errors_invalid_email)
 				}
+			} else {
+				if (emailTextInputLayout.error != null) {
+					if (emailTextInputLayout.error!!.isNotEmpty()) {
+						emailTextInputLayout.error = null
+					}
+				}
+			}
+			if (password.isNullOrEmpty()) {
+				if (
+						passwordTextInputLayout.error.isNullOrEmpty() ||
+						passwordTextInputLayout.error == getString(R.string.edittext_errors_invalid_password)
+				) {
+					passwordTextInputLayout.error = getString(R.string.edittext_errors_empty_password)
+				}
+			} else if (password.length < 6) {
+				if (
+						passwordTextInputLayout.error.isNullOrEmpty() ||
+						passwordTextInputLayout.error == getString(R.string.edittext_errors_empty_password)
+				) {
+					passwordTextInputLayout.error = getString(R.string.edittext_errors_invalid_password)
+				}
+			} else {
+				if (passwordTextInputLayout.error != null) {
+					if (passwordTextInputLayout.error!!.isNotEmpty()) {
+						passwordTextInputLayout.error = null
+					}
+				}
+			}
+			if (passwordTextInputLayout.error!!.isNotEmpty() || emailTextInputLayout.error!!.isNotEmpty()) {
 				return@setOnClickListener
 			}
 
 			progressBar?.visibility = View.VISIBLE
-			//create user
-			auth?.createUserWithEmailAndPassword(email, password)
-					?.addOnCompleteListener(this@RegisterActivity) { task ->
+			// Assume that email and password are non-null
+			auth.createUserWithEmailAndPassword(email!!, password!!)
+					.addOnCompleteListener(this@RegisterActivity) { task ->
 						progressBar?.visibility = View.GONE
 						if (task.isSuccessful) {
 							startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
@@ -109,13 +129,13 @@ class RegisterActivity : AppCompatActivity() {
 	 * @param enabled Whether to show the views
 	 */
 	private fun setViewsEnabled(enabled: Boolean) {
-		btnSignUp?.isEnabled = enabled
-		btnSignIn?.isEnabled = enabled
-		inputEmail?.isEnabled = enabled
-		inputPassword?.isEnabled = enabled
+		signUpBtn.isEnabled = enabled
+		signInBtn.isEnabled = enabled
+		emailTextInputLayout.isEnabled = enabled
+		passwordTextInputLayout.isEnabled = enabled
 	}
 
 	companion object {
-		private val TAG = SharedUtils.getTag(RegisterActivity::class.java)
+		private val TAG = SharedUtils.getTag(this::class.java)
 	}
 }
