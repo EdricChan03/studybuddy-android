@@ -16,10 +16,12 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.text.isDigitsOnly
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.utils.Constants
@@ -109,15 +111,15 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							.setIcon(R.drawable.ic_send_24dp)
 							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 							.setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
-								if (SharedUtils.getEditTextString(userOrTopicTextInputLayout).isNotEmpty() &&
-										SharedUtils.getEditTextString(titleTextInputLayout).isNotEmpty() &&
-										SharedUtils.getEditTextString(bodyTextInputLayout).isNotEmpty()) {
+								if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty() &&
+										titleTextInputLayout.editTextStrValue!!.isNotEmpty() &&
+										bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
 									// TODO: Cleanup code
-									Log.d(TAG, "Value of bodyTextInputEditText: \"" + SharedUtils.getEditTextString(bodyTextInputLayout) + "\"")
-									Log.d(TAG, "Value of channelIdTextInputEditText: \"" + SharedUtils.getEditTextString(channelIdTextInputLayout) + "\"")
-									Log.d(TAG, "Value of colorTextInputLayout: \"" + SharedUtils.getEditTextString(colorTextInputLayout) + "\"")
-									Log.d(TAG, "Value of userOrTopicTextInputEditText: \"" + SharedUtils.getEditTextString(userOrTopicTextInputLayout) + "\"")
-									Log.d(TAG, "Value of titleTextInputEditText: \"" + SharedUtils.getEditTextString(titleTextInputLayout) + "\"")
+									Log.d(TAG, "Value of bodyTextInputEditText: ${bodyTextInputLayout.editTextStrValue}")
+									Log.d(TAG, "Value of channelIdTextInputEditText: ${channelIdTextInputLayout.editTextStrValue}")
+									Log.d(TAG, "Value of colorTextInputLayout: ${colorTextInputLayout.editTextStrValue}")
+									Log.d(TAG, "Value of userOrTopicTextInputEditText: ${userOrTopicTextInputLayout.editTextStrValue}")
+									Log.d(TAG, "Value of titleTextInputEditText: ${titleTextInputLayout.editTextStrValue}")
 									@NotificationRequest.NotificationPriority var priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
 									when (priorityRadioGroup.checkedRadioButtonId) {
 										R.id.priorityNormalRadioButton -> {
@@ -130,26 +132,26 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 										}
 									}
 									val notificationRequestBuilder = NotificationRequest.Builder()
-									if (!SharedUtils.getEditTextString(bodyTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationBody(SharedUtils.getEditTextString(bodyTextInputLayout))
+									if (bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+										notificationRequestBuilder.setNotificationBody(bodyTextInputLayout.editTextStrValue!!)
 									}
-									if (!SharedUtils.getEditTextString(channelIdTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationChannelId(SharedUtils.getEditTextString(channelIdTextInputLayout))
+									if (channelIdTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+										notificationRequestBuilder.setNotificationChannelId(channelIdTextInputLayout.editTextStrValue!!)
 									}
-									if (!SharedUtils.getEditTextString(colorTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationColor(SharedUtils.getEditTextString(colorTextInputLayout))
+									if (colorTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+										notificationRequestBuilder.setNotificationColor(colorTextInputLayout.editTextStrValue!!)
 									}
-									if (!priority.isEmpty()) {
+									if (priority.isNotEmpty()) {
 										notificationRequestBuilder.setNotificationPriority(priority)
 									}
-									if (!SharedUtils.getEditTextString(titleTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationTitle(SharedUtils.getEditTextString(titleTextInputLayout))
+									if (titleTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+										notificationRequestBuilder.setNotificationTitle(titleTextInputLayout.editTextStrValue!!)
 									}
-									if (!SharedUtils.getEditTextString(userOrTopicTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setUserOrTopic(SharedUtils.getEditTextString(userOrTopicTextInputLayout))
+									if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+										notificationRequestBuilder.setUserOrTopic(userOrTopicTextInputLayout.editTextStrValue!!)
 									}
-									if (!SharedUtils.getEditTextString(ttlTextInputLayout).isEmpty()) {
-										notificationRequestBuilder.setNotificationTtl(Integer.parseInt(SharedUtils.getEditTextString(ttlTextInputLayout)))
+									if (ttlTextInputLayout.editTextStrValue!!.isNotEmpty() && ttlTextInputLayout.editTextStrValue!!.isDigitsOnly()) {
+										notificationRequestBuilder.setNotificationTtl(ttlTextInputLayout.editTextStrValue!!.toInt())
 									}
 									val notificationSettingsActionBuilder = NotificationAction.Builder()
 									notificationSettingsActionBuilder
@@ -202,7 +204,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									}
 									// Check if TextInputEditText is empty or if the title TextInputLayout's TextInputEditText is empty
 									// or if the body TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !TextUtils.isEmpty(s) && !SharedUtils.getEditTextString(titleTextInputLayout).isEmpty() && !SharedUtils.getEditTextString(bodyTextInputLayout).isEmpty()
+									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = s.isEmpty() && titleTextInputLayout.editTextStrValue!!.isNotEmpty() && bodyTextInputLayout.editTextStrValue!!.isNotEmpty()
 								}
 								titleTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 									// Change is from title TextInputLayout's TextInputEditText
@@ -217,7 +219,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									}
 									// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 									// or if the body TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(TextUtils.isEmpty(s) || SharedUtils.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedUtils.getEditTextString(bodyTextInputLayout).isEmpty())
+									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || bodyTextInputLayout.editTextStrValue!!.isEmpty())
 								}
 								bodyTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 									// Change is from title TextInputLayout's TextInputEditText
@@ -232,7 +234,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									}
 									// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 									// or if the title TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(TextUtils.isEmpty(s) || SharedUtils.getEditTextString(userOrTopicTextInputLayout).isEmpty() || SharedUtils.getEditTextString(titleTextInputLayout).isEmpty())
+									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || titleTextInputLayout.editTextStrValue!!.isEmpty())
 								}
 							}
 						}
