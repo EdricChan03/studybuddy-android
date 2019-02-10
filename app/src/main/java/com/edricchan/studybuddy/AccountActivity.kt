@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -208,7 +209,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_email_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_email) { dialog, which ->
-					mUser!!.updateEmail(SharedUtils.getEditTextString(textInputLayout))
+					mUser!!.updateEmail(textInputLayout.editTextStrValue!!)
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully updated email address!", Toast.LENGTH_SHORT).show()
@@ -256,7 +257,7 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_password_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
-					mUser!!.updatePassword(SharedUtils.getEditTextString(textInputLayout))
+					mUser!!.updatePassword(textInputLayout.editTextStrValue!!)
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully updated password!", Toast.LENGTH_SHORT).show()
