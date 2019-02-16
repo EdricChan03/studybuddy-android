@@ -94,7 +94,7 @@ dependencies {
 	implementation 'ru.noties:markwon:2.0.1'
 
 	// Used to handle loading of remote images
-	implementation 'com.github.bumptech.glide:glide:4.8.0'
+	implementation 'com.github.bumptech.glide:glide:4.9.0'
 	annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
 	// OSS licenses library to show open source licenses
