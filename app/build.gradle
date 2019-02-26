@@ -40,7 +40,7 @@ dependencies {
 	// Support Lib
 	// implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 	// Support Annotations
-	implementation 'androidx.annotation:annotation:1.0.1'
+	implementation 'androidx.annotation:annotation:1.0.2'
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0-alpha3", {
 		exclude group: "com.android.support", module: "support-annotations"
