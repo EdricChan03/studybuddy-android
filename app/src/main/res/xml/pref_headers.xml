@@ -17,6 +17,7 @@
 	<Preference
 		app:fragment="com.edricchan.studybuddy.settings.SyncSettingsFragment"
 		app:icon="@drawable/ic_sync_24dp"
+		app:isPreferenceVisible="false"
 		app:key="pref_header_sync"
 		app:summary="@string/pref_header_data_sync_summary"
 		app:title="@string/pref_header_data_sync_title" />
