@@ -25,6 +25,7 @@
 			app:defaultValue="automatic"
 			app:entries="@array/pref_dark_theme_options_array"
 			app:entryValues="@array/pref_dark_theme_options_array_values"
+			app:icon="@drawable/ic_brightness_6_24dp"
 			app:key="pref_dark_theme"
 			app:title="@string/pref_dark_theme_title"
 			app:useSimpleSummaryProvider="true" />
