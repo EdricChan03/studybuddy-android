@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<!-- There's already a FAB to create a new task -->
 	<item
 		android:id="@+id/action_new_todo"
 		android:icon="@drawable/ic_plus_24dp"
 		android:title="@string/action_new_todo"
-		app:showAsAction="ifRoom" />
+		android:visible="false" />
 	<item
 		android:id="@+id/action_refresh_todos"
 		android:icon="@drawable/ic_refresh_24dp"
