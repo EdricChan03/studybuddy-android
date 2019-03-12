@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/mainView"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_margin="@dimen/activity_horizontal_margin">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<ScrollView
+			android:id="@+id/scrollView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fillViewport="true">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<com.google.android.material.textfield.TextInputLayout
+					android:id="@+id/textInputLayoutChatName"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:hint="@string/chat_frag_new_chat_dialog_name_editext_hint"
+					app:counterEnabled="true"
+					app:counterMaxLength="100">
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:imeOptions="actionNext"
+						android:inputType="text" />
+
+				</com.google.android.material.textfield.TextInputLayout>
+
+				<com.google.android.material.textfield.TextInputLayout
+					android:id="@+id/textInputLayoutChatDesc"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:hint="@string/chat_frag_new_chat_dialog_desc_editext_hint"
+					app:counterEnabled="true"
+					app:counterMaxLength="300">
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:imeOptions="actionDone"
+						android:inputType="textMultiLine" />
+
+				</com.google.android.material.textfield.TextInputLayout>
+			</LinearLayout>
+
+		</ScrollView>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

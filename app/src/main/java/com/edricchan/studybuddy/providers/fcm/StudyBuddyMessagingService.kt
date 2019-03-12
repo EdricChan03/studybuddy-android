@@ -11,10 +11,11 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.crashlytics.android.Crashlytics
-import com.edricchan.studybuddy.MainActivity
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.SettingsActivity
+import com.edricchan.studybuddy.extensions.isNotNull
 import com.edricchan.studybuddy.interfaces.NotificationAction
+import com.edricchan.studybuddy.ui.modules.main.MainActivity
+import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -34,18 +35,18 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 		if (remoteMessage != null) {
 			val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 			val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_uncategorised_id))
-			if (remoteMessage.notification != null) {
+			if (remoteMessage.notification.isNotNull()) {
 				// Check if remote message has a title
-				if (remoteMessage.notification!!.title != null) {
-					builder.setContentTitle(remoteMessage.notification!!.title)
+				if (remoteMessage.notification?.title.isNotNull()) {
+					builder.setContentTitle(remoteMessage.notification?.title)
 					builder.setStyle(NotificationCompat.BigTextStyle().bigText(remoteMessage.notification!!.body))
 				}
 				// Check if the remote message has a message body
-				if (remoteMessage.notification!!.body != null) {
-					builder.setContentText(remoteMessage.notification!!.body)
+				if (remoteMessage.notification?.body.isNotNull()) {
+					builder.setContentText(remoteMessage.notification?.body)
 				}
 				// Check if icon property exists
-				if (remoteMessage.notification!!.icon != null) {
+				if (remoteMessage.notification?.icon.isNotNull()) {
 					val icon = resources.getIdentifier(remoteMessage.notification!!.icon, "drawable", packageName)
 					if (icon != 0) {
 						// Use the icon
@@ -59,12 +60,25 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 					builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
 				}
 				// Check if color property exists
-				if (remoteMessage.notification!!.color != null) {
+				if (remoteMessage.notification?.color.isNotNull()) {
 					// Use the color
 					builder.color = Color.parseColor(remoteMessage.notification!!.color)
 				} else {
 					// Use the default color
 					builder.color = ContextCompat.getColor(this, R.color.colorPrimary)
+				}
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+					if (remoteMessage.notification!!.channelId.isNotNull()) {
+						// Checks if the specified notification channel ID exists
+						if (manager.getNotificationChannel(remoteMessage.notification!!.channelId!!) == null) {
+							// Create a notification channel
+							val notificationChannel = NotificationChannel(remoteMessage.notification!!.channelId!!, "Notification Channel", NotificationManager.IMPORTANCE_DEFAULT)
+							notificationChannel.description = "Auto-generated channel"
+							manager.createNotificationChannel(notificationChannel)
+						}
+						// Set the channel ID
+						builder.setChannelId(remoteMessage.notification!!.channelId!!)
+					}
 				}
 			}
 			if (remoteMessage.data != null) {
@@ -74,12 +88,12 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 					Check if notificationChannelID exists
 					Note that since the notification channel ID is already defined in the Builder above, there's no need for an else statement
 					 */
-					if (remoteMessage.data.containsKey("notificationChannelId")) {
+					if (remoteMessage.data.containsKey("notificationChannelId") && remoteMessage.notification?.channelId.isNullOrEmpty()) {
 						// Checks if the specified notification channel ID exists
 						if (manager.getNotificationChannel(remoteMessage.data["notificationChannelId"]) == null) {
 							// Create a notification channel
 							val notificationChannel = NotificationChannel(remoteMessage.data["notificationChannelId"], "Notification Channel", NotificationManager.IMPORTANCE_DEFAULT)
-							notificationChannel.description = "This notification channel was generated since the channel ID for the notification doesn't exist."
+							notificationChannel.description = "Auto-generated channel"
 							manager.createNotificationChannel(notificationChannel)
 						}
 						// Set the channel ID

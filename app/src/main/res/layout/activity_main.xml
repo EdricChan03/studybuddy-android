@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
-	tools:context=".MainActivity">
+	tools:context=".ui.modules.main.MainActivity">
 
 	<androidx.coordinatorlayout.widget.CoordinatorLayout
 		android:id="@+id/coordinatorLayout"
@@ -13,12 +13,18 @@
 		android:layout_height="match_parent"
 		android:orientation="vertical">
 
-		<FrameLayout
-			android:id="@+id/content_main"
+		<androidx.core.widget.NestedScrollView
 			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
+			android:layout_height="match_parent"
+			android:fillViewport="true">
 
-		<!-- TODO: Revisit this once the next release of Material Components is released -->
+			<FrameLayout
+				android:id="@+id/content_main"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginBottom="?attr/actionBarSize" />
+		</androidx.core.widget.NestedScrollView>
+
 		<com.google.android.material.bottomappbar.BottomAppBar
 			android:id="@+id/bottomAppBar"
 			android:layout_width="match_parent"
@@ -26,6 +32,7 @@
 			android:layout_gravity="bottom"
 			app:backgroundTint="@color/colorPrimary"
 			app:fabAlignmentMode="center"
+			app:hideOnScroll="true"
 			app:navigationContentDescription="Menu"
 			app:navigationIcon="@drawable/ic_menu_24dp" />
 

@@ -40,7 +40,7 @@
 			android:resource="@array/preloaded_fonts" />
 
 		<activity
-			android:name=".MainActivity"
+			android:name=".ui.modules.main.MainActivity"
 			android:label="@string/app_name"
 			android:theme="@style/Theme.App.NoActionBar">
 			<intent-filter>
@@ -54,7 +54,7 @@
 				android:resource="@xml/shortcuts" />
 		</activity>
 		<activity
-			android:name=".SettingsActivity"
+			android:name=".ui.modules.settings.SettingsActivity"
 			android:label="@string/title_activity_settings">
 			<intent-filter>
 				<action android:name="android.intent.action.APPLICATION_PREFERENCES" />
@@ -64,35 +64,41 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".LoginActivity"
+			android:name=".ui.modules.auth.LoginActivity"
 			android:label="@string/title_activity_login" />
 		<activity
-			android:name=".RegisterActivity"
+			android:name=".ui.modules.auth.RegisterActivity"
 			android:label="@string/title_activity_register" />
 		<activity
-			android:name=".ResetPasswordActivity"
+			android:name=".ui.modules.auth.ResetPasswordActivity"
 			android:label="@string/title_activity_reset_password" />
 		<activity
-			android:name=".HelpActivity"
+			android:name=".ui.modules.help.HelpActivity"
 			android:label="@string/title_activity_help" />
 		<activity
-			android:name=".NewTaskActivity"
+			android:name="com.edricchan.studybuddy.ui.modules.chat.NewChatActivity"
+			android:label="@string/title_activity_new_chat" />
+		<activity
+			android:name=".ui.modules.task.NewTaskActivity"
 			android:label="@string/title_activity_new_task" />
 		<activity
-			android:name=".DebugActivity"
+			android:name=".ui.modules.task.EditTaskActivity"
+			android:label="@string/title_activity_edit_task" />
+		<activity
+			android:name=".ui.modules.debug.DebugActivity"
 			android:label="@string/title_activity_debug">
 			<intent-filter>
 				<category android:name="android.intent.category.DEVELOPMENT_PREFERENCE" />
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".UpdatesActivity"
+			android:name=".ui.modules.updates.UpdatesActivity"
 			android:label="@string/title_activity_updates" />
 		<activity
-			android:name=".ViewTaskActivity"
+			android:name=".ui.modules.task.ViewTaskActivity"
 			android:label="@string/title_activity_view_task" />
 		<activity
-			android:name=".AccountActivity"
+			android:name=".ui.modules.account.AccountActivity"
 			android:label="@string/title_activity_account" />
 
 		<provider

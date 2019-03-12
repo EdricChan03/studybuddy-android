@@ -5,7 +5,7 @@
 	android:id="@+id/loginActivity"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".LoginActivity">
+	tools:context=".ui.modules.auth.LoginActivity">
 
 	<ScrollView
 		android:layout_width="match_parent"

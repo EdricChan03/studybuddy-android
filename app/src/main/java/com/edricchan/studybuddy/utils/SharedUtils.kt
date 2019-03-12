@@ -33,7 +33,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.MainActivity
+import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.interfaces.NotificationRequest
@@ -52,6 +52,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -898,6 +899,16 @@ class SharedUtils
 		 */
 		fun sendNotificationRequest(fs: FirebaseFirestore, request: NotificationRequest): Task<DocumentReference> {
 			return fs.collection("notificationRequests").add(request)
+		}
+
+		/**
+		 * Retrieves the chats that the authenticated user is currently in
+		 * @param auth An instance of [FirebaseAuth]
+		 * @param fs An instance of [FirebaseFirestore]
+		 * @return The chats
+		 */
+		fun getChats(auth: FirebaseAuth, fs: FirebaseFirestore): Query {
+			return fs.collection("chats").whereArrayContains("members", fs.document("users/${auth.currentUser}"))
 		}
 	}
 }

@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/mainView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:animateLayoutChanges="true"
-	tools:context=".ViewTaskActivity">
+	tools:context=".ui.modules.task.ViewTaskActivity">
 
-	<ScrollView
+	<androidx.core.widget.NestedScrollView
 		android:id="@+id/scrollTaskView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:layout_marginBottom="?attr/actionBarSize"
+		android:fillViewport="true"
 		android:visibility="gone">
 
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:padding="16dp">
+			android:layout_margin="16dp"
+			android:orientation="vertical">
 
 			<TextView
 				android:id="@+id/taskTitle"
@@ -90,7 +93,7 @@
 					android:layout_gravity="center_vertical" />
 			</LinearLayout>
 		</LinearLayout>
-	</ScrollView>
+	</androidx.core.widget.NestedScrollView>
 
 	<LinearLayout
 		android:id="@+id/progressBar"
@@ -113,4 +116,18 @@
 			android:text="@string/view_task_loading"
 			android:textAppearance="?attr/textAppearanceHeadline6" />
 	</LinearLayout>
+
+	<com.google.android.material.bottomappbar.BottomAppBar
+		android:id="@+id/bottomAppBar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom"
+		app:fabAlignmentMode="end" />
+
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/editTaskFab"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_anchor="@id/bottomAppBar"
+		app:srcCompat="@drawable/ic_pencil_24dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

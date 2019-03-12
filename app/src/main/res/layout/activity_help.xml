@@ -4,7 +4,7 @@
 	android:id="@+id/constraintLayout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".HelpActivity">
+	tools:context=".ui.modules.help.HelpActivity">
 
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		android:id="@+id/swipeRefreshLayout"

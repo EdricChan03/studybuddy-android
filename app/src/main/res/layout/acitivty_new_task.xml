@@ -5,7 +5,7 @@
 	android:id="@+id/newTaskView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".NewTaskActivity">
+	tools:context=".ui.modules.task.NewTaskActivity">
 
 	<RelativeLayout
 		android:id="@+id/progressBar"
@@ -44,33 +44,33 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="5dp"
+			android:layout_margin="@dimen/activity_horizontal_margin"
 			android:orientation="vertical">
 
 			<com.google.android.material.textfield.TextInputLayout
 				android:id="@+id/taskTitle"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_margin="10dp">
+				android:layout_margin="10dp"
+				android:hint="@string/task_title">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="text"
-					android:hint="@string/task_title" />
+					android:inputType="text" />
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
 				android:id="@+id/taskContent"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_margin="10dp">
+				android:layout_margin="10dp"
+				android:hint="@string/task_content">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="textMultiLine"
-					android:hint="@string/task_content" />
+					android:inputType="textMultiLine" />
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<Spinner
@@ -88,8 +88,8 @@
 				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="text"
-					android:hint="@string/task_tags" />
+					android:hint="@string/task_tags"
+					android:inputType="text" />
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<CheckBox

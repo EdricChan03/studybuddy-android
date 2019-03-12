@@ -1,9 +1,10 @@
 package com.edricchan.studybuddy.interfaces
 
-import android.text.TextUtils
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.IgnoreExtraProperties
 import java.util.*
 
 /**
@@ -16,16 +17,17 @@ import java.util.*
  * @property tags A list of tags assigned to this task
  * @property title The title of this task
  */
+@IgnoreExtraProperties
 data class TaskItem(
 		var content: String? = null,
 		var dueDate: Timestamp? = null,
 		var isDone: Boolean? = false,
-		var id: String? = null,
+		@get:Exclude override var id: String = "",
 		var project: DocumentReference? = null,
 		var tags: List<String>? = null,
 		var title: String? = null
-) {
-	constructor() : this(null, null, false, null, null, null, null)
+) : HasId {
+	constructor() : this(null, null, false, "", null, null, null)
 
 	class Builder {
 		private var task: TaskItem? = null
@@ -194,6 +196,7 @@ data class TaskItem(
 			taskTags = tags.toMutableList()
 			return this
 		}
+
 		/**
 		 * Sets the list of tags assigned to this task
 		 *
@@ -241,7 +244,7 @@ data class TaskItem(
 				task!!.tags = taskTags
 			}
 			// Null checks to prevent values from being null on the document
-			if (TextUtils.isEmpty(task!!.title)) {
+			if (task != null && task?.title.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a title!")
 			}
 
