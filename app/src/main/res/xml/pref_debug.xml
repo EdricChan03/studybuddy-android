@@ -39,4 +39,12 @@
 			app:key="debug_reset_instance_id"
 			app:title="@string/debug_activity_reset_instance_id_title" />
 	</PreferenceCategory>
+	<PreferenceCategory
+		app:title="@string/debug_activity_category_updates"
+		app:key="debug_category_updates">
+		<SwitchPreferenceCompat
+			app:defaultValue="true"
+			app:key="debug_updates_use_testing_url"
+			app:title="@string/debug_activity_updates_use_testing_url_title" />
+	</PreferenceCategory>
 </androidx.preference.PreferenceScreen>
