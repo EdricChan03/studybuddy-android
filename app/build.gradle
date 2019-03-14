@@ -40,19 +40,19 @@ dependencies {
 	// Support Lib
 	// implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 	// Support Annotations
-	implementation 'androidx.annotation:annotation:1.0.1'
+	implementation 'androidx.annotation:annotation:1.0.2'
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0-alpha3", {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
 	// AppCompat
-	implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+	implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
 	// ConstraintLayout
 	implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 	// Design Support
 	implementation 'com.google.android.material:material:1.1.0-alpha04'
 	// RecyclerView
-	implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha02'
+	implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha03'
 	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha01'
 	// Chrome Custom Tabs
 	implementation 'androidx.browser:browser:1.0.0'
@@ -60,10 +60,10 @@ dependencies {
 	// Firebase stuff
 	implementation 'com.google.firebase:firebase-core:16.0.7'
 	implementation 'com.google.firebase:firebase-firestore:18.1.0'
-	implementation 'com.google.firebase:firebase-auth:16.1.0'
+	implementation 'com.google.firebase:firebase-auth:16.2.0'
 	implementation 'com.google.firebase:firebase-messaging:17.4.0'
 	implementation 'com.google.android.gms:play-services-auth:16.0.1'
-	implementation 'com.google.firebase:firebase-perf:16.2.3'
+	implementation 'com.google.firebase:firebase-perf:16.2.4'
 	// Provide a way to update the app
 	implementation 'com.github.javiersantos:AppUpdater:2.6.5'
 	// The app"s intro screen
@@ -75,15 +75,15 @@ dependencies {
 	// Emoji AppCompat
 	implementation 'androidx.emoji:emoji-appcompat:1.0.0'
 	// AndroidX Preference
-	// implementation 'androidx.preference:preference:1.1.0-alpha03'
+	implementation 'androidx.preference:preference:1.1.0-alpha04'
 	// Revert to the previous version for now
 	//noinspection GradleDependency
-	implementation 'androidx.preference:preference:1.1.0-alpha02'
+	// implementation 'androidx.preference:preference:1.1.0-alpha02'
 	// Kotlin support for AndroidX Preference library
-	// implementation 'androidx.preference:preference-ktx:1.1.0-alpha03'
+	implementation 'androidx.preference:preference-ktx:1.1.0-alpha04'
 	// Revert to the previous version for now
 	//noinspection GradleDependency
-	implementation 'androidx.preference:preference-ktx:1.1.0-alpha02'
+	// implementation 'androidx.preference:preference-ktx:1.1.0-alpha02'
 
 	// Custom Preferences
 	implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0'
@@ -103,7 +103,7 @@ dependencies {
 	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.0'
 
 	// Kotlin support for the AndroidX Core library
-	implementation 'androidx.core:core-ktx:1.1.0-alpha04'
+	implementation 'androidx.core:core-ktx:1.1.0-alpha05'
 
 	// Support for Kotlin
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
