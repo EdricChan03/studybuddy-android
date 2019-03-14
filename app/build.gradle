@@ -86,8 +86,14 @@ dependencies {
 	// implementation 'androidx.preference:preference-ktx:1.1.0-alpha02'
 
 	// Custom Preferences
-	implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0'
-	implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0'
+	/*
+	- New releases to the AndroidX preference library have broken the following 2 libraries
+	- Let's remove them for now
+	- See https://github.com/takisoft/preferencex-android/issues/4 for the relevant issue
+	  and https://issuetracker.google.com/issues/128579401 for the issue tracker
+	*/
+	// implementation 'com.takisoft.preferencex:preferencex-ringtone:1.0.0'
+	// implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.0.0'
 
 	// Markwon - Markdown parser for Android
 	// See https://noties.github.io/Markwon for more info
