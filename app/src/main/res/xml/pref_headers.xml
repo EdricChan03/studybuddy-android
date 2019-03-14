@@ -3,33 +3,33 @@
 		app:key="pref_show_header_summary"
 		app:title="@string/pref_show_header_summary_title" />
 	<Preference
-		app:fragment="com.edricchan.studybuddy.settings.GeneralSettingsFragment"
+		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.GeneralSettingsFragment"
 		app:icon="@drawable/ic_settings_24dp"
 		app:key="pref_header_general"
 		app:summary="@string/pref_header_general_summary"
 		app:title="@string/pref_header_general_title" />
 	<Preference
-		app:fragment="com.edricchan.studybuddy.settings.TodoSettingsFragment"
+		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.TodoSettingsFragment"
 		app:icon="@drawable/ic_format_list_checks_24dp"
 		app:key="pref_header_todo"
 		app:summary="@string/pref_header_todo_summary"
 		app:title="@string/pref_header_todo_title" />
 	<Preference
-		app:fragment="com.edricchan.studybuddy.settings.SyncSettingsFragment"
+		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.SyncSettingsFragment"
 		app:icon="@drawable/ic_sync_24dp"
 		app:isPreferenceVisible="false"
 		app:key="pref_header_sync"
 		app:summary="@string/pref_header_data_sync_summary"
 		app:title="@string/pref_header_data_sync_title" />
 	<Preference
-		app:fragment="com.edricchan.studybuddy.settings.DebugSettingsFragment"
+		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment"
 		app:icon="@drawable/ic_bug_report_24dp"
 		app:isPreferenceVisible="false"
 		app:key="pref_header_debug"
 		app:summary="@string/pref_header_debug_summary"
 		app:title="@string/pref_header_debug_title" />
 	<Preference
-		app:fragment="com.edricchan.studybuddy.settings.AboutSettingsFragment"
+		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.AboutSettingsFragment"
 		app:icon="@drawable/ic_info_24dp"
 		app:key="pref_header_about"
 		app:summary="@string/pref_header_version_summary"
