@@ -54,207 +54,202 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_debug, rootKey)
-		findPreference<Preference>(Constants.debugDeviceInfo)
-				.setOnPreferenceClickListener {
-					showDeviceInfoDialog()
-					true
+		findPreference<Preference>(Constants.debugDeviceInfo)?.setOnPreferenceClickListener {
+			showDeviceInfoDialog()
+			true
+		}
+		findPreference<Preference>(Constants.debugAccountInfo)?.setOnPreferenceClickListener {
+
+			var dialogMsg = ""
+
+			if (mUser != null) {
+				if (mUser!!.displayName != null) {
+					dialogMsg += "Display name: " + mUser!!.displayName!!
 				}
-		findPreference<Preference>(Constants.debugAccountInfo)
-				.setOnPreferenceClickListener {
-
-					var dialogMsg = ""
-
-					if (mUser != null) {
-						if (mUser!!.displayName != null) {
-							dialogMsg += "Display name: " + mUser!!.displayName!!
-						}
-						if (mUser!!.email != null) {
-							dialogMsg += "\nEmail: " + mUser!!.email!!
-						}
-						dialogMsg += "\nMetadata:\n- Creation timestamp: " + Date(mUser!!.metadata!!.creationTimestamp).toString()
-						dialogMsg += "\n- Last signed in timestamp: " + Date(mUser!!.metadata!!.lastSignInTimestamp).toString()
-						if (mUser!!.phoneNumber != null) {
-							dialogMsg += "\nPhone number: " + mUser!!.phoneNumber!!
-						}
-						if (mUser!!.photoUrl != null) {
-							dialogMsg += "\nPhoto URL: " + mUser!!.photoUrl!!
-						}
-						dialogMsg += "\nUID: " + mUser!!.uid
-						dialogMsg += "\nIs anonymous: " + if (mUser!!.isAnonymous) "yes" else "no"
-					} else {
-						dialogMsg = "No current signed-in Firebase user exists!"
-					}
-
-					val builder = MaterialAlertDialogBuilder(context!!)
-					builder.setTitle(R.string.debug_activity_account_info_title)
-							.setMessage(dialogMsg)
-							.setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
-							.show()
-					true
+				if (mUser!!.email != null) {
+					dialogMsg += "\nEmail: " + mUser!!.email!!
 				}
-		findPreference<Preference>(Constants.debugCrashApp)
-				.setOnPreferenceClickListener {
-					val builder = MaterialAlertDialogBuilder(context!!)
-					builder.setTitle(R.string.debug_activity_confirm_crash_app_dialog_title)
-							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-							.setPositiveButton(R.string.dialog_action_crash) { _, _ -> mCrashlytics!!.crash() }
-							.show()
-					true
+				dialogMsg += "\nMetadata:\n- Creation timestamp: " + Date(mUser!!.metadata!!.creationTimestamp).toString()
+				dialogMsg += "\n- Last signed in timestamp: " + Date(mUser!!.metadata!!.lastSignInTimestamp).toString()
+				if (mUser!!.phoneNumber != null) {
+					dialogMsg += "\nPhone number: " + mUser!!.phoneNumber!!
 				}
-		findPreference<Preference>(Constants.debugSendNotification)
-				.setOnPreferenceClickListener {
-					val debugSendNotificationDialogView = layoutInflater.inflate(R.layout.debug_send_fcm_notification_dialog, null)
-					val bodyTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.bodyTextInputLayout)
-					val channelIdTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.channelIdTextInputLayout)
-					val colorTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.colorTextInputLayout)
-					val userOrTopicTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.userOrTopicTextInputLayout)
-					val titleTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.titleTextInputLayout)
-					val ttlTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.ttlTextInputLayout)
+				if (mUser!!.photoUrl != null) {
+					dialogMsg += "\nPhoto URL: " + mUser!!.photoUrl!!
+				}
+				dialogMsg += "\nUID: " + mUser!!.uid
+				dialogMsg += "\nIs anonymous: " + if (mUser!!.isAnonymous) "yes" else "no"
+			} else {
+				dialogMsg = "No current signed-in Firebase user exists!"
+			}
 
-					val priorityRadioGroup = debugSendNotificationDialogView.findViewById<RadioGroup>(R.id.priorityRadioGroup)
+			val builder = MaterialAlertDialogBuilder(context!!)
+			builder.setTitle(R.string.debug_activity_account_info_title)
+					.setMessage(dialogMsg)
+					.setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
+					.show()
+			true
+		}
+		findPreference<Preference>(Constants.debugCrashApp)?.setOnPreferenceClickListener {
+			val builder = MaterialAlertDialogBuilder(context!!)
+			builder.setTitle(R.string.debug_activity_confirm_crash_app_dialog_title)
+					.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+					.setPositiveButton(R.string.dialog_action_crash) { _, _ -> mCrashlytics!!.crash() }
+					.show()
+			true
+		}
+		findPreference<Preference>(Constants.debugSendNotification)?.setOnPreferenceClickListener {
+			val debugSendNotificationDialogView = layoutInflater.inflate(R.layout.debug_send_fcm_notification_dialog, null)
+			val bodyTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.bodyTextInputLayout)
+			val channelIdTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.channelIdTextInputLayout)
+			val colorTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.colorTextInputLayout)
+			val userOrTopicTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.userOrTopicTextInputLayout)
+			val titleTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.titleTextInputLayout)
+			val ttlTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.ttlTextInputLayout)
 
-					val builder = MaterialAlertDialogBuilder(context!!)
-					builder.setTitle(R.string.debug_activity_send_notification_title)
-							.setView(debugSendNotificationDialogView)
-							.setIcon(R.drawable.ic_send_24dp)
-							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-							.setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
-								if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty() &&
-										titleTextInputLayout.editTextStrValue!!.isNotEmpty() &&
-										bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-									// TODO: Cleanup code
-									Log.d(TAG, "Value of bodyTextInputEditText: ${bodyTextInputLayout.editTextStrValue}")
-									Log.d(TAG, "Value of channelIdTextInputEditText: ${channelIdTextInputLayout.editTextStrValue}")
-									Log.d(TAG, "Value of colorTextInputLayout: ${colorTextInputLayout.editTextStrValue}")
-									Log.d(TAG, "Value of userOrTopicTextInputEditText: ${userOrTopicTextInputLayout.editTextStrValue}")
-									Log.d(TAG, "Value of titleTextInputEditText: ${titleTextInputLayout.editTextStrValue}")
-									@NotificationRequest.NotificationPriority var priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
-									when (priorityRadioGroup.checkedRadioButtonId) {
-										R.id.priorityNormalRadioButton -> {
-											Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
-											priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
-										}
-										R.id.priorityHighRadioButton -> {
-											Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
-											priority = NotificationRequest.NOTIFICATION_PRIORITY_HIGH
-										}
-									}
-									val notificationRequestBuilder = NotificationRequest.Builder()
-									if (bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-										notificationRequestBuilder.setNotificationBody(bodyTextInputLayout.editTextStrValue!!)
-									}
-									if (channelIdTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-										notificationRequestBuilder.setNotificationChannelId(channelIdTextInputLayout.editTextStrValue!!)
-									}
-									if (colorTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-										notificationRequestBuilder.setNotificationColor(colorTextInputLayout.editTextStrValue!!)
-									}
-									if (priority.isNotEmpty()) {
-										notificationRequestBuilder.setNotificationPriority(priority)
-									}
-									if (titleTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-										notificationRequestBuilder.setNotificationTitle(titleTextInputLayout.editTextStrValue!!)
-									}
-									if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-										notificationRequestBuilder.setUserOrTopic(userOrTopicTextInputLayout.editTextStrValue!!)
-									}
-									if (ttlTextInputLayout.editTextStrValue!!.isNotEmpty() && ttlTextInputLayout.editTextStrValue!!.isDigitsOnly()) {
-										notificationRequestBuilder.setNotificationTtl(ttlTextInputLayout.editTextStrValue!!.toInt())
-									}
-									val notificationSettingsActionBuilder = NotificationAction.Builder()
-									notificationSettingsActionBuilder
-											.setActionTitle("Configure Notifications")
-											.setActionIcon("ic_settings_24dp")
-											.setActionType(Constants.actionNotificationsSettingsIntent)
-									notificationRequestBuilder.addNotificationAction(notificationSettingsActionBuilder.create()!!)
-									mUtils!!.sendNotificationRequest(notificationRequestBuilder.create())
-											.addOnCompleteListener { task ->
-												if (task.isSuccessful) {
-													Log.d(TAG, "Successfully sent notification request to Cloud Firestore!")
-													Toast.makeText(context, "Successfully sent notification request to Cloud Firestore!", Toast.LENGTH_SHORT)
-															.show()
-												} else {
-													Toast.makeText(context, "An error occurred while attempting to send the notification request to Cloud Firestore. Check the logcat for more details.", Toast.LENGTH_SHORT).show()
-													Log.e(TAG, "An error occurred while attempting to send the notification request to Cloud Firestore:", task.exception)
-												}
-												dialog.dismiss()
-											}
-								} else {
-									Toast.makeText(context, "Please fill in the form!", Toast.LENGTH_SHORT).show()
+			val priorityRadioGroup = debugSendNotificationDialogView.findViewById<RadioGroup>(R.id.priorityRadioGroup)
+
+			val builder = MaterialAlertDialogBuilder(context!!)
+			builder.setTitle(R.string.debug_activity_send_notification_title)
+					.setView(debugSendNotificationDialogView)
+					.setIcon(R.drawable.ic_send_24dp)
+					.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+					.setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
+						if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty() &&
+								titleTextInputLayout.editTextStrValue!!.isNotEmpty() &&
+								bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+							// TODO: Cleanup code
+							Log.d(TAG, "Value of bodyTextInputEditText: ${bodyTextInputLayout.editTextStrValue}")
+							Log.d(TAG, "Value of channelIdTextInputEditText: ${channelIdTextInputLayout.editTextStrValue}")
+							Log.d(TAG, "Value of colorTextInputLayout: ${colorTextInputLayout.editTextStrValue}")
+							Log.d(TAG, "Value of userOrTopicTextInputEditText: ${userOrTopicTextInputLayout.editTextStrValue}")
+							Log.d(TAG, "Value of titleTextInputEditText: ${titleTextInputLayout.editTextStrValue}")
+							@NotificationRequest.NotificationPriority var priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
+							when (priorityRadioGroup.checkedRadioButtonId) {
+								R.id.priorityNormalRadioButton -> {
+									Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
+									priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
+								}
+								R.id.priorityHighRadioButton -> {
+									Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
+									priority = NotificationRequest.NOTIFICATION_PRIORITY_HIGH
 								}
 							}
-					val dialog = builder.create()
-					// First, show the dialog
-					dialog.show()
-					// Initially disable the button
-					dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = false
-					val validatorTextWatcher = object : TextWatcher {
-						override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-							// Do nothing here
-						}
-
-						override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-							// Do nothing here
-						}
-
-						override fun afterTextChanged(s: Editable) {
-							when {
-								userOrTopicTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
-									// Change is from user/topic TextInputLayout's TextInputEditText
-									// Show error is TextInputEditText is empty
-									if (TextUtils.isEmpty(s)) {
-										userOrTopicTextInputLayout.error = "This is required!"
-										userOrTopicTextInputLayout.isErrorEnabled = true
-									} else {
-										// Remove errors
-										userOrTopicTextInputLayout.error = null
-										userOrTopicTextInputLayout.isErrorEnabled = false
-									}
-									// Check if TextInputEditText is empty or if the title TextInputLayout's TextInputEditText is empty
-									// or if the body TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = s.isEmpty() && titleTextInputLayout.editTextStrValue!!.isNotEmpty() && bodyTextInputLayout.editTextStrValue!!.isNotEmpty()
-								}
-								titleTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
-									// Change is from title TextInputLayout's TextInputEditText
-									// Show error is TextInputEditText is empty
-									if (TextUtils.isEmpty(s)) {
-										titleTextInputLayout.error = "This is required!"
-										titleTextInputLayout.isErrorEnabled = true
-									} else {
-										// Remove errors
-										titleTextInputLayout.error = null
-										titleTextInputLayout.isErrorEnabled = false
-									}
-									// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
-									// or if the body TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || bodyTextInputLayout.editTextStrValue!!.isEmpty())
-								}
-								bodyTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
-									// Change is from title TextInputLayout's TextInputEditText
-									// Show error is TextInputEditText is empty
-									if (TextUtils.isEmpty(s)) {
-										bodyTextInputLayout.error = "This is required!"
-										bodyTextInputLayout.isErrorEnabled = true
-									} else {
-										// Remove errors
-										bodyTextInputLayout.error = null
-										bodyTextInputLayout.isErrorEnabled = false
-									}
-									// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
-									// or if the title TextInputLayout's TextInputEditText is empty
-									dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || titleTextInputLayout.editTextStrValue!!.isEmpty())
-								}
+							val notificationRequestBuilder = NotificationRequest.Builder()
+							if (bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+								notificationRequestBuilder.setNotificationBody(bodyTextInputLayout.editTextStrValue!!)
 							}
+							if (channelIdTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+								notificationRequestBuilder.setNotificationChannelId(channelIdTextInputLayout.editTextStrValue!!)
+							}
+							if (colorTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+								notificationRequestBuilder.setNotificationColor(colorTextInputLayout.editTextStrValue!!)
+							}
+							if (priority.isNotEmpty()) {
+								notificationRequestBuilder.setNotificationPriority(priority)
+							}
+							if (titleTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+								notificationRequestBuilder.setNotificationTitle(titleTextInputLayout.editTextStrValue!!)
+							}
+							if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+								notificationRequestBuilder.setUserOrTopic(userOrTopicTextInputLayout.editTextStrValue!!)
+							}
+							if (ttlTextInputLayout.editTextStrValue!!.isNotEmpty() && ttlTextInputLayout.editTextStrValue!!.isDigitsOnly()) {
+								notificationRequestBuilder.setNotificationTtl(ttlTextInputLayout.editTextStrValue!!.toInt())
+							}
+							val notificationSettingsActionBuilder = NotificationAction.Builder()
+							notificationSettingsActionBuilder
+									.setActionTitle("Configure Notifications")
+									.setActionIcon("ic_settings_24dp")
+									.setActionType(Constants.actionNotificationsSettingsIntent)
+							notificationRequestBuilder.addNotificationAction(notificationSettingsActionBuilder.create()!!)
+							mUtils!!.sendNotificationRequest(notificationRequestBuilder.create())
+									.addOnCompleteListener { task ->
+										if (task.isSuccessful) {
+											Log.d(TAG, "Successfully sent notification request to Cloud Firestore!")
+											Toast.makeText(context, "Successfully sent notification request to Cloud Firestore!", Toast.LENGTH_SHORT)
+													.show()
+										} else {
+											Toast.makeText(context, "An error occurred while attempting to send the notification request to Cloud Firestore. Check the logcat for more details.", Toast.LENGTH_SHORT).show()
+											Log.e(TAG, "An error occurred while attempting to send the notification request to Cloud Firestore:", task.exception)
+										}
+										dialog.dismiss()
+									}
+						} else {
+							Toast.makeText(context, "Please fill in the form!", Toast.LENGTH_SHORT).show()
 						}
 					}
-					// Add the watchers to the associated TextInputEditTexts
-					userOrTopicTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
-					titleTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
-					bodyTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
-					true
+			val dialog = builder.create()
+			// First, show the dialog
+			dialog.show()
+			// Initially disable the button
+			dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = false
+			val validatorTextWatcher = object : TextWatcher {
+				override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+					// Do nothing here
 				}
-		findPreference<Preference>(Constants.debugResetInstanceId)
-				.setOnPreferenceClickListener {
+
+				override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+					// Do nothing here
+				}
+
+				override fun afterTextChanged(s: Editable) {
+					when {
+						userOrTopicTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
+							// Change is from user/topic TextInputLayout's TextInputEditText
+							// Show error is TextInputEditText is empty
+							if (TextUtils.isEmpty(s)) {
+								userOrTopicTextInputLayout.error = "This is required!"
+								userOrTopicTextInputLayout.isErrorEnabled = true
+							} else {
+								// Remove errors
+								userOrTopicTextInputLayout.error = null
+								userOrTopicTextInputLayout.isErrorEnabled = false
+							}
+							// Check if TextInputEditText is empty or if the title TextInputLayout's TextInputEditText is empty
+							// or if the body TextInputLayout's TextInputEditText is empty
+							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = s.isEmpty() && titleTextInputLayout.editTextStrValue!!.isNotEmpty() && bodyTextInputLayout.editTextStrValue!!.isNotEmpty()
+						}
+						titleTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
+							// Change is from title TextInputLayout's TextInputEditText
+							// Show error is TextInputEditText is empty
+							if (TextUtils.isEmpty(s)) {
+								titleTextInputLayout.error = "This is required!"
+								titleTextInputLayout.isErrorEnabled = true
+							} else {
+								// Remove errors
+								titleTextInputLayout.error = null
+								titleTextInputLayout.isErrorEnabled = false
+							}
+							// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
+							// or if the body TextInputLayout's TextInputEditText is empty
+							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || bodyTextInputLayout.editTextStrValue!!.isEmpty())
+						}
+						bodyTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
+							// Change is from title TextInputLayout's TextInputEditText
+							// Show error is TextInputEditText is empty
+							if (TextUtils.isEmpty(s)) {
+								bodyTextInputLayout.error = "This is required!"
+								bodyTextInputLayout.isErrorEnabled = true
+							} else {
+								// Remove errors
+								bodyTextInputLayout.error = null
+								bodyTextInputLayout.isErrorEnabled = false
+							}
+							// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
+							// or if the title TextInputLayout's TextInputEditText is empty
+							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || titleTextInputLayout.editTextStrValue!!.isEmpty())
+						}
+					}
+				}
+			}
+			// Add the watchers to the associated TextInputEditTexts
+			userOrTopicTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
+			titleTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
+			bodyTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
+			true
+		}
+		findPreference<Preference>(Constants.debugResetInstanceId)?.setOnPreferenceClickListener {
 					val builder = MaterialAlertDialogBuilder(context!!)
 					builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
 							.setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)

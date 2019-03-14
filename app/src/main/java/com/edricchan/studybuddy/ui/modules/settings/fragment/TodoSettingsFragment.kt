@@ -18,10 +18,10 @@ class TodoSettingsFragment : PreferenceFragmentCompat() {
 			val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
 			intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity!!.packageName)
 			intent.putExtra(Settings.EXTRA_CHANNEL_ID, getString(R.string.notification_channel_weekly_summary_id))
-			findPreference<Preference>(Constants.prefWeeklySummaryNotificationOpts).intent = intent
+			findPreference<Preference>(Constants.prefWeeklySummaryNotificationOpts)?.intent = intent
 		} else {
 			// Hide the preference as notification channels aren't implemented on lower versions of Android
-			findPreference<Preference>(Constants.prefWeeklySummaryNotificationOpts).isVisible = false
+			findPreference<Preference>(Constants.prefWeeklySummaryNotificationOpts)?.isVisible = false
 		}
 	}
 }

@@ -12,12 +12,12 @@ class SyncSettingsFragment : PreferenceFragmentCompat() {
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_data_sync, rootKey)
 		val manualSyncPreference = findPreference<Preference>("manual_sync")
-		manualSyncPreference.setOnPreferenceClickListener {
+		manualSyncPreference?.setOnPreferenceClickListener {
 			Toast.makeText(context, "Syncing...", Toast.LENGTH_SHORT).show()
 			true
 		}
-		val cellularNetworksSync = findPreference<Preference>("sync_cellular_networks") as SwitchPreferenceCompat
-		cellularNetworksSync.setOnPreferenceClickListener {
+		val cellularNetworksSync = findPreference<SwitchPreferenceCompat>("sync_cellular_networks")
+		cellularNetworksSync?.setOnPreferenceClickListener {
 			if (cellularNetworksSync.isChecked) {
 				cellularNetworksSync.isChecked = false
 				val builder = MaterialAlertDialogBuilder(activity!!)
