@@ -284,12 +284,14 @@
 	<string-array name="pref_dark_theme_options_array">
 		<item>Always</item>
 		<item>Automatic (at night)</item>
+		<item>Automatic (battery saver)</item>
 		<item>Follow system</item>
 		<item>Never</item>
 	</string-array>
 	<string-array name="pref_dark_theme_options_array_values">
 		<item>always</item>
-		<item>automatic</item>
+		<item>automatic_time</item>
+		<item>automatic_battery_saver</item>
 		<item>follow_system</item>
 		<item>never</item>
 	</string-array>

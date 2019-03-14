@@ -297,10 +297,13 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		val isLocationPermGranted = ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION)
 
 		dialogMsg += when (defaultNightMode) {
-			AppCompatDelegate.MODE_NIGHT_AUTO -> "\nDefault night mode: Auto"
+			// Note: This is deprecated in the latest version of appcompat
+			AppCompatDelegate.MODE_NIGHT_AUTO -> "\nDefault night mode: Auto (Light after sunrise, dark after sunset)"
 			AppCompatDelegate.MODE_NIGHT_NO -> "\nDefault night mode: Disabled"
 			AppCompatDelegate.MODE_NIGHT_YES -> "\nDefault night mode: Enabled"
 			AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> "\nDefault night mode: Using system to detect"
+			AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY -> "\nDefault night mode: Enabled with battery saver"
+
 			else -> "\nDefault night mode: Unknown"
 		}
 		dialogMsg += when (isLocationPermGranted) {

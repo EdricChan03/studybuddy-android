@@ -28,6 +28,8 @@ object Constants {
 	const val prefCategoryTheme = "pref_category_theme"
 	const val prefDarkTheme = "pref_dark_theme"
 	const val prefDarkThemeAuto = "automatic"
+	const val prefDarkThemeAutoTime = "automatic_time"
+	const val prefDarkThemeAutoBatterySaver = "automatic_battery_saver"
 	const val prefDarkThemeAlways = "always"
 	const val prefDarkThemeFollowSystem = "follow_system"
 	const val prefDarkThemeNever = "never"

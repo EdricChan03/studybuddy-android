@@ -33,12 +33,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver
+import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
@@ -296,7 +296,7 @@ class SharedUtils
 		 * @param context The context
 		 */
 		fun setAppTheme(context: Context) {
-			val appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.prefDarkTheme, Constants.prefDarkThemeAuto)!!
+			val appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.prefDarkTheme, Constants.prefDarkThemeAutoTime)!!
 			when (appTheme) {
 				// Note: The old values of the preference will still be supported
 				// TODO: Completely remove support for old values
@@ -305,10 +305,11 @@ class SharedUtils
 				"3" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 				// New values
 				Constants.prefDarkThemeAlways -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-				Constants.prefDarkThemeAuto -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+				Constants.prefDarkThemeAuto, Constants.prefDarkThemeAutoTime -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+				Constants.prefDarkThemeAutoBatterySaver -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
 				Constants.prefDarkThemeFollowSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 				Constants.prefDarkThemeNever -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-				else -> Log.w(TAG, "Please supply a valid string integer (1, 2, or 3), or a valid option (\"always\", \"automatic\", \"follow_system\" or \"never\")!")
+				else -> Log.w(TAG, "Please supply a valid string integer (1, 2, or 3), or a valid option (\"always\", \"automatic\"/\"automatic_time\", \"automatic_battery_saver\", \"follow_system\" or \"never\")!")
 			}
 		}
 
