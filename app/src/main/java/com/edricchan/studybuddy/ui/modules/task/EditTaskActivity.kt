@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.TooltipCompat
 import com.edricchan.studybuddy.R
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
+@ContentView(R.layout.activity_edit_task)
 class EditTaskActivity : AppCompatActivity() {
 	private lateinit var mFirestore: FirebaseFirestore
 	private lateinit var mAuth: FirebaseAuth
@@ -39,7 +41,6 @@ class EditTaskActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_edit_task)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		mFirestore = FirebaseFirestore.getInstance()
 		mAuth = FirebaseAuth.getInstance()

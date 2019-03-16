@@ -9,22 +9,23 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
-import com.edricchan.studybuddy.ui.modules.main.fragment.NavBottomSheetDialogFragment
-import com.edricchan.studybuddy.ui.modules.task.fragment.TaskFragment
-import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.chat.fragment.ChatFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.help.HelpActivity
+import com.edricchan.studybuddy.ui.modules.main.fragment.NavBottomSheetDialogFragment
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
+import com.edricchan.studybuddy.ui.modules.task.fragment.TaskFragment
+import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -37,6 +38,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
+@ContentView(R.layout.activity_main)
 class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
 	private var mOptionsMenu: Menu? = null
 	//	private BottomNavigationView navigationView;
@@ -64,7 +66,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 					}
 				})
 		EmojiCompat.init(config)
-		setContentView(R.layout.activity_main)
 		bar = findViewById(R.id.bottomAppBar)
 		setSupportActionBar(bar)
 		// Checks if the add new shortcut was tapped

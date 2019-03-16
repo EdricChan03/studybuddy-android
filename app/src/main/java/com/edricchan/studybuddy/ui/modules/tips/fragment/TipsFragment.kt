@@ -3,23 +3,22 @@ package com.edricchan.studybuddy.ui.modules.tips.fragment
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.ContentView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-
 import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.utils.SharedUtils
 
+@ContentView(R.layout.frag_tips)
 class TipsFragment : Fragment() {
 	private var mFragmentView: View? = null
 	private val mTabsIntent: CustomTabsIntent? = null
@@ -30,10 +29,6 @@ class TipsFragment : Fragment() {
 		super.onCreate(savedInstanceState)
 		setHasOptionsMenu(true)
 		preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
-	}
-
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.frag_tips, container, false)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

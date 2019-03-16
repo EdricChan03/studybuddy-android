@@ -7,7 +7,11 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import androidx.annotation.ContentView
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -43,6 +47,7 @@ import java8.util.stream.IntStreams
 import java.util.*
 import java.util.stream.IntStream
 
+@ContentView(R.layout.frag_todo)
 class TaskFragment : Fragment() {
 	private var mAuth: FirebaseAuth? = null
 	private val mGoogleApiClient: GoogleApiClient? = null
@@ -152,10 +157,6 @@ class TaskFragment : Fragment() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setHasOptionsMenu(true)
-	}
-
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.frag_todo, container, false)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -8,11 +8,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
-import com.edricchan.studybuddy.ui.modules.main.MainActivity
-import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.ui.modules.main.MainActivity
+import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -25,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+@ContentView(R.layout.activity_login)
 class LoginActivity : AppCompatActivity() {
 	private var inputEmail: TextInputLayout? = null
 	private var inputPassword: TextInputLayout? = null
@@ -48,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
 			startActivity(Intent(this@LoginActivity, MainActivity::class.java))
 			finish()
 		}
-		setContentView(R.layout.activity_login)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 		inputEmail = findViewById(R.id.emailLogin)

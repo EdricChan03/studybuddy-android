@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
@@ -12,14 +13,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_view_task.*
 
+@ContentView(R.layout.activity_new_chat)
 class NewChatActivity : AppCompatActivity() {
 
 	private lateinit var mAuth: FirebaseAuth
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_new_chat)
-
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		mAuth = FirebaseAuth.getInstance()
 

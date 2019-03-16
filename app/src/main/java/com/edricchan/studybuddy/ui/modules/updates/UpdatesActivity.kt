@@ -19,11 +19,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -31,10 +31,10 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-
 import java.io.File
-import java.util.Objects
+import java.util.*
 
+@ContentView(R.layout.activity_updates)
 class UpdatesActivity : AppCompatActivity() {
 
 	private var isChecking = false
@@ -45,7 +45,6 @@ class UpdatesActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_updates)
 		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 		checkForUpdatesBtn = findViewById(R.id.empty_state_view_cta)
 		checkForUpdatesBtn.setOnClickListener { click -> checkForUpdates() }

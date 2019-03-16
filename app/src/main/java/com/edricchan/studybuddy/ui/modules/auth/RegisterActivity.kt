@@ -5,24 +5,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
-import com.edricchan.studybuddy.ui.modules.main.MainActivity
-import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isInvalidEmail
+import com.edricchan.studybuddy.ui.modules.main.MainActivity
+import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 
+@ContentView(R.layout.activity_register)
 class RegisterActivity : AppCompatActivity() {
 
 	private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_register)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		auth = FirebaseAuth.getInstance()
 

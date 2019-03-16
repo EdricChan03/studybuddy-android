@@ -3,22 +3,18 @@ package com.edricchan.studybuddy.ui.modules.chat.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.modules.chat.NewChatActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 
+@ContentView(R.layout.frag_chat)
 class ChatFragment : Fragment() {
 	private lateinit var fragmentView: View
 	private lateinit var mParentActivity: AppCompatActivity
-
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.frag_chat, container, false)
-	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)

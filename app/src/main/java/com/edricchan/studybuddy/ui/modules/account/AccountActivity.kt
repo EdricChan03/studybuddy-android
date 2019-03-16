@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.BuildConfig
@@ -25,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
 
+@ContentView(R.layout.activity_account)
 class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 	private var mAuth: FirebaseAuth? = null
 	private var mUser: FirebaseUser? = null
@@ -37,7 +39,6 @@ class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_account)
 		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 		mAvatarImageView = findViewById(R.id.accountAvatar)
 		mDisplayNameTextView = findViewById(R.id.accountName)
