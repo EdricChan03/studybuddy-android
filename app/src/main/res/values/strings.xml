@@ -114,27 +114,27 @@
 
 	<string name="date_format_pattern">EEE, MMM d yyyy</string>
 
-	<string name="debug_activity_account_info_summary">Shows information about the currently signed-in Firebase User in a dialog</string>
+	<string name="debug_activity_account_info_summary">Show information about the currently signed-in Firebase User</string>
 	<string name="debug_activity_account_info_title">Account info</string>
 	<string name="debug_activity_category_device">Device</string>
 	<string name="debug_activity_category_firebase">Firebase</string>
+	<string name="debug_activity_category_logging">Logging</string>
 	<string name="debug_activity_category_updates">Updates</string>
-	<string name="debug_activity_category_settings">Settings</string>
 	<string name="debug_activity_confirm_crash_app_dialog_title">Crash app?</string>
 	<string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n(Note that a new ID will be generated after you delete the current ID)</string>
 	<string name="debug_activity_confirm_reset_instance_id_dialog_title">Delete device\'s Instance ID?</string>
 	<string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
-	<string name="debug_activity_crash_app_summary">Programmatically crashes the app using Firebase Crashlytics.</string>
+	<string name="debug_activity_crash_app_summary">Programmatically crash the app with Firebase Crashlytics</string>
 	<string name="debug_activity_crash_app_title">Crash app</string>
 	<string-array name="debug_activity_device_info_array">
 		<item>Device SDK Info</item>
 		<item>Connectivity Info</item>
 		<item>Night Mode Info</item>
 	</string-array>
-	<string name="debug_activity_device_info_summary">[WIP] Shows information about the current device (includes current API version and phone type) in a dialog</string>
+	<string name="debug_activity_device_info_summary">Show information about the current device</string>
 	<string name="debug_activity_device_info_title">Device info</string>
 	<string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
-	<string name="debug_activity_enable_verbose_log_summary">Outputs more verbose logs in the logcat.</string>
+	<string name="debug_activity_enable_verbose_log_summary">Output more verbose logs into logcat</string>
 	<string name="debug_activity_enable_verbose_log_title">Enable verbose log</string>
 	<string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
 	<string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
@@ -150,7 +150,7 @@
 	<string name="debug_activity_send_notification_dialog_ttl_helpertext">The time specified (in milliseconds) to keep the notification in FCM storage. (Default: 4 weeks)</string>
 	<string name="debug_activity_send_notification_dialog_ttl_hint">Time-to-live</string>
 	<string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
-	<string name="debug_activity_send_notification_summary">[WIP] Programmatically sends a notification using Firebase Cloud Messaging (FCM) to a topic or to a specific user</string>
+	<string name="debug_activity_send_notification_summary">Programmatically send a FCM notification request</string>
 	<string name="debug_activity_send_notification_title">Send FCM notification</string>
 	<string name="debug_activity_updates_use_testing_url_title">Use debug changelog URL</string>
 
