@@ -250,32 +250,31 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			true
 		}
 		findPreference<Preference>(Constants.debugResetInstanceId)?.setOnPreferenceClickListener {
-					val builder = MaterialAlertDialogBuilder(context!!)
-					builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
-							.setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
-							.setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
-								try {
-									mInstanceId!!.deleteInstanceId()
-									Toast.makeText(context, "Successfully deleted instance ID!", Toast.LENGTH_LONG).show()
-								} catch (e: IOException) {
-									Toast.makeText(context, "An error occurred while deleting the device's instance ID. Please consult the logcat for the stacktrace of the exception.", Toast.LENGTH_LONG).show()
-									Log.e(TAG, "An error occurred while deleting the device's instance ID: ", e)
-								}
+			val builder = MaterialAlertDialogBuilder(context!!)
+			builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
+					.setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
+					.setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
+						try {
+							mInstanceId!!.deleteInstanceId()
+							Toast.makeText(context, "Successfully deleted instance ID!", Toast.LENGTH_LONG).show()
+						} catch (e: IOException) {
+							Toast.makeText(context, "An error occurred while deleting the device's instance ID. Please consult the logcat for the stacktrace of the exception.", Toast.LENGTH_LONG).show()
+							Log.e(TAG, "An error occurred while deleting the device's instance ID: ", e)
+						}
 
-								dialog.dismiss()
-							}
-							.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-							.show()
-					true
-				}
+						dialog.dismiss()
+					}
+					.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+					.show()
+			true
+		}
 
 	}
 
 	private fun createSdkInfoDialog(): MaterialAlertDialogBuilder {
 		var dialogMsg = ""
 
-		val deviceSdk = Build.VERSION.SDK_INT
-		dialogMsg += "Device SDK: $deviceSdk"
+		dialogMsg += "Device SDK: ${Build.VERSION.SDK_INT}"
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
 			val previewSdkInt = Build.VERSION.PREVIEW_SDK_INT
@@ -283,6 +282,77 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 				dialogMsg += "\nPreview SDK: $previewSdkInt"
 			}
 		}
+
+		if (Build.FINGERPRINT.isNotEmpty()) {
+			dialogMsg += "\nBuild fingerprint: ${Build.FINGERPRINT}"
+		}
+
+		if (Build.MODEL.isNotEmpty()) {
+			dialogMsg += "\nModel: ${Build.MODEL}"
+		}
+
+		if (Build.BOARD.isNotEmpty()) {
+			dialogMsg += "\nBoard: ${Build.BOARD}"
+		}
+
+		if (Build.BOOTLOADER.isNotEmpty()) {
+			dialogMsg += "\nBootloader version: ${Build.BOOTLOADER}"
+		}
+
+		if (Build.BRAND.isNotEmpty()) {
+			dialogMsg += "\nBrand: ${Build.BRAND}"
+		}
+
+		if (Build.DEVICE.isNotEmpty()) {
+			dialogMsg += "\nDevice: ${Build.DEVICE}"
+		}
+
+		if (Build.DISPLAY.isNotEmpty()) {
+			dialogMsg += "\nDisplay: ${Build.DISPLAY}"
+		}
+
+		if (Build.HARDWARE.isNotEmpty()) {
+			dialogMsg += "\nHardware name: ${Build.HARDWARE}"
+		}
+
+		if (Build.HOST.isNotEmpty()) {
+			dialogMsg += "\nHost: ${Build.HOST}"
+		}
+
+		if (Build.ID.isNotEmpty()) {
+			dialogMsg += "\nID: ${Build.ID}"
+		}
+
+		if (Build.MANUFACTURER.isNotEmpty()) {
+			dialogMsg += "\nManufacturer: ${Build.MANUFACTURER}"
+		}
+
+		if (Build.PRODUCT.isNotEmpty()) {
+			dialogMsg += "\nProduct: ${Build.PRODUCT}"
+		}
+
+		if (Build.SUPPORTED_ABIS.isNotEmpty()) {
+			dialogMsg += "\nSupported ABIs: ${Build.SUPPORTED_ABIS}"
+		}
+
+		if (Build.TAGS.isNotEmpty()) {
+			dialogMsg += "\nTags: ${Build.TAGS}"
+		}
+
+		dialogMsg += "\nTime: ${Build.TIME}"
+
+		if (Build.TYPE.isNotEmpty()) {
+			dialogMsg += "\nType: ${Build.TYPE}"
+		}
+
+		if (Build.USER.isNotEmpty()) {
+			dialogMsg += "\nUser: ${Build.USER}"
+		}
+
+		if (Build.getRadioVersion().isNotEmpty()) {
+			dialogMsg += "\nRadio firmware version: ${Build.getRadioVersion()}"
+		}
+
 		return MaterialAlertDialogBuilder(context!!)
 				.setTitle(R.string.debug_activity_device_sdk_info_dialog_title)
 				.setMessage(dialogMsg)
