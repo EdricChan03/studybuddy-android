@@ -618,7 +618,7 @@ class SharedUtils
 		}
 
 		/**
-		 * Retrieves the tag of a class. Useful for [android.util.Log]
+		 * Retrieves the class name of a class. Useful for [android.util.Log]
 		 *
 		 * @param tagClass The class to retrieve the simple name of. Can be any Java class extending [Class].
 		 * @return The tag
