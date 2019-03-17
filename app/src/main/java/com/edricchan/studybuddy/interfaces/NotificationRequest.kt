@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.interfaces
 
 import android.content.Context
-import android.text.TextUtils
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringDef
 import java.util.*
@@ -243,28 +242,28 @@ data class NotificationRequest(
 			}
 
 			// Null checks to prevent values from being null on the document
-			if (TextUtils.isEmpty(request.userOrTopic)) {
+			if (request.userOrTopic.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a user or a topic!")
 			}
-			if (TextUtils.isEmpty(request.notificationBody)) {
+			if (request.notificationBody.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a body for the notification!")
 			}
-			if (TextUtils.isEmpty(request.notificationChannelId)) {
+			if (request.notificationChannelId.isNullOrEmpty()) {
 				// Use the default channel ID
 				request.notificationChannelId = "uncategorised"
 			}
-			if (TextUtils.isEmpty(request.notificationColor)) {
+			if (request.notificationColor.isNullOrEmpty()) {
 				// Use the default colour/color
 				request.notificationColor = "#3F51B5"
 			}
-			if (TextUtils.isEmpty(request.notificationIcon)) {
+			if (request.notificationIcon.isNullOrEmpty()) {
 				// Use the default icon
 				request.notificationIcon = "ic_studybuddy_pencil_icon_24dp"
 			}
-			if (TextUtils.isEmpty(request.notificationTitle)) {
+			if (request.notificationTitle.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a title for the notification!")
 			}
-			if (TextUtils.isEmpty(request.notificationPriority)) {
+			if (request.notificationPriority.isNullOrEmpty()) {
 				// Use the default priority
 				request.notificationPriority = NOTIFICATION_PRIORITY_NORMAL
 			}
