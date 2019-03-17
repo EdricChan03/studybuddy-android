@@ -49,5 +49,9 @@
 			app:defaultValue="true"
 			app:key="debug_updates_use_testing_url"
 			app:title="@string/debug_activity_updates_use_testing_url_title" />
+		<EditTextPreference
+			app:enabled="false"
+			app:key="debug_updates_custom_url"
+			app:title="@string/debug_activity_updates_set_custom_url_title" />
 	</PreferenceCategory>
 </androidx.preference.PreferenceScreen>
