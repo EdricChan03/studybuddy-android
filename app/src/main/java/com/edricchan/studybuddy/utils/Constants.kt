@@ -116,4 +116,8 @@ object Constants {
 	val uriWiki: Uri = Uri.parse(urlWiki)
 	// Other
 	const val defaultSharedPrefsFile = "Preference"
+	/**
+	 * The authority to be used for [androidx.core.content.FileProvider.getUriForFile]
+	 */
+	const val fileProviderAuthority = "com.edricchan.studybuddy.provider"
 }
