@@ -40,15 +40,15 @@ dependencies {
 	// Support Lib
 	// implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 	// Support Annotations
-	implementation 'androidx.annotation:annotation:1.0.2'
+	implementation 'androidx.annotation:annotation:1.1.0-alpha02'
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
-	androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0-alpha3", {
+	androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0-alpha02', {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
 	// AppCompat
 	implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
 	// ConstraintLayout
-	implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 	// Design Support
 	implementation 'com.google.android.material:material:1.1.0-alpha04'
 	// RecyclerView
@@ -58,10 +58,10 @@ dependencies {
 	implementation 'androidx.browser:browser:1.0.0'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
-	implementation 'com.google.firebase:firebase-core:16.0.7'
+	implementation 'com.google.firebase:firebase-core:16.0.8'
 	implementation 'com.google.firebase:firebase-firestore:18.1.0'
 	implementation 'com.google.firebase:firebase-auth:16.2.0'
-	implementation 'com.google.firebase:firebase-messaging:17.4.0'
+	implementation 'com.google.firebase:firebase-messaging:17.5.0'
 	implementation 'com.google.android.gms:play-services-auth:16.0.1'
 	implementation 'com.google.firebase:firebase-perf:16.2.4'
 	// Provide a way to update the app
