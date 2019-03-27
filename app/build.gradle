@@ -6,7 +6,7 @@ apply plugin: "com.google.firebase.firebase-perf"
 apply plugin: "com.google.android.gms.oss-licenses-plugin"
 
 android {
-	compileSdkVersion 28
+	compileSdkVersion 'android-Q'
 	defaultConfig {
 		applicationId "com.edricchan.studybuddy"
 		minSdkVersion 21
