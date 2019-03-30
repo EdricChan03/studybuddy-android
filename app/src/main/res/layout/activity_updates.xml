@@ -1,55 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/updatesView"
+	android:id="@+id/mainCoordinatorLayout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".ui.modules.updates.UpdatesActivity">
 
 	<RelativeLayout
-		android:id="@+id/updates_empty_state_view"
+		android:id="@+id/emptyStateRelativeLayout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_gravity="center"
+		android:layout_margin="@dimen/activity_horizontal_margin"
 		android:gravity="center">
 
+		<Button
+			android:id="@+id/emptyStateCtaBtn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/emptyStateSubheadingTextView"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="8dp"
+			android:text="@string/action_check_for_updates" />
+
 		<TextView
-			android:id="@+id/empty_state_view_heading"
+			android:id="@+id/emptyStateSubheadingTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/emptyStateHeadingTextView"
+			android:layout_centerHorizontal="true"
+			android:text="@string/update_activity_empty_state_subhead"
+			android:textAppearance="?attr/textAppearanceBody1" />
+
+		<TextView
+			android:id="@+id/emptyStateHeadingTextView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_centerHorizontal="true"
 			android:text="@string/update_activity_empty_state_head"
-			android:textAppearance="?attr/textAppearanceHeadline5" />
-
-		<TextView
-			android:id="@+id/empty_state_view_subheading"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/empty_state_view_heading"
-			android:layout_centerHorizontal="true"
-			android:text="@string/update_activity_empty_state_subhead"
-			android:textAppearance="?attr/textAppearanceCaption" />
-
-		<Button
-			android:id="@+id/empty_state_view_cta"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/empty_state_view_subheading"
-			android:layout_centerHorizontal="true"
-			android:layout_marginTop="8dp"
-			android:text="@string/action_check_for_updates" />
+			android:textAppearance="?attr/textAppearanceHeadline4" />
 	</RelativeLayout>
 
-	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-		android:id="@+id/recycler_swiperefresh"
+	<!-- TODO: Remove this layout -->
+	<!-- <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/recyclerViewSwipeRefreshLayout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:scrollbars="vertical"
 		android:visibility="gone">
 
 		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/recycler_list"
+			android:id="@+id/recyclerView"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent" />
-	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout> -->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
