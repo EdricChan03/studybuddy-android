@@ -47,10 +47,10 @@ class UpdatesActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 		checkForUpdatesBtn = findViewById(R.id.empty_state_view_cta)
 		checkForUpdatesBtn.setOnClickListener { click -> checkForUpdates() }
 		emptyStateLayout = findViewById(R.id.updates_empty_state_view)
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		preferences = PreferenceManager.getDefaultSharedPreferences(this)
 	}
 
