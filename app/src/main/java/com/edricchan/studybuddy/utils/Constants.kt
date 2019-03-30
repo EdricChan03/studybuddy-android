@@ -115,6 +115,9 @@ object Constants {
 	const val urlWiki = "https://github.com/Chan4077/StudyBuddy/wiki"
 	val uriWiki: Uri = Uri.parse(urlWiki)
 	// Other
+	/**
+	 * The default file name to be used for SharedPreferences files
+	 */
 	const val defaultSharedPrefsFile = "Preference"
 	/**
 	 * The authority to be used for [androidx.core.content.FileProvider.getUriForFile]
