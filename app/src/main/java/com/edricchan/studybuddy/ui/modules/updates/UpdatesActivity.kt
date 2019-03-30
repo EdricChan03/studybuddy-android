@@ -38,6 +38,8 @@ import java.util.*
 class UpdatesActivity : AppCompatActivity() {
 
 	private var isChecking = false
+	// The tag used for Log.* calls
+	private val TAG = SharedUtils.getTag(this::class.java)
 	private lateinit var appUpdate: Update
 	private lateinit var checkForUpdatesBtn: Button
 	private lateinit var emptyStateLayout: RelativeLayout
@@ -64,8 +66,8 @@ class UpdatesActivity : AppCompatActivity() {
 				true
 			}
 			R.id.action_check_for_updates -> {
-				Log.d(SharedUtils.getTag(javaClass), "Check for updates clicked!")
 				Snackbar.make(findViewById<View>(R.id.updatesView), R.string.update_snackbar_checking, Snackbar.LENGTH_SHORT)
+				Log.d(TAG, "Check for updates clicked!")
 						.show()
 				checkForUpdates()
 				true
