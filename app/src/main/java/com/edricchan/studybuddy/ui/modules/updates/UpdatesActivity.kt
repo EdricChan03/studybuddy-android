@@ -88,32 +88,51 @@ class UpdatesActivity : AppCompatActivity() {
 		}
 	}
 
-	private fun downloadUpdate(downloadUrl: String, version: String, mobileDataSkip: Boolean = false, downloadAgain: Boolean = false) {
+	private fun downloadUpdate(downloadUrl: String, version: String, ignoreMobileDataSetting: Boolean = false, showMobileDataWarning: Boolean = true, downloadAgain: Boolean = false) {
+		// The file name that the downloaded APK will use
 		val fileName = "com.edricchan.studybuddy-$version.apk"
-		if (downloadAgain || !File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName).exists()) {
-			if (mobileDataSkip || SharedUtils.isCellularNetworkAvailable(this)) {
+
+		// Check if the user wants to redownload the APK file or if the user does not have the APK already downloaded
+		if (downloadAgain || !IOUtils.fileExists(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)) {
+			// Check if the user has clicked on "download anyway" on the dialog that showed, or
+			// check if the user is using a cellular network and has disabled downloading updates over cellular
+			if (SharedUtils.isCellularNetworkAvailable(this) && (!ignoreMobileDataSetting && !preferences.getBoolean("pref_updates_enable_cellular", false)) && showMobileDataWarning) {
+
+				// Show a dialog warning the user that cellular network is on as the user has disabled downloading updates over cellular
 				val builder = MaterialAlertDialogBuilder(this)
 				builder.setTitle(R.string.update_activity_cannot_download_cellular_dialog_title)
 				builder.setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg)
 				builder.setNegativeButton(R.string.dialog_action_cancel) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
 				builder.setPositiveButton(R.string.update_activity_cannot_download_cellular_dialog_positive_btn) { dialogInterface, i ->
 					dialogInterface.dismiss()
-					downloadUpdate(downloadUrl, version, true, false)
+					// Call the function again, but skip the mobile data warning
+					downloadUpdate(downloadUrl, version, ignoreMobileDataSetting = true, showMobileDataWarning = true, downloadAgain = false)
 				}
 				builder.show()
 			} else {
-				val request1 = DownloadManager.Request(Uri.parse(downloadUrl))
+				// Construct a request to download from a URI
+				val request = DownloadManager.Request(Uri.parse(downloadUrl))
 
-				request1.setAllowedOverRoaming(false)
-				request1.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-				request1.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-				request1.setMimeType("application/vnd.android.package-archive")
-				val manager1 = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-				Objects.requireNonNull(manager1).enqueue(request1)
-				if (DownloadManager.STATUS_SUCCESSFUL == 8) {
-					Toast.makeText(applicationContext, "Download complete!", Toast.LENGTH_SHORT).show()
-					installUpdate(fileName)
+				// Don't download over roaming
+				// TODO: Add setting for this
+				request.setAllowedOverRoaming(false)
+				request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+				// Set the file type so that the package installer can open the file
+				request.setMimeType("application/vnd.android.package-archive")
+				val manager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+				manager.enqueue(request)
+
+				// Create a receiver to intercept when the download is complete
+				val downloadCompleteReceiver = object : BroadcastReceiver() {
+					override fun onReceive(context: Context?, intent: Intent?) {
+						Log.d(TAG, "Download complete!")
+						Toast.makeText(context, "Download complete!", Toast.LENGTH_SHORT).show()
+						installUpdate(fileName)
+					}
 				}
+
+				// Lastly, register the receiver with the intents that it accepts
+				registerReceiver(downloadCompleteReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 			}
 		} else {
 			val builder = MaterialAlertDialogBuilder(this)
