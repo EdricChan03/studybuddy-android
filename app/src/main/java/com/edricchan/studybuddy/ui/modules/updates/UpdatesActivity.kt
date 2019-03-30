@@ -77,11 +77,8 @@ class UpdatesActivity : AppCompatActivity() {
 	}
 
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-		if (isChecking) {
-			menu.findItem(R.id.action_check_for_updates).isEnabled = false
-		} else {
-			menu.findItem(R.id.action_check_for_updates).isEnabled = true
-		}
+		// Disable the menu item when the user has pressed it
+		menu.findItem(R.id.action_check_for_updates).isEnabled = !isChecking
 		return true
 	}
 
