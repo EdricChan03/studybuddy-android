@@ -32,7 +32,6 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.utils.SharedUtils
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -48,8 +47,6 @@ import java.util.stream.IntStream
 
 class TaskFragment : Fragment(R.layout.frag_todo) {
 	private var mAuth: FirebaseAuth? = null
-	private val mGoogleApiClient: GoogleApiClient? = null
-	private val mUserName: String? = null
 	private var mFirestore: FirebaseFirestore? = null
 	private var mCurrentUser: FirebaseUser? = null
 	private var mAdapter: TasksAdapter? = null
@@ -59,7 +56,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 	private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
 	private var mPrefs: SharedPreferences? = null
 	private var mTodoFragPrefs: SharedPreferences? = null
-//	private var mSelectionTracker: SelectionTracker<String>? = null
+	//	private var mSelectionTracker: SelectionTracker<String>? = null
 	private var mParentActivity: AppCompatActivity? = null
 //	private var mActionModeCallback: ActionMode.Callback? = null
 
