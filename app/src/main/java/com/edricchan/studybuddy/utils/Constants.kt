@@ -9,7 +9,6 @@ object Constants {
 	const val prefHeaderSync = "pref_header_sync"
 	const val prefHeaderDebug = "pref_header_debug"
 	const val prefHeaderAbout = "pref_header_about"
-
 	@Deprecated(
 			"Use Constants.prefHeaderAbout",
 			ReplaceWith(
