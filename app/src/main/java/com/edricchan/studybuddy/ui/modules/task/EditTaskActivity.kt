@@ -44,7 +44,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 		mAuth = FirebaseAuth.getInstance()
 		mCurrentUser = mAuth.currentUser
 		mTaskId = intent.getStringExtra("taskId")
-		TooltipCompat.setTooltipText(btnSelectDate, "Open datepicker dialog")
+		TooltipCompat.setTooltipText(btnSelectDate, "Open datepicker")
 		if (mTaskId == null) {
 			Log.e(TAG, "Please specify a task item ID!")
 			Toast.makeText(this, "An error occurred while attempting to retrieve the task item's details. Please try again later.", Toast.LENGTH_LONG)
