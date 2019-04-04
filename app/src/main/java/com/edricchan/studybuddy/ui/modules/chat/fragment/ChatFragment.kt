@@ -4,15 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.modules.chat.NewChatActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 
-@ContentView(R.layout.frag_chat)
-class ChatFragment : Fragment() {
+class ChatFragment : Fragment(R.layout.frag_chat) {
 	private lateinit var fragmentView: View
 	private lateinit var mParentActivity: AppCompatActivity
 

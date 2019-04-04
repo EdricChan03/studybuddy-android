@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.TooltipCompat
 import com.edricchan.studybuddy.R
@@ -32,7 +31,6 @@ import java.util.*
 /**
  * Created by edricchan on 8/3/18.
  */
-@ContentView(R.layout.activity_new_task)
 class NewTaskActivity : AppCompatActivity() {
 	private var mTaskTitle: TextInputLayout? = null
 	private var mTaskContent: TextInputLayout? = null

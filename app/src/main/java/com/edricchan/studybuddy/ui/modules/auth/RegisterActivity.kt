@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
@@ -17,8 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 
-@ContentView(R.layout.activity_register)
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
 
 	private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 

@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.ContentView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -18,8 +17,7 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 
-@ContentView(R.layout.frag_tips)
-class TipsFragment : Fragment() {
+class TipsFragment : Fragment(R.layout.frag_tips) {
 	private var mFragmentView: View? = null
 	private val mTabsIntent: CustomTabsIntent? = null
 	private var preferences: SharedPreferences? = null

@@ -11,7 +11,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.ContentView
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -47,8 +46,7 @@ import java8.util.stream.IntStreams
 import java.util.*
 import java.util.stream.IntStream
 
-@ContentView(R.layout.frag_todo)
-class TaskFragment : Fragment() {
+class TaskFragment : Fragment(R.layout.frag_todo) {
 	private var mAuth: FirebaseAuth? = null
 	private val mGoogleApiClient: GoogleApiClient? = null
 	private val mUserName: String? = null

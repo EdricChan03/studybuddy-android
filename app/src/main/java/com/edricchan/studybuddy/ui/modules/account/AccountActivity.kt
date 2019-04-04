@@ -11,14 +11,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
-import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -26,8 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
 
-@ContentView(R.layout.activity_account)
-class AccountActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
+class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAuth.AuthStateListener {
 	private var mAuth: FirebaseAuth? = null
 	private var mUser: FirebaseUser? = null
 	private val TAG = SharedUtils.getTag(AccountActivity::class.java)

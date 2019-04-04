@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
@@ -38,8 +37,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
-@ContentView(R.layout.activity_main)
-class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.OnConnectionFailedListener {
 	private var mOptionsMenu: Menu? = null
 	//	private BottomNavigationView navigationView;
 	private var contentMain: FrameLayout? = null

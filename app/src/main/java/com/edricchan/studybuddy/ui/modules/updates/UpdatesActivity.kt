@@ -13,7 +13,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.edricchan.studybuddy.BuildConfig
@@ -29,8 +28,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_updates.*
 import java.io.File
 
-@ContentView(R.layout.activity_updates)
-class UpdatesActivity : AppCompatActivity() {
+class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 
 	// Whether the user has pressed the "check for updates" menu item
 	private var isChecking = false

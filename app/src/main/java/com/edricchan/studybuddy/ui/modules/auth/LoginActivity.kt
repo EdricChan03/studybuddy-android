@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
@@ -26,8 +25,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-@ContentView(R.layout.activity_login)
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 	private var inputEmail: TextInputLayout? = null
 	private var inputPassword: TextInputLayout? = null
 	private var auth: FirebaseAuth? = null

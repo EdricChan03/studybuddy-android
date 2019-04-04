@@ -8,15 +8,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
-@ContentView(R.layout.activity_reset_password)
-class ResetPasswordActivity : AppCompatActivity() {
+class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password) {
 
 	private var inputEmail: EditText? = null
 	private var btnReset: Button? = null

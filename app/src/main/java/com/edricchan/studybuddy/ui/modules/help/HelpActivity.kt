@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
-import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.PreferenceManager
@@ -32,8 +31,7 @@ import java.io.InputStreamReader
 import java.lang.ref.WeakReference
 import java.net.URL
 
-@ContentView(R.layout.activity_help)
-class HelpActivity : AppCompatActivity() {
+class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 
 	private var featuredRecyclerView: RecyclerView? = null
 	private var constraintLayout: ConstraintLayout? = null

@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.ContentView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
@@ -27,8 +26,7 @@ import ru.noties.markwon.Markwon
 import java.text.SimpleDateFormat
 import java.util.*
 
-@ContentView(R.layout.activity_view_task)
-class ViewTaskActivity : AppCompatActivity() {
+class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 	private lateinit var mAuth: FirebaseAuth
 	private lateinit var mFirestore: FirebaseFirestore
 	private var mCurrentUser: FirebaseUser? = null
