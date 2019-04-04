@@ -301,11 +301,11 @@ class SharedUtils
 				// Note: The old values of the preference will still be supported
 				// TODO: Completely remove support for old values
 				"1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-				"2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+				"2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME)
 				"3" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 				// New values
 				Constants.prefDarkThemeAlways -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-				Constants.prefDarkThemeAuto, Constants.prefDarkThemeAutoTime -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+				Constants.prefDarkThemeAuto, Constants.prefDarkThemeAutoTime -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME)
 				Constants.prefDarkThemeAutoBatterySaver -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
 				Constants.prefDarkThemeFollowSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 				Constants.prefDarkThemeNever -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -761,17 +761,19 @@ class SharedUtils
 				playbackChannel.setShowBadge(false)
 				channels.add(playbackChannel)
 
-				// Uncategorized notifications
+				// Uncategorised notifications
 				val uncategorisedChannel = NotificationChannel(context.getString(R.string.notification_channel_uncategorised_id), context.getString(R.string.notification_channel_uncategorised_title), NotificationManager.IMPORTANCE_DEFAULT)
 				uncategorisedChannel.description = context.getString(R.string.notification_channel_uncategorised_desc)
 				uncategorisedChannel.setShowBadge(true)
 				channels.add(uncategorisedChannel)
+
 				// Notification channel groups
 				val todoChannelGroup = NotificationChannelGroup(context.getString(R.string.notification_channel_group_todos_id), context.getString(R.string.notification_channel_group_todos_title))
 				channelGroups.add(todoChannelGroup)
 				val updatesChannelGroup = NotificationChannelGroup(context.getString(R.string.notification_channel_group_updates_id), context.getString(R.string.notification_channel_group_updates_title))
 				channelGroups.add(updatesChannelGroup)
 				notificationManager.createNotificationChannelGroups(channelGroups)
+
 				// Pass list to method
 				notificationManager.createNotificationChannels(channels)
 
