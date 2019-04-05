@@ -48,7 +48,7 @@ dependencies {
 	// AppCompat
 	implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
 	// ConstraintLayout
-	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
 	// Design Support
 	implementation 'com.google.android.material:material:1.1.0-alpha05'
 	// RecyclerView
