@@ -7,9 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -24,33 +21,24 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
+import kotlinx.android.synthetic.main.activity_account.*
 
 class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAuth.AuthStateListener {
 	private var mAuth: FirebaseAuth? = null
 	private var mUser: FirebaseUser? = null
 	private val TAG = SharedUtils.getTag(AccountActivity::class.java)
-	private var mAccountActions: Button? = null
-	private var mActionSignInButton: Button? = null
-	private var mAvatarImageView: ImageView? = null
-	private var mDisplayNameTextView: TextView? = null
-	private var mEmailTextView: TextView? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-		mAvatarImageView = findViewById(R.id.accountAvatar)
-		mDisplayNameTextView = findViewById(R.id.accountName)
-		mEmailTextView = findViewById(R.id.accountEmail)
-		mActionSignInButton = findViewById(R.id.accountActionSignIn)
-		mAccountActions = findViewById(R.id.accountActions)
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		mAuth = FirebaseAuth.getInstance()
 
-		mActionSignInButton!!.setOnClickListener {
+		accountActionSignInButton.setOnClickListener {
 			val signInIntent = Intent(this, LoginActivity::class.java)
 			startActivity(signInIntent)
 			finish()
 		}
-		mAccountActions!!
+		accountActionsButton
 				.setOnClickListener {
 					val builder = MaterialAlertDialogBuilder(this)
 					builder.setTitle(R.string.account_activity_account_actions)
@@ -73,21 +61,21 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		super.onStart()
 		mUser = mAuth!!.currentUser
 		if (mUser == null) {
-			mDisplayNameTextView!!.visibility = View.GONE
-			mEmailTextView!!.visibility = View.GONE
+			accountNameTextView.visibility = View.GONE
+			accountEmailTextView.visibility = View.GONE
 			Toast.makeText(this, "Not signed in!", Toast.LENGTH_SHORT).show()
-			mAccountActions!!.visibility = View.GONE
-			mActionSignInButton!!.visibility = View.VISIBLE
-			mAvatarImageView!!.visibility = View.GONE
+			accountActionsButton.visibility = View.GONE
+			accountActionSignInButton.visibility = View.VISIBLE
+			accountAvatarImageView.visibility = View.GONE
 		} else {
-			mAccountActions!!.visibility = View.VISIBLE
-			mActionSignInButton!!.visibility = View.GONE
-			mDisplayNameTextView!!.text = mUser!!.displayName
-			mEmailTextView!!.text = mUser!!.email
-			mAvatarImageView!!.visibility = View.VISIBLE
+			accountActionsButton.visibility = View.VISIBLE
+			accountActionSignInButton.visibility = View.GONE
+			accountNameTextView.text = mUser!!.displayName
+			accountEmailTextView.text = mUser!!.email
+			accountAvatarImageView.visibility = View.VISIBLE
 			Glide.with(this)
 					.load(mUser!!.photoUrl)
-					.into(mAvatarImageView!!)
+					.into(accountAvatarImageView)
 		}
 	}
 
@@ -113,21 +101,21 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 	override fun onAuthStateChanged(auth: FirebaseAuth) {
 		val user = auth.currentUser
 		if (user == null) {
-			mDisplayNameTextView!!.visibility = View.GONE
-			mEmailTextView!!.visibility = View.GONE
+			accountNameTextView.visibility = View.GONE
+			accountEmailTextView.visibility = View.GONE
 			Toast.makeText(this, "Not signed in!", Toast.LENGTH_SHORT).show()
-			mAccountActions!!.visibility = View.GONE
-			mActionSignInButton!!.visibility = View.VISIBLE
-			mAvatarImageView!!.visibility = View.GONE
+			accountActionsButton.visibility = View.GONE
+			accountActionSignInButton.visibility = View.VISIBLE
+			accountAvatarImageView.visibility = View.GONE
 		} else {
-			mAccountActions!!.visibility = View.VISIBLE
-			mActionSignInButton!!.visibility = View.GONE
-			mDisplayNameTextView!!.text = user.displayName
-			mEmailTextView!!.text = user.email
-			mAvatarImageView!!.visibility = View.VISIBLE
+			accountActionsButton.visibility = View.VISIBLE
+			accountActionSignInButton.visibility = View.GONE
+			accountNameTextView.text = user.displayName
+			accountEmailTextView.text = user.email
+			accountAvatarImageView.visibility = View.VISIBLE
 			Glide.with(this)
 					.load(user.photoUrl)
-					.into(mAvatarImageView!!)
+					.into(accountAvatarImageView)
 		}
 	}
 
