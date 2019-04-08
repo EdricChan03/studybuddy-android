@@ -86,8 +86,8 @@ class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.On
 	 * @param sharedPreferences An instance of [SharedPreferences]
 	 */
 	private fun updateDayNightPermVisibility(sharedPreferences: SharedPreferences?) {
-		when (sharedPreferences?.getString(Constants.prefDarkTheme, "automatic")) {
-			"automatic" -> {
+		when (sharedPreferences?.getString(Constants.prefDarkTheme, "automatic_time")) {
+			"automatic_time" -> {
 				if (!isLocationPermGranted()) {
 					setDayNightPermVisibility(true)
 				}
