@@ -31,7 +31,7 @@ import java.util.*
 /**
  * Created by edricchan on 8/3/18.
  */
-class NewTaskActivity : AppCompatActivity() {
+class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 	private var mTaskTitle: TextInputLayout? = null
 	private var mTaskContent: TextInputLayout? = null
 	private var mTaskTags: TextInputLayout? = null
