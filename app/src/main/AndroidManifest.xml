@@ -7,15 +7,20 @@
 	<!-- Required for checking if network is available -->
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<!-- Required for writing/reading to external storage -->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<!-- Note: This is no longer needed in Android Q -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
 	<!--
 	Required for updating the app without showing a download notification
 	TODO: Remove this permission
 	-->
-	<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+	<!-- <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" /> -->
+	<!-- Needed for requesting the installation of an update APK -->
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-	<!-- Needed for DayNight theme auto detection -->
+	<!--
+	Needed for DayNight theme auto detection
+	TODO: Deprecate option for setting theme based on time
+	-->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 	<application
