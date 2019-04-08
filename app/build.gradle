@@ -10,7 +10,9 @@ android {
 	defaultConfig {
 		applicationId "com.edricchan.studybuddy"
 		minSdkVersion 21
-		targetSdkVersion 'Q'
+		// Uncomment this line to test the app on a preview platform version device running Android Q
+//		targetSdkVersion 'Q'
+		targetSdkVersion 28
 		versionCode 9
 		versionName "1.0.0-rc.543"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,7 +35,7 @@ android {
 	kotlinOptions {
 		jvmTarget = "1.8"
 	}
-	buildToolsVersion '28.0.3'
+	buildToolsVersion '29.0.0 rc1'
 }
 
 dependencies {
