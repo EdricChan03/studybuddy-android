@@ -8,15 +8,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.R
@@ -27,28 +23,20 @@ import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_help.*
 import java.io.InputStreamReader
 import java.lang.ref.WeakReference
 import java.net.URL
 
 class HelpActivity : AppCompatActivity(R.layout.activity_help) {
-
-	private var featuredRecyclerView: RecyclerView? = null
-	private var constraintLayout: ConstraintLayout? = null
-	private var progressBarLayout: LinearLayout? = null
-	private var swipeRefreshLayout: SwipeRefreshLayout? = null
-	private var preferences: SharedPreferences? = null
+	private lateinit var preferences: SharedPreferences
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		preferences = PreferenceManager.getDefaultSharedPreferences(this)
-		featuredRecyclerView = findViewById(R.id.helpFeaturedRecyclerView)
-		constraintLayout = findViewById(R.id.constraintLayout)
-		progressBarLayout = findViewById(R.id.progressBar)
-		swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
-		swipeRefreshLayout!!.setOnRefreshListener { this.loadFeaturedList() }
-		swipeRefreshLayout!!.setColorSchemeResources(R.color.colorPrimary)
+		swipeRefreshLayout.setOnRefreshListener { this.loadFeaturedList() }
+		swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
 		initRecyclerView()
 		loadFeaturedList()
 	}
@@ -65,12 +53,12 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				return true
 			}
 			R.id.action_refresh -> {
-				swipeRefreshLayout!!.isRefreshing = true
+				swipeRefreshLayout.isRefreshing = true
 				loadFeaturedList()
 				return true
 			}
 			R.id.action_send_feedback -> {
-				SharedUtils.launchUri(this, Constants.uriSendFeedback, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
+				SharedUtils.launchUri(this, Constants.uriSendFeedback, preferences.getBoolean(Constants.prefUseCustomTabs, true))
 				return true
 			}
 			R.id.action_version -> {
@@ -83,7 +71,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				return true
 			}
 			R.id.action_source_code -> {
-				SharedUtils.launchUri(this, Constants.uriSrcCode, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
+				SharedUtils.launchUri(this, Constants.uriSrcCode, preferences.getBoolean(Constants.prefUseCustomTabs, true))
 				return true
 			}
 			else -> return super.onOptionsItemSelected(item)
@@ -94,10 +82,10 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 	 * Initialises the recycler view by calling the needed methods
 	 */
 	private fun initRecyclerView() {
-		featuredRecyclerView!!.setHasFixedSize(true)
-		featuredRecyclerView!!.itemAnimator = DefaultItemAnimator()
-		featuredRecyclerView!!.layoutManager = LinearLayoutManager(this)
-		featuredRecyclerView!!.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+		helpFeaturedRecyclerView.setHasFixedSize(true)
+		helpFeaturedRecyclerView.itemAnimator = DefaultItemAnimator()
+		helpFeaturedRecyclerView.layoutManager = LinearLayoutManager(this)
+		helpFeaturedRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 	}
 
 	/**
@@ -105,8 +93,8 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 	 */
 	private fun loadFeaturedList() {
 		try {
-			progressBarLayout!!.visibility = View.VISIBLE
-			featuredRecyclerView!!.visibility = View.GONE
+			progressBarLinearLayout.visibility = View.VISIBLE
+			helpFeaturedRecyclerView.visibility = View.GONE
 			GetHelpArticlesAsyncTask(this).execute(URL(Constants.urlHelpFeatured))
 		} catch (e: Exception) {
 			Log.e(TAG, "An error occurred while attempting to parse the JSON:", e)
@@ -130,11 +118,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 
 			if (reader != null) {
 				val (_, _, articles) = Gson().fromJson(reader, HelpArticles::class.java)
-				if (articles != null) {
-					return articles.asList()
-				} else {
-					return null
-				}
+				return articles?.asList()
 			}
 			return null
 		}
@@ -150,14 +134,14 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				val adapter = HelpArticleAdapter(helpArticles)
 				adapter.onItemClickListener = object : HelpArticleAdapter.OnItemClickListener {
 					override fun onItemClick(article: HelpArticle, position: Int) {
-						SharedUtils.launchUri(activity, article.getArticleUri(), activity.preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
+						SharedUtils.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(Constants.prefUseCustomTabs, true))
 					}
 				}
-				activity.featuredRecyclerView!!.adapter = adapter
-				activity.featuredRecyclerView!!.visibility = View.VISIBLE
-				activity.swipeRefreshLayout!!.isRefreshing = false
+				activity.helpFeaturedRecyclerView.adapter = adapter
+				activity.helpFeaturedRecyclerView.visibility = View.VISIBLE
+				activity.swipeRefreshLayout.isRefreshing = false
 				TransitionManager.beginDelayedTransition(activity.constraintLayout!!, Fade(Fade.IN))
-				activity.progressBarLayout!!.visibility = View.GONE
+				activity.progressBarLinearLayout.visibility = View.GONE
 			}
 		}
 	}
