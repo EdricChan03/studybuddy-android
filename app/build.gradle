@@ -10,7 +10,7 @@ android {
 	defaultConfig {
 		applicationId "com.edricchan.studybuddy"
 		minSdkVersion 21
-		targetSdkVersion 28
+		targetSdkVersion 'Q'
 		versionCode 9
 		versionName "1.0.0-rc.543"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
