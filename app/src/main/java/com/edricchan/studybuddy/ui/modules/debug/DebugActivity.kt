@@ -15,7 +15,7 @@ import com.edricchan.studybuddy.utils.SharedUtils
 class DebugActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		SharedUtils.replaceFragment(this, DebugSettingsFragment(), android.R.id.content, false)
 	}
 
