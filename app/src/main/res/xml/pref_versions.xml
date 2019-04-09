@@ -4,12 +4,9 @@
 		app:icon="@drawable/ic_system_update_24dp"
 		app:key="pref_updates"
 		app:title="@string/pref_updates_title" />
-	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:icon="@drawable/ic_network_cell_24dp"
-		app:key="pref_updates_enable_cellular"
-		app:title="@string/pref_updates_cellular_networks_title" />
-	<PreferenceCategory app:title="@string/pref_updates_options_title">
+	<PreferenceCategory
+		app:key="pref_updates_options_category"
+		app:title="@string/pref_updates_options_title">
 		<ListPreference
 			app:defaultValue="@string/pref_check_for_updates_frequency_default_value"
 			app:entries="@array/pref_check_for_updates_frequencies"
@@ -17,24 +14,38 @@
 			app:key="pref_updates_frequency"
 			app:title="@string/pref_check_for_update_frequency_title"
 			app:useSimpleSummaryProvider="true" />
+		<SwitchPreferenceCompat
+			app:defaultValue="false"
+			app:icon="@drawable/ic_network_cell_24dp"
+			app:key="pref_updates_enable_cellular"
+			app:title="@string/pref_updates_cellular_networks_title" />
 	</PreferenceCategory>
-	<PreferenceCategory app:title="@string/pref_about_category_title">
+	<PreferenceCategory
+		app:key="pref_about_category"
+		app:title="@string/pref_about_category_title">
 		<Preference
-			app:enabled="false"
-			app:key="pref_app_version"
-			app:title="@string/pref_app_version_title" />
+			app:enableCopying="true"
+			app:key="pref_about_app_version"
+			app:title="@string/pref_about_app_version_title" />
 		<Preference
 			app:icon="@drawable/ic_code_24dp"
-			app:key="pref_app_src_code"
-			app:summary="@string/pref_source_code_desc"
-			app:title="@string/pref_source_code_title" />
+			app:key="pref_about_app_src_code"
+			app:summary="@string/pref_about_source_code_summary"
+			app:title="@string/pref_about_source_code_title" />
 		<Preference
 			app:icon="@drawable/ic_account_circle_outline_24dp"
-			app:key="pref_app_author"
-			app:title="@string/pref_author_title" />
+			app:key="pref_about_app_author"
+			app:summary="@string/pref_about_author_summary"
+			app:title="@string/pref_about_author_title" />
 		<Preference
 			app:icon="@drawable/ic_info_outline_24dp"
-			app:key="pref_app_info"
-			app:title="@string/pref_app_info_title" />
+			app:key="pref_about_app_info"
+			app:summary="@string/pref_about_app_info_summary"
+			app:title="@string/pref_about_app_info_title" />
+		<Preference
+			app:icon="@drawable/ic_file_document_box_outline_24dp"
+			app:key="pref_about_licenses"
+			app:summary="@string/pref_about_licenses_summary"
+			app:title="@string/pref_about_licenses_title" />
 	</PreferenceCategory>
 </androidx.preference.PreferenceScreen>

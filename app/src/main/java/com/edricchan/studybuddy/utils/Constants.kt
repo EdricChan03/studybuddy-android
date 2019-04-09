@@ -66,6 +66,11 @@ object Constants {
 	// Preferences > About
 	const val prefCategoryAbout = "pref_category_about"
 	const val prefUpdates = "pref_updates"
+	const val prefAboutAppAuthor = "pref_about_app_author"
+	const val prefAboutAppInfo = "pref_about_app_info"
+	const val prefAboutAppVersion = "pref_about_app_version"
+	const val prefAboutLicenses = "pref_about_licenses"
+	const val prefAboutSourceCode = "pref_about_source_code"
 
 	@Deprecated(
 			"Use Constants.prefUpdates",
@@ -75,10 +80,39 @@ object Constants {
 			)
 	)
 	const val prefUpdateActivity = prefUpdates
-	const val prefAppVersion = "pref_app_version"
-	const val prefAppSrcCode = "pref_app_src_code"
-	const val prefAppAuthor = "pref_app_author"
-	const val prefAppInfo = "pref_app_info"
+	@Deprecated(
+			"Use Constants.prefAboutAppVersion",
+			ReplaceWith(
+					"Constants.prefAboutAppVersion",
+					"com.edricchan.studybuddy.utils.Constants"
+			)
+	)
+	const val prefAppVersion = prefAboutAppVersion
+
+	@Deprecated(
+			"Use Constants.prefAboutSourceCode",
+			ReplaceWith(
+					"Constants.prefAboutSourceCode",
+					"com.edricchan.studybuddy.utils.Constants"
+			)
+	)
+	const val prefAppSrcCode = prefAboutSourceCode
+	@Deprecated(
+			"Use Constants.prefAboutAppAuthor",
+			ReplaceWith(
+					"Constants.prefAboutAppAuthor",
+					"com.edricchan.studybuddy.utils.Constants"
+			)
+	)
+	const val prefAppAuthor = prefAboutAppAuthor
+	@Deprecated(
+			"Use Constants.prefAboutAppInfo",
+			ReplaceWith(
+					"Constants.prefAboutAppInfo",
+					"com.edricchan.studybuddy.utils.Constants"
+			)
+	)
+	const val prefAppInfo = prefAboutAppInfo
 
 	// Debug preferences
 	const val debugEnableVerboseLog = "debug_enable_verbose_log"

@@ -230,13 +230,18 @@
 	<string name="notification_updates_error_not_found_text">The file specified does not exist. Please check that you have enabled the Storage permission.</string>
 	<string name="notification_updates_error_not_found_title">File not found</string>
 	<string name="password_hint">Password</string>
+
+	<string name="pref_about_app_info_title">App info</string>
+	<string name="pref_about_app_info_summary">Open this app\'s info page in Settings</string>
+	<string name="pref_about_app_version_title">Current app version</string>
+	<string name="pref_about_author_title">App author</string>
+	<string name="pref_about_author_summary">Tap here to view his website</string>
 	<string name="pref_about_category_title">About</string>
+	<string name="pref_about_licenses_title">Licenses</string>
+	<string name="pref_about_licenses_summary">License details for open source libraries/software</string>
+	<string name="pref_about_source_code_summary">View the app\'s source code on Github</string>
+	<string name="pref_about_source_code_title">Source code</string>      
 
-	<string name="pref_app_info_title">App info</string>
-
-	<string name="pref_app_version_title">Current app version</string>
-
-	<string name="pref_author_title">App Author</string>
 	<string name="pref_category_theme">Theme</string>
 
 	<string name="pref_category_todo_general">General</string>
@@ -270,8 +275,6 @@
 	<string name="pref_manual_sync_summary">Tap here to sync manually</string>
 	<string name="pref_manual_sync_title">Manual sync</string>
 	<string name="pref_show_header_summary_title">Show header summaries</string>
-	<string name="pref_source_code_desc">View source code on Github</string>
-	<string name="pref_source_code_title">Source code</string>
 
 	<string name="pref_sync_cellular_networks_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
 	<string name="pref_sync_cellular_networks_dialog_title">Enable syncing with cellular networks?</string>
