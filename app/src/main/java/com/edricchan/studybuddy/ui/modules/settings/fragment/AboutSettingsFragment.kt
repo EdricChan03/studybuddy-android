@@ -15,7 +15,7 @@ import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class AboutSettingsFragment : PreferenceFragmentCompat() {
-	private var preferences: SharedPreferences? = null
+	private lateinit var preferences: SharedPreferences
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_versions, rootKey)
@@ -25,12 +25,12 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
 		findPreference<Preference>(Constants.prefUpdates)?.intent = Intent(activity, UpdatesActivity::class.java)
 		val appAuthor = findPreference<Preference>(Constants.prefAppAuthor)
 		appAuthor?.setOnPreferenceClickListener {
-			SharedUtils.launchUri(context, appAuthorUrl, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
+			SharedUtils.launchUri(context, appAuthorUrl, preferences.getBoolean(Constants.prefUseCustomTabs, true))
 			true
 		}
 		val appSrc = findPreference<Preference>(Constants.prefAppSrcCode)
 		appSrc?.setOnPreferenceClickListener {
-			SharedUtils.launchUri(context, Constants.uriSrcCode, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
+			SharedUtils.launchUri(context, Constants.uriSrcCode, preferences.getBoolean(Constants.prefUseCustomTabs, true))
 			true
 		}
 		val appVersion = findPreference<Preference>(Constants.prefAppVersion)
