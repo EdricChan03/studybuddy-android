@@ -2,38 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/newTaskView"
+	android:id="@+id/newTaskCooardinatorLayout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".ui.modules.task.NewTaskActivity">
-
-	<RelativeLayout
-		android:id="@+id/progressBar"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:visibility="gone">
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:orientation="vertical">
-
-			<ProgressBar
-				style="?android:attr/progressBarStyleLarge"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:paddingBottom="4dp" />
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:text="@string/view_task_loading"
-				android:textAppearance="?attr/textAppearanceHeadline6" />
-		</LinearLayout>
-	</RelativeLayout>
 
 	<ScrollView
 		android:id="@+id/newTaskScrollView"
@@ -48,7 +20,7 @@
 			android:orientation="vertical">
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/taskTitle"
+				android:id="@+id/taskTitleTextInputLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_margin="10dp"
@@ -61,7 +33,7 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/taskContent"
+				android:id="@+id/taskContentTextInputLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_margin="10dp"
@@ -74,12 +46,12 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<Spinner
-				android:id="@+id/taskProject"
+				android:id="@+id/taskProjectSpinner"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/taskTags"
+				android:id="@+id/taskTagsTextInputLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_margin="10dp"
@@ -93,7 +65,7 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<CheckBox
-				android:id="@+id/taskIsDone"
+				android:id="@+id/taskIsDoneCheckbox"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:text="@string/action_mark_as_done" />
@@ -116,7 +88,7 @@
 					android:orientation="horizontal">
 
 					<TextView
-						android:id="@+id/taskDatePickerResult"
+						android:id="@+id/taskDatePickerTextView"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"

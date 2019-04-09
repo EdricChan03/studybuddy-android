@@ -25,7 +25,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_edit_task.*
 import kotlinx.android.synthetic.main.activity_new_task.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -61,6 +60,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 		if (mAuth.currentUser == null) {
 			Toast.makeText(this, "Please sign in before continuing", Toast.LENGTH_SHORT).show()
 			val signInIntent = Intent(this@NewTaskActivity, LoginActivity::class.java)
+			finish()
 			startActivity(signInIntent)
 			mAllowAccess = false
 		} else {
@@ -73,7 +73,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 					{ _, year, monthOfYear, dayOfMonth ->
 						val format = SimpleDateFormat(getString(R.string.date_format_pattern), Locale.ENGLISH)
 						val datepickerDate = Date(year, monthOfYear, dayOfMonth)
-						taskDatePickerResult.text = format.format(datepickerDate)
+						taskDatePickerTextView.text = format.format(datepickerDate)
 					}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE))
 			dpd.datePicker.minDate = c.timeInMillis
 			dpd.show()
@@ -83,7 +83,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 		val projectArrayList = ArrayList<TaskProject>()
 		mTaskProjectSpinnerAdapter = TaskProjectSpinnerAdapter(this, android.R.layout.simple_spinner_item, projectArrayList)
 		mTaskProjectSpinnerAdapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-		spinnerProject.adapter = mTaskProjectSpinnerAdapter
+		taskProjectSpinner.adapter = mTaskProjectSpinnerAdapter
 		if (mCurrentUser != null) {
 			mFirestore.collection("users/" + mCurrentUser!!.uid + "/todoProjects")
 					.addSnapshotListener { documentSnapshots, e ->
@@ -110,8 +110,8 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 						projectArrayList.add(chooseProjectBuilder.create())
 						mTaskProjectSpinnerAdapter!!.notifyDataSetChanged()
 					}
-			spinnerProject.setSelection(mTaskProjectSpinnerAdapter!!.count)
-			spinnerProject.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+			taskProjectSpinner.setSelection(mTaskProjectSpinnerAdapter!!.count)
+			taskProjectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 				override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 					Log.d(TAG, "Task project ID: " + mTaskProjectSpinnerAdapter!!.getTaskProjectId(position)!!)
 					Log.d(TAG, "Task project name: " + Objects.requireNonNull<TaskProject>(mTaskProjectSpinnerAdapter!!.getItem(position)).name!!)
@@ -142,7 +142,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 								.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
 								.show()
 					} else {
-						val (_, id1) = spinnerProject.getItemAtPosition(spinnerProject.selectedItemPosition) as TaskProject
+						val (_, id1) = taskProjectSpinner.getItemAtPosition(taskProjectSpinner.selectedItemPosition) as TaskProject
 						tempTaskProject = id1
 					}
 				}
@@ -167,15 +167,15 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 			}
 			R.id.action_submit -> {
 				if (mAllowAccess) {
-					if (taskTitle.editText!!.length() != 0) {
-						taskTitle.isErrorEnabled = false
+					if (taskTitleTextInputLayout.editText!!.length() != 0) {
+						taskTitleTextInputLayout.isErrorEnabled = false
 						val taskItemBuilder = TaskItem.Builder()
-						taskItemBuilder.setTitle(taskTitle.editTextStrValue!!)
-						if (taskContent.editTextStrValue!!.isNotEmpty()) {
-							taskItemBuilder.setContent(taskContent.editTextStrValue!!)
+						taskItemBuilder.setTitle(taskTitleTextInputLayout.editTextStrValue!!)
+						if (taskContentTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+							taskItemBuilder.setContent(taskContentTextInputLayout.editTextStrValue!!)
 						}
-						if (taskTags.editTextStrValue!!.isNotEmpty()) {
-							taskItemBuilder.setTags(taskTags.editTextStrValue!!.split(",").map { it.trim() }.toMutableList())
+						if (taskTagsTextInputLayout.editTextStrValue!!.isNotEmpty()) {
+							taskItemBuilder.setTags(taskTagsTextInputLayout.editTextStrValue!!.split(",").map { it.trim() }.toMutableList())
 						}
 						if (mTaskDate != null) {
 							taskItemBuilder.setDueDate(Timestamp(mTaskDate!!))
@@ -183,7 +183,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 						if (tempTaskProject != null) {
 							taskItemBuilder.setProject(mFirestore.document("users/" + mCurrentUser!!.uid + "/todoProjects/" + tempTaskProject))
 						}
-						taskItemBuilder.setIsDone(taskIsDone.isChecked)
+						taskItemBuilder.setIsDone(taskIsDoneCheckbox.isChecked)
 						SharedUtils.addTask(taskItemBuilder.create(), mCurrentUser!!, mFirestore)
 								.addOnCompleteListener { task ->
 									if (task.isSuccessful) {
@@ -195,8 +195,8 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 									}
 								}
 					} else {
-						taskTitle.error = "Please enter something."
-						Snackbar.make(findViewById(R.id.newTaskView), "Some errors occurred while attempting to submit the form.", Snackbar.LENGTH_LONG).show()
+						taskTitleTextInputLayout.error = "Please enter something."
+						Snackbar.make(findViewById(R.id.newTaskCooardinatorLayout), "Some errors occurred while attempting to submit the form.", Snackbar.LENGTH_LONG).show()
 					}
 				}
 				return true
