@@ -6,7 +6,7 @@
 		android:title="@string/action_send_feedback" />
 	<item
 		android:id="@+id/action_help"
-		android:icon="@drawable/ic_help_circle_24dp"
+		android:icon="@drawable/ic_help_outline_24dp"
 		android:title="@string/action_help"
 		app:showAsAction="ifRoom" />
 </menu>

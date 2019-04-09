@@ -9,11 +9,11 @@
 			android:title="@string/bottom_nav_todos" />
 		<item
 			android:id="@+id/navigation_calendar"
-			android:icon="@drawable/ic_calendar_24dp"
+			android:icon="@drawable/ic_event_outline_24dp"
 			android:title="@string/bottom_nav_calendar" />
 		<item
 			android:id="@+id/navigation_chat"
-			android:icon="@drawable/ic_forum_24dp"
+			android:icon="@drawable/ic_forum_outline_24dp"
 			android:title="@string/bottom_nav_chat" />
 		<item
 			android:id="@+id/navigation_tips"

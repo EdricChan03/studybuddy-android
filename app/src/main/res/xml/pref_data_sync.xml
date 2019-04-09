@@ -23,7 +23,7 @@
 		<!-- This preference simply launches an intent when selected. Use this UI sparingly, per
 			 design guidelines. -->
 		<Preference
-			app:icon="@drawable/ic_settings_24dp"
+			app:icon="@drawable/ic_settings_outline_24dp"
 			app:title="@string/pref_system_sync_settings_title">
 			<intent android:action="android.settings.SYNC_SETTINGS" />
 		</Preference>

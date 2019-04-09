@@ -9,15 +9,16 @@
 		app:title="@string/pref_language_title"
 		app:useSimpleSummaryProvider="true" />
 	<SwitchPreferenceCompat
+		app:defaultValue="false"
+		app:icon="@drawable/ic_bug_report_outline_24dp"
+		app:key="pref_enable_crashlytics_user_tracking"
+		app:summary="@string/pref_enable_crashlytics_user_tracking_summary"
+		app:title="@string/pref_enable_crashlytics_user_tracking_title" />
+	<SwitchPreferenceCompat
 		app:defaultValue="true"
 		app:icon="@drawable/ic_open_in_browser_24dp"
 		app:key="pref_use_custom_tabs"
 		app:title="@string/pref_use_custom_tabs_title" />
-	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="pref_enable_crashlytics_user_tracking"
-		app:summary="@string/pref_enable_crashlytics_user_tracking_summary"
-		app:title="@string/pref_enable_crashlytics_user_tracking_title" />
 	<PreferenceCategory
 		app:key="pref_category_theme"
 		app:title="@string/pref_category_theme">
@@ -25,13 +26,13 @@
 			app:defaultValue="automatic_battery_saver"
 			app:entries="@array/pref_dark_theme_options_array"
 			app:entryValues="@array/pref_dark_theme_options_array_values"
-			app:icon="@drawable/ic_brightness_6_24dp"
+			app:icon="@drawable/ic_brightness_6_outline_24dp"
 			app:key="pref_dark_theme"
 			app:title="@string/pref_dark_theme_title"
 			app:useSimpleSummaryProvider="true" />
 		<Preference
 			app:enabled="false"
-			app:icon="@drawable/ic_info_24dp"
+			app:icon="@drawable/ic_info_outline_24dp"
 			app:key="pref_daynight_perm_info"
 			app:title="@string/pref_daynight_perm_info_summary" />
 		<Preference

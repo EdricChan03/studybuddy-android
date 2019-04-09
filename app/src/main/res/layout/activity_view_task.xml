@@ -84,7 +84,7 @@
 					android:layout_height="wrap_content"
 					android:contentDescription="@string/view_task_label_icon_content_desc"
 					android:padding="16dp"
-					android:src="@drawable/ic_label_24dp" />
+					android:src="@drawable/ic_label_outline_24dp" />
 
 				<com.google.android.material.chip.ChipGroup
 					android:id="@+id/taskTags"

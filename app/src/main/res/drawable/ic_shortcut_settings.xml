@@ -6,5 +6,5 @@
 		android:left="2dp"
 		android:right="2dp"
 		android:top="2dp" />
-	<item android:drawable="@drawable/ic_shortcut_settings_foreground" />
+	<item android:drawable="@drawable/ic_shortcut_settings_foreground_outline" />
 </layer-list>

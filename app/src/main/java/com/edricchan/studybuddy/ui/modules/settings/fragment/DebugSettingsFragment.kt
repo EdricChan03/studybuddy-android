@@ -112,7 +112,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			val builder = MaterialAlertDialogBuilder(context!!)
 			builder.setTitle(R.string.debug_activity_send_notification_title)
 					.setView(debugSendNotificationDialogView)
-					.setIcon(R.drawable.ic_send_24dp)
+					.setIcon(R.drawable.ic_send_outline_24dp)
 					.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 					.setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
 						if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty() &&

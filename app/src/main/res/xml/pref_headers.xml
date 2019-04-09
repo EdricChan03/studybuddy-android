@@ -4,7 +4,7 @@
 		app:title="@string/pref_show_header_summary_title" />
 	<Preference
 		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.GeneralSettingsFragment"
-		app:icon="@drawable/ic_settings_24dp"
+		app:icon="@drawable/ic_settings_outline_24dp"
 		app:key="pref_header_general"
 		app:summary="@string/pref_header_general_summary"
 		app:title="@string/pref_header_general_title" />
@@ -23,19 +23,19 @@
 		app:title="@string/pref_header_data_sync_title" />
 	<Preference
 		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment"
-		app:icon="@drawable/ic_bug_report_24dp"
+		app:icon="@drawable/ic_bug_report_outline_24dp"
 		app:isPreferenceVisible="false"
 		app:key="pref_header_debug"
 		app:summary="@string/pref_header_debug_summary"
 		app:title="@string/pref_header_debug_title" />
 	<Preference
 		app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.AboutSettingsFragment"
-		app:icon="@drawable/ic_info_24dp"
+		app:icon="@drawable/ic_info_outline_24dp"
 		app:key="pref_header_about"
 		app:summary="@string/pref_header_version_summary"
 		app:title="@string/pref_header_version_title" />
 	<Preference
-		app:icon="@drawable/ic_account_circle_24dp"
+		app:icon="@drawable/ic_account_circle_outline_24dp"
 		app:key="pref_header_account"
 		app:summary="@string/pref_header_account_summary"
 		app:title="@string/pref_header_account_title" />

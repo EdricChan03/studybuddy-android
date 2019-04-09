@@ -17,7 +17,7 @@
 		android:contentDescription="Document icon"
 		android:focusable="false"
 		android:focusableInTouchMode="false"
-		android:src="@drawable/ic_file_document_box_24dp"
+		android:src="@drawable/ic_file_document_box_outline_24dp"
 		android:tint="@color/colorSecondary"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toStartOf="parent"

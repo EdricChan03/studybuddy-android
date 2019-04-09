@@ -3,14 +3,14 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/cab_action_delete_selected"
-		android:icon="@drawable/ic_delete_24dp"
+		android:icon="@drawable/ic_delete_outline_24dp"
 		android:title="@string/cab_action_delete_selected"
 		app:showAsAction="ifRoom" />
 	<!-- TODO: Add support for editing multiple tasks -->
 	<item
 		android:id="@+id/cab_action_edit_selected"
 		android:enabled="false"
-		android:icon="@drawable/ic_pencil_24dp"
+		android:icon="@drawable/ic_edit_outline_24dp"
 		android:title="@string/cab_action_edit_selected"
 		app:showAsAction="ifRoom" />
 	<item

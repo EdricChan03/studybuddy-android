@@ -8,10 +8,10 @@
 		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/action_settings"
-		android:icon="@drawable/ic_settings_24dp"
+		android:icon="@drawable/ic_settings_outline_24dp"
 		android:title="@string/action_settings" />
 	<item
 		android:id="@+id/action_debug"
-		android:icon="@drawable/ic_bug_report_24dp"
+		android:icon="@drawable/ic_bug_report_outline_24dp"
 		android:title="@string/action_debug" />
 </menu>

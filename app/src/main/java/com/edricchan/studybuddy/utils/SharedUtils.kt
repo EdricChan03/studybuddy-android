@@ -828,7 +828,7 @@ class SharedUtils
 							when (appUpdaterError) {
 								AppUpdaterError.NETWORK_NOT_AVAILABLE -> notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_no_internet_title))
 										.setContentText(context.getString(R.string.notification_updates_error_no_internet_text))
-										.setSmallIcon(R.drawable.ic_wifi_strength_4_alert)
+										.setSmallIcon(R.drawable.ic_wifi_strength_4_alert_24dp)
 								AppUpdaterError.JSON_ERROR -> notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_not_found_title))
 										.setContentText(context.getString(R.string.notification_updates_error_not_found_text))
 										.setSmallIcon(R.drawable.ic_file_not_found_24dp)

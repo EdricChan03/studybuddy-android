@@ -17,7 +17,7 @@
 		app:title="@string/pref_category_weekly_summary">
 		<Preference
 			app:enabled="false"
-			app:icon="@drawable/ic_info_24dp"
+			app:icon="@drawable/ic_info_outline_24dp"
 			app:summary="@string/pref_weekly_summary_about_desc" />
 		<SwitchPreferenceCompat
 			app:defaultValue="true"
@@ -31,7 +31,7 @@
 				app:defaultValue="1"
 				app:entries="@array/pref_weekly_summary_days_array"
 				app:entryValues="@array/pref_weekly_summary_days_array_values"
-				app:icon="@drawable/ic_calendar_check_24dp"
+				app:icon="@drawable/ic_calendar_check_outline_24dp"
 				app:key="pref_weekly_summary_day"
 				app:summary="@string/pref_weekly_summary_day_desc"
 				app:title="@string/pref_weekly_summary_day_title"
@@ -44,7 +44,7 @@
 				app:summary="@string/pref_weekly_summary_configure_list_desc"
 				app:title="@string/pref_weekly_summary_configure_list_title" />
 			<Preference
-				app:icon="@drawable/ic_settings_24dp"
+				app:icon="@drawable/ic_settings_outline_24dp"
 				app:key="pref_weekly_summary_notification_opts"
 				app:summary="@string/pref_weekly_summary_notification_opts_summary"
 				app:title="@string/pref_weekly_summary_notification_opts_title" />
