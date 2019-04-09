@@ -137,7 +137,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 			progressBar.visibility = View.VISIBLE
 			scrollView.visibility = View.GONE
 			mTaskId = intent.getStringExtra("taskId")
-			mFirestore.document("users/" + mCurrentUser?.uid + "/todos/" + mTaskId)
+			mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
 					.get()
 					.addOnCompleteListener { task ->
 						if (task.isSuccessful) {
@@ -165,9 +165,9 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 								if (mTaskItem?.project != null) {
 									spinnerProject!!.setSelection(mTaskProjectSpinnerAdapter.getPosition(mTaskProjectSpinnerAdapter.getTaskProjectById(mTaskItem!!.project!!.id)))
 								}
-								/*if (mTaskItem?.tags != null) {
-									textInputTags.editText?.setText(TextUtils.join(",", mTaskItem.tags!!.toMutableList()))
-								}*/
+								if (mTaskItem?.tags != null) {
+									textInputTags.editText?.setText(mTaskItem!!.tags!!.toMutableList().joinToString(","))
+								}
 							} else {
 								Log.i(TAG, "Task with ID $mTaskId does not exist!")
 								Toast.makeText(this, "Task does not exist!", Toast.LENGTH_LONG).show()
