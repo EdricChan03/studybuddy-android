@@ -290,7 +290,7 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 
 		fun getItemDetails(): TaskItemDetails {
 			Log.d(TAG, "Adapter position: $adapterPosition")
-			val id = mTaskItemList!![adapterPosition].id!!
+			val id = mTaskItemList!![adapterPosition].id
 			Log.d(TAG, "ID at adapter position $adapterPosition: $id")
 			return TaskItemDetails(adapterPosition, id)
 		}

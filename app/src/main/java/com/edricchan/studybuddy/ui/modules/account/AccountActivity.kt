@@ -224,7 +224,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.setTitle(R.string.account_activity_new_name_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_name) { dialog, _ ->
 					val requestBuilder = UserProfileChangeRequest.Builder()
-					requestBuilder.setDisplayName(SharedUtils.getEditTextString(textInputLayout))
+					requestBuilder.setDisplayName(textInputLayout.editTextStrValue)
 					mUser!!.updateProfile(requestBuilder.build())
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {

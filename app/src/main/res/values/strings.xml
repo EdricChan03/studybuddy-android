@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-	<string name="about_dialog_text">Purpose: To help students in their studies\nVersion: %1$s\n---\nApp is fully open source. Check it out!</string>
+	<plurals name="cab_subtitle">
+		<item quantity="zero">None selected</item>
+		<item quantity="other">%d selected</item>
+	</plurals>
 
+	<string name="about_dialog_text">Purpose: To help students in their studies\nVersion: %1$s\n---\nApp is fully open source. Check it out!</string>
 	<string name="account_activity_account_actions">Account actions</string>
-	<string-array name="account_activity_account_actions_array">
-		<item>Delete account</item>
-		<item>Sign out</item>
-		<item>Update email</item>
-		<item>Update name</item>
-		<item>Update password</item>
-		<item>Update profile picture</item>
-	</string-array>
 	<string name="account_activity_action_sign_in">Sign in</string>
 	<string name="account_activity_avatar_desc">Account avatar</string>
 	<string name="account_activity_delete_account_dialog_title">Delete account?</string>
@@ -97,17 +93,12 @@
 	<string name="cab_action_edit_selected">Edit selected</string>
 	<string name="cab_action_select_all">Select all</string>
 
-	<plurals name="cab_subtitle">
-		<item quantity="zero">None selected</item>
-		<item quantity="other">%d selected</item>
-	</plurals>
-
 	<string name="cab_title">Select</string>
 
 	<string name="chat_frag_new_chat_dialog_desc_editext_hint">Chat description</string>
+
 	<string name="chat_frag_new_chat_dialog_name_editext_hint">Chat name</string>
 	<string name="chat_frag_new_chat_dialog_title">New chat</string>
-
 	<string name="choose_a_date">Choose a date…</string>
 
 	<string name="comma_indicates_separator">Separate each tag/label with a comma</string>
@@ -115,6 +106,7 @@
 	<string name="date_format_pattern">EEE, MMM d yyyy</string>
 
 	<string name="debug_activity_account_info_summary">Show information about the currently signed-in Firebase User</string>
+
 	<string name="debug_activity_account_info_title">Account info</string>
 	<string name="debug_activity_category_device">Device</string>
 	<string name="debug_activity_category_firebase">Firebase</string>
@@ -126,11 +118,6 @@
 	<string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
 	<string name="debug_activity_crash_app_summary">Programmatically crash the app with Firebase Crashlytics</string>
 	<string name="debug_activity_crash_app_title">Crash app</string>
-	<string-array name="debug_activity_device_info_array">
-		<item>Device SDK Info</item>
-		<item>Connectivity Info</item>
-		<item>Night Mode Info</item>
-	</string-array>
 	<string name="debug_activity_device_info_summary">Show information about the current device</string>
 	<string name="debug_activity_device_info_title">Device info</string>
 	<string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
@@ -152,11 +139,11 @@
 	<string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
 	<string name="debug_activity_send_notification_summary">Programmatically send a FCM notification request</string>
 	<string name="debug_activity_send_notification_title">Send FCM notification</string>
-	<string name="debug_activity_updates_set_custom_url_title">Set custom changelog URL</string>
-	<string name="debug_activity_updates_use_testing_url_title">Use debug changelog URL</string>
-
+	<string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON URL</string>
+	<string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON URL</string>
 	<string name="dialog_action_cancel">Cancel</string>
 	<string name="dialog_action_close">Close</string>
+
 	<string name="dialog_action_crash">Crash</string>
 	<string name="dialog_action_create">Create</string>
 	<string name="dialog_action_delete_account">Delete account</string>
@@ -174,30 +161,30 @@
 	<string name="dialog_action_update_profile_picture">Update profile picture</string>
 	<string name="dialog_action_view_source_code">View source code</string>
 	<string name="dialog_action_yes">Yes</string>
-
 	<string name="download_apk_name">com.edricchan.studybuddy-v%1$s.apk</string>
-
 	<string name="due_date">Due date</string>
+
 	<string name="due_date_text">Selected due date shows here</string>
 
 	<string name="edittext_errors_empty_email">Please enter an email address</string>
 	<string name="edittext_errors_empty_password">Please enter a password</string>
+
 	<string name="edittext_errors_invalid_email">Please enter a valid email address</string>
 	<string name="edittext_errors_invalid_password">Please enter a valid password</string>
-
 	<string name="email_hint">Email</string>
-
 	<string name="forgot_password_msg">Just enter your email address in the input below and click the "Reset password" button to reset your password.\nYou\'ll be sent an email ASAP with the reset password.</string>
+
 	<string name="forgot_password_title">Forgot password?</string>
 
 	<string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
-
 	<string name="frag_chat_coming_soon">Chat feature coming soon!</string>
 
 	<string name="minimum_password">The password that you entered is too short, please enter a minimum of 6 characters!</string>
 
 	<string name="notification_channel_group_todos_id">todos</string>
+
 	<string name="notification_channel_group_todos_title">Todos</string>
+
 	<string name="notification_channel_group_updates_id">updates</string>
 	<string name="notification_channel_group_updates_title">App updates</string>
 	<string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
@@ -230,34 +217,192 @@
 	<string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
 	<string name="notification_channel_weekly_summary_id">weekly_summary</string>
 	<string name="notification_channel_weekly_summary_title">Weekly summary</string>
-
 	<string name="notification_check_update">Checking for updates…</string>
-
 	<string name="notification_new_update_text">Version %1$s is available! Tap here to download &amp; install</string>
+
 	<string name="notification_new_update_title">New update available!</string>
 
 	<string name="notification_no_updates">No updates available</string>
-
 	<string name="notification_updates_error_no_internet_text">You are not connected to the internet. Check your network connection before retrying.</string>
+
 	<string name="notification_updates_error_no_internet_title">No internet connection</string>
+
 	<string name="notification_updates_error_not_found_text">The file specified does not exist. Please check that you have enabled the Storage permission.</string>
 	<string name="notification_updates_error_not_found_title">File not found</string>
-
 	<string name="password_hint">Password</string>
-
 	<string name="pref_about_category_title">About</string>
 
 	<string name="pref_app_info_title">App info</string>
+
 	<string name="pref_app_version_title">Current app version</string>
 
 	<string name="pref_author_title">App Author</string>
-
 	<string name="pref_category_theme">Theme</string>
+
 	<string name="pref_category_todo_general">General</string>
+
 	<string name="pref_category_weekly_summary">Weekly summary</string>
 	<string name="pref_category_weekly_summary_prefs">Weekly summary preferences</string>
-
 	<string name="pref_check_for_update_frequency_title">Checking frequency</string>
+	<string name="pref_dark_theme_title">Dark theme</string>
+
+	<string name="pref_daynight_grant_perm_title">Grant location permission</string>
+	<string name="pref_daynight_perm_info_summary">Your location is used for adjusting the time at which dark theme is automatically enabled.\nBy default, the dark theme will be automatically enabled at 10pm and disabled at 6am.</string>
+	<string name="pref_enable_crashlytics_user_tracking_summary">Add your email address and your name to future crash reports.\nThis data will only be used for crash reports and will be applied once the app has restarted.</string>
+
+	<string name="pref_enable_crashlytics_user_tracking_title">Crash report user tracking</string>
+	<string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture</string>
+	<string name="pref_header_account_title">Account options</string>
+
+	<string name="pref_header_data_sync_summary">Manual sync, sync frequency, sync on metered networks, system sync settings</string>
+	<string name="pref_header_data_sync_title">Data &amp; sync</string>
+
+	<string name="pref_header_debug_summary">Enable verbose log, device info, account info, crash app, send notification, delete device\'s instance ID</string>
+	<string name="pref_header_debug_title">Debug</string>
+
+	<string name="pref_header_general_summary">Language, in-app browser, Firebase Crashlytics user tracking, dark theme</string>
+	<string name="pref_header_general_title">General</string>
+	<string name="pref_header_todo_summary">Default sorting mode, weekly summary preferences</string>
+	<string name="pref_header_todo_title">Todos</string>
+	<string name="pref_header_version_summary">Updates, download updates with metered networks, update frequency, about app, about app author</string>
+	<string name="pref_header_version_title">Versions &amp; About</string>
+	<string name="pref_language_title">Language</string>
+	<string name="pref_manual_sync_summary">Tap here to sync manually</string>
+	<string name="pref_manual_sync_title">Manual sync</string>
+	<string name="pref_show_header_summary_title">Show header summaries</string>
+	<string name="pref_source_code_desc">View source code on Github</string>
+	<string name="pref_source_code_title">Source code</string>
+
+	<string name="pref_sync_cellular_networks_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
+	<string name="pref_sync_cellular_networks_dialog_title">Enable syncing with cellular networks?</string>
+	<string name="pref_sync_cellular_networks_title">Sync on cellular network</string>
+
+	<string name="pref_sync_frequency_title">Sync frequency</string>
+	<string name="pref_system_sync_settings_title">System sync settings</string>
+
+	<string name="pref_todo_default_sort_title">Default sorting mode</string>
+
+	<string name="pref_updates_cellular_networks_title">Download updates with cellular network</string>
+	<string name="pref_updates_options_title">Update options</string>
+
+	<string name="pref_updates_title">Updates</string>
+	<string name="pref_use_custom_tabs_title">Open web links in-app</string>
+	<string name="pref_weekly_summary_about_desc">A curated summary of the progress of your completion of your todos, sent as a notification</string>
+	<string name="pref_weekly_summary_configure_list_desc">Set the items to be shown in weekly summary</string>
+	<string name="pref_weekly_summary_configure_list_title">Configure weekly summary list</string>
+	<string name="pref_weekly_summary_day_desc">Set a day to get your weekly summary</string>
+
+	<string name="pref_weekly_summary_day_title">Day to retrieve weekly summary</string>
+
+	<string name="pref_weekly_summary_enabled_title">Enable weekly summary</string>
+	<string name="pref_weekly_summary_notification_opts_summary">Customize how the notifications are shown</string>
+	<string name="pref_weekly_summary_notification_opts_title">Notification settings</string>
+
+	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
+	<string name="share_intent_value">Share this app via…</string>
+	<string name="shortcut_settings_long_msg">Open settings</string>
+
+	<string name="shortcut_settings_short_msg">Settings</string>
+
+	<string name="shortcut_todo_disabled_msg">Todo is disabled</string>
+	<string name="shortcut_todo_long_msg">Create a new todo</string>
+	<string name="shortcut_todo_short_msg">New todo</string>
+	<string name="sign_in_providers_header">Sign in with the below providers:</string>
+	<string name="sign_in_providers_or">OR</string>
+	<string name="snackbar_internet_unavailable_action">Retry</string>
+	<string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
+	<string name="snackbar_user_login">Signed in as %1$s</string>
+	<string name="task_adapter_empty_content">&lt;No content&gt;</string>
+	<string name="task_adapter_empty_title">&lt;No title&gt;</string>
+	<string name="task_content">Task Content</string>
+	<string name="task_project_create">Create a project…</string>
+
+	<string name="task_project_prompt">Choose a project…</string>
+
+	<string name="task_tags">Task Tags</string>
+
+	<string name="task_title">Task Title</string>
+	<string name="tips_empty_state_cta_text">Submit a tip</string>
+
+	<string name="tips_empty_state_head">No tips as of now</string>
+	<string name="title_activity_account">Account</string>
+	<string name="title_activity_debug">Debug</string>
+
+	<string name="title_activity_edit_chat">Edit chat info</string>
+	<string name="title_activity_edit_task">Edit task</string>
+
+	<string name="title_activity_help">Help</string>
+	<string name="title_activity_login">Sign in</string>
+
+	<string name="title_activity_new_chat">New chat</string>
+
+	<string name="title_activity_new_task">New task</string>
+	<string name="title_activity_register">Register</string>
+
+	<string name="title_activity_reset_password">Reset password</string>
+
+	<string name="title_activity_settings">Settings</string>
+	<string name="title_activity_updates">Updates</string>
+
+	<string name="title_activity_view_task">Task view</string>
+
+	<string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is irreversible and that it may take a while to delete the selected tasks.</string>
+
+	<string name="todo_frag_delete_selected_tasks_dialog_title">Delete selected tasks?</string>
+	<string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is irreversible.</string>
+
+	<string name="todo_frag_delete_task_dialog_title">Delete task?</string>
+	<string name="todo_frag_empty_state_cta">New todo</string>
+	<string name="todo_frag_empty_state_head">All todos done!</string>
+	<string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
+	<string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve configured your settings to not download updates when on a cellular network.\nIf you still want to download the update, tap on "Download anyway".</string>
+	<string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download anyway</string>
+	<string name="update_activity_cannot_download_cellular_dialog_title">Warning</string>
+	<string name="update_activity_delete_update_success_toast">Successfully deleted update!</string>
+	<string name="update_activity_empty_state_head">No updates available</string>
+	<string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up here.</string>
+	<string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app sources" in Settings before continuing. Click on the "Settings" button to configure.</string>
+	<string name="update_activity_enable_unknown_sources_dialog_positive_btn">Settings</string>
+	<string name="update_activity_update_already_downloaded_dialog_msg">An update has already been downloaded! Tap on "Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on "Download anyway" will delete the existing file)</string>
+
+	<string name="update_activity_update_already_downloaded_dialog_negative_btn">Download anyway</string>
+	<string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
+	<string name="update_activity_update_already_downloaded_dialog_title">Update already downloaded</string>
+	<string name="update_dialog_positive_btn_text">Download build</string>
+	<string name="update_dialog_title_new">New version (%1$s) available!</string>
+	<string name="update_perm_rationale_dialog_deny">Deny</string>
+
+	<string name="update_perm_rationale_dialog_grant">Grant</string>
+	<string name="update_perm_rationale_dialog_msg">The storage permission is required in order to download updates to your (default) download folder.</string>
+	<string name="update_perm_rationale_dialog_title">Permission request</string>
+	<string name="update_snackbar_checking">Checking for updates…</string>
+	<string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.</string>
+	<string name="update_snackbar_error_malformed">Could not parse JSON. Please try again later.</string>
+	<string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.</string>
+	<string name="update_snackbar_latest">You already have the latest version!</string>
+	<string name="view_task_label_icon_content_desc">Label icon</string>
+	<string name="view_task_loading">Loading task\'s contents…</string>
+	<string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
+	<string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
+	<string name="debug_activity_updates_set_custom_json_url_default_value" translatable="false">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
+
+	<string name="pref_check_for_updates_frequency_default_value" translatable="false">12</string>
+	<string name="update_json_release_url" translatable="false">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json</string>
+
+	<string name="update_json_testing_url" translatable="false">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
+	<string-array name="account_activity_account_actions_array">
+		<item>Delete account</item>
+		<item>Sign out</item>
+		<item>Update email</item>
+		<item>Update name</item>
+		<item>Update password</item>
+		<item>Update profile picture</item>
+	</string-array>
+	<string-array name="debug_activity_device_info_array">
+		<item>Device SDK Info</item>
+		<item>Connectivity Info</item>
+		<item>Night Mode Info</item>
+	</string-array>
 	<string-array name="pref_check_for_updates_frequencies">
 		<item>Manual/Never</item>
 		<item>Every 3 hours</item>
@@ -266,7 +411,7 @@
 		<item>Daily</item>
 		<item>Weekly</item>
 	</string-array>
-	<string name="pref_check_for_updates_frequency_default">12</string>
+
 	<string-array name="pref_check_for_updates_frequency_values">
 		<!-- Manual/never -->
 		<item>0</item>
@@ -281,7 +426,6 @@
 		<!-- Weekly -->
 		<item>168</item>
 	</string-array>
-
 	<string-array name="pref_dark_theme_options_array">
 		<item>Always</item>
 		<item>Automatic (at night)</item>
@@ -296,27 +440,6 @@
 		<item>follow_system</item>
 		<item>never</item>
 	</string-array>
-	<string name="pref_dark_theme_title">Dark theme</string>
-
-	<string name="pref_daynight_grant_perm_title">Grant location permission</string>
-	<string name="pref_daynight_perm_info_summary">Your location is used for adjusting the time at which dark theme is automatically enabled.\nBy default, the dark theme will be automatically enabled at 10pm and disabled at 6am.</string>
-
-	<string name="pref_enable_crashlytics_user_tracking_summary">Add your email address and your name to future crash reports.\nThis data will only be used for crash reports and will be applied once the app has restarted.</string>
-	<string name="pref_enable_crashlytics_user_tracking_title">Crash report user tracking</string>
-
-	<string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture</string>
-	<string name="pref_header_account_title">Account options</string>
-	<string name="pref_header_data_sync_summary">Manual sync, sync frequency, sync on metered networks, system sync settings</string>
-	<string name="pref_header_data_sync_title">Data &amp; sync</string>
-	<string name="pref_header_debug_summary">Enable verbose log, device info, account info, crash app, send notification, delete device\'s instance ID</string>
-	<string name="pref_header_debug_title">Debug</string>
-	<string name="pref_header_general_summary">Language, in-app browser, Firebase Crashlytics user tracking, dark theme</string>
-	<string name="pref_header_general_title">General</string>
-	<string name="pref_header_todo_summary">Default sorting mode, weekly summary preferences</string>
-	<string name="pref_header_todo_title">Todos</string>
-	<string name="pref_header_version_summary">Updates, download updates with metered networks, update frequency, about app, about app author</string>
-	<string name="pref_header_version_title">Versions &amp; About</string>
-
 	<string-array name="pref_language_languages_array">
 		<item>(System Default)</item>
 	</string-array>
@@ -329,20 +452,7 @@
 		en_US represents English (United States)
 		-->
 	</string-array>
-	<string name="pref_language_title">Language</string>
 
-	<string name="pref_manual_sync_summary">Tap here to sync manually</string>
-	<string name="pref_manual_sync_title">Manual sync</string>
-
-	<string name="pref_show_header_summary_title">Show header summaries</string>
-
-	<string name="pref_source_code_desc">View source code on Github</string>
-	<string name="pref_source_code_title">Source code</string>
-
-	<string name="pref_sync_cellular_networks_dialog_msg">Note: I am not responsible for any charges incurred from excessive data usage.</string>
-	<string name="pref_sync_cellular_networks_dialog_title">Enable syncing with cellular networks?</string>
-	<string name="pref_sync_cellular_networks_title">Sync on cellular network</string>
-	<string name="pref_sync_frequency_title">Sync frequency</string>
 	<string-array name="pref_sync_frequency_titles">
 		<item>15 minutes</item>
 		<item>30 minutes</item>
@@ -359,9 +469,6 @@
 		<item>360</item>
 		<item>-1</item>
 	</string-array>
-
-	<string name="pref_system_sync_settings_title">System sync settings</string>
-
 	<string-array name="pref_todo_default_sort_options_array">
 		<item>None (Default)</item>
 		<item>Title (Ascending)</item>
@@ -369,6 +476,7 @@
 		<item>Due Date (Newest to Oldest)</item>
 		<item>Due Date (Oldest to Newest)</item>
 	</string-array>
+
 	<string-array name="pref_todo_default_sort_options_array_values">
 		<item>none</item>
 		<item>title_asc</item>
@@ -376,19 +484,7 @@
 		<item>due_date_new_to_old</item>
 		<item>due_date_old_to_new</item>
 	</string-array>
-	<string name="pref_todo_default_sort_title">Default sorting mode</string>
 
-	<string name="pref_updates_cellular_networks_title">Download updates with cellular network</string>
-	<string name="pref_updates_options_title">Update options</string>
-	<string name="pref_updates_title">Updates</string>
-
-	<string name="pref_use_custom_tabs_title">Open web links in-app</string>
-
-	<string name="pref_weekly_summary_about_desc">A curated summary of the progress of your completion of your todos, sent as a notification</string>
-	<string name="pref_weekly_summary_configure_list_desc">Set the items to be shown in weekly summary</string>
-	<string name="pref_weekly_summary_configure_list_title">Configure weekly summary list</string>
-	<string name="pref_weekly_summary_day_desc">Set a day to get your weekly summary</string>
-	<string name="pref_weekly_summary_day_title">Day to retrieve weekly summary</string>
 	<string-array name="pref_weekly_summary_days_array">
 		<item>Monday</item>
 		<item>Tuesday</item>
@@ -398,6 +494,7 @@
 		<item>Saturday</item>
 		<item>Sunday</item>
 	</string-array>
+
 	<string-array name="pref_weekly_summary_days_array_values">
 		<item>1</item>
 		<item>2</item>
@@ -407,9 +504,7 @@
 		<item>6</item>
 		<item>7</item>
 	</string-array>
-	<string name="pref_weekly_summary_enabled_title">Enable weekly summary</string>
-	<string name="pref_weekly_summary_notification_opts_summary">Customize how the notifications are shown</string>
-	<string name="pref_weekly_summary_notification_opts_title">Notification settings</string>
+
 	<string-array name="pref_weekly_summary_options_array">
 		<item>Completed todos</item>
 		<item>Overdue todos</item>
@@ -428,95 +523,4 @@
 		<item>uncompleted_percentage</item>
 		<item>efficiency</item>
 	</string-array>
-
-	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
-
-	<string name="share_intent_value">Share this app via…</string>
-
-	<string name="shortcut_settings_long_msg">Open settings</string>
-	<string name="shortcut_settings_short_msg">Settings</string>
-
-	<string name="shortcut_todo_disabled_msg">Todo is disabled</string>
-	<string name="shortcut_todo_long_msg">Create a new todo</string>
-	<string name="shortcut_todo_short_msg">New todo</string>
-
-	<string name="sign_in_providers_header">Sign in with the below providers:</string>
-	<string name="sign_in_providers_or">OR</string>
-
-	<string name="snackbar_internet_unavailable_action">Retry</string>
-	<string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
-
-	<string name="snackbar_user_login">Signed in as %1$s</string>
-
-	<string name="task_adapter_empty_content">&lt;No content&gt;</string>
-	<string name="task_adapter_empty_title">&lt;No title&gt;</string>
-
-	<string name="task_content">Task Content</string>
-
-	<string name="task_project_create">Create a project…</string>
-	<string name="task_project_prompt">Choose a project…</string>
-
-	<string name="task_tags">Task Tags</string>
-
-	<string name="task_title">Task Title</string>
-
-	<string name="testing_changelog_url">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
-
-	<string name="tips_empty_state_cta_text">Submit a tip</string>
-	<string name="tips_empty_state_head">No tips as of now</string>
-
-	<string name="title_activity_account">Account</string>
-	<string name="title_activity_debug">Debug</string>
-	<string name="title_activity_edit_chat">Edit chat info</string>
-	<string name="title_activity_edit_task">Edit task</string>
-	<string name="title_activity_help">Help</string>
-	<string name="title_activity_login">Sign in</string>
-	<string name="title_activity_new_chat">New chat</string>
-	<string name="title_activity_new_task">New task</string>
-	<string name="title_activity_register">Register</string>
-	<string name="title_activity_reset_password">Reset password</string>
-	<string name="title_activity_settings">Settings</string>
-	<string name="title_activity_updates">Updates</string>
-	<string name="title_activity_view_task">Task view</string>
-
-	<string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is irreversible and that it may take a while to delete the selected tasks.</string>
-	<string name="todo_frag_delete_selected_tasks_dialog_title">Delete selected tasks?</string>
-	<string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is irreversible.</string>
-	<string name="todo_frag_delete_task_dialog_title">Delete task?</string>
-	<string name="todo_frag_empty_state_cta">New todo</string>
-	<string name="todo_frag_empty_state_head">All todos done!</string>
-
-	<string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
-	<string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve configured your settings to not download updates when on a cellular network.\nIf you still want to download the update, tap on "Download anyway".</string>
-	<string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download anyway</string>
-	<string name="update_activity_cannot_download_cellular_dialog_title">Warning</string>
-	<string name="update_activity_delete_update_success_toast">Successfully deleted update!</string>
-	<string name="update_activity_empty_state_head">No updates available</string>
-	<string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up here.</string>
-	<string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app sources" in Settings before continuing. Click on the "Settings" button to configure.</string>
-	<string name="update_activity_enable_unknown_sources_dialog_positive_btn">Settings</string>
-	<string name="update_activity_update_already_downloaded_dialog_msg">An update has already been downloaded! Tap on "Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on "Download anyway" will delete the existing file)</string>
-	<string name="update_activity_update_already_downloaded_dialog_negative_btn">Download anyway</string>
-	<string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
-	<string name="update_activity_update_already_downloaded_dialog_title">Update already downloaded</string>
-
-	<string name="update_dialog_positive_btn_text">Download build</string>
-	<string name="update_dialog_title_new">New version (%1$s) available!</string>
-
-	<string name="update_perm_rationale_dialog_deny">Deny</string>
-	<string name="update_perm_rationale_dialog_grant">Grant</string>
-	<string name="update_perm_rationale_dialog_msg">The storage permission is required in order to download updates to your (default) download folder.</string>
-	<string name="update_perm_rationale_dialog_title">Permission request</string>
-
-	<string name="update_snackbar_checking">Checking for updates…</string>
-	<string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.</string>
-	<string name="update_snackbar_error_malformed">Could not parse JSON. Please try again later.</string>
-	<string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.</string>
-	<string name="update_snackbar_latest">You already have the latest version!</string>
-
-	<string name="view_task_label_icon_content_desc">Label icon</string>
-	<string name="view_task_loading">Loading task\'s contents…</string>
-	<string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
-
-	<string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
 </resources>

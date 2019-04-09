@@ -72,7 +72,7 @@ class IOUtils {
 		 * @param file The file
 		 */
 		fun deleteRecursive(fileOrDirectory: File) {
-			if (fileOrDirectory.isDirectory())
+			if (fileOrDirectory.isDirectory)
 				for (child in fileOrDirectory.listFiles())
 					deleteRecursive(child)
 			fileOrDirectory.delete()
