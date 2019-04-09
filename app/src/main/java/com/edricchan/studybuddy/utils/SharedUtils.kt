@@ -795,9 +795,20 @@ class SharedUtils
 					.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
 					.setOngoing(true)
 			notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
+			// TODO: Move this to a separate function
+			val updateJsonUrl = if (BuildConfig.DEBUG) {
+				val mPrefs = PreferenceManager.getDefaultSharedPreferences(context)
+				if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
+					mPrefs.getString(Constants.debugSetCustomJsonUrl, context.getString(R.string.update_json_testing_url))
+				} else {
+					context.getString(R.string.update_json_release_url)
+				}
+			} else {
+				context.getString(R.string.update_json_release_url)
+			}
 			val appUpdaterUtils = AppUpdaterUtils(context)
 					.setUpdateFrom(UpdateFrom.JSON)
-					.setUpdateJSON(context.getString(R.string.testing_changelog_url))
+					.setUpdateJSON(updateJsonUrl)
 					.withListener(object : AppUpdaterUtils.UpdateListener {
 						override fun onSuccess(update: Update, updateAvailable: Boolean?) {
 							if (update.latestVersionCode == BuildConfig.VERSION_CODE && (!updateAvailable!!)) {

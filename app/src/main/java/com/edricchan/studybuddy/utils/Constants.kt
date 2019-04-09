@@ -87,6 +87,8 @@ object Constants {
 	const val debugCrashApp = "debug_crash_app"
 	const val debugSendNotification = "debug_send_notification"
 	const val debugResetInstanceId = "debug_reset_instance_id"
+	const val debugUseTestingJsonUrl = "debug_updates_use_testing_json_url"
+	const val debugSetCustomJsonUrl = "debug_updates_custom_json_url"
 
 	// Actions
 	const val actionNotificationsSettingsIntent = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT"

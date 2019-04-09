@@ -17,6 +17,7 @@ import androidx.core.content.FileProvider
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -237,7 +238,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 		invalidateOptionsMenu()
 		val appUpdaterUtils = AppUpdaterUtils(this)
 				.setUpdateFrom(UpdateFrom.JSON)
-				.setUpdateJSON(getString(R.string.testing_changelog_url))
+				.setUpdateJSON(getUpdateJsonUrl())
 				.withListener(object : AppUpdaterUtils.UpdateListener {
 					override fun onSuccess(update: Update, updateAvailable: Boolean?) {
 						appUpdate = update
@@ -267,5 +268,18 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 					}
 				})
 		appUpdaterUtils.start()
+	}
+
+	private fun getUpdateJsonUrl(): String {
+		return if (BuildConfig.DEBUG) {
+			val mPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+			if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
+				mPrefs.getString(Constants.debugSetCustomJsonUrl, getString(R.string.update_json_testing_url))
+			} else {
+				getString(R.string.update_json_release_url)
+			}
+		} else {
+			getString(R.string.update_json_release_url)
+		}
 	}
 }
