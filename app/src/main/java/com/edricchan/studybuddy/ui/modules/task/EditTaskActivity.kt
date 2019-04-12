@@ -23,6 +23,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.activity_edit_task.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -145,7 +146,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 							if (document != null && document.exists()) {
 								progressBar.visibility = View.GONE
 								scrollView.visibility = View.VISIBLE
-								mTaskItem = document.toObject(TaskItem::class.java)
+								mTaskItem = document.toObject<TaskItem>()
 								if (mTaskItem?.title != null) {
 									textInputTitle.editText?.setText(mTaskItem!!.title)
 								}

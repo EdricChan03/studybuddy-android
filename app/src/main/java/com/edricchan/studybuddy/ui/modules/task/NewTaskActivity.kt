@@ -25,6 +25,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.activity_new_task.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -100,7 +101,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 						projectArrayList.add(createProjectBuilder.create())
 						if (documentSnapshots != null) {
 							for (document in documentSnapshots) {
-								projectArrayList.add(document.toObject(TaskProject::class.java))
+								projectArrayList.add(document.toObject<TaskProject>())
 							}
 						}
 						val chooseProjectBuilder = TaskProject.Builder()

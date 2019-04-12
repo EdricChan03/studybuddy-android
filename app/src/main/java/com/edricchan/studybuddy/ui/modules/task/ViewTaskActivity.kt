@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar.Duration
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.activity_view_task.*
 import ru.noties.markwon.Markwon
 import java.text.SimpleDateFormat
@@ -206,8 +207,8 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 						showSnackbar(R.string.view_task_unsuccessful_snackbar_text, Snackbar.LENGTH_LONG)
 					} else {
 						if (documentSnapshot != null && documentSnapshot.exists()) {
-							setViews(Objects.requireNonNull<TaskItem>(documentSnapshot.toObject(TaskItem::class.java)))
-							taskItem = documentSnapshot.toObject(TaskItem::class.java)
+							setViews(documentSnapshot.toObject<TaskItem>())
+							taskItem = documentSnapshot.toObject<TaskItem>()
 						}
 					}
 				}
@@ -251,21 +252,21 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 	 *
 	 * @param item The task item
 	 */
-	private fun setViews(item: TaskItem) {
-		if (item.content != null) {
+	private fun setViews(item: TaskItem?) {
+		if (item?.content != null) {
 			Markwon.setMarkdown(taskContent, item.content!!)
 			toggleViewVisibility(taskContent, View.GONE, View.VISIBLE)
 		} else {
 			toggleViewVisibility(taskContent, View.VISIBLE, View.GONE)
 		}
-		if (item.dueDate != null) {
+		if (item?.dueDate != null) {
 			val format = SimpleDateFormat(getString(R.string.date_format_pattern), Locale.ENGLISH)
 			taskDate.text = format.format(item.dueDate!!.toDate())
 			toggleViewVisibility(taskDate, View.GONE, View.VISIBLE)
 		} else {
 			toggleViewVisibility(taskDate, View.VISIBLE, View.GONE)
 		}
-		if (item.project != null) {
+		if (item?.project != null) {
 			item.project!!
 					.get()
 					.addOnCompleteListener { task ->
@@ -280,13 +281,13 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 		} else {
 			toggleViewVisibility(taskProject, View.VISIBLE, View.GONE)
 		}
-		if (item.title != null) {
+		if (item?.title != null) {
 			taskTitle.text = item.title
 			toggleViewVisibility(taskTitle, View.GONE, View.VISIBLE)
 		} else {
 			toggleViewVisibility(taskTitle!!, View.VISIBLE, View.GONE)
 		}
-		if (item.tags != null && !item.tags!!.isEmpty()) {
+		if (item?.tags != null && !item.tags!!.isEmpty()) {
 			// Remove all chips or this will cause duplicate tags
 			taskTags.removeAllViews()
 			for (tag in item.tags!!) {
