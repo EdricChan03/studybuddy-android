@@ -44,7 +44,7 @@ dependencies {
 	// Support Annotations
 	implementation 'androidx.annotation:annotation:1.1.0-beta01'
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
-	androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0-alpha03', {
+	androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0-alpha04', {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
 	// AppCompat
