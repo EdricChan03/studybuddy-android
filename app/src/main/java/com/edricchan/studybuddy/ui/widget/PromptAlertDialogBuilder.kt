@@ -25,8 +25,7 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
 	private set
 	var textInputEditText = textInputLayout.editText
 	private set
-	var TAG = SharedUtils.getTag(this::class.java)
-	private set
+	private var TAG = SharedUtils.getTag(this::class.java)
 
 	override fun create(): AlertDialog {
 		super.setView(promptDialogView)
