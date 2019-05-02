@@ -78,9 +78,11 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 				classLoader,
 				pref.fragment,
 				args)
+				.apply {
+					arguments = args
+					setTargetFragment(caller, 0)
+				}
 		title = pref.title
-		fragment.arguments = args
-		fragment.setTargetFragment(caller, 0)
 		// Replace the existing Fragment with the new Fragment
 		SharedUtils.replaceFragment(this, fragment, android.R.id.content, true)
 		return true
