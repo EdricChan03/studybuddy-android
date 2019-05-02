@@ -695,8 +695,74 @@ class SharedUtils
 					.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
 					.setOngoing(true)
 			notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
-			// TODO: Move this to a separate function
-			val updateJsonUrl = if (BuildConfig.DEBUG) {
+			val appUpdaterUtils = getUpdateJsonUrl(context)?.let {
+				AppUpdaterUtils(context)
+						.setUpdateFrom(UpdateFrom.JSON)
+						.setUpdateJSON(it)
+						.withListener(object : AppUpdaterUtils.UpdateListener {
+							override fun onSuccess(update: Update, updateAvailable: Boolean?) {
+								if (update.latestVersionCode == BuildConfig.VERSION_CODE && (!updateAvailable!!)) {
+									// User is running latest version
+									notifyBuilder.setContentTitle(context.getString(R.string.notification_no_updates))
+											.setProgress(0, 0, false)
+											.setOngoing(false)
+									notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
+								} else {
+									// New update
+									val intentAction = Intent(context, ActionButtonReceiver::class.java)
+
+									intentAction.putExtra("action", Constants.actionNotificationsStartDownloadReceiver)
+									intentAction.putExtra("downloadUrl", update.urlToDownload.toString())
+									intentAction.putExtra("version", update.latestVersion)
+									val pIntentDownload = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
+									notifyBuilder.setContentTitle(context.getString(R.string.notification_new_update_title))
+											.setContentText(context.getString(R.string.notification_new_update_text, update.latestVersion))
+											.setProgress(0, 0, false)
+											.setOngoing(false)
+											.setChannelId(context.getString(R.string.notification_channel_update_available_id))
+											.addAction(NotificationCompat.Action(R.drawable.ic_download_24dp, "Download", pIntentDownload))
+									notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
+								}
+							}
+
+							override fun onFailed(appUpdaterError: AppUpdaterError) {
+								when (appUpdaterError) {
+									AppUpdaterError.NETWORK_NOT_AVAILABLE -> notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_no_internet_title))
+											.setContentText(context.getString(R.string.notification_updates_error_no_internet_text))
+											.setSmallIcon(R.drawable.ic_wifi_strength_4_alert_24dp)
+									AppUpdaterError.JSON_ERROR -> notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_not_found_title))
+											.setContentText(context.getString(R.string.notification_updates_error_not_found_text))
+											.setSmallIcon(R.drawable.ic_file_not_found_24dp)
+								}
+								val intentAction = Intent(context, ActionButtonReceiver::class.java)
+
+								//This is optional if you have more than one buttons and want to differentiate between two
+								intentAction.putExtra("action", Constants.actionNotificationsRetryCheckForUpdateReceiver)
+								val pIntentRetry = PendingIntent.getBroadcast(context, 2, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
+								notificationManager.notify(Constants.notificationCheckForUpdatesId,
+										notifyBuilder
+												.setProgress(0, 0, false)
+												.setOngoing(false)
+												.setChannelId(context.getString(R.string.notification_channel_update_error_id))
+												.setColor(ContextCompat.getColor(context, R.color.colorWarn))
+												.addAction(NotificationCompat.Action(R.drawable.ic_refresh_24dp, "Retry", pIntentRetry))
+												.setStyle(NotificationCompat.BigTextStyle())
+												.build())
+							}
+						})
+			}
+			appUpdaterUtils?.start()
+		}
+
+		/**
+		 * Retrieves the JSON update URL
+		 * Used for [SharedUtils.checkForUpdates]
+		 * @param context The context
+		 * @param forceDebugUrl Whether to return the debug URL even if [BuildConfig.DEBUG] is [true]
+		 * @return The JSON update URL as a [String]
+		 */
+		fun getUpdateJsonUrl(context: Context, forceDebugUrl: Boolean = false): String? {
+			return if (BuildConfig.DEBUG || forceDebugUrl) {
 				val mPrefs = PreferenceManager.getDefaultSharedPreferences(context)
 				if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
 					mPrefs.getString(Constants.debugSetCustomJsonUrl, context.getString(R.string.update_json_testing_url))
@@ -706,61 +772,6 @@ class SharedUtils
 			} else {
 				context.getString(R.string.update_json_release_url)
 			}
-			val appUpdaterUtils = AppUpdaterUtils(context)
-					.setUpdateFrom(UpdateFrom.JSON)
-					.setUpdateJSON(updateJsonUrl)
-					.withListener(object : AppUpdaterUtils.UpdateListener {
-						override fun onSuccess(update: Update, updateAvailable: Boolean?) {
-							if (update.latestVersionCode == BuildConfig.VERSION_CODE && (!updateAvailable!!)) {
-								// User is running latest version
-								notifyBuilder.setContentTitle(context.getString(R.string.notification_no_updates))
-										.setProgress(0, 0, false)
-										.setOngoing(false)
-								notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
-							} else {
-								// New update
-								val intentAction = Intent(context, ActionButtonReceiver::class.java)
-
-								intentAction.putExtra("action", Constants.actionNotificationsStartDownloadReceiver)
-								intentAction.putExtra("downloadUrl", update.urlToDownload.toString())
-								intentAction.putExtra("version", update.latestVersion)
-								val pIntentDownload = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
-								notifyBuilder.setContentTitle(context.getString(R.string.notification_new_update_title))
-										.setContentText(context.getString(R.string.notification_new_update_text, update.latestVersion))
-										.setProgress(0, 0, false)
-										.setOngoing(false)
-										.setChannelId(context.getString(R.string.notification_channel_update_available_id))
-										.addAction(NotificationCompat.Action(R.drawable.ic_download_24dp, "Download", pIntentDownload))
-								notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
-							}
-						}
-
-						override fun onFailed(appUpdaterError: AppUpdaterError) {
-							when (appUpdaterError) {
-								AppUpdaterError.NETWORK_NOT_AVAILABLE -> notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_no_internet_title))
-										.setContentText(context.getString(R.string.notification_updates_error_no_internet_text))
-										.setSmallIcon(R.drawable.ic_wifi_strength_4_alert_24dp)
-								AppUpdaterError.JSON_ERROR -> notifyBuilder.setContentTitle(context.getString(R.string.notification_updates_error_not_found_title))
-										.setContentText(context.getString(R.string.notification_updates_error_not_found_text))
-										.setSmallIcon(R.drawable.ic_file_not_found_24dp)
-							}
-							val intentAction = Intent(context, ActionButtonReceiver::class.java)
-
-							//This is optional if you have more than one buttons and want to differentiate between two
-							intentAction.putExtra("action", Constants.actionNotificationsRetryCheckForUpdateReceiver)
-							val pIntentRetry = PendingIntent.getBroadcast(context, 2, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
-							notificationManager.notify(Constants.notificationCheckForUpdatesId,
-									notifyBuilder
-											.setProgress(0, 0, false)
-											.setOngoing(false)
-											.setChannelId(context.getString(R.string.notification_channel_update_error_id))
-											.setColor(ContextCompat.getColor(context, R.color.colorWarn))
-											.addAction(NotificationCompat.Action(R.drawable.ic_refresh_24dp, "Retry", pIntentRetry))
-											.setStyle(NotificationCompat.BigTextStyle())
-											.build())
-						}
-					})
-			appUpdaterUtils.start()
 		}
 
 		/**
