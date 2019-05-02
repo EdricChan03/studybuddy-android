@@ -236,9 +236,10 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 	private fun checkForUpdates() {
 		isChecking = true
 		invalidateOptionsMenu()
-		val appUpdaterUtils = AppUpdaterUtils(this)
+		val appUpdaterUtils = getUpdateJsonUrl()?.let {
+			AppUpdaterUtils(this)
 				.setUpdateFrom(UpdateFrom.JSON)
-				.setUpdateJSON(getUpdateJsonUrl())
+				.setUpdateJSON(it)
 				.withListener(object : AppUpdaterUtils.UpdateListener {
 					override fun onSuccess(update: Update, updateAvailable: Boolean?) {
 						appUpdate = update
@@ -267,10 +268,11 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 						}
 					}
 				})
-		appUpdaterUtils.start()
+		}
+		appUpdaterUtils?.start()
 	}
 
-	private fun getUpdateJsonUrl(): String {
+	private fun getUpdateJsonUrl(): String? {
 		return if (BuildConfig.DEBUG) {
 			val mPrefs = PreferenceManager.getDefaultSharedPreferences(this)
 			if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
