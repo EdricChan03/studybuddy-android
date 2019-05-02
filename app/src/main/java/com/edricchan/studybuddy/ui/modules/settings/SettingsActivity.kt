@@ -10,8 +10,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.ui.modules.settings.fragment.*
 import com.edricchan.studybuddy.ui.modules.help.HelpActivity
+import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 
@@ -24,6 +24,13 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 		preferences = PreferenceManager.getDefaultSharedPreferences(this)
 		if (savedInstanceState == null) {
 			SharedUtils.replaceFragment(this, SettingsFragment(), android.R.id.content, false)
+		} else {
+			title = savedInstanceState.getCharSequence(TITLE_TAG)
+		}
+		supportFragmentManager.addOnBackStackChangedListener {
+			if (supportFragmentManager.backStackEntryCount == 0) {
+				setTitle(R.string.title_activity_settings)
+			}
 		}
 	}
 
@@ -51,6 +58,19 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 		}
 	}
 
+	override fun onSaveInstanceState(outState: Bundle) {
+		super.onSaveInstanceState(outState)
+		// Save current activity title so we can set it again after a configuration change
+		outState.putCharSequence(TITLE_TAG, title)
+	}
+
+	override fun onSupportNavigateUp(): Boolean {
+		if (supportFragmentManager.popBackStackImmediate()) {
+			return true
+		}
+		return super.onSupportNavigateUp()
+	}
+
 	override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
 		// Instantiate the new Fragment
 		val args = pref.extras
@@ -58,21 +78,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 				classLoader,
 				pref.fragment,
 				args)
-		if (fragment is SettingsFragment) {
-			title = "Settings"
-		} else if (fragment is AboutSettingsFragment) {
-			title = "About"
-		} else if (fragment is DebugSettingsFragment) {
-			title = "Debug"
-		} else if (fragment is GeneralSettingsFragment) {
-			title = "General"
-		} else if (fragment is SyncSettingsFragment) {
-			title = "Sync"
-		} else if (fragment is TodoSettingsFragment) {
-			title = "Todos"
-		} else {
-			title = "Settings"
-		}
+		title = pref.title
 		fragment.arguments = args
 		fragment.setTargetFragment(caller, 0)
 		// Replace the existing Fragment with the new Fragment
@@ -82,5 +88,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 
 	companion object {
 		private val TAG = SharedUtils.getTag(this::class.java)
+		// The title tag used for saving the title state
+		private const val TITLE_TAG = "settingsActivityTitle"
 	}
 }
