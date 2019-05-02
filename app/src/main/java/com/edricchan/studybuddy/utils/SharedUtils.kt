@@ -200,6 +200,7 @@ class SharedUtils
 				// Note: The old values of the preference will still be supported
 				// TODO: Completely remove support for old values
 				"1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+				// Note: Support for setting night mode based on time is deprecated
 				"2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME)
 				"3" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 				// New values
