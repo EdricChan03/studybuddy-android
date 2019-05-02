@@ -536,7 +536,7 @@ class SharedUtils
 		 * @return The result.
 		 */
 		fun addTask(item: TaskItem, user: FirebaseUser, fs: FirebaseFirestore): Task<DocumentReference> {
-			return fs.collection("users/" + user.uid + "/todos").add(item)
+			return fs.collection("users/${user.uid}/todos").add(item)
 		}
 
 		/**
@@ -547,7 +547,7 @@ class SharedUtils
 		 * @return A collection reference
 		 */
 		fun getTasks(user: FirebaseUser, fs: FirebaseFirestore): CollectionReference {
-			return fs.collection("users/" + user.uid + "/todos")
+			return fs.collection("users/${user.uid}/todos")
 		}
 
 		/**
@@ -559,7 +559,7 @@ class SharedUtils
 		 * @return The result of the deletion
 		 */
 		fun removeTask(docID: String, user: FirebaseUser, fs: FirebaseFirestore): Task<Void> {
-			return fs.document("users/" + user.uid + "/todos/" + docID).delete()
+			return fs.document("users/${user.uid}/todos/$docID").delete()
 		}
 
 		/**
