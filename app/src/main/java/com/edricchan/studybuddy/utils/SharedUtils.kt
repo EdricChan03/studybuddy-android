@@ -401,7 +401,7 @@ class SharedUtils
 
 		/**
 		 * @param datePicker The datepicker
-		 * @return a java.util.Date
+		 * @return a [java.util.Date]
 		 */
 		fun getDateFromDatePicker(datePicker: DatePicker): Date {
 			val day = datePicker.dayOfMonth
