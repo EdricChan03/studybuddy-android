@@ -196,8 +196,7 @@ class SharedUtils
 		 * @param context The context
 		 */
 		fun setAppTheme(context: Context) {
-			val appTheme = PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.prefDarkTheme, Constants.prefDarkThemeAutoTime)!!
-			when (appTheme) {
+			when (PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.prefDarkTheme, Constants.prefDarkThemeAutoTime)) {
 				// Note: The old values of the preference will still be supported
 				// TODO: Completely remove support for old values
 				"1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
