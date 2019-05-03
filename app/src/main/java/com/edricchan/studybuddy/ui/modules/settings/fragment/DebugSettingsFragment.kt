@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
@@ -16,15 +17,19 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.text.isDigitsOnly
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.toDate
+import com.edricchan.studybuddy.extensions.toFormat
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.utils.SharedPrefConstants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
@@ -35,6 +40,109 @@ import java.io.IOException
 import java.util.*
 
 class DebugSettingsFragment : PreferenceFragmentCompat() {
+
+	@Suppress("unused")
+	class DebugUpdateInfoSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+
+		private lateinit var updateInfoPreferences: SharedPreferences
+		private lateinit var lastCheckedForUpdatesDate: Date
+		private lateinit var lastUpdatedDate: Date
+
+		override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+			when (key) {
+				SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> lastCheckedForUpdatesDate = sharedPreferences.getLong(key, 0L).toDate()
+				SharedPrefConstants.PREF_LAST_UPDATED_DATE -> lastUpdatedDate = sharedPreferences.getLong(key, 0L).toDate()
+			}
+		}
+
+		override fun onSaveInstanceState(outState: Bundle) {
+			outState.putLong(LAST_CHECKED_FOR_UPDATES_DATE_TAG, lastCheckedForUpdatesDate.time)
+			outState.putLong(LAST_UPDATED_DATE_TAG, lastUpdatedDate.time)
+			super.onSaveInstanceState(outState)
+		}
+
+		override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+			setPreferencesFromResource(R.xml.pref_debug_update_info, rootKey)
+			activity?.let {
+				updateInfoPreferences = it.getSharedPreferences(SharedPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
+						.apply {
+							registerOnSharedPreferenceChangeListener(this@DebugUpdateInfoSettingsFragment)
+						}
+			}
+
+			if (savedInstanceState != null) {
+				lastCheckedForUpdatesDate = savedInstanceState.getLong(LAST_CHECKED_FOR_UPDATES_DATE_TAG).toDate()
+				lastUpdatedDate = savedInstanceState.getLong(LAST_UPDATED_DATE_TAG).toDate()
+			} else {
+				lastCheckedForUpdatesDate = updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
+				lastUpdatedDate = updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
+			}
+
+			findPreference<Preference>(Constants.debugUpdatesLastCheckedForUpdatesDate)?.apply {
+				if (lastCheckedForUpdatesDate.time != 0L) {
+					if (!isEnabled) {
+						isEnabled = true
+					}
+					summary = lastCheckedForUpdatesDate.toFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+				} else {
+					// Disable preference as the app hasn't checked for updates yet
+					isEnabled = false
+					summary = getString(R.string.debug_activity_updates_last_checked_for_updates_date_summary_default)
+				}
+			}
+			findPreference<Preference>(Constants.debugUpdatesClearLastCheckedForUpdatesDate)?.apply {
+				setOnPreferenceClickListener {
+					MaterialAlertDialogBuilder(context).apply {
+						setTitle(R.string.debug_activity_updates_clear_last_checked_for_updates_date_confirm_dialog_title)
+						setNegativeButton(R.string.dialog_action_cancel, null)
+						setPositiveButton(R.string.dialog_action_clear) { dialogInterface, _ ->
+							updateInfoPreferences.edit {
+								remove(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE)
+							}
+							dialogInterface.dismiss()
+						}
+					}.show()
+					return@setOnPreferenceClickListener true
+				}
+			}
+
+			findPreference<Preference>(Constants.debugUpdatesLastUpdatedDate)?.apply {
+				if (lastUpdatedDate.time != 0L) {
+					if (!isEnabled) {
+						isEnabled = true
+					}
+					summary = lastUpdatedDate.toFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+				} else {
+					// Disable preference as the app hasn't been updated yet
+					isEnabled = false
+					summary = getString(R.string.debug_activity_updates_last_updated_date_summary_default)
+				}
+			}
+			findPreference<Preference>(Constants.debugUpdatesClearLastUpdatedDate)?.apply {
+				setOnPreferenceClickListener {
+					MaterialAlertDialogBuilder(context).apply {
+						setTitle(R.string.debug_activity_updates_clear_last_updated_date_confirm_dialog_title)
+						setNegativeButton(R.string.dialog_action_cancel, null)
+						setPositiveButton(R.string.dialog_action_clear) { dialogInterface, _ ->
+							updateInfoPreferences.edit {
+								remove(SharedPrefConstants.PREF_LAST_UPDATED_DATE)
+							}
+							dialogInterface.dismiss()
+						}
+					}.show()
+					return@setOnPreferenceClickListener true
+				}
+			}
+		}
+
+		companion object {
+			// Used for saving the last checked for updates date
+			private const val LAST_CHECKED_FOR_UPDATES_DATE_TAG = "lastCheckedForUpdatesDate"
+			// Used for saving the last updated date
+			private const val LAST_UPDATED_DATE_TAG = "lastUpdatedDate"
+		}
+	}
+
 	private var mUtils: SharedUtils? = null
 	private var mInstanceId: FirebaseInstanceId? = null
 	private var mAuth: FirebaseAuth? = null

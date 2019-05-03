@@ -14,11 +14,13 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.IOUtils
+import com.edricchan.studybuddy.utils.SharedPrefConstants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -37,12 +39,15 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 	private val TAG = SharedUtils.getTag(this::class.java)
 	private lateinit var appUpdate: Update
 	private lateinit var preferences: SharedPreferences
+	// SharedPreferences used for the storing of info on when the app was last updated
+	private lateinit var updateInfoPreferences: SharedPreferences
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		emptyStateCtaBtn.setOnClickListener { checkForUpdates() }
 		preferences = PreferenceManager.getDefaultSharedPreferences(this)
+		updateInfoPreferences = getSharedPreferences(SharedPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -159,6 +164,9 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 				installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 				// Lastly, start the activity
 				startActivity(installIntent)
+				updateInfoPreferences.edit {
+					putLong(SharedPrefConstants.PREF_LAST_UPDATED_DATE, System.currentTimeMillis())
+				}
 			} else {
 				// User has not allowed the app as an unknown app source
 				val builder = MaterialAlertDialogBuilder(this)
@@ -194,8 +202,8 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 		builder.setTitle(getString(R.string.update_dialog_title_new, appUpdate.latestVersion))
 		builder.setIcon(R.drawable.ic_system_update_24dp)
 		builder.setMessage("What's new:\n" + appUpdate.releaseNotes)
-		builder.setNegativeButton(android.R.string.cancel) { dialogInterface, i -> }
-		builder.setPositiveButton(R.string.update_dialog_positive_btn_text) { dialogInterface, i ->
+		builder.setNegativeButton(android.R.string.cancel, null)
+		builder.setPositiveButton(R.string.update_dialog_positive_btn_text) { _, _ ->
 			// Check if the device is running Android Marshmallow or higher
 			// Marshmallow introduces the capability for runtime permissions
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -234,40 +242,46 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 	}
 
 	private fun checkForUpdates() {
+		// Save last updated status
+		updateInfoPreferences.edit {
+			Log.d(TAG, "Setting last checked for updates date...")
+			putLong(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, System.currentTimeMillis())
+		}
 		isChecking = true
 		invalidateOptionsMenu()
 		val appUpdaterUtils = getUpdateJsonUrl()?.let {
 			AppUpdaterUtils(this)
-				.setUpdateFrom(UpdateFrom.JSON)
-				.setUpdateJSON(it)
-				.withListener(object : AppUpdaterUtils.UpdateListener {
-					override fun onSuccess(update: Update, updateAvailable: Boolean?) {
-						appUpdate = update
-						if (update.latestVersionCode == BuildConfig.VERSION_CODE && !updateAvailable!!) {
-							// User is running latest version
-							Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_latest, Snackbar.LENGTH_SHORT)
-									.show()
-						} else {
-							showUpdateDialog()
-						}
-					}
+					.setUpdateFrom(UpdateFrom.JSON)
+					.setUpdateJSON(it)
+					.withListener(object : AppUpdaterUtils.UpdateListener {
+						override fun onSuccess(update: Update, updateAvailable: Boolean?) {
+							appUpdate = update
+							if (update.latestVersionCode == BuildConfig.VERSION_CODE && !updateAvailable!!) {
+								// User is running latest version
+								Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_latest, Snackbar.LENGTH_SHORT)
+										.show()
 
-					override fun onFailed(appUpdaterError: AppUpdaterError) {
-						isChecking = false
-						invalidateOptionsMenu()
-						when (appUpdaterError) {
-							AppUpdaterError.NETWORK_NOT_AVAILABLE -> Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_error_no_internet, Snackbar.LENGTH_LONG)
-									.setAction(R.string.dialog_action_retry) { checkForUpdates() }
-									.show()
-							AppUpdaterError.JSON_ERROR -> Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_error_malformed, Snackbar.LENGTH_LONG)
-									.setAction(R.string.dialog_action_retry) { checkForUpdates() }
-									.show()
-							else -> Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_error, Snackbar.LENGTH_LONG)
-									.setAction(R.string.dialog_action_retry) { checkForUpdates() }
-									.show()
+							} else {
+								showUpdateDialog()
+							}
 						}
-					}
-				})
+
+						override fun onFailed(appUpdaterError: AppUpdaterError) {
+							isChecking = false
+							invalidateOptionsMenu()
+							when (appUpdaterError) {
+								AppUpdaterError.NETWORK_NOT_AVAILABLE -> Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_error_no_internet, Snackbar.LENGTH_LONG)
+										.setAction(R.string.dialog_action_retry) { checkForUpdates() }
+										.show()
+								AppUpdaterError.JSON_ERROR -> Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_error_malformed, Snackbar.LENGTH_LONG)
+										.setAction(R.string.dialog_action_retry) { checkForUpdates() }
+										.show()
+								else -> Snackbar.make(mainCoordinatorLayout, R.string.update_snackbar_error, Snackbar.LENGTH_LONG)
+										.setAction(R.string.dialog_action_retry) { checkForUpdates() }
+										.show()
+							}
+						}
+					})
 		}
 		appUpdaterUtils?.start()
 	}

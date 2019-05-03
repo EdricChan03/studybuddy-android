@@ -123,6 +123,11 @@ object Constants {
 	const val debugResetInstanceId = "debug_reset_instance_id"
 	const val debugUseTestingJsonUrl = "debug_updates_use_testing_json_url"
 	const val debugSetCustomJsonUrl = "debug_updates_custom_json_url"
+	const val debugUpdatesUpdateMetadata = "debug_updates_update_metadata"
+	const val debugUpdatesLastCheckedForUpdatesDate = "debug_updates_last_checked_for_updates_date"
+	const val debugUpdatesClearLastCheckedForUpdatesDate = "debug_updates_clear_last_checked_for_updates_date"
+	const val debugUpdatesLastUpdatedDate = "debug_updates_last_updated_date"
+	const val debugUpdatesClearLastUpdatedDate = "debug_updates_clear_last_updated_date"
 
 	// Actions
 	const val actionNotificationsSettingsIntent = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT"
