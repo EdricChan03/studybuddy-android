@@ -29,9 +29,9 @@ This is a personal project that I created and is 100% open-source (well, except 
 
 # Downloads
 
-Download the latest build [here](https://github.com/Chan4077/StudyBuddy-builds/blob/master/release/com.edricchan.studybuddy-v1.0.0-rc.503.apk).
+Download the latest build [here](https://github.com/EdricChan03/StudyBuddy-builds/blob/master/release/com.edricchan.studybuddy-v1.0.0-rc.503.apk).
 
-Older versions can be accessed [here](https://github.com/Chan4077/StudyBuddy-builds/blob/master/release).
+Older versions can be accessed [here](https://github.com/EdricChan03/StudyBuddy-builds/blob/master/release).
 
 The changelog for each version can also be viewed in [CHANGELOG.md](/CHANGELOG.md)
 
@@ -39,11 +39,11 @@ The changelog for each version can also be viewed in [CHANGELOG.md](/CHANGELOG.m
 
 Currently, the project is in **RC (Release candidate)**.
 
-To download the latest pre-release, go to [Releases](https://github.com/Chan4077/StudyBuddy/releases).
+To download the latest pre-release, go to [Releases](https://github.com/EdricChan03/StudyBuddy/releases).
 
 # Web app
 
-If you want to access the web version, please head to <http://studybuddy-e5f46.firebaseapp.com>. The source code for the web app is available [here](https://github.com/Chan4077/StudyBuddy-web).
+If you want to access the web version, please head to <http://studybuddy-e5f46.firebaseapp.com>. The source code for the web app is available [here](https://github.com/EdricChan03/StudyBuddy-web).
 
 # Roadmap
 
@@ -94,7 +94,7 @@ If you would like to build the source code, follow these steps:
 1. Clone the project locally by either clicking the `Clone or download` > `Download ZIP` or by running the following commands:
    ```bash
    cd path/to/your/desired-location
-   git clone https://github.com/Chan4077/StudyBuddy.git
+   git clone https://github.com/EdricChan03/StudyBuddy.git
    ```
 2. Run the following in your terminal:
    

@@ -22,7 +22,7 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
 		setPreferencesFromResource(R.xml.pref_versions, rootKey)
 		val context = activity
 		preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
-		val appAuthorUrl = Uri.parse("https://chan4077.github.io")
+		val appAuthorUrl = Uri.parse("https://edricchan03.github.io")
 		findPreference<Preference>(Constants.prefUpdates)?.intent = Intent(activity, UpdatesActivity::class.java)
 		val appAuthor = findPreference<Preference>(Constants.prefAboutAppAuthor)
 		appAuthor?.setOnPreferenceClickListener {

@@ -301,7 +301,7 @@
 	<string name="pref_weekly_summary_notification_opts_summary">Customize how the notifications are shown</string>
 	<string name="pref_weekly_summary_notification_opts_title">Notification settings</string>
 
-	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/Chan4077/StudyBuddy</string>
+	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at https://github.com/EdricChan03/StudyBuddy</string>
 	<string name="share_intent_value">Share this app via…</string>
 	<string name="shortcut_settings_long_msg">Open settings</string>
 
@@ -387,12 +387,12 @@
 	<string name="view_task_loading">Loading task\'s contents…</string>
 	<string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
 	<string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
-	<string name="debug_activity_updates_set_custom_json_url_default_value" translatable="false">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
+	<string name="debug_activity_updates_set_custom_json_url_default_value" translatable="false">https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json</string>
 
 	<string name="pref_check_for_updates_frequency_default_value" translatable="false">12</string>
-	<string name="update_json_release_url" translatable="false">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/release/changelog.json</string>
+	<string name="update_json_release_url" translatable="false">https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/release/changelog.json</string>
 
-	<string name="update_json_testing_url" translatable="false">https://raw.githubusercontent.com/Chan4077/StudyBuddy-builds/master/testing/changelog.json</string>
+	<string name="update_json_testing_url" translatable="false">https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json</string>
 	<string-array name="account_activity_account_actions_array">
 		<item>Delete account</item>
 		<item>Sign out</item>

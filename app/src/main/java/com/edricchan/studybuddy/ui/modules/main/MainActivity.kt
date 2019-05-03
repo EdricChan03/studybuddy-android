@@ -237,7 +237,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 				aboutDialogBuilder.setNeutralButton(R.string.dialog_action_view_source_code) { _, _ ->
 					val githubIntent = Intent()
 					githubIntent.action = Intent.ACTION_VIEW
-					githubIntent.data = Uri.parse("https://github.com/Chan4077/StudyBuddy")
+					githubIntent.data = Uri.parse("https://github.com/EdricChan03/StudyBuddy")
 					startActivity(githubIntent)
 				}
 				aboutDialogBuilder.show()
