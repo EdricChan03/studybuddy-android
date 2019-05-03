@@ -141,6 +141,8 @@ object Constants {
 	// URIs
 	const val urlHelpFeatured = "https://edricchan03.github.io/res/studybuddy/help-featured-articles.json"
 	val uriHelpFeatured: Uri = Uri.parse(urlHelpFeatured)
+	const val urlAuthorWebsite = "https://edricchan03.github.io"
+	val uriAuthorWebsite: Uri = Uri.parse(urlAuthorWebsite)
 	const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy"
 	val uriSrcCode: Uri = Uri.parse(urlSrcCode)
 	const val urlSendFeedback = "https://goo.gl/forms/tz6cmNguIHuZMZIh2"
