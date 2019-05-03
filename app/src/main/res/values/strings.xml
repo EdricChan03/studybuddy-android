@@ -208,6 +208,8 @@
 	<string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
 	<string name="frag_chat_coming_soon">Chat feature coming soon!</string>
 
+	<string name="help_activity_empty_state_title">Loading help articles&#8230;</string>
+
 	<string name="minimum_password">The password that you entered is too short, please enter a minimum of 6
 		characters!
 	</string>
