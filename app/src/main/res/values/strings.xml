@@ -5,7 +5,7 @@
 		<item quantity="other">%d selected</item>
 	</plurals>
 
-	<string name="about_dialog_text">Purpose: To help students in their studies\nVersion: %1$s\n---\nApp is fully open
+	<string name="about_dialog_text">Purpose: To help students in their studies\nVersion: %s\n---\nApp is fully open
 		source. Check it out!
 	</string>
 	<string name="account_activity_account_actions">Account actions</string>
@@ -188,7 +188,7 @@
 	<string name="dialog_action_update_profile_picture">Update profile picture</string>
 	<string name="dialog_action_view_source_code">View source code</string>
 	<string name="dialog_action_yes">Yes</string>
-	<string name="download_apk_name">com.edricchan.studybuddy-v%1$s.apk</string>
+	<string name="download_apk_name">com.edricchan.studybuddy-v%s.apk</string>
 	<string name="due_date">Due date</string>
 
 	<string name="due_date_text">Selected due date shows here</string>
@@ -253,7 +253,7 @@
 	<string name="notification_channel_weekly_summary_id">weekly_summary</string>
 	<string name="notification_channel_weekly_summary_title">Weekly summary</string>
 	<string name="notification_check_update">Checking for updates…</string>
-	<string name="notification_new_update_text">Version %1$s is available! Tap here to download &amp; install</string>
+	<string name="notification_new_update_text">Version %s is available! Tap here to download &amp; install</string>
 
 	<string name="notification_new_update_title">New update available!</string>
 
@@ -374,7 +374,7 @@
 	<string name="sign_in_providers_or">OR</string>
 	<string name="snackbar_internet_unavailable_action">Retry</string>
 	<string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
-	<string name="snackbar_user_login">Signed in as %1$s</string>
+	<string name="snackbar_user_login">Signed in as %s</string>
 	<string name="task_adapter_empty_content">&lt;No content&gt;</string>
 	<string name="task_adapter_empty_title">&lt;No title&gt;</string>
 	<string name="task_content">Task Content</string>
@@ -444,7 +444,7 @@
 	<string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
 	<string name="update_activity_update_already_downloaded_dialog_title">Update already downloaded</string>
 	<string name="update_dialog_positive_btn_text">Download build</string>
-	<string name="update_dialog_title_new">New version (%1$s) available!</string>
+	<string name="update_dialog_title_new">New version (%s) available!</string>
 	<string name="update_perm_rationale_dialog_deny">Deny</string>
 
 	<string name="update_perm_rationale_dialog_grant">Grant</string>
