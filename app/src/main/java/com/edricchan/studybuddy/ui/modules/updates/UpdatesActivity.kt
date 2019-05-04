@@ -86,7 +86,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 
 	private fun downloadUpdate(downloadUrl: String, version: String, ignoreMobileDataSetting: Boolean = false, showMobileDataWarning: Boolean = true, downloadAgain: Boolean = false) {
 		// The file name that the downloaded APK will use
-		val fileName = "com.edricchan.studybuddy-$version.apk"
+		val fileName = getString(R.string.download_apk_name, version)
 
 		// Check if the user wants to redownload the APK file or if the user does not have the APK already downloaded
 		if (downloadAgain || !IOUtils.fileExists(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)) {
