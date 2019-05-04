@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+		xmlns:app="http://schemas.android.com/apk/res-auto">
+	<Preference
+			app:icon="@drawable/ic_system_update_24dp"
+			app:key="pref_updates"
+			app:title="@string/pref_updates_title"/>
+	<PreferenceCategory
+			app:key="pref_updates_options_category"
+			app:title="@string/pref_updates_options_title">
+		<ListPreference
+				app:defaultValue="@string/pref_check_for_updates_frequency_default_value"
+				app:entries="@array/pref_check_for_updates_frequencies"
+				app:entryValues="@array/pref_check_for_updates_frequency_values"
+				app:icon="@drawable/ic_refresh_24dp"
+				app:key="pref_updates_frequency"
+				app:title="@string/pref_check_for_update_frequency_title"
+				app:useSimpleSummaryProvider="true"/>
+		<SwitchPreferenceCompat
+				app:defaultValue="false"
+				app:key="pref_updates_download_over_metered"
+				app:summary="@string/pref_updates_download_over_metered_summary"
+				app:title="@string/pref_updates_download_over_metered_title"/>
+	</PreferenceCategory>
+</PreferenceScreen>

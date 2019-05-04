@@ -8,6 +8,7 @@ object Constants {
 	const val prefHeaderTodo = "pref_header_todo"
 	const val prefHeaderSync = "pref_header_sync"
 	const val prefHeaderDebug = "pref_header_debug"
+	const val prefHeaderUpdates = "pref_header_updates"
 	const val prefHeaderAbout = "pref_header_about"
 	const val prefHeaderAccount = "pref_header_account"
 
@@ -28,8 +29,9 @@ object Constants {
 	const val prefLanguage = "pref_language"
 	const val prefUseCustomTabs = "pref_use_custom_tabs"
 	const val prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking"
-	const val prefDayNightPermInfo = "pref_daynight_perm_info"
-	const val prefDaynightGrantPerm = "pref_daynight_grant_perm"
+	const val prefDayNightLocationPermInfo = "pref_daynight_location_perm_info"
+	const val prefDayNightLocationNotice = "pref_daynight_location_notice"
+	const val prefDaynightLocationGrantPerm = "pref_daynight_location_grant_perm"
 
 	// Preferences > Weekly summary
 	const val prefCategoryWeeklySummary = "pref_category_weekly_summary"
@@ -39,9 +41,15 @@ object Constants {
 	const val prefWeeklySummaryTime = "pref_weekly_summary_time"
 	const val prefWeeklySummaryList = "pref_weekly_summary_list"
 	const val prefWeeklySummaryNotificationOpts = "pref_weekly_summary_notification_opts"
+
+	// Prefrences > Updates
+	const val prefUpdates = "pref_updates"
+	const val prefUpdatesCategoryOptions = "pref_updates_options_category"
+	const val prefUpdatesFrequency = "pref_updates_frequency"
+	const val prefUpdatesDownloadOverMetered = "pref_updates_download_over_metered"
+
 	// Preferences > About
 	const val prefCategoryAbout = "pref_category_about"
-	const val prefUpdates = "pref_updates"
 	const val prefAboutAppAuthor = "pref_about_app_author"
 	const val prefAboutAppInfo = "pref_about_app_info"
 	const val prefAboutAppVersion = "pref_about_app_version"

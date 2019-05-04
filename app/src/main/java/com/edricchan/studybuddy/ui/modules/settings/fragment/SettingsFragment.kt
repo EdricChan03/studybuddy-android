@@ -10,6 +10,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.utils.Constants
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -21,6 +22,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
 		if (BuildConfig.DEBUG) {
 			findPreference<Preference>(Constants.prefHeaderDebug)?.isVisible = true
+		}
+		findPreference<Preference>(Constants.prefHeaderUpdates)?.apply {
+			intent = Intent(context, UpdatesActivity::class.java)
+
 		}
 		val showHeaderSummaryPref = findPreference<SwitchPreferenceCompat>(Constants.prefShowHeaderSummary)
 		showHeaderSummaryPref?.setOnPreferenceClickListener {
@@ -36,7 +41,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 	private fun updateHeaderSummaries(showHeaderSummaries: Boolean) {
 		if (showHeaderSummaries) {
-			findPreference<Preference>(Constants.prefHeaderAbout)?.setSummary(R.string.pref_header_version_summary)
+			findPreference<Preference>(Constants.prefHeaderAbout)?.setSummary(R.string.pref_header_about_summary)
+			findPreference<Preference>(Constants.prefHeaderUpdates)?.setSummary(R.string.pref_header_updates_summary)
 			findPreference<Preference>(Constants.prefHeaderAccount)?.setSummary(R.string.pref_header_account_summary)
 			findPreference<Preference>(Constants.prefHeaderDebug)?.setSummary(R.string.pref_header_debug_summary)
 			findPreference<Preference>(Constants.prefHeaderGeneral)?.setSummary(R.string.pref_header_general_summary)
@@ -44,6 +50,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 			findPreference<Preference>(Constants.prefHeaderTodo)?.setSummary(R.string.pref_header_todo_summary)
 		} else {
 			findPreference<Preference>(Constants.prefHeaderAbout)?.summary = null
+			findPreference<Preference>(Constants.prefHeaderUpdates)?.summary = null
 			findPreference<Preference>(Constants.prefHeaderAccount)?.summary = null
 			findPreference<Preference>(Constants.prefHeaderDebug)?.summary = null
 			findPreference<Preference>(Constants.prefHeaderGeneral)?.summary = null
