@@ -92,7 +92,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 		if (downloadAgain || !IOUtils.fileExists(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)) {
 			// Check if the user has clicked on "download anyway" on the dialog that showed, or
 			// check if the user is using a cellular network and has disabled downloading updates over cellular
-			if (SharedUtils.isCellularNetworkAvailable(this) && (!ignoreMobileDataSetting && !preferences.getBoolean("pref_updates_enable_cellular", false)) && showMobileDataWarning) {
+			if (SharedUtils.isCellularNetworkAvailable(this) && (!ignoreMobileDataSetting && !preferences.getBoolean(Constants.prefUpdatesDownloadOverMetered, false)) && showMobileDataWarning) {
 
 				// Show a dialog warning the user that cellular network is on as the user has disabled downloading updates over cellular
 				val builder = MaterialAlertDialogBuilder(this)
