@@ -367,32 +367,32 @@
 	<string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at
 		https://github.com/EdricChan03/StudyBuddy
 	</string>
-	<string name="share_intent_value">Share this app via…</string>
+	<string name="share_intent_value">Share this app via&#8230;</string>
+
 	<string name="shortcut_settings_long_msg">Open settings</string>
-
 	<string name="shortcut_settings_short_msg">Settings</string>
-
 	<string name="shortcut_todo_disabled_msg">Todo is disabled</string>
 	<string name="shortcut_todo_long_msg">Create a new todo</string>
 	<string name="shortcut_todo_short_msg">New todo</string>
+
 	<string name="sign_in_providers_header">Sign in with the below providers:</string>
 	<string name="sign_in_providers_or">OR</string>
+
 	<string name="snackbar_internet_unavailable_action">Retry</string>
 	<string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
 	<string name="snackbar_user_login">Signed in as %s</string>
+
 	<string name="task_adapter_empty_content">&lt;No content&gt;</string>
 	<string name="task_adapter_empty_title">&lt;No title&gt;</string>
 	<string name="task_content">Task Content</string>
 	<string name="task_project_create">Create a project…</string>
-
 	<string name="task_project_prompt">Choose a project…</string>
-
 	<string name="task_tags">Task Tags</string>
-
 	<string name="task_title">Task Title</string>
-	<string name="tips_empty_state_cta_text">Submit a tip</string>
 
+	<string name="tips_empty_state_cta_text">Submit a tip</string>
 	<string name="tips_empty_state_head">No tips as of now</string>
+
 	<string name="title_activity_account">Account</string>
 	<string name="title_activity_debug">Debug</string>
 
