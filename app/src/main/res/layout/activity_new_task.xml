@@ -1,108 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/newTaskCooardinatorLayout"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ui.modules.task.NewTaskActivity">
-
-	<ScrollView
-		android:id="@+id/newTaskScrollView"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/newTaskCooardinatorLayout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:fillViewport="true">
+		tools:context=".ui.modules.task.NewTaskActivity">
+
+	<ScrollView
+			android:id="@+id/newTaskScrollView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fillViewport="true">
 
 		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="@dimen/activity_horizontal_margin"
-			android:orientation="vertical">
-
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/taskTitleTextInputLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
-				android:hint="@string/task_title">
+				android:layout_margin="@dimen/activity_horizontal_margin"
+				android:orientation="vertical">
 
-				<com.google.android.material.textfield.TextInputEditText
+			<com.google.android.material.textfield.TextInputLayout
+					android:id="@+id/taskTitleTextInputLayout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="text" />
+					android:layout_margin="10dp"
+					android:hint="@string/task_title">
+
+				<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:inputType="text"/>
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/taskContentTextInputLayout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
-				android:hint="@string/task_content">
-
-				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/taskContentTextInputLayout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="textMultiLine" />
+					android:layout_margin="10dp"
+					android:hint="@string/task_content">
+
+				<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:inputType="textMultiLine"/>
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<Spinner
-				android:id="@+id/taskProjectSpinner"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content" />
+					android:id="@+id/taskProjectSpinner"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/taskTagsTextInputLayout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
-				app:helperText="@string/comma_indicates_separator">
-
-				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/taskTagsTextInputLayout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:hint="@string/task_tags"
-					android:inputType="text" />
+					android:layout_margin="10dp"
+					app:helperText="@string/comma_indicates_separator">
+
+				<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/task_tags"
+						android:inputType="text"/>
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<CheckBox
-				android:id="@+id/taskIsDoneCheckbox"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/action_mark_as_done" />
+					android:id="@+id/taskIsDoneCheckbox"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/action_mark_as_done"/>
 
 			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_margin="10dp"
-				android:orientation="vertical">
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_margin="10dp"
+					android:orientation="vertical">
 
 				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:text="@string/due_date" />
-
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:gravity="center_vertical"
-					android:orientation="horizontal">
-
-					<TextView
-						android:id="@+id/taskDatePickerTextView"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/due_date_text" />
+						android:text="@string/due_date"/>
+
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:orientation="horizontal">
+
+					<TextView
+							android:id="@+id/taskDatePickerTextView"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:text="@string/due_date_text"/>
 
 					<ImageButton
-						android:id="@+id/taskDatePickerBtn"
-						android:layout_width="40dp"
-						android:layout_height="40dp"
-						android:layout_gravity="center"
-						android:layout_weight="0"
-						android:background="?selectableItemBackgroundBorderless"
-						android:contentDescription="@string/choose_a_date"
-						app:srcCompat="@drawable/ic_calendar_check_24dp" />
+							android:id="@+id/taskDatePickerBtn"
+							android:layout_width="40dp"
+							android:layout_height="40dp"
+							android:layout_gravity="center"
+							android:layout_weight="0"
+							android:background="?selectableItemBackgroundBorderless"
+							android:contentDescription="@string/choose_a_date"
+							app:srcCompat="@drawable/ic_calendar_check_24dp"/>
 				</LinearLayout>
 			</LinearLayout>
 		</LinearLayout>
