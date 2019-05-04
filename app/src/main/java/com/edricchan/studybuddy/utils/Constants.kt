@@ -9,14 +9,6 @@ object Constants {
 	const val prefHeaderSync = "pref_header_sync"
 	const val prefHeaderDebug = "pref_header_debug"
 	const val prefHeaderAbout = "pref_header_about"
-	@Deprecated(
-			"Use Constants.prefHeaderAbout",
-			ReplaceWith(
-					"Constants.prefHeaderAbout",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
-	const val prefHeaderVersion = prefHeaderAbout
 	const val prefHeaderAccount = "pref_header_account"
 
 	// Preferences
@@ -32,14 +24,6 @@ object Constants {
 	const val prefDarkThemeAlways = "always"
 	const val prefDarkThemeFollowSystem = "follow_system"
 	const val prefDarkThemeNever = "never"
-
-	@Deprecated(
-			"Use Constants.prefDarkTheme",
-			ReplaceWith(
-					"Constants.prefAppTheme",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
 	const val prefAppTheme = prefDarkTheme
 	const val prefLanguage = "pref_language"
 	const val prefUseCustomTabs = "pref_use_custom_tabs"
@@ -47,14 +31,6 @@ object Constants {
 	const val prefDayNightPermInfo = "pref_daynight_perm_info"
 	const val prefDaynightGrantPerm = "pref_daynight_grant_perm"
 
-	@Deprecated(
-			"Use Constants.prefLanguage",
-			ReplaceWith(
-					"Constants.prefLanguage",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
-	const val prefLocale = prefLanguage
 	// Preferences > Weekly summary
 	const val prefCategoryWeeklySummary = "pref_category_weekly_summary"
 	const val prefCategoryWeeklySummaryPrefs = "pref_category_weekly_summary_prefs"
@@ -71,48 +47,6 @@ object Constants {
 	const val prefAboutAppVersion = "pref_about_app_version"
 	const val prefAboutLicenses = "pref_about_licenses"
 	const val prefAboutSourceCode = "pref_about_source_code"
-
-	@Deprecated(
-			"Use Constants.prefUpdates",
-			ReplaceWith(
-					"Constants.prefUpdates",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
-	const val prefUpdateActivity = prefUpdates
-	@Deprecated(
-			"Use Constants.prefAboutAppVersion",
-			ReplaceWith(
-					"Constants.prefAboutAppVersion",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
-	const val prefAppVersion = prefAboutAppVersion
-
-	@Deprecated(
-			"Use Constants.prefAboutSourceCode",
-			ReplaceWith(
-					"Constants.prefAboutSourceCode",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
-	const val prefAppSrcCode = prefAboutSourceCode
-	@Deprecated(
-			"Use Constants.prefAboutAppAuthor",
-			ReplaceWith(
-					"Constants.prefAboutAppAuthor",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
-	const val prefAppAuthor = prefAboutAppAuthor
-	@Deprecated(
-			"Use Constants.prefAboutAppInfo",
-			ReplaceWith(
-					"Constants.prefAboutAppInfo",
-					"com.edricchan.studybuddy.utils.Constants"
-			)
-	)
-	const val prefAppInfo = prefAboutAppInfo
 
 	// Debug preferences
 	const val debugEnableVerboseLog = "debug_enable_verbose_log"
