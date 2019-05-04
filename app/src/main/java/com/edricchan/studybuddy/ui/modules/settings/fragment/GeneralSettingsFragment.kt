@@ -15,8 +15,9 @@ import com.edricchan.studybuddy.utils.SharedUtils
 
 class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-	private var prefDayNightPermInfo: Preference? = null
-	private var prefDayNightGrantPerm: Preference? = null
+	private var prefDayNightLocationPermInfo: Preference? = null
+	private var prefDayNightLocationGrantPerm: Preference? = null
+	private var prefDayNightLocationNotice: Preference? = null
 
 	override fun onResume() {
 		super.onResume()
@@ -42,14 +43,15 @@ class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.On
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_general, rootKey)
-		prefDayNightGrantPerm = findPreference(Constants.prefDaynightGrantPerm)
-		prefDayNightPermInfo = findPreference(Constants.prefDayNightPermInfo)
+		prefDayNightLocationGrantPerm = findPreference(Constants.prefDaynightLocationGrantPerm)
+		prefDayNightLocationPermInfo = findPreference(Constants.prefDayNightLocationPermInfo)
+		prefDayNightLocationNotice = findPreference(Constants.prefDayNightLocationNotice)
 		updateDayNightPermVisibility(preferenceManager.sharedPreferences)
 		if (isLocationPermGranted()) {
 			// Hide permission-related Preferences as the permission is already granted
 			setDayNightPermVisibility(false)
 		} else {
-			prefDayNightGrantPerm?.setOnPreferenceClickListener {
+			prefDayNightLocationGrantPerm?.setOnPreferenceClickListener {
 				requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 0)
 				true
 			}
@@ -64,10 +66,12 @@ class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.On
 					// Check if the permission is granted
 					when (grantResults[i]) {
 						PackageManager.PERMISSION_GRANTED -> {
+							Log.d(TAG, "User successfully granted the location permission")
 							// Update the UI accordingly
 							setDayNightPermVisibility(false)
 						}
 						PackageManager.PERMISSION_DENIED -> {
+							Log.d(TAG, "User did not grant the location permission")
 							Toast.makeText(context, "Please grant the permission!", Toast.LENGTH_LONG).show()
 							setDayNightPermVisibility(true)
 						}
@@ -104,8 +108,9 @@ class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.On
 	 * @param visibility [true] to show the preferences, [false] otherwise
 	 */
 	private fun setDayNightPermVisibility(visibility: Boolean) {
-		prefDayNightGrantPerm?.isVisible = visibility
-		prefDayNightPermInfo?.isVisible = visibility
+		prefDayNightLocationGrantPerm?.isVisible = visibility
+		prefDayNightLocationPermInfo?.isVisible = visibility
+		prefDayNightLocationNotice?.isVisible = visibility
 	}
 
 	/**
