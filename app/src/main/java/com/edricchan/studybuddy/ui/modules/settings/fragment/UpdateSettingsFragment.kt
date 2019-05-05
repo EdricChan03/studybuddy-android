@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -8,6 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.toDate
+import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedPrefConstants
 import java.util.*
@@ -47,6 +49,7 @@ class UpdateSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnS
 				?: updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
 		lastCheckedForUpdatesDate = savedInstanceState?.getLong(LAST_CHECK_FOR_UPDATES_DATE_TAG)?.toDate()
 				?: updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
+		findPreference<Preference>(Constants.prefUpdates)?.intent = Intent(context, UpdatesActivity::class.java)
 		updateUpdatesPreferenceSummary()
 	}
 
