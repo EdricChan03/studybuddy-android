@@ -38,7 +38,7 @@
 		<Preference
 				app:enabled="false"
 				app:icon="@drawable/ic_warning_24dp"
-				app:key="pref_daynight_location_notice_info"
+				app:key="pref_daynight_location_notice"
 				app:summary="@string/pref_daynight_notice_summary"/>
 		<Preference
 				app:icon="@drawable/ic_open_in_new_24dp"
