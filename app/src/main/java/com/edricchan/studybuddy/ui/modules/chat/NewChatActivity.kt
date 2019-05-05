@@ -7,11 +7,15 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
+import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_view_task.*
 
+@WebDeepLink(["/chats/new"])
+@AppDeepLink(["/chats/new"])
 class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 
 	private lateinit var mAuth: FirebaseAuth

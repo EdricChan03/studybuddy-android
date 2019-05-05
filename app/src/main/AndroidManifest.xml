@@ -1,128 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.edricchan.studybuddy">
+          xmlns:tools="http://schemas.android.com/tools" package="com.edricchan.studybuddy">
 
 	<!-- Required for downloading new updates -->
-	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.INTERNET"/>
 	<!-- Required for checking if network is available -->
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 	<!-- Required for writing/reading to external storage -->
 	<!-- Note: This is no longer needed in Android Q -->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
 	<!--
 	Required for updating the app without showing a download notification
 	TODO: Remove this permission
 	-->
 	<!-- <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" /> -->
 	<!-- Needed for requesting the installation of an update APK -->
-	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 	<!--
 	Needed for DayNight theme auto detection
 	TODO: Deprecate option for setting theme based on time
 	-->
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
 	<application
-		android:allowBackup="true"
-		android:appCategory="productivity"
-		android:description="@string/app_desc"
-		android:icon="@mipmap/ic_launcher"
-		android:label="@string/app_name"
-		android:supportsRtl="true"
-		android:theme="@style/Theme.App">
-		<meta-data
-			android:name="com.google.firebase.messaging.default_notification_icon"
-			android:resource="@drawable/ic_notification_studybuddy_24dp" />
-		<meta-data
-			android:name="com.google.firebase.messaging.default_notification_color"
-			android:resource="@color/colorPrimary" />
-		<meta-data
-			android:name="com.google.firebase.messaging.default_notification_channel_id"
-			android:value="@string/notification_channel_uncategorised_id" />
-		<meta-data
-			android:name="preloaded_fonts"
-			android:resource="@array/preloaded_fonts" />
-
-		<activity
-			android:name=".ui.modules.main.MainActivity"
+			android:allowBackup="true"
+			android:appCategory="productivity"
+			android:description="@string/app_desc"
+			android:icon="@mipmap/ic_launcher"
 			android:label="@string/app_name"
-			android:theme="@style/Theme.App.NoActionBar">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
+			android:supportsRtl="true"
+			android:theme="@style/Theme.App"
+			tools:ignore="GoogleAppIndexingWarning">
+		<meta-data
+				android:name="com.google.firebase.messaging.default_notification_icon"
+				android:resource="@drawable/ic_notification_studybuddy_24dp"/>
+		<meta-data
+				android:name="com.google.firebase.messaging.default_notification_color"
+				android:resource="@color/colorPrimary"/>
+		<meta-data
+				android:name="com.google.firebase.messaging.default_notification_channel_id"
+				android:value="@string/notification_channel_uncategorised_id"/>
+		<meta-data
+				android:name="preloaded_fonts"
+				android:resource="@array/preloaded_fonts"/>
 
-				<category android:name="android.intent.category.LAUNCHER" />
+		<activity
+				android:name=".ui.modules.main.MainActivity"
+				android:label="@string/app_name"
+				android:theme="@style/Theme.App.NoActionBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+
+				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 
 			<meta-data
-				android:name="android.app.shortcuts"
-				android:resource="@xml/shortcuts" />
+					android:name="android.app.shortcuts"
+					android:resource="@xml/shortcuts"/>
 		</activity>
 		<activity
-			android:name=".ui.modules.settings.SettingsActivity"
-			android:label="@string/title_activity_settings">
+				android:name=".ui.modules.settings.SettingsActivity"
+				android:label="@string/title_activity_settings">
 			<intent-filter>
-				<action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+				<action android:name="android.intent.action.APPLICATION_PREFERENCES"/>
 
-				<category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
-				<category android:name="android.intent.category.PREFERENCE" />
+				<category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
+				<category android:name="android.intent.category.PREFERENCE"/>
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".ui.modules.auth.LoginActivity"
-			android:label="@string/title_activity_login" />
+				android:name=".ui.modules.auth.LoginActivity"
+				android:label="@string/title_activity_login"/>
 		<activity
-			android:name=".ui.modules.auth.RegisterActivity"
-			android:label="@string/title_activity_register" />
+				android:name=".ui.modules.auth.RegisterActivity"
+				android:label="@string/title_activity_register"/>
 		<activity
-			android:name=".ui.modules.auth.ResetPasswordActivity"
-			android:label="@string/title_activity_reset_password" />
+				android:name=".ui.modules.auth.ResetPasswordActivity"
+				android:label="@string/title_activity_reset_password"/>
 		<activity
-			android:name=".ui.modules.help.HelpActivity"
-			android:label="@string/title_activity_help" />
+				android:name=".ui.modules.help.HelpActivity"
+				android:label="@string/title_activity_help"/>
 		<activity
-			android:name="com.edricchan.studybuddy.ui.modules.chat.NewChatActivity"
-			android:label="@string/title_activity_new_chat" />
+				android:name="com.edricchan.studybuddy.ui.modules.chat.NewChatActivity"
+				android:label="@string/title_activity_new_chat"/>
 		<activity
-			android:name=".ui.modules.task.NewTaskActivity"
-			android:label="@string/title_activity_new_task" />
+				android:name=".ui.modules.task.NewTaskActivity"
+				android:label="@string/title_activity_new_task"/>
 		<activity
-			android:name=".ui.modules.task.EditTaskActivity"
-			android:label="@string/title_activity_edit_task" />
+				android:name=".ui.modules.task.EditTaskActivity"
+				android:label="@string/title_activity_edit_task"/>
 		<activity
-			android:name=".ui.modules.debug.DebugActivity"
-			android:label="@string/title_activity_debug">
+				android:name=".ui.modules.debug.DebugActivity"
+				android:label="@string/title_activity_debug">
 			<intent-filter>
-				<category android:name="android.intent.category.DEVELOPMENT_PREFERENCE" />
+				<category android:name="android.intent.category.DEVELOPMENT_PREFERENCE"/>
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".ui.modules.updates.UpdatesActivity"
-			android:label="@string/title_activity_updates" />
+				android:name=".ui.modules.updates.UpdatesActivity"
+				android:label="@string/title_activity_updates"/>
 		<activity
-			android:name=".ui.modules.task.ViewTaskActivity"
-			android:label="@string/title_activity_view_task" />
+				android:name=".ui.modules.task.ViewTaskActivity"
+				android:label="@string/title_activity_view_task"/>
 		<activity
-			android:name=".ui.modules.account.AccountActivity"
-			android:label="@string/title_activity_account" />
-
+				android:name=".ui.modules.account.AccountActivity"
+				android:label="@string/title_activity_account"/>
+		<!-- Handler for Firebase Deep Links -->
+		<activity
+				android:name="com.edricchan.studybuddy.ui.modules.deeplink.DeepLinkActivity"
+				android:launchMode="singleInstance"
+				android:theme="@android:style/Theme.NoDisplay"
+				android:noHistory="true">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"/>
+				<category android:name="android.intent.category.DEFAULT"/>
+				<category android:name="android.intent.category.BROWSABLE"/>
+				<data
+						android:host="studybuddy.page.link"
+						android:scheme="https"/>
+				<data
+						android:host="studybuddy"
+						android:scheme="app"/>
+				<data
+						android:host="studybuddy-e5f46.firebaseapp.com"
+						android:scheme="https"/>
+			</intent-filter>
+		</activity>
 		<provider
-			android:name="androidx.core.content.FileProvider"
-			android:authorities="com.edricchan.studybuddy.provider"
-			android:exported="false"
-			android:grantUriPermissions="true">
+				android:name="androidx.core.content.FileProvider"
+				android:authorities="com.edricchan.studybuddy.provider"
+				android:exported="false"
+				android:grantUriPermissions="true">
 			<meta-data
-				android:name="android.support.FILE_PROVIDER_PATHS"
-				android:resource="@xml/provider_paths" />
+					android:name="android.support.FILE_PROVIDER_PATHS"
+					android:resource="@xml/provider_paths"/>
 		</provider>
 		<!-- Services -->
 		<service android:name=".providers.fcm.StudyBuddyMessagingService">
 			<intent-filter>
-				<action android:name="com.google.firebase.MESSAGING_EVENT" />
+				<action android:name="com.google.firebase.MESSAGING_EVENT"/>
 			</intent-filter>
 		</service>
 		<!-- Receivers -->
-		<receiver android:name=".receiver.ActionButtonReceiver" />
+		<receiver android:name=".receiver.ActionButtonReceiver"/>
 
 	</application>
 

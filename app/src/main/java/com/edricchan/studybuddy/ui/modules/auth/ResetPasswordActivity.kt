@@ -10,10 +10,14 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
+import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
+@WebDeepLink(["/resetPassword", "/reset-password"])
+@AppDeepLink(["/resetPassword", "/reset-password"])
 class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password) {
 
 	private var inputEmail: EditText? = null

@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.account
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +8,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.deeplinkdispatch.DeepLink
 import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
+import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
@@ -23,6 +25,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.activity_account.*
 
+
+@WebDeepLink(["/account"])
+@AppDeepLink(["/account"])
 class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAuth.AuthStateListener {
 	private var mAuth: FirebaseAuth? = null
 	private var mUser: FirebaseUser? = null
@@ -44,17 +49,32 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 					builder.setTitle(R.string.account_activity_account_actions)
 							.setItems(R.array.account_activity_account_actions_array) { dialog, which ->
 								when (which) {
-									0 -> deleteAccount(dialog)
-									1 -> signOut(dialog)
-									2 -> updateEmail(dialog)
-									3 -> updateName(dialog)
-									4 -> updatePassword(dialog)
-									5 -> updateProfilePicture(dialog)
+									0 -> deleteAccount()
+									1 -> signOut()
+									2 -> updateEmail()
+									3 -> updateName()
+									4 -> updatePassword()
+									5 -> updateProfilePicture()
 									else -> Log.w(TAG, "Unknown item clicked! Index was at $which")
 								}
 							}
 							.show()
 				}
+		if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
+			val parameters = intent.extras
+			if (parameters?.getString("action") != null) {
+				val action = parameters.getString("action")
+				when (action) {
+					"deleteAccount", "delete-account" -> deleteAccount()
+					"signOut", "sign-out" -> signOut()
+					"updateEmail", "update-email" -> updateEmail()
+					"updateName", "update-name" -> updateName()
+					"updatePassword", "update-password" -> updatePassword()
+					"updateProfilePicture", "update-profile-picture" -> updateProfilePicture()
+					else -> Log.w(TAG, "\"$action\" is not supported")
+				}
+			}
+		}
 	}
 
 	override fun onStart() {
@@ -129,7 +149,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		return true
 	}
 
-	private fun deleteAccount(parentDialog: DialogInterface) {
+	private fun deleteAccount() {
 		val confirmBuilder = MaterialAlertDialogBuilder(this)
 		confirmBuilder.setTitle(R.string.account_activity_delete_account_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
@@ -138,31 +158,29 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully deleted account!", Toast.LENGTH_SHORT).show()
-									parentDialog.dismiss()
 								} else {
 									Log.e(TAG, "An error occurred when attempting to delete the current user.", task.exception)
-									if (task.exception is FirebaseAuthRecentLoginRequiredException) {
-										// Reauthenticate the user to continue
-										// TODO: Implement reauthentication
-										val account = GoogleSignIn.getLastSignedInAccount(this)
-										val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
-										mUser!!.reauthenticate(credential)
-												.addOnCompleteListener { reAuthTask ->
-													if (reAuthTask.isSuccessful) {
-														Toast.makeText(this, "Successfully reauthenticated account!", Toast.LENGTH_SHORT).show()
-														deleteAccount(parentDialog)
-													} else {
-														Log.e(TAG, "An error occurred while attempting to reauthenticate:", reAuthTask.exception)
+									when (task.exception) {
+										is FirebaseAuthRecentLoginRequiredException -> {
+											val account = GoogleSignIn.getLastSignedInAccount(this)
+											val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
+											mUser!!.reauthenticate(credential)
+													.addOnCompleteListener { reAuthTask ->
+														if (reAuthTask.isSuccessful) {
+															Toast.makeText(this, "Successfully reauthenticated account!", Toast.LENGTH_SHORT).show()
+															deleteAccount()
+														} else {
+															Log.e(TAG, "An error occurred while attempting to reauthenticate:", reAuthTask.exception)
+														}
 													}
-												}
-									} else if (task.exception is FirebaseAuthInvalidUserException) {
-										Toast.makeText(this, "Current user is either disabled, deleted, or has invalid credentials", Toast.LENGTH_LONG).show()
-										parentDialog.dismiss()
+										}
+										is FirebaseAuthInvalidUserException -> {
+											Toast.makeText(this, "Current user is either disabled, deleted, or has invalid credentials", Toast.LENGTH_LONG).show()
+										}
 									}
 								}
 							}
-				}
-				.show()
+				}.show()
 	}
 
 	private fun refreshCredentials() {
@@ -178,7 +196,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				}
 	}
 
-	private fun signOut(parentDialog: DialogInterface) {
+	private fun signOut() {
 		val confirmBuilder = MaterialAlertDialogBuilder(this)
 		confirmBuilder.setTitle(R.string.account_activity_sign_out_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
@@ -186,12 +204,11 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 					mAuth!!.signOut()
 					Toast.makeText(this, "Successfully signed out!", Toast.LENGTH_SHORT).show()
 					dialog.dismiss()
-					parentDialog.dismiss()
 				}
 				.show()
 	}
 
-	private fun updateEmail(parentDialog: DialogInterface) {
+	private fun updateEmail() {
 		val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
 		val textInputLayout = promptDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
 		textInputLayout.editText?.setHint(R.string.account_activity_new_email_dialog_edittext_title)
@@ -205,7 +222,6 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully updated email address!", Toast.LENGTH_SHORT).show()
 									dialog.dismiss()
-									parentDialog.dismiss()
 								} else {
 									Log.e(TAG, "An error occurred when attempting to update the email address", task.exception)
 								}
@@ -215,7 +231,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.show()
 	}
 
-	private fun updateName(parentDialog: DialogInterface) {
+	private fun updateName() {
 		val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
 		val textInputLayout = promptDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
 		textInputLayout.editText?.setHint(R.string.account_activity_new_name_dialog_edittext_title)
@@ -230,7 +246,6 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully updated name!", Toast.LENGTH_SHORT).show()
 									dialog.dismiss()
-									parentDialog.dismiss()
 								} else {
 									Log.e(TAG, "An error occurred when attempting to update the name", task.exception)
 								}
@@ -240,7 +255,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.show()
 	}
 
-	private fun updatePassword(parentDialog: DialogInterface) {
+	private fun updatePassword() {
 		val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
 		val textInputLayout = promptDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
 		textInputLayout.editText?.setHint(R.string.account_activity_new_password_dialog_edittext_title)
@@ -253,7 +268,6 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully updated password!", Toast.LENGTH_SHORT).show()
 									dialog.dismiss()
-									parentDialog.dismiss()
 								} else {
 									Log.e(TAG, "An error occurred when attempting to update the password", task.exception)
 								}
@@ -263,7 +277,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.show()
 	}
 
-	private fun updateProfilePicture(parentDialog: DialogInterface) {
+	private fun updateProfilePicture() {
 		// TODO: Add support for updating a profile picture
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setTitle(R.string.account_activity_new_profile_pic_dialog_title)
@@ -271,7 +285,6 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.setPositiveButton(R.string.dialog_action_update_profile_picture) { dialog, _ ->
 					Toast.makeText(this, "Successfully updated profile picture!", Toast.LENGTH_SHORT).show()
 					dialog.dismiss()
-					parentDialog.dismiss()
 				}
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
 				.show()

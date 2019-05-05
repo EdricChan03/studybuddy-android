@@ -10,6 +10,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
+import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
@@ -25,6 +27,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+@WebDeepLink(["/login"])
+@AppDeepLink(["/login"])
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 	private var inputEmail: TextInputLayout? = null
 	private var inputPassword: TextInputLayout? = null

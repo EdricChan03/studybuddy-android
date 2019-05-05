@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
+import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.interfaces.HelpArticles
 import com.edricchan.studybuddy.ui.adapter.HelpArticleAdapter
@@ -28,6 +30,8 @@ import java.io.InputStreamReader
 import java.lang.ref.WeakReference
 import java.net.URL
 
+@WebDeepLink(["/help"])
+@AppDeepLink(["/help"])
 class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 	private lateinit var preferences: SharedPreferences
 

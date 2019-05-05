@@ -15,6 +15,8 @@ import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
+import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.chat.fragment.ChatFragment
@@ -37,6 +39,8 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
+@WebDeepLink(["/"])
+@AppDeepLink(["/"])
 class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.OnConnectionFailedListener {
 	private var mOptionsMenu: Menu? = null
 	//	private BottomNavigationView navigationView;

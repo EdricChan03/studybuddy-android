@@ -112,6 +112,9 @@ dependencies {
 	// Support for Kotlin
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+	// Support for parsing Deep Links
+	implementation 'com.airbnb:deeplinkdispatch:4.1.0'
+	kapt 'com.airbnb:deeplinkdispatch-processor:4.1.0'
 }
 apply plugin: "com.google.gms.google-services"
 repositories {

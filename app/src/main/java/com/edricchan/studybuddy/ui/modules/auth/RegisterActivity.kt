@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
+import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
@@ -16,6 +18,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 
+@WebDeepLink(["/register"])
+@AppDeepLink(["/register"])
 class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
 
 	private var auth: FirebaseAuth = FirebaseAuth.getInstance()

@@ -18,6 +18,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.SharedPrefConstants
@@ -31,6 +32,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_updates.*
 import java.io.File
 
+@AppDeepLink(["/updates"])
 class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 
 	// Whether the user has pressed the "check for updates" menu item
