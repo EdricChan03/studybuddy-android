@@ -277,7 +277,6 @@
 	<string name="pref_about_app_version_title">Current app version</string>
 	<string name="pref_about_author_title">App author</string>
 	<string name="pref_about_author_summary">Tap here to view his website</string>
-	<string name="pref_about_category_title">About</string>
 	<string name="pref_about_licenses_title">Licenses</string>
 	<string name="pref_about_licenses_summary">License details for open source libraries/software</string>
 	<string name="pref_about_source_code_summary">View the app\'s source code on Github</string>
@@ -324,10 +323,12 @@
 	<string name="pref_header_general_title">General</string>
 	<string name="pref_header_todo_summary">Default sorting mode, weekly summary preferences</string>
 	<string name="pref_header_todo_title">Todos</string>
-	<string name="pref_header_version_summary">Updates, download updates with metered networks, update frequency, about
-		app, about app author
+	<string name="pref_header_updates_title">Updates</string>
+	<string name="pref_header_updates_summary">Updates, update options</string>
+	<string name="pref_header_about_summary">About
+		app, about app author, licenses, view source code
 	</string>
-	<string name="pref_header_version_title">Versions &amp; About</string>
+	<string name="pref_header_about_title">About</string>
 	<string name="pref_language_title">Language</string>
 	<string name="pref_manual_sync_summary">Tap here to sync manually</string>
 	<string name="pref_manual_sync_title">Manual sync</string>
@@ -344,12 +345,13 @@
 
 	<string name="pref_todo_default_sort_title">Default sorting mode</string>
 
-	<string name="pref_updates_cellular_networks_title">Download updates with cellular network</string>
+	<string name="pref_updates_download_over_metered_summary">Switching this on will allow downloads on cellular as well as other metered networks. For more info, check your network settings</string>
+	<string name="pref_updates_download_over_metered_title">Download over metered networks</string>
 	<string name="pref_updates_options_title">Update options</string>
-
 	<string name="pref_updates_title">Updates</string>
-	<string name="pref_updates_summary_last_updated">Last updated %s</string>
-	<string name="pref_updates_summary_last_checked">Last checked %s</string>
+	<string name="pref_updates_summary">Last checked: %1$s\nLast updated: %2$s</string>
+	<string name="pref_updates_summary_never">Never</string>
+
 	<string name="pref_use_custom_tabs_title">Open web links in-app</string>
 	<string name="pref_weekly_summary_about_desc">A curated summary of the progress of your completion of your todos,
 		sent as a notification
@@ -385,6 +387,7 @@
 	<string name="task_adapter_empty_content">&lt;No content&gt;</string>
 	<string name="task_adapter_empty_title">&lt;No title&gt;</string>
 	<string name="task_content">Task Content</string>
+	<string name="task_project_textinputlayout_hint">Task Project</string>
 	<string name="task_project_create">Create a project…</string>
 	<string name="task_project_prompt">Choose a project…</string>
 	<string name="task_tags">Task Tags</string>
