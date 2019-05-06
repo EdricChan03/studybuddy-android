@@ -155,6 +155,9 @@
 	<string name="debug_activity_updates_update_metadata_title">Update metadata</string>
 	<string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON URL</string>
 	<string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON URL</string>
+	<string name="debug_activity_updates_tip_summary">Tip: You can copy the values by long pressing on the preference
+		and tapping on "Copy" in the context menu that shows
+	</string>
 	<string name="debug_activity_updates_last_checked_for_updates_date_title">Last checked for updates date</string>
 	<string name="debug_activity_updates_last_checked_for_updates_date_summary_default">&lt;Not set&gt;</string>
 	<string name="debug_activity_updates_clear_last_checked_for_updates_date_title">Clear last checked for updates
@@ -345,7 +348,9 @@
 
 	<string name="pref_todo_default_sort_title">Default sorting mode</string>
 
-	<string name="pref_updates_download_over_metered_summary">Switching this on will allow downloads on cellular as well as other metered networks. For more info, check your network settings</string>
+	<string name="pref_updates_download_over_metered_summary">Switching this on will allow downloads on cellular as well
+		as other metered networks. For more info, check your network settings
+	</string>
 	<string name="pref_updates_download_over_metered_title">Download over metered networks</string>
 	<string name="pref_updates_options_title">Update options</string>
 	<string name="pref_updates_title">Updates</string>
