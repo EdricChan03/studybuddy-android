@@ -67,7 +67,7 @@ dependencies {
 	implementation 'com.google.firebase:firebase-messaging:17.6.0'
 	implementation 'com.google.android.gms:play-services-auth:16.0.1'
 	implementation 'com.google.firebase:firebase-perf:16.2.5'
-	implementation 'com.google.firebase:firebase-firestore-ktx:18.2.0'
+	implementation 'com.google.firebase:firebase-firestore-ktx:19.0.0'
 	implementation 'com.google.firebase:firebase-dynamic-links:16.1.8'
 	// Provide a way to update the app
 	implementation 'com.github.javiersantos:AppUpdater:2.6.5'
