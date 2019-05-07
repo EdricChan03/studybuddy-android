@@ -14,7 +14,7 @@
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 	<!--
 	Needed for DayNight theme auto detection
-	TODO: Deprecate option for setting theme based on time
+	TODO: Remove this permission
 	-->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
