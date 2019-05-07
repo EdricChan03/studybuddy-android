@@ -1,9 +1,9 @@
 package com.edricchan.studybuddy.interfaces
 
+import android.content.Context
 import android.graphics.Color
-import android.text.TextUtils
-
 import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
 
 /**
  * A task project
@@ -17,6 +17,7 @@ data class TaskProject(
 		var name: String? = null
 ) {
 	class Builder {
+		private var context: Context? = null
 		private var project: TaskProject? = null
 
 		/**
@@ -53,17 +54,21 @@ data class TaskProject(
 
 		/**
 		 * Creates a builder for a new project
+		 *
+		 * @param context The context
 		 */
-		constructor() {
-			this.project = TaskProject()
+		constructor(context: Context) {
+			Builder(context, TaskProject())
 		}
 
 		/**
 		 * Creates a builder, but allows for a predefined project to be specified
 		 *
+		 * @param context The context
 		 * @param project The predefined project
 		 */
-		constructor(project: TaskProject) {
+		constructor(context: Context, project: TaskProject) {
+			this.context = context
 			this.project = project
 		}
 
@@ -118,7 +123,7 @@ data class TaskProject(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setColor(@ColorRes color: Int): Builder {
-			project!!.color = this.convertColorToHex(color)
+			project?.color = this.convertColorToHex(color)
 			return this
 		}
 
@@ -130,7 +135,7 @@ data class TaskProject(
 		 */
 		@Deprecated("The document ID is automatically appended to the task once it is added to the database")
 		fun setId(id: String): Builder {
-			project!!.id = id
+			project?.id = id
 			return this
 		}
 
@@ -141,7 +146,18 @@ data class TaskProject(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setName(name: String): Builder {
-			project!!.name = name
+			project?.name = name
+			return this
+		}
+
+		/**
+		 * Sets the name of this project
+		 *
+		 * @param name A string resource of the name of this project
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setName(@StringRes name: Int): Builder {
+			project?.name = context?.getString(name)
 			return this
 		}
 
@@ -150,14 +166,14 @@ data class TaskProject(
 		 *
 		 * @return The created project
 		 */
-		fun create(): TaskProject {
-			if (TextUtils.isEmpty(project!!.color)) {
+		fun create(): TaskProject? {
+			if (project?.color.isNullOrEmpty()) {
 				// Use the default color
-				project!!.color = "#F5F5F5"
+				project?.color = "#F5F5F5"
 			}
 
 			// Finally, return the project
-			return project as TaskProject
+			return project
 		}
 	}
 }
