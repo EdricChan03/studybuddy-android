@@ -3,6 +3,8 @@ package com.edricchan.studybuddy.interfaces
 import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringDef
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import java.util.*
 
 /**
@@ -35,7 +37,8 @@ data class NotificationRequest(
 
 
 	class Builder {
-		private val request: NotificationRequest
+		private var context: Context? = null
+		private var request: NotificationRequest? = null
 		private var actions: MutableList<NotificationAction> = ArrayList()
 
 		/**
@@ -49,19 +52,21 @@ data class NotificationRequest(
 
 		/**
 		 * Creates a builder for a new notification request.
+		 * @param context The context
 		 */
-		constructor() {
-			this.request = NotificationRequest()
+		constructor(context: Context) {
+			Builder(context, NotificationRequest())
 		}
 
 		/**
 		 * Creates a builder for a notification request, but allows for an already set request
 		 * to be passed in as a parameter.
 		 *
+		 * @param context The context
 		 * @param request The notification request
 		 */
-		@Deprecated("Use {@link Builder#Builder()} instead")
-		constructor(request: NotificationRequest) {
+		constructor(context: Context, request: NotificationRequest) {
+			this.context = context
 			this.request = request
 		}
 
@@ -115,7 +120,18 @@ data class NotificationRequest(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setNotificationBody(notificationBody: String): Builder {
-			request.notificationBody = notificationBody
+			request?.notificationBody = notificationBody
+			return this
+		}
+
+		/**
+		 * Sets the body of the notification
+		 *
+		 * @param notificationBodyRes The body as a string resource reference
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setNotificationBody(@StringRes notificationBodyRes: Int): Builder {
+			request?.notificationBody = context?.getString(notificationBodyRes)
 			return this
 		}
 
@@ -126,7 +142,18 @@ data class NotificationRequest(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setNotificationChannelId(notificationChannelId: String): Builder {
-			request.notificationChannelId = notificationChannelId
+			request?.notificationChannelId = notificationChannelId
+			return this
+		}
+
+		/**
+		 * Sets the notification channel ID of the notification (applicable for Android Oreo and higher)
+		 *
+		 * @param notificationChannelIdRes A notification channel ID as a string resource reference
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setNotificationChannelId(@StringRes notificationChannelIdRes: Int): Builder {
+			request?.notificationChannelId = context?.getString(notificationChannelIdRes)
 			return this
 		}
 
@@ -137,7 +164,24 @@ data class NotificationRequest(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setNotificationColor(notificationColor: String): Builder {
-			request.notificationColor = notificationColor
+			request?.notificationColor = notificationColor
+			return this
+		}
+
+		/**
+		 * Sets the color of the notification
+		 *
+		 * @param notificationColorRes A hexadecimal color value as a color/string resource reference
+		 * @param isColorRes Whether the resource ID is a color resource (Specify [true] to indicate that it is a color resource,
+		 * otherwise specify [false] to indicate that it is a string resource)
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setNotificationColor(notificationColorRes: Int, isColorRes: Boolean = true): Builder {
+			if (isColorRes) {
+				request?.notificationColor = context?.let { ContextCompat.getColor(it, notificationColorRes).toString() }
+			} else {
+				request?.notificationColor = context?.getString(notificationColorRes)
+			}
 			return this
 		}
 
@@ -148,20 +192,19 @@ data class NotificationRequest(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setNotificationIcon(notificationIcon: String): Builder {
-			request.notificationIcon = notificationIcon
+			request?.notificationIcon = notificationIcon
 			return this
 		}
 
 		/**
 		 * Sets the icon of the notification. Note that passing in a drawable will only convert it to a string
 		 *
-		 * @param context                  The context needed to get the string name of the drawable
-		 * @param notificationIconDrawable A reference of a drawable
+		 * @param context The context needed to get the string name of the drawable
+		 * @param notificationIconDrawableRes A drawable resource reference
 		 * @return The builder object to allow for chaining of methods
 		 */
-		@Deprecated("Use {@link NotificationRequest.Builder#setNotificationIcon(String)} instead")
-		fun setNotificationIcon(context: Context, @DrawableRes notificationIconDrawable: Int): Builder {
-			request.notificationIcon = context.resources.getResourceEntryName(notificationIconDrawable)
+		fun setNotificationIcon(@DrawableRes notificationIconDrawableRes: Int): Builder {
+			request?.notificationIcon = context?.resources?.getResourceEntryName(notificationIconDrawableRes)
 			return this
 		}
 
@@ -174,10 +217,10 @@ data class NotificationRequest(
 		 */
 		fun setNotificationPriority(@NotificationPriority notificationPriority: String): Builder {
 			if (notificationPriority == NOTIFICATION_PRIORITY_NORMAL || notificationPriority == NOTIFICATION_PRIORITY_HIGH) {
-				request.notificationPriority = notificationPriority
+				request?.notificationPriority = notificationPriority
 			} else {
 				// Invalid string!
-				request.notificationPriority = NOTIFICATION_PRIORITY_NORMAL
+				request?.notificationPriority = NOTIFICATION_PRIORITY_NORMAL
 			}
 			return this
 		}
@@ -189,31 +232,40 @@ data class NotificationRequest(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setNotificationTitle(notificationTitle: String): Builder {
-			request.notificationTitle = notificationTitle
+			request?.notificationTitle = notificationTitle
+			return this
+		}
+
+		/**
+		 * Sets the title of the notification
+		 *
+		 * @param notificationTitleRes The title as a string resource reference
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setNotificationTitle(notificationTitleRes: Int): Builder {
+			request?.notificationTitle = context?.getString(notificationTitleRes)
 			return this
 		}
 
 		/**
 		 * Sets the time-to-live (TTL) of the notification
 		 *
-		 * @param notificationTtl The time-to-live, in milliseconds
+		 * @param notificationTtl The time-to-live as a [Long], in milliseconds
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setNotificationTtl(notificationTtl: Long): Builder {
+			request?.notificationTtl = notificationTtl
+			return this
+		}
+
+		/**
+		 * Sets the time-to-live (TTL) of the notification
+		 *
+		 * @param notificationTtl The time-to-liv as an [Int], in milliseconds
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setNotificationTtl(notificationTtl: Int): Builder {
-			request.notificationTtl = notificationTtl.toLong()
-			return this
-		}
-
-		/**
-		 * Sets the time-to-live (TTL) of the notification
-		 *
-		 * @param ttl The time-to-live, in milliseconds
-		 * @return The builder object to allow for chaining of methods
-		 */
-		@Deprecated("Use {@link Builder#setNotificationTtl(int)} instead")
-		fun setTtl(ttl: Int): Builder {
-			request.notificationTtl = ttl.toLong()
-			return this
+			return setNotificationTtl(notificationTtl.toLong())
 		}
 
 		/**
@@ -225,7 +277,20 @@ data class NotificationRequest(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setUserOrTopic(userOrTopic: String): Builder {
-			request.userOrTopic = userOrTopic
+			request?.userOrTopic = userOrTopic
+			return this
+		}
+
+		/**
+		 * Sets the UID/topic ID to send the notification to
+		 *
+		 * Note: To send to a topic, append the `userOrTopic` parameter with `topic_`.
+		 *
+		 * @param userOrTopicRes The UID/topic ID as a string resource reference
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setUserOrTopic(@StringRes userOrTopicRes: Int): Builder {
+			request?.userOrTopic = context?.getString(userOrTopicRes)
 			return this
 		}
 
@@ -235,43 +300,43 @@ data class NotificationRequest(
 		 * @return The generated notification request
 		 */
 		@Throws(RuntimeException::class)
-		fun create(): NotificationRequest {
+		fun create(): NotificationRequest? {
 			// Set the notification actions
-			if (!actions.isEmpty()) {
-				request.notificationActions = actions
+			if (actions.isNotEmpty()) {
+				request?.notificationActions = actions
 			}
 
 			// Null checks to prevent values from being null on the document
-			if (request.userOrTopic.isNullOrEmpty()) {
+			if (request?.userOrTopic.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a user or a topic!")
 			}
-			if (request.notificationBody.isNullOrEmpty()) {
+			if (request?.notificationBody.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a body for the notification!")
 			}
-			if (request.notificationChannelId.isNullOrEmpty()) {
+			if (request?.notificationChannelId.isNullOrEmpty()) {
 				// Use the default channel ID
-				request.notificationChannelId = "uncategorised"
+				request?.notificationChannelId = "uncategorised"
 			}
-			if (request.notificationColor.isNullOrEmpty()) {
+			if (request?.notificationColor.isNullOrEmpty()) {
 				// Use the default colour/color
-				request.notificationColor = "#3F51B5"
+				request?.notificationColor = "#3F51B5"
 			}
-			if (request.notificationIcon.isNullOrEmpty()) {
+			if (request?.notificationIcon.isNullOrEmpty()) {
 				// Use the default icon
-				request.notificationIcon = "ic_studybuddy_pencil_icon_24dp"
+				request?.notificationIcon = "ic_studybuddy_pencil_icon_24dp"
 			}
-			if (request.notificationTitle.isNullOrEmpty()) {
+			if (request?.notificationTitle.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a title for the notification!")
 			}
-			if (request.notificationPriority.isNullOrEmpty()) {
+			if (request?.notificationPriority.isNullOrEmpty()) {
 				// Use the default priority
-				request.notificationPriority = NOTIFICATION_PRIORITY_NORMAL
+				request?.notificationPriority = NOTIFICATION_PRIORITY_NORMAL
 			}
-			if (request.notificationTtl == 0L) {
+			if (request?.notificationTtl == 0L) {
 				// Use the default TTL value (4 weeks)
 				// Calculation: weeks * days * hours * minutes * seconds * milliseconds
 				// Example: 1 week * 7 days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
-				request.notificationTtl = 4 * 7 * 24 * 60 * 60 * 1000L // This should evaluate to 2419200000L
+				request?.notificationTtl = 4 * 7 * 24 * 60 * 60 * 1000L // This should evaluate to 2419200000L
 			}
 			// And return it
 			return request
