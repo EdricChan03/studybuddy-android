@@ -10,11 +10,6 @@
 	<!-- Note: This is no longer needed in Android Q -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
-	<!--
-	Required for updating the app without showing a download notification
-	TODO: Remove this permission
-	-->
-	<!-- <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" /> -->
 	<!-- Needed for requesting the installation of an update APK -->
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 	<!--
