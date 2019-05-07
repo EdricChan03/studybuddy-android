@@ -1,9 +1,10 @@
 package com.edricchan.studybuddy.interfaces
 
+import android.content.Context
 import android.net.Uri
-import android.text.TextUtils
-
+import androidx.annotation.BoolRes
 import androidx.annotation.StringDef
+import androidx.annotation.StringRes
 
 /**
  * An interface for [com.edricchan.studybuddy.HelpActivity]
@@ -40,38 +41,26 @@ data class HelpArticle(
 	 */
 	constructor() : this(null, null, null, null, false, false)
 
-	/**
-	 * Creates a new instance of [HelpArticle]
-	 *
-	 * @param articleTitle The title of the help article
-	 * @param articleUrl   The URL of the help article
-	 */
-	@Deprecated("Use the builder instead")
-	constructor(articleTitle: String?, articleUrl: String?) : this(articleTitle = articleTitle, articleUri = articleUrl)
-
 	class Builder {
+		private var context: Context? = null
 		private var article: HelpArticle? = null
 
 		/**
 		 * Creates a builder for a new help article
+		 * @param context The context
 		 */
-		constructor() {
-			this.article = HelpArticle()
+		constructor(context: Context) {
+			Builder(context, HelpArticle())
 		}
 
 		/**
 		 * Creates a builder, but allows for a predefined help article to be specified
 		 *
+		 * @param context The context
 		 * @param article The predefined article
 		 */
-		@Deprecated(
-				"Use Builder#Builder()",
-				ReplaceWith(
-						"HelpArticle.Builder()",
-						"com.edricchan.studybuddy.interfaces.HelpArticle.Builder"
-				)
-		)
-		constructor(article: HelpArticle) {
+		constructor(context: Context, article: HelpArticle) {
+			this.context = context
 			this.article = article
 		}
 
@@ -82,7 +71,18 @@ data class HelpArticle(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setArticleDesc(articleDesc: String): Builder {
-			article!!.articleDesc = articleDesc
+			article?.articleDesc = articleDesc
+			return this
+		}
+
+		/**
+		 * Sets the description of this help article
+		 *
+		 * @param articleDescRes The description as a string resource reference
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setArticleDesc(@StringRes articleDescRes: Int): Builder {
+			article?.articleDesc = context?.getString(articleDescRes)
 			return this
 		}
 
@@ -93,7 +93,7 @@ data class HelpArticle(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setArticleIcon(@ArticleIcon articleIcon: String): Builder {
-			article!!.articleIcon = articleIcon
+			article?.articleIcon = articleIcon
 			return this
 		}
 
@@ -104,7 +104,18 @@ data class HelpArticle(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setArticleTitle(articleTitle: String): Builder {
-			article!!.articleTitle = articleTitle
+			article?.articleTitle = articleTitle
+			return this
+		}
+
+		/**
+		 * Sets the title of this help article
+		 *
+		 * @param articleTitleRes The title of this help article as a string resource reference
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setArticleTitle(@StringRes articleTitleRes: Int): Builder {
+			article?.articleTitle = context?.getString(articleTitleRes)
 			return this
 		}
 
@@ -115,7 +126,7 @@ data class HelpArticle(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setArticleUri(articleUri: Uri): Builder {
-			article!!.articleUri = articleUri.toString()
+			article?.articleUri = articleUri.toString()
 			return this
 		}
 
@@ -126,7 +137,18 @@ data class HelpArticle(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setArticleUrl(articleUrl: String): Builder {
-			article!!.articleUri = articleUrl
+			article?.articleUri = articleUrl
+			return this
+		}
+
+		/**
+		 * Sets the URL of this help article
+		 *
+		 * @param articleUrlRes The URL of this help article as a string resource reference
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setArticleUrl(@StringRes articleUrlRes: Int): Builder {
+			article?.articleUri = context?.getString(articleUrlRes)
 			return this
 		}
 
@@ -138,29 +160,53 @@ data class HelpArticle(
 		 */
 		@Deprecated("Use {@link Builder#setArticleUrl(String)}")
 		fun setArticleUri(articleUri: String): Builder {
-			article!!.articleUri = articleUri
+			article?.articleUri = articleUri
 			return this
 		}
 
 		/**
-		 * Sets whether this help article is unclickable.
+		 * Sets whether this help article is unclickable
 		 *
-		 * @param isDisabled True if this help article should be unclickable, false otherwise
+		 * @param isDisabled [true] if this help article should be unclickable, [false] otherwise
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setIsDisabled(isDisabled: Boolean): Builder {
-			article!!.isDisabled = isDisabled
+			article?.isDisabled = isDisabled
 			return this
 		}
 
 		/**
-		 * Sets whether this help article is hidden.
+		 * Sets whether this help article is unclickable
 		 *
-		 * @param isHidden True if this help article should be hidden, false otherwise
+		 * @param isDisabledRes [true] if this help article should be unclickable, [false] otherwise
+		 * (pass a boolean resource reference for this argument)
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setIsDisabled(@BoolRes isDisabledRes: Int): Builder {
+			article?.isDisabled = context?.resources?.getBoolean(isDisabledRes)
+			return this
+		}
+
+		/**
+		 * Sets whether this help article is hidden
+		 *
+		 * @param isHidden [true] if this help article should be hidden, [false] otherwise
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setIsHidden(isHidden: Boolean): Builder {
-			article!!.isHidden = isHidden
+			article?.isHidden = isHidden
+			return this
+		}
+
+		/**
+		 * Sets whether this help article is hidden
+		 *
+		 * @param isHiddenRes [true] if this help article should be hidden, [false] otherwise
+		 * (pass a boolean resource reference for this argument)
+		 * @return The builder object to allow for chaining of methods
+		 */
+		fun setIsHidden(@BoolRes isHiddenRes: Int): Builder {
+			article?.isHidden = context?.resources?.getBoolean(isHiddenRes)
 			return this
 		}
 
@@ -169,17 +215,17 @@ data class HelpArticle(
 		 *
 		 * @return The created help article
 		 */
-		fun create(): HelpArticle {
+		fun create(): HelpArticle? {
 			// Null checks
-			if (TextUtils.isEmpty(article!!.articleUri)) {
+			if (article?.articleUri.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a URL!")
 			}
-			if (TextUtils.isEmpty(article!!.articleTitle)) {
+			if (article?.articleTitle.isNullOrEmpty()) {
 				throw RuntimeException("Please supply a title!")
 			}
 
 			// Finally, return the help article
-			return article as HelpArticle
+			return article
 		}
 	}
 
