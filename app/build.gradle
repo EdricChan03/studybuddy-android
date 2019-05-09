@@ -64,7 +64,7 @@ dependencies {
 	implementation 'androidx.browser:browser:1.0.0'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
-	implementation 'com.google.firebase:firebase-core:16.0.8'
+	implementation 'com.google.firebase:firebase-core:16.0.9'
 	implementation 'com.google.firebase:firebase-firestore:19.0.0'
 	implementation 'com.google.firebase:firebase-firestore-ktx:19.0.0'
 	implementation 'com.google.firebase:firebase-auth:17.0.0'
