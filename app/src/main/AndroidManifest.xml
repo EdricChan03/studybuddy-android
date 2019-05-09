@@ -103,7 +103,7 @@
 				android:label="@string/title_activity_account"/>
 		<!-- Handler for Firebase Deep Links -->
 		<activity
-				android:name="com.edricchan.studybuddy.ui.modules.deeplink.DeepLinkActivity"
+				android:name=".ui.modules.deeplink.DeepLinkActivity"
 				android:launchMode="singleInstance"
 				android:theme="@android:style/Theme.NoDisplay"
 				android:noHistory="true">
