@@ -108,7 +108,7 @@ dependencies {
 	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.0'
 
 	// Kotlin support for the AndroidX Core library
-	implementation 'androidx.core:core-ktx:1.1.0-alpha05'
+	implementation 'androidx.core:core-ktx:1.2.0-alpha01'
 
 	// Support for Kotlin
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
