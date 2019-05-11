@@ -171,6 +171,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
 		// Checks if the activity was from the New task activity
 		if (requestCode == ACTION_NEW_TASK) {
 			if (resultCode == Activity.RESULT_OK) {
