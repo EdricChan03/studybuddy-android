@@ -271,18 +271,20 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									.setActionIcon("ic_settings_24dp")
 									.setActionType(Constants.actionNotificationsSettingsIntent)
 							notificationRequestBuilder.addNotificationAction(notificationSettingsActionBuilder.create()!!)
-							mUtils!!.sendNotificationRequest(notificationRequestBuilder.create())
-									.addOnCompleteListener { task ->
-										if (task.isSuccessful) {
-											Log.d(TAG, "Successfully sent notification request to Cloud Firestore!")
-											Toast.makeText(context, "Successfully sent notification request to Cloud Firestore!", Toast.LENGTH_SHORT)
-													.show()
-										} else {
-											Toast.makeText(context, "An error occurred while attempting to send the notification request to Cloud Firestore. Check the logcat for more details.", Toast.LENGTH_SHORT).show()
-											Log.e(TAG, "An error occurred while attempting to send the notification request to Cloud Firestore:", task.exception)
+							notificationRequestBuilder.create()?.let { it1 ->
+								mUtils!!.sendNotificationRequest(it1)
+										.addOnCompleteListener { task ->
+											if (task.isSuccessful) {
+												Log.d(TAG, "Successfully sent notification request to Cloud Firestore!")
+												Toast.makeText(context, "Successfully sent notification request to Cloud Firestore!", Toast.LENGTH_SHORT)
+														.show()
+											} else {
+												Toast.makeText(context, "An error occurred while attempting to send the notification request to Cloud Firestore. Check the logcat for more details.", Toast.LENGTH_SHORT).show()
+												Log.e(TAG, "An error occurred while attempting to send the notification request to Cloud Firestore:", task.exception)
+											}
+											dialog.dismiss()
 										}
-										dialog.dismiss()
-									}
+							}
 						} else {
 							Toast.makeText(context, "Please fill in the form!", Toast.LENGTH_SHORT).show()
 						}
