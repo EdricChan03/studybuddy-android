@@ -48,6 +48,9 @@ dependencies {
 	androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0-alpha03', {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
+	// AndroidX Core
+	implementation 'androidx.core:core:1.2.0-alpha01'
+	implementation 'androidx.core:core-ktx:1.2.0-alpha01'
 	// AppCompat
 	implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
 	// ConstraintLayout
@@ -107,8 +110,6 @@ dependencies {
 	// Backported Java Stream library for Java 6/7
 	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.0'
 
-	// Kotlin support for the AndroidX Core library
-	implementation 'androidx.core:core-ktx:1.1.0-alpha05'
 
 	// Support for Kotlin
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
