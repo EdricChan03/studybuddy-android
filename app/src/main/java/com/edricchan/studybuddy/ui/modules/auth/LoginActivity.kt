@@ -13,6 +13,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -49,7 +50,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 		if (auth?.currentUser != null && SharedUtils.isNetworkAvailable(this)) {
 			// This activity (`LoginActivity`) shouldn't be shown to an already authenticated user
 			// Instead, redirect the user to the main activity and close this activity
-			startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+			startActivity<MainActivity>()
 			finish()
 		}
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
