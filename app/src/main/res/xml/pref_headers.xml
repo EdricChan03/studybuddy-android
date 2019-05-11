@@ -1,4 +1,6 @@
-<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 	<SwitchPreferenceCompat
 			app:key="pref_show_header_summary"
 			app:title="@string/pref_show_header_summary_title"/>
@@ -44,5 +46,9 @@
 			app:icon="@drawable/ic_account_circle_outline_24dp"
 			app:key="pref_header_account"
 			app:summary="@string/pref_header_account_summary"
-			app:title="@string/pref_header_account_title"/>
+			app:title="@string/pref_header_account_title">
+		<intent
+				android:targetClass="com.edricchan.studybuddy.ui.modules.account.AccountActivity"
+				android:targetPackage="com.edricchan.studybuddy"/>
+	</Preference>
 </androidx.preference.PreferenceScreen>
