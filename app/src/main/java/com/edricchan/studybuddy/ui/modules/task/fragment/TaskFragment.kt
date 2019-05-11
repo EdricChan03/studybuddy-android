@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.extensions.toObjectWithId
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.ui.adapter.TasksAdapter
@@ -71,8 +73,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 				return true
 			}
 			R.id.action_settings -> {
-				val settingsIntent = Intent(context, SettingsActivity::class.java)
-				Objects.requireNonNull<Context>(context).startActivity(settingsIntent)
+				startActivity<SettingsActivity>()
 				return true
 			}
 			R.id.action_sort_none -> {
@@ -123,13 +124,10 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 					item.isChecked = true
 					loadTasksList(mCurrentUser!!.uid, "dueDate", Query.Direction.ASCENDING)
 				}
-				val debugIntent = Intent(context, DebugActivity::class.java)
-				startActivity(debugIntent)
 				return true
 			}
 			R.id.action_debug -> {
-				val debugIntent = Intent(context, DebugActivity::class.java)
-				startActivity(debugIntent)
+				startActivity<DebugActivity>()
 				return true
 			}
 			else -> return super.onOptionsItemSelected(item)
@@ -226,13 +224,11 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 			signInDialogBuilder.setTitle("Sign in")
 					.setMessage("To access the content, please login or register for an account.")
 					.setPositiveButton(R.string.dialog_action_login) { dialogInterface, i ->
-						val loginIntent = Intent(context, LoginActivity::class.java)
-						startActivity(loginIntent)
+						startActivity<LoginActivity>()
 						dialogInterface.dismiss()
 					}
 					.setNeutralButton(R.string.dialog_action_sign_up) { dialogInterface, i ->
-						val registerIntent = Intent(context, RegisterActivity::class.java)
-						startActivity(registerIntent)
+						startActivity<RegisterActivity>()
 						dialogInterface.dismiss()
 					}
 					.setNegativeButton(R.string.dialog_action_cancel) { dialogInterface, i -> dialogInterface.cancel() }
@@ -249,8 +245,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 	}
 
 	private fun newTaskActivity() {
-		val newTaskIntent = Intent(context, NewTaskActivity::class.java)
-		startActivityForResult(newTaskIntent, ACTION_NEW_TASK)
+		startActivityForResult<NewTaskActivity>(ACTION_NEW_TASK)
 	}
 
 	private fun loadTasksListHandler() {
@@ -304,10 +299,8 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 			mAdapter!!
 					.setOnItemClickListener(object : TasksAdapter.OnItemClickListener {
 						override fun onItemClick(item: TaskItem, position: Int) {
-							val viewItemIntent = Intent(context, ViewTaskActivity::class.java)
 							Log.d(TAG, "Task: $item")
-							viewItemIntent.putExtra("taskId", item.id)
-							startActivity(viewItemIntent)
+							startActivity<ViewTaskActivity>(bundleOf("taskId" to item.id))
 						}
 
 						override fun onDeleteButtonClick(item: TaskItem, position: Int) {
