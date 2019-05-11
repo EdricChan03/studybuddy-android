@@ -243,7 +243,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									priority = NotificationRequest.NOTIFICATION_PRIORITY_HIGH
 								}
 							}
-							val notificationRequestBuilder = NotificationRequest.Builder()
+							val notificationRequestBuilder = NotificationRequest.Builder(context!!)
 							if (bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
 								notificationRequestBuilder.setNotificationBody(bodyTextInputLayout.editTextStrValue!!)
 							}
