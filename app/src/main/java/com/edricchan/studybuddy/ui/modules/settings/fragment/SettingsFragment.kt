@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
@@ -9,8 +8,6 @@ import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.ui.modules.account.AccountActivity
-import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.utils.Constants
 
 class SettingsFragment : PreferenceFragmentCompat() {
