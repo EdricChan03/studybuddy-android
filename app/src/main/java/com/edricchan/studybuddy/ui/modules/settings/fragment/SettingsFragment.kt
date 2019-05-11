@@ -23,11 +23,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 		if (BuildConfig.DEBUG) {
 			findPreference<Preference>(Constants.prefHeaderDebug)?.isVisible = true
 		}
-		val showHeaderSummaryPref = findPreference<SwitchPreferenceCompat>(Constants.prefShowHeaderSummary)
-		showHeaderSummaryPref?.setOnPreferenceClickListener {
-			updateHeaderSummaries(preferences!!.getBoolean(Constants.prefShowHeaderSummary, false))
-			true
-		}
+		findPreference<SwitchPreferenceCompat>(Constants.prefShowHeaderSummary)?.apply {
+			setOnPreferenceClickListener {
+				updateHeaderSummaries(preferences!!.getBoolean(Constants.prefShowHeaderSummary, false))
+				true
+			}
 		}
 		updateHeaderSummaries(preferences!!.getBoolean(Constants.prefShowHeaderSummary, false))
 	}
