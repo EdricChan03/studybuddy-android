@@ -9,7 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.constants.Constants
 
 class TodoSettingsFragment : PreferenceFragmentCompat() {
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
