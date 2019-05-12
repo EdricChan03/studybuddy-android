@@ -595,8 +595,7 @@ class SharedUtils
 		 */
 		fun createNotificationChannels(context: Context) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-				val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-				// Create a new list
+				val notificationManager = NotificationManagerCompat.from(context)
 				val channels = ArrayList<NotificationChannel>()
 				// Create another list for channel groups
 				val channelGroups = ArrayList<NotificationChannelGroup>()
