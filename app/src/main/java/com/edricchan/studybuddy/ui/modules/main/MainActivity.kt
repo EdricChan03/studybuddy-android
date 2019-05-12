@@ -17,6 +17,8 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.chat.fragment.ChatFragment
@@ -166,8 +168,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 	}
 
 	private fun newTaskActivity() {
-		val newTaskIntent = Intent(this, NewTaskActivity::class.java)
-		startActivityForResult(newTaskIntent, ACTION_NEW_TASK)
+		startActivityForResult<NewTaskActivity>(ACTION_NEW_TASK)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -229,8 +230,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 				return true
 			}
 			R.id.action_settings -> {
-				val prefsIntent = Intent(this, SettingsActivity::class.java)
-				startActivity(prefsIntent)
+				startActivity<SettingsActivity>()
 				return true
 			}
 			R.id.action_about -> {
@@ -253,18 +253,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 				return true
 			}
 			R.id.action_help -> {
-				val helpIntent = Intent(this, HelpActivity::class.java)
-				startActivity(helpIntent)
+				startActivity<HelpActivity>()
 				return true
 			}
 			R.id.action_debug -> {
-				val debugIntent = Intent(this, DebugActivity::class.java)
-				startActivity(debugIntent)
+				startActivity<DebugActivity>()
 				return true
 			}
 			R.id.action_account -> {
-				val accountIntent = Intent(this, AccountActivity::class.java)
-				startActivity(accountIntent)
+				startActivity<AccountActivity>()
 				return true
 			}
 			else -> return super.onOptionsItemSelected(item)
