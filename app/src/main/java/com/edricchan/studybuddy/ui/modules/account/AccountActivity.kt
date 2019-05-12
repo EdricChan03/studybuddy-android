@@ -15,6 +15,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -39,8 +40,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		mAuth = FirebaseAuth.getInstance()
 
 		accountActionSignInButton.setOnClickListener {
-			val signInIntent = Intent(this, LoginActivity::class.java)
-			startActivity(signInIntent)
+			startActivity<LoginActivity>()
 			finish()
 		}
 		accountActionsButton
@@ -106,9 +106,8 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				return true
 			}
 			R.id.action_debug -> {
-				val debugIntent = Intent(this, DebugActivity::class.java)
-				startActivity(debugIntent)
 				return true
+				startActivity<DebugActivity>()
 			}
 			R.id.action_refresh_credentials -> {
 				refreshCredentials()
