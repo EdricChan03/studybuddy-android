@@ -240,10 +240,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 				aboutDialogBuilder.setMessage(aboutDialogText)
 				aboutDialogBuilder.setPositiveButton(R.string.dialog_action_close) { dialogInterface, _ -> dialogInterface.dismiss() }
 				aboutDialogBuilder.setNeutralButton(R.string.dialog_action_view_source_code) { _, _ ->
-					val githubIntent = Intent()
-					githubIntent.action = Intent.ACTION_VIEW
-					githubIntent.data = Uri.parse("https://github.com/EdricChan03/StudyBuddy")
-					startActivity(githubIntent)
+					SharedUtils.launchUri(this, Constants.uriSrcCode)
 				}
 				aboutDialogBuilder.show()
 				return true
