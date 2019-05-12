@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -11,6 +10,7 @@ import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isInvalidEmail
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
 		auth = FirebaseAuth.getInstance()
 
 		signInBtn.setOnClickListener {
-			startActivity(Intent(this, LoginActivity::class.java))
+			startActivity<LoginActivity>()
 			finish()
 		}
 
@@ -90,7 +90,7 @@ class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
 					.addOnCompleteListener(this@RegisterActivity) { task ->
 						progressBar?.visibility = View.GONE
 						if (task.isSuccessful) {
-							startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+							startActivity<MainActivity>()
 							finish()
 						} else {
 							Snackbar.make(findViewById(R.id.registerActivity), "An error occurred while authenticating. Try again later.", Snackbar.LENGTH_LONG)
