@@ -11,7 +11,7 @@ import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
-import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
