@@ -23,12 +23,12 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.toDate
 import com.edricchan.studybuddy.extensions.toFormat
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
-import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedPrefConstants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
