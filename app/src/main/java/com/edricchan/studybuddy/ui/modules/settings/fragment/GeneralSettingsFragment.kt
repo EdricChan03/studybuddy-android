@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
