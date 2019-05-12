@@ -8,7 +8,7 @@ import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.constants.Constants
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
