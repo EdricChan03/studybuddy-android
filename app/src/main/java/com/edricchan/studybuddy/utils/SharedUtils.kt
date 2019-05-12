@@ -786,24 +786,46 @@ class SharedUtils
 		}
 
 		/**
-		 * Helper method to launch a URI
-		 *
-		 * @param context       The context
-		 * @param uri           The URI to launch
+		 * Launches a [uri] with the given [context]
+		 * @param context The context to be used to launch the intent of the [uri]
+		 * @param uri The URI to launch/open
+		 */
+		fun launchUri(context: Context, uri: Uri) {
+			val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+			launchUri(context, uri, preferences.getBoolean(Constants.prefUseCustomTabs, true))
+		}
+
+		/**
+		 * Launches a [uri] with the given [context]
+		 * @param context The context to be used to launch the intent of the [uri]
+		 * @param uri The URI to launch/open
 		 * @param useCustomTabs Whether to use Chrome Custom Tabs
 		 */
-		fun launchUri(context: Context, uri: Uri, useCustomTabs: Boolean) {
+		fun launchUri(context: Context, uri: Uri, useCustomTabs: Boolean = true) {
+			var customTabsIntent: CustomTabsIntent? = null
 			if (useCustomTabs) {
-				val builder = CustomTabsIntent.Builder()
-				builder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-						.addDefaultShareMenuItem()
-						.setShowTitle(true)
-				builder
-						.build()
-						.launchUrl(context, uri)
+				customTabsIntent = CustomTabsIntent.Builder().apply {
+					setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+					addDefaultShareMenuItem()
+					setShowTitle(true)
+					build()
+				}.build()
+			}
+			launchUri(context, uri, customTabsIntent)
+		}
+
+		/**
+		 * Launches a [uri] with the given [context]
+		 * @param context The context to be used to launch the intent of the [uri]
+		 * @param uri The URI to launch/open
+		 * @param customTabsIntent An instance of a created [CustomTabsIntent] from a [CustomTabsIntent.Builder].
+		 * If this value is not supplied, the URI will be opened as a normal [Intent]
+		 */
+		private fun launchUri(context: Context, uri: Uri, customTabsIntent: CustomTabsIntent?) {
+			if (customTabsIntent.isNotNull()) {
+				customTabsIntent?.launchUrl(context, uri)
 			} else {
-				val browserIntent = Intent(Intent.ACTION_VIEW, uri)
-				context.startActivity(browserIntent)
+				context.startActivity(Intent(Intent.ACTION_VIEW, uri))
 			}
 		}
 
