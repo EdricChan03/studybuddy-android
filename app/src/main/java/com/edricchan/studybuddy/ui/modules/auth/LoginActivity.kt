@@ -71,9 +71,9 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 				.build()
 		googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-		btnSignup?.setOnClickListener { startActivity(Intent(this@LoginActivity, RegisterActivity::class.java)) }
+		btnSignup?.setOnClickListener { startActivity<RegisterActivity>() }
 
-		btnReset?.setOnClickListener { startActivity(Intent(this@LoginActivity, ResetPasswordActivity::class.java)) }
+		btnReset?.setOnClickListener { startActivity<ResetPasswordActivity>() }
 
 		btnLogin?.setOnClickListener {
 			val email = inputEmail!!.editTextStrValue
@@ -108,8 +108,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 					}
 				} else {
 					showLoginSnackBar()
-					val intent = Intent(this@LoginActivity, MainActivity::class.java)
-					startActivity(intent)
+					startActivity<MainActivity>()
 					finish()
 				}
 			}
@@ -200,8 +199,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 						// Sign in success, update UI with the signed-in user's information
 						Log.d(TAG, "Successfully signed in!")
 						showLoginSnackBar()
-						val intent = Intent(this@LoginActivity, MainActivity::class.java)
-						startActivity(intent)
+						startActivity<MainActivity>()
 						finish()
 					} else {
 						// If sign in fails, display a message to the user.
