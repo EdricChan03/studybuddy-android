@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.utils
+package com.edricchan.studybuddy.constants
 
 import android.net.Uri
 
@@ -33,7 +33,10 @@ object Constants {
 	const val prefDayNightLocationNotice = "pref_daynight_location_notice"
 	const val prefDaynightLocationGrantPerm = "pref_daynight_location_grant_perm"
 
-	// Preferences > Weekly summary
+	// Preferences > Todos
+	const val prefTodoCategoryGeneral = "pref_category_todo_general"
+	const val prefTodoDefaultSort = "pref_todo_default_sort"
+	// Preferences > Todos > Weekly summary
 	const val prefCategoryWeeklySummary = "pref_category_weekly_summary"
 	const val prefCategoryWeeklySummaryPrefs = "pref_category_weekly_summary_prefs"
 	const val prefWeeklySummaryEnabled = "pref_weekly_summary_enabled"
