@@ -23,13 +23,13 @@ class ActionButtonReceiver : BroadcastReceiver() {
 		}// Register receiver for when .apk download is compete
 	}
 
-	fun checkPermission(context: Context, intent: Intent) {
+	private fun checkPermission(context: Context, intent: Intent) {
 		if (SharedUtils.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
 			downloadUpdate(context, intent)
 		}
 	}
 
-	fun downloadUpdate(context: Context, intent: Intent) {
+	private fun downloadUpdate(context: Context, intent: Intent) {
 		val request = DownloadManager.Request(Uri.parse(intent.getStringExtra("downloadUrl")))
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
 		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, context.getString(R.string.download_apk_name, intent.getStringExtra("version")))
