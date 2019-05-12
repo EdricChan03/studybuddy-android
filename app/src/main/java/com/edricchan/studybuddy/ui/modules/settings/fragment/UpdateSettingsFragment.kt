@@ -8,9 +8,9 @@ import android.text.format.DateUtils
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.toDate
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
-import com.edricchan.studybuddy.utils.Constants
 import com.edricchan.studybuddy.utils.SharedPrefConstants
 import java.util.*
 
