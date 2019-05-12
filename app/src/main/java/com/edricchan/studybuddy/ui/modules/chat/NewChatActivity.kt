@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.chat
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -27,8 +27,7 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 
 		if (mAuth.currentUser == null) {
 			Toast.makeText(this, "Please sign in before continuing", Toast.LENGTH_SHORT).show()
-			val signInIntent = Intent(this, LoginActivity::class.java)
-			startActivity(signInIntent)
+			startActivity<LoginActivity>()
 		} else {
 		}
 	}
