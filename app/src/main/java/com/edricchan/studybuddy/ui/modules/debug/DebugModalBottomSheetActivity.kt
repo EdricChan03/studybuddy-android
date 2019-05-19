@@ -1,5 +1,8 @@
 package com.edricchan.studybuddy.ui.modules.debug
 
+import android.content.ComponentName
+import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -9,6 +12,8 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.constants.MimeTypeConstants
+import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -26,6 +31,12 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 				modalBottomSheetLaunchersLayout,
 				"Modal bottom sheet with text and no header",
 				buildOnClickListener(modalBottomSheetWithTextNoHeader())
+		)
+
+		addModalBottomSheetLauncher(
+				modalBottomSheetLaunchersLayout,
+				"Modal bottom sheet with text and header",
+				buildOnClickListener(modalBottomSheetWithTextAndHeader())
 		)
 	}
 
@@ -81,6 +92,41 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 				}
 			}))
 		}
+		return modalBottomSheetFragment
+	}
+
+	private fun modalBottomSheetWithTextAndHeader(): ModalBottomSheetFragment {
+		val modalBottomSheetFragment = ModalBottomSheetFragment()
+		val headerTitle = getString(R.string.share_intent_value)
+		val shareIntent = Intent().apply {
+			action = Intent.ACTION_SEND
+			putExtra(Intent.EXTRA_TEXT, R.string.share_content)
+			type = MimeTypeConstants.textPlainMime
+		}
+		// See https://stackoverflow.com/a/9083910/6782707
+		val shareIntentLaunchables = packageManager.queryIntentActivities(shareIntent, 0)
+		shareIntentLaunchables?.sortWith(ResolveInfo.DisplayNameComparator(packageManager))
+		shareIntentLaunchables?.forEach {
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
+					title = it.loadLabel(packageManager).toString(),
+					iconDrawable = it.loadIcon(packageManager),
+					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+						override fun onItemClick(item: ModalBottomSheetItem) {
+							showToast("Item ${item.title} clicked!")
+							// Code adapted from
+							// https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
+							val activity = it.activityInfo
+							val componentName = ComponentName(activity.applicationInfo.packageName, activity.name)
+							shareIntent.component = componentName
+							startActivity(shareIntent)
+
+							// Dismiss the bottom sheet
+							modalBottomSheetFragment.dismiss()
+						}
+					}
+			))
+		}
+		modalBottomSheetFragment.headerTitle = headerTitle
 		return modalBottomSheetFragment
 	}
 		return modalBottomSheetFragment
