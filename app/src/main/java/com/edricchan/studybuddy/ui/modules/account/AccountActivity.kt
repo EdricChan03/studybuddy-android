@@ -79,7 +79,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 
 	override fun onStart() {
 		super.onStart()
-		mUser = mAuth!!.currentUser
+		mUser = mAuth?.currentUser
 		if (mUser == null) {
 			accountNameTextView.visibility = View.GONE
 			accountEmailTextView.visibility = View.GONE
@@ -90,11 +90,11 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		} else {
 			accountActionsButton.visibility = View.VISIBLE
 			accountActionSignInButton.visibility = View.GONE
-			accountNameTextView.text = mUser!!.displayName
-			accountEmailTextView.text = mUser!!.email
+			accountNameTextView.text = mUser?.displayName
+			accountEmailTextView.text = mUser?.email
 			accountAvatarImageView.visibility = View.VISIBLE
 			Glide.with(this)
-					.load(mUser!!.photoUrl)
+					.load(mUser?.photoUrl)
 					.into(accountAvatarImageView)
 		}
 	}
@@ -153,8 +153,8 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		confirmBuilder.setTitle(R.string.account_activity_delete_account_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 				.setPositiveButton(R.string.dialog_action_delete_account) { _, _ ->
-					mUser!!.delete()
-							.addOnCompleteListener { task ->
+					mUser?.delete()
+							?.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully deleted account!", Toast.LENGTH_SHORT).show()
 								} else {
@@ -162,9 +162,9 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 									when (task.exception) {
 										is FirebaseAuthRecentLoginRequiredException -> {
 											val account = GoogleSignIn.getLastSignedInAccount(this)
-											val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
-											mUser!!.reauthenticate(credential)
-													.addOnCompleteListener { reAuthTask ->
+											val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+											mUser?.reauthenticate(credential)
+													?.addOnCompleteListener { reAuthTask ->
 														if (reAuthTask.isSuccessful) {
 															Toast.makeText(this, "Successfully reauthenticated account!", Toast.LENGTH_SHORT).show()
 															deleteAccount()
@@ -184,8 +184,8 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 
 	private fun refreshCredentials() {
 		Snackbar.make(findViewById(R.id.constraintLayout), "Refreshing credentials...", Snackbar.LENGTH_SHORT).show()
-		mUser!!.reload()
-				.addOnCompleteListener { task ->
+		mUser?.reload()
+				?.addOnCompleteListener { task ->
 					if (!task.isSuccessful) {
 						Log.e(TAG, "An error occurred while attempting to refresh the credentials:", task.exception)
 						Snackbar.make(findViewById(R.id.constraintLayout), "An error occurred while attempting to refresh the credentials", Snackbar.LENGTH_LONG)
@@ -200,7 +200,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		confirmBuilder.setTitle(R.string.account_activity_sign_out_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 				.setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
-					mAuth!!.signOut()
+					mAuth?.signOut()
 					Toast.makeText(this, "Successfully signed out!", Toast.LENGTH_SHORT).show()
 					dialog.dismiss()
 				}
@@ -216,15 +216,17 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_email_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_email) { dialog, which ->
-					mUser!!.updateEmail(textInputLayout.editTextStrValue!!)
-							.addOnCompleteListener { task ->
-								if (task.isSuccessful) {
-									Toast.makeText(this, "Successfully updated email address!", Toast.LENGTH_SHORT).show()
-									dialog.dismiss()
-								} else {
-									Log.e(TAG, "An error occurred when attempting to update the email address", task.exception)
+					textInputLayout.editTextStrValue?.let {
+						mUser?.updateEmail(it)
+								?.addOnCompleteListener { task ->
+									if (task.isSuccessful) {
+										Toast.makeText(this, "Successfully updated email address!", Toast.LENGTH_SHORT).show()
+										dialog.dismiss()
+									} else {
+										Log.e(TAG, "An error occurred when attempting to update the email address", task.exception)
+									}
 								}
-							}
+					}
 				}
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 				.show()
@@ -240,8 +242,8 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.setPositiveButton(R.string.dialog_action_update_name) { dialog, _ ->
 					val requestBuilder = UserProfileChangeRequest.Builder()
 					requestBuilder.setDisplayName(textInputLayout.editTextStrValue)
-					mUser!!.updateProfile(requestBuilder.build())
-							.addOnCompleteListener { task ->
+					mUser?.updateProfile(requestBuilder.build())
+							?.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully updated name!", Toast.LENGTH_SHORT).show()
 									dialog.dismiss()
@@ -262,15 +264,17 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_activity_new_password_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
-					mUser!!.updatePassword(textInputLayout.editTextStrValue!!)
-							.addOnCompleteListener { task ->
-								if (task.isSuccessful) {
-									Toast.makeText(this, "Successfully updated password!", Toast.LENGTH_SHORT).show()
-									dialog.dismiss()
-								} else {
-									Log.e(TAG, "An error occurred when attempting to update the password", task.exception)
+					textInputLayout.editTextStrValue?.let {
+						mUser?.updatePassword(it)
+								?.addOnCompleteListener { task ->
+									if (task.isSuccessful) {
+										Toast.makeText(this, "Successfully updated password!", Toast.LENGTH_SHORT).show()
+										dialog.dismiss()
+									} else {
+										Log.e(TAG, "An error occurred when attempting to update the password", task.exception)
+									}
 								}
-							}
+					}
 				}
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
 				.show()
