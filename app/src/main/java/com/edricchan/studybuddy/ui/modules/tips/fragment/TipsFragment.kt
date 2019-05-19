@@ -14,7 +14,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class TipsFragment : Fragment(R.layout.frag_tips) {
