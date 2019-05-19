@@ -48,6 +48,6 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 		/**
 		 * The Android tag for use with [android.util.Log]
 		 */
-		private val TAG = SharedUtils.getTag(this::class.java)
+		private val TAG = SharedUtils.getTag(ChatFragment::class.java)
 	}
 }
