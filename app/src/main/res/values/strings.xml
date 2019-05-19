@@ -118,6 +118,7 @@
 	<string name="debug_activity_category_firebase">Firebase</string>
 	<string name="debug_activity_category_logging">Logging</string>
 	<string name="debug_activity_category_updates">Updates</string>
+	<string name="debug_activity_category_other">Other</string>
 	<string name="debug_activity_confirm_crash_app_dialog_title">Crash app?</string>
 	<string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n(Note that a new ID will
 		be generated after you delete the current ID)
@@ -170,7 +171,8 @@
 	<string name="debug_activity_updates_last_updated_date_summary_default">&lt;Not set&gt;</string>
 	<string name="debug_activity_updates_clear_last_updated_date_title">Clear last updated date</string>
 	<string name="debug_activity_updates_clear_last_updated_date_confirm_dialog_title">Clear last updated date?</string>
-
+	<string name="debug_activity_modal_bottom_sheet_testing_title">Modal Bottom Sheet testing</string>
+	<string name="debug_activity_modal_bottom_sheet_testing_summary">Show examples of the Modal Bottom Sheet</string>
 	<string name="dialog_action_cancel">Cancel</string>
 	<string name="dialog_action_clear">Clear</string>
 	<string name="dialog_action_close">Close</string>
@@ -403,6 +405,7 @@
 
 	<string name="title_activity_account">Account</string>
 	<string name="title_activity_debug">Debug</string>
+	<string name="title_activity_debug_modal_bottom_sheet">Modal Bottom Sheet Debug</string>
 
 	<string name="title_activity_edit_chat">Edit chat info</string>
 	<string name="title_activity_edit_task">Edit task</string>
