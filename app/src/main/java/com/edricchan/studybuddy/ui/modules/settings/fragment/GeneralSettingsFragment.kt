@@ -120,6 +120,6 @@ class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.On
 	private fun isLocationPermGranted() = ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
 	companion object {
-		private val TAG = SharedUtils.getTag(this::class.java)
+		private val TAG = SharedUtils.getTag(GeneralSettingsFragment::class.java)
 	}
 }
