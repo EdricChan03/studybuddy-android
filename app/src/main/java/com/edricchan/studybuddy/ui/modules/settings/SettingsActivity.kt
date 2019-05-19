@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.settings
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
