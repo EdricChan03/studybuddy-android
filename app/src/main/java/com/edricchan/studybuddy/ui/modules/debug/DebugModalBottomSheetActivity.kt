@@ -44,6 +44,12 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 				"Modal bottom sheet with disabled even items",
 				buildOnClickListener(modalBottomSheetDisabledEvenItems())
 		)
+
+		addModalBottomSheetLauncher(
+				modalBottomSheetLaunchersLayout,
+				"Modal bottom sheet with hidden odd items",
+				buildOnClickListener(modalBottomSheetHiddenOddItems())
+		)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -155,6 +161,24 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 		}
 		return modalBottomSheetFragment
 	}
+
+	private fun modalBottomSheetHiddenOddItems(): ModalBottomSheetFragment {
+		val modalBottomSheetFragment = ModalBottomSheetFragment()
+		for (i in 1..10) {
+			// Only hide on odd items
+			// This indicates that all even items are visible
+			val visible = i % 2 == 0
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
+					itemId = i,
+					title = "Item $i",
+					visible = visible,
+					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+						override fun onItemClick(item: ModalBottomSheetItem) {
+							showToast(item)
+						}
+					}
+			))
+		}
 		return modalBottomSheetFragment
 	}
 }
