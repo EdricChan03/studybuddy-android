@@ -44,20 +44,20 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when (item.itemId) {
+		return when (item.itemId) {
 			android.R.id.home -> {
 				onBackPressed()
-				return true
+				true
 			}
 			R.id.action_send_feedback -> {
-				SharedUtils.launchUri(this, Constants.uriSendFeedback, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
-				return true
+				SharedUtils.launchUri(this, Constants.uriSendFeedback)
+				true
 			}
 			R.id.action_help -> {
-				return true
 				startActivity<HelpActivity>()
+				true
 			}
-			else -> return super.onOptionsItemSelected(item)
+			else -> super.onOptionsItemSelected(item)
 		}
 	}
 
