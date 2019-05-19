@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+	<LinearLayout
+			android:id="@+id/bottomSheetHeader"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/modal_bottom_sheet_list_item_height"
+			android:layout_marginStart="@dimen/modal_bottom_sheet_list_item_padding_left"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			android:visibility="gone"
+			tools:visibility="visible">
+		<TextView
+				android:id="@+id/bottomSheetHeaderTitleTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?attr/textAppearanceListItem"
+				tools:text="Options"/>
+	</LinearLayout>
+	<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/bottomSheetRecyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+</LinearLayout>

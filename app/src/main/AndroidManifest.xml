@@ -92,6 +92,8 @@
 				<category android:name="android.intent.category.DEVELOPMENT_PREFERENCE"/>
 			</intent-filter>
 		</activity>
+		<activity android:name=".ui.modules.debug.DebugModalBottomSheetActivity"
+		          android:label="@string/title_activity_debug_modal_bottom_sheet"/>
 		<activity
 				android:name=".ui.modules.updates.UpdatesActivity"
 				android:label="@string/title_activity_updates"/>
