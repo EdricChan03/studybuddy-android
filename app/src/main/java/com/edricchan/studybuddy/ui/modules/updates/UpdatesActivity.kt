@@ -19,7 +19,7 @@ import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
-import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.SharedUtils
