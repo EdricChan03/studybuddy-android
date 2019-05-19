@@ -8,16 +8,15 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Environment
-
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.MimeTypeConstants
+import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.utils.SharedUtils
-import com.edricchan.studybuddy.utils.Constants
 
 class ActionButtonReceiver : BroadcastReceiver() {
 	override fun onReceive(context: Context, intent: Intent) {
-		val TAG = SharedUtils.getTag(this::class.java)
-		val action = intent.getStringExtra("action")
-		when (action) {
+		when (intent.getStringExtra("action")) {
 			Constants.actionNotificationsStartDownloadReceiver -> checkPermission(context, intent)
 			Constants.actionNotificationsRetryCheckForUpdateReceiver -> SharedUtils.checkForUpdates(context)
 		}// Register receiver for when .apk download is compete
@@ -38,10 +37,11 @@ class ActionButtonReceiver : BroadcastReceiver() {
 		//set BroadcastReceiver to install app when .apk is downloaded
 		val onComplete = object : BroadcastReceiver() {
 			override fun onReceive(context1: Context, intent: Intent) {
-				val install = Intent(Intent.ACTION_VIEW)
-				install.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-				install.setDataAndType(manager.getUriForDownloadedFile(id), "application/vnd.android.package-archive")
-				context.startActivity(install)
+				context.startActivity(buildIntent {
+					action = Intent.ACTION_VIEW
+					flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+					setDataAndType(manager.getUriForDownloadedFile(id), MimeTypeConstants.appPackageArchiveMime)
+				})
 
 				context.unregisterReceiver(this)
 			}
