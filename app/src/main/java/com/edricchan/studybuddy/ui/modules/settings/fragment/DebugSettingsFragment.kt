@@ -24,12 +24,12 @@ import androidx.preference.PreferenceFragmentCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.toDate
 import com.edricchan.studybuddy.extensions.toFormat
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
-import com.edricchan.studybuddy.utils.SharedPrefConstants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
@@ -50,8 +50,8 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 		override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
 			when (key) {
-				SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> lastCheckedForUpdatesDate = sharedPreferences.getLong(key, 0L).toDate()
-				SharedPrefConstants.PREF_LAST_UPDATED_DATE -> lastUpdatedDate = sharedPreferences.getLong(key, 0L).toDate()
+				UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> lastCheckedForUpdatesDate = sharedPreferences.getLong(key, 0L).toDate()
+				UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE -> lastUpdatedDate = sharedPreferences.getLong(key, 0L).toDate()
 			}
 		}
 
@@ -64,7 +64,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 			setPreferencesFromResource(R.xml.pref_debug_update_info, rootKey)
 			activity?.let {
-				updateInfoPreferences = it.getSharedPreferences(SharedPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
+				updateInfoPreferences = it.getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
 						.apply {
 							registerOnSharedPreferenceChangeListener(this@DebugUpdateInfoSettingsFragment)
 						}
@@ -74,8 +74,8 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 				lastCheckedForUpdatesDate = savedInstanceState.getLong(LAST_CHECKED_FOR_UPDATES_DATE_TAG).toDate()
 				lastUpdatedDate = savedInstanceState.getLong(LAST_UPDATED_DATE_TAG).toDate()
 			} else {
-				lastCheckedForUpdatesDate = updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
-				lastUpdatedDate = updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
+				lastCheckedForUpdatesDate = updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
+				lastUpdatedDate = updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
 			}
 
 			findPreference<Preference>(Constants.debugUpdatesLastCheckedForUpdatesDate)?.apply {
@@ -97,7 +97,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 						setNegativeButton(R.string.dialog_action_cancel, null)
 						setPositiveButton(R.string.dialog_action_clear) { dialogInterface, _ ->
 							updateInfoPreferences.edit {
-								remove(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE)
+								remove(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE)
 							}
 							dialogInterface.dismiss()
 						}
@@ -125,7 +125,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 						setNegativeButton(R.string.dialog_action_cancel, null)
 						setPositiveButton(R.string.dialog_action_clear) { dialogInterface, _ ->
 							updateInfoPreferences.edit {
-								remove(SharedPrefConstants.PREF_LAST_UPDATED_DATE)
+								remove(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE)
 							}
 							dialogInterface.dismiss()
 						}
