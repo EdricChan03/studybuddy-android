@@ -72,13 +72,17 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 
 	private fun modalBottomSheetWithTextNoHeader(): ModalBottomSheetFragment {
 		val modalBottomSheetFragment = ModalBottomSheetFragment()
-		var items: MutableList<ModalBottomSheetItem> = mutableListOf()
 		for (i in 1..10) {
-			items.add(ModalBottomSheetItem(title = "Item $i", onClickListener = View.OnClickListener {
-				Toast.makeText(this, "Item $i clicked!", Toast.LENGTH_SHORT).show()
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(itemId = i, title = "Item $i", onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+				override fun onItemClick(item: ModalBottomSheetItem) {
+					// Note: This is used to show that the onItemClick listener actually works by showing
+					// the passing of the item data from the fragment to the adapter
+					showToast(item)
+				}
 			}))
 		}
-		modalBottomSheetFragment.setItems(items.toTypedArray())
+		return modalBottomSheetFragment
+	}
 		return modalBottomSheetFragment
 	}
 }
