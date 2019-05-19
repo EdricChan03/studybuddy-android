@@ -43,15 +43,6 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 	private var tempTaskProject: String? = null
 	private var mTaskProjectSpinnerAdapter: TaskProjectSpinnerAdapter? = null
 
-	/**
-	 * Checks if a Firebase user exists
-	 * @return [true] if a Firebase user exists, [false] otherwise
-	 */
-	@Deprecated("Use FirebaseAuth.currentUser != null")
-	private fun checkSignedIn(): Boolean {
-		return mAuth.currentUser != null
-	}
-
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
