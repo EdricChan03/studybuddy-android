@@ -48,9 +48,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 	//	private BottomNavigationView navigationView;
 	private var contentMain: FrameLayout? = null
 	private var bar: BottomAppBar? = null
+	private lateinit var auth: FirebaseAuth
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		auth = FirebaseAuth.getInstance()
 		SharedUtils.setAppTheme(this)
 		// Use a downloadable font for EmojiCompat
 		val fontRequest = FontRequest(
@@ -126,7 +128,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 
 	override fun onStart() {
 		super.onStart()
-		val currentUser = FirebaseAuth.getInstance().currentUser
+		val currentUser = auth.currentUser
 		val fs = FirebaseFirestore.getInstance()
 		if (currentUser != null) {
 			SharedUtils.setCrashlyticsUserTracking(this, currentUser)
@@ -201,11 +203,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		val id = item.itemId
-		when (id) {
+		when (item.itemId) {
 			android.R.id.home -> {
 				val navBottomSheet = NavBottomSheetDialogFragment()
-				navBottomSheet.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {
+				navBottomSheet.navigationViewListener = NavigationView.OnNavigationItemSelectedListener {
 					when (it.itemId) {
 						R.id.navigation_calendar -> {
 							SharedUtils.replaceFragment(this@MainActivity, CalendarFragment(), R.id.content_main, true)
@@ -225,7 +226,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 						}
 						else -> return@OnNavigationItemSelectedListener false
 					}
-				})
+				}
+				if (auth.currentUser != null) {
+					navBottomSheet.isLoggedIn = true
+					if (auth.currentUser?.displayName != null) navBottomSheet.displayName = auth.currentUser?.displayName
+					if (auth.currentUser?.email != null) navBottomSheet.email = auth.currentUser?.email
+					if (auth.currentUser?.photoUrl != null) navBottomSheet.photoUrl = auth.currentUser?.photoUrl
+				}
 				navBottomSheet.show(supportFragmentManager, navBottomSheet.tag)
 				return true
 			}

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 
 	<style name="Theme.App.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -53,6 +53,12 @@
 		</item>
 		<item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Theme.LargeComponent
 		</item>
+	</style>
+	<!-- ImageButton theme that more closely matches the Material specs. -->
+	<style name="Theme.App.ImageButton" parent="Widget.AppCompat.ImageButton">
+		<item name="android:layout_width" tools:ignore="PrivateResource">@dimen/mtrl_min_touch_target_size</item>
+		<item name="android:layout_height" tools:ignore="PrivateResource">@dimen/mtrl_min_touch_target_size</item>
+		<item name="android:background">?attr/actionBarItemBackground</item>
 	</style>
 	<!--
 	TODO: Customize the ShapeAppearance
