@@ -39,7 +39,6 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 
 	// Whether the user has pressed the "check for updates" menu item
 	private var isChecking = false
-	// The tag used for Log.* calls
 	private val TAG = SharedUtils.getTag(this::class.java)
 	private lateinit var appUpdate: Update
 	private lateinit var preferences: SharedPreferences
