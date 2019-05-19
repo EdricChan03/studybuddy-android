@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.task
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.TooltipCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.ui.adapter.TaskProjectSpinnerAdapter
@@ -51,9 +51,8 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 		mCurrentUser = mAuth.currentUser
 		mAllowAccess = if (mAuth.currentUser == null) {
 			Toast.makeText(this, "Please sign in before continuing", Toast.LENGTH_SHORT).show()
-			val signInIntent = Intent(this@NewTaskActivity, LoginActivity::class.java)
 			finish()
-			startActivity(signInIntent)
+			startActivity<LoginActivity>()
 			false
 		} else {
 			true
