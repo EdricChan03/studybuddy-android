@@ -49,14 +49,14 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 		mAuth = FirebaseAuth.getInstance()
 		mFirestore = FirebaseFirestore.getInstance()
 		mCurrentUser = mAuth.currentUser
-		if (mAuth.currentUser == null) {
+		mAllowAccess = if (mAuth.currentUser == null) {
 			Toast.makeText(this, "Please sign in before continuing", Toast.LENGTH_SHORT).show()
 			val signInIntent = Intent(this@NewTaskActivity, LoginActivity::class.java)
 			finish()
 			startActivity(signInIntent)
-			mAllowAccess = false
+			false
 		} else {
-			mAllowAccess = true
+			true
 		}
 		TooltipCompat.setTooltipText(taskDatePickerBtn, "Open datepicker")
 		taskDatePickerBtn.setOnClickListener {
