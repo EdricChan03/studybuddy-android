@@ -81,6 +81,11 @@ class ModalBottomSheetAdapter(
 		val itemGroup = groups.find { it.id == item.groupId }
 		Log.d(TAG, "Item: $item")
 		Log.d(TAG, "Item group: ${itemGroup.toString()}")
+		holder.itemView.isEnabled = item.enabled
+		if (!item.visible) {
+			holder.itemView.visibility = View.GONE
+			holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
+		}
 		when (holder.itemViewType) {
 			LIST_ITEM_NO_ICON -> {
 				val tempHolder = holder as NoIconWithTextHolder
