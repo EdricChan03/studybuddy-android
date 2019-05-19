@@ -59,7 +59,15 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 	// Code adapted from
 	// https://github.com/material-components/material-components-android/blob/master/catalog/java/io/material/catalog/picker/PickerMainDemoFragment.java
 	private fun buildOnClickListener(bottomSheetDialogFragment: BottomSheetDialogFragment): View.OnClickListener {
-		return View.OnClickListener { v -> bottomSheetDialogFragment.show(supportFragmentManager, "Calendar Fragment") }
+		return View.OnClickListener { bottomSheetDialogFragment.show(supportFragmentManager, bottomSheetDialogFragment.tag) }
+	}
+
+	private fun showToast(item: ModalBottomSheetItem) {
+		showToast("Item ${item.itemId} clicked!")
+	}
+
+	private fun showToast(string: String) {
+		Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
 	}
 
 	private fun modalBottomSheetWithTextNoHeader(): ModalBottomSheetFragment {
