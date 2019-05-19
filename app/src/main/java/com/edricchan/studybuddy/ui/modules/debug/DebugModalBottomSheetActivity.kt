@@ -42,18 +42,18 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 	// https://github.com/material-components/material-components-android/blob/master/catalog/java/io/material/catalog/picker/PickerMainDemoFragment.java
 	private fun addModalBottomSheetLauncher(
 			viewGroup: ViewGroup, @StringRes stringResId: Int, onClickListener: View.OnClickListener) {
-		val dialogLauncherButton = MaterialButton(viewGroup.context)
-		dialogLauncherButton.setOnClickListener(onClickListener)
-		dialogLauncherButton.setText(stringResId)
-		viewGroup.addView(dialogLauncherButton)
+		val bottomSheetLauncherButton = MaterialButton(viewGroup.context)
+		bottomSheetLauncherButton.setOnClickListener(onClickListener)
+		bottomSheetLauncherButton.setText(stringResId)
+		viewGroup.addView(bottomSheetLauncherButton)
 	}
 
 	private fun addModalBottomSheetLauncher(
 			viewGroup: ViewGroup, string: String, onClickListener: View.OnClickListener) {
-		val dialogLauncherButton = MaterialButton(viewGroup.context)
-		dialogLauncherButton.setOnClickListener(onClickListener)
-		dialogLauncherButton.text = string
-		viewGroup.addView(dialogLauncherButton)
+		val bottomSheetLauncherButton = MaterialButton(viewGroup.context)
+		bottomSheetLauncherButton.setOnClickListener(onClickListener)
+		bottomSheetLauncherButton.text = string
+		viewGroup.addView(bottomSheetLauncherButton)
 	}
 
 	// Code adapted from
