@@ -68,9 +68,10 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 					return@setOnMenuItemClickListener true
 				}
 				R.id.action_edit -> {
-					val editTaskIntent = Intent(this@ViewTaskActivity, EditTaskActivity::class.java)
-					editTaskIntent.putExtra("taskId", mTaskId)
-					startActivity(editTaskIntent)
+					val intent = Intent(this, EditTaskActivity::class.java).apply {
+						putExtra("taskId", mTaskId)
+					}
+					startActivity(intent)
 					return@setOnMenuItemClickListener true
 				}
 				R.id.action_mark_as_done -> {
@@ -92,9 +93,10 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 			}
 		}
 		editTaskFab.setOnClickListener {
-			val editTaskIntent = Intent(this@ViewTaskActivity, EditTaskActivity::class.java)
-			editTaskIntent.putExtra("taskId", mTaskId)
-			startActivity(editTaskIntent)
+			val intent = Intent(this, EditTaskActivity::class.java).apply {
+				putExtra("taskId", mTaskId)
+			}
+			startActivity(intent)
 		}
 	}
 
