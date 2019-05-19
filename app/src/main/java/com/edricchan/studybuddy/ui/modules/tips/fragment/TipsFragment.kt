@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.tips.fragment
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.utils.Constants
@@ -57,14 +57,12 @@ class TipsFragment : Fragment(R.layout.frag_tips) {
 				return true
 			}
 			R.id.action_debug -> {
-				val debugIntent = Intent(activity, DebugActivity::class.java)
-				startActivity(debugIntent)
 				return true
+				startActivity<DebugActivity>()
 			}
 			R.id.action_settings -> {
-				val settingsIntent = Intent(activity, SettingsActivity::class.java)
-				startActivity(settingsIntent)
 				return true
+				startActivity<SettingsActivity>()
 			}
 			else -> return super.onOptionsItemSelected(item)
 		}
