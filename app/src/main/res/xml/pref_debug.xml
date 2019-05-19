@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
->
+<androidx.preference.PreferenceScreen
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 	<PreferenceCategory
 			app:key="debug_category_logging"
 			app:title="@string/debug_activity_category_logging">
@@ -56,12 +57,24 @@
 				app:dependency="debug_updates_use_testing_json_url"
 				app:icon="@drawable/ic_link_24dp"
 				app:key="debug_updates_custom_json_url"
-				app:useSimpleSummaryProvider="true"
-				app:title="@string/debug_activity_updates_set_custom_json_url_title"/>
+				app:title="@string/debug_activity_updates_set_custom_json_url_title"
+				app:useSimpleSummaryProvider="true"/>
 		<Preference
 				app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment$DebugUpdateInfoSettingsFragment"
 				app:icon="@drawable/ic_info_outline_24dp"
 				app:key="debug_updates_update_metadata"
 				app:title="@string/debug_activity_updates_update_metadata_title"/>
+	</PreferenceCategory>
+	<PreferenceCategory
+			app:key="debug_category_other"
+			app:title="@string/debug_activity_category_other">
+		<Preference
+				app:icon="@drawable/ic_bottom_sheets_24dp"
+				app:summary="@string/debug_activity_modal_bottom_sheet_testing_summary"
+				app:title="@string/debug_activity_modal_bottom_sheet_testing_title">
+			<intent
+					android:targetClass="com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity"
+					android:targetPackage="com.edricchan.studybuddy"/>
+		</Preference>
 	</PreferenceCategory>
 </androidx.preference.PreferenceScreen>
