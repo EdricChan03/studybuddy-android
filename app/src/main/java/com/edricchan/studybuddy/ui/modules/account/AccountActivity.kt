@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.account
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
