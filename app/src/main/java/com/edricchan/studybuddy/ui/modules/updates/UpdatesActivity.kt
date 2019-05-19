@@ -15,11 +15,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
+import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -109,16 +111,17 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 				builder.show()
 			} else {
 				// Construct a request to download from a URI
-				val request = DownloadManager.Request(Uri.parse(downloadUrl))
+				val request = DownloadManager.Request(Uri.parse(downloadUrl)).apply {
+					// Don't download over roaming
+					// TODO: Add setting for this
+					setAllowedOverRoaming(false)
+					setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+					// Set the file type so that the package installer can open the file
+					setMimeType(MimeTypeConstants.appPackageArchiveMime)
+				}
 
-				// Don't download over roaming
-				// TODO: Add setting for this
-				request.setAllowedOverRoaming(false)
-				request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-				// Set the file type so that the package installer can open the file
-				request.setMimeType("application/vnd.android.package-archive")
-				val manager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-				manager.enqueue(request)
+				val manager = getSystemService<DownloadManager>()
+				manager?.enqueue(request)
 
 				// Create a receiver to intercept when the download is complete
 				val downloadCompleteReceiver = object : BroadcastReceiver() {
@@ -157,13 +160,12 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 			if (packageManager.canRequestPackageInstalls()) {
-				val installIntent = Intent(Intent.ACTION_VIEW)
-				// Set the data for the intent to open
-				installIntent.setDataAndType(FileProvider.getUriForFile(applicationContext, "com.edricchan.studybuddy.provider", File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)), "application/vnd.android.package-archive")
-				// Mark this as a new task
-				installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-				// Allow reading the file
-				installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+				val installIntent = Intent(Intent.ACTION_VIEW).apply {
+					// Set the data for the intent to open
+					setDataAndType(FileProvider.getUriForFile(applicationContext, "com.edricchan.studybuddy.provider", File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)), MimeTypeConstants.appPackageArchiveMime)
+					// Mark this as a new task and allow reading the file
+					addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_GRANT_READ_URI_PERMISSION)
+				}
 				// Lastly, start the activity
 				startActivity(installIntent)
 				updateInfoPreferences.edit {
@@ -181,8 +183,9 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 						}
 						.setPositiveButton(R.string.update_activity_enable_unknown_sources_dialog_positive_btn) { dialog, which ->
 							// Create an intent to take the user to Settings for unknown app sources
-							val allowUnknownAppsIntent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-							allowUnknownAppsIntent.data = Uri.parse("package:$packageName")
+							val allowUnknownAppsIntent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
+								data = Uri.parse("package:$packageName")
+							}
 							startActivity(allowUnknownAppsIntent)
 						}
 						// Mark it as non-dismissable
@@ -190,11 +193,10 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 						.show()
 			}
 		} else {
-			val installIntent = Intent(Intent.ACTION_VIEW)
-			installIntent.setDataAndType(FileProvider.getUriForFile(applicationContext, "com.edricchan.studybuddy.provider", File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)), "application/vnd.android.package-archive")
-			installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-			// Allow reading the file
-			installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+			val installIntent = Intent(Intent.ACTION_VIEW).apply {
+				setDataAndType(FileProvider.getUriForFile(applicationContext, "com.edricchan.studybuddy.provider", File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)), MimeTypeConstants.appPackageArchiveMime)
+				addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_GRANT_READ_URI_PERMISSION)
+			}
 			startActivity(installIntent)
 		}
 	}
