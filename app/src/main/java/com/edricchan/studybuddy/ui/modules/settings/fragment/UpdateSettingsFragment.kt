@@ -9,9 +9,9 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.toDate
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
-import com.edricchan.studybuddy.utils.SharedPrefConstants
 import java.util.*
 
 class UpdateSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -21,13 +21,13 @@ class UpdateSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnS
 	private lateinit var lastCheckedForUpdatesDate: Date
 
 	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-		if (key == SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE || key == SharedPrefConstants.PREF_LAST_UPDATED_DATE) {
+		if (key == UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE || key == UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE) {
 			when (key) {
-				SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> {
-					lastUpdatedDate = updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
+				UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> {
+					lastUpdatedDate = updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
 				}
-				SharedPrefConstants.PREF_LAST_UPDATED_DATE -> {
-					lastCheckedForUpdatesDate = updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
+				UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE -> {
+					lastCheckedForUpdatesDate = updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
 				}
 			}
 			updateUpdatesPreferenceSummary()
@@ -42,13 +42,13 @@ class UpdateSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnS
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_updates, rootKey)
-		updateInfoPreferences = requireContext().getSharedPreferences(SharedPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE).apply {
+		updateInfoPreferences = requireContext().getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE).apply {
 			registerOnSharedPreferenceChangeListener(this@UpdateSettingsFragment)
 		}
 		lastUpdatedDate = savedInstanceState?.getLong(LAST_UPDATED_DATE_TAG)?.toDate()
-				?: updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
+				?: updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
 		lastCheckedForUpdatesDate = savedInstanceState?.getLong(LAST_CHECK_FOR_UPDATES_DATE_TAG)?.toDate()
-				?: updateInfoPreferences.getLong(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
+				?: updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
 		findPreference<Preference>(Constants.prefUpdates)?.intent = Intent(context, UpdatesActivity::class.java)
 		updateUpdatesPreferenceSummary()
 	}
