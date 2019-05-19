@@ -17,6 +17,8 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
@@ -162,10 +164,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 	 * Shares the app
 	 */
 	private fun share() {
-		val shareIntent = Intent()
-		shareIntent.action = Intent.ACTION_SEND
-		shareIntent.putExtra(Intent.EXTRA_TEXT, R.string.share_content)
-		shareIntent.type = "text/plain"
+		val shareIntent = Intent().apply {
+			action = Intent.ACTION_SEND
+			putExtra(Intent.EXTRA_TEXT, R.string.share_content)
+			type = MimeTypeConstants.textPlainMime
+		}
 		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_intent_value)))
 	}
 
