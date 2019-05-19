@@ -9,8 +9,8 @@
 		android:orientation="horizontal">
 	<ImageView
 			android:id="@+id/itemIcon"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="@dimen/modal_bottom_sheet_list_item_icon_width"
+			android:layout_height="@dimen/modal_bottom_sheet_list_item_icon_height"
 			android:layout_marginStart="@dimen/modal_bottom_sheet_list_item_padding_left"
 			android:duplicateParentState="true"
 			app:layout_constraintBottom_toBottomOf="parent"
