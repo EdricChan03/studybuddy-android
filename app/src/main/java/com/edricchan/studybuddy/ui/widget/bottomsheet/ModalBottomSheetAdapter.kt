@@ -51,7 +51,7 @@ class ModalBottomSheetAdapter(
 	}
 
 	override fun getItemViewType(position: Int): Int {
-		return if (items[position].icon != null) {
+		return if (items[position].iconDrawable != null || items[position].icon != null) {
 			if (items[position].groupId != ModalBottomSheetItem.GROUP_ID_NONE) {
 				when (groups.find { it.id == items[position].groupId }?.checkableBehavior) {
 					ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_ICON_CHECKBOX
@@ -91,8 +91,11 @@ class ModalBottomSheetAdapter(
 				val tempHolder = holder as NoIconWithTextHolder
 				tempHolder.titleTextView.text = item.title
 
-				if (item.onClickListener != null) {
-					holder.itemView.setOnClickListener(item.onClickListener)
+				// Handle on click listener in item
+				if (item.onItemClickListener != null) {
+					holder.itemView.setOnClickListener {
+						item.onItemClickListener?.onItemClick(item)
+					}
 				}
 			}
 			LIST_ITEM_NO_ICON_CHECKBOX -> {
@@ -124,8 +127,8 @@ class ModalBottomSheetAdapter(
 					}
 
 					// Handle on click listener in item
-					if (item.onClickListener != null) {
-						item.onClickListener?.onClick(it)
+					if (item.onItemClickListener != null) {
+						item.onItemClickListener?.onItemClick(item)
 					}
 				}
 
@@ -179,23 +182,34 @@ class ModalBottomSheetAdapter(
 					}
 
 					// Handle on click listener in item
-					if (item.onClickListener != null) {
-						item.onClickListener?.onClick(it)
+					if (item.onItemClickListener != null) {
+						item.onItemClickListener?.onItemClick(item)
 					}
 				}
 			}
 			LIST_ITEM_ICON -> {
 				val tempHolder = holder as IconWithTextHolder
-				tempHolder.iconImageView.setImageDrawable(item.icon?.let { context.getDrawable(it) })
+				if (item.iconDrawable != null) {
+					tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
+				} else {
+					tempHolder.iconImageView.setImageDrawable(item.icon?.let { context.getDrawable(it) })
+				}
 				tempHolder.titleTextView.text = item.title
 
-				if (item.onClickListener != null) {
-					holder.itemView.setOnClickListener(item.onClickListener)
+				// Handle on click listener in item
+				if (item.onItemClickListener != null) {
+					holder.itemView.setOnClickListener {
+						item.onItemClickListener?.onItemClick(item)
+					}
 				}
 			}
 			LIST_ITEM_ICON_CHECKBOX -> {
 				val tempHolder = holder as IconWithTextWithCheckboxHolder
-				tempHolder.iconImageView.setImageDrawable(item.icon?.let { context.getDrawable(it) })
+				if (item.iconDrawable != null) {
+					tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
+				} else {
+					tempHolder.iconImageView.setImageDrawable(item.icon?.let { context.getDrawable(it) })
+				}
 				tempHolder.titleTextView.text = item.title
 				tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
 				holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -223,14 +237,18 @@ class ModalBottomSheetAdapter(
 					}
 
 					// Handle on click listener in item
-					if (item.onClickListener != null) {
-						item.onClickListener?.onClick(it)
+					if (item.onItemClickListener != null) {
+						item.onItemClickListener?.onItemClick(item)
 					}
 				}
 			}
 			LIST_ITEM_ICON_RADIO_BUTTON -> {
 				val tempHolder = holder as IconWithTextWithRadioButtonHolder
-				tempHolder.iconImageView.setImageDrawable(item.icon?.let { context.getDrawable(it) })
+				if (item.iconDrawable != null) {
+					tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
+				} else {
+					tempHolder.iconImageView.setImageDrawable(item.icon?.let { context.getDrawable(it) })
+				}
 				tempHolder.titleTextView.text = item.title
 				tempHolder.radioButton.isChecked = itemGroup?.selected?.contains(item) ?: false
 				holder.radioButton.setOnCheckedChangeListener { _, isChecked ->
@@ -279,8 +297,8 @@ class ModalBottomSheetAdapter(
 					}
 
 					// Handle on click listener in item
-					if (item.onClickListener != null) {
-						item.onClickListener?.onClick(it)
+					if (item.onItemClickListener != null) {
+						item.onItemClickListener?.onItemClick(item)
 					}
 
 				}
@@ -330,15 +348,22 @@ class ModalBottomSheetAdapter(
 		}
 	}
 
-	/**
-	 * Listener for when an item's checked state is toggled
-	 */
+	/** Listener for when an item's checked state is toggled */
 	interface OnItemCheckedChangeListener {
 		/**
-		 * Called when a item's checked state is toggled
+		 * Called when an item's checked state is toggled
 		 * @param item The item whose checked state was toggled
 		 */
 		fun onItemCheckedChange(item: ModalBottomSheetItem)
+	}
+
+	/** Listener for when an item has been clicked on */
+	interface OnItemClickListener {
+		/**
+		 * Called when an item has been clicked on
+		 * @param item The item that was clicked on
+		 */
+		fun onItemClick(item: ModalBottomSheetItem)
 	}
 
 	companion object {
