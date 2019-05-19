@@ -15,6 +15,4 @@ fun Date?.toTimestamp() = Timestamp(this)
  * @param format A format that [SimpleDateFormat] supports
  * @see [SimpleDateFormat docs](https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html)
  */
-fun Date.toFormat(format: String): String {
-	return SimpleDateFormat(format, Locale.getDefault()).format(this)
-}
+fun Date.toFormat(format: String): String = SimpleDateFormat(format, Locale.getDefault()).format(this)
