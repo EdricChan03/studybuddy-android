@@ -92,7 +92,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 	}
 
 	companion object {
-		private val TAG = SharedUtils.getTag(this::class.java)
 		// The title tag used for saving the title state
 		private const val TITLE_TAG = "settingsActivityTitle"
 	}
