@@ -51,20 +51,20 @@ class TipsFragment : Fragment(R.layout.frag_tips) {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when (item.itemId) {
+		return when (item.itemId) {
 			R.id.action_submit_tip -> {
 				SharedUtils.launchUri(context!!, Constants.uriSubmitTip, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
-				return true
+				true
 			}
 			R.id.action_debug -> {
-				return true
 				startActivity<DebugActivity>()
+				true
 			}
 			R.id.action_settings -> {
-				return true
 				startActivity<SettingsActivity>()
+				true
 			}
-			else -> return super.onOptionsItemSelected(item)
+			else -> super.onOptionsItemSelected(item)
 		}
 	}
 
