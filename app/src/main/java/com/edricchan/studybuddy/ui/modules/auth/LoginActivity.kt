@@ -212,7 +212,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 	}
 
 	companion object {
-		private val TAG = SharedUtils.getTag(this::class.java)
+		private val TAG = SharedUtils.getTag(LoginActivity::class.java)
 		private var RC_SIGN_IN: Int = 0
 	}
 
