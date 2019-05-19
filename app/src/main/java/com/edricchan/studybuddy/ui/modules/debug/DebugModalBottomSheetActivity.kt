@@ -38,6 +38,12 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 				"Modal bottom sheet with text and header",
 				buildOnClickListener(modalBottomSheetWithTextAndHeader())
 		)
+
+		addModalBottomSheetLauncher(
+				modalBottomSheetLaunchersLayout,
+				"Modal bottom sheet with disabled even items",
+				buildOnClickListener(modalBottomSheetDisabledEvenItems())
+		)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -127,6 +133,26 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 			))
 		}
 		modalBottomSheetFragment.headerTitle = headerTitle
+		return modalBottomSheetFragment
+	}
+
+	private fun modalBottomSheetDisabledEvenItems(): ModalBottomSheetFragment {
+		val modalBottomSheetFragment = ModalBottomSheetFragment()
+		for (i in 1..10) {
+			// Only enable on even items
+			val enabled = i % 2 == 0
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
+					itemId = i,
+					title = "Item $i",
+					enabled = enabled,
+					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+						override fun onItemClick(item: ModalBottomSheetItem) {
+							showToast(item)
+						}
+
+					}
+			))
+		}
 		return modalBottomSheetFragment
 	}
 		return modalBottomSheetFragment
