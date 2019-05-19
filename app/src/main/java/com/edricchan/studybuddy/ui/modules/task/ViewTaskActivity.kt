@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
@@ -112,13 +113,11 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 					.setTitle("Sign in")
 					.setMessage("To access the content, please login or register for an account.")
 					.setPositiveButton(R.string.dialog_action_login) { dialogInterface, _ ->
-						val loginIntent = Intent(this, LoginActivity::class.java)
-						startActivity(loginIntent)
+						startActivity<LoginActivity>()
 						dialogInterface.dismiss()
 					}
 					.setNeutralButton(R.string.dialog_action_sign_up) { dialogInterface, _ ->
-						val registerIntent = Intent(this, RegisterActivity::class.java)
-						startActivity(registerIntent)
+						startActivity<RegisterActivity>()
 						dialogInterface.dismiss()
 					}
 					.setNegativeButton(R.string.dialog_action_cancel) { dialogInterface, _ -> dialogInterface.cancel() }
