@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.help
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
@@ -18,6 +17,7 @@ import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.interfaces.HelpArticles
 import com.edricchan.studybuddy.ui.adapter.HelpArticleAdapter
@@ -70,8 +70,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				return true
 			}
 			R.id.action_licenses -> {
-				val licensesIntent = Intent(this, OssLicensesMenuActivity::class.java)
-				startActivity(licensesIntent)
+				startActivity<OssLicensesMenuActivity>()
 				return true
 			}
 			R.id.action_source_code -> {
