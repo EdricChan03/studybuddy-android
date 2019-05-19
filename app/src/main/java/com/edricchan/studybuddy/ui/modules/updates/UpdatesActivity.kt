@@ -20,8 +20,8 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.utils.Constants
+import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.utils.IOUtils
-import com.edricchan.studybuddy.utils.SharedPrefConstants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -49,7 +49,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 		emptyStateCtaBtn.setOnClickListener { checkForUpdates() }
 		preferences = PreferenceManager.getDefaultSharedPreferences(this)
-		updateInfoPreferences = getSharedPreferences(SharedPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
+		updateInfoPreferences = getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -167,7 +167,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 				// Lastly, start the activity
 				startActivity(installIntent)
 				updateInfoPreferences.edit {
-					putLong(SharedPrefConstants.PREF_LAST_UPDATED_DATE, System.currentTimeMillis())
+					putLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, System.currentTimeMillis())
 				}
 			} else {
 				// User has not allowed the app as an unknown app source
@@ -247,7 +247,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 		// Save last updated status
 		updateInfoPreferences.edit {
 			Log.d(TAG, "Setting last checked for updates date...")
-			putLong(SharedPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, System.currentTimeMillis())
+			putLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, System.currentTimeMillis())
 		}
 		isChecking = true
 		invalidateOptionsMenu()
