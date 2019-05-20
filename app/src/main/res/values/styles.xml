@@ -20,11 +20,11 @@
 		</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
-		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Theme.SmallComponent
+		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
 		</item>
-		<item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Theme.MediumComponent
+		<item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
 		</item>
-		<item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Theme.LargeComponent
+		<item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent
 		</item>
 		<item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
 	</style>
@@ -48,11 +48,11 @@
 		</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
-		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Theme.SmallComponent
+		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
 		</item>
-		<item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Theme.MediumComponent
+		<item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
 		</item>
-		<item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Theme.LargeComponent
+		<item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent
 		</item>
 		<item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
 	</style>
@@ -79,17 +79,17 @@
 	TODO: Customize the ShapeAppearance
 	Note that such styles should come in the next release
 	-->
-	<style name="ShapeAppearance.Theme.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+	<style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">4dp</item>
 	</style>
 
-	<style name="ShapeAppearance.Theme.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+	<style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">8dp</item>
 	</style>
 
-	<style name="ShapeAppearance.Theme.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+	<style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">24dp</item>
 	</style>
