@@ -110,8 +110,7 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 	private fun modalBottomSheetWithTextAndHeader(): ModalBottomSheetFragment {
 		val modalBottomSheetFragment = ModalBottomSheetFragment()
 		val headerTitle = getString(R.string.share_intent_value)
-		val shareIntent = Intent().apply {
-			action = Intent.ACTION_SEND
+		val shareIntent = Intent(Intent.ACTION_SEND).apply {
 			putExtra(Intent.EXTRA_TEXT, R.string.share_content)
 			type = MimeTypeConstants.textPlainMime
 		}
