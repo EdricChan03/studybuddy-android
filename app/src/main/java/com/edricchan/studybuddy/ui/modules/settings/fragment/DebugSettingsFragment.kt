@@ -171,22 +171,14 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			var dialogMsg = ""
 
 			if (mUser != null) {
-				if (mUser!!.displayName != null) {
-					dialogMsg += "Display name: " + mUser!!.displayName!!
-				}
-				if (mUser!!.email != null) {
-					dialogMsg += "\nEmail: " + mUser!!.email!!
-				}
-				dialogMsg += "\nMetadata:\n- Creation timestamp: " + Date(mUser!!.metadata!!.creationTimestamp).toString()
-				dialogMsg += "\n- Last signed in timestamp: " + Date(mUser!!.metadata!!.lastSignInTimestamp).toString()
-				if (mUser!!.phoneNumber != null) {
-					dialogMsg += "\nPhone number: " + mUser!!.phoneNumber!!
-				}
-				if (mUser!!.photoUrl != null) {
-					dialogMsg += "\nPhoto URL: " + mUser!!.photoUrl!!
-				}
-				dialogMsg += "\nUID: " + mUser!!.uid
-				dialogMsg += "\nIs anonymous: " + if (mUser!!.isAnonymous) "yes" else "no"
+				dialogMsg += "Display name: ${mUser?.displayName ?: "<not set>"}"
+				dialogMsg += "\nEmail: ${mUser?.email ?: "<not set>"}"
+				dialogMsg += "\nMetadata:\n- Creation timestamp: ${mUser?.metadata?.creationTimestamp.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"}"
+				dialogMsg += "\n- Last sign in timestamp: ${mUser?.metadata?.lastSignInTimestamp.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"}"
+				dialogMsg += "\nPhone number: ${mUser?.phoneNumber ?: "<not set>"}"
+				dialogMsg += "\nPhoto URL: ${mUser?.photoUrl ?: "<not set>"}"
+				dialogMsg += "\nUID: ${mUser?.uid ?: "<not set>"}"
+				dialogMsg += "\nIs anonymous: ${if (mUser!!.isAnonymous) "yes" else "no"}"
 			} else {
 				dialogMsg = "No current signed-in Firebase user exists!"
 			}
