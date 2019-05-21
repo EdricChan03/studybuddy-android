@@ -27,6 +27,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.toDate
+import com.edricchan.studybuddy.extensions.toDateFormat
 import com.edricchan.studybuddy.extensions.toFormat
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
