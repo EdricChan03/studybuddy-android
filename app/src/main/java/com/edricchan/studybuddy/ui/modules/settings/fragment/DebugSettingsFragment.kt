@@ -231,7 +231,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 									priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
 								}
 								R.id.priorityHighRadioButton -> {
-									Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
+									Log.d(TAG, "Value of priorityRadioGroup: \"high\"")
 									priority = NotificationRequest.NOTIFICATION_PRIORITY_HIGH
 								}
 							}
