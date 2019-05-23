@@ -144,12 +144,12 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 	private fun modalBottomSheetDisabledEvenItems(): ModalBottomSheetFragment {
 		val modalBottomSheetFragment = ModalBottomSheetFragment()
 		for (i in 1..10) {
-			// Only enable on even items
-			val enabled = i % 2 == 0
+			// Only disable on even items
+			val disabled = i % 2 == 0
 			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
 					itemId = i,
 					title = "Item $i",
-					enabled = enabled,
+					enabled = !disabled,
 					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
 						override fun onItemClick(item: ModalBottomSheetItem) {
 							showToast(item)
