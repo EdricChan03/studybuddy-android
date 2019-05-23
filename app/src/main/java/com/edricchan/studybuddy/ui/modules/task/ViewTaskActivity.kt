@@ -140,24 +140,6 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 		}
 	}
 
-	/*override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.menu_view_task, menu)
-		return true
-	}
-
-	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-		if (taskItem != null) {
-			if (taskItem!!.isDone!!) {
-				menu.findItem(R.id.action_mark_as_done)
-						.setTitle(R.string.action_mark_as_undone)
-			} else {
-				menu.findItem(R.id.action_mark_as_done)
-						.setTitle(R.string.action_mark_as_done)
-			}
-		}
-		return super.onPrepareOptionsMenu(menu)
-	}*/
-
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			android.R.id.home -> {
