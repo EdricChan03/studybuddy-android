@@ -67,7 +67,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun addTag(tag: String): Builder {
-			taskTags!!.add(tag)
+			taskTags?.add(tag)
 			return this
 		}
 
@@ -77,7 +77,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun clearTags(): Builder {
-			taskTags!!.clear()
+			taskTags?.clear()
 			return this
 		}
 
@@ -88,7 +88,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setContent(content: String): Builder {
-			task!!.content = content
+			task?.content = content
 			return this
 		}
 
@@ -99,7 +99,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setDueDate(dueDate: Date): Builder {
-			task!!.dueDate = Timestamp(dueDate)
+			task?.dueDate = Timestamp(dueDate)
 			return this
 		}
 
@@ -112,7 +112,7 @@ data class TaskItem(
 		 * @see [](https://firebase.google.com/docs/reference/android/com/google/firebase/Timestamp.Timestamp
 		) */
 		fun setDueDate(seconds: Long, nanoseconds: Int): Builder {
-			task!!.dueDate = Timestamp(seconds, nanoseconds)
+			task?.dueDate = Timestamp(seconds, nanoseconds)
 			return this
 		}
 
@@ -123,7 +123,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setDueDate(timestamp: Timestamp): Builder {
-			task!!.dueDate = timestamp
+			task?.dueDate = timestamp
 			return this
 		}
 
@@ -134,7 +134,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setIsDone(isDone: Boolean): Builder {
-			task!!.isDone = isDone
+			task?.isDone = isDone
 			return this
 		}
 		
@@ -151,7 +151,7 @@ data class TaskItem(
 		 */
 		@Deprecated("The document ID is automatically appended to the task once it is added to the database")
 		fun setId(id: String): Builder {
-			task!!.id = id
+			task?.id = id
 			return this
 		}
 
@@ -162,7 +162,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setProject(project: DocumentReference): Builder {
-			task!!.project = project
+			task?.project = project
 			return this
 		}
 
@@ -175,7 +175,7 @@ data class TaskItem(
 		 */
 		@Deprecated("Use {@link Builder#setProject(DocumentReference)}")
 		fun setProject(fs: FirebaseFirestore, docPath: String): Builder {
-			task!!.project = fs.document(docPath)
+			task?.project = fs.document(docPath)
 			return this
 		}
 
@@ -189,7 +189,7 @@ data class TaskItem(
 		 */
 		@Deprecated("Use {@link Builder#setProject(DocumentReference)}")
 		fun setProject(fs: FirebaseFirestore, userId: String, projectId: String): Builder {
-			task!!.project = fs.document("users/$userId/todoProjects/$projectId")
+			task?.project = fs.document("users/$userId/todoProjects/$projectId")
 			return this
 		}
 
@@ -234,7 +234,7 @@ data class TaskItem(
 		 * @return The builder object to allow for chaining of methods
 		 */
 		fun setTitle(title: String): Builder {
-			task!!.title = title
+			task?.title = title
 			return this
 		}
 
@@ -247,8 +247,8 @@ data class TaskItem(
 		@Throws(RuntimeException::class)
 		fun create(): TaskItem {
 			// Set the tags
-			if (taskTags != null && !taskTags!!.isEmpty()) {
-				task!!.tags = taskTags
+			if (taskTags != null && taskTags.isNullOrEmpty()) {
+				task?.tags = taskTags
 			}
 			// Null checks to prevent values from being null on the document
 			if (task != null && task?.title.isNullOrEmpty()) {
