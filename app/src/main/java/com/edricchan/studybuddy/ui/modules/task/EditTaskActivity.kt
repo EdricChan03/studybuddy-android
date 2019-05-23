@@ -182,7 +182,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.menu_new_task, menu)
+		menuInflater.inflate(R.menu.menu_edit_task, menu)
 		return true
 	}
 
