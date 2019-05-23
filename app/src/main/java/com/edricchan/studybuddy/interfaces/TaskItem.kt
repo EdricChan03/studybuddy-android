@@ -12,6 +12,7 @@ import java.util.*
  * @property content The contents of this task
  * @property dueDate The due date of this task
  * @property isDone Whether the task is initially marked as done
+ * @property isArchived Whether the task has been archived
  * @property id The document's ID of this task
  * @property project The project assigned to this task as a document reference
  * @property tags A list of tags assigned to this task
@@ -22,12 +23,13 @@ data class TaskItem(
 		var content: String? = null,
 		var dueDate: Timestamp? = null,
 		var isDone: Boolean? = false,
+		var isArchived: Boolean? = false,
 		@get:Exclude override var id: String = "",
 		var project: DocumentReference? = null,
 		var tags: List<String>? = null,
 		var title: String? = null
 ) : HasId {
-	constructor() : this(null, null, false, "", null, null, null)
+	constructor() : this(null, null, false, false, "", null, null, null)
 
 	class Builder {
 		private var task: TaskItem? = null
@@ -133,6 +135,11 @@ data class TaskItem(
 		 */
 		fun setIsDone(isDone: Boolean): Builder {
 			task!!.isDone = isDone
+			return this
+		}
+		
+		fun setIsArchived(isArchived: Boolean): Builder {
+			task?.isArchived = isArchived
 			return this
 		}
 
