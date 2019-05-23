@@ -80,6 +80,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									showSnackbar("Task marked as " + if ((!taskItem!!.isDone!!)) "done" else "undone", Snackbar.LENGTH_SHORT)
+									Log.d(TAG, "Task marked as " + if ((!taskItem!!.isDone!!)) "done" else "undone")
 								} else {
 									Toast.makeText(this, "An error occurred while marking the todo as " + if ((!taskItem!!.isDone!!)) "done" else "undone", Toast.LENGTH_LONG)
 											.show()
