@@ -109,8 +109,8 @@ data class TaskItem(
 		 * @param seconds     The seconds of UTC time since the Unix epoch
 		 * @param nanoseconds The non-negative fractions of a second at nanosecond resolution
 		 * @return The builder object to allow for chaining of methods
-		 * @see [](https://firebase.google.com/docs/reference/android/com/google/firebase/Timestamp.Timestamp
-		) */
+		 * @see [Timestamp]
+		 */
 		fun setDueDate(seconds: Long, nanoseconds: Int): Builder {
 			task?.dueDate = Timestamp(seconds, nanoseconds)
 			return this
