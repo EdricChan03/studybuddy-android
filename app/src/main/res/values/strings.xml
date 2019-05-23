@@ -28,6 +28,8 @@
 
 	<string name="action_account">Account</string>
 
+	<string name="action_archive_todo">Archive todo</string>
+
 	<string name="action_check_for_updates">Check for updates</string>
 
 	<string name="action_debug">Debug</string>
@@ -78,6 +80,8 @@
 
 	<string name="action_submit">Submit</string>
 	<string name="action_submit_tip">Submit a tip</string>
+
+	<string name="action_unarchive_todo">Unarchive todo</string>
 
 	<string name="action_version">Version</string>
 

@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 	<!-- There's already a FAB to edit the task -->
 	<item
-		android:id="@+id/action_edit"
-		android:icon="@drawable/ic_edit_outline_24dp"
-		android:title="@string/action_edit"
-		android:visible="false"
-		app:showAsAction="ifRoom" />
+			android:id="@+id/action_edit"
+			android:icon="@drawable/ic_edit_outline_24dp"
+			android:title="@string/action_edit"
+			android:visible="false"
+			app:showAsAction="ifRoom"/>
 	<item
-		android:id="@+id/action_mark_as_done"
-		android:icon="@drawable/ic_check_24dp"
-		android:title="@string/action_mark_as_done"
-		app:showAsAction="ifRoom" />
+			android:id="@+id/action_mark_as_done"
+			android:icon="@drawable/ic_check_24dp"
+			android:title="@string/action_mark_as_done"
+			app:showAsAction="ifRoom"/>
 	<item
-		android:id="@+id/action_delete"
-		android:icon="@drawable/ic_delete_outline_24dp"
-		android:title="@string/action_delete_todo"
-		app:showAsAction="ifRoom" />
+			android:id="@+id/action_delete"
+			android:icon="@drawable/ic_delete_outline_24dp"
+			android:title="@string/action_delete_todo"
+			app:showAsAction="ifRoom"/>
+	<item
+			android:id="@+id/action_archive"
+			android:icon="@drawable/ic_archive_outline_24dp"
+			android:title="@string/action_archive_todo"
+			app:showAsAction="ifRoom"/>
+	<!-- Only visible if the task has been archived -->
+	<!--<item
+			android:id="@+id/action_unarchive"
+			android:icon="@drawable/ic_unarchive_outline_24dp"
+			android:title="@string/action_archive_todo"
+			android:visible="false"
+			app:showAsAction="ifRoom"/>-->
 </menu>

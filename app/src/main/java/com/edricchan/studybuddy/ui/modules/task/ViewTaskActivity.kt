@@ -86,7 +86,20 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 											.show()
 									Log.e(TAG, "An error occurred while marking the todo as " + if ((!taskItem!!.isDone!!)) "done" else "undone", task.exception)
 								}
-								invalidateOptionsMenu()
+							}
+					return@setOnMenuItemClickListener true
+				}
+				R.id.action_archive -> {
+					mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
+							.update("isArchived", taskItem?.isArchived ?: false)
+							.addOnCompleteListener { task ->
+								if (task.isSuccessful) {
+									showSnackbar("Successfully ${if (taskItem?.isArchived == true) "un" else ""}archived task!", Snackbar.LENGTH_SHORT)
+									Log.d(TAG, "Successfully ${if (taskItem?.isArchived == true) "un" else ""}archived task!")
+								} else {
+									Toast.makeText(this, "An error occurred while attempting to ${if (taskItem?.isArchived == true) "un" else ""}archive the task", Toast.LENGTH_SHORT).show()
+									Log.e(TAG, "An error occurred while attempting to ${if (taskItem?.isArchived == true) "un" else ""}archive the task:", task.exception)
+								}
 							}
 					return@setOnMenuItemClickListener true
 				}
