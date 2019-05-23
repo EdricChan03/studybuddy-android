@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.task
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -107,10 +106,9 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 			}
 		}
 		editTaskFab.setOnClickListener {
-			val intent = Intent(this, EditTaskActivity::class.java).apply {
+			startActivity<EditTaskActivity> {
 				putExtra("taskId", mTaskId)
 			}
-			startActivity(intent)
 		}
 	}
 
