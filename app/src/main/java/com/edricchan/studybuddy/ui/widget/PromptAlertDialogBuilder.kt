@@ -21,8 +21,14 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
 	 */
 	var promptDialogView: View = LayoutInflater.from(context).inflate(R.layout.edit_text_dialog, null)
 	private set
+	/**
+	 * The inner [TextInputLayout] used
+	 */
 	var textInputLayout: TextInputLayout = promptDialogView.findViewById(R.id.textInputLayout)
 	private set
+	/**
+	 * The inner [EditText]
+	 */
 	var textInputEditText = textInputLayout.editText
 	private set
 	private var TAG = SharedUtils.getTag(this::class.java)
