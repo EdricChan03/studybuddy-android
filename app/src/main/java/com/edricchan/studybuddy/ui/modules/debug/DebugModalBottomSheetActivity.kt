@@ -19,7 +19,6 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomShee
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 
-
 class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_modal_bottom_sheet) {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +36,12 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 				modalBottomSheetLaunchersLayout,
 				"Modal bottom sheet with text and header",
 				buildOnClickListener(modalBottomSheetWithTextAndHeader())
+		)
+
+		addModalBottomSheetLauncher(
+				modalBottomSheetLaunchersLayout,
+				"Modal bottom sheet with 1000 items",
+				buildOnClickListener(modalBottomSheetWith1000Items())
 		)
 
 		addModalBottomSheetLauncher(
@@ -138,6 +143,23 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 			))
 		}
 		modalBottomSheetFragment.headerTitle = headerTitle
+		return modalBottomSheetFragment
+	}
+
+	private fun modalBottomSheetWith1000Items(): ModalBottomSheetFragment {
+		val modalBottomSheetFragment = ModalBottomSheetFragment()
+		for (i in 1..1000) {
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
+					itemId = i,
+					title = "Item $i",
+					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+						override fun onItemClick(item: ModalBottomSheetItem) {
+							showToast(item)
+						}
+
+					}
+			))
+		}
 		return modalBottomSheetFragment
 	}
 
