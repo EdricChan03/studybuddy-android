@@ -369,7 +369,10 @@
 
 	<string name="pref_weekly_summary_day_title">Day to retrieve weekly summary</string>
 
-	<string name="pref_weekly_summary_enabled_title">Enable weekly summary</string>
+	<string name="pref_weekly_summary_switch_enabled_title">Weekly summary</string>
+	<string name="pref_weekly_summary_masterswitch_enabled_title">Enable weekly summary</string>
+	<string name="pref_weekly_summary_enabled_summary_off">Disabled</string>
+	<string name="pref_weekly_summary_enabled_summary_on">Enabled</string>
 	<string name="pref_weekly_summary_notification_opts_summary">Customize how the notifications are shown</string>
 	<string name="pref_weekly_summary_notification_opts_title">Notification settings</string>
 
