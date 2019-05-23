@@ -127,7 +127,7 @@ class SharedUtils
 		/**
 		 * Sets the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [com.google.android.material.floatingactionbutton.FloatingActionButton]
 		 *
-		 * @param activity An instnace of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
+		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
 		 * @param listener The on click listener to set
 		 */
 		fun setBottomAppBarFabOnClickListener(activity: AppCompatActivity, listener: View.OnClickListener) {
@@ -140,7 +140,7 @@ class SharedUtils
 		/**
 		 * Sets the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [com.google.android.material.floatingactionbutton.FloatingActionButton]
 		 *
-		 * @param activity An instnace of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
+		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
 		 * @param listener The on click listener to set
 		 */
 		fun setBottomAppBarFabOnClickListener(activity: FragmentActivity, listener: View.OnClickListener) {
@@ -153,7 +153,7 @@ class SharedUtils
 		/**
 		 * Retrieves the image drawable of the FAB in the main activity
 		 *
-		 * @param activity An instnace of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
+		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
 		 * @return The drawable of the FAB
 		 */
 		fun getBottomAppBarFabSrc(activity: AppCompatActivity): Drawable? {
