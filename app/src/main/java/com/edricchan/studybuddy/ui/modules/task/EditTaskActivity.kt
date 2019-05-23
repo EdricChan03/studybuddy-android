@@ -229,6 +229,6 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 	}
 
 	companion object {
-		private val TAG = SharedUtils.getTag(this::class.java)
+		private val TAG = SharedUtils.getTag(EditTaskActivity::class.java)
 	}
 }
