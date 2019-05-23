@@ -52,7 +52,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 					val builder = MaterialAlertDialogBuilder(this)
 					builder.setTitle("Delete todo?")
 							.setPositiveButton(R.string.dialog_action_ok) { _, _ ->
-								mFirestore.document("users/" + mCurrentUser?.uid + "/todos/" + mTaskId)
+								mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
 										.delete()
 										.addOnCompleteListener { task ->
 											if (task.isSuccessful) {
@@ -75,7 +75,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 					return@setOnMenuItemClickListener true
 				}
 				R.id.action_mark_as_done -> {
-					mFirestore.document("users/" + mCurrentUser?.uid + "/todos/" + mTaskId)
+					mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
 							.update("isDone", !taskItem?.isDone!!)
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
