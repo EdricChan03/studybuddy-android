@@ -3,13 +3,13 @@ package com.edricchan.studybuddy.ui.modules.settings.fragment
 import android.os.Bundle
 import android.widget.Toast
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class SyncSettingsFragment : PreferenceFragmentCompat() {
-	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_data_sync, rootKey)
 		val manualSyncPreference = findPreference<Preference>("manual_sync")
 		manualSyncPreference?.setOnPreferenceClickListener {

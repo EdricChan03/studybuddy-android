@@ -3,18 +3,18 @@ package com.edricchan.studybuddy.ui.modules.settings.fragment
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
 	private var preferences: SharedPreferences? = null
 
-	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_headers, rootKey)
 		preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
 		if (BuildConfig.DEBUG) {

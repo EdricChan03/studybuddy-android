@@ -8,10 +8,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -41,7 +41,7 @@ class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.On
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
 	}*/
 
-	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_general, rootKey)
 		prefDayNightLocationGrantPerm = findPreference(Constants.prefDaynightLocationGrantPerm)
 		prefDayNightLocationPermInfo = findPreference(Constants.prefDayNightLocationPermInfo)

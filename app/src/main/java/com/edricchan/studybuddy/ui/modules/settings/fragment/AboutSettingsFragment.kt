@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
@@ -14,12 +13,13 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class AboutSettingsFragment : PreferenceFragmentCompat() {
 
 	private lateinit var preferences: SharedPreferences
 
-	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_about, rootKey)
 		val context = activity
 		preferences = PreferenceManager.getDefaultSharedPreferences(context!!)

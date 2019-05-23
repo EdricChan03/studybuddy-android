@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.text.isDigitsOnly
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -37,6 +36,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.iid.FirebaseInstanceId
+import com.takisoft.preferencex.PreferenceFragmentCompat
 import java.io.IOException
 import java.util.*
 
@@ -62,7 +62,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			super.onSaveInstanceState(outState)
 		}
 
-		override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+		override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 			setPreferencesFromResource(R.xml.pref_debug_update_info, rootKey)
 			activity?.let {
 				updateInfoPreferences = it.getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
@@ -161,7 +161,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		mConnectivityManager = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 	}
 
-	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_debug, rootKey)
 		findPreference<Preference>(Constants.debugDeviceInfo)?.setOnPreferenceClickListener {
 			showDeviceInfoDialog()
