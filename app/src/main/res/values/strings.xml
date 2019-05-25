@@ -223,45 +223,45 @@
 		characters!
 	</string>
 
-	<string name="notification_channel_group_todos_id">todos</string>
+	<string name="notification_channel_group_todos_id" translatable="false">todos</string>
 
 	<string name="notification_channel_group_todos_title">Todos</string>
 
-	<string name="notification_channel_group_updates_id">updates</string>
+	<string name="notification_channel_group_updates_id" translatable="false">updates</string>
 	<string name="notification_channel_group_updates_title">App updates</string>
 	<string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
-	<string name="notification_channel_playback_id">playback</string>
+	<string name="notification_channel_playback_id" translatable="false">playback</string>
 	<string name="notification_channel_playback_title">Playback</string>
 	<string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
-	<string name="notification_channel_sync_id">sync</string>
+	<string name="notification_channel_sync_id" translatable="false">sync</string>
 	<string name="notification_channel_sync_title">Sync</string>
 	<string name="notification_channel_todo_updates_desc">Shows updates on the status of todos</string>
-	<string name="notification_channel_todo_updates_id">todo_updates</string>
+	<string name="notification_channel_todo_updates_id" translatable="false">todo_updates</string>
 	<string name="notification_channel_todo_updates_title">Todo updates</string>
 	<string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the
 		previous channels
 	</string>
-	<string name="notification_channel_uncategorised_id">uncategorised</string>
+	<string name="notification_channel_uncategorised_id" translatable="false">uncategorised</string>
 	<string name="notification_channel_uncategorised_title">Uncategorised</string>
 	<string name="notification_channel_update_available_desc">Shows that an update is available</string>
-	<string name="notification_channel_update_available_id">update_available</string>
+	<string name="notification_channel_update_available_id" translatable="false">update_available</string>
 	<string name="notification_channel_update_available_title">Update available</string>
 	<string name="notification_channel_update_complete_desc">Shows that an update has completed download</string>
-	<string name="notification_channel_update_complete_id">update_complete</string>
+	<string name="notification_channel_update_complete_id" translatable="false">update_complete</string>
 	<string name="notification_channel_update_complete_title">Update complete</string>
 	<string name="notification_channel_update_error_desc">Shows when an error occurred while downloading/checking for
 		updates
 	</string>
-	<string name="notification_channel_update_error_id">update_error</string>
+	<string name="notification_channel_update_error_id" translatable="false">update_error</string>
 	<string name="notification_channel_update_error_title">Update error</string>
 	<string name="notification_channel_update_not_available_desc">Shows that an update is unavailable</string>
-	<string name="notification_channel_update_not_available_id">update_not_available</string>
+	<string name="notification_channel_update_not_available_id" translatable="false">update_not_available</string>
 	<string name="notification_channel_update_not_available_title">Update unavailable</string>
 	<string name="notification_channel_update_status_desc">Shows the status of updates</string>
-	<string name="notification_channel_update_status_id">update_status</string>
+	<string name="notification_channel_update_status_id" translatable="false">update_status</string>
 	<string name="notification_channel_update_status_title">Update status</string>
 	<string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
-	<string name="notification_channel_weekly_summary_id">weekly_summary</string>
+	<string name="notification_channel_weekly_summary_id" translatable="false">weekly_summary</string>
 	<string name="notification_channel_weekly_summary_title">Weekly summary</string>
 	<string name="notification_check_update">Checking for updates…</string>
 	<string name="notification_new_update_text">Version %s is available! Tap here to download &amp; install</string>
