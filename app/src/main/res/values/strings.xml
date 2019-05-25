@@ -485,7 +485,6 @@
 	<string name="view_task_label_icon_content_desc">Label icon</string>
 	<string name="view_task_loading">Loading task\'s contents…</string>
 	<string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
-	<string name="web_client_id">713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com</string>
 	<string name="debug_activity_updates_set_custom_json_url_default_value" translatable="false">
 		https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
 	</string>
