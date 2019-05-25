@@ -1,0 +1,19 @@
+{
+	"data": [
+		{
+			"name": "Help"
+		},
+		{
+			"name": "Send feedback"
+		},
+		{
+			"name": "About"
+		},
+		{
+			"name": "Settings"
+		},
+		{
+			"name": "Debug"
+		}
+	]
+}

@@ -17,7 +17,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			tools:text="Settings"/>
+			tools:text="@sample/actions.json/data/name"/>
 	<RadioButton
 			android:id="@+id/itemRadioButton"
 			android:layout_width="wrap_content"
