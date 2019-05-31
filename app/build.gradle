@@ -45,7 +45,7 @@ dependencies {
 	// Support Annotations
 	implementation 'androidx.annotation:annotation:1.1.0-rc01'
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
-	androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0-beta01', {
+	androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
 	// AndroidX Core
@@ -56,7 +56,7 @@ dependencies {
 	// ConstraintLayout
 	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
 	// Design Support
-	implementation 'com.google.android.material:material:1.1.0-alpha06'
+	implementation 'com.google.android.material:material:1.1.0-alpha07'
 	// RecyclerView
 	implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha05'
 	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha05'
@@ -70,7 +70,7 @@ dependencies {
 	implementation 'com.google.firebase:firebase-auth:17.0.0'
 	implementation 'com.google.firebase:firebase-messaging:18.0.0'
 	implementation 'com.google.android.gms:play-services-auth:16.0.1'
-	implementation 'com.google.firebase:firebase-perf:17.0.0'
+	implementation 'com.google.firebase:firebase-perf:17.0.2'
 	implementation 'com.google.firebase:firebase-dynamic-links:17.0.0'
 	// Provide a way to update the app
 	implementation 'com.github.javiersantos:AppUpdater:2.6.5'
@@ -89,7 +89,8 @@ dependencies {
 
 	// Custom Preferences
 	/*
-	- New releases to the AndroidX preference library have broken the following 2 libraries (this has probably since been fixed in newer versions of the library)
+	- New releases to the AndroidX preference library have broken the following 2 libraries
+	  (this has since been fixed in newer versions of the library)
 	- See https://github.com/takisoft/preferencex-android/issues/4 for the relevant issue
 	  and https://issuetracker.google.com/issues/128579401 for the issue tracker
 	*/
@@ -107,7 +108,7 @@ dependencies {
 	// OSS licenses library to show open source licenses
 	implementation 'com.google.android.gms:play-services-oss-licenses:16.0.2'
 	// Backported Java Stream library for Java 6/7
-	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.0'
+	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.1'
 
 
 	// Support for Kotlin
