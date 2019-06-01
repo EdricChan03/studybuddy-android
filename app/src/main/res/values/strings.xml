@@ -8,21 +8,40 @@
 	<string name="about_dialog_text">Purpose: To help students in their studies\nVersion: %s\n---\nApp is fully open
 		source. Check it out!
 	</string>
-	<string name="account_activity_account_actions">Account actions</string>
-	<string name="account_activity_action_sign_in">Sign in</string>
-	<string name="account_activity_avatar_desc">Account avatar</string>
-	<string name="account_activity_delete_account_dialog_title">Delete account?</string>
-	<string name="account_activity_new_email_dialog_edittext_title">New email address</string>
-	<string name="account_activity_new_email_dialog_title">Set new email address</string>
-	<string name="account_activity_new_name_dialog_edittext_title">New name</string>
-	<string name="account_activity_new_name_dialog_title">Set new name</string>
-	<string name="account_activity_new_password_dialog_edittext_title">New password</string>
-	<string name="account_activity_new_password_dialog_title">Set new password</string>
-	<string name="account_activity_new_profile_pic_dialog_msg">The feature to set a new profile picture is coming
+
+	<!-- ======================== -->
+	<!-- Account activity strings -->
+	<!-- ======================== -->
+	<eat-comment/>
+
+	<!-- The account actions button title in the account activity. -->
+	<string name="account_account_actions_button_title">Account actions</string>
+	<!-- The sign in button title in the account activity. -->
+	<string name="account_sign_in_button_title">Sign in</string>
+	<!-- The content description of the account avatar in the account activity. -->
+	<string name="account_avatar_desc">Account avatar</string>
+	<!-- The title of the delete account dialog in the account activity. -->
+	<string name="account_delete_account_dialog_title">Delete account?</string>
+	<!-- The title of the EditText in the new email dialog in the account activity. -->
+	<string name="account_new_email_dialog_edittext_title">New email address</string>
+	<!-- The title of the new email dialog in the account activity. -->
+	<string name="account_new_email_dialog_title">Set new email address</string>
+	<!-- The title of the EditText in the new name dialog in the account activity. -->
+	<string name="account_new_name_dialog_edittext_title">New name</string>
+	<!-- The title of the EditText in the new name dialog in the account activity. -->
+	<string name="account_new_name_dialog_title">Set new name</string>
+	<!-- The title of the EditText in the new password dialog in the account activity. -->
+	<string name="account_new_password_dialog_edittext_title">New password</string>
+	<!-- The title of the new password dialog in the account activity. -->
+	<string name="account_new_password_dialog_title">Set new password</string>
+	<!-- The message of the new profile picture dialog in the account activity. -->
+	<string name="account_new_profile_pic_dialog_msg">The feature to set a new profile picture is coming
 		soon!
 	</string>
-	<string name="account_activity_new_profile_pic_dialog_title">Set new profile picture</string>
-	<string name="account_activity_sign_out_dialog_title">Sign out?</string>
+	<!-- The title of the new profile picture dialog in the account activity. -->
+	<string name="account_new_profile_pic_dialog_title">Set new profile picture</string>
+	<!-- The title of the sign out dialog in the account activity. -->
+	<string name="account_sign_out_dialog_title">Sign out?</string>
 
 	<string name="action_about">About</string>
 
