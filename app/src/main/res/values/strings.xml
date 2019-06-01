@@ -508,7 +508,6 @@
 		https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
 	</string>
 
-	<string name="pref_check_for_updates_frequency_default_value" translatable="false">12</string>
 	<string name="update_json_release_url" translatable="false">
 		https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/release/changelog.json
 	</string>

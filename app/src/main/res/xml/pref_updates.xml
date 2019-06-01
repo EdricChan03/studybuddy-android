@@ -9,7 +9,7 @@
 			app:key="pref_updates_options_category"
 			app:title="@string/pref_updates_options_title">
 		<ListPreference
-				app:defaultValue="@string/pref_check_for_updates_frequency_default_value"
+				app:defaultValue="@integer/pref_check_for_updates_frequency_default_value"
 				app:entries="@array/pref_check_for_updates_frequencies"
 				app:entryValues="@array/pref_check_for_updates_frequency_values"
 				app:icon="@drawable/ic_refresh_24dp"
