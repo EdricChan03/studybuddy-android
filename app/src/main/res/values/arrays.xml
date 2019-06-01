@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="account_activity_account_actions_array">
+		<item>Delete account</item>
+		<item>Sign out</item>
+		<item>Update email</item>
+		<item>Update name</item>
+		<item>Update password</item>
+		<item>Update profile picture</item>
+	</string-array>
+	<string-array name="debug_activity_device_info_array">
+		<item>Device SDK Info</item>
+		<item>Connectivity Info</item>
+		<item>Night Mode Info</item>
+	</string-array>
+	<string-array name="pref_check_for_updates_frequencies">
+		<item>Manual/Never</item>
+		<item>Every 3 hours</item>
+		<item>Every 6 hours</item>
+		<item>Every 12 hours</item>
+		<item>Daily</item>
+		<item>Weekly</item>
+	</string-array>
+
+	<integer-array name="pref_check_for_updates_frequency_values" translatable="false">
+		<!-- Manual/never -->
+		<item>0</item>
+		<!-- Every 3 hours -->
+		<item>3</item>
+		<!-- Every 6 hours -->
+		<item>6</item>
+		<!-- Every 12 hours -->
+		<item>12</item>
+		<!-- Daily -->
+		<item>24</item>
+		<!-- Weekly -->
+		<item>168</item>
+	</integer-array>
+	<string-array name="pref_dark_theme_options_array">
+		<item>Always</item>
+		<item>Automatic (at night)</item>
+		<item>Automatic (battery saver)</item>
+		<item>Follow system</item>
+		<item>Never</item>
+	</string-array>
+	<string-array name="pref_dark_theme_options_array_values" translatable="false">
+		<item>always</item>
+		<item>automatic_time</item>
+		<item>automatic_battery_saver</item>
+		<item>follow_system</item>
+		<item>never</item>
+	</string-array>
+	<string-array name="pref_language_languages_array">
+		<item>(System Default)</item>
+	</string-array>
+	<string-array name="pref_language_languages_array_values" translatable="false">
+		<!-- Special value to denote the system default language -->
+		<item>1</item>
+		<!-- Valid values:
+		lang_countryCode
+		Example:
+		en_US represents English (United States)
+		-->
+	</string-array>
+
+	<string-array name="pref_sync_frequency_titles">
+		<item>15 minutes</item>
+		<item>30 minutes</item>
+		<item>1 hour</item>
+		<item>3 hours</item>
+		<item>6 hours</item>
+		<item>Never</item>
+	</string-array>
+	<integer-array name="pref_sync_frequency_values" translatable="false">
+		<item>15</item>
+		<item>30</item>
+		<item>60</item>
+		<item>180</item>
+		<item>360</item>
+		<item>-1</item>
+	</integer-array>
+	<string-array name="pref_todo_default_sort_options_array">
+		<item>None (Default)</item>
+		<item>Title (Ascending)</item>
+		<item>Title (Descending)</item>
+		<item>Due Date (Newest to Oldest)</item>
+		<item>Due Date (Oldest to Newest)</item>
+	</string-array>
+
+	<string-array name="pref_todo_default_sort_options_array_values" translatable="false">
+		<item>none</item>
+		<item>title_asc</item>
+		<item>title_desc</item>
+		<item>due_date_new_to_old</item>
+		<item>due_date_old_to_new</item>
+	</string-array>
+
+	<string-array name="pref_weekly_summary_days_array">
+		<item>Monday</item>
+		<item>Tuesday</item>
+		<item>Wednesday</item>
+		<item>Thursday</item>
+		<item>Friday</item>
+		<item>Saturday</item>
+		<item>Sunday</item>
+	</string-array>
+
+	<integer-array name="pref_weekly_summary_days_array_values" translatable="false">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+	</integer-array>
+
+	<string-array name="pref_weekly_summary_options_array">
+		<item>Completed todos</item>
+		<item>Overdue todos</item>
+		<item>Todos to complete</item>
+		<item>Total todos</item>
+		<item>Percentage completed</item>
+		<item>Percentage uncompleted</item>
+		<item>Efficiency</item>
+	</string-array>
+	<string-array name="pref_weekly_summary_options_array_values" translatable="false">
+		<item>completed_todos</item>
+		<item>overdue_todos</item>
+		<item>todos_to_complete</item>
+		<item>total_todos</item>
+		<item>completed_percentage</item>
+		<item>uncompleted_percentage</item>
+		<item>efficiency</item>
+	</string-array>
+</resources>
