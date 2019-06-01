@@ -57,14 +57,16 @@
 
 	<string name="action_edit">Edit</string>
 
-	<string name="action_forgot_password_btn">Forgot password</string>
-
 	<string name="action_help">Help</string>
 
 	<string name="action_licenses">Licenses</string>
 
-	<string name="action_link_login_btn">I already have an account</string>
-	<string name="action_link_register_btn">Register for an account</string>
+	<!-- The text of the forgot password button in the login activity. -->
+	<string name="login_forgot_password_button_title">Forgot password</string>
+	<!-- The text of the login button in the register activity's menu. -->
+	<string name="register_login_button_title">I already have an account</string>
+	<!-- The text of the register button in the login activity's menu. -->
+	<string name="login_register_button_title">Register for an account</string>
 
 	<string name="action_mark_as_done">Mark as done</string>
 	<string name="action_mark_as_undone">Mark as undone</string>

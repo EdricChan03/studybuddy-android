@@ -72,7 +72,7 @@
 					android:layout_width="fill_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="20dip"
-					android:text="@string/action_link_login_btn"/>
+					android:text="@string/register_login_button_title"/>
 
 			<ProgressBar
 					android:id="@+id/progressBar"
