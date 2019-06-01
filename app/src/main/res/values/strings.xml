@@ -5,7 +5,8 @@
 		<item quantity="other">%d selected</item>
 	</plurals>
 
-	<string name="about_dialog_text">Purpose: To help students in their studies\nVersion: %s\n---\nApp is fully open
+	<!-- The about dialog's message -->
+	<string name="about_dialog_msg">Purpose: To help students in their studies\nVersion: %s\n---\nApp is fully open
 		source. Check it out!
 	</string>
 

@@ -243,7 +243,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 				return true
 			}
 			R.id.action_about -> {
-				val aboutDialogText = String.format(getString(R.string.about_dialog_text), BuildConfig.VERSION_NAME)
+				val aboutDialogText = String.format(getString(R.string.about_dialog_msg), BuildConfig.VERSION_NAME)
 				val aboutDialogBuilder = MaterialAlertDialogBuilder(this)
 				aboutDialogBuilder.setTitle("About this app")
 				aboutDialogBuilder.setMessage(aboutDialogText)
