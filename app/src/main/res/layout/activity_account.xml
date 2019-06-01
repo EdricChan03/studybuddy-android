@@ -22,7 +22,7 @@
 				android:layout_marginStart="8dp"
 				android:layout_marginTop="32dp"
 				android:layout_marginEnd="8dp"
-				android:contentDescription="@string/account_activity_avatar_desc"
+				android:contentDescription="@string/account_avatar_desc"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
@@ -61,7 +61,7 @@
 				android:layout_marginStart="8dp"
 				android:layout_marginEnd="8dp"
 				android:layout_marginBottom="64dp"
-				android:text="@string/account_activity_action_sign_in"
+				android:text="@string/account_sign_in_button_title"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"/>
@@ -73,7 +73,7 @@
 				android:layout_marginStart="8dp"
 				android:layout_marginEnd="8dp"
 				android:layout_marginBottom="64dp"
-				android:text="@string/account_activity_account_actions"
+				android:text="@string/account_account_actions_button_title"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"/>
