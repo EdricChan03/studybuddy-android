@@ -65,7 +65,7 @@ dependencies {
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
 	implementation 'com.google.firebase:firebase-core:16.0.9'
-	implementation 'com.google.firebase:firebase-firestore:19.0.1'
+	implementation 'com.google.firebase:firebase-firestore:19.0.2'
 	implementation 'com.google.firebase:firebase-firestore-ktx:19.0.0'
 	implementation 'com.google.firebase:firebase-auth:17.0.0'
 	implementation 'com.google.firebase:firebase-messaging:18.0.0'
