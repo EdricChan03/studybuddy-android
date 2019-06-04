@@ -22,7 +22,7 @@
 		<item>Weekly</item>
 	</string-array>
 
-	<integer-array name="pref_check_for_updates_frequency_values" translatable="false">
+	<string-array name="pref_check_for_updates_frequency_values" translatable="false">
 		<!-- Manual/never -->
 		<item>0</item>
 		<!-- Every 3 hours -->
@@ -35,7 +35,7 @@
 		<item>24</item>
 		<!-- Weekly -->
 		<item>168</item>
-	</integer-array>
+	</string-array>
 	<string-array name="pref_dark_theme_options_array">
 		<item>Always</item>
 		<item>Automatic (at night)</item>
@@ -71,14 +71,14 @@
 		<item>6 hours</item>
 		<item>Never</item>
 	</string-array>
-	<integer-array name="pref_sync_frequency_values" translatable="false">
+	<string-array name="pref_sync_frequency_values" translatable="false">
 		<item>15</item>
 		<item>30</item>
 		<item>60</item>
 		<item>180</item>
 		<item>360</item>
 		<item>-1</item>
-	</integer-array>
+	</string-array>
 	<string-array name="pref_todo_default_sort_options_array">
 		<item>None (Default)</item>
 		<item>Title (Ascending)</item>
@@ -105,7 +105,7 @@
 		<item>Sunday</item>
 	</string-array>
 
-	<integer-array name="pref_weekly_summary_days_array_values" translatable="false">
+	<string-array name="pref_weekly_summary_days_array_values" translatable="false">
 		<item>1</item>
 		<item>2</item>
 		<item>3</item>
@@ -113,7 +113,7 @@
 		<item>5</item>
 		<item>6</item>
 		<item>7</item>
-	</integer-array>
+	</string-array>
 
 	<string-array name="pref_weekly_summary_options_array">
 		<item>Completed todos</item>
