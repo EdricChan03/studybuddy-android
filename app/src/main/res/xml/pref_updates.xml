@@ -18,6 +18,7 @@
 				app:useSimpleSummaryProvider="true"/>
 		<SwitchPreferenceCompat
 				app:defaultValue="false"
+				app:icon="@drawable/ic_attach_money_outline_24dp"
 				app:key="pref_updates_download_over_metered"
 				app:summary="@string/pref_updates_download_over_metered_summary"
 				app:title="@string/pref_updates_download_over_metered_title"/>
