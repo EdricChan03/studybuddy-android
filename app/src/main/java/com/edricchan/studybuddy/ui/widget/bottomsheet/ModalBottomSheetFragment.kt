@@ -48,7 +48,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 			Log.d(TAG, "Current list of groups: $groups")
 			adapter = ModalBottomSheetAdapter(requireContext(), items.toTypedArray(), groups.toTypedArray())
 			layoutManager = LinearLayoutManager(requireContext())
-			setHasFixedSize(false)
+			setHasFixedSize(true)
 		}
 	}
 
