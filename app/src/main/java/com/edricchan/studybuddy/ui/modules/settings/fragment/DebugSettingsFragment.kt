@@ -43,7 +43,8 @@ import java.util.*
 class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 	@Suppress("unused")
-	class DebugUpdateInfoSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+	class DebugUpdateInfoSettingsFragment : PreferenceFragmentCompat(),
+			SharedPreferences.OnSharedPreferenceChangeListener {
 
 		private lateinit var updateInfoPreferences: SharedPreferences
 		private lateinit var lastCheckedForUpdatesDate: Date
@@ -51,7 +52,8 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 		override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
 			when (key) {
-				UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> lastCheckedForUpdatesDate = sharedPreferences.getLong(key, 0L).toDate()
+				UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE ->
+					lastCheckedForUpdatesDate = sharedPreferences.getLong(key, 0L).toDate()
 				UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE -> lastUpdatedDate = sharedPreferences.getLong(key, 0L).toDate()
 			}
 		}
@@ -75,7 +77,8 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 				lastCheckedForUpdatesDate = savedInstanceState.getLong(LAST_CHECKED_FOR_UPDATES_DATE_TAG).toDate()
 				lastUpdatedDate = savedInstanceState.getLong(LAST_UPDATED_DATE_TAG).toDate()
 			} else {
-				lastCheckedForUpdatesDate = updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
+				lastCheckedForUpdatesDate = updateInfoPreferences
+						.getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
 				lastUpdatedDate = updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
 			}
 
@@ -351,7 +354,9 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							}
 							// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 							// or if the title TextInputLayout's TextInputEditText is empty
-							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || titleTextInputLayout.editTextStrValue!!.isEmpty())
+							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() ||
+									userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() ||
+									titleTextInputLayout.editTextStrValue!!.isEmpty())
 						}
 					}
 				}
