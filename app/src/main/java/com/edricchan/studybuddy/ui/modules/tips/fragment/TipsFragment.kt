@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class TipsFragment : Fragment(R.layout.frag_tips) {
@@ -52,10 +52,10 @@ class TipsFragment : Fragment(R.layout.frag_tips) {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when (item.itemId) {
-			R.id.action_submit_tip -> {
+			/*R.id.action_submit_tip -> {
 				SharedUtils.launchUri(context!!, Constants.uriSubmitTip, preferences!!.getBoolean(Constants.prefUseCustomTabs, true))
 				true
-			}
+			}*/
 			R.id.action_debug -> {
 				startActivity<DebugActivity>()
 				true
