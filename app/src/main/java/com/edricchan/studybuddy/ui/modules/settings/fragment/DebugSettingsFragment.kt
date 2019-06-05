@@ -18,18 +18,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.core.content.getSystemService
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.Observer
 import androidx.preference.Preference
+import androidx.preference.PreferenceManager
 import androidx.work.Operation
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
-import com.edricchan.studybuddy.extensions.editTextStrValue
-import com.edricchan.studybuddy.extensions.toDate
-import com.edricchan.studybuddy.extensions.toDateFormat
-import com.edricchan.studybuddy.extensions.toFormat
+import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -149,21 +148,21 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		}
 	}
 
-	private var mUtils: SharedUtils? = null
-	private var mInstanceId: FirebaseInstanceId? = null
-	private var mAuth: FirebaseAuth? = null
-	private var mUser: FirebaseUser? = null
-	private var mCrashlytics: Crashlytics? = null
 	private var mConnectivityManager: ConnectivityManager? = null
+	private var mUser: FirebaseUser? = null
+	private lateinit var mUtils: SharedUtils
+	private lateinit var mInstanceId: FirebaseInstanceId
+	private lateinit var mAuth: FirebaseAuth
+	private lateinit var mCrashlytics: Crashlytics
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		mUtils = SharedUtils(context!!)
+		mUtils = SharedUtils()
 		mInstanceId = FirebaseInstanceId.getInstance()
 		mCrashlytics = Crashlytics.getInstance()
 		mAuth = FirebaseAuth.getInstance()
-		mUser = mAuth!!.currentUser
-		mConnectivityManager = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+		mUser = mAuth.currentUser
+		mConnectivityManager = context?.getSystemService()
 	}
 
 	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
