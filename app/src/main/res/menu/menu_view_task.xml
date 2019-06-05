@@ -24,10 +24,10 @@
 			android:title="@string/action_archive_todo"
 			app:showAsAction="ifRoom"/>
 	<!-- Only visible if the task has been archived -->
-	<!--<item
+	<item
 			android:id="@+id/action_unarchive"
 			android:icon="@drawable/ic_unarchive_outline_24dp"
 			android:title="@string/action_archive_todo"
 			android:visible="false"
-			app:showAsAction="ifRoom"/>-->
+			app:showAsAction="ifRoom"/>
 </menu>

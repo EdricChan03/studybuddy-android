@@ -90,16 +90,34 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 				}
 				R.id.action_archive -> {
 					mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
+							.update("isArchived", taskItem?.isArchived ?: true)
+							.addOnCompleteListener { task ->
+								if (task.isSuccessful) {
+									showSnackbar("Successfully archived task!", Snackbar.LENGTH_SHORT)
+									Log.d(TAG, "Successfully archived task!")
+								} else {
+									Toast.makeText(this, "An error occurred while attempting to archive the task", Toast.LENGTH_SHORT).show()
+									Log.e(TAG, "An error occurred while attempting to archive the task:", task.exception)
+								}
+							}
+					bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = true
+					bottomAppBar.menu.findItem(R.id.action_archive).isVisible = false
+					return@setOnMenuItemClickListener true
+				}
+				R.id.action_unarchive -> {
+					mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
 							.update("isArchived", taskItem?.isArchived ?: false)
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
-									showSnackbar("Successfully ${if (taskItem?.isArchived == true) "un" else ""}archived task!", Snackbar.LENGTH_SHORT)
-									Log.d(TAG, "Successfully ${if (taskItem?.isArchived == true) "un" else ""}archived task!")
+									showSnackbar("Successfully unarchived task!", Snackbar.LENGTH_SHORT)
+									Log.d(TAG, "Successfully unarchived task!")
 								} else {
-									Toast.makeText(this, "An error occurred while attempting to ${if (taskItem?.isArchived == true) "un" else ""}archive the task", Toast.LENGTH_SHORT).show()
-									Log.e(TAG, "An error occurred while attempting to ${if (taskItem?.isArchived == true) "un" else ""}archive the task:", task.exception)
+									Toast.makeText(this, "An error occurred while attempting to unarchive the task", Toast.LENGTH_SHORT).show()
+									Log.e(TAG, "An error occurred while attempting to unarchive the task:", task.exception)
 								}
 							}
+					bottomAppBar.menu.findItem(R.id.action_archive).isVisible = true
+					bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = false
 					return@setOnMenuItemClickListener true
 				}
 				else -> return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
