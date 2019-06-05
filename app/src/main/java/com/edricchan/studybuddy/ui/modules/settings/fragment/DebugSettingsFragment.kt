@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.Observer
 import androidx.preference.Preference
+import androidx.work.Operation
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -385,6 +387,17 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					}
 					.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 					.show()
+			true
+		}
+
+		findPreference<Preference>(Constants.debugUpdatesStartWorker)?.setOnPreferenceClickListener {
+			SharedUtils.enqueueCheckForUpdatesWorker(requireContext())?.state
+					?.observe(viewLifecycleOwner, Observer { state ->
+						@SuppressLint("RestrictedApi")
+						if (state.isNotNull() && state == Operation.IN_PROGRESS || state == Operation.SUCCESS) {
+							Log.d(TAG, "Successfully enqueued worker request with state $state")
+						}
+					})
 			true
 		}
 
