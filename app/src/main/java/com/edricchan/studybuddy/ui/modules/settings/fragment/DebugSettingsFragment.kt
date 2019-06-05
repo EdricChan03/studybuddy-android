@@ -534,7 +534,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		return MaterialAlertDialogBuilder(context!!)
 				.setTitle(R.string.debug_activity_night_mode_info_dialog_title)
 				.setMessage(dialogMsg)
-				.setPositiveButton(R.string.dialog_action_dismiss) { dialog, which -> dialog.dismiss() }
+				.setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
 	}
 
 	private fun createConnectivityInfoDialog(): MaterialAlertDialogBuilder {
