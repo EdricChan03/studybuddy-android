@@ -71,6 +71,7 @@ object Constants {
 	const val debugUpdatesLastUpdatedDate = "debug_updates_last_updated_date"
 	const val debugUpdatesClearLastUpdatedDate = "debug_updates_clear_last_updated_date"
 	const val debugOtherClearAppSettings = "debug_other_clear_app_settings"
+	const val debugOtherModalBottomSheetTesting = "debug_other_modal_bottom_sheet_testing"
 
 	// Actions
 	const val actionNotificationsSettingsIntent = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT"

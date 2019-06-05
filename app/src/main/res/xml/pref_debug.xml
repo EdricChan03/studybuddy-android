@@ -64,8 +64,9 @@
 				app:title="@string/debug_activity_other_clear_app_settings_title"/>
 		<Preference
 				app:icon="@drawable/ic_bottom_sheets_24dp"
-				app:summary="@string/debug_activity_modal_bottom_sheet_testing_summary"
-				app:title="@string/debug_activity_modal_bottom_sheet_testing_title">
+				app:key="debug_other_modal_bottom_sheet_testing"
+				app:summary="@string/debug_activity_other_modal_bottom_sheet_testing_summary"
+				app:title="@string/debug_activity_other_modal_bottom_sheet_testing_title">
 			<intent
 					android:targetClass="com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity"
 					android:targetPackage="com.edricchan.studybuddy"/>
