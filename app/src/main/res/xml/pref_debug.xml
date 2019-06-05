@@ -59,6 +59,10 @@
 			app:key="debug_category_other"
 			app:title="@string/debug_activity_category_other">
 		<Preference
+				app:icon="@drawable/ic_delete_outline_24dp"
+				app:key="debug_other_clear_app_settings"
+				app:title="@string/debug_activity_other_clear_app_settings_title"/>
+		<Preference
 				app:icon="@drawable/ic_bottom_sheets_24dp"
 				app:summary="@string/debug_activity_modal_bottom_sheet_testing_summary"
 				app:title="@string/debug_activity_modal_bottom_sheet_testing_title">

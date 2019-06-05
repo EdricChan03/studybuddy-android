@@ -372,6 +372,23 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			true
 		}
 
+		findPreference<Preference>(Constants.debugOtherClearAppSettings)?.setOnPreferenceClickListener {
+			MaterialAlertDialogBuilder(requireContext()).apply {
+				setTitle(R.string.debug_activity_confirm_clear_app_settings_dialog_title)
+				setMessage(R.string.debug_activity_confirm_clear_app_settings_dialog_msg)
+				setPositiveButton(R.string.dialog_action_clear) { dialog, _ ->
+					val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+					sharedPreferences.edit {
+						clear()
+					}
+
+					Toast.makeText(context, "Successfully cleared app settings!", Toast.LENGTH_SHORT).show()
+					dialog.dismiss()
+				}
+				setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+			}.show()
+			true
+		}
 	}
 
 	private fun createSdkInfoDialog(): MaterialAlertDialogBuilder {

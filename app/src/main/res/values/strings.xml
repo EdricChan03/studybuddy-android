@@ -199,6 +199,7 @@
 	<string name="debug_activity_updates_clear_last_updated_date_confirm_dialog_title">Clear last updated date?</string>
 	<string name="debug_activity_modal_bottom_sheet_testing_title">Modal Bottom Sheet testing</string>
 	<string name="debug_activity_modal_bottom_sheet_testing_summary">Show examples of the Modal Bottom Sheet</string>
+	<string name="debug_activity_other_clear_app_settings_title">Clear app settings</string>
 	<string name="dialog_action_cancel">Cancel</string>
 	<string name="dialog_action_clear">Clear</string>
 	<string name="dialog_action_close">Close</string>
