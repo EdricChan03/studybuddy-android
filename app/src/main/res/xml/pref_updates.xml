@@ -22,5 +22,11 @@
 				app:key="pref_updates_download_over_metered"
 				app:summary="@string/pref_updates_download_over_metered_summary"
 				app:title="@string/pref_updates_download_over_metered_title"/>
+		<SwitchPreferenceCompat
+				app:defaultValue="false"
+				app:icon="@drawable/ic_battery_charging_outline_24dp"
+				app:key="pref_updates_download_only_when_charging"
+				app:summary="@string/pref_updates_download_only_when_charging_summary"
+				app:title="@string/pref_updates_download_only_when_charging_title"/>
 	</PreferenceCategory>
 </androidx.preference.PreferenceScreen>

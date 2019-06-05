@@ -182,6 +182,10 @@
 	<string name="debug_activity_updates_update_metadata_title">Update metadata</string>
 	<string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON URL</string>
 	<string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON URL</string>
+	<string name="debug_activity_updates_start_worker_title">Start check for updates worker</string>
+	<string name="debug_activity_updates_start_worker_summary">Explicitly start the worker. (Note: The worker is
+		automatically started on boot.)
+	</string>
 	<string name="debug_activity_updates_tip_summary">Tip: You can copy the values by long pressing on the preference
 		and tapping on "Copy" in the context menu that shows
 	</string>
@@ -382,6 +386,10 @@
 		as other metered networks. For more info, check your network settings
 	</string>
 	<string name="pref_updates_download_over_metered_title">Download over metered networks</string>
+	<string name="pref_updates_download_only_when_charging_summary">When switched on, updates will only be downloaded
+		when your device is charging.
+	</string>
+	<string name="pref_updates_download_only_when_charging_title">Download only when charging</string>
 	<string name="pref_updates_options_title">Update options</string>
 	<string name="pref_updates_title">Updates</string>
 	<string name="pref_updates_summary">Last checked: %1$s\nLast updated: %2$s</string>

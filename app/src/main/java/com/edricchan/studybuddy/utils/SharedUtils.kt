@@ -31,6 +31,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
+import androidx.preference.PreferenceManagerFix
+import androidx.work.*
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
@@ -56,6 +58,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import java.util.*
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -857,6 +860,60 @@ class SharedUtils() {
 		 */
 		fun getChats(auth: FirebaseAuth, fs: FirebaseFirestore): Query {
 			return fs.collection("chats").whereArrayContains("members", fs.document("users/${auth.currentUser}"))
+		}
+
+		/**
+		 * Enqueues the [CheckForUpdatesWorker] request
+		 * @param context The context
+		 * @return The results of the enqueued worker request
+		 */
+		fun enqueueCheckForUpdatesWorker(context: Context): Operation? {
+			val sharedPreferences = PreferenceManagerFix.getDefaultSharedPreferences(context)
+			val defaultInterval = context.resources.getInteger(R.integer.pref_check_for_updates_frequency_default_value)
+			val repeatInterval = sharedPreferences.getString(
+					Constants.prefUpdatesFrequency,
+					defaultInterval.toString()
+			)!!.toInt()
+			val isMetered = sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOverMetered, false)
+			val requiresCharging = sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOnlyWhenCharging, false)
+
+			return enqueueCheckForUpdatesWorker(context, repeatInterval.toLong(), isMetered, requiresCharging)
+		}
+
+		/**
+		 * Enqueues the [CheckForUpdatesWorker] request
+		 * @param context The context
+		 * @param repeatInterval The minimum time between repetitions
+		 * @param isMetered Whether the worker is allowed to execute when the device is metered
+		 * @param requiresCharging Whether the worker is allowed to execute if the device is charging
+		 * @return The results of the enqueued worker request
+		 */
+		fun enqueueCheckForUpdatesWorker(context: Context, repeatInterval: Long, isMetered: Boolean, requiresCharging: Boolean): Operation? {
+			var result: Operation? = null
+
+			if (repeatInterval > 0) {
+				// Check for updates frequency is not set to manual/never
+				Log.d(TAG, "Check for updates frequency is not set to manual/never. Creating worker request...")
+
+				val networkType = if (isMetered) NetworkType.METERED else NetworkType.UNMETERED
+
+				val constraints = Constraints.Builder().apply {
+					setRequiredNetworkType(networkType)
+					setRequiresCharging(requiresCharging)
+				}.build()
+
+				val checkForUpdatesWorkerRequest = PeriodicWorkRequestBuilder<CheckForUpdatesWorker>(
+						repeatInterval,
+						TimeUnit.HOURS
+				).apply {
+					setConstraints(constraints)
+				}.build()
+
+				result = WorkManager.getInstance(context).enqueue(checkForUpdatesWorkerRequest)
+			} else {
+				Log.d(TAG, "Check for updates frequency is set to manual/never. Skipping worker request...")
+			}
+			return result
 		}
 	}
 }

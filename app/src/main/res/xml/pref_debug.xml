@@ -54,6 +54,11 @@
 				app:icon="@drawable/ic_info_outline_24dp"
 				app:key="debug_updates_update_metadata"
 				app:title="@string/debug_activity_updates_update_metadata_title"/>
+		<Preference
+				app:icon="@drawable/ic_refresh_24dp"
+				app:key="debug_updates_start_worker"
+				app:summary="@string/debug_activity_updates_start_worker_summary"
+				app:title="@string/debug_activity_updates_start_worker_title"/>
 	</PreferenceCategory>
 	<PreferenceCategory
 			app:key="debug_category_other"

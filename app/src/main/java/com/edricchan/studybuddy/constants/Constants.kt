@@ -48,6 +48,7 @@ object Constants {
 	const val prefUpdatesCategoryOptions = "pref_updates_options_category"
 	const val prefUpdatesFrequency = "pref_updates_frequency"
 	const val prefUpdatesDownloadOverMetered = "pref_updates_download_over_metered"
+	const val prefUpdatesDownloadOnlyWhenCharging = "pref_updates_download_only_when_charging"
 
 	// Preferences > About
 	const val prefCategoryAbout = "pref_category_about"
@@ -66,6 +67,7 @@ object Constants {
 	const val debugUseTestingJsonUrl = "debug_updates_use_testing_json_url"
 	const val debugSetCustomJsonUrl = "debug_updates_custom_json_url"
 	const val debugUpdatesUpdateMetadata = "debug_updates_update_metadata"
+	const val debugUpdatesStartWorker = "debug_updates_start_worker"
 	const val debugUpdatesLastCheckedForUpdatesDate = "debug_updates_last_checked_for_updates_date"
 	const val debugUpdatesClearLastCheckedForUpdatesDate = "debug_updates_clear_last_checked_for_updates_date"
 	const val debugUpdatesLastUpdatedDate = "debug_updates_last_updated_date"
@@ -85,6 +87,7 @@ object Constants {
 
 	// Notification IDs
 	const val notificationCheckForUpdatesId = 0
+	// TODO: Remove this constant
 	const val notificationMediaId = 1
 
 	// URIs
