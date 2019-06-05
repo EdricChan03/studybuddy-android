@@ -150,6 +150,8 @@
 		be generated after you delete the current ID)
 	</string>
 	<string name="debug_activity_confirm_reset_instance_id_dialog_title">Delete device\'s Instance ID?</string>
+	<string name="debug_activity_confirm_clear_app_settings_dialog_title">Clear app settings?</string>
+	<string name="debug_activity_confirm_clear_app_settings_dialog_msg">This cannot be undone!</string>
 	<string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
 	<string name="debug_activity_crash_app_summary">Programmatically crash the app with Firebase Crashlytics</string>
 	<string name="debug_activity_crash_app_title">Crash app</string>
