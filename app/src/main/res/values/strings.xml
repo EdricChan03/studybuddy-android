@@ -156,8 +156,6 @@
 	<string name="debug_activity_device_info_summary">Show information about the current device</string>
 	<string name="debug_activity_device_info_title">Device info</string>
 	<string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
-	<string name="debug_activity_enable_verbose_log_summary">Output more verbose logs into logcat</string>
-	<string name="debug_activity_enable_verbose_log_title">Enable verbose log</string>
 	<string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
 	<string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
 	<string name="debug_activity_send_notification_dialog_body_hint">Body</string>
