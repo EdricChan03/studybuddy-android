@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.ui.widget.bottomsheet
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,14 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.isNotNull
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class ModalBottomSheetAdapter(
 		private val context: Context,
-		private val items: Array<ModalBottomSheetItem>,
-		private val groups: Array<ModalBottomSheetGroup>
+		private val items: Array<ModalBottomSheetItem>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 		return when (viewType) {
@@ -51,9 +50,10 @@ class ModalBottomSheetAdapter(
 	}
 
 	override fun getItemViewType(position: Int): Int {
-		return if (items[position].iconDrawable != null || items[position].icon != null) {
-			if (items[position].groupId != ModalBottomSheetItem.GROUP_ID_NONE) {
-				when (groups.find { it.id == items[position].groupId }?.checkableBehavior) {
+		val item = items[position]
+		return if (item.iconDrawable != null || item.icon != null) {
+			if (item.group.isNotNull() && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
+				when (item.group?.checkableBehavior) {
 					ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_ICON_CHECKBOX
 					ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_ICON_RADIO_BUTTON
 					else -> LIST_ITEM_ICON
@@ -62,8 +62,8 @@ class ModalBottomSheetAdapter(
 				LIST_ITEM_ICON
 			}
 		} else {
-			if (items[position].groupId != ModalBottomSheetItem.GROUP_ID_NONE) {
-				when (groups.find { it.id == items[position].groupId }?.checkableBehavior) {
+			if (item.group.isNotNull() && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
+				when (item.group?.checkableBehavior) {
 					ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_NO_ICON_CHECKBOX
 					ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_NO_ICON_RADIO_BUTTON
 					else -> LIST_ITEM_NO_ICON
@@ -78,9 +78,7 @@ class ModalBottomSheetAdapter(
 
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 		val item = items[position]
-		val itemGroup = groups.find { it.id == item.groupId }
-		Log.d(TAG, "Item: $item")
-		Log.d(TAG, "Item group: ${itemGroup.toString()}")
+		val itemGroup = item.group
 		holder.itemView.isEnabled = item.enabled
 		if (!item.visible) {
 			holder.itemView.visibility = View.GONE
@@ -102,17 +100,9 @@ class ModalBottomSheetAdapter(
 				val tempHolder = holder as NoIconWithTextWithCheckboxHolder
 				tempHolder.titleTextView.text = item.title
 				tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
-				holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-					if (isChecked && itemGroup?.selected?.contains(item) == false) {
-						itemGroup.selected.add(item)
-					} else {
-						itemGroup?.selected?.remove(item)
-					}
-					// Handle on item checked listener in item's group
-					if (itemGroup?.onItemCheckedChangeListener != null) {
-						itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-					}
-				}
+				// Disable clicks on the checkbox
+				tempHolder.checkBox.isClickable = false
+
 				holder.itemView.setOnClickListener {
 					if (itemGroup?.selected?.contains(item) == true) {
 						itemGroup.selected.remove(item)
@@ -137,27 +127,9 @@ class ModalBottomSheetAdapter(
 				val tempHolder = holder as NoIconWithTextWithRadioButtonHolder
 				tempHolder.titleTextView.text = item.title
 				tempHolder.radioButton.isChecked = itemGroup?.selected?.contains(item) ?: false
-				holder.radioButton.setOnCheckedChangeListener { _, isChecked ->
-					if (isChecked && itemGroup?.selected?.contains(item) == false) {
-						// Clear any existing selected items
-						if (itemGroup.selected.size > 0) {
-							// Update state of items that are not the item that was clicked
-							itemGroup.selected.forEach { item ->
-								if (items.indexOf(item) != -1) {
-									notifyItemChanged(items.indexOf(item))
-								}
-							}
-							itemGroup.selected.clear()
-						}
-						itemGroup.selected.add(item)
-					} else {
-						itemGroup?.selected?.remove(item)
-					}
-					// Handle on item checked listener in item's group
-					if (itemGroup?.onItemCheckedChangeListener != null) {
-						itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-					}
-				}
+				// Disable clicks on the radio button
+				tempHolder.radioButton.isClickable = false
+
 				holder.itemView.setOnClickListener {
 					if (itemGroup?.selected?.contains(item) == true) {
 						itemGroup.selected.remove(item)
@@ -212,17 +184,9 @@ class ModalBottomSheetAdapter(
 				}
 				tempHolder.titleTextView.text = item.title
 				tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
-				holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-					if (isChecked && itemGroup?.selected?.contains(item) == false) {
-						itemGroup.selected.add(item)
-					} else {
-						itemGroup?.selected?.remove(item)
-					}
-					// Handle on item checked listener in item's group
-					if (itemGroup?.onItemCheckedChangeListener != null) {
-						itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-					}
-				}
+				// Disable clicks on the checkbox
+				tempHolder.checkBox.isClickable = false
+
 				holder.itemView.setOnClickListener {
 					if (itemGroup?.selected?.contains(item) == true) {
 						itemGroup.selected.remove(item)
@@ -244,41 +208,25 @@ class ModalBottomSheetAdapter(
 			}
 			LIST_ITEM_ICON_RADIO_BUTTON -> {
 				val tempHolder = holder as IconWithTextWithRadioButtonHolder
+
+				val tempCheckedState = itemGroup?.selected?.contains(item) ?: false
+				tempHolder.radioButton.isChecked = tempCheckedState
+				// Disable clicks on the radio button
+				tempHolder.radioButton.isClickable = false
 				if (item.iconDrawable != null) {
 					tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
 				} else {
 					tempHolder.iconImageView.setImageDrawable(item.icon?.let { context.getDrawable(it) })
 				}
+
 				tempHolder.titleTextView.text = item.title
-				tempHolder.radioButton.isChecked = itemGroup?.selected?.contains(item) ?: false
-				holder.radioButton.setOnCheckedChangeListener { _, isChecked ->
-					if (isChecked && itemGroup?.selected?.contains(item) == false) {
-						// Clear any existing selected items
-						if (itemGroup.selected.size > 0) {
-							// Update state of items that are not the item that was clicked
-							itemGroup.selected.forEach { item ->
-								if (items.indexOf(item) != -1) {
-									notifyItemChanged(items.indexOf(item))
-								}
-							}
-							itemGroup.selected.clear()
-						}
-						itemGroup.selected.add(item)
-					} else {
-						itemGroup?.selected?.remove(item)
-					}
-					// Handle on item checked listener in item's group
-					if (itemGroup?.onItemCheckedChangeListener != null) {
-						itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-					}
-				}
+
 				holder.itemView.setOnClickListener {
 					if (itemGroup?.selected?.contains(item) == true) {
 						itemGroup.selected.remove(item)
 					} else {
 						// Clear any existing selected items
 						if (itemGroup?.selected?.size!! > 0) {
-							Log.d(TAG, "Current list of selected items: ${itemGroup.selected}")
 							// Update state of items that are not the item that was clicked
 							itemGroup.selected.forEach { item ->
 								if (items.indexOf(item) != -1) {

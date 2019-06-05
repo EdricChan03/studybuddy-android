@@ -15,6 +15,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
+import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
@@ -91,7 +92,7 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 	}
 
 	private fun showToast(item: ModalBottomSheetItem) {
-		showToast("Item ${item.itemId} clicked!")
+		showToast("Item ${item.id} clicked!")
 	}
 
 	private fun showToast(string: String) {
@@ -101,13 +102,14 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 	private fun modalBottomSheetWithTextNoHeader(): ModalBottomSheetFragment {
 		val modalBottomSheetFragment = ModalBottomSheetFragment()
 		for (i in 1..10) {
-			modalBottomSheetFragment.addItem(ModalBottomSheetItem(itemId = i, title = "Item $i", onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-				override fun onItemClick(item: ModalBottomSheetItem) {
-					// Note: This is used to show that the onItemClick listener actually works by showing
-					// the passing of the item data from the fragment to the adapter
-					showToast(item)
-				}
-			}))
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(id = i, title = "Item $i",
+					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+						override fun onItemClick(item: ModalBottomSheetItem) {
+							// Note: This is used to show that the onItemClick listener actually works by showing
+							// the passing of the item data from the fragment to the adapter
+							showToast(item)
+						}
+					}))
 		}
 		return modalBottomSheetFragment
 	}
@@ -145,12 +147,12 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 		modalBottomSheetFragment.headerTitle = headerTitle
 		return modalBottomSheetFragment
 	}
-
+	
 	private fun modalBottomSheetWith1000Items(): ModalBottomSheetFragment {
 		val modalBottomSheetFragment = ModalBottomSheetFragment()
 		for (i in 1..1000) {
 			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
-					itemId = i,
+					id = i,
 					title = "Item $i",
 					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
 						override fun onItemClick(item: ModalBottomSheetItem) {
@@ -169,7 +171,7 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 			// Only disable on even items
 			val disabled = i % 2 == 0
 			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
-					itemId = i,
+					id = i,
 					title = "Item $i",
 					enabled = !disabled,
 					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
@@ -190,7 +192,7 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 			// This indicates that all even items are visible
 			val visible = i % 2 == 0
 			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
-					itemId = i,
+					id = i,
 					title = "Item $i",
 					visible = visible,
 					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {

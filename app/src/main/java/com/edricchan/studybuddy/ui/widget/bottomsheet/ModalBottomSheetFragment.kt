@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,8 +21,6 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 
 	/** The current list of items */
 	var items: MutableList<ModalBottomSheetItem> = mutableListOf()
-	/** The current list of groups */
-	var groups: MutableList<ModalBottomSheetGroup> = mutableListOf()
 	/** The bottom sheet's title to be shown on top of the list of items */
 	var headerTitle: String? = null
 
@@ -44,9 +41,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 			setHeaderTitle(view, null)
 		}
 		view.findViewById<RecyclerView>(R.id.bottomSheetRecyclerView).apply {
-			Log.d(TAG, "Current list of items: $items")
-			Log.d(TAG, "Current list of groups: $groups")
-			adapter = ModalBottomSheetAdapter(requireContext(), items.toTypedArray(), groups.toTypedArray())
+			adapter = ModalBottomSheetAdapter(requireContext(), items.toTypedArray())
 			layoutManager = LinearLayoutManager(requireContext())
 			setHasFixedSize(true)
 		}
@@ -94,35 +89,6 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 		this.items = items.toMutableList()
 	}
 
-	/**
-	 * Adds a group to the current list of groups
-	 * @param group The group to add
-	 */
-	fun addGroup(group: ModalBottomSheetGroup) {
-		groups.add(group)
-	}
-
-	/**
-	 * Clears the current list of groups
-	 */
-	fun clearGroups() {
-		groups.clear()
-	}
-
-	/**
-	 * Retrieves a group at the specified [index]
-	 * @param index The index of the group to retrieve
-	 * @return The group at that specific index, or [null] if no such group exists
-	 */
-	fun getGroup(index: Int) = groups.getOrNull(index)
-
-	/**
-	 * Overwrites the current list of groups with the specified list of groups
-	 * @param groups The new list of groups
-	 */
-	fun setGroups(groups: Array<ModalBottomSheetGroup>) {
-		this.groups = groups.toMutableList()
-	}
 	companion object {
 		private const val HEADER_TITLE_TAG = "headerTitle"
 		private val TAG = SharedUtils.getTag(ModalBottomSheetFragment::class.java)
