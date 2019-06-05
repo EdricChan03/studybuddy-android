@@ -58,7 +58,6 @@ object Constants {
 	const val prefAboutSourceCode = "pref_about_source_code"
 
 	// Debug preferences
-	const val debugEnableVerboseLog = "debug_enable_verbose_log"
 	const val debugDeviceInfo = "debug_device_info"
 	const val debugAccountInfo = "debug_account_info"
 	const val debugCrashApp = "debug_crash_app"
