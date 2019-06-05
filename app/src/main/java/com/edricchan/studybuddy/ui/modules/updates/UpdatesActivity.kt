@@ -98,16 +98,16 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 			if (SharedUtils.isCellularNetworkAvailable(this) && (!ignoreMobileDataSetting && !preferences.getBoolean(Constants.prefUpdatesDownloadOverMetered, false)) && showMobileDataWarning) {
 
 				// Show a dialog warning the user that cellular network is on as the user has disabled downloading updates over cellular
-				val builder = MaterialAlertDialogBuilder(this)
-				builder.setTitle(R.string.update_activity_cannot_download_cellular_dialog_title)
-				builder.setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg)
-				builder.setNegativeButton(R.string.dialog_action_cancel) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
-				builder.setPositiveButton(R.string.update_activity_cannot_download_cellular_dialog_positive_btn) { dialogInterface, i ->
-					dialogInterface.dismiss()
-					// Call the function again, but skip the mobile data warning
-					downloadUpdate(downloadUrl, version, ignoreMobileDataSetting = true, showMobileDataWarning = true, downloadAgain = false)
-				}
-				builder.show()
+				MaterialAlertDialogBuilder(this).apply {
+					setTitle(R.string.update_activity_cannot_download_cellular_dialog_title)
+					setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg)
+					setNegativeButton(R.string.dialog_action_cancel) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
+					setPositiveButton(R.string.update_activity_cannot_download_cellular_dialog_positive_btn) { dialogInterface, i ->
+						dialogInterface.dismiss()
+						// Call the function again, but skip the mobile data warning
+						downloadUpdate(downloadUrl, version, ignoreMobileDataSetting = true, showMobileDataWarning = true, downloadAgain = false)
+					}
+				}.show()
 			} else {
 				// Construct a request to download from a URI
 				val request = DownloadManager.Request(Uri.parse(downloadUrl)).apply {
@@ -135,22 +135,22 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 				registerReceiver(downloadCompleteReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 			}
 		} else {
-			val builder = MaterialAlertDialogBuilder(this)
-			builder.setTitle(R.string.update_activity_update_already_downloaded_dialog_title)
-			builder.setMessage(R.string.update_activity_update_already_downloaded_dialog_msg)
-			builder.setPositiveButton(R.string.update_activity_update_already_downloaded_dialog_positive_btn) { dialogInterface: DialogInterface, _: Int ->
-				installUpdate(fileName)
-				dialogInterface.dismiss()
-			}
-			builder.setNegativeButton(R.string.update_activity_update_already_downloaded_dialog_negative_btn) { _: DialogInterface, _: Int ->
-				if (File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName).delete()) {
-					Toast.makeText(this, R.string.update_activity_delete_update_success_toast, Toast.LENGTH_LONG).show()
-					downloadUpdate(downloadUrl, version, false, true)
-				} else {
-					Toast.makeText(this, R.string.update_activity_cannot_delete_update_toast, Toast.LENGTH_LONG).show()
+			MaterialAlertDialogBuilder(this).apply {
+				setTitle(R.string.update_activity_update_already_downloaded_dialog_title)
+				setMessage(R.string.update_activity_update_already_downloaded_dialog_msg)
+				setPositiveButton(R.string.update_activity_update_already_downloaded_dialog_positive_btn) { dialogInterface, _ ->
+					installUpdate(fileName)
+					dialogInterface.dismiss()
 				}
-			}
-			builder.show()
+				setNegativeButton(R.string.update_activity_update_already_downloaded_dialog_negative_btn) { _, _ ->
+					if (File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName).delete()) {
+						Toast.makeText(this@UpdatesActivity, R.string.update_activity_delete_update_success_toast, Toast.LENGTH_LONG).show()
+						downloadUpdate(downloadUrl, version, ignoreMobileDataSetting = false, showMobileDataWarning = true)
+					} else {
+						Toast.makeText(this@UpdatesActivity, R.string.update_activity_cannot_delete_update_toast, Toast.LENGTH_LONG).show()
+					}
+				}
+			}.show()
 		}
 	}
 
@@ -161,7 +161,14 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 			if (packageManager.canRequestPackageInstalls()) {
 				val installIntent = Intent(Intent.ACTION_VIEW).apply {
 					// Set the data for the intent to open
-					setDataAndType(FileProvider.getUriForFile(applicationContext, "com.edricchan.studybuddy.provider", File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)), MimeTypeConstants.appPackageArchiveMime)
+					setDataAndType(
+							FileProvider.getUriForFile(
+									applicationContext,
+									"com.edricchan.studybuddy.provider",
+									File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)}/$fileName")
+							),
+							MimeTypeConstants.appPackageArchiveMime
+					)
 					// Mark this as a new task and allow reading the file
 					addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_GRANT_READ_URI_PERMISSION)
 				}
@@ -172,24 +179,24 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 				}
 			} else {
 				// User has not allowed the app as an unknown app source
-				val builder = MaterialAlertDialogBuilder(this)
-				builder.setMessage(R.string.update_activity_enable_unknown_sources_dialog_msg)
-						.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-						.setNeutralButton(R.string.dialog_action_retry) { dialog, which ->
-							dialog.dismiss()
-							// Call this method again
-							installUpdate(fileName)
+				MaterialAlertDialogBuilder(this).apply {
+					setMessage(R.string.update_activity_enable_unknown_sources_dialog_msg)
+					setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+					setNeutralButton(R.string.dialog_action_retry) { dialog, _ ->
+						dialog.dismiss()
+						// Call this method again
+						installUpdate(fileName)
+					}
+					setPositiveButton(R.string.update_activity_enable_unknown_sources_dialog_positive_btn) { _, _ ->
+						// Create an intent to take the user to Settings for unknown app sources
+						val allowUnknownAppsIntent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
+							data = Uri.parse("package:$packageName")
 						}
-						.setPositiveButton(R.string.update_activity_enable_unknown_sources_dialog_positive_btn) { dialog, which ->
-							// Create an intent to take the user to Settings for unknown app sources
-							val allowUnknownAppsIntent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
-								data = Uri.parse("package:$packageName")
-							}
-							startActivity(allowUnknownAppsIntent)
-						}
-						// Mark it as non-dismissable
-						.setCancelable(false)
-						.show()
+						startActivity(allowUnknownAppsIntent)
+					}
+					// Mark it as non-dismissable
+					setCancelable(false)
+				}.show()
 			}
 		} else {
 			val installIntent = Intent(Intent.ACTION_VIEW).apply {
@@ -201,47 +208,47 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 	}
 
 	private fun showUpdateDialog() {
-		val builder = MaterialAlertDialogBuilder(this)
-		builder.setTitle(getString(R.string.update_dialog_title_new, appUpdate.latestVersion))
-		builder.setIcon(R.drawable.ic_system_update_24dp)
-		builder.setMessage("What's new:\n" + appUpdate.releaseNotes)
-		builder.setNegativeButton(android.R.string.cancel, null)
-		builder.setPositiveButton(R.string.update_dialog_positive_btn_text) { _, _ ->
-			// Check if the device is running Android Marshmallow or higher
-			// Marshmallow introduces the capability for runtime permissions
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				if (SharedUtils.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, this@UpdatesActivity)) {
-					downloadUpdate(appUpdate.urlToDownload.toString(), appUpdate.latestVersion)
-				} else {
-					// User has pressed "Deny" to the permission prompt
-					if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-						val permBuilder = MaterialAlertDialogBuilder(this)
-						permBuilder.setTitle(R.string.update_perm_rationale_dialog_title)
-								.setMessage(R.string.update_perm_rationale_dialog_msg)
-								.setNegativeButton(R.string.update_perm_rationale_dialog_deny) { dialog, which -> dialog.dismiss() }
-								.setPositiveButton(R.string.update_perm_rationale_dialog_grant) { dialog, which -> requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0) }
-								.show()
+		MaterialAlertDialogBuilder(this).apply {
+			setTitle(getString(R.string.update_dialog_title_new, appUpdate.latestVersion))
+			setIcon(R.drawable.ic_system_update_24dp)
+			setMessage("What's new:\n${appUpdate.releaseNotes}")
+			setNegativeButton(android.R.string.cancel, null)
+			setPositiveButton(R.string.update_dialog_positive_btn_text) { _, _ ->
+				// Check if the device is running Android Marshmallow or higher
+				// Marshmallow introduces the capability for runtime permissions
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+					if (SharedUtils.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, this@UpdatesActivity)) {
+						downloadUpdate(appUpdate.urlToDownload.toString(), appUpdate.latestVersion)
 					} else {
-						// Request permissions for writting to the external storage
-						// Note: requestPermissions requires an array of permissions as the first parameter
-						requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+						// User has pressed "Deny" to the permission prompt
+						if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+							MaterialAlertDialogBuilder(this@UpdatesActivity).apply {
+								setTitle(R.string.update_perm_rationale_dialog_title)
+								setMessage(R.string.update_perm_rationale_dialog_msg)
+								setNegativeButton(R.string.update_perm_rationale_dialog_deny) { dialog, _ -> dialog.dismiss() }
+								setPositiveButton(R.string.update_perm_rationale_dialog_grant) { _, _ -> requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0) }
+							}.show()
+						} else {
+							// Request permissions for writting to the external storage
+							// Note: requestPermissions requires an array of permissions as the first parameter
+							requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+						}
 					}
+				} else {
+					downloadUpdate(appUpdate.urlToDownload.toString(), appUpdate.latestVersion)
 				}
-			} else {
-				downloadUpdate(appUpdate.urlToDownload.toString(), appUpdate.latestVersion)
 			}
-		}
-		builder.setOnDismissListener {
-			// Mark the check for updates menu item as selectable again
-			isChecking = false
-			invalidateOptionsMenu()
-		}
-		builder.setOnCancelListener {
-			// Mark the check for updates menu item as selectable again
-			isChecking = false
-			invalidateOptionsMenu()
-		}
-		builder.show()
+			setOnDismissListener {
+				// Mark the check for updates menu item as selectable again
+				isChecking = false
+				invalidateOptionsMenu()
+			}
+			setOnCancelListener {
+				// Mark the check for updates menu item as selectable again
+				isChecking = false
+				invalidateOptionsMenu()
+			}
+		}.show()
 	}
 
 	private fun checkForUpdates() {
