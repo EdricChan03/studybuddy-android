@@ -174,8 +174,10 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			if (mUser != null) {
 				dialogMsg += "Display name: ${mUser?.displayName ?: "<not set>"}"
 				dialogMsg += "\nEmail: ${mUser?.email ?: "<not set>"}"
-				dialogMsg += "\nMetadata:\n- Creation timestamp: ${mUser?.metadata?.creationTimestamp.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"}"
-				dialogMsg += "\n- Last sign in timestamp: ${mUser?.metadata?.lastSignInTimestamp.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"}"
+				dialogMsg += "\nMetadata:\n- Creation timestamp: ${mUser?.metadata?.creationTimestamp
+						.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"}"
+				dialogMsg += "\n- Last sign in timestamp: ${mUser?.metadata?.lastSignInTimestamp
+						.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"}"
 				dialogMsg += "\nPhone number: ${mUser?.phoneNumber ?: "<not set>"}"
 				dialogMsg += "\nPhoto URL: ${mUser?.photoUrl ?: "<not set>"}"
 				dialogMsg += "\nUID: ${mUser?.uid ?: "<not set>"}"
@@ -202,9 +204,11 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		findPreference<Preference>(Constants.debugSendNotification)?.setOnPreferenceClickListener {
 			val debugSendNotificationDialogView = layoutInflater.inflate(R.layout.debug_send_fcm_notification_dialog, null)
 			val bodyTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.bodyTextInputLayout)
-			val channelIdTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.channelIdTextInputLayout)
+			val channelIdTextInputLayout = debugSendNotificationDialogView
+					.findViewById<TextInputLayout>(R.id.channelIdTextInputLayout)
 			val colorTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.colorTextInputLayout)
-			val userOrTopicTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.userOrTopicTextInputLayout)
+			val userOrTopicTextInputLayout = debugSendNotificationDialogView
+					.findViewById<TextInputLayout>(R.id.userOrTopicTextInputLayout)
 			val titleTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.titleTextInputLayout)
 			val ttlTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.ttlTextInputLayout)
 
@@ -272,8 +276,10 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 												Toast.makeText(context, "Successfully sent notification request to Cloud Firestore!", Toast.LENGTH_SHORT)
 														.show()
 											} else {
-												Toast.makeText(context, "An error occurred while attempting to send the notification request to Cloud Firestore. Check the logcat for more details.", Toast.LENGTH_SHORT).show()
-												Log.e(TAG, "An error occurred while attempting to send the notification request to Cloud Firestore:", task.exception)
+												Toast.makeText(context, "An error occurred while attempting to send the notification request" +
+														" to Cloud Firestore. Check the logcat for more details.", Toast.LENGTH_SHORT).show()
+												Log.e(TAG, "An error occurred while attempting to send the notification request to Cloud Firestore:",
+														task.exception)
 											}
 											dialog.dismiss()
 										}
@@ -311,7 +317,9 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							}
 							// Check if TextInputEditText is empty or if the title TextInputLayout's TextInputEditText is empty
 							// or if the body TextInputLayout's TextInputEditText is empty
-							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = s.isEmpty() && titleTextInputLayout.editTextStrValue!!.isNotEmpty() && bodyTextInputLayout.editTextStrValue!!.isNotEmpty()
+							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = s.isEmpty() &&
+									titleTextInputLayout.editTextStrValue!!.isNotEmpty() &&
+									bodyTextInputLayout.editTextStrValue!!.isNotEmpty()
 						}
 						titleTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 							// Change is from title TextInputLayout's TextInputEditText
@@ -326,7 +334,9 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							}
 							// Check if TextInputEditText is empty or if the user/topic TextInputLayout's TextInputEditText is empty
 							// or if the body TextInputLayout's TextInputEditText is empty
-							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() || userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() || bodyTextInputLayout.editTextStrValue!!.isEmpty())
+							dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = !(s.isEmpty() ||
+									userOrTopicTextInputLayout.editTextStrValue!!.isEmpty() ||
+									bodyTextInputLayout.editTextStrValue!!.isEmpty())
 						}
 						bodyTextInputLayout.editText?.text.hashCode() == s.hashCode() -> {
 							// Change is from title TextInputLayout's TextInputEditText
@@ -361,7 +371,8 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							mInstanceId!!.deleteInstanceId()
 							Toast.makeText(context, "Successfully deleted instance ID!", Toast.LENGTH_LONG).show()
 						} catch (e: IOException) {
-							Toast.makeText(context, "An error occurred while deleting the device's instance ID. Please consult the logcat for the stacktrace of the exception.", Toast.LENGTH_LONG).show()
+							Toast.makeText(context, "An error occurred while deleting the device's instance ID." +
+									" Please consult the logcat for the stacktrace of the exception.", Toast.LENGTH_LONG).show()
 							Log.e(TAG, "An error occurred while deleting the device's instance ID: ", e)
 						}
 
