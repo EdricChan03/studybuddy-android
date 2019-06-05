@@ -179,9 +179,9 @@
 	<string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
 	<string name="debug_activity_send_notification_summary">Programmatically send a FCM notification request</string>
 	<string name="debug_activity_send_notification_title">Send FCM notification</string>
-	<string name="debug_activity_updates_update_metadata_title">Update metadata</string>
 	<string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON URL</string>
 	<string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON URL</string>
+	<string name="debug_activity_updates_update_metadata_title">Update metadata</string>
 	<string name="debug_activity_updates_start_worker_title">Start check for updates worker</string>
 	<string name="debug_activity_updates_start_worker_summary">Explicitly start the worker. (Note: The worker is
 		automatically started on boot.)
