@@ -488,6 +488,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 		dialogMsg += when (defaultNightMode) {
 			// Note: This is deprecated in the latest version of appcompat
+			@Suppress("DEPRECATION")
 			AppCompatDelegate.MODE_NIGHT_AUTO -> "\nDefault night mode: Auto (Light after sunrise, dark after sunset)"
 			AppCompatDelegate.MODE_NIGHT_NO -> "\nDefault night mode: Disabled"
 			AppCompatDelegate.MODE_NIGHT_YES -> "\nDefault night mode: Enabled"
