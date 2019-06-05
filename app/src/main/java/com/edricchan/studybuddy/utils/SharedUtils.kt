@@ -62,13 +62,13 @@ import java.util.concurrent.atomic.AtomicInteger
  * Shared utility methods
  * @property context The context used for non-static methods
  */
-class SharedUtils
-(
-		context: Context
-) {
+class SharedUtils() {
 	// Since IDs 0 and 1 have been taken, use 2
 	private val dynamicId = 2
 	private val atomicInteger = AtomicInteger(dynamicId)
+
+	@Deprecated("Use main SharedUtils class")
+	constructor(context: Context) : this()
 
 	/**
 	 * Dynamically creates a new ID for use with Android's notification manager
