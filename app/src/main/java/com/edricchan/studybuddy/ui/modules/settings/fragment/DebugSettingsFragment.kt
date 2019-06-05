@@ -171,6 +171,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			showDeviceInfoDialog()
 			true
 		}
+
 		findPreference<Preference>(Constants.debugAccountInfo)?.setOnPreferenceClickListener {
 
 			var dialogMsg = ""
@@ -185,7 +186,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 				dialogMsg += "\nPhone number: ${mUser?.phoneNumber ?: "<not set>"}"
 				dialogMsg += "\nPhoto URL: ${mUser?.photoUrl ?: "<not set>"}"
 				dialogMsg += "\nUID: ${mUser?.uid ?: "<not set>"}"
-				dialogMsg += "\nIs anonymous: ${if (mUser!!.isAnonymous) "yes" else "no"}"
+				dialogMsg += "\nIs anonymous: ${if (mUser?.isAnonymous == true) "yes" else "no"}"
 			} else {
 				dialogMsg = "No current signed-in Firebase user exists!"
 			}
@@ -197,14 +198,16 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					.show()
 			true
 		}
+
 		findPreference<Preference>(Constants.debugCrashApp)?.setOnPreferenceClickListener {
 			val builder = MaterialAlertDialogBuilder(context!!)
 			builder.setTitle(R.string.debug_activity_confirm_crash_app_dialog_title)
 					.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-					.setPositiveButton(R.string.dialog_action_crash) { _, _ -> mCrashlytics!!.crash() }
+					.setPositiveButton(R.string.dialog_action_crash) { _, _ -> mCrashlytics?.crash() }
 					.show()
 			true
 		}
+
 		findPreference<Preference>(Constants.debugSendNotification)?.setOnPreferenceClickListener {
 			val debugSendNotificationDialogView = layoutInflater.inflate(R.layout.debug_send_fcm_notification_dialog, null)
 			val bodyTextInputLayout = debugSendNotificationDialogView.findViewById<TextInputLayout>(R.id.bodyTextInputLayout)
@@ -368,6 +371,8 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			bodyTextInputLayout.editText?.addTextChangedListener(validatorTextWatcher)
 			true
 		}
+
+		// TODO: Fix broken code
 		findPreference<Preference>(Constants.debugResetInstanceId)?.setOnPreferenceClickListener {
 			val builder = MaterialAlertDialogBuilder(context!!)
 			builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
