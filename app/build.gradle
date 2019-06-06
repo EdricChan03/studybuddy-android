@@ -7,13 +7,11 @@ apply plugin: "com.google.firebase.firebase-perf"
 apply plugin: "com.google.android.gms.oss-licenses-plugin"
 
 android {
-	compileSdkVersion 'android-Q'
+	compileSdkVersion 29
 	defaultConfig {
 		applicationId "com.edricchan.studybuddy"
 		minSdkVersion 21
-		// Uncomment this line to test the app on a preview platform version device running Android Q
-//		targetSdkVersion 'Q'
-		targetSdkVersion 28
+		targetSdkVersion 29
 		versionCode 9
 		versionName "1.0.0-rc.543"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -36,7 +34,7 @@ android {
 	kotlinOptions {
 		jvmTarget = "1.8"
 	}
-	buildToolsVersion '29.0.0 rc3'
+	buildToolsVersion '29.0.0'
 }
 
 dependencies {
