@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.receiver
+package com.edricchan.studybuddy.receivers
 
 import android.Manifest
 import android.app.DownloadManager
@@ -23,7 +23,7 @@ class ActionButtonReceiver : BroadcastReceiver() {
 	}
 
 	private fun checkPermission(context: Context, intent: Intent) {
-		if (SharedUtils.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
+		if (SharedUtils.checkPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
 			downloadUpdate(context, intent)
 		}
 	}

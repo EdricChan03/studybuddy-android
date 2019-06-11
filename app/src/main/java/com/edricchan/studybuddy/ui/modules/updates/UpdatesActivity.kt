@@ -217,7 +217,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 				// Check if the device is running Android Marshmallow or higher
 				// Marshmallow introduces the capability for runtime permissions
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-					if (SharedUtils.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, this@UpdatesActivity)) {
+					if (SharedUtils.checkPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE, this@UpdatesActivity)) {
 						downloadUpdate(appUpdate.urlToDownload.toString(), appUpdate.latestVersion)
 					} else {
 						// User has pressed "Deny" to the permission prompt

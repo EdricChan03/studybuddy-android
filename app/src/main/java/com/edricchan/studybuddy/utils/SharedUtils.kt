@@ -41,7 +41,7 @@ import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isNotNull
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
-import com.edricchan.studybuddy.receiver.ActionButtonReceiver
+import com.edricchan.studybuddy.receivers.ActionButtonReceiver
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -787,7 +787,7 @@ class SharedUtils() {
 		 * @param context    The context
 		 * @return A boolean
 		 */
-		fun checkPermission(permission: String, context: Context): Boolean {
+		fun checkPermissionGranted(permission: String, context: Context): Boolean {
 			return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
 		}
 
