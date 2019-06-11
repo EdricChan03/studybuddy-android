@@ -29,8 +29,6 @@ data class TaskItem(
 		var tags: List<String>? = null,
 		var title: String? = null
 ) : HasId {
-	constructor() : this(null, null, false, false, "", null, null, null)
-
 	class Builder {
 		private var task: TaskItem? = null
 		private var taskTags: MutableList<String>? = null
