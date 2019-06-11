@@ -18,6 +18,6 @@ class CalendarFragment : Fragment(R.layout.frag_calendar) {
 		/**
 		 * The Android tag for use with [android.util.Log]
 		 */
-		private val TAG = SharedUtils.getTag(this::class.java)
+		private val TAG = SharedUtils.getTag(CalendarFragment::class.java)
 	}
 }
