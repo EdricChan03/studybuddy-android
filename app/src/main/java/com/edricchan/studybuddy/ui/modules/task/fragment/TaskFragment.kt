@@ -499,12 +499,12 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 		/**
 		 * Request code for new task activity
 		 */
-		private val ACTION_NEW_TASK = 1
+		private const val ACTION_NEW_TASK = 1
 		/**
 		 * The Android tag for use with [android.util.Log]
 		 */
 		private val TAG = SharedUtils.getTag(TaskFragment::class.java)
 
-		private val SHARED_PREFS_FILE = "TodoFragPrefs"
+		private const val SHARED_PREFS_FILE = "TodoFragPrefs"
 	}
 }
