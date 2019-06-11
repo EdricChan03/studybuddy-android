@@ -874,11 +874,11 @@ class SharedUtils() {
 			val repeatInterval = sharedPreferences.getString(
 					Constants.prefUpdatesFrequency,
 					defaultInterval.toString()
-			)!!.toInt()
+			)!!.toLong()
 			val isMetered = sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOverMetered, false)
 			val requiresCharging = sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOnlyWhenCharging, false)
 
-			return enqueueCheckForUpdatesWorker(context, repeatInterval.toLong(), isMetered, requiresCharging)
+			return enqueueCheckForUpdatesWorker(context, repeatInterval, isMetered, requiresCharging)
 		}
 
 		/**
