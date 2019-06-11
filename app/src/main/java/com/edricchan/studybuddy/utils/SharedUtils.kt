@@ -43,6 +43,7 @@ import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.receiver.ActionButtonReceiver
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
+import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
