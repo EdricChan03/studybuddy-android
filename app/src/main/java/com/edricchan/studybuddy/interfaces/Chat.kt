@@ -30,10 +30,8 @@ data class Chat(
 		var pinnedMessage: DocumentReference? = null
 ): HasId {
 	/**
-	 * Creates a new instance of this interface
+	 * Builder object for simplifying the creation of a [Chat] class
 	 */
-	constructor() : this(null, null, null, null, null, null, null, null)
-
 	class Builder {
 		private var chat: Chat? = null
 
