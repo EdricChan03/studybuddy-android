@@ -29,6 +29,9 @@ data class TaskItem(
 		var tags: List<String>? = null,
 		var title: String? = null
 ) : HasId {
+	/**
+	 * Builder object for simplifying the creation of a [TaskItem] class
+	 */
 	class Builder {
 		private var task: TaskItem? = null
 		private var taskTags: MutableList<String>? = null
