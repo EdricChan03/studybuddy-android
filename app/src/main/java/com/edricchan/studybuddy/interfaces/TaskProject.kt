@@ -4,18 +4,20 @@ import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.IgnoreExtraProperties
 
 /**
  * A task project
  * @property color The color/colour of this project as a hexadecimal value
- * @property id The document ID of this project
  * @property name The name of this project
  */
+@IgnoreExtraProperties
 data class TaskProject(
 		var color: String? = null,
-		var id: String? = null,
+		@get:Exclude override var id: String = "",
 		var name: String? = null
-) {
+) : HasId {
 	class Builder {
 		private var context: Context? = null
 		private var project: TaskProject? = null
