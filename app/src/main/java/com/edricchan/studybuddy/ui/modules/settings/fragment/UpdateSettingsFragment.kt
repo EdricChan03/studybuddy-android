@@ -42,14 +42,19 @@ class UpdateSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnS
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_updates, rootKey)
-		updateInfoPreferences = requireContext().getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE).apply {
+
+		updateInfoPreferences = requireContext().getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO,
+				Context.MODE_PRIVATE).apply {
 			registerOnSharedPreferenceChangeListener(this@UpdateSettingsFragment)
 		}
+
 		lastUpdatedDate = savedInstanceState?.getLong(LAST_UPDATED_DATE_TAG)?.toDate()
 				?: updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, 0L).toDate()
 		lastCheckedForUpdatesDate = savedInstanceState?.getLong(LAST_CHECK_FOR_UPDATES_DATE_TAG)?.toDate()
 				?: updateInfoPreferences.getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L).toDate()
+
 		findPreference<Preference>(Constants.prefUpdates)?.intent = Intent(context, UpdatesActivity::class.java)
+
 		updateUpdatesPreferenceSummary()
 	}
 
