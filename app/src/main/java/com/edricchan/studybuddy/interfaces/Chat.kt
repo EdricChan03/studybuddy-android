@@ -3,6 +3,8 @@ package com.edricchan.studybuddy.interfaces
 import android.text.TextUtils
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.IgnoreExtraProperties
 
 /**
  * An interface used for a chat group
@@ -15,7 +17,9 @@ import com.google.firebase.firestore.DocumentReference
  * @property owner The person as a document reference who originally created the chat
  * @property pinnedMessage A document reference to the pinned message of the chat
  */
+@IgnoreExtraProperties
 data class Chat(
+		@get:Exclude override var id: String = "",
 		var name: String? = null,
 		var description: String? = null,
 		var members: List<DocumentReference>? = null,
@@ -24,7 +28,7 @@ data class Chat(
 		var createdAt: Timestamp? = null,
 		var owner: DocumentReference? = null,
 		var pinnedMessage: DocumentReference? = null
-) {
+): HasId {
 	/**
 	 * Creates a new instance of this interface
 	 */
