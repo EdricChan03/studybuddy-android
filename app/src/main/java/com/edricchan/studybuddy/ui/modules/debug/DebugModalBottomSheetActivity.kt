@@ -29,31 +29,49 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 
 		addModalBottomSheetLauncher(
 				modalBottomSheetLaunchersLayout,
-				"Modal bottom sheet with text and no header",
+				"Modal bottom sheet with text items and no header",
 				buildOnClickListener(modalBottomSheetWithTextNoHeader())
 		)
 
 		addModalBottomSheetLauncher(
 				modalBottomSheetLaunchersLayout,
-				"Modal bottom sheet with text and header",
+				"Modal bottom sheet with text items and header",
 				buildOnClickListener(modalBottomSheetWithTextAndHeader())
 		)
 
 		addModalBottomSheetLauncher(
 				modalBottomSheetLaunchersLayout,
-				"Modal bottom sheet with 1000 items",
+				"Modal bottom sheet with icons and text items",
+				buildOnClickListener(modalBottomSheetWithIconItems())
+		)
+
+		addModalBottomSheetLauncher(
+				modalBottomSheetLaunchersLayout,
+				"Modal bottom sheet with 1000 text items",
 				buildOnClickListener(modalBottomSheetWith1000Items())
 		)
 
 		addModalBottomSheetLauncher(
 				modalBottomSheetLaunchersLayout,
-				"Modal bottom sheet with disabled even items",
+				"Modal bottom sheet with text items with checkboxes",
+				buildOnClickListener(modalBottomSheetCheckBoxItems())
+		)
+
+		addModalBottomSheetLauncher(
+				modalBottomSheetLaunchersLayout,
+				"Modal bottom sheet with text items with radio buttons",
+				buildOnClickListener(modalBottomSheetRadioButtonItems())
+		)
+
+		addModalBottomSheetLauncher(
+				modalBottomSheetLaunchersLayout,
+				"Modal bottom sheet with disabled even text items",
 				buildOnClickListener(modalBottomSheetDisabledEvenItems())
 		)
 
 		addModalBottomSheetLauncher(
 				modalBottomSheetLaunchersLayout,
-				"Modal bottom sheet with hidden odd items",
+				"Modal bottom sheet with hidden odd text items",
 				buildOnClickListener(modalBottomSheetHiddenOddItems())
 		)
 	}
@@ -123,20 +141,22 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 		}
 		// See https://stackoverflow.com/a/9083910/6782707
 		val shareIntentLaunchables = packageManager.queryIntentActivities(shareIntent, 0)
-		shareIntentLaunchables?.sortWith(ResolveInfo.DisplayNameComparator(packageManager))
-		shareIntentLaunchables?.forEach {
+		shareIntentLaunchables.sortWith(ResolveInfo.DisplayNameComparator(packageManager))
+		shareIntentLaunchables.forEach { resolveInfo ->
 			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
-					title = it.loadLabel(packageManager).toString(),
-					iconDrawable = it.loadIcon(packageManager),
+					title = resolveInfo.loadLabel(packageManager).toString(),
+					iconDrawable = resolveInfo.loadIcon(packageManager),
 					onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
 						override fun onItemClick(item: ModalBottomSheetItem) {
 							showToast("Item ${item.title} clicked!")
 							// Code adapted from
 							// https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
-							val activity = it.activityInfo
-							val componentName = ComponentName(activity.applicationInfo.packageName, activity.name)
-							shareIntent.component = componentName
-							startActivity(shareIntent)
+							val activity = resolveInfo.activityInfo
+							val intent = Intent(shareIntent).apply {
+								component = ComponentName(activity.packageName, activity.name)
+								flags = Intent.FLAG_ACTIVITY_NEW_TASK
+							}
+							startActivity(intent)
 
 							// Dismiss the bottom sheet
 							modalBottomSheetFragment.dismiss()
@@ -160,6 +180,72 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 						}
 
 					}
+			))
+		}
+		return modalBottomSheetFragment
+	}
+
+	private fun modalBottomSheetWithIconItems(): ModalBottomSheetFragment {
+		val modalBottomSheetFragment = ModalBottomSheetFragment()
+		val onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+			override fun onItemClick(item: ModalBottomSheetItem) {
+				showToast("Item ${item.title} clicked!")
+			}
+
+		}
+		modalBottomSheetFragment.items = mutableListOf(
+				ModalBottomSheetItem(id = 1, title = "About app", icon = R.drawable.ic_info_outline_24dp,
+						onItemClickListener = onItemClickListener),
+				ModalBottomSheetItem(id = 2, title = "Share this app", icon = R.drawable.ic_share_outline_24dp,
+						onItemClickListener = onItemClickListener),
+				ModalBottomSheetItem(id = 3, title = "Account", icon = R.drawable.ic_account_circle_outline_24dp,
+						onItemClickListener = onItemClickListener),
+				ModalBottomSheetItem(id = 4, title = "Settings", icon = R.drawable.ic_settings_outline_24dp,
+						onItemClickListener = onItemClickListener),
+				ModalBottomSheetItem(id = 5, title = "Help", icon = R.drawable.ic_help_outline_24dp,
+						onItemClickListener = onItemClickListener)
+		)
+		return modalBottomSheetFragment
+	}
+
+	private fun modalBottomSheetCheckBoxItems(): ModalBottomSheetFragment {
+		val modalBottomSheetFragment = ModalBottomSheetFragment()
+		val group = ModalBottomSheetGroup(
+				id = 1000,
+				checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL,
+				onItemCheckedChangeListener = object : ModalBottomSheetAdapter.OnItemCheckedChangeListener {
+					override fun onItemCheckedChange(item: ModalBottomSheetItem) {
+						showToast(item)
+					}
+				}
+		)
+		for (i in 1..10) {
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
+					id = i,
+					title = "Item $i",
+					group = group
+			))
+		}
+		return modalBottomSheetFragment
+	}
+
+	private fun modalBottomSheetRadioButtonItems(): ModalBottomSheetFragment {
+		val modalBottomSheetFragment = ModalBottomSheetFragment()
+		val groupId = 1000
+		val group = ModalBottomSheetGroup(
+				id = groupId,
+				checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE,
+				onItemCheckedChangeListener = object : ModalBottomSheetAdapter.OnItemCheckedChangeListener {
+					override fun onItemCheckedChange(item: ModalBottomSheetItem) {
+						showToast(item)
+					}
+				}
+		)
+		for (i in 1..10) {
+			modalBottomSheetFragment.addItem(ModalBottomSheetItem(
+					id = i,
+					title = "Item $i",
+					group = group
 			))
 		}
 		return modalBottomSheetFragment
