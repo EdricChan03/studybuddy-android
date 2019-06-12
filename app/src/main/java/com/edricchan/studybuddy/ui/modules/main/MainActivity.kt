@@ -290,7 +290,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 		/**
 		 * Request code for new task activity
 		 */
-		internal const val ACTION_NEW_TASK = 1
+		private const val ACTION_NEW_TASK = 1
 		/**
 		 * The constant for a new task shortcut
 		 */
