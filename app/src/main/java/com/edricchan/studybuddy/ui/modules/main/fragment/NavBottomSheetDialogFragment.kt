@@ -23,6 +23,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 	var displayName: String? = null
 	var email: String? = null
 	var photoUrl: Uri? = null
+	var navigationViewCheckedItemId: Int? = null
 	private lateinit var navigationView: NavigationView
 	/**
 	 * Sets the listener for the [NavigationView]
@@ -34,6 +35,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 		this.navigationViewListener = listener
 	}
 
+
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.frag_bottomappbar_bottomsheet, container, false)
 	}
@@ -44,16 +46,22 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 		if (navigationViewListener != null) {
 			navigationView.setNavigationItemSelectedListener(navigationViewListener)
 		}
+		if (navigationViewCheckedItemId != null) {
+			navigationView.setCheckedItem(navigationViewCheckedItemId!!)
+		}
+
 		if (savedInstanceState != null) {
 			isLoggedIn = savedInstanceState.getBoolean(IS_LOGGED_IN_TAG)
 			displayName = savedInstanceState.getString(USER_NAME_TAG)
 			email = savedInstanceState.getString(USER_EMAIL_TAG)
 			photoUrl = savedInstanceState.getString(USER_PHOTO_URL_TAG)?.toUri()
 		}
+
 		view.findViewById<ImageButton>(R.id.userAccountSettings)
 				.setOnClickListener {
 					startActivity<AccountActivity>()
 				}
+
 		if (isLoggedIn) {
 			if (displayName != null) view.findViewById<TextView>(R.id.userName).text = displayName
 			if (email != null) view.findViewById<TextView>(R.id.userEmail).text = email

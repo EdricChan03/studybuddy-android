@@ -236,6 +236,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 					if (auth.currentUser?.photoUrl != null) navBottomSheet.photoUrl = auth.currentUser?.photoUrl
 				}
 				navBottomSheet.show(supportFragmentManager, navBottomSheet.tag)
+				val selectedMenuItem = when (supportFragmentManager.findFragmentById(R.id.content_main)) {
+					is CalendarFragment -> R.id.navigation_calendar
+					is ChatFragment -> R.id.navigation_chat
+					is TaskFragment -> R.id.navigation_todos
+					is TipsFragment -> R.id.navigation_tips
+					else -> 0 // Resources.ID_NULL
+				}
+				navBottomSheet.navigationViewCheckedItemId = selectedMenuItem
 				return true
 			}
 			R.id.action_settings -> {
