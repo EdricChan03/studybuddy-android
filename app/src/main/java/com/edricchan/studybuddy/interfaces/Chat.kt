@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.interfaces
 
 import android.text.TextUtils
+import com.edricchan.studybuddy.annotations.VisibilityAnnotation
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
  * @property createdAt A timestamp of when the chat was created
  * @property owner The person as a document reference who originally created the chat
  * @property pinnedMessage A document reference to the pinned message of the chat
+ * @property visibility The visibility of the chat
  */
 @IgnoreExtraProperties
 data class Chat(
@@ -27,7 +29,8 @@ data class Chat(
 		var lastModified: Timestamp? = null,
 		var createdAt: Timestamp? = null,
 		var owner: DocumentReference? = null,
-		var pinnedMessage: DocumentReference? = null
+		var pinnedMessage: DocumentReference? = null,
+		@VisibilityAnnotation var visibility: String = Visibility.PUBLIC
 ): HasId {
 	/**
 	 * Builder object for simplifying the creation of a [Chat] class
@@ -122,4 +125,5 @@ data class Chat(
 			return chat
 		}
 	}
+
 }
