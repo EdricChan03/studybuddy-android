@@ -7,9 +7,10 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 
+// TODO: Add support for custom group image
 /**
  * An interface used for a chat group
- * @property name The name of this chat
+ * @property name The name of this chat (**required**)
  * @property description The description of this chat
  * @property members A list of document references of members in this chat
  * @property admins A list of document references of admins in this chat
@@ -22,7 +23,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class Chat(
 		@get:Exclude override var id: String = "",
-		var name: String? = null,
+		var name: String = "",
 		var description: String? = null,
 		var members: List<DocumentReference>? = null,
 		var admins: List<DocumentReference>? = null,
