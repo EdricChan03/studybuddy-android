@@ -47,7 +47,7 @@ dependencies {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
 	// AndroidX Core
-	implementation 'androidx.core:core:1.2.0-alpha01'
+	implementation 'androidx.core:core:1.2.0-alpha02'
 	implementation 'androidx.core:core-ktx:1.2.0-alpha01'
 	// AppCompat
 	implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
