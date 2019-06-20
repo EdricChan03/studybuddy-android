@@ -97,7 +97,7 @@ object Constants {
 	val uriAuthorWebsite: Uri = Uri.parse(urlAuthorWebsite)
 	const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy"
 	val uriSrcCode: Uri = Uri.parse(urlSrcCode)
-	const val urlSendFeedback = "https://goo.gl/forms/tz6cmNguIHuZMZIh2"
+	const val urlSendFeedback = "https://forms.gle/S6SY7aAgTyQUuKRw6"
 	val uriSendFeedback: Uri = Uri.parse(urlSendFeedback)
 	const val urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92"
 	val uriSubmitTip: Uri = Uri.parse(urlSubmitTip)
