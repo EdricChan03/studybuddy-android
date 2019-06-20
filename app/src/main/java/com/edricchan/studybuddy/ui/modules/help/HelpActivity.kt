@@ -120,8 +120,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 			}
 
 			if (reader != null) {
-				val (_, _, articles) = Gson().fromJson(reader, HelpArticles::class.java)
-				return articles?.asList()
+				return Gson().fromJson(reader, HelpArticles::class.java).articles
 			}
 			return null
 		}
