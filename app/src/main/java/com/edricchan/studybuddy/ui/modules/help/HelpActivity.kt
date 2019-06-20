@@ -17,11 +17,11 @@ import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.interfaces.HelpArticles
 import com.edricchan.studybuddy.ui.adapter.HelpArticleAdapter
-import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.gson.Gson
