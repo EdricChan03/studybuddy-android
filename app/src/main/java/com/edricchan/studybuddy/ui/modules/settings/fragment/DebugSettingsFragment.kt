@@ -96,7 +96,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 				}
 			}
 			findPreference<Preference>(Constants.debugUpdatesClearLastCheckedForUpdatesDate)?.apply {
-				setOnPreferenceClickListener {
+				onPreferenceClickListener = Preference.OnPreferenceClickListener {
 					MaterialAlertDialogBuilder(context).apply {
 						setTitle(R.string.debug_activity_updates_clear_last_checked_for_updates_date_confirm_dialog_title)
 						setNegativeButton(R.string.dialog_action_cancel, null)
@@ -107,7 +107,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							dialogInterface.dismiss()
 						}
 					}.show()
-					return@setOnPreferenceClickListener true
+					true
 				}
 			}
 
