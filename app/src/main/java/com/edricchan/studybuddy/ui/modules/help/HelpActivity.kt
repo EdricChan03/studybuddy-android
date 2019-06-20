@@ -135,10 +135,8 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				if (activity == null || activity.isFinishing) return
 				// Update the adapter
 				val adapter = HelpArticleAdapter(helpArticles)
-				adapter.onItemClickListener = object : HelpArticleAdapter.OnItemClickListener {
-					override fun onItemClick(article: HelpArticle, position: Int) {
-						SharedUtils.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(Constants.prefUseCustomTabs, true))
-					}
+				adapter.setOnItemClickListener { article, _ ->
+					SharedUtils.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(Constants.prefUseCustomTabs, true))
 				}
 				activity.helpFeaturedRecyclerView.adapter = adapter
 				activity.helpFeaturedRecyclerView.visibility = View.VISIBLE
