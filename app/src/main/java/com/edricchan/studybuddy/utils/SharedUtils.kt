@@ -855,12 +855,24 @@ class SharedUtils() {
 
 		/**
 		 * Retrieves the chats that the authenticated user is currently in
-		 * @param auth An instance of [FirebaseAuth]
-		 * @param fs An instance of [FirebaseFirestore]
+		 * @param firestore An instance of [FirebaseFirestore] (This can be retrieved from [FirebaseFirestore.getInstance])
+		 * @param auth An instance of [FirebaseAuth] (This can be retrieved with [FirebaseAuth.getInstance])
 		 * @return The chats
 		 */
-		fun getChats(auth: FirebaseAuth, fs: FirebaseFirestore): Query {
-			return fs.collection("chats").whereArrayContains("members", fs.document("users/${auth.currentUser}"))
+		fun getChats(firestore: FirebaseFirestore, auth: FirebaseAuth): Query {
+			return firestore.collection("chats")
+					.whereArrayContains("members", auth.currentUser!!.getUserDocument(firestore))
+		}
+
+		/**
+		 * Retrieves the chats that the authenticated user is currently in
+		 * @param firestore An instance of [FirebaseFirestore] (This can be retrieved from [FirebaseFirestore.getInstance])
+		 * @param currentUser An instance of [FirebaseUser] (This can be retrieved with [FirebaseAuth.getCurrentUser])
+		 * @return The chats
+		 */
+		fun getChats(firestore: FirebaseFirestore, currentUser: FirebaseUser): Query {
+			return firestore.collection("chats")
+					.whereArrayContains("members", currentUser.getUserDocument(firestore))
 		}
 
 		/**
