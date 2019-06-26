@@ -8,7 +8,7 @@ buildscript {
 		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:3.6.0-alpha03'
+		classpath 'com.android.tools.build:gradle:3.6.0-alpha04'
 		// Now deprecated
 		// classpath "com.google.firebase:firebase-plugins:1.2.0"
 		classpath "com.google.gms:google-services:4.2.0"
