@@ -38,6 +38,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.extensions.isNotNull
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
