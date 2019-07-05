@@ -93,6 +93,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
+			app:elevation="0dp"
 			app:itemIconPadding="@dimen/one_line_list_item_padding_left"
 			app:itemTextAppearance="?attr/textAppearanceSubtitle2"
 			app:layout_constraintEnd_toEndOf="parent"
