@@ -37,8 +37,8 @@ class HelpArticleAdapter(
 		return Holder(itemView)
 	}
 
-	override fun onBindViewHolder(holder: HelpArticleAdapter.Holder, position: Int) {
 		val (articleDesc, _, articleTitle) = mHelpArticles!![position]
+	override fun onBindViewHolder(holder: Holder, position: Int) {
 		val descTextView = holder.descTextView
 		val titleTextView = holder.titleTextView
 
