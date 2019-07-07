@@ -21,7 +21,8 @@ class ModalBottomSheetGroup(
 		var selected: MutableList<ModalBottomSheetItem> = mutableListOf()
 ) {
 	override fun toString(): String {
-		return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled, selected=[${selected.joinToString()}]"
+		return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled," +
+				"selected=[${selected.joinToString()}]"
 	}
 
 	companion object {
