@@ -21,6 +21,14 @@ class HelpArticleAdapter(
 			this.mListener = listener
 		}
 
+	fun setOnItemClickListener(listener: (article: HelpArticle, position: Int) -> Unit) {
+		onItemClickListener = object : OnItemClickListener {
+			override fun onItemClick(article: HelpArticle, position: Int) {
+				listener.invoke(article, position)
+			}
+		}
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 		val context = parent.context
 		val inflater = LayoutInflater.from(context)
