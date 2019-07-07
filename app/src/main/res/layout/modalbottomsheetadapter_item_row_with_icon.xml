@@ -28,7 +28,7 @@
 			app:layout_constraintStart_toEndOf="@id/itemIcon"
 			app:layout_constraintTop_toTopOf="parent"
 			tools:text="@sample/actions.json/data/name"/>
-	<RadioButton
+	<com.edricchan.studybuddy.ui.widget.NoTextRadioButton
 			android:id="@+id/itemRadioButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"/>
-	<CheckBox
+	<com.edricchan.studybuddy.ui.widget.NoTextCheckBox
 			android:id="@+id/itemCheckBox"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
