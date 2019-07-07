@@ -42,10 +42,10 @@ class HelpArticleAdapter(
 		val descTextView = holder.descTextView
 		val titleTextView = holder.titleTextView
 
-		if (!articleTitle!!.isEmpty()) {
+		if (articleTitle != null && articleTitle.isNotEmpty()) {
 			titleTextView.text = articleTitle
 		}
-		if (!articleDesc!!.isEmpty()) {
+		if (articleDesc != null && articleDesc.isNotEmpty()) {
 			descTextView.text = articleDesc
 		}
 	}
