@@ -485,7 +485,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		}
 
 		if (Build.SUPPORTED_ABIS.isNotEmpty()) {
-			dialogMsg += "\nSupported ABIs: ${Build.SUPPORTED_ABIS}"
+			dialogMsg += "\nSupported ABIs: ${Build.SUPPORTED_ABIS.joinToString()}"
 		}
 
 		if (Build.TAGS.isNotEmpty()) {
