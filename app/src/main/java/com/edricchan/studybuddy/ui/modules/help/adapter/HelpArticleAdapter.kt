@@ -55,16 +55,14 @@ class HelpArticleAdapter(
 
 	inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-		internal var descTextView: TextView
-		internal var titleTextView: TextView
+		internal var titleTextView: TextView = itemView.findViewById(R.id.nameTextView)
+		internal var descTextView: TextView = itemView.findViewById(R.id.descTextView)
 
 		init {
 			if (adapterPosition != RecyclerView.NO_POSITION) {
 				itemView.isEnabled = (!helpArticlesList!![adapterPosition].isDisabled!!)
 				itemView.visibility = if (helpArticlesList[adapterPosition].isHidden!!) View.GONE else View.VISIBLE
 			}
-			descTextView = itemView.findViewById(R.id.descTextView)
-			titleTextView = itemView.findViewById(R.id.titleTextView)
 			itemView.setOnClickListener {
 				if (adapterPosition != RecyclerView.NO_POSITION && listener != null) {
 					listener!!.onItemClick(helpArticlesList!![adapterPosition], adapterPosition)
