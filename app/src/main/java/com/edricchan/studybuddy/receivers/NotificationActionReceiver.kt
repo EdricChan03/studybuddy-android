@@ -14,7 +14,7 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.utils.SharedUtils
 
-class ActionButtonReceiver : BroadcastReceiver() {
+class NotificationActionReceiver : BroadcastReceiver() {
 	override fun onReceive(context: Context, intent: Intent) {
 		when (intent.getStringExtra("action")) {
 			Constants.actionNotificationsStartDownloadReceiver -> checkPermission(context, intent)
