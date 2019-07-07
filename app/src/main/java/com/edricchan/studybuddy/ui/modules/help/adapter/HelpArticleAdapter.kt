@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.ui.modules.help.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
@@ -56,7 +55,6 @@ class HelpArticleAdapter(
 
 	inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-		internal var articleImageView: ImageView
 		internal var descTextView: TextView
 		internal var titleTextView: TextView
 
@@ -65,7 +63,6 @@ class HelpArticleAdapter(
 				itemView.isEnabled = (!helpArticlesList!![adapterPosition].isDisabled!!)
 				itemView.visibility = if (helpArticlesList[adapterPosition].isHidden!!) View.GONE else View.VISIBLE
 			}
-			articleImageView = itemView.findViewById(R.id.articleImageView)
 			descTextView = itemView.findViewById(R.id.descTextView)
 			titleTextView = itemView.findViewById(R.id.titleTextView)
 			itemView.setOnClickListener {
