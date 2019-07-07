@@ -146,7 +146,7 @@
 		</service>
 
 		<!-- Receivers -->
-		<receiver android:name=".receivers.ActionButtonReceiver"/>
+		<receiver android:name=".receivers.NotificationActionReceiver"/>
 		<receiver android:name=".receivers.StartupReceiver">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED"/>

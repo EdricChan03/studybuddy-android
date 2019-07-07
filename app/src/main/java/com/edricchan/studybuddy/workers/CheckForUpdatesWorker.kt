@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.workmanager.dataOf
-import com.edricchan.studybuddy.receivers.ActionButtonReceiver
+import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -85,7 +85,7 @@ class CheckForUpdatesWorker(
 
 	private fun showUpdateAvailableNotification(update: Update?) {
 		// New update
-		val intentAction = Intent(appContext, ActionButtonReceiver::class.java)
+		val intentAction = Intent(appContext, NotificationActionReceiver::class.java)
 
 		intentAction.putExtra("action", Constants.actionNotificationsStartDownloadReceiver)
 		intentAction.putExtra("downloadUrl", update?.urlToDownload.toString())

@@ -42,7 +42,7 @@ import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.extensions.isNotNull
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
-import com.edricchan.studybuddy.receivers.ActionButtonReceiver
+import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -715,7 +715,7 @@ class SharedUtils() {
 									notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
 								} else {
 									// New update
-									val intentAction = Intent(context, ActionButtonReceiver::class.java)
+									val intentAction = Intent(context, NotificationActionReceiver::class.java)
 
 									intentAction.putExtra("action", Constants.actionNotificationsStartDownloadReceiver)
 									intentAction.putExtra("downloadUrl", update.urlToDownload.toString())
@@ -740,7 +740,7 @@ class SharedUtils() {
 											.setContentText(context.getString(R.string.notification_updates_error_not_found_text))
 											.setSmallIcon(R.drawable.ic_file_not_found_24dp)
 								}
-								val intentAction = Intent(context, ActionButtonReceiver::class.java)
+								val intentAction = Intent(context, NotificationActionReceiver::class.java)
 
 								//This is optional if you have more than one buttons and want to differentiate between two
 								intentAction.putExtra("action", Constants.actionNotificationsRetryCheckForUpdateReceiver)
