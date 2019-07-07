@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.HelpArticle
-import com.edricchan.studybuddy.utils.SharedUtils
 
 class HelpArticleAdapter(
 		private val mHelpArticles: List<HelpArticle>?
@@ -88,9 +87,5 @@ class HelpArticleAdapter(
 		 * @param position The position of the item
 		 */
 		fun onItemClick(article: HelpArticle, position: Int)
-	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(this::class.java)
 	}
 }
