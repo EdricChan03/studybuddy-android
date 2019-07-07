@@ -3,14 +3,17 @@ package com.edricchan.studybuddy.workers
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.workmanager.dataOf
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -54,9 +57,18 @@ class CheckForUpdatesWorker(
 	private var notificationBuilder: NotificationCompat.Builder? = null
 
 	override fun doWork(): Result {
+		updateLastCheckedStatus()
 		showInProgressNotification()
 		appUpdaterUtils?.start()
 		return result
+	}
+
+	private fun updateLastCheckedStatus() {
+		Log.d(TAG, "Updating last checked status...")
+		appContext.getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
+				.edit {
+					putLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, System.currentTimeMillis())
+				}
 	}
 
 	private fun showInProgressNotification() {
