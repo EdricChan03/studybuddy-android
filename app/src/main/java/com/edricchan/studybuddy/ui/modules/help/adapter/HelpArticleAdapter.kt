@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.adapter
+package com.edricchan.studybuddy.ui.modules.help.adapter
 
 import android.view.LayoutInflater
 import android.view.View
