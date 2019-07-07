@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Environment
+import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
@@ -32,15 +33,15 @@ class NotificationActionReceiver : BroadcastReceiver() {
 		val request = DownloadManager.Request(Uri.parse(intent.getStringExtra("downloadUrl")))
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
 		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, context.getString(R.string.download_apk_name, intent.getStringExtra("version")))
-		val manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-		val id = manager.enqueue(request)
+		val manager = context.getSystemService<DownloadManager>()
+		val id = manager?.enqueue(request)
 		//set BroadcastReceiver to install app when .apk is downloaded
 		val onComplete = object : BroadcastReceiver() {
 			override fun onReceive(context1: Context, intent: Intent) {
 				context.startActivity(buildIntent {
 					action = Intent.ACTION_VIEW
 					flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-					setDataAndType(manager.getUriForDownloadedFile(id), MimeTypeConstants.appPackageArchiveMime)
+					setDataAndType(id?.let { manager.getUriForDownloadedFile(it) }, MimeTypeConstants.appPackageArchiveMime)
 				})
 
 				context.unregisterReceiver(this)
