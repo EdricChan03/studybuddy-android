@@ -24,7 +24,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
-import com.edricchan.studybuddy.extensions.toObjectWithId
+import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.ui.adapter.TasksAdapter
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
