@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.extensions.firebase.firestore
 
 import com.edricchan.studybuddy.interfaces.HasId
 import com.google.firebase.firestore.QueryDocumentSnapshot
