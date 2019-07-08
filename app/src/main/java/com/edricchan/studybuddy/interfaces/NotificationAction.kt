@@ -1,9 +1,5 @@
 package com.edricchan.studybuddy.interfaces
 
-import android.content.Context
-
-import androidx.annotation.DrawableRes
-
 /**
  * Specifies a notification request's action
  * @property actionIcon The action's icon
@@ -11,89 +7,46 @@ import androidx.annotation.DrawableRes
  * @property actionType The action's type
  */
 data class NotificationAction(
-		var actionIcon: String? = null,
-		var actionTitle: String? = null,
-		var actionType: String? = null
+		val actionTitle: String? = null,
+		val actionIcon: String? = null,
+		val actionType: String? = null
 ) {
+	private constructor(builder: Builder) : this(
+			builder.actionTitle,
+			builder.actionIcon,
+			builder.actionType
+	)
+
+	companion object {
+		/**
+		 * Creates a [NotificationAction] using a [Builder] (with support for inlined setting of variables)
+		 * @return The created [NotificationAction]
+		 */
+		inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
+	}
+
 	// TODO: Add support for creating multiple actions using the builder
+	/**
+	 * Builder object to simplify the creation of a [NotificationAction] object
+	 */
 	class Builder {
-		private var action: NotificationAction? = null
+		/**
+		 * The notification action's title
+		 */
+		var actionTitle: String? = null
+		/**
+		 * The notification action's icon
+		 */
+		var actionIcon: String? = null
+		/**
+		 * The notification action's intent type
+		 */
+		var actionType: String? = null
 
 		/**
-		 * Creates a builder for a new notification action.
+		 * Returns the created [NotificationAction]
+		 * @return The created [NotificationAction]
 		 */
-		constructor() {
-			this.action = NotificationAction()
-		}
-
-		/**
-		 * Creates a builder for a new notification action, but allows for an already set action
-		 * to be passed in as a parameter.
-		 *
-		 * @param action The notification action
-		 */
-		@Deprecated("Use {@link Builder#Builder()} instead")
-		constructor(action: NotificationAction) {
-			this.action = action
-		}
-
-		/**
-		 * Sets the icon of the action
-		 *
-		 * Note that this icon will not be shown on Android Nougat and up.
-		 *
-		 * @param actionIcon The name of the icon
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setActionIcon(actionIcon: String): Builder {
-			action!!.actionIcon = actionIcon
-			return this
-		}
-
-		/**
-		 * Sets the icon of the action
-		 *
-		 * Note that this icon will not be shown on Android Nougat and up.
-		 *
-		 * @param context    The context to retrieve the icon from
-		 * @param actionIcon The reference of the icon
-		 * @return The builder object to allow for chaining of methods
-		 */
-		@Deprecated("Use {@link Builder#setActionIcon(String)} instead")
-		fun setActionIcon(context: Context, @DrawableRes actionIcon: Int): Builder {
-			action!!.actionIcon = context.resources.getResourceEntryName(actionIcon)
-			return this
-		}
-
-		/**
-		 * Sets the title of the action
-		 *
-		 * @param actionTitle The title of the action
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setActionTitle(actionTitle: String): Builder {
-			action!!.actionTitle = actionTitle
-			return this
-		}
-
-		/**
-		 * Sets the type of Intent to launch when clicked on
-		 *
-		 * @param actionType The action type
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setActionType(actionType: String): Builder {
-			action!!.actionType = actionType
-			return this
-		}
-
-		/**
-		 * Returns the created notification action.
-		 *
-		 * @return The generated notification action
-		 */
-		fun create(): NotificationAction? {
-			return action
-		}
+		fun build() = NotificationAction(this)
 	}
 }
