@@ -57,18 +57,20 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 			photoUrl = savedInstanceState.getString(USER_PHOTO_URL_TAG)?.toUri()
 		}
 
-		view.findViewById<ImageButton>(R.id.userAccountSettings)
+		val headerView = navigationView.getHeaderView(0)
+
+		headerView.findViewById<ImageButton>(R.id.userAccountSettings)
 				.setOnClickListener {
 					startActivity<AccountActivity>()
 				}
 
 		if (isLoggedIn) {
-			if (displayName != null) view.findViewById<TextView>(R.id.userName).text = displayName
-			if (email != null) view.findViewById<TextView>(R.id.userEmail).text = email
+			if (displayName != null) headerView.findViewById<TextView>(R.id.userName).text = displayName
+			if (email != null) headerView.findViewById<TextView>(R.id.userEmail).text = email
 			if (photoUrl != null) {
 				Glide.with(this)
 						.load(photoUrl)
-						.into(view.findViewById(R.id.userAvatar))
+						.into(headerView.findViewById(R.id.userAvatar))
 			}
 		}
 	}

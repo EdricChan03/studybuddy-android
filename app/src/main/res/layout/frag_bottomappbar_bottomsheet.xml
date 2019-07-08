@@ -1,92 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
-
-	<!--
-	Design based on
-	https://github.com/ArthurNagy/WorkoutLog/blob/762125a91aeee0c0b6443d8aad6681659f8a5960/app/src/main/res/layout/fragment_account_menu.xml
-	-->
-	<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/headerGuideline"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			app:layout_constraintGuide_begin="@dimen/two_line_list_item_height_with_avatar"/>
-
-	<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/headerTextGuideline"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_begin="72dp"/>
-
-	<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/headerMetaGuideline"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_end="@dimen/two_line_list_item_meta_padding_left_right"/>
-
-	<ImageView
-			android:id="@+id/userAvatar"
-			android:layout_width="@dimen/one_line_list_item_avatar_width"
-			android:layout_height="@dimen/one_line_list_item_avatar_height"
-			android:layout_marginStart="@dimen/one_line_list_item_padding_left"
-			android:contentDescription="@string/account_avatar_desc"
-			app:layout_constraintBottom_toBottomOf="@id/headerGuideline"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:srcCompat="@drawable/ic_account_circle_24dp"
-			tools:srcCompat="@tools:sample/avatars"/>
-
-	<TextView
-			android:id="@+id/userName"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Test"
-			android:textAppearance="?attr/textAppearanceSubtitle1"
-			app:layout_constraintStart_toEndOf="@id/headerTextGuideline"
-			app:layout_constraintTop_toTopOf="@id/userAvatar"
-			tools:text="John Appleseed"/>
-
-	<TextView
-			android:id="@+id/userEmail"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="helloworld@gmail.com"
-			android:textAppearance="?attr/textAppearanceSubtitle2"
-			app:layout_constraintStart_toEndOf="@id/headerTextGuideline"
-			app:layout_constraintTop_toBottomOf="@id/userName"
-			tools:text="john.appleseed@gmail.com"/>
-
-	<ImageButton
-			android:id="@+id/userAccountSettings"
-			style="@style/Theme.App.ImageButton"
-			android:contentDescription="Account settings"
-			android:src="@drawable/ic_account_circle_outline_24dp"
-			app:layout_constraintBottom_toTopOf="@+id/headerGuideline"
-			app:layout_constraintEnd_toStartOf="@+id/headerMetaGuideline"
-			app:layout_constraintTop_toTopOf="parent"/>
-
-	<androidx.constraintlayout.widget.Group
-			android:id="@+id/userDataGroup"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:constraint_referenced_ids="userName,userEmail"
-			tools:visibility="visible"/>
-
-	<View
-			android:id="@+id/divider"
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="?android:attr/listDivider"
-			app:layout_constraintBottom_toBottomOf="@id/headerGuideline"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"/>
 
 	<com.google.android.material.navigation.NavigationView
 			android:id="@+id/navigationView"
@@ -94,10 +11,11 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
 			app:elevation="0dp"
+			app:headerLayout="@layout/frag_bottomappbar_bottomsheet_header"
 			app:itemIconPadding="@dimen/one_line_list_item_padding_left"
 			app:itemTextAppearance="?attr/textAppearanceSubtitle2"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/divider"
 			app:menu="@menu/bottom_nav"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
