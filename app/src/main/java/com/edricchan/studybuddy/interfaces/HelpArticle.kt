@@ -1,10 +1,7 @@
 package com.edricchan.studybuddy.interfaces
 
-import android.content.Context
 import android.net.Uri
-import androidx.annotation.BoolRes
 import androidx.annotation.StringDef
-import androidx.annotation.StringRes
 
 /**
  * An interface for [com.edricchan.studybuddy.HelpActivity]
@@ -16,14 +13,23 @@ import androidx.annotation.StringRes
  * @property isHidden Whether this help article should be hidden (Set to [true] to be hidden, [false] otherwise)
  */
 data class HelpArticle(
-		var articleDesc: String? = null,
-		@ArticleIcon var articleIcon: String? = null,
-		var articleTitle: String? = null,
+		val articleDesc: String? = null,
+		@ArticleIcon val articleIcon: String? = null,
+		val articleTitle: String? = null,
 		// Note: The Gson library is unable to parse Uris. Instead, use a string and then parse it to a Uri in the relevant code.
-		var articleUri: String? = null,
-		var isDisabled: Boolean? = false,
-		var isHidden: Boolean? = false
+		val articleUri: String? = null,
+		val isDisabled: Boolean? = false,
+		val isHidden: Boolean? = false
 ) {
+	private constructor(builder: Builder) : this(
+			builder.articleDesc,
+			builder.articleIcon,
+			builder.articleTitle,
+			builder.articleUri,
+			builder.isDisabled,
+			builder.isHidden
+	)
+
 	@StringDef(ICON_CONTACT, ICON_DOCUMENT, ICON_GITHUB, ICON_HELP, ICON_OPEN_IN_NEW, ICON_SEND_FEEDBACK)
 	annotation class ArticleIcon
 
@@ -32,204 +38,19 @@ data class HelpArticle(
 	 *
 	 * @return This help article's URI
 	 */
+	@Deprecated("Use HelpArticle#articleUri")
 	fun getArticleUri(): Uri {
 		return Uri.parse(articleUri)
 	}
 
-	/**
-	 * Creates a new instance of [HelpArticle]
-	 */
-	constructor() : this(null, null, null, null, false, false)
-
-	class Builder {
-		private var context: Context? = null
-		private var article: HelpArticle? = null
-
-		/**
-		 * Creates a builder for a new help article
-		 * @param context The context
-		 */
-		constructor(context: Context) {
-			Builder(context, HelpArticle())
-		}
-
-		/**
-		 * Creates a builder, but allows for a predefined help article to be specified
-		 *
-		 * @param context The context
-		 * @param article The predefined article
-		 */
-		constructor(context: Context, article: HelpArticle) {
-			this.context = context
-			this.article = article
-		}
-
-		/**
-		 * Sets the description of this help article
-		 *
-		 * @param articleDesc The description
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleDesc(articleDesc: String): Builder {
-			article?.articleDesc = articleDesc
-			return this
-		}
-
-		/**
-		 * Sets the description of this help article
-		 *
-		 * @param articleDescRes The description as a string resource reference
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleDesc(@StringRes articleDescRes: Int): Builder {
-			article?.articleDesc = context?.getString(articleDescRes)
-			return this
-		}
-
-		/**
-		 * Sets the icon for this help article
-		 *
-		 * @param articleIcon The icon for this help article
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleIcon(@ArticleIcon articleIcon: String): Builder {
-			article?.articleIcon = articleIcon
-			return this
-		}
-
-		/**
-		 * Sets the title of this help article
-		 *
-		 * @param articleTitle The title of this help article
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleTitle(articleTitle: String): Builder {
-			article?.articleTitle = articleTitle
-			return this
-		}
-
-		/**
-		 * Sets the title of this help article
-		 *
-		 * @param articleTitleRes The title of this help article as a string resource reference
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleTitle(@StringRes articleTitleRes: Int): Builder {
-			article?.articleTitle = context?.getString(articleTitleRes)
-			return this
-		}
-
-		/**
-		 * Sets the URI of this help article
-		 *
-		 * @param articleUri The URI of this help article
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleUri(articleUri: Uri): Builder {
-			article?.articleUri = articleUri.toString()
-			return this
-		}
-
-		/**
-		 * Sets the URL of this help article
-		 *
-		 * @param articleUrl The URL of this help article as a raw string
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleUrl(articleUrl: String): Builder {
-			article?.articleUri = articleUrl
-			return this
-		}
-
-		/**
-		 * Sets the URL of this help article
-		 *
-		 * @param articleUrlRes The URL of this help article as a string resource reference
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setArticleUrl(@StringRes articleUrlRes: Int): Builder {
-			article?.articleUri = context?.getString(articleUrlRes)
-			return this
-		}
-
-		/**
-		 * Sets the URI of this help article
-		 *
-		 * @param articleUri The URL of this help article, which will be parsed as an URI
-		 * @return The builder object to allow for chaining of methods
-		 */
-		@Deprecated("Use {@link Builder#setArticleUrl(String)}")
-		fun setArticleUri(articleUri: String): Builder {
-			article?.articleUri = articleUri
-			return this
-		}
-
-		/**
-		 * Sets whether this help article is unclickable
-		 *
-		 * @param isDisabled [true] if this help article should be unclickable, [false] otherwise
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setIsDisabled(isDisabled: Boolean): Builder {
-			article?.isDisabled = isDisabled
-			return this
-		}
-
-		/**
-		 * Sets whether this help article is unclickable
-		 *
-		 * @param isDisabledRes [true] if this help article should be unclickable, [false] otherwise
-		 * (pass a boolean resource reference for this argument)
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setIsDisabled(@BoolRes isDisabledRes: Int): Builder {
-			article?.isDisabled = context?.resources?.getBoolean(isDisabledRes)
-			return this
-		}
-
-		/**
-		 * Sets whether this help article is hidden
-		 *
-		 * @param isHidden [true] if this help article should be hidden, [false] otherwise
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setIsHidden(isHidden: Boolean): Builder {
-			article?.isHidden = isHidden
-			return this
-		}
-
-		/**
-		 * Sets whether this help article is hidden
-		 *
-		 * @param isHiddenRes [true] if this help article should be hidden, [false] otherwise
-		 * (pass a boolean resource reference for this argument)
-		 * @return The builder object to allow for chaining of methods
-		 */
-		fun setIsHidden(@BoolRes isHiddenRes: Int): Builder {
-			article?.isHidden = context?.resources?.getBoolean(isHiddenRes)
-			return this
-		}
-
-		/**
-		 * Checks if all values in this help article and returns this help article
-		 *
-		 * @return The created help article
-		 */
-		fun create(): HelpArticle? {
-			// Null checks
-			if (article?.articleUri.isNullOrEmpty()) {
-				throw RuntimeException("Please supply a URL!")
-			}
-			if (article?.articleTitle.isNullOrEmpty()) {
-				throw RuntimeException("Please supply a title!")
-			}
-
-			// Finally, return the help article
-			return article
-		}
-	}
 
 	companion object {
+		/**
+		 * Creates a [HelpArticle] using a [Builder] (with support for inlined setting of variables)
+		 * @return The created [HelpArticle]
+		 */
+		inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
+
 		/**
 		 * Specifies that this help article's icon should use a contact icon
 		 */
@@ -255,5 +76,39 @@ data class HelpArticle(
 		 * Specifies that this help article's icon should use a send feedback icon
 		 */
 		const val ICON_SEND_FEEDBACK = "com.edricchan.studybuddy.article.icon.SEND_FEEDBACK"
+	}
+
+	class Builder {
+		/**
+		 * The help article's title
+		 */
+		var articleTitle: String? = null
+		/**
+		 * The help article's description
+		 */
+		var articleDesc: String? = null
+		/**
+		 * The help article's URI
+		 */
+		var articleUri: String? = null
+		/**
+		 * The help article's icon
+		 */
+		@ArticleIcon
+		var articleIcon: String? = null
+		/**
+		 * Whether the help article is marked as disabled
+		 */
+		var isDisabled: Boolean? = false
+		/**
+		 * Whether the help article is marked as hidden
+		 */
+		var isHidden: Boolean? = false
+
+		/**
+		 * Returns the created instance of [HelpArticle]
+		 * @return The created [HelpArticle]
+		 */
+		fun build() = HelpArticle(this)
 	}
 }
