@@ -17,6 +17,8 @@
 		<!-- The edit text style -->
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox
 		</item>
+		<!-- The bottom app bar style -->
+		<item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
 		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
@@ -45,6 +47,8 @@
 		<!-- The edit text style -->
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox
 		</item>
+		<!-- The bottom app bar style -->
+		<item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
 		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
