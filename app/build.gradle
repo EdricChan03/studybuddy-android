@@ -50,13 +50,13 @@ dependencies {
 	implementation 'androidx.core:core:1.2.0-alpha02'
 	implementation 'androidx.core:core-ktx:1.2.0-alpha02'
 	// AppCompat
-	implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
+	implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 	// ConstraintLayout
 	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
 	// Design Support
-	implementation 'com.google.android.material:material:1.1.0-alpha07'
+	implementation 'com.google.android.material:material:1.1.0-alpha08'
 	// RecyclerView
-	implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha06'
+	implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
 	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha06'
 	// Chrome Custom Tabs
 	implementation 'androidx.browser:browser:1.0.0'
@@ -81,9 +81,9 @@ dependencies {
 	// Emoji AppCompat
 	implementation 'androidx.emoji:emoji-appcompat:1.0.0'
 	// AndroidX Preference
-	implementation 'androidx.preference:preference:1.1.0-beta01'
+	implementation 'androidx.preference:preference:1.1.0-rc01'
 	// Kotlin support for AndroidX Preference library
-	implementation 'androidx.preference:preference-ktx:1.1.0-beta01'
+	implementation 'androidx.preference:preference-ktx:1.1.0-rc01'
 	// AndroidX WorkManager
 	implementation "androidx.work:work-runtime-ktx:2.1.0-rc01"
 
