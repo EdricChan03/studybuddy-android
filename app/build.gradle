@@ -62,10 +62,10 @@ dependencies {
 	implementation 'androidx.browser:browser:1.0.0'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
-	implementation 'com.google.firebase:firebase-core:17.0.0'
+	implementation 'com.google.firebase:firebase-core:17.0.1'
 	implementation 'com.google.firebase:firebase-firestore:20.1.0'
 	implementation 'com.google.firebase:firebase-firestore-ktx:20.1.0'
-	implementation 'com.google.firebase:firebase-auth:18.0.0'
+	implementation 'com.google.firebase:firebase-auth:18.1.0'
 	implementation 'com.google.firebase:firebase-messaging:19.0.1'
 	implementation 'com.google.android.gms:play-services-auth:17.0.0'
 	implementation 'com.google.firebase:firebase-perf:18.0.1'
@@ -85,7 +85,7 @@ dependencies {
 	// Kotlin support for AndroidX Preference library
 	implementation 'androidx.preference:preference-ktx:1.1.0-rc01'
 	// AndroidX WorkManager
-	implementation "androidx.work:work-runtime-ktx:2.1.0-rc01"
+	implementation "androidx.work:work-runtime-ktx:2.2.0-beta02"
 
 	// Custom Preferences
 	/*
