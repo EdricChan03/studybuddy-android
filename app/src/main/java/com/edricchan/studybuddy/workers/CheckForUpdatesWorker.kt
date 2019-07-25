@@ -14,6 +14,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.workmanager.dataOf
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -26,7 +27,6 @@ class CheckForUpdatesWorker(
 		private val appContext: Context,
 		workerParams: WorkerParameters
 ) : Worker(appContext, workerParams) {
-	private val TAG = SharedUtils.getTag(this::class.java)
 	private var result = Result.success()
 
 	private val appUpdateListener = object : AppUpdaterUtils.UpdateListener {

@@ -13,11 +13,11 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_account.*
 class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAuth.AuthStateListener {
 	private var mAuth: FirebaseAuth? = null
 	private var mUser: FirebaseUser? = null
-	private val TAG = SharedUtils.getTag(AccountActivity::class.java)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

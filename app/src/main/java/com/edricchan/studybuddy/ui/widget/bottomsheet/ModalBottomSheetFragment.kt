@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.ui.widget.bottomsheet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
@@ -91,6 +89,5 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 
 	companion object {
 		private const val HEADER_TITLE_TAG = "headerTitle"
-		private val TAG = SharedUtils.getTag(ModalBottomSheetFragment::class.java)
 	}
 }

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.ui.modules.chat.NewChatActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 
@@ -43,11 +44,4 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 					.show()
 		}
 	}*/
-
-	companion object {
-		/**
-		 * The Android tag for use with [android.util.Log]
-		 */
-		private val TAG = SharedUtils.getTag(ChatFragment::class.java)
-	}
 }

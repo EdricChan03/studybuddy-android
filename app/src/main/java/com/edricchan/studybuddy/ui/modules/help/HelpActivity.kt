@@ -18,6 +18,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.interfaces.HelpArticles
@@ -145,9 +146,4 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 			}
 		}
 	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(HelpActivity::class.java)
-	}
-
 }

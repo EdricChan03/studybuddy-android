@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.extensions.TAG
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -72,9 +72,5 @@ class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password
 			}
 			else -> super.onOptionsItemSelected(item)
 		}
-	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(ResetPasswordActivity::class.java)
 	}
 }

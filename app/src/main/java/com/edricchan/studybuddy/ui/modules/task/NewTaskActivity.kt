@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.TooltipCompat
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TaskItem
@@ -39,7 +40,6 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 	private lateinit var mFirestore: FirebaseFirestore
 	private var mCurrentUser: FirebaseUser? = null
 	private var mAllowAccess: Boolean = false
-	private val TAG = SharedUtils.getTag(this::class.java)
 	private var tempTaskProject: String? = null
 	private var mTaskProjectSpinnerAdapter: TaskProjectSpinnerAdapter? = null
 

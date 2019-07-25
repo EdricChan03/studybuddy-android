@@ -18,6 +18,7 @@ import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
@@ -295,9 +296,5 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 		 * The constant for a new task shortcut
 		 */
 		private const val ACTION_ADD_NEW_TODO = "com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO"
-		/**
-		 * The Android tag for use with [android.util.Log]
-		 */
-		private val TAG = SharedUtils.getTag(MainActivity::class.java)
 	}
 }

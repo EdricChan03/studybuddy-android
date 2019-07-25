@@ -11,7 +11,6 @@ import android.widget.ListAdapter
 import androidx.annotation.*
 import androidx.appcompat.app.AlertDialog
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 
@@ -31,7 +30,6 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
 	 */
 	var textInputEditText = textInputLayout.editText
 	private set
-	private var TAG = SharedUtils.getTag(this::class.java)
 
 	override fun create(): AlertDialog {
 		super.setView(promptDialogView)

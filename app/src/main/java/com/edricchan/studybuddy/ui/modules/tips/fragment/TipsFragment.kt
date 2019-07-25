@@ -67,11 +67,4 @@ class TipsFragment : Fragment(R.layout.frag_tips) {
 			else -> super.onOptionsItemSelected(item)
 		}
 	}
-
-	companion object {
-		/**
-		 * The Android tag for use with [android.util.Log]
-		 */
-		private val TAG = SharedUtils.getTag(TipsFragment::class.java)
-	}
 }

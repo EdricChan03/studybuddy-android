@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
@@ -212,7 +213,6 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 	}
 
 	companion object {
-		private val TAG = SharedUtils.getTag(LoginActivity::class.java)
 		private var RC_SIGN_IN: Int = 0
 	}
 

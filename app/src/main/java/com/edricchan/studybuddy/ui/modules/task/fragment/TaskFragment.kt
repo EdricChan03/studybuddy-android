@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
@@ -500,10 +501,6 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 		 * Request code for new task activity
 		 */
 		private const val ACTION_NEW_TASK = 1
-		/**
-		 * The Android tag for use with [android.util.Log]
-		 */
-		private val TAG = SharedUtils.getTag(TaskFragment::class.java)
 
 		private const val SHARED_PREFS_FILE = "TodoFragPrefs"
 	}

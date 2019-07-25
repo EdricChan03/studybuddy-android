@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.extensions.TAG
 import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -118,8 +118,4 @@ class GeneralSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.On
 	 * @return [true] if the location permission is granted, [false] otherwise
 	 */
 	private fun isLocationPermGranted() = ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-
-	companion object {
-		private val TAG = SharedUtils.getTag(GeneralSettingsFragment::class.java)
-	}
 }

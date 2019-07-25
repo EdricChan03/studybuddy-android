@@ -23,6 +23,7 @@ import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -39,7 +40,6 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 
 	// Whether the user has pressed the "check for updates" menu item
 	private var isChecking = false
-	private val TAG = SharedUtils.getTag(this::class.java)
 	private lateinit var appUpdate: Update
 	private lateinit var preferences: SharedPreferences
 	// SharedPreferences used for the storing of info on when the app was last updated

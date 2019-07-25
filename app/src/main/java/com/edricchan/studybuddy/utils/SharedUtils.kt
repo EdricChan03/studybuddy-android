@@ -37,6 +37,7 @@ import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.extensions.isNotNull
@@ -103,8 +104,6 @@ class SharedUtils() {
 	}
 
 	companion object {
-		private val TAG = getTag(SharedUtils::class.java)
-
 		/**
 		 * Clears the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [FloatingActionButton]
 		 *

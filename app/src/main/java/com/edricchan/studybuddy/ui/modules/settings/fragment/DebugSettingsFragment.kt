@@ -581,8 +581,4 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 				.setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
 				.show()
 	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(DebugSettingsFragment::class.java)
-	}
 }

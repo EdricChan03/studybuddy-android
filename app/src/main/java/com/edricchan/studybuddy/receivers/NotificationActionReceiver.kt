@@ -13,12 +13,11 @@ import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class NotificationActionReceiver : BroadcastReceiver() {
-	private val TAG = SharedUtils.getTag(this::class.java)
-
 	override fun onReceive(context: Context, intent: Intent) {
 		Log.d(TAG, "Received broadcast with action ${intent.getStringExtra("action")}.")
 		when (intent.getStringExtra("action")) {

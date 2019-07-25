@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.deeplinkdispatch.DeepLinkHandler
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.extensions.TAG
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 
 @DeepLinkHandler(DeepLinkModule::class)
@@ -29,9 +29,5 @@ class DeepLinkActivity : AppCompatActivity() {
 		}
 		DeepLinkDelegate(DeepLinkModuleLoader()).dispatchFrom(this)
 		finish()
-	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(DeepLinkActivity::class.java)
 	}
 }

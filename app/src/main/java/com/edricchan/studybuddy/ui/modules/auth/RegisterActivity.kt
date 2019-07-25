@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.extensions.startActivity
@@ -139,9 +140,5 @@ class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
 		signInBtn.isEnabled = enabled
 		emailTextInputLayout.isEnabled = enabled
 		passwordTextInputLayout.isEnabled = enabled
-	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(this::class.java)
 	}
 }

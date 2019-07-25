@@ -321,6 +321,5 @@ class ModalBottomSheetAdapter(
 		private const val LIST_ITEM_ICON = 3
 		private const val LIST_ITEM_ICON_CHECKBOX = 4
 		private const val LIST_ITEM_ICON_RADIO_BUTTON = 5
-		private val TAG = SharedUtils.getTag(ModalBottomSheetAdapter::class.java)
 	}
 }

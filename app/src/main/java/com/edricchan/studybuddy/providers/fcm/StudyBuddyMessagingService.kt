@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
@@ -25,7 +26,6 @@ import com.google.gson.Gson
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
 	private val sharedHelper = SharedUtils()
-	private val TAG = SharedUtils.getTag(this::class.java)
 
 	override fun onMessageReceived(remoteMessage: RemoteMessage?) {
 		super.onMessageReceived(remoteMessage)
