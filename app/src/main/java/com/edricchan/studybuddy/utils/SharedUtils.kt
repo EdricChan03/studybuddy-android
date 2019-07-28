@@ -530,6 +530,8 @@ class SharedUtils() {
 		 * @return The tag
 		 */
 		fun getTag(tagClass: Class<*>): String {
+		@Suppress("DeprecatedCallableAddReplaceWith")
+		@Deprecated("Use the Any.TAG Kotlin extension")
 			return tagClass.simpleName
 		}
 
