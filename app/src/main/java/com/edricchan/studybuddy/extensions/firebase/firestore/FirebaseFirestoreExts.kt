@@ -11,11 +11,13 @@ import com.google.firebase.firestore.ktx.toObjects
  * Converts a query document snapshot value to its object equivalent with the document's ID attached
  * @param T A data class to convert the document snapshot's value to.
  * Note that the data class specified must implement the [HasId] interface.
+ * @param overwriteModelId Whether to overwrite the model's ID with the document ID
  * @see HasId
  */
-inline fun <reified T : HasId> QueryDocumentSnapshot.toObjectWithId(): T {
+@Deprecated("Use the DocumentId annotation included in version 20.2.0 of Firestore.")
+inline fun <reified T : HasId> QueryDocumentSnapshot.toObjectWithId(overwriteModelId: Boolean = false): T {
 	val model = this.toObject<T>()
-	model.id = this.id
+	if (overwriteModelId) model.id = this.id
 	return model
 }
 
@@ -24,11 +26,13 @@ inline fun <reified T : HasId> QueryDocumentSnapshot.toObjectWithId(): T {
  * Converts a document snapshot value to its object equivalent with the document's ID attached
  * @param T A data class to convert the document snapshot's value to.
  * Note that the data class specified must implement the [HasId] interface.
+ * @param overwriteModelId Whether to overwrite the model's ID with the document ID
  * @see HasId
  */
-inline fun <reified T : HasId> DocumentSnapshot.toObjectWithId(): T? {
+@Deprecated("Use the DocumentId annotation included in version 20.2.0 of Firestore.")
+inline fun <reified T : HasId> DocumentSnapshot.toObjectWithId(overwriteModelId: Boolean = false): T? {
 	val model = this.toObject<T>()
-	model?.id = this.id
+	if (overwriteModelId) model?.id = this.id
 	return model
 }
 
@@ -36,12 +40,16 @@ inline fun <reified T : HasId> DocumentSnapshot.toObjectWithId(): T? {
  * Converts a query snapshot's documents to its object equivalent with the document's ID attached
  * @param T A data class to convert the document snapshot's value to.
  * Note that the data class specified must implement the [HasId] interface.
+ * @param overwriteModelId Whether to overwrite the model IDs with the document ID
  * @see HasId
  */
-inline fun <reified T : HasId> QuerySnapshot.toObjectsWithId(): List<T> {
+@Deprecated("Use the DocumentId annotation included in version 20.2.0 of Firestore.")
+inline fun <reified T : HasId> QuerySnapshot.toObjectsWithId(overwriteModelId: Boolean = false): List<T> {
 	val models = this.toObjects<T>().toMutableList()
-	this.documents.forEachIndexed { index, documentSnapshot ->
-		models[index].id = documentSnapshot.id
+	if (overwriteModelId) {
+		this.documents.forEachIndexed { index, documentSnapshot ->
+			models[index].id = documentSnapshot.id
+		}
 	}
 	return models
 }

@@ -12,4 +12,11 @@
 	<attr name="waveDecay" />
 	<attr name="motionPathRotate" />
 	<attr name="duration" />
+
+	<declare-styleable name="ChipsTextInputLayout">
+		<attr name="textInputLayoutHint" format="string" />
+		<attr name="textInputLayoutHelperText" format="string" />
+<!--		<attr name="textInputLayoutStyle" format="reference" />-->
+<!--		<attr name="textInputEditTextStyle" format="reference" />-->
+	</declare-styleable>
 </resources>

@@ -22,7 +22,7 @@ class ModalBottomSheetGroup(
 ) {
 	override fun toString(): String {
 		return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled," +
-				"selected=[${selected.joinToString()}]"
+				"selected=${selected.joinToString(prefix = "[", postfix = "]")}"
 	}
 
 	companion object {
