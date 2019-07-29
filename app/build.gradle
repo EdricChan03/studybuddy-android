@@ -54,7 +54,7 @@ dependencies {
 	// ConstraintLayout
 	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
 	// Design Support
-	implementation 'com.google.android.material:material:1.1.0-alpha08'
+	implementation 'com.google.android.material:material:1.1.0-alpha09'
 	// RecyclerView
 	implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
 	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha06'
