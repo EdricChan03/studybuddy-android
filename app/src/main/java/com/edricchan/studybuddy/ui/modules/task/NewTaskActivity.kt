@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.task
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,17 +8,18 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.TooltipCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.toDateFormat
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.ui.adapter.TaskProjectSpinnerAdapter
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.picker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.android.synthetic.main.activity_new_task.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -57,7 +56,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 		} else {
 			true
 		}
-		TooltipCompat.setTooltipText(taskDatePickerBtn, "Open datepicker")
+		/*TooltipCompat.setTooltipText(taskDatePickerBtn, "Open datepicker")
 		taskDatePickerBtn.setOnClickListener {
 			val c = Calendar.getInstance()
 			val dpd = DatePickerDialog(this@NewTaskActivity,
@@ -69,6 +68,27 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 			dpd.datePicker.minDate = c.timeInMillis
 			dpd.show()
 			mTaskDate = SharedUtils.getDateFromDatePicker(dpd.datePicker)
+		}*/
+		taskDueDateChip.setOnClickListener {
+			val picker = MaterialDatePicker.Builder.datePicker().build()
+			picker.addOnPositiveButtonClickListener { selection ->
+				if (selection != null) {
+					mTaskDate = Date(selection)
+					// Produces <day name>, <month> <day>
+					taskDueDateChip.text = selection.toDateFormat(getString(R.string.date_format_pattern))
+					// Allow due date to be reset
+					taskDueDateChip.isCloseIconVisible = true
+				}
+			}
+			picker.show(supportFragmentManager, "taskDueDatePicker")
+		}
+		taskDueDateChip.setOnCloseIconClickListener {
+			// Reset due date
+			mTaskDate = null
+
+			// Reset chip's state
+			taskDueDateChip.isCloseIconVisible = false
+			taskDueDateChip.setText(R.string.select_date_chip_default_text)
 		}
 
 		val projectArrayList = ArrayList<TaskProject>()
