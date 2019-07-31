@@ -152,6 +152,9 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 					.show()
 		} else {
 			loadTask()
+			/*if (taskItem != null && taskItem!!.title != null) {
+				title = taskItem!!.title
+			}*/
 		}
 	}
 
@@ -207,6 +210,20 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 		}
 	}
 
+	override fun onSaveInstanceState(outState: Bundle) {
+		super.onSaveInstanceState(outState)
+		if (taskItem != null && taskItem?.title != null) {
+			outState.putString(TASK_TITLE_TAG, taskItem?.title)
+		}
+	}
+
+	override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+		super.onRestoreInstanceState(savedInstanceState)
+		if (savedInstanceState.getString(TASK_TITLE_TAG) != null) {
+			title = savedInstanceState.getString(TASK_TITLE_TAG)
+		}
+	}
+
 	/**
 	 * Loads the task that was supplied via `taskId`
 	 */
@@ -220,6 +237,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 						if (documentSnapshot != null && documentSnapshot.exists()) {
 							setViews(documentSnapshot.toObject<TaskItem>())
 							taskItem = documentSnapshot.toObject<TaskItem>()
+							title = taskItem?.title
 						}
 					}
 				}
@@ -292,12 +310,12 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 		} else {
 			toggleViewVisibility(taskProject, View.VISIBLE, View.GONE)
 		}
-		if (item?.title != null) {
+		/*if (item?.title != null) {
 			taskTitle.text = item.title
 			toggleViewVisibility(taskTitle, View.GONE, View.VISIBLE)
 		} else {
 			toggleViewVisibility(taskTitle!!, View.VISIBLE, View.GONE)
-		}
+		}*/
 		if (item?.tags != null && !item.tags!!.isEmpty()) {
 			// Remove all chips or this will cause duplicate tags
 			taskTags.removeAllViews()
@@ -322,5 +340,10 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 
 	private fun showSnackbar(@StringRes textRes: Int, @Duration duration: Int) {
 		showSnackbar(getString(textRes), duration)
+	}
+
+	companion object {
+		// Tag to be used for saving the task item's title
+		private const val TASK_TITLE_TAG = "taskTitle"
 	}
 }
