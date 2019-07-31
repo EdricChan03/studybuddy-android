@@ -18,7 +18,7 @@ var TextInputLayout.editTextValue: Editable?
  * Getter/setter for the [TextInputLayout]'s [EdiText] value
  * Returns/requires a [String]
  */
-var TextInputLayout.editTextStrValue: String?
+var TextInputLayout.editTextStrValue: String
 	get() = this.editText?.text.toString()
 	set(value) {
 		this.editText?.text = SpannableStringBuilder(value)
