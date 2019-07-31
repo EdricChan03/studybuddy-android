@@ -31,7 +31,6 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 	private lateinit var mAuth: FirebaseAuth
 	private lateinit var mFirestore: FirebaseFirestore
 	private var mCurrentUser: FirebaseUser? = null
-	private val TAG = SharedUtils.getTag(this::class.java)
 	private var mTaskId: String? = null
 	private var taskItem: TaskItem? = null
 
