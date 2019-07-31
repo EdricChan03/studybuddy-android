@@ -99,11 +99,11 @@
 				android:layout_height="wrap_content"
 				android:text="@string/action_mark_as_done" />
 
-			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_margin="10dp"
 				android:orientation="vertical">
+			<!--<LinearLayout
 
 				<TextView
 					android:layout_width="match_parent"
@@ -133,7 +133,15 @@
 						android:contentDescription="@string/choose_a_date"
 						app:srcCompat="@drawable/ic_calendar_check_24dp" />
 				</LinearLayout>
-			</LinearLayout>
+			</LinearLayout>-->
+			<!-- Use a chip to represent the selected due date, if any -->
+			<com.google.android.material.chip.Chip
+					android:id="@+id/taskDueDateChip"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/select_date_chip_default_text"
+					app:chipIcon="@drawable/ic_calendar_check_outline_24dp"
+					app:closeIcon="@drawable/ic_cancel_outline_24dp" />
 		</LinearLayout>
 	</ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
