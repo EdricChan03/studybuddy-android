@@ -113,7 +113,7 @@
 					android:layout_height="wrap_content"
 					android:text="@string/select_date_chip_default_text"
 					app:chipIcon="@drawable/ic_calendar_check_outline_24dp"
-					app:closeIcon="@drawable/ic_close_24dp"/>
+					app:closeIcon="@drawable/ic_cancel_outline_24dp" />
 		</LinearLayout>
 	</ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
