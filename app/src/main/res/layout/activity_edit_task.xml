@@ -1,114 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/mainView"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ui.modules.task.EditTaskActivity">
-
-	<RelativeLayout
-		android:id="@+id/progressBar"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/mainView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:visibility="gone">
+		tools:context=".ui.modules.task.EditTaskActivity">
 
-		<LinearLayout
+	<RelativeLayout
+			android:id="@+id/progressBar"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:gravity="center"
-			android:orientation="vertical">
+			android:visibility="gone">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:orientation="vertical">
 
 			<ProgressBar
-				style="?android:attr/progressBarStyleLarge"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:paddingBottom="4dp" />
+					style="?android:attr/progressBarStyleLarge"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:paddingBottom="4dp" />
 
 			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:text="@string/view_task_loading"
-				android:textAppearance="?attr/textAppearanceHeadline6" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:text="@string/view_task_loading"
+					android:textAppearance="?attr/textAppearanceHeadline6" />
 		</LinearLayout>
 	</RelativeLayout>
 
 	<ScrollView
-		android:id="@+id/scrollView"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:fillViewport="true">
+			android:id="@+id/scrollView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fillViewport="true">
 
 		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="@dimen/activity_horizontal_margin"
-			android:orientation="vertical">
-
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/textInputTitle"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_margin="10dp"
-				android:hint="@string/task_title">
+				android:orientation="vertical"
 
-				<com.google.android.material.textfield.TextInputEditText
+			<com.google.android.material.textfield.TextInputLayout
+					android:id="@+id/textInputTitle"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="text" />
+					android:layout_margin="10dp"
+					android:hint="@string/task_title">
+
+				<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:inputType="text" />
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/textInputContent"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
-				android:hint="@string/task_content">
-
-				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/textInputContent"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:inputType="textMultiLine" />
+					android:layout_margin="10dp"
+					android:hint="@string/task_content">
+
+				<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:inputType="textMultiLine" />
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<Spinner
-				android:id="@+id/spinnerProject"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content" />
+					android:id="@+id/spinnerProject"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" />
 
 			<!-- TODO: Reenable this -->
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/textInputTags"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
-				app:helperText="@string/comma_indicates_separator">
-
-				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/textInputTags"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:hint="@string/task_tags"
-					android:inputType="text" />
+					android:layout_margin="10dp"
+					app:helperText="@string/comma_indicates_separator">
+
+				<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/task_tags"
+						android:inputType="text" />
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<CheckBox
-				android:id="@+id/checkboxMarkAsDone"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/action_mark_as_done" />
-
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_margin="10dp"
-				android:orientation="vertical">
-			<!--<LinearLayout
-
-				<TextView
+					android:id="@+id/checkboxMarkAsDone"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:text="@string/due_date" />
+					android:text="@string/action_mark_as_done" />
+
+			<!--<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_margin="10dp"
+					android:orientation="vertical">
+
+				<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="@string/due_date" />
 
 				<LinearLayout
 					android:layout_width="match_parent"
