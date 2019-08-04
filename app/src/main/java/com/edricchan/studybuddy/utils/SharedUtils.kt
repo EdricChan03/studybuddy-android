@@ -429,6 +429,7 @@ class SharedUtils() {
 		 * @param context The context
 		 * @return A boolean
 		 */
+		@Deprecated("Use ConnectivityManager.getActiveNetworkInfo")
 		fun isNetworkAvailable(context: Context): Boolean {
 			val connectivityManager = context.getSystemService<ConnectivityManager>()
 			val activeNetworkInfo = connectivityManager?.activeNetworkInfo
