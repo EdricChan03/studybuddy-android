@@ -692,6 +692,7 @@ class SharedUtils() {
 					.setProgress(100, 0, true)
 					.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
 					.setOngoing(true)
+					.setOnlyAlertOnce(true)
 			notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
 			val appUpdaterUtils = getUpdateJsonUrl(context)?.let {
 				AppUpdaterUtils(context)
