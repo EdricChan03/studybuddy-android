@@ -15,8 +15,10 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.extensions.workmanager.dataOf
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
+import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -103,9 +105,16 @@ class CheckForUpdatesWorker(
 		intentAction.putExtra("downloadUrl", update?.urlToDownload.toString())
 		intentAction.putExtra("version", update?.latestVersion)
 		val pIntentDownload = PendingIntent.getBroadcast(appContext, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
+
+		val contentIntent = buildIntent<UpdatesActivity>(appContext) {
+			flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+		}
+		val pContentIntent = PendingIntent.getActivity(appContext, 0, contentIntent, 0)
+
 		notificationBuilder?.apply {
 			setContentTitle(appContext.getString(R.string.notification_new_update_title))
 			setContentText(appContext.getString(R.string.notification_new_update_text, update?.latestVersion))
+			setContentIntent(pContentIntent)
 			setProgress(0, 0, false)
 			setOngoing(false)
 			setChannelId(appContext.getString(R.string.notification_channel_update_available_id))
