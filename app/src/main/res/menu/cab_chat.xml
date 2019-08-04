@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+			android:id="@+id/cab_action_archive_selected_chats"
+			android:icon="@drawable/ic_archive_outline_24dp"
+			android:title="@string/cab_action_archive_selected_chats"
+			app:showAsAction="ifRoom"/>
+	<item
+			android:id="@+id/cab_action_leave_selected_chats"
+			android:icon="@drawable/ic_exit_to_app_24dp"
+			android:title="@string/cab_action_leave_selected_chats"
+			app:showAsAction="ifRoom"/>
+	<item
+			android:id="@+id/cab_action_delete_selected_chats"
+			android:icon="@drawable/ic_delete_outline_24dp"
+			android:title="@string/cab_action_delete_selected_chats"
+			app:showAsAction="ifRoom"/>
+	<!-- TODO: Enable support for reporting chats -->
+	<item
+			android:id="@+id/cab_action_report_selected_chats_as_spam"
+			android:enabled="false"
+			android:icon="@drawable/ic_report_outline_24dp"
+			android:title="@string/cab_action_report_selected_chats_as_spam"
+			app:showAsAction="never"/>
+	<!-- TODO: Enable support for blocking chats -->
+	<item
+			android:id="@+id/cab_action_block_selected_chats"
+			android:enabled="false"
+			android:icon="@drawable/ic_block_24dp"
+			android:title="@string/cab_action_block_selected_chats"
+			app:showAsAction="never"/>
+	<item
+			android:id="@+id/cab_action_select_all_chats"
+			android:icon="@drawable/ic_select_all_24dp"
+			android:title="@string/cab_action_select_all"
+			app:showAsAction="never"/>
+</menu>

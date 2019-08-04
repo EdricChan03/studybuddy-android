@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
 
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-		android:id="@+id/swipeRefreshLayout"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:scrollbars="vertical">
+			android:id="@+id/swipeRefreshLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clipToPadding="false"
+			android:paddingTop="@dimen/two_line_list_padding_top_bottom"
+			android:paddingBottom="@dimen/two_line_list_padding_top_bottom" android:scrollbars="vertical">
 
 		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/chatListRecyclerView"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
+				android:id="@+id/chatListRecyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:itemCount="10"
+				tools:listitem="@layout/item_chat"/>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

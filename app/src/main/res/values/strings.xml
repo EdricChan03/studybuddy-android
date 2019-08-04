@@ -124,12 +124,58 @@
 	<string name="cab_action_edit_selected">Edit selected</string>
 	<string name="cab_action_select_all">Select all</string>
 
+	<string name="cab_action_archive_selected_chats">Archive selected</string>
+	<string name="cab_action_block_selected_chats">Block selected</string>
+	<string name="cab_action_delete_selected_chats">Delete selected</string>
+	<string name="cab_action_leave_selected_chats">Leave selected</string>
+	<string name="cab_action_report_selected_chats_as_spam">Report selected as spam</string>
+
 	<string name="cab_title">Select</string>
 
 	<string name="chat_frag_new_chat_dialog_desc_editext_hint">Chat description</string>
 
 	<string name="chat_frag_new_chat_dialog_name_editext_hint">Chat name</string>
+	<string name="chat_frag_new_chat_dialog_visibility_editext_hint">Chat visibility</string>
 	<string name="chat_frag_new_chat_dialog_title">New chat</string>
+	<string name="chat_frag_archive_selected_chats_confirm_dialog_title">Archive selected chats?</string>
+	<string name="chat_frag_archive_selected_chats_confirm_dialog_msg">Archiving the selected chats will mark them as
+		read-only.\nThis means that the chat\'s members can only <i>view</i> the chat\'s messages, but not be able to
+		<i>send</i>
+		any new messages.
+	</string>
+	<string name="chat_frag_archive_selected_chats_confirm_dialog_positive_btn_text">Archive selected</string>
+	<string name="chat_frag_archive_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
+	<string name="chat_frag_archive_selected_chats_denied_dialog_title">Could not archive selected chats</string>
+	<string name="chat_frag_archive_selected_chats_denied_dialog_msg">Reason:\n%s</string>
+	<string name="chat_frag_archive_selected_chats_denied_dialog_reason_not_admin">You\'re not an administrator of the
+		following chats:\n%s
+	</string>
+	<string name="chat_frag_archive_selected_chats_denied_dialog_positive_btn_text">Dismiss</string>
+	<string name="chat_frag_leave_selected_chats_confirm_dialog_title">Leave selected chats?</string>
+	<string name="chat_frag_leave_selected_chats_confirm_dialog_msg">This is non-reversible!\nThings to note:\n-
+		Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to the
+		group.
+	</string>
+	<string name="chat_frag_leave_selected_chats_confirm_dialog_msg_with_admin">This is non-reversible!\nThings to note:
+		\n- Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to
+		the group.\n- If you\'re an administrator of any groups, your role will be revoked unless an existing
+		administrator gives you back the roles if you rejoin.
+	</string>
+	<string name="chat_frag_leave_selected_chats_confirm_dialog_positive_btn_text">Leave selected</string>
+	<string name="chat_frag_leave_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
+	<string name="chat_frag_leave_selected_chats_denied_dialog_title">Could not leave selected chats</string>
+	<string name="chat_frag_leave_selected_chats_denied_dialog_msg">Reason:\n%s</string>
+	<string name="chat_frag_leave_selected_chats_denied_reason_is_owner">You\'re an owner of the following chats:\n%s
+	</string>
+	<string name="chat_frag_leave_selected_chats_denied_dialog_positive_btn_text">Dismiss</string>
+	<string name="chat_frag_delete_selected_chats_confirm_dialog_title">Delete selected chats?</string>
+	<string name="chat_frag_delete_selected_chats_confirm_dialog_msg">This is a non-reversible deletion!\nThe following
+		chats will be deleted:\n%s\n\nAre you sure you want to continue?\n\nTIP: Before continuing, ensure that you\'ve
+		notified the members in the respective chats that you\'re deleting the selected chats.
+	</string>
+	<string name="chat_frag_delete_selected_chats_confirm_dialog_positive_btn_text">Delete selected</string>
+	<string name="chat_frag_delete_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
+
 	<string name="choose_a_date">Choose a date…</string>
 
 	<string name="comma_indicates_separator">Separate each tag/label with a comma</string>
@@ -243,7 +289,10 @@
 	<string name="forgot_password_title">Forgot password?</string>
 
 	<string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
+
 	<string name="frag_chat_coming_soon">Chat feature coming soon!</string>
+	<string name="frag_chat_default_group_name">&lt;No group name&gt;</string>
+	<string name="frag_chat_default_group_desc">&lt;No description set&gt;</string>
 
 	<string name="help_activity_empty_state_title">Loading help articles&#8230;</string>
 
@@ -463,6 +512,7 @@
 	<string name="title_activity_settings">Settings</string>
 	<string name="title_activity_updates">Updates</string>
 
+	<string name="title_activity_view_chat">Chat view</string>
 	<string name="title_activity_view_task">Task view</string>
 
 	<string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is irreversible and that it
