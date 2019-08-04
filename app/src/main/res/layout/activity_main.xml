@@ -14,15 +14,15 @@
 		android:orientation="vertical">
 
 		<androidx.core.widget.NestedScrollView
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:fillViewport="true">
-
-			<FrameLayout
-				android:id="@+id/content_main"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:layout_marginBottom="?attr/actionBarSize" />
+				android:fillViewport="true">
+
+			<FrameLayout
+					android:id="@+id/content_main"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:paddingBottom="?attr/actionBarSize"/>
 		</androidx.core.widget.NestedScrollView>
 
 		<com.google.android.material.bottomappbar.BottomAppBar
