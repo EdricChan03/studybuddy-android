@@ -822,6 +822,20 @@ class SharedUtils() {
 		}
 
 		/**
+		 * Launches a [uri] with the given [context] and options for the [CustomTabsIntent.Builder]
+		 * with the [customTabsIntentBuilderOptions] parameter.
+		 * @param context The context to be used to launch the [uri]
+		 * @param uri The URI to launch/open
+		 * @param customTabsIntentBuilderOptions Options for the [CustomTabsIntent.Builder]
+		 */
+		fun launchUri(context: Context, uri: Uri,
+		              customTabsIntentBuilderOptions: CustomTabsIntent.Builder.() -> Unit) {
+			val customTabsIntent = CustomTabsIntent.Builder().apply(customTabsIntentBuilderOptions)
+					.build()
+			launchUri(context, uri, customTabsIntent)
+		}
+
+		/**
 		 * Launches a [uri] with the given [context]
 		 * @param context The context to be used to launch the intent of the [uri]
 		 * @param uri The URI to launch/open
