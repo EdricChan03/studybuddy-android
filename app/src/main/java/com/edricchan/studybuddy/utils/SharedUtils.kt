@@ -433,16 +433,6 @@ class SharedUtils() {
 		}
 
 		/**
-		 * Checks whether the network is unavailable
-		 *
-		 * @param context The context
-		 * @return A boolean
-		 */
-		fun isNetworkUnavailable(context: Context): Boolean {
-			return !isNetworkAvailable(context)
-		}
-
-		/**
 		 * Checks whether the network is cellular
 		 *
 		 * @param context The context
