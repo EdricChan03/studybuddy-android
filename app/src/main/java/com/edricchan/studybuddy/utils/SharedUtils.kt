@@ -709,16 +709,23 @@ class SharedUtils() {
 								} else {
 									// New update
 									val intentAction = Intent(context, NotificationActionReceiver::class.java)
-
 									intentAction.putExtra("action", Constants.actionNotificationsStartDownloadReceiver)
 									intentAction.putExtra("downloadUrl", update.urlToDownload.toString())
 									intentAction.putExtra("version", update.latestVersion)
 									val pIntentDownload = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT)
+
+									val contentIntent = buildIntent<UpdatesActivity>(context) {
+										flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+									}
+									val pContentIntent = PendingIntent.getActivity(context, 0, contentIntent, 0)
+
 									notifyBuilder.setContentTitle(context.getString(R.string.notification_new_update_title))
 											.setContentText(context.getString(R.string.notification_new_update_text, update.latestVersion))
 											.setProgress(0, 0, false)
 											.setOngoing(false)
 											.setChannelId(context.getString(R.string.notification_channel_update_available_id))
+											.setContentIntent(pContentIntent)
+											.setAutoCancel(true)
 											.addAction(NotificationCompat.Action(R.drawable.ic_download_24dp, "Download", pIntentDownload))
 									notificationManager.notify(Constants.notificationCheckForUpdatesId, notifyBuilder.build())
 								}
