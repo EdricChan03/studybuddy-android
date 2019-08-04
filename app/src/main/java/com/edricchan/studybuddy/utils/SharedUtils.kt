@@ -28,6 +28,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
@@ -427,8 +428,8 @@ class SharedUtils() {
 		 * @return A boolean
 		 */
 		fun isNetworkAvailable(context: Context): Boolean {
-			val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-			val activeNetworkInfo = connectivityManager.activeNetworkInfo
+			val connectivityManager = context.getSystemService<ConnectivityManager>()
+			val activeNetworkInfo = connectivityManager?.activeNetworkInfo
 			return activeNetworkInfo != null && activeNetworkInfo.isConnected
 		}
 
