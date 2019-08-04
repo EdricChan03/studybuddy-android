@@ -81,7 +81,7 @@
 				android:name=".ui.modules.help.HelpActivity"
 				android:label="@string/title_activity_help"/>
 		<activity
-				android:name="com.edricchan.studybuddy.ui.modules.chat.NewChatActivity"
+				android:name=".ui.modules.chat.NewChatActivity"
 				android:label="@string/title_activity_new_chat"/>
 		<activity
 				android:name=".ui.modules.task.NewTaskActivity"
