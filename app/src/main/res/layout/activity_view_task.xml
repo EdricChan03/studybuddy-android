@@ -41,7 +41,7 @@
 				android:id="@+id/taskDate"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:drawableStart="@drawable/ic_calendar_check_24dp"
+				android:drawableStart="@drawable/ic_calendar_check_outline_24dp"
 				android:drawablePadding="16dp"
 				android:padding="16dp"
 				android:textAppearance="?attr/textAppearanceBody1" />
