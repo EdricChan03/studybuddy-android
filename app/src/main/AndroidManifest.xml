@@ -84,6 +84,9 @@
 				android:name=".ui.modules.chat.NewChatActivity"
 				android:label="@string/title_activity_new_chat"/>
 		<activity
+				android:name=".ui.modules.chat.ViewChatMessagesActivity"
+				android:label="@string/title_activity_view_chat"/>
+		<activity
 				android:name=".ui.modules.task.NewTaskActivity"
 				android:label="@string/title_activity_new_task"/>
 		<activity
