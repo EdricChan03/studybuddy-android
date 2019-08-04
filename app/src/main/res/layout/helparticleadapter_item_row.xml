@@ -24,7 +24,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
-		android:id="@+id/titleTextView"
+		android:id="@+id/nameTextView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="32dp"
@@ -49,7 +49,7 @@
 		android:textAppearance="?attr/textAppearanceListItemSecondary"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toEndOf="@id/articleImageView"
-		app:layout_constraintTop_toBottomOf="@id/titleTextView"
+		app:layout_constraintTop_toBottomOf="@id/nameTextView"
 		tools:text="Getting started with StudyBuddy in 4 simple steps." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
