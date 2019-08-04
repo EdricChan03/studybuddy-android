@@ -4,18 +4,18 @@
 	<item
 		android:id="@+id/action_refresh"
 		android:icon="@drawable/ic_refresh_24dp"
-		android:title="@string/action_refresh_articles"
+		android:title="@string/menu_help_refresh_articles"
 		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/action_send_feedback"
-		android:title="@string/action_send_feedback" />
+		android:title="@string/menu_send_feedback_title" />
 	<item
 		android:id="@+id/action_version"
 		android:title="@string/action_version" />
 	<item
 		android:id="@+id/action_licenses"
-		android:title="@string/action_licenses" />
+		android:title="@string/menu_help_licenses_title" />
 	<item
 		android:id="@+id/action_source_code"
-		android:title="@string/action_source_code" />
+		android:title="@string/menu_help_src_code_title" />
 </menu>

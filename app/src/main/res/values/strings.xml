@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- FIXME: Restructure this file -->
 <resources>
 	<plurals name="cab_subtitle">
 		<item quantity="zero">None selected</item>
@@ -44,23 +45,28 @@
 	<!-- The title of the sign out dialog in the account activity. -->
 	<string name="account_sign_out_dialog_title">Sign out?</string>
 
-	<string name="action_about">About</string>
+	<!-- The title of the about menu item in the main activity's menu. -->
+	<string name="menu_main_about_title">About</string>
+	<!-- The title of the account menu item in the main activity's menu. -->
+	<string name="menu_main_account_title">Account</string>
+	<!-- The title of the archive task menu item in the view task activity's menu. -->
+	<string name="menu_view_task_archive_todo_title">Archive todo</string>
+	<!-- The title of the unarchive task menu item in the view task activity's menu. -->
+	<string name="menu_view_task_unarchive_todo_title">Unarchive todo</string>
+	<!-- The title of the check for updates menu item in the update activity's menu. -->
+	<string name="menu_updates_check_for_updates_title">Check for updates</string>
+	<!-- The title of the debug menu item. -->
+	<string name="menu_debug_title">Debug</string>
+	<!-- The title of the delete task menu item in the view task activity's menu. -->
+	<string name="menu_view_task_delete_todo_title">Delete todo</string>
+	<!-- The title of the edit task menu item in the view task activity's menu. -->
+	<string name="menu_view_task_edit_title">Edit</string>
 
-	<string name="action_account">Account</string>
+	<!-- The title of the help menu item. -->
+	<string name="menu_help_title">Help</string>
 
-	<string name="action_archive_todo">Archive todo</string>
-
-	<string name="action_check_for_updates">Check for updates</string>
-
-	<string name="action_debug">Debug</string>
-
-	<string name="action_delete_todo">Delete todo</string>
-
-	<string name="action_edit">Edit</string>
-
-	<string name="action_help">Help</string>
-
-	<string name="action_licenses">Licenses</string>
+	<!-- The title of the licenses menu item in the help activity's menu. -->
+	<string name="menu_help_licenses_title">Licenses</string>
 
 	<!-- The text of the forgot password button in the login activity. -->
 	<string name="login_forgot_password_button_title">Forgot password</string>
@@ -69,41 +75,57 @@
 	<!-- The text of the register button in the login activity's menu. -->
 	<string name="login_register_button_title">Register for an account</string>
 
+	<!-- The title of the mark as done menu item in the view task activity's menu. -->
 	<string name="action_mark_as_done">Mark as done</string>
+	<!-- The title of the mark as undone menu item in the view task activity's menu. -->
 	<string name="action_mark_as_undone">Mark as undone</string>
 
-	<string name="action_new_todo">New todo</string>
+	<!-- The title of the new task menu item in the task fragment's menu. -->
+	<string name="menu_frag_task_new_todo">New todo</string>
 
-	<string name="action_refresh">Refresh</string>
-	<string name="action_refresh_articles">Refresh articles</string>
-	<string name="action_refresh_credentials">Refresh</string>
-	<string name="action_refresh_todos">Refresh todos</string>
+	<!-- The title of the refresh articles menu item in the help activity's menu. -->
+	<string name="menu_help_refresh_articles">Refresh articles</string>
+	<!-- The title of the refresh credentials menu item in the account activity's menu. -->
+	<string name="menu_account_refresh_credentials">Refresh</string>
+	<!-- The title of the refresh tasks menu item in the task fragment's menu. -->
+	<string name="menu_frag_task_refresh_todos_title">Refresh todos</string>
 
-	<string name="action_register_btn">Register</string>
+	<!-- The text of the sign up button in the register activity. -->
+	<string name="register_signup_button_title">Register</string>
 
-	<string name="action_save">Save</string>
+	<!-- The title of the save menu item in the edit task activity's menu. -->
+	<string name="menu_edit_task_save_title">Save</string>
 
-	<string name="action_send_feedback">Send Feedback</string>
+	<!-- The title of the send feedback menu item in the help and settings activities' menus. -->
+	<string name="menu_send_feedback_title">Send Feedback</string>
 
-	<string name="action_settings">Settings</string>
+	<!-- The title of the settings menu item. -->
+	<string name="menu_settings_title">Settings</string>
 
-	<string name="action_share">Share this app</string>
+	<!-- The title of the share this app menu item in the main activity's menu. -->
+	<string name="menu_main_share_app_title">Share this app</string>
 
-	<string name="action_sign_in_btn">Login</string>
+	<!-- The text of the sign in button in the login activity. -->
+	<string name="login_sign_in_button_title">Login</string>
 
-	<string name="action_sort_by">Sort by…</string>
-	<string name="action_sort_due_date_new_to_old">Due date (Newest to Oldest)</string>
-	<string name="action_sort_due_date_old_to_new">Due date (Oldest to Newest)</string>
-	<string name="action_sort_none">None</string>
-	<string name="action_sort_title_ascending">Title (Ascending)</string>
-	<string name="action_sort_title_descending">Title (Descending)</string>
+	<!-- The title of the sort by menu item in the task fragment's menu. -->
+	<string name="menu_frag_task_sort_by_title">Sort by…</string>
+	<!-- The title of the fourth item in the sort by modal bottom sheet in the task fragment. -->
+	<string name="sort_by_bottomsheet_due_date_newest_title">Due date (newest first)</string>
+	<!-- The title of the fifth item in the sort by modal bottom sheet in the task fragment. -->
+	<string name="sort_by_bottomsheet_due_date_oldest_title">Due date (oldest first)</string>
+	<!-- The title of the first item in the sort by modal bottom sheet in the task fragment. -->
+	<string name="sort_by_bottomsheet_none_title">None</string>
+	<!-- The title of the second item in the sort by modal bottom sheet in the task fragment. -->
+	<string name="sort_by_bottomsheet_title_asc_title">Title (ascending)</string>
+	<!-- The title of the third item in the sort by modal bottom sheet in the task fragment. -->
+	<string name="sort_by_bottomsheet_title_desc_title">Title (descending)</string>
 
-	<string name="action_source_code">View source code</string>
+	<!-- The title of the source code menu item in the help activity's menu. -->
+	<string name="menu_help_src_code_title">View source code</string>
 
-	<string name="action_submit">Submit</string>
-	<string name="action_submit_tip">Submit a tip</string>
-
-	<string name="action_unarchive_todo">Unarchive todo</string>
+	<!-- The title of the submit task menu item in the new task activity's menu. -->
+	<string name="menu_new_task_submit_title">Submit</string>
 
 	<string name="action_version">Version</string>
 
@@ -120,14 +142,13 @@
 
 	<string name="btn_reset_password">Reset password</string>
 
-	<string name="cab_action_delete_selected">Delete selected</string>
-	<string name="cab_action_edit_selected">Edit selected</string>
+	<string name="cab_action_delete_selected_tasks">Delete selected</string>
+	<string name="cab_action_edit_selected_tasks">Edit selected</string>
 	<string name="cab_action_select_all">Select all</string>
 
 	<string name="cab_title">Select</string>
 
 	<string name="chat_frag_new_chat_dialog_desc_editext_hint">Chat description</string>
-
 	<string name="chat_frag_new_chat_dialog_name_editext_hint">Chat name</string>
 	<string name="chat_frag_new_chat_dialog_title">New chat</string>
 	<string name="choose_a_date">Choose a date…</string>

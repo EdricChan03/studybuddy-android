@@ -3,10 +3,10 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/action_send_feedback"
-		android:title="@string/action_send_feedback" />
+		android:title="@string/menu_send_feedback_title" />
 	<item
 		android:id="@+id/action_help"
 		android:icon="@drawable/ic_help_outline_24dp"
-		android:title="@string/action_help"
+		android:title="@string/menu_help_title"
 		app:showAsAction="ifRoom" />
 </menu>

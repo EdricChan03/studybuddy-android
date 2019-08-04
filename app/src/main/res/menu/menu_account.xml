@@ -4,11 +4,11 @@
 	<item
 		android:id="@+id/action_refresh_credentials"
 		android:icon="@drawable/ic_refresh_24dp"
-		android:title="@string/action_refresh_credentials"
+		android:title="@string/menu_account_refresh_credentials"
 		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/action_debug"
 		android:icon="@drawable/ic_bug_report_outline_24dp"
-		android:title="@string/action_debug"
+		android:title="@string/menu_debug_title"
 		app:showAsAction="never" />
 </menu>

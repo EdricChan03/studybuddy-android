@@ -4,6 +4,6 @@
 	<item
 		android:id="@+id/action_save"
 		android:icon="@drawable/ic_check_24dp"
-		android:title="@string/action_save"
+		android:title="@string/menu_edit_task_save_title"
 		app:showAsAction="ifRoom" />
 </menu>

@@ -4,6 +4,6 @@
 	<item
 		android:id="@+id/action_check_for_updates"
 		android:icon="@drawable/ic_refresh_24dp"
-		android:title="@string/action_check_for_updates"
+		android:title="@string/menu_updates_check_for_updates_title"
 		app:showAsAction="ifRoom" />
 </menu>
