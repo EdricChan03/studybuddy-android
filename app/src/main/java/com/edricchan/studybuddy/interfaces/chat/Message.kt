@@ -8,7 +8,11 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
 
-// TODO
+/**
+ * An interface used for a message in a chat group
+ * @property text The text of this message (**required**)
+ * @property author The author of this message
+ */
 @IgnoreExtraProperties
 data class Message(
 		@DocumentId override var id: String? = null,
