@@ -46,10 +46,25 @@
 						android:inputType="textMultiLine" />
 			</com.google.android.material.textfield.TextInputLayout>
 
-			<Spinner
+			<!--<Spinner
 					android:id="@+id/taskProjectSpinner"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"/>
+					android:layout_height="wrap_content"/>-->
+			<com.google.android.material.textfield.TextInputLayout
+					android:id="@+id/taskProjectTextInputLayout"
+					style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:hint="@string/task_project">
+
+				<AutoCompleteTextView
+						android:id="@+id/taskProjectAutocompleteTextView"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:editable="false" />
+			</com.google.android.material.textfield.TextInputLayout>
+
 
 			<com.google.android.material.textfield.TextInputLayout
 					android:id="@+id/taskTagsTextInputLayout"
@@ -64,6 +79,13 @@
 						android:hint="@string/task_tags"
 						android:inputType="text" />
 			</com.google.android.material.textfield.TextInputLayout>
+
+			<!--<com.edricchan.studybuddy.ui.widget.ChipsTextInputLayout
+					android:id="@+id/taskTagsTextInputLayout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					app:textInputLayoutHelperText="@string/comma_indicates_separator" /> -->
 
 			<CheckBox
 					android:id="@+id/taskIsDoneCheckbox"
