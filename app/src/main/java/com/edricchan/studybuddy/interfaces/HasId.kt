@@ -5,5 +5,5 @@ package com.edricchan.studybuddy.interfaces
  * @property id The document ID of a data class
  */
 interface HasId {
-	var id: String
+	var id: String?
 }

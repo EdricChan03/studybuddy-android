@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.adapter
+package com.edricchan.studybuddy.ui.modules.task.adapter
 
 import android.content.Context
 import android.text.TextUtils
@@ -12,8 +12,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.ui.adapter.itemdetails.TaskItemDetails
+import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.interfaces.TaskItem
+import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TaskItemDetails
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -113,14 +114,14 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 	 */
 	@Deprecated("This should ideally be left up to the consumer, instead of handling it in the adapter")
 	private fun updateDoneStatus(item: TaskItem, button: Button, position: Int) {
-		if (item.isDone!!) {
-			mFirestore!!.document("users/" + mUser!!.uid + "/todos/" + item.id).update("isDone", false).addOnSuccessListener {
+		if (item.done!!) {
+			mFirestore!!.document("users/" + mUser!!.uid + "/todos/" + item.id).update("done", false).addOnSuccessListener {
 				mSnackbarView?.let { Snackbar.make(it, "Task marked as undone.", Snackbar.LENGTH_LONG).show() }
 				notifyItemChanged(position)
 				button.setText(R.string.action_mark_as_done)
 			}
 		} else {
-			mFirestore!!.document("users/" + mUser!!.uid + "/todos/" + item.id).update("isDone", true).addOnSuccessListener {
+			mFirestore!!.document("users/" + mUser!!.uid + "/todos/" + item.id).update("done", true).addOnSuccessListener {
 				mSnackbarView?.let { Snackbar.make(it, "Task marked as done.", Snackbar.LENGTH_LONG).show() }
 				notifyItemChanged(position)
 				button.setText(R.string.action_mark_as_undone)
@@ -145,14 +146,14 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 		}
 	}
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksAdapter.Holder {
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 		val context = parent.context
 		val inflater = LayoutInflater.from(context)
 		val itemView = inflater.inflate(R.layout.taskadapter_item_row, parent, false)
 		return Holder(itemView)
 	}
 
-	override fun onBindViewHolder(holder: TasksAdapter.Holder, position: Int) {
+	override fun onBindViewHolder(holder: Holder, position: Int) {
 		val item = mTaskItemList!![position]
 
 		val itemTitle = holder.itemTitle
@@ -330,9 +331,5 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
 	 */
 	fun setOnItemClickListener(listener: OnItemClickListener) {
 		this.mItemListener = listener
-	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(TasksAdapter::class.java)
 	}
 }

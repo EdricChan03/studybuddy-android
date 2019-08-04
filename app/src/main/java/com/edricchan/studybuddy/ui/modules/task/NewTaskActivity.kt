@@ -15,8 +15,8 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.toDateFormat
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
-import com.edricchan.studybuddy.ui.adapter.TaskProjectSpinnerAdapter
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.picker.MaterialDatePicker
@@ -40,7 +40,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 	private var mCurrentUser: FirebaseUser? = null
 	private var mAllowAccess: Boolean = false
 	private var tempTaskProject: String? = null
-	private var mTaskProjectSpinnerAdapter: TaskProjectSpinnerAdapter? = null
+	private var mTaskProjectDropdownAdapter: TaskProjectDropdownAdapter? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -92,9 +92,8 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 		}
 
 		val projectArrayList = ArrayList<TaskProject>()
-		mTaskProjectSpinnerAdapter = TaskProjectSpinnerAdapter(this, android.R.layout.simple_spinner_item, projectArrayList)
-		mTaskProjectSpinnerAdapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-		taskProjectSpinner.adapter = mTaskProjectSpinnerAdapter
+		mTaskProjectDropdownAdapter = TaskProjectDropdownAdapter(this, R.layout.dropdown_menu_popup_item, projectArrayList)
+		taskProjectAutocompleteTextView.setAdapter(mTaskProjectDropdownAdapter)
 		if (mCurrentUser != null) {
 			mFirestore.collection("users/" + mCurrentUser!!.uid + "/todoProjects")
 					.addSnapshotListener { documentSnapshots, e ->
@@ -102,59 +101,72 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 							Log.e(TAG, "An error occurred while listening to changes:", e)
 							return@addSnapshotListener
 						}
+
 						projectArrayList.clear()
-						val createProjectBuilder = TaskProject.Builder()
-						createProjectBuilder
-								.setColor("#FFFFFF")
-								.setId("PLUS")
-								.setName(getString(R.string.task_project_create))
-						projectArrayList.add(createProjectBuilder.create())
-						if (documentSnapshots != null) {
-							for (document in documentSnapshots) {
-								projectArrayList.add(document.toObject<TaskProject>())
-							}
-						}
-						val chooseProjectBuilder = TaskProject.Builder()
-						chooseProjectBuilder
-								.setId("CHOOSE")
-								.setName(getString(R.string.task_project_prompt))
-						projectArrayList.add(chooseProjectBuilder.create())
-						mTaskProjectSpinnerAdapter!!.notifyDataSetChanged()
+						projectArrayList.add(TaskProject.build {
+							id = PROJECT_NONE_ID
+							name = getString(R.string.task_project_none)
+						})
+
+						projectArrayList.add(TaskProject.build {
+							id = PROJECT_CREATE_ID
+							name = getString(R.string.task_project_create)
+						})
+
+						documentSnapshots?.mapTo(projectArrayList) { it.toObject() }
+
+						projectArrayList.add(TaskProject.build {
+							id = PROJECT_CHOOSE_ID
+							name = getString(R.string.task_project_prompt)
+						})
+
+						Log.d(TAG, "Array list: ${projectArrayList.joinToString()}")
+
+						mTaskProjectDropdownAdapter?.notifyDataSetChanged()
 					}
-			taskProjectSpinner.setSelection(mTaskProjectSpinnerAdapter!!.count)
-			taskProjectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+			taskProjectAutocompleteTextView.setSelection(mTaskProjectDropdownAdapter!!.count)
+			taskProjectAutocompleteTextView.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 				override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-					Log.d(TAG, "Task project ID: " + mTaskProjectSpinnerAdapter!!.getTaskProjectId(position)!!)
-					Log.d(TAG, "Task project name: " + Objects.requireNonNull<TaskProject>(mTaskProjectSpinnerAdapter!!.getItem(position)).name!!)
-					if (mTaskProjectSpinnerAdapter!!.getTaskProjectId(position) == "PLUS") {
-						val editTextDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
-						val textInputLayout = editTextDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
-						textInputLayout.editText!!.hint = "Project name"
-						val builder = MaterialAlertDialogBuilder(this@NewTaskActivity)
-						builder.setTitle("New project")
-								.setView(editTextDialogView)
-								.setPositiveButton(R.string.dialog_action_create) { dialog, which ->
-									val project = TaskProject.Builder()
-									project.setName(textInputLayout.editTextStrValue!!)
-									mFirestore.collection("users/" + mCurrentUser!!.uid + "/todoProjects")
-											.add(project.create())
-											.addOnCompleteListener { task ->
-												if (task.isSuccessful) {
-													Toast.makeText(this@NewTaskActivity, "Successfully created project!", Toast.LENGTH_SHORT)
-															.show()
-													dialog.dismiss()
-												} else {
-													Toast.makeText(this@NewTaskActivity, "An error occurred while attempting to create the project. Try again later.", Toast.LENGTH_LONG)
-															.show()
-													Log.e(TAG, "An error occurred while attempting to create the project:", task.exception)
+					Log.d(TAG, "Task project ID: " + mTaskProjectDropdownAdapter!!.getTaskProjectId(position)!!)
+					Log.d(TAG, "Task project name: " + Objects.requireNonNull<TaskProject>(mTaskProjectDropdownAdapter!!.getItem(position)).name!!)
+					when (mTaskProjectDropdownAdapter!!.getTaskProjectId(position)) {
+						PROJECT_CREATE_ID -> {
+							val editTextDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
+							val textInputLayout = editTextDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
+							textInputLayout.editText?.hint = "Project name"
+							val builder = MaterialAlertDialogBuilder(this@NewTaskActivity)
+							builder.setTitle("New project")
+									.setView(editTextDialogView)
+									.setPositiveButton(R.string.dialog_action_create) { dialog, which ->
+										val project = TaskProject.build {
+											name = textInputLayout.editTextStrValue!!
+										}
+										mFirestore.collection("users/" + mCurrentUser!!.uid + "/todoProjects")
+												.add(project)
+												.addOnCompleteListener { task ->
+													if (task.isSuccessful) {
+														Toast.makeText(this@NewTaskActivity, "Successfully created project!", Toast.LENGTH_SHORT)
+																.show()
+														dialog.dismiss()
+													} else {
+														Toast.makeText(this@NewTaskActivity, "An error occurred while attempting to create the project. Try again later.", Toast.LENGTH_LONG)
+																.show()
+														Log.e(TAG, "An error occurred while attempting to create the project:", task.exception)
+													}
 												}
-											}
-								}
-								.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-								.show()
-					} else {
-						val (_, id1) = taskProjectSpinner.getItemAtPosition(taskProjectSpinner.selectedItemPosition) as TaskProject
-						tempTaskProject = id1
+									}
+									.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+									.show()
+						}
+						PROJECT_NONE_ID -> {
+							Log.d(TAG, "Selected no project!")
+						}
+						PROJECT_CHOOSE_ID -> {
+							Log.d(TAG, "Selected choose project!")
+						}
+						else -> {
+							tempTaskProject = projectArrayList[position].id
+						}
 					}
 				}
 
@@ -180,22 +192,24 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 				if (mAllowAccess) {
 					if (taskTitleTextInputLayout.editText!!.length() != 0) {
 						taskTitleTextInputLayout.isErrorEnabled = false
-						val taskItemBuilder = TaskItem.Builder()
-						taskItemBuilder.setTitle(taskTitleTextInputLayout.editTextStrValue!!)
-						if (taskContentTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-							taskItemBuilder.setContent(taskContentTextInputLayout.editTextStrValue!!)
+						val taskItem = TaskItem.build {
+							title = taskTitleTextInputLayout.editTextStrValue
+							if (taskContentTextInputLayout.editTextStrValue.isNotEmpty()) {
+								content = taskContentTextInputLayout.editTextStrValue
+							}
+							if (taskTagsTextInputLayout?.editTextStrValue != null &&
+									taskTagsTextInputLayout?.editTextStrValue!!.isNotEmpty()) {
+								tags = taskTagsTextInputLayout?.editTextStrValue?.split(",")?.map { it.trim() }?.toMutableList()
+							}
+							if (mTaskDate != null) {
+								dueDate = Timestamp(mTaskDate!!)
+							}
+							if (tempTaskProject != null) {
+								project = mFirestore.document("users/${mCurrentUser!!.uid}/todoProjects/$tempTaskProject")
+							}
+							done = taskIsDoneCheckbox.isChecked
 						}
-						if (taskTagsTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-							taskItemBuilder.setTags(taskTagsTextInputLayout.editTextStrValue!!.split(",").map { it.trim() }.toMutableList())
-						}
-						if (mTaskDate != null) {
-							taskItemBuilder.setDueDate(Timestamp(mTaskDate!!))
-						}
-						if (tempTaskProject != null) {
-							taskItemBuilder.setProject(mFirestore.document("users/" + mCurrentUser!!.uid + "/todoProjects/" + tempTaskProject))
-						}
-						taskItemBuilder.setIsDone(taskIsDoneCheckbox.isChecked)
-						SharedUtils.addTask(taskItemBuilder.create(), mCurrentUser!!, mFirestore)
+						SharedUtils.addTask(taskItem, mCurrentUser!!, mFirestore)
 								.addOnCompleteListener { task ->
 									if (task.isSuccessful) {
 										Toast.makeText(this, "Successfully added task!", Toast.LENGTH_SHORT).show()
@@ -207,12 +221,18 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 								}
 					} else {
 						taskTitleTextInputLayout.error = "Please enter something."
-						Snackbar.make(findViewById(R.id.newTaskCooardinatorLayout), "Some errors occurred while attempting to submit the form.", Snackbar.LENGTH_LONG).show()
+						Snackbar.make(findViewById(R.id.coordinatorLayout), "Some errors occurred while attempting to submit the form.", Snackbar.LENGTH_LONG).show()
 					}
 				}
 				return true
 			}
 			else -> return super.onOptionsItemSelected(item)
 		}
+	}
+
+	companion object {
+		private const val PROJECT_CHOOSE_ID = "CHOOSE"
+		private const val PROJECT_CREATE_ID = "PLUS"
+		private const val PROJECT_NONE_ID = "NONE"
 	}
 }

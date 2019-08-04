@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.adapter
+package com.edricchan.studybuddy.ui.modules.task.adapter
 
 import android.content.Context
 import android.view.View
@@ -9,12 +9,12 @@ import android.widget.TextView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.TaskProject
 
-class TaskProjectSpinnerAdapter(context: Context, textViewResourceId: Int, private val projects: List<TaskProject>) : ArrayAdapter<TaskProject>(context, textViewResourceId, projects) {
+class TaskProjectDropdownAdapter(context: Context, textViewResourceId: Int, private val projects: List<TaskProject>) : ArrayAdapter<TaskProject>(context, textViewResourceId, projects) {
 
-	override fun getCount(): Int {
+	/*override fun getCount(): Int {
 		val count = super.getCount()
-		return if (count > 0) count - 1 else count
-	}
+		return if (count > 0) count else count
+	}*/
 
 	override fun getItem(position: Int): TaskProject? {
 		return projects[position]
@@ -25,7 +25,7 @@ class TaskProjectSpinnerAdapter(context: Context, textViewResourceId: Int, priva
 	 *
 	 * @param position The position of the task project
 	 */
-	@Deprecated("Use TaskProjectSpinnerAdapter#getItem(int) instead")
+	@Deprecated("Use TaskProjectDropdownAdapter#getItem(int) instead")
 	fun getTaskProject(position: Int): TaskProject? {
 		return getItem(position)
 	}

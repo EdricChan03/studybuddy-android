@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.adapter.itemdetails
+package com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails
 
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
@@ -11,7 +11,7 @@ import androidx.recyclerview.selection.ItemDetailsLookup
  */
 class TaskItemDetails(
 		private val adapterPosition: Int,
-		private val selectionKey: String
+		private val selectionKey: String?
 ) : ItemDetailsLookup.ItemDetails<String>() {
 
 

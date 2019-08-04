@@ -529,6 +529,7 @@
 		https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
 	</string>
 	<string name="markdown_supported_helpertext">Markdown is supported</string>
+	<string name="action_menu_overflow_title">More options</string>
 
 	<string name="select_date_chip_default_text">Select a date&#8230;</string>
 </resources>

@@ -37,9 +37,18 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 		mTaskId = intent.getStringExtra("taskId")
 		Log.d(TAG, "Task ID: $mTaskId")
+
 		bottomAppBar.replaceMenu(R.menu.menu_view_task)
+
+		if (taskItem?.archived == true) {
+			// Task has already been archived - show the unarchive menu item instead
+			bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = true
+			bottomAppBar.menu.findItem(R.id.action_archive).isVisible = false
+		}
+
 		bottomAppBar.setOnMenuItemClickListener {
 			when (it.itemId) {
 				android.R.id.home -> {
@@ -74,22 +83,25 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 				}
 				R.id.action_mark_as_done -> {
 					mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
-							.update("isDone", !taskItem?.isDone!!)
+							.update("done", !taskItem?.done!!)
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
-									showSnackbar("Task marked as " + if ((!taskItem!!.isDone!!)) "done" else "undone", Snackbar.LENGTH_SHORT)
-									Log.d(TAG, "Task marked as " + if ((!taskItem!!.isDone!!)) "done" else "undone")
+									showSnackbar("Task marked as " + if ((!taskItem!!.done!!)) "done" else "undone", Snackbar.LENGTH_SHORT)
+									Log.d(TAG, "Task marked as " + if ((!taskItem!!.done!!)) "done" else "undone")
 								} else {
-									Toast.makeText(this, "An error occurred while marking the todo as " + if ((!taskItem!!.isDone!!)) "done" else "undone", Toast.LENGTH_LONG)
+									Toast.makeText(this, "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone", Toast.LENGTH_LONG)
 											.show()
-									Log.e(TAG, "An error occurred while marking the todo as " + if ((!taskItem!!.isDone!!)) "done" else "undone", task.exception)
+									Log.e(TAG, "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone", task.exception)
 								}
 							}
 					return@setOnMenuItemClickListener true
 				}
 				R.id.action_archive -> {
+					// Variable to indicate whether task was already archived
+					val hasArchived = taskItem?.archived ?: false
+					Log.d(TAG, "Archived state: $hasArchived")
 					mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
-							.update("isArchived", taskItem?.isArchived ?: true)
+							.update("archived", !hasArchived)
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									showSnackbar("Successfully archived task!", Snackbar.LENGTH_SHORT)
@@ -104,8 +116,11 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 					return@setOnMenuItemClickListener true
 				}
 				R.id.action_unarchive -> {
+					// Variable to indicate whether task was already archived
+					val hasArchived = taskItem?.archived ?: true
+					Log.d(TAG, "Archived state: $hasArchived")
 					mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
-							.update("isArchived", taskItem?.isArchived ?: false)
+							.update("archived", !hasArchived)
 							.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									showSnackbar("Successfully unarchived task!", Snackbar.LENGTH_SHORT)
@@ -192,15 +207,15 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 			}
 			R.id.action_mark_as_done -> {
 				mFirestore.document("users/" + mCurrentUser!!.uid + "/todos/" + mTaskId)
-						.update("isDone", !taskItem!!.isDone!!)
+						.update("done", !taskItem!!.done!!)
 						.addOnCompleteListener { task ->
 							if (task.isSuccessful) {
-								Snackbar.make(findViewById(R.id.mainView), "Task marked as " + if ((!taskItem!!.isDone!!)) "done" else "undone", Snackbar.LENGTH_SHORT)
+								Snackbar.make(findViewById(R.id.mainView), "Task marked as " + if ((!taskItem!!.done!!)) "done" else "undone", Snackbar.LENGTH_SHORT)
 										.show()
 							} else {
-								Toast.makeText(this, "An error occurred while marking the todo as " + if ((!taskItem!!.isDone!!)) "done" else "undone", Toast.LENGTH_LONG)
+								Toast.makeText(this, "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone", Toast.LENGTH_LONG)
 										.show()
-								Log.e(TAG, "An error occurred while marking the todo as " + if ((!taskItem!!.isDone!!)) "done" else "undone", task.exception)
+								Log.e(TAG, "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone", task.exception)
 							}
 							invalidateOptionsMenu()
 						}
@@ -237,6 +252,8 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 						if (documentSnapshot != null && documentSnapshot.exists()) {
 							setViews(documentSnapshot.toObject<TaskItem>())
 							taskItem = documentSnapshot.toObject<TaskItem>()
+							Log.d(TAG, "Task item: $taskItem")
+							Log.d(TAG, "Document snapshot data: ${documentSnapshot.data}")
 							title = taskItem?.title
 						}
 					}

@@ -1,8 +1,7 @@
-package com.edricchan.studybuddy.ui.adapter.itemkeyprovider
+package com.edricchan.studybuddy.ui.modules.task.adapter.itemkeyprovider
 
 import android.os.Build
 import androidx.recyclerview.selection.ItemKeyProvider
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.interfaces.TaskItem
 import java8.util.stream.IntStreams
 import java.util.*
@@ -57,9 +56,5 @@ class TaskItemKeyProvider(
 					.findFirst()
 					.orElse(-1)
 		}
-	}
-
-	companion object {
-		private val TAG = SharedUtils.getTag(TaskItemKeyProvider::class.java)
 	}
 }
