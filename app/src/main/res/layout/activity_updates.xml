@@ -21,7 +21,7 @@
 			android:layout_below="@id/emptyStateSubheadingTextView"
 			android:layout_centerHorizontal="true"
 			android:layout_marginTop="8dp"
-			android:text="@string/action_check_for_updates" />
+			android:text="@string/menu_updates_check_for_updates_title" />
 
 		<TextView
 			android:id="@+id/emptyStateSubheadingTextView"

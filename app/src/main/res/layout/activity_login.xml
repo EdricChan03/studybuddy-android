@@ -73,7 +73,7 @@
 					android:layout_width="fill_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="20dip"
-					android:text="@string/action_sign_in_btn"/>
+					android:text="@string/login_sign_in_button_title"/>
 
 			<Button
 					android:id="@+id/resetPasswordBtn"

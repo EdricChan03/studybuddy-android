@@ -4,14 +4,14 @@
 	<item
 		android:id="@+id/cab_action_delete_selected"
 		android:icon="@drawable/ic_delete_outline_24dp"
-		android:title="@string/cab_action_delete_selected"
+		android:title="@string/cab_action_delete_selected_tasks"
 		app:showAsAction="ifRoom" />
 	<!-- TODO: Add support for editing multiple tasks -->
 	<item
 		android:id="@+id/cab_action_edit_selected"
 		android:enabled="false"
 		android:icon="@drawable/ic_edit_outline_24dp"
-		android:title="@string/cab_action_edit_selected"
+		android:title="@string/cab_action_edit_selected_tasks"
 		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/cab_action_select_all"
