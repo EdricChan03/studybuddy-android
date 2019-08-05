@@ -178,7 +178,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.menu_new_task, menu)
+		menuInflater.inflate(R.menu.menu_new_item, menu)
 		return true
 	}
 

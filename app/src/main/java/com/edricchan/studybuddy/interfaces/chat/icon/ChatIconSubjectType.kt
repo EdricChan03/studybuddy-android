@@ -1,9 +1,9 @@
 package com.edricchan.studybuddy.interfaces.chat.icon
 
 /**
- * Enum class used to represent a subject type of a [DefaultChatIcon] object
+ * Enum class used to represent a subject type of a [ChatIcon] object
  */
-class DefaultChatIconSubjectType {
+class ChatIconSubjectType {
 	companion object {
 		/**
 		 * Indicates that the icon represents Mathematics

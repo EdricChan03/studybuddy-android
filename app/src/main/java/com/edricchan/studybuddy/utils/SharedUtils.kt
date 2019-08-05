@@ -523,9 +523,9 @@ class SharedUtils() {
 		 * @param tagClass The class to retrieve the simple name of. Can be any Java class extending [Class].
 		 * @return The tag
 		 */
-		fun getTag(tagClass: Class<*>): String {
 		@Suppress("DeprecatedCallableAddReplaceWith")
 		@Deprecated("Use the Any.TAG Kotlin extension")
+		fun getTag(tagClass: Class<*>): String {
 			return tagClass.simpleName
 		}
 

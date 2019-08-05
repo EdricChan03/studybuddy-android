@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		android:id="@+id/mainView"
 		android:layout_width="match_parent"
@@ -22,6 +21,12 @@
 					android:layout_margin="@dimen/activity_horizontal_margin"
 					android:orientation="vertical">
 
+				<androidx.appcompat.widget.AppCompatImageButton
+						android:id="@+id/imageButtonChatIconPicker"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						app:srcCompat="@drawable/ic_forum_outline_24dp" />
+
 				<com.google.android.material.textfield.TextInputLayout
 						android:id="@+id/chatNameTextInputLayout"
 						android:layout_width="match_parent"
@@ -35,7 +40,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:imeOptions="actionNext"
-							android:inputType="text"/>
+							android:inputType="text" />
 
 				</com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +57,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:imeOptions="actionDone"
-							android:inputType="textMultiLine"/>
+							android:inputType="textMultiLine" />
 
 				</com.google.android.material.textfield.TextInputLayout>
 
@@ -63,11 +68,12 @@
 						android:layout_height="wrap_content"
 						android:layout_margin="10dp"
 						android:hint="@string/chat_frag_new_chat_dialog_visibility_editext_hint">
+
 					<AutoCompleteTextView
 							android:id="@+id/chatVisibilityAutoCompleteTextView"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:editable="false"/>
+							android:editable="false" />
 				</com.google.android.material.textfield.TextInputLayout>
 			</LinearLayout>
 

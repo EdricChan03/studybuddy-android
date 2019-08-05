@@ -1,12 +1,14 @@
 package com.edricchan.studybuddy.ui.modules.chat
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
@@ -19,6 +21,8 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.Visibility
 import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.esafirm.imagepicker.features.ImagePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -60,7 +64,7 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.menu_new_task, menu)
+		menuInflater.inflate(R.menu.menu_new_item, menu)
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -75,10 +79,42 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 				val chatNameTIL = findViewById<TextInputLayout>(R.id.chatNameTextInputLayout)
 				val chatDescTIL = findViewById<TextInputLayout>(R.id.chatDescTextInputLayout)
 				val chatVisibilityAutoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.chatVisibilityAutoCompleteTextView)
+
 				val chatName = chatNameTIL.editTextStrValue
 				val chatDescription = chatDescTIL.editTextStrValue
 				@SuppressLint("DefaultLocale")
 				val chatVisibility = chatVisibilityAutoCompleteTextView.text.toString().decapitalize()
+
+				val chatIconImageButton = findViewById<ImageButton>(R.id.imageButtonChatIconPicker)
+						.apply {
+							setOnClickListener {
+								// TODO: Show a dialog with options to choose from library or upload
+								MaterialAlertDialogBuilder(this@NewChatActivity).apply {
+									setTitle(R.string.new_chat_activity_select_chat_icon_dialog_title)
+									setItems(R.array.new_chat_activity_select_chat_icon_dialog_items) { dialog, i ->
+										when (i) {
+											0 -> {
+												// Choose from library
+												// TODO: Add activity for this functionality
+
+											}
+											1 -> {
+												// Upload
+												ImagePicker.create(this@NewChatActivity)
+														.folderMode(true)
+														.single()
+														.start()
+											}
+											2 -> {
+												// Default
+												// TODO: Add functionality
+											}
+										}
+									}
+									setNegativeButton(R.string.dialog_action_cancel, null)
+								}.show()
+							}
+						}
 
 				if (chatName.isEmpty() || chatName.length > 100 || chatDescription.length > 300) {
 					if ((chatName.isEmpty() || chatName.length > 100) && !chatNameTIL.isErrorEnabled) chatNameTIL.isErrorEnabled = true
@@ -132,6 +168,15 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 			}
 			else -> super.onOptionsItemSelected(item)
 		}
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+			// TODO: Add actual functionality
+			val images = ImagePicker.getImages(data)
+			Log.d(TAG, "Selected images: ${images.joinToString()}")
+		}
+		super.onActivityResult(requestCode, resultCode, data)
 	}
 
 

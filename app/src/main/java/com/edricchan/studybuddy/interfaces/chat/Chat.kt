@@ -4,6 +4,7 @@ import com.edricchan.studybuddy.annotations.VisibilityAnnotation
 import com.edricchan.studybuddy.interfaces.HasId
 import com.edricchan.studybuddy.interfaces.HasTimestampMetadata
 import com.edricchan.studybuddy.interfaces.Visibility
+import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
@@ -28,7 +29,7 @@ data class Chat(
 		@DocumentId override var id: String? = null,
 		val name: String? = "",
 		val description: String? = null,
-		val icon: String? = null,
+		val icon: ChatIcon? = null,
 		@VisibilityAnnotation val visibility: String? = Visibility.PUBLIC,
 		val isArchived: Boolean? = false,
 		val pinnedMessage: DocumentReference? = null,
@@ -75,7 +76,7 @@ data class Chat(
 		/**
 		 * The chat's icon
 		 */
-		var icon: String? = null
+		var icon: ChatIcon? = null
 		/**
 		 * The chat's visibility
 		 * @see Visibility

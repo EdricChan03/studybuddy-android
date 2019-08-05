@@ -97,6 +97,9 @@ dependencies {
 	implementation 'com.takisoft.preferencex:preferencex:1.1.0-alpha05'
 	// implementation 'com.takisoft.preferencex:preferencex-datetimepicker:1.1.0-alpha05'
 
+	// Image picker
+	implementation 'com.github.esafirm.android-image-picker:imagepicker:2.1.0'
+
 	// Markwon - Markdown parser for Android
 	// See https://noties.github.io/Markwon for more info
 	implementation 'ru.noties:markwon:2.0.2'

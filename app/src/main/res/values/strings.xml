@@ -13,7 +13,7 @@
 	<!-- ======================== -->
 	<!-- Account activity strings -->
 	<!-- ======================== -->
-	<eat-comment/>
+	<eat-comment />
 
 	<!-- The account actions button title in the account activity. -->
 	<string name="account_account_actions_button_title">Account actions</string>
@@ -175,6 +175,12 @@
 	</string>
 	<string name="chat_frag_delete_selected_chats_confirm_dialog_positive_btn_text">Delete selected</string>
 	<string name="chat_frag_delete_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
+
+	<string name="new_chat_activity_select_chat_icon_dialog_title">Select chat icon</string>
+	<string name="new_chat_activity_select_chat_icon_dialog_item_choose_from_library">Choose from
+		icon library</string>
+	<string name="new_chat_activity_select_chat_icon_dialog_item_upload">Upload</string>
+	<string name="new_chat_activity_select_chat_icon_dialog_item_default">Default</string>
 
 	<string name="choose_a_date">Choose a date…</string>
 
