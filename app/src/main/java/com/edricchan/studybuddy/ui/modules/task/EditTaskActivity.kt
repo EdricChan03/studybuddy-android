@@ -19,7 +19,6 @@ import com.google.android.material.picker.CalendarConstraints
 import com.google.android.material.picker.DateValidatorPointForward
 import com.google.android.material.picker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -240,8 +239,8 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 //						taskItemUpdates["project"] = mFirestore.document("users/${mCurrentUser?.uid}/todoProjects/${spinnerProject.selectedItem}")
 						Log.d(TAG, "Selected item: ${spinnerProject.selectedItem}")
 					}
-					if (mTaskDate != null && !mTaskItem!!.dueDate!!.equals(Timestamp(mTaskDate))) {
-						taskItemUpdates["dueDate"] = mTaskDate.toTimestamp()
+					if (mTaskDate != null && mTaskItem!!.dueDate!! != mTaskDate!!.toTimestamp()) {
+						taskItemUpdates["dueDate"] = mTaskDate!!.toTimestamp()
 					}
 					mFirestore.document("users/${mCurrentUser?.uid}/todos/${mTaskId}")
 							.update(taskItemUpdates)

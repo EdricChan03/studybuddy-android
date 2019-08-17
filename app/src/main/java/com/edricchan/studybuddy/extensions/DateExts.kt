@@ -8,7 +8,7 @@ import java.util.*
  * Converts a [Date] to its [Timestamp] equivalent
  * @return A [Timestamp]
  */
-fun Date?.toTimestamp() = Timestamp(this)
+fun Date.toTimestamp() = Timestamp(this)
 
 /**
  * Converts a date to the specified [format]
