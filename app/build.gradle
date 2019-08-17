@@ -58,6 +58,8 @@ dependencies {
 	// RecyclerView
 	implementation 'androidx.recyclerview:recyclerview:1.1.0-beta03'
 	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha06'
+	// SwipeRefreshLayout (For some reason, it isn't included in AndroidX Core)
+	implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 	// Chrome Custom Tabs
 	implementation 'androidx.browser:browser:1.2.0-alpha07'
 	testImplementation 'junit:junit:4.12'
