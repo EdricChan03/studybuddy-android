@@ -27,113 +27,111 @@ import com.google.gson.Gson
 class StudyBuddyMessagingService : FirebaseMessagingService() {
 	private val sharedHelper = SharedUtils()
 
-	override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+	override fun onMessageReceived(remoteMessage: RemoteMessage) {
 		super.onMessageReceived(remoteMessage)
 
-		if (remoteMessage != null) {
-			val manager = NotificationManagerCompat.from(this)
-			val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_uncategorised_id))
+		val manager = NotificationManagerCompat.from(this)
+		val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_uncategorised_id))
 
-			if (remoteMessage.notification != null) {
-				if (remoteMessage.notification?.title != null) {
-					builder.setContentTitle(remoteMessage.notification?.title)
-					builder.setStyle(NotificationCompat.BigTextStyle().bigText(remoteMessage.notification?.body))
-				}
+		if (remoteMessage.notification != null) {
+			if (remoteMessage.notification?.title != null) {
+				builder.setContentTitle(remoteMessage.notification?.title)
+				builder.setStyle(NotificationCompat.BigTextStyle().bigText(remoteMessage.notification?.body))
+			}
 
-				if (remoteMessage.notification?.body != null) {
-					builder.setContentText(remoteMessage.notification?.body)
-				}
+			if (remoteMessage.notification?.body != null) {
+				builder.setContentText(remoteMessage.notification?.body)
+			}
 
-				if (remoteMessage.notification?.icon != null) {
-					val icon = resources.getIdentifier(remoteMessage.notification?.icon, "drawable", packageName)
-					// getIdentifier returns Resources.ID_NULL (0) if not such identifier exists
-					if (icon != Resources.ID_NULL) {
-						builder.setSmallIcon(icon)
-					} else {
-						// Use the default icon
-						builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
-					}
+			if (remoteMessage.notification?.icon != null) {
+				val icon = resources.getIdentifier(remoteMessage.notification?.icon, "drawable", packageName)
+				// getIdentifier returns Resources.ID_NULL (0) if not such identifier exists
+				if (icon != Resources.ID_NULL) {
+					builder.setSmallIcon(icon)
 				} else {
 					// Use the default icon
 					builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
 				}
+			} else {
+				// Use the default icon
+				builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
+			}
 
-				if (remoteMessage.notification?.color != null) {
-					builder.color = Color.parseColor(remoteMessage.notification?.color)
-				} else {
-					// Use the default color
-					builder.color = ContextCompat.getColor(this, R.color.colorPrimary)
-				}
+			if (remoteMessage.notification?.color != null) {
+				builder.color = Color.parseColor(remoteMessage.notification?.color)
+			} else {
+				// Use the default color
+				builder.color = ContextCompat.getColor(this, R.color.colorPrimary)
+			}
 
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-					if (remoteMessage.notification?.channelId != null) {
-						if (manager.getNotificationChannel(remoteMessage.notification?.channelId!!) == null) {
-							Log.w(TAG, "No such notification channel ${remoteMessage.notification?.channelId} exists." +
-									"Assigning \"uncategorised\" channel.")
-							builder.setChannelId(getString(R.string.notification_channel_uncategorised_id))
-						} else {
-							builder.setChannelId(remoteMessage.notification?.channelId!!)
-						}
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				if (remoteMessage.notification?.channelId != null) {
+					if (manager.getNotificationChannel(remoteMessage.notification?.channelId!!) == null) {
+						Log.w(TAG, "No such notification channel ${remoteMessage.notification?.channelId} exists." +
+								"Assigning \"uncategorised\" channel.")
+						builder.setChannelId(getString(R.string.notification_channel_uncategorised_id))
+					} else {
+						builder.setChannelId(remoteMessage.notification?.channelId!!)
 					}
 				}
 			}
-
-			if (remoteMessage.data != null) {
-				if (remoteMessage.data.containsKey("notificationActions")) {
-					Log.d(TAG, "notificationActions: ${remoteMessage.data["notificationActions"]}")
-					var notificationActions: List<NotificationAction> = listOf()
-
-					try {
-						val gson = Gson()
-						// TODO: Use Kotson library (https://github.com/SalomonBrys/Kotson)
-						val remoteNotificationActions = gson.fromJson(remoteMessage.data["notificationActions"],
-								Array<NotificationAction>::class.java)
-						notificationActions = remoteNotificationActions.asList()
-						Log.d(TAG, "Size: ${remoteNotificationActions.size}")
-						Log.d(TAG, "JSON: $remoteNotificationActions")
-						Log.d(TAG, "NotificationAction#actionTitle: ${remoteNotificationActions[0].actionTitle}")
-					} catch (e: Exception) {
-						Log.e(TAG, "Could not parse notification actions:", e)
-						Crashlytics.logException(e)
-					}
-
-					for (notificationAction in notificationActions) {
-						// This property is set to 0 by default to indicate that no such icon exists
-						var icon = 0
-						val intent: Intent
-						var notificationPendingIntent: PendingIntent? = null
-						val drawableIcon = resources.getIdentifier(notificationAction.actionIcon, "drawable", packageName)
-						// getIdentifier returns Resources.ID_NULL (0) if no such resource exists
-						if (drawableIcon != Resources.ID_NULL) {
-							icon = drawableIcon
-						}
-
-						when (notificationAction.actionType) {
-							// TODO: Don't hardcode action types
-							Constants.actionNotificationsSettingsIntent -> {
-								intent = buildIntent<SettingsActivity>(this) {
-									flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-								}
-								notificationPendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
-							}
-							else -> Log.w(TAG, "Unknown action type ${notificationAction.actionType} specified for $notificationAction.")
-						}
-						builder.addAction(NotificationCompat.Action(icon, notificationAction.actionTitle, notificationPendingIntent))
-					}
-				}
-			}
-
-			val mainActivityIntent = buildIntent<MainActivity>(this) {
-				flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-			}
-			val mainPendingIntent = PendingIntent.getActivity(this, 0, mainActivityIntent, PendingIntent.FLAG_ONE_SHOT)
-			builder.setContentIntent(mainPendingIntent)
-
-			manager.notify(sharedHelper.getDynamicId(), builder.build())
 		}
+
+		if (remoteMessage.data != null) {
+			if (remoteMessage.data.containsKey("notificationActions")) {
+				Log.d(TAG, "notificationActions: ${remoteMessage.data["notificationActions"]}")
+				var notificationActions: List<NotificationAction> = listOf()
+
+				try {
+					val gson = Gson()
+					// TODO: Use Kotson library (https://github.com/SalomonBrys/Kotson)
+					val remoteNotificationActions = gson.fromJson(remoteMessage.data["notificationActions"],
+							Array<NotificationAction>::class.java)
+					notificationActions = remoteNotificationActions.asList()
+					Log.d(TAG, "Size: ${remoteNotificationActions.size}")
+					Log.d(TAG, "JSON: $remoteNotificationActions")
+					Log.d(TAG, "NotificationAction#actionTitle: ${remoteNotificationActions[0].actionTitle}")
+				} catch (e: Exception) {
+					Log.e(TAG, "Could not parse notification actions:", e)
+					Crashlytics.logException(e)
+				}
+
+				for (notificationAction in notificationActions) {
+					// This property is set to 0 by default to indicate that no such icon exists
+					var icon = 0
+					val intent: Intent
+					var notificationPendingIntent: PendingIntent? = null
+					val drawableIcon = resources.getIdentifier(notificationAction.actionIcon, "drawable", packageName)
+					// getIdentifier returns Resources.ID_NULL (0) if no such resource exists
+					if (drawableIcon != Resources.ID_NULL) {
+						icon = drawableIcon
+					}
+
+					when (notificationAction.actionType) {
+						// TODO: Don't hardcode action types
+						Constants.actionNotificationsSettingsIntent -> {
+							intent = buildIntent<SettingsActivity>(this) {
+								flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+							}
+							notificationPendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+						}
+						else -> Log.w(TAG, "Unknown action type ${notificationAction.actionType} specified for $notificationAction.")
+					}
+					builder.addAction(NotificationCompat.Action(icon, notificationAction.actionTitle, notificationPendingIntent))
+				}
+			}
+		}
+
+		val mainActivityIntent = buildIntent<MainActivity>(this) {
+			flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+		}
+		val mainPendingIntent = PendingIntent.getActivity(this, 0, mainActivityIntent, PendingIntent.FLAG_ONE_SHOT)
+		builder.setContentIntent(mainPendingIntent)
+
+		manager.notify(sharedHelper.getDynamicId(), builder.build())
 	}
 
-	override fun onNewToken(token: String?) {
+	override fun onNewToken(token: String) {
 		Log.d(TAG, "Refreshed token: $token")
 
 		// Add token to Firebase Firestore in the user's document
