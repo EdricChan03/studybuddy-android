@@ -19,6 +19,8 @@ import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.picker.CalendarConstraints
+import com.google.android.material.picker.DateValidatorPointForward
 import com.google.android.material.picker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -70,7 +72,12 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 			mTaskDate = SharedUtils.getDateFromDatePicker(dpd.datePicker)
 		}*/
 		taskDueDateChip.setOnClickListener {
-			val picker = MaterialDatePicker.Builder.datePicker().build()
+			val constraints = CalendarConstraints.Builder()
+					.setValidator(DateValidatorPointForward())
+					.build()
+			val picker = MaterialDatePicker.Builder.datePicker()
+					.setCalendarConstraints(constraints)
+					.build()
 			picker.addOnPositiveButtonClickListener { selection ->
 				if (selection != null) {
 					mTaskDate = Date(selection)

@@ -15,6 +15,8 @@ import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.picker.CalendarConstraints
+import com.google.android.material.picker.DateValidatorPointForward
 import com.google.android.material.picker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
@@ -62,10 +64,15 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 				mTaskDate = SharedUtils.getDateFromDatePicker(dpd.datePicker)
 			}*/
 			taskDueDateChip.setOnClickListener {
-				val picker = MaterialDatePicker.Builder.datePicker().build()
+				val constraints = CalendarConstraints.Builder()
+						.setValidator(DateValidatorPointForward())
+						.build()
+				val picker = MaterialDatePicker.Builder.datePicker()
+						.setCalendarConstraints(constraints)
+						.build()
 				picker.addOnPositiveButtonClickListener { selection ->
 					mTaskDate = Date(selection)
-					// Produces <day name>, <month> <day>
+					// Produces <day name>, <month> <year>
 					taskDueDateChip.text = selection.toDateFormat(getString(R.string.date_format_pattern))
 					// Allow due date to be reset
 					taskDueDateChip.isCloseIconVisible = true
