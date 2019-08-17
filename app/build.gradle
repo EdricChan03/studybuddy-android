@@ -47,8 +47,8 @@ dependencies {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
 	// AndroidX Core
-	implementation 'androidx.core:core:1.2.0-alpha02'
-	implementation 'androidx.core:core-ktx:1.2.0-alpha02'
+	implementation 'androidx.core:core:1.2.0-alpha03'
+	implementation 'androidx.core:core-ktx:1.2.0-alpha03'
 	// AppCompat
 	implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 	// ConstraintLayout
@@ -56,20 +56,20 @@ dependencies {
 	// Design Support
 	implementation 'com.google.android.material:material:1.1.0-alpha09'
 	// RecyclerView
-	implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
+	implementation 'androidx.recyclerview:recyclerview:1.1.0-beta03'
 	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha06'
 	// Chrome Custom Tabs
 	implementation 'androidx.browser:browser:1.0.0'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
-	implementation 'com.google.firebase:firebase-core:17.0.1'
-	implementation 'com.google.firebase:firebase-firestore:20.2.0'
-	implementation 'com.google.firebase:firebase-firestore-ktx:20.2.0'
-	implementation 'com.google.firebase:firebase-auth:18.1.0'
-	implementation 'com.google.firebase:firebase-messaging:19.0.1'
+	implementation 'com.google.firebase:firebase-core:17.1.0'
+	implementation 'com.google.firebase:firebase-firestore:21.0.0'
+	implementation 'com.google.firebase:firebase-firestore-ktx:21.0.0'
+	implementation 'com.google.firebase:firebase-auth:19.0.0'
+	implementation 'com.google.firebase:firebase-messaging:20.0.0'
 	implementation 'com.google.android.gms:play-services-auth:17.0.0'
-	implementation 'com.google.firebase:firebase-perf:18.0.1'
-	implementation 'com.google.firebase:firebase-dynamic-links:18.0.0'
+	implementation 'com.google.firebase:firebase-perf:19.0.0'
+	implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
 	// Provide a way to update the app
 	implementation 'com.github.javiersantos:AppUpdater:2.6.5'
 	// The app"s intro screen
@@ -85,7 +85,7 @@ dependencies {
 	// Kotlin support for AndroidX Preference library
 	implementation 'androidx.preference:preference-ktx:1.1.0-rc01'
 	// AndroidX WorkManager
-	implementation "androidx.work:work-runtime-ktx:2.2.0-beta02"
+	implementation "androidx.work:work-runtime-ktx:2.2.0"
 
 	// Custom Preferences
 	/*
