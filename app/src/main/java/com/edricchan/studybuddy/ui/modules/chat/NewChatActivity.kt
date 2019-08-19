@@ -8,9 +8,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
@@ -61,6 +61,35 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 			))
 		}
 
+		val chatIconImageButton = findViewById<AppCompatImageButton>(R.id.imageButtonChatIconPicker)
+		chatIconImageButton.setOnClickListener {
+			// TODO: Show a dialog with options to choose from library or upload
+			MaterialAlertDialogBuilder(this@NewChatActivity).apply {
+				setTitle(R.string.new_chat_activity_select_chat_icon_dialog_title)
+				setItems(R.array.new_chat_activity_select_chat_icon_dialog_items) { dialog, i ->
+					when (i) {
+						0 -> {
+							// Choose from library
+							// TODO: Add activity for this functionality
+
+						}
+						1 -> {
+							// Upload
+							ImagePicker.create(this@NewChatActivity)
+									.folderMode(true)
+									.single()
+									.start()
+						}
+						2 -> {
+							// Default
+							// TODO: Add functionality
+						}
+					}
+				}
+				setNegativeButton(R.string.dialog_action_cancel, null)
+			}.show()
+		}
+
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -84,37 +113,6 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 				val chatDescription = chatDescTIL.editTextStrValue
 				@SuppressLint("DefaultLocale")
 				val chatVisibility = chatVisibilityAutoCompleteTextView.text.toString().decapitalize()
-
-				val chatIconImageButton = findViewById<ImageButton>(R.id.imageButtonChatIconPicker)
-						.apply {
-							setOnClickListener {
-								// TODO: Show a dialog with options to choose from library or upload
-								MaterialAlertDialogBuilder(this@NewChatActivity).apply {
-									setTitle(R.string.new_chat_activity_select_chat_icon_dialog_title)
-									setItems(R.array.new_chat_activity_select_chat_icon_dialog_items) { dialog, i ->
-										when (i) {
-											0 -> {
-												// Choose from library
-												// TODO: Add activity for this functionality
-
-											}
-											1 -> {
-												// Upload
-												ImagePicker.create(this@NewChatActivity)
-														.folderMode(true)
-														.single()
-														.start()
-											}
-											2 -> {
-												// Default
-												// TODO: Add functionality
-											}
-										}
-									}
-									setNegativeButton(R.string.dialog_action_cancel, null)
-								}.show()
-							}
-						}
 
 				if (chatName.isEmpty() || chatName.length > 100 || chatDescription.length > 300) {
 					if ((chatName.isEmpty() || chatName.length > 100) && !chatNameTIL.isErrorEnabled) chatNameTIL.isErrorEnabled = true
