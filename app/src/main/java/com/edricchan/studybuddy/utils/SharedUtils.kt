@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.utils
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
 import android.app.NotificationManager
@@ -24,6 +25,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -810,11 +812,29 @@ class SharedUtils() {
 		 * @param context The context to be used to launch the intent of the [uri]
 		 * @param uri The URI to launch/open
 		 * @param useCustomTabs Whether to use Chrome Custom Tabs
+		 * @param useAppDarkTheme Whether to respect the app's dark theme
 		 */
-		fun launchUri(context: Context, uri: Uri, useCustomTabs: Boolean = true) {
+		fun launchUri(context: Context, uri: Uri, useCustomTabs: Boolean = true,
+		              useAppDarkTheme: Boolean = true) {
 			var customTabsIntent: CustomTabsIntent? = null
 			if (useCustomTabs) {
 				customTabsIntent = CustomTabsIntent.Builder().apply {
+					if (useAppDarkTheme) {
+						@CustomTabsIntent.ColorScheme var colorScheme = CustomTabsIntent.COLOR_SCHEME_SYSTEM
+						@SuppressLint("SwitchIntDef")
+						when (AppCompatDelegate.getDefaultNightMode()) {
+							AppCompatDelegate.MODE_NIGHT_NO -> colorScheme = CustomTabsIntent.COLOR_SCHEME_LIGHT
+							AppCompatDelegate.MODE_NIGHT_YES -> colorScheme = CustomTabsIntent.COLOR_SCHEME_DARK
+						}
+
+						val colorSchemeParams = CustomTabColorSchemeParams.Builder()
+								.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+								.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+								.setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+								.build()
+
+						setColorSchemeParams(colorScheme, colorSchemeParams)
+					}
 					setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
 					addDefaultShareMenuItem()
 					setShowTitle(true)
