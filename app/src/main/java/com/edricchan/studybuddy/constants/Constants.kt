@@ -28,6 +28,7 @@ object Constants {
 	const val prefAppTheme = prefDarkTheme
 	const val prefLanguage = "pref_language"
 	const val prefUseCustomTabs = "pref_use_custom_tabs"
+	const val prefCustomTabsUseAppColorScheme = "pref_custom_tabs_use_app_color_scheme"
 	const val prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking"
 	const val prefDayNightLocationPermInfo = "pref_daynight_location_perm_info"
 	const val prefDayNightLocationNotice = "pref_daynight_location_notice"

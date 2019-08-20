@@ -402,6 +402,7 @@
 	<string name="pref_category_weekly_summary">Weekly summary</string>
 	<string name="pref_category_weekly_summary_prefs">Weekly summary preferences</string>
 	<string name="pref_check_for_update_frequency_title">Checking frequency</string>
+	<string name="pref_custom_tabs_use_app_color_scheme_title">Use app color scheme for in-app browser</string>
 	<string name="pref_dark_theme_title">Dark theme</string>
 
 	<string name="pref_daynight_grant_perm_title">Grant location permission</string>

@@ -804,7 +804,8 @@ class SharedUtils() {
 		 */
 		fun launchUri(context: Context, uri: Uri) {
 			val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-			launchUri(context, uri, preferences.getBoolean(Constants.prefUseCustomTabs, true))
+			launchUri(context, uri, preferences.getBoolean(Constants.prefUseCustomTabs, true),
+					preferences.getBoolean(Constants.prefCustomTabsUseAppColorScheme, true))
 		}
 
 		/**
@@ -812,14 +813,14 @@ class SharedUtils() {
 		 * @param context The context to be used to launch the intent of the [uri]
 		 * @param uri The URI to launch/open
 		 * @param useCustomTabs Whether to use Chrome Custom Tabs
-		 * @param useAppDarkTheme Whether to respect the app's dark theme
+		 * @param useAppColorScheme Whether to respect the app's color/colour scheme
 		 */
 		fun launchUri(context: Context, uri: Uri, useCustomTabs: Boolean = true,
-		              useAppDarkTheme: Boolean = true) {
+		              useAppColorScheme: Boolean = true) {
 			var customTabsIntent: CustomTabsIntent? = null
 			if (useCustomTabs) {
 				customTabsIntent = CustomTabsIntent.Builder().apply {
-					if (useAppDarkTheme) {
+					if (useAppColorScheme) {
 						@CustomTabsIntent.ColorScheme var colorScheme = CustomTabsIntent.COLOR_SCHEME_SYSTEM
 						@SuppressLint("SwitchIntDef")
 						when (AppCompatDelegate.getDefaultNightMode()) {
