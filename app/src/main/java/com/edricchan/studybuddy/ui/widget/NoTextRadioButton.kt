@@ -23,7 +23,8 @@ class NoTextRadioButton : AppCompatRadioButton {
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 			compoundPaddingLeft + compoundPaddingRight
 		} else {
-			if (radioButtonDrawable != null) radioButtonDrawable!!.intrinsicWidth else 0
+			radioButtonDrawable?.intrinsicWidth ?: 0
+//			if (radioButtonDrawable != null) radioButtonDrawable!!.intrinsicWidth else 0
 		}
 	}
 

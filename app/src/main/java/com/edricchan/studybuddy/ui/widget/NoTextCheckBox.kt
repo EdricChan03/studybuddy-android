@@ -23,7 +23,8 @@ class NoTextCheckBox : AppCompatCheckBox {
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 			compoundPaddingLeft + compoundPaddingRight
 		} else {
-			if (checkBoxButtonDrawable != null) checkBoxButtonDrawable!!.intrinsicWidth else 0
+			checkBoxButtonDrawable?.intrinsicWidth ?: 0
+//			if (checkBoxButtonDrawable != null) checkBoxButtonDrawable!!.intrinsicWidth else 0
 		}
 	}
 
