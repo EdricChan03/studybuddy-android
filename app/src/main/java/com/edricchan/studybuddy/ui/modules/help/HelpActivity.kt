@@ -63,7 +63,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				return true
 			}
 			R.id.action_send_feedback -> {
-				SharedUtils.launchUri(this, Constants.uriSendFeedback, preferences.getBoolean(Constants.prefUseCustomTabs, true))
+				SharedUtils.launchUri(this, Constants.uriSendFeedback)
 				return true
 			}
 			R.id.action_version -> {
@@ -75,7 +75,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				return true
 			}
 			R.id.action_source_code -> {
-				SharedUtils.launchUri(this, Constants.uriSrcCode, preferences.getBoolean(Constants.prefUseCustomTabs, true))
+				SharedUtils.launchUri(this, Constants.uriSrcCode)
 				return true
 			}
 			else -> return super.onOptionsItemSelected(item)
@@ -136,7 +136,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				// Update the adapter
 				val adapter = HelpArticleAdapter(helpArticles)
 				adapter.setOnItemClickListener { article, _ ->
-					SharedUtils.launchUri(activity, article.getArticleUri(), activity.preferences.getBoolean(Constants.prefUseCustomTabs, true))
+					SharedUtils.launchUri(activity, article.getArticleUri())
 				}
 				activity.helpFeaturedRecyclerView.adapter = adapter
 				activity.helpFeaturedRecyclerView.visibility = View.VISIBLE

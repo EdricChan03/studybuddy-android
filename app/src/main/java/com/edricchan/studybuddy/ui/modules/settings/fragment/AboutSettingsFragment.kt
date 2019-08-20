@@ -27,12 +27,12 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
 		findPreference<Preference>(Constants.prefUpdates)?.intent = Intent(activity, UpdatesActivity::class.java)
 		val appAuthor = findPreference<Preference>(Constants.prefAboutAppAuthor)
 		appAuthor?.setOnPreferenceClickListener {
-			SharedUtils.launchUri(context, appAuthorUrl, preferences.getBoolean(Constants.prefUseCustomTabs, true))
+			SharedUtils.launchUri(context, appAuthorUrl)
 			true
 		}
 		val appSrc = findPreference<Preference>(Constants.prefAboutSourceCode)
 		appSrc?.setOnPreferenceClickListener {
-			SharedUtils.launchUri(context, Constants.uriSrcCode, preferences.getBoolean(Constants.prefUseCustomTabs, true))
+			SharedUtils.launchUri(context, Constants.uriSrcCode)
 			true
 		}
 		val appVersion = findPreference<Preference>(Constants.prefAboutAppVersion)
