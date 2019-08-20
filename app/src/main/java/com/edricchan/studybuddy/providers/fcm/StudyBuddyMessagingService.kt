@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -62,6 +63,27 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 			} else {
 				// Use the default color
 				builder.color = ContextCompat.getColor(this, R.color.colorPrimary)
+			}
+
+			// Image support was added in FCM 20.0.0
+			if (remoteMessage.notification?.imageUrl != null) {
+				val thumbnailImageFutureTarget = Glide.with(this)
+						.asBitmap()
+						.load(remoteMessage.notification?.imageUrl)
+						.thumbnail()
+						.submit()
+				val imageFutureTarget = Glide.with(this)
+						.asBitmap()
+						.load(remoteMessage.notification?.imageUrl)
+						.submit()
+				builder.setLargeIcon(thumbnailImageFutureTarget.get())
+				builder.setStyle(NotificationCompat.BigPictureStyle()
+						.bigPicture(imageFutureTarget.get())
+						.bigLargeIcon(null))
+				Glide.with(this).apply {
+					clear(thumbnailImageFutureTarget)
+					clear(imageFutureTarget)
+				}
 			}
 
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
