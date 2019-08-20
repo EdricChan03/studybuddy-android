@@ -5,15 +5,14 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.CheckBox
-import android.widget.RadioButton
+import androidx.appcompat.widget.AppCompatRadioButton
 
 /**
- * An implementation of the [CheckBox], but without text
+ * An implementation of [AppCompatRadioButton], but without text
  *
  * See: [StackOverflow answer](https://stackoverflow.com/a/20374661/6782707)
  */
-class NoTextRadioButton : RadioButton {
+class NoTextRadioButton : AppCompatRadioButton {
 	private var radioButtonDrawable: Drawable? = null
 
 	constructor(context: Context?) : super(context)

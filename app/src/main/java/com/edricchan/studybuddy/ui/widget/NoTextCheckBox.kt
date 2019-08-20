@@ -5,14 +5,14 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.CheckBox
+import androidx.appcompat.widget.AppCompatCheckBox
 
 /**
- * An implementation of the [CheckBox], but without text
+ * An implementation of [AppCompatCheckBox], but without text
  *
  * See: [StackOverflow answer](https://stackoverflow.com/a/20374661/6782707)
  */
-class NoTextCheckBox : CheckBox {
+class NoTextCheckBox : AppCompatCheckBox {
 	private var checkBoxButtonDrawable: Drawable? = null
 
 	constructor(context: Context?) : super(context)
