@@ -88,7 +88,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					if (!isEnabled) {
 						isEnabled = true
 					}
-					summary = lastCheckedForUpdatesDate.toFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+					summary = lastCheckedForUpdatesDate.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 				} else {
 					// Disable preference as the app hasn't checked for updates yet
 					isEnabled = false
@@ -116,7 +116,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 					if (!isEnabled) {
 						isEnabled = true
 					}
-					summary = lastUpdatedDate.toFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+					summary = lastUpdatedDate.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 				} else {
 					// Disable preference as the app hasn't been updated yet
 					isEnabled = false

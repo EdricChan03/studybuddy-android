@@ -193,7 +193,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 								if (mTaskItem?.dueDate != null) {
 									val date = Date(mTaskItem!!.dueDate!!.toDate().time)
 //									textSelectedDate.text = format.format(date)
-									taskDueDateChip.text = date.toFormat(getString(R.string.date_format_pattern))
+									taskDueDateChip.text = date.toDateFormat(getString(R.string.date_format_pattern))
 									// Allow due date to be reset
 									taskDueDateChip.isCloseIconVisible = true
 								}

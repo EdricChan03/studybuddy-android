@@ -18,7 +18,7 @@ fun Long?.toDate(): Date? = this?.let { Date(it) }
  * @param format A format that [SimpleDateFormat] supports
  * @param locale The [Locale] to use
  * @see SimpleDateFormat
- * @see Date.toFormat
+ * @see Date.toDateFormat
  */
 fun Long.toDateFormat(format: String, locale: Locale = Locale.getDefault()) = SimpleDateFormat(format, locale).format(
 		Date(this))
@@ -28,7 +28,7 @@ fun Long.toDateFormat(format: String, locale: Locale = Locale.getDefault()) = Si
  * @param format A format that [SimpleDateFormat] supports
  * @param locale The [Locale] to use
  * @see SimpleDateFormat
- * @see Date.toFormat
+ * @see Date.toDateFormat
  */
 fun Long?.toDateFormat(format: String, locale: Locale = Locale.getDefault()) = this?.let {
 	SimpleDateFormat(format, locale).format(Date(it))
