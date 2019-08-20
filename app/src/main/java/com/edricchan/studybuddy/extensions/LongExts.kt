@@ -11,6 +11,8 @@ fun Long.toDate(): Date = Date(this)
 /**
  * Converts a [Long] to a [Date]
  */
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Use Long.toDate()")
 fun Long?.toDate(): Date? = this?.let { Date(it) }
 
 /**
