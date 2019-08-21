@@ -34,7 +34,8 @@
 			android:supportsRtl="true"
 			android:theme="@style/Theme.App"
 			tools:ignore="GoogleAppIndexingWarning"
-			tools:targetApi="o">
+			tools:targetApi="o"
+			android:fullBackupContent="@xml/backup_descriptor">
 		<meta-data
 				android:name="com.google.firebase.messaging.default_notification_icon"
 				android:resource="@drawable/ic_notification_studybuddy_24dp" />
