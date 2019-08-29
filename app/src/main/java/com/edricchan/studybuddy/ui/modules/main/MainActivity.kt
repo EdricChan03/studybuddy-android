@@ -133,7 +133,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 		val currentUser = auth.currentUser
 		val fs = FirebaseFirestore.getInstance()
 		if (currentUser != null) {
-			SharedUtils.setCrashlyticsUserTracking(this, currentUser)
+			if (!BuildConfig.DEBUG) {
+				// Crashlytics is disabled on debug builds
+				SharedUtils.setCrashlyticsUserTracking(this, currentUser)
+			}
 			// User specific topic
 			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.uid)
 			FirebaseInstanceId.getInstance().instanceId
