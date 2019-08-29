@@ -34,7 +34,7 @@ android {
 	kotlinOptions {
 		jvmTarget = "1.8"
 	}
-	buildToolsVersion '29.0.0'
+	buildToolsVersion '29.0.2'
 }
 
 dependencies {
@@ -64,7 +64,7 @@ dependencies {
 	implementation 'androidx.browser:browser:1.2.0-alpha07'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
-	implementation 'com.google.firebase:firebase-core:17.1.0'
+	implementation 'com.google.firebase:firebase-core:17.2.0'
 	implementation 'com.google.firebase:firebase-firestore:21.0.0'
 	implementation 'com.google.firebase:firebase-firestore-ktx:21.0.0'
 	implementation 'com.google.firebase:firebase-auth:19.0.0'
