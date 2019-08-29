@@ -66,6 +66,13 @@
 		<item name="android:background">?attr/actionBarItemBackground</item>
 	</style>
 
+	<!-- Styles for ImagePicker -->
+	<style name="Theme.App.ImagePicker" parent="Theme.App">
+		<item name="windowActionModeOverlay">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+
 	<!-- Workaround for rounded corners showing at the bottom of the bottom sheet -->
 	<!-- TODO: Remove this -->
 	<!--<style name="ThemeOverlay.App.BottomSheetDialog"

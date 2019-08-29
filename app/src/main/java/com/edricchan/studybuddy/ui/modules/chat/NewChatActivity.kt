@@ -78,6 +78,7 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 							ImagePicker.create(this@NewChatActivity)
 									.folderMode(true)
 									.single()
+									.theme(R.style.Theme_App_ImagePicker)
 									.start()
 						}
 						2 -> {
