@@ -18,7 +18,9 @@
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox
 		</item>
 		<!-- The bottom app bar style -->
-		<item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
+		<item name="bottomAppBarStyle">
+			@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface
+		</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
 		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
@@ -48,7 +50,9 @@
 		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox
 		</item>
 		<!-- The bottom app bar style -->
-		<item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
+		<item name="bottomAppBarStyle">
+			@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface
+		</item>
 		<!-- The font family of the app -->
 		<item name="android:fontFamily">@font/baloo</item>
 		<item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
@@ -61,8 +65,12 @@
 	</style>
 	<!-- ImageButton theme that more closely matches the Material specs. -->
 	<style name="Theme.App.ImageButton" parent="Widget.AppCompat.ImageButton">
-		<item name="android:layout_width" tools:ignore="PrivateResource">@dimen/mtrl_min_touch_target_size</item>
-		<item name="android:layout_height" tools:ignore="PrivateResource">@dimen/mtrl_min_touch_target_size</item>
+		<item name="android:layout_width" tools:ignore="PrivateResource">
+			@dimen/mtrl_min_touch_target_size
+		</item>
+		<item name="android:layout_height" tools:ignore="PrivateResource">
+			@dimen/mtrl_min_touch_target_size
+		</item>
 		<item name="android:background">?attr/actionBarItemBackground</item>
 	</style>
 
