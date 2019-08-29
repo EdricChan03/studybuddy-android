@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.chat.Chat
-import com.edricchan.studybuddy.utils.SharedUtils
 
 /**
  * Adapter class to represent a list of chats
@@ -57,7 +56,7 @@ class ChatsAdapter(
 			itemDescTextView.setText(R.string.frag_chat_default_group_desc)
 		}
 
-		if (item.icon != null && item.icon.isNotEmpty()) {
+		if (item.icon != null) {
 			// Reset to group pic style
 			itemIconImageView.setImageDrawable(null)
 //			if (
