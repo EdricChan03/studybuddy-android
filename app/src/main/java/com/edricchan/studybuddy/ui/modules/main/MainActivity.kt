@@ -136,6 +136,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 			if (!BuildConfig.DEBUG) {
 				// Crashlytics is disabled on debug builds
 				SharedUtils.setCrashlyticsUserTracking(this, currentUser)
+			} else {
+				Log.d(TAG, "Crashlytics user tracking is disabled on debug builds.")
 			}
 			// User specific topic
 			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.uid)
