@@ -61,8 +61,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
 			val parameters = intent.extras
 			if (parameters?.getString("action") != null) {
-				val action = parameters.getString("action")
-				when (action) {
+				when (val action = parameters.getString("action")) {
 					"deleteAccount", "delete-account" -> deleteAccount()
 					"signOut", "sign-out" -> signOut()
 					"updateEmail", "update-email" -> updateEmail()
