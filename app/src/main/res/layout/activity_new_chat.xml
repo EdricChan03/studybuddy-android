@@ -21,10 +21,12 @@
 					android:layout_margin="@dimen/activity_horizontal_margin"
 					android:orientation="vertical">
 
-				<androidx.appcompat.widget.AppCompatImageButton
+				<com.google.android.material.floatingactionbutton.FloatingActionButton
 						android:id="@+id/imageButtonChatIconPicker"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:layout_gravity="center_horizontal"
+						android:elevation="0dp"
 						app:srcCompat="@drawable/ic_add_photo_alternate_outline_24dp" />
 
 				<com.google.android.material.textfield.TextInputLayout

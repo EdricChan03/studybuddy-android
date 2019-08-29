@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatImageButton
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
@@ -23,6 +22,7 @@ import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.esafirm.imagepicker.features.ImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -61,7 +61,7 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 			))
 		}
 
-		val chatIconImageButton = findViewById<AppCompatImageButton>(R.id.imageButtonChatIconPicker)
+		val chatIconImageButton = findViewById<FloatingActionButton>(R.id.imageButtonChatIconPicker)
 		chatIconImageButton.setOnClickListener {
 			// TODO: Show a dialog with options to choose from library or upload
 			MaterialAlertDialogBuilder(this@NewChatActivity).apply {
