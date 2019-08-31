@@ -140,6 +140,11 @@
 						android:scheme="https" />
 			</intent-filter>
 		</activity>
+		<!-- Icon picker -->
+		<activity
+				android:name=".ui.widget.iconpicker.IconPickerActivity"
+				android:label="@string/title_activity_icon_picker" />
+
 		<provider
 				android:name="androidx.core.content.FileProvider"
 				android:authorities="com.edricchan.studybuddy.provider"

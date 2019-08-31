@@ -521,6 +521,7 @@
 	<string name="tips_empty_state_head">No tips as of now</string>
 
 	<string name="title_activity_account">Account</string>
+	<string name="title_activity_icon_picker">Choose an icon&#8230;</string>
 	<string name="title_activity_debug">Debug</string>
 	<string name="title_activity_debug_modal_bottom_sheet">Modal Bottom Sheet Debug</string>
 
@@ -613,4 +614,18 @@
 	<string name="chips_text_input_layout_default_hint">Enter something&#8230;</string>
 
 	<string name="select_date_chip_default_text">Select a date&#8230;</string>
+
+	<string name="icon_picker_info_header_title">Icon info</string>
+	<string name="icon_picker_info_name_title">Name</string>
+	<string name="icon_picker_info_name_default"><em>&lt;No name specified&gt;</em></string>
+	<string name="icon_picker_info_desc_title">Description</string>
+	<string name="icon_picker_info_desc_default"><em>&lt;No description specified&gt;</em></string>
+	<string name="icon_picker_info_author_title">Author</string>
+	<string name="icon_picker_info_author_default"><em>&lt;No author specified&gt;</em></string>
+	<string name="icon_picker_info_about_author_title">About the author</string>
+	<string name="icon_picker_info_about_author_default"><em>&lt;No info was specified&gt;</em></string>
+	<string name="icon_picker_info_created_at_title">Created at</string>
+	<string name="icon_picker_info_created_at_default"><em>Unknown date</em></string>
+	<string name="icon_picker_info_last_modified_title">Last modified</string>
+	<string name="icon_picker_info_last_modified_default"><em>Unknown date</em></string>
 </resources>

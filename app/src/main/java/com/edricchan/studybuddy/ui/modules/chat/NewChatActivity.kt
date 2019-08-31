@@ -17,9 +17,11 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.interfaces.Visibility
 import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.edricchan.studybuddy.ui.widget.iconpicker.IconPickerActivity
 import com.esafirm.imagepicker.features.ImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,6 +36,7 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 
 	private lateinit var auth: FirebaseAuth
 	private lateinit var firestore: FirebaseFirestore
+	private val ICON_PICKER_RESULT = 100
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -71,7 +74,7 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 						0 -> {
 							// Choose from library
 							// TODO: Add activity for this functionality
-
+							startActivityForResult<IconPickerActivity>(ICON_PICKER_RESULT)
 						}
 						1 -> {
 							// Upload
@@ -174,6 +177,8 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
 			// TODO: Add actual functionality
 			val images = ImagePicker.getImages(data)
 			Log.d(TAG, "Selected images: ${images.joinToString()}")
+		} else if (requestCode == ICON_PICKER_RESULT) {
+			Log.d(TAG, "Icon picker returned!")
 		}
 		super.onActivityResult(requestCode, resultCode, data)
 	}
