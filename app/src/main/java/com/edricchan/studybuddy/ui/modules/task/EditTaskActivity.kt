@@ -14,10 +14,10 @@ import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.picker.CalendarConstraints
-import com.google.android.material.picker.DateValidatorPointForward
-import com.google.android.material.picker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

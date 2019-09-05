@@ -18,10 +18,10 @@ import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.picker.CalendarConstraints
-import com.google.android.material.picker.DateValidatorPointForward
-import com.google.android.material.picker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
