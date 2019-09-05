@@ -9,14 +9,18 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
+import com.edricchan.studybuddy.extensions.toDateFormat
+import com.edricchan.studybuddy.extensions.toTimestamp
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.Month
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -65,10 +69,15 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 			taskDueDateChip.setOnClickListener {
 				val constraints = CalendarConstraints.Builder()
 						.setValidator(DateValidatorPointForward())
+						.setStart(Month.today())
 						.build()
-				val picker = MaterialDatePicker.Builder.datePicker()
-						.setCalendarConstraints(constraints)
-						.build()
+				val picker = MaterialDatePicker.Builder.datePicker().apply {
+					setCalendarConstraints(constraints)
+					if (mTaskDate != null) {
+						// Set the initial selection
+						setSelection(mTaskDate?.time)
+					}
+				}.build()
 				picker.addOnPositiveButtonClickListener { selection ->
 					mTaskDate = Date(selection)
 					// Produces <day name>, <month> <year>
