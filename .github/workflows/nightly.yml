@@ -18,7 +18,8 @@ jobs:
         java-version: 1.8
     - name: Install Homebrew dependencies
       uses: artemnovichkov/action-homebrew@0.1.0
-      args: bundle
+      with:
+        args: bundle
     - name: Decrypt keystore
       run: git secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
     - name: Build app
