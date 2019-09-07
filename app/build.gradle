@@ -14,10 +14,10 @@ buildProperties {
 }
 
 /**
- * Gets the time when the app was built
+ * Gets the time when the app was built (Follows the ISO 8601 standard)
  */
 static def getBuildTime() {
-	return new Date().format("dd-MM-yyyy-HHmmss") // E.g. 07-09-2019-180540
+	return new Date().format("yyyy-MM-dd-HHmmss") // E.g. 2019-09-07-180540
 }
 
 android {
@@ -92,6 +92,7 @@ dependencies {
 	androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
 		exclude group: "com.android.support", module: "support-annotations"
 	})
+	androidTestImplementation 'androidx.test:core:1.2.0'
 	// AndroidX Core
 	implementation 'androidx.core:core:1.2.0-alpha04'
 	implementation 'androidx.core:core-ktx:1.2.0-alpha04'
