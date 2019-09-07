@@ -16,12 +16,17 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install Homebrew
+      run: |
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+        test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+        test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+        echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
     - name: Install Homebrew dependencies
-      uses: artemnovichkov/action-homebrew@0.1.0
-      with:
-        args: bundle
+      run: brew bundle
     - name: Decrypt keystore
-      run: git secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
+      run: git-secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
     - name: Build app
       run: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
     - name: Create nightly tag
