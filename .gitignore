@@ -24,3 +24,8 @@ google-services.json
 
 # Node modules
 node_modules
+.gitsecret/keys/random_seed
+!*.secret
+
+# Keys for building releases of the app
+*.jks
