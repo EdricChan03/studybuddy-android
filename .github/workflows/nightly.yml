@@ -28,8 +28,10 @@ jobs:
         echo $PATH
     - name: Install Homebrew dependencies
       run: brew bundle
+      shell: bash # Explicitly specify shell as the default option specifies that no .profile file should be used
     - name: Decrypt keystore
       run: git-secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
+      shell: bash # See above comment
     - name: Build app
       run: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
     - name: Create nightly tag
