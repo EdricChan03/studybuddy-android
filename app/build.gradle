@@ -5,6 +5,20 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "io.fabric"
 apply plugin: "com.google.firebase.firebase-perf"
 apply plugin: "com.google.android.gms.oss-licenses-plugin"
+apply plugin: "com.novoda.build-properties"
+
+buildProperties {
+	secrets {
+		using rootProject.file("secret_keys.properties")
+	}
+}
+
+/**
+ * Gets the time when the app was built
+ */
+static def getBuildTime() {
+	return new Date().format("dd-MM-yyyy-HHmmss") // E.g. 07-09-2019-180540
+}
 
 android {
 	compileSdkVersion 29
@@ -20,11 +34,29 @@ android {
 		// Enable support library for vector drawables
 		vectorDrawables.useSupportLibrary true
 	}
+
+	signingConfigs {
+		release {
+			storeFile rootProject.file("studybuddy.jks")
+		}
+	}
+
 	buildTypes {
+		debug {
+			debuggable true // Allow app to be debuggable
+			applicationIdSuffix ".debug"
+		}
 		release {
 			minifyEnabled true // Enable minification
 			shrinkResources true // Shrink resources to reduce APK size
 			proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+			signingConfig signingConfigs.release
+		}
+		nightly {
+			// Nightly releases
+			initWith release
+			applicationIdSuffix ".nightly"
+			versionNameSuffix "-NIGHTLY-${getBuildTime()}"
 		}
 	}
 	compileOptions {
@@ -35,6 +67,20 @@ android {
 		jvmTarget = "1.8"
 	}
 	buildToolsVersion '29.0.2'
+
+	def isRunningOnActions = System.getenv("CI") == "true"
+
+	if (isRunningOnActions) {
+		// Configure keystore
+		signingConfigs.release.storePassword = System.getenv("APP_KEYSTORE_PASSWORD")
+		signingConfigs.release.keyAlias = System.getenv("APP_KEYSTORE_ALIAS")
+		signingConfigs.release.keyPassword = System.getenv("APP_KEYSTORE_ALIAS_PASSWORD")
+	} else if (buildProperties.secrets != null) {
+		// Building locally
+		signingConfigs.release.storePassword = buildProperties.secrets['keystore_password'].string
+		signingConfigs.release.keyAlias = buildProperties.secrets['keystore_alias'].string
+		signingConfigs.release.keyPassword = buildProperties.secrets['keystore_alias_password'].string
+	}
 }
 
 dependencies {
