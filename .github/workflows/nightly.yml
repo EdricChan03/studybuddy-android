@@ -19,13 +19,13 @@ jobs:
     - name: Setup Homebrew
       uses: docker://linuxbrew/brew
     - name: Install Homebrew dependencies
-      runs: brew bundle
+      run: brew bundle
     - name: Decrypt keystore
-      runs: git secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
+      run: git secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
     - name: Build app
-      runs: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
+      run: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
     - name: Create nightly tag
-      runs: |
+      run: |
         recent_tag=$(git describe --tags $(git ls-remote --tags -q | awk '{print $2}' | sed -e "s/refs\/tags\///" \
         | grep -o 'v[0-9.]*[^-NIGHTLY]' | sort -u | tail -1))
         tag_name="$recent_tag-NIGHTLY-$(date +'%Y-%m-%d-%H%M%S')"
