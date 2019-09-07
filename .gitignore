@@ -29,3 +29,6 @@ node_modules
 
 # Keys for building releases of the app
 *.jks
+
+# Secret keys
+secret_keys.properties
