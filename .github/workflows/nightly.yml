@@ -24,6 +24,8 @@ jobs:
         test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
         echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
         sudo apt-get install build-essential curl file git
+        echo "Current path:"
+        echo $PATH
     - name: Install Homebrew dependencies
       run: brew bundle
     - name: Decrypt keystore
