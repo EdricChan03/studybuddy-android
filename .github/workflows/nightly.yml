@@ -15,13 +15,10 @@ jobs:
     - name: Setup Java
       uses: actions/setup-java@v1
       with:
-        java-version: '1.8.x'
-    - name: Get Android SDK tools
-      uses: docker://runmymind/docker-android-sdk:alpine-standalone # About 2.5 GB :O
-    - name: Setup Homebrew
-      uses: docker://linuxbrew/brew
+        java-version: 1.8
     - name: Install Homebrew dependencies
-      run: brew bundle
+      uses: artemnovichkov/action-homebrew@0.1.0
+      args: bundle
     - name: Decrypt keystore
       run: git secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
     - name: Build app
