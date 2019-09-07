@@ -123,9 +123,11 @@
 				android:noHistory="true"
 				android:theme="@android:style/Theme.NoDisplay">
 			<intent-filter>
-				<action android:name="android.intent.action.VIEW"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-				<category android:name="android.intent.category.BROWSABLE"/>
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+
 				<data
 						android:host="studybuddy.page.link"
 						android:scheme="https" />
@@ -147,7 +149,7 @@
 
 		<provider
 				android:name="androidx.core.content.FileProvider"
-				android:authorities="com.edricchan.studybuddy.provider"
+				android:authorities="${applicationId}.provider"
 				android:exported="false"
 				android:grantUriPermissions="true">
 			<meta-data

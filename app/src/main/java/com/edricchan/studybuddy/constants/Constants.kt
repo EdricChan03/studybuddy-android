@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.constants
 
 import android.net.Uri
+import com.edricchan.studybuddy.BuildConfig
 
 object Constants {
 	// Preference headers
@@ -112,5 +113,5 @@ object Constants {
 	/**
 	 * The authority to be used for [androidx.core.content.FileProvider.getUriForFile]
 	 */
-	const val fileProviderAuthority = "com.edricchan.studybuddy.provider"
+	const val fileProviderAuthority = "${BuildConfig.APPLICATION_ID}.provider"
 }

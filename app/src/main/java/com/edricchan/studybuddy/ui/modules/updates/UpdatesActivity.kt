@@ -164,7 +164,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 					setDataAndType(
 							FileProvider.getUriForFile(
 									applicationContext,
-									"com.edricchan.studybuddy.provider",
+									"${BuildConfig.APPLICATION_ID}.provider",
 									File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)}/$fileName")
 							),
 							MimeTypeConstants.appPackageArchiveMime
@@ -200,7 +200,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 			}
 		} else {
 			val installIntent = Intent(Intent.ACTION_VIEW).apply {
-				setDataAndType(FileProvider.getUriForFile(applicationContext, "com.edricchan.studybuddy.provider", File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)), MimeTypeConstants.appPackageArchiveMime)
+				setDataAndType(FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)), MimeTypeConstants.appPackageArchiveMime)
 				addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_GRANT_READ_URI_PERMISSION)
 			}
 			startActivity(installIntent)
