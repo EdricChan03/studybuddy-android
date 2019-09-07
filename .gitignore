@@ -20,7 +20,9 @@
 .externalNativeBuild
 
 # Ignore the Google Services config file (This should have been done WAY earlier... Oops)
-google-services.json
+# EDIT: This can be added to any public opensource repos (it can even be accessed if someone
+# extracts the APK)
+#google-services.json
 
 # Node modules
 node_modules
