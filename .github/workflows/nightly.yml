@@ -8,7 +8,7 @@ on: watch # TODO: Remove this once workflow has been tested
 jobs:
   deploy:
 
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest # TODO: Move back to Ubuntu once Android 29 support has been added
     
     steps:
     - uses: actions/checkout@v1
