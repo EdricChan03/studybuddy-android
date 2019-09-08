@@ -18,9 +18,10 @@ jobs:
         java-version: 1.8
     - name: Install Android SDK Platform 29 and Build-Tools 29.0.2
       run: |
-        sudo apt update && sudo apt install android-sdk
-        echo "Location of Android SDK:"
-        dpkg -L android-sdk
+        sudo apt-get update && sudo apt install android-sdk
+        echo "Adding Android SDK to PATH..."
+        echo "export PATH=$PATH:/usr/lib/android-sdk/tools/bin" >> ~/.profile
+        source ~/.profile
         sudo sdkmanager "build-tools;29.0.2" "platforms;android-29"
     - name: Install GPG2
       run: sudo apt-get install gnupg2
