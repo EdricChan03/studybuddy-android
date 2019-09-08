@@ -27,9 +27,13 @@ jobs:
         echo "Current path:"
         echo $PATH
     - name: Install Homebrew dependencies
-      run: brew bundle
+      run: |
+        source ~/.profile
+        brew bundle
     - name: Decrypt keystore
-      run: git-secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
+      run: |
+        source ~/.profile
+        git-secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
     - name: Build app
       run: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
     - name: Create nightly tag
