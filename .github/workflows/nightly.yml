@@ -16,6 +16,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install needed dependencies
+      run: sudo apt-get install gpg2
     - name: Install Homebrew
       run: |
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
@@ -34,6 +36,8 @@ jobs:
       run: |
         source ~/.profile
         git-secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
+      env:
+        SECRETS_GPG_COMMAND: gpg2
     - name: Build app
       run: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
     - name: Create nightly tag
