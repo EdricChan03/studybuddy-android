@@ -121,6 +121,8 @@
 	<!-- The title of the third item in the sort by modal bottom sheet in the task fragment. -->
 	<string name="sort_by_bottomsheet_title_desc_title">Title (descending)</string>
 
+	<string name="menu_frag_task_import_from_title">Import from&#8230;</string>
+
 	<!-- The title of the source code menu item in the help activity's menu. -->
 	<string name="menu_help_src_code_title">View source code</string>
 
