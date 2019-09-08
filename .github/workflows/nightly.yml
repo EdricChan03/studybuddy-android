@@ -35,7 +35,7 @@ jobs:
     - name: Decrypt keystore
       run: |
         source ~/.profile
-        git-secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }}
+        git-secret reveal -p ${{ secrets.GIT_SECRET_PASSPHRASE }} -v
       env:
         SECRETS_GPG_COMMAND: gpg2
     - name: Build app
