@@ -28,12 +28,12 @@ jobs:
         echo "Available Platform Tools:"
         ls -hAFl --color=auto ~/android-sdk/tools/bin
         echo "Adding Android SDK to PATH..."
-        echo "# Export the Android SDK path" >> ~/.profile
-        echo "export ANDROID_HOME=$HOME/android-sdk" >> ~/.profile
-        echo "export PATH=$PATH:$ANDROID_HOME/tools/bin" >> ~/.profile
-        echo -e "export PATH=$PATH:$ANDROID_HOME/platform-tools" >> ~/.profile
-        echo -e "\n# Fixes sdkmanager error with java versions higher than java 8" >> ~/.profile
-        echo "export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'" >> ~/.profile
+        echo '# Export the Android SDK path' >> ~/.profile
+        echo 'export ANDROID_HOME=$HOME/android-sdk' >> ~/.profile
+        echo 'export PATH=$PATH:$ANDROID_HOME/tools/bin' >> ~/.profile
+        echo -e "export PATH=$PATH:$ANDROID_HOME/platform-tools' >> ~/.profile
+        echo -e '\n# Fixes sdkmanager error with java versions higher than java 8' >> ~/.profile
+        echo 'export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"' >> ~/.profile
         echo "Result of cat ~/.profile:"
         cat ~/.profile
         source ~/.profile
