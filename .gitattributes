@@ -1,0 +1,2 @@
+#pattern  filter=crypt diff=crypt
+*.jks filter=crypt diff=crypt

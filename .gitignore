@@ -30,7 +30,7 @@ node_modules
 !*.secret
 
 # Keys for building releases of the app
-*.jks
+# *.jks
 
 # Secret keys
 secret_keys.properties
