@@ -40,6 +40,8 @@ jobs:
         SECRETS_GPG_COMMAND: gpg2
     - name: Build app
       run: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
+      env:
+        CI: ${{ true }}
     - name: Create nightly tag
       run: |
         recent_tag=$(git describe --tags $(git ls-remote --tags -q | awk '{print $2}' | sed -e "s/refs\/tags\///" \
