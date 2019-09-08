@@ -220,6 +220,16 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 										modalBottomSheet.dismiss()
 									}
 								}),
+						ModalBottomSheetItem(title = getString(R.string.menu_frag_task_import_from_title),
+								visible = false, // Hide option for now
+								icon = R.drawable.ic_import_24dp,
+								onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
+									override fun onItemClick(item: ModalBottomSheetItem) {
+										TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+									}
+
+								}
+								),
 						ModalBottomSheetItem(title = getString(R.string.menu_settings_title),
 								icon = R.drawable.ic_settings_outline_24dp,
 								onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
@@ -441,6 +451,10 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 		modalBottomSheet.setItems(items)
 		modalBottomSheet.headerTitle = "Sort tasks by..."
 		modalBottomSheet.show(requireFragmentManager(), modalBottomSheet.tag)
+	}
+
+	private fun showImportFromOptions() {
+
 	}
 
 	private fun newTaskActivity() {
