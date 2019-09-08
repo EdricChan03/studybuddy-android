@@ -26,16 +26,14 @@ class IconPickerAdapter(
 	private var itemType: Int = HolderLayout.LIST.itemType
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-		val holder: RecyclerView.ViewHolder
-		when (viewType) {
-			HolderLayout.LIST.itemType -> holder = ListHolder(LayoutInflater.from(parent.context)
+		return when (viewType) {
+			HolderLayout.LIST.itemType -> ListHolder(LayoutInflater.from(parent.context)
 					.inflate(R.layout.item_list_icon, parent, false))
-			HolderLayout.GRID.itemType -> holder = GridHolder(LayoutInflater.from(parent.context)
+			HolderLayout.GRID.itemType -> GridHolder(LayoutInflater.from(parent.context)
 					.inflate(R.layout.item_grid_icon, parent, false))
-			else -> holder = ListHolder(LayoutInflater.from(parent.context)
+			else -> ListHolder(LayoutInflater.from(parent.context)
 					.inflate(R.layout.item_list_icon, parent, false))
 		}
-		return holder
 	}
 
 	override fun getItemCount(): Int {
