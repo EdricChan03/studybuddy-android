@@ -43,7 +43,7 @@ jobs:
         echo "Accepting licenses..."
         yes | sdkmanager --licenses
         echo "Installing Android SDK Platform 29 and Build-Tools 29.0.2 with sdkmanager..."
-        sdkmanager "build-tools;29.0.2" "platforms;android-29"
+        sdkmanager "build-tools;29.0.2" "platforms;android-29" | grep -v = || true
     - name: Install GPG2
       run: sudo apt-get install gnupg2
     - name: Install Homebrew
@@ -67,7 +67,9 @@ jobs:
       env:
         SECRETS_GPG_COMMAND: gpg2
     - name: Build app
-      run: ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
+      run: |
+        source ~/.profile
+        ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
       env:
         CI: ${{ true }}
     - name: Create nightly tag
