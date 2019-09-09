@@ -41,7 +41,7 @@ jobs:
         echo "Current PATH:"
         echo $PATH
         echo "Installing Android SDK Platform 29 and Build-Tools 29.0.2 with sdkmanager..."
-        sudo sdkmanager "build-tools;29.0.2" "platforms;android-29"
+        sdkmanager "build-tools;29.0.2" "platforms;android-29"
     - name: Install GPG2
       run: sudo apt-get install gnupg2
     - name: Install Homebrew
