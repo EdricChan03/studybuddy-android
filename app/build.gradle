@@ -14,9 +14,9 @@ buildProperties {
 }
 
 /**
- * Gets the time when the app was built (Follows the ISO 8601 standard)
+ * Gets the time when the app was built as a string (Follows the ISO 8601 standard)
  */
-static def getBuildTime() {
+static def getBuildTimeString() {
 	return new Date().format("yyyy-MM-dd-HHmmss") // E.g. 2019-09-07-180540
 }
 
@@ -33,6 +33,8 @@ android {
 		multiDexEnabled true
 		// Enable support library for vector drawables
 		vectorDrawables.useSupportLibrary true
+		// Can be accessed with BuildConfig.BUILD_TIME
+		buildConfigLong 'BUILD_TIME', System.currentTimeMillis()
 	}
 
 	signingConfigs {
@@ -56,7 +58,7 @@ android {
 			// Nightly releases
 			initWith release
 			applicationIdSuffix ".nightly"
-			versionNameSuffix "-NIGHTLY-${getBuildTime()}"
+			versionNameSuffix "-NIGHTLY-$buildTimeString"
 		}
 	}
 	compileOptions {
