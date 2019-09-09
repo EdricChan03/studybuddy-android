@@ -19,7 +19,7 @@ jobs:
     - name: Install Android SDK Platform 29 and Build-Tools 29.0.2
       run: |
         cd
-        wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+        wget -nv https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
         unzip sdk-tools-linux-4333796.zip
         rm sdk-tools-linux-4333796.zip
         mkdir android-sdk
@@ -30,8 +30,7 @@ jobs:
         echo "Adding Android SDK to PATH..."
         echo '# Export the Android SDK path' >> ~/.profile
         echo 'export ANDROID_HOME=$HOME/android-sdk' >> ~/.profile
-        echo 'export PATH=$PATH:$ANDROID_HOME/tools/bin' >> ~/.profile
-        echo -e 'export PATH=$PATH:$ANDROID_HOME/platform-tools' >> ~/.profile
+        echo 'PATH=$PATH:$ANDROID_HOME/tools/bin' >> ~/.profile
         echo -e '\n# Fixes sdkmanager error with java versions higher than java 8' >> ~/.profile
         echo 'export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"' >> ~/.profile
         echo "Result of cat ~/.profile:"
