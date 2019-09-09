@@ -40,6 +40,8 @@ jobs:
         source ~/.profile
         echo "Current PATH:"
         echo $PATH
+        echo "Accepting licenses..."
+        yes | sdkmanager --licenses
         echo "Installing Android SDK Platform 29 and Build-Tools 29.0.2 with sdkmanager..."
         sudo env "PATH=$PATH" sdkmanager "build-tools;29.0.2" "platforms;android-29"
     - name: Install GPG2
