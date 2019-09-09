@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.Group
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.R
@@ -65,6 +66,8 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 				}
 
 		if (isLoggedIn) {
+			headerView.findViewById<Group>(R.id.userLoggedInGroup).visibility = View.VISIBLE
+			headerView.findViewById<Group>(R.id.noUserLoggedInGroup).visibility = View.GONE
 			if (displayName != null) headerView.findViewById<TextView>(R.id.userName).text = displayName
 			if (email != null) headerView.findViewById<TextView>(R.id.userEmail).text = email
 			if (photoUrl != null) {
@@ -72,6 +75,9 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 						.load(photoUrl)
 						.into(headerView.findViewById(R.id.userAvatar))
 			}
+		} else {
+			headerView.findViewById<Group>(R.id.noUserLoggedInGroup).visibility = View.VISIBLE
+			headerView.findViewById<Group>(R.id.userLoggedInGroup).visibility = View.GONE
 		}
 	}
 
