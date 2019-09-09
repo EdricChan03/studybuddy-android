@@ -19,8 +19,10 @@ jobs:
     - name: Install Android SDK Platform 29 and Build-Tools 29.0.2
       run: |
         cd
+        echo "Current working directory:"
+        pwd
         wget -nv https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-        unzip sdk-tools-linux-4333796.zip
+        unzip -q sdk-tools-linux-4333796.zip
         rm sdk-tools-linux-4333796.zip
         mkdir android-sdk
         mv tools android-sdk/tools
@@ -36,6 +38,8 @@ jobs:
         echo "Result of cat ~/.profile:"
         cat ~/.profile
         source ~/.profile
+        echo "Current PATH:"
+        echo $PATH
         echo "Installing Android SDK Platform 29 and Build-Tools 29.0.2 with sdkmanager..."
         sudo sdkmanager "build-tools;29.0.2" "platforms;android-29"
     - name: Install GPG2
