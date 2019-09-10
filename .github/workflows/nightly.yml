@@ -72,6 +72,9 @@ jobs:
         ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
       env:
         CI: ${{ true }}
+        APP_KEYSTORE_PASSWORD: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+        APP_KEYSTORE_ALIAS: ${{ secrets.APP_KEYSTORE_ALIAS }}
+        APP_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
     - name: Create nightly tag
       run: |
         recent_tag=$(git describe --tags $(git ls-remote --tags -q | awk '{print $2}' | sed -e "s/refs\/tags\///" \
