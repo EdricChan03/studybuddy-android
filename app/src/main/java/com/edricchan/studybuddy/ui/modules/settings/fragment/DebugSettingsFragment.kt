@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
@@ -31,6 +32,7 @@ import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
+import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
@@ -167,6 +169,8 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_debug, rootKey)
+		findPreference<Preference>(Constants.debugUpdatesUpdateMetadata)?.fragment = DebugUpdateInfoSettingsFragment::class.java.name
+		findPreference<Preference>(Constants.debugOtherModalBottomSheetTesting)?.intent = Intent(context, DebugModalBottomSheetActivity::class.java)
 		findPreference<Preference>(Constants.debugDeviceInfo)?.setOnPreferenceClickListener {
 			showDeviceInfoDialog()
 			true

@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
@@ -8,6 +9,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -26,7 +28,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
 				true
 			}
 		}
+		initPreferences()
 		updateHeaderSummaries(preferences!!.getBoolean(Constants.prefShowHeaderSummary, false))
+	}
+
+	// Initialises the preferences as the app ID can't be hardcoded in the XML file due to the suffixes
+	private fun initPreferences() {
+		findPreference<Preference>(Constants.prefHeaderGeneral)?.fragment = GeneralSettingsFragment::class.java.name
+		findPreference<Preference>(Constants.prefHeaderTodo)?.fragment = TodoSettingsFragment::class.java.name
+		findPreference<Preference>(Constants.prefHeaderSync)?.fragment = SyncSettingsFragment::class.java.name
+		findPreference<Preference>(Constants.prefHeaderDebug)?.fragment = DebugSettingsFragment::class.java.name
+		findPreference<Preference>(Constants.prefHeaderUpdates)?.fragment = UpdateSettingsFragment::class.java.name
+		findPreference<Preference>(Constants.prefHeaderAbout)?.fragment = AboutSettingsFragment::class.java.name
+		findPreference<Preference>(Constants.prefHeaderAccount)?.intent = Intent(context, AccountActivity::class.java)
 	}
 
 	private fun updateHeaderSummaries(showHeaderSummaries: Boolean) {

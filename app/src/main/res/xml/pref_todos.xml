@@ -8,9 +8,9 @@
 			app:key="pref_todo_default_sort"
 			app:title="@string/pref_todo_default_sort_title"
 			app:useSimpleSummaryProvider="true"/>
+	<!-- Note: This preference will have its fragment defined programmatically -->
 	<SwitchPreferenceCompat
 			app:defaultValue="true"
-			app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.todo.WeeklySummarySettingsFragment"
 			app:key="pref_weekly_summary_enabled"
 			app:summaryOff="@string/pref_weekly_summary_enabled_summary_off"
 			app:summaryOn="@string/pref_weekly_summary_enabled_summary_on"

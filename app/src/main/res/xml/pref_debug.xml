@@ -49,8 +49,8 @@
 				app:key="debug_updates_custom_json_url"
 				app:title="@string/debug_activity_updates_set_custom_json_url_title"
 				app:useSimpleSummaryProvider="true"/>
+		<!-- Note: This preference will have its fragment defined programmatically -->
 		<Preference
-				app:fragment="com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment$DebugUpdateInfoSettingsFragment"
 				app:icon="@drawable/ic_info_outline_24dp"
 				app:key="debug_updates_update_metadata"
 				app:title="@string/debug_activity_updates_update_metadata_title"/>
@@ -67,14 +67,11 @@
 				app:icon="@drawable/ic_delete_outline_24dp"
 				app:key="debug_other_clear_app_settings"
 				app:title="@string/debug_activity_other_clear_app_settings_title"/>
+		<!-- Note: This preference will have its intent defined programmatically -->
 		<Preference
 				app:icon="@drawable/ic_bottom_sheets_24dp"
 				app:key="debug_other_modal_bottom_sheet_testing"
 				app:summary="@string/debug_activity_other_modal_bottom_sheet_testing_summary"
-				app:title="@string/debug_activity_other_modal_bottom_sheet_testing_title">
-			<intent
-					android:targetClass="com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity"
-					android:targetPackage="com.edricchan.studybuddy"/>
-		</Preference>
+				app:title="@string/debug_activity_other_modal_bottom_sheet_testing_title" />
 	</PreferenceCategory>
 </androidx.preference.PreferenceScreen>
