@@ -75,22 +75,8 @@ jobs:
         APP_KEYSTORE_PASSWORD: ${{ secrets.APP_KEYSTORE_PASSWORD }}
         APP_KEYSTORE_ALIAS: ${{ secrets.APP_KEYSTORE_ALIAS }}
         APP_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
-    - name: Create nightly tag
-      run: |
-        recent_tag=$(git describe --tags $(git ls-remote --tags -q | awk '{print $2}' | sed -e "s/refs\/tags\///" \
-        | grep -o 'v[0-9.]*[^-NIGHTLY]' | sort -u | tail -1))
-        tag_name="$recent_tag-NIGHTLY-$(date +'%Y-%m-%d-%H%M%S')"
-        if git rev-parse "$tag_name" >/dev/null 2>&1
-        then
-          echo "##[debug]Skipping creation of nightly tag as nightly tag already exists."
-        else
-          git tag $tag_name
-          echo "Pushing tag to origin..."
-          git push origin $tag_name
-        fi
-    - name: Release
-      uses: docker://softprops/action-gh-release
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
       with:
-        files: app/build/outputs/apk/nightly/app-nightly.apk
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: app-nightly.apk
+        path: app/build/outputs/apk/nightly/app-nightly.apk
