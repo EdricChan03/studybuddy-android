@@ -2,7 +2,7 @@ name: Nightly releases
 
 on:
   schedule:
-    cron: "0 0 * * *" # Executes every day at 12 midnight UTC
+    - cron: "0 0 * * *" # Executes every day at 12 midnight UTC
 # on: push # TODO: Remove this once workflow has been tested
 
 jobs:
