@@ -33,8 +33,6 @@ android {
 		multiDexEnabled true
 		// Enable support library for vector drawables
 		vectorDrawables.useSupportLibrary true
-		// Can be accessed with BuildConfig.BUILD_TIME
-		buildConfigLong 'BUILD_TIME', System.currentTimeMillis()
 	}
 
 	signingConfigs {
@@ -47,12 +45,22 @@ android {
 		debug {
 			debuggable true // Allow app to be debuggable
 			applicationIdSuffix ".debug"
+
+			// Reduce amount of time needed to compile app in debug mode
+			// Can be accessed with BuildConfig.BUILD_TIME
+			buildConfigLong "BUILD_TIME", 0L
+			// Can be accessed with R.int.build_time
+			resValueInt "build_time", 0
 		}
 		release {
 			minifyEnabled true // Enable minification
 			shrinkResources true // Shrink resources to reduce APK size
 			proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 			signingConfig signingConfigs.release
+			// Can be accessed with BuildConfig.BUILD_TIME
+			buildConfigLong "BUILD_TIME", System.currentTimeMillis()
+			// Can be accessed with R.int.build_time
+			resValueInt "build_time", System.currentTimeMillis().toInteger()
 		}
 		nightly {
 			// Nightly releases
