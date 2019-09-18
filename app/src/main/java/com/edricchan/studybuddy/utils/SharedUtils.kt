@@ -31,6 +31,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
@@ -811,6 +812,15 @@ class SharedUtils() {
 		/**
 		 * Launches a [uri] with the given [context]
 		 * @param context The context to be used to launch the intent of the [uri]
+		 * @param uri The URI to launch/open as a [String]
+		 */
+		fun launchUri(context: Context, uri: String) {
+			launchUri(context, uri.toUri())
+		}
+
+		/**
+		 * Launches a [uri] with the given [context]
+		 * @param context The context to be used to launch the intent of the [uri]
 		 * @param uri The URI to launch/open
 		 * @param useCustomTabs Whether to use Chrome Custom Tabs
 		 * @param useAppColorScheme Whether to respect the app's color/colour scheme
@@ -846,6 +856,18 @@ class SharedUtils() {
 		}
 
 		/**
+		 * Launches a [uri] with the given [context]
+		 * @param context The context to be used to launch the intent of the [uri]
+		 * @param uri The URI to launch/open as a [String]
+		 * @param useCustomTabs Whether to use Chrome Custom Tabs
+		 * @param useAppColorScheme Whether to respect the app's color/colour scheme
+		 */
+		fun launchUri(context: Context, uri: String, useCustomTabs: Boolean = true,
+		              useAppColorScheme: Boolean = true) {
+			launchUri(context, uri.toUri(), useCustomTabs, useAppColorScheme)
+		}
+
+		/**
 		 * Launches a [uri] with the given [context] and options for the [CustomTabsIntent.Builder]
 		 * with the [customTabsIntentBuilderOptions] parameter.
 		 * @param context The context to be used to launch the [uri]
@@ -857,6 +879,18 @@ class SharedUtils() {
 			val customTabsIntent = CustomTabsIntent.Builder().apply(customTabsIntentBuilderOptions)
 					.build()
 			launchUri(context, uri, customTabsIntent)
+		}
+
+		/**
+		 * Launches a [uri] with the given [context] and options for the [CustomTabsIntent.Builder]
+		 * with the [customTabsIntentBuilderOptions] parameter.
+		 * @param context The context to be used to launch the [uri]
+		 * @param uri The URI to launch/open
+		 * @param customTabsIntentBuilderOptions Options for the [CustomTabsIntent.Builder]
+		 */
+		fun launchUri(context: Context, uri: String,
+		              customTabsIntentBuilderOptions: CustomTabsIntent.Builder.() -> Unit) {
+			launchUri(context, uri.toUri(), customTabsIntentBuilderOptions)
 		}
 
 		/**
