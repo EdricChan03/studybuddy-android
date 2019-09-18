@@ -17,6 +17,6 @@ inline fun buildIntent(builderAction: Intent.() -> Unit) = Intent().apply(builde
  * @return The created intent
  */
 inline fun <reified T> buildIntent(
-		context: Context,
+		context: Context?,
 		builderAction: Intent.() -> Unit
 ) = Intent(context, T::class.java).apply(builderAction)
