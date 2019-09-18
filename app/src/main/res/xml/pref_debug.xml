@@ -19,11 +19,12 @@
 				app:key="debug_account_info"
 				app:summary="@string/debug_activity_account_info_summary"
 				app:title="@string/debug_activity_account_info_title"/>
-		<Preference
+		<!-- No longer supported as Crashlytics is disabled on debug builds -->
+		<!--<Preference
 				app:icon="@drawable/ic_close_24dp"
 				app:key="debug_crash_app"
 				app:summary="@string/debug_activity_crash_app_summary"
-				app:title="@string/debug_activity_crash_app_title"/>
+				app:title="@string/debug_activity_crash_app_title"/>-->
 		<Preference
 				app:icon="@drawable/ic_send_outline_24dp"
 				app:key="debug_send_notification"

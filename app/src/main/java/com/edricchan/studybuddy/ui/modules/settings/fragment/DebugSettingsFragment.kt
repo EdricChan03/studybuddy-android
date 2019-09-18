@@ -25,7 +25,6 @@ import androidx.lifecycle.Observer
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import androidx.work.Operation
-import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
@@ -155,7 +154,6 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 	private lateinit var mUtils: SharedUtils
 	private lateinit var mInstanceId: FirebaseInstanceId
 	private lateinit var mAuth: FirebaseAuth
-	private lateinit var mCrashlytics: Crashlytics
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -203,7 +201,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			true
 		}
 
-		findPreference<Preference>(Constants.debugCrashApp)?.onPreferenceClickListener =
+		/*findPreference<Preference>(Constants.debugCrashApp)?.onPreferenceClickListener =
 				Preference.OnPreferenceClickListener {
 					val builder = MaterialAlertDialogBuilder(context!!)
 					builder.setTitle(R.string.debug_activity_confirm_crash_app_dialog_title)
@@ -211,7 +209,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 							.setPositiveButton(R.string.dialog_action_crash) { _, _ -> mCrashlytics.crash() }
 							.show()
 					true
-				}
+				}*/
 
 		findPreference<Preference>(Constants.debugSendNotification)?.onPreferenceClickListener =
 				Preference.OnPreferenceClickListener {
