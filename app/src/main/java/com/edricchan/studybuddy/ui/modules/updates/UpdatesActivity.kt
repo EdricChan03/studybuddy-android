@@ -297,7 +297,7 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
 	}
 
 	private fun getUpdateJsonUrl(): String? {
-		return if (BuildConfig.DEBUG) {
+		return if (SharedUtils.isDevMode(this)) {
 			val mPrefs = PreferenceManager.getDefaultSharedPreferences(this)
 			if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
 				mPrefs.getString(Constants.debugSetCustomJsonUrl, getString(R.string.update_json_testing_url))

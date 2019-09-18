@@ -24,9 +24,11 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.Observer
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import androidx.work.Operation
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.interfaces.NotificationAction
@@ -154,6 +156,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 	private lateinit var mUtils: SharedUtils
 	private lateinit var mInstanceId: FirebaseInstanceId
 	private lateinit var mAuth: FirebaseAuth
+	private lateinit var devModeOpts: SharedPreferences
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -166,6 +169,35 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_debug, rootKey)
+		devModeOpts = requireContext().getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE, Context.MODE_PRIVATE)
+		findPreference<SwitchPreferenceCompat>(Constants.debugDevModeEnabled)
+				?.setOnPreferenceChangeListener { _, newValue ->
+					var returnResult = true
+					if (newValue == false) {
+						MaterialAlertDialogBuilder(requireContext()).apply {
+							setTitle(R.string.dev_mode_confirm_disable_dialog_title)
+							setMessage(R.string.dev_mode_confirm_disable_dialog_msg)
+							setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+								returnResult = false
+								dialog.dismiss()
+							}
+							setPositiveButton(R.string.dialog_action_disable) { dialog, _ ->
+								devModeOpts.edit {
+									putBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)
+									Toast.makeText(context, R.string.dev_mode_off, Toast.LENGTH_LONG).show()
+								}
+								dialog.dismiss()
+							}
+						}.show()
+					} else if (newValue == true) {
+						devModeOpts.edit {
+							putBoolean(DevModePrefConstants.DEV_MODE_ENABLED, true)
+							Toast.makeText(context, R.string.dev_mode_on, Toast.LENGTH_SHORT).show()
+						}
+					}
+					Log.d(TAG, "Current value of return result: $returnResult")
+					returnResult
+				}
 		findPreference<Preference>(Constants.debugUpdatesUpdateMetadata)?.fragment = DebugUpdateInfoSettingsFragment::class.java.name
 		findPreference<Preference>(Constants.debugOtherModalBottomSheetTesting)?.intent = Intent(context, DebugModalBottomSheetActivity::class.java)
 		findPreference<Preference>(Constants.debugDeviceInfo)?.setOnPreferenceClickListener {

@@ -239,7 +239,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 									}
 								}),
 						ModalBottomSheetItem(title = getString(R.string.menu_debug_title),
-								icon = R.drawable.ic_bug_report_outline_24dp, visible = BuildConfig.DEBUG,
+								icon = R.drawable.ic_bug_report_outline_24dp, visible = SharedUtils.isDevMode(requireContext()),
 								onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
 									override fun onItemClick(item: ModalBottomSheetItem) {
 										startActivity<DebugActivity>()

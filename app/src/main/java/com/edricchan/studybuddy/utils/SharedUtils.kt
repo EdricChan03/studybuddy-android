@@ -40,6 +40,7 @@ import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.extensions.editTextStrValue
@@ -769,11 +770,11 @@ class SharedUtils() {
 		 * Retrieves the JSON update URL
 		 * Used for [SharedUtils.checkForUpdates]
 		 * @param context The context
-		 * @param forceDebugUrl Whether to return the debug URL even if [BuildConfig.DEBUG] is [true]
+		 * @param forceDebugUrl Whether to return the debug URL even if [SharedUtils.isDevMode] is [true]
 		 * @return The JSON update URL as a [String]
 		 */
 		fun getUpdateJsonUrl(context: Context, forceDebugUrl: Boolean = false): String? {
-			return if (BuildConfig.DEBUG || forceDebugUrl) {
+			return if (SharedUtils.isDevMode(context) || forceDebugUrl) {
 				val mPrefs = PreferenceManager.getDefaultSharedPreferences(context)
 				if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
 					mPrefs.getString(Constants.debugSetCustomJsonUrl, context.getString(R.string.update_json_testing_url))
@@ -994,6 +995,21 @@ class SharedUtils() {
 				Log.d(TAG, "Check for updates frequency is set to manual/never. Skipping worker request...")
 			}
 			return result
+		}
+
+		/**
+		 * Whether the app is in developer mode.
+		 * @param context The context to be used to retrieve the developer mode options from.
+		 * @param useSharedPrefsOnly Whether to only check from shared preferences
+		 * @return [true] if the app is in developer mode, [false] otherwise.
+		 */
+		fun isDevMode(context: Context, useSharedPrefsOnly: Boolean = false): Boolean {
+			val devModeOpts = context.getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE, Context.MODE_PRIVATE)
+			return if (useSharedPrefsOnly) {
+				devModeOpts.getBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)
+			} else {
+				devModeOpts.getBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false) || BuildConfig.DEBUG
+			}
 		}
 	}
 }

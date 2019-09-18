@@ -6,6 +6,24 @@
 		<item quantity="other">%d selected</item>
 	</plurals>
 
+	<!-- Countdown toast message for the number of user taps to enable dev mode -->
+	<plurals name="dev_mode_countdown">
+		<item quantity="one">You are now %d more step away from being a developer!</item>
+		<item quantity="other">You are now %d steps away from being a developer!</item>
+	</plurals>
+	<string name="dev_mode_disabled">Successfully disabled developer mode!</string>
+	<!-- Toast message for confirmation message that developer mode is on -->
+	<string name="dev_mode_on">You\'re now a developer!</string>
+	<string name="dev_mode_off">Successfully turned off developer mode!</string>
+	<!-- Toast message when user clicks even after confirmation is shown -->
+	<string name="dev_mode_already">Stop clicking - you\'re already a developer!</string>
+	<string name="dev_mode_confirm_enable_dialog_title">Enable developer mode?</string>
+	<string name="dev_mode_confirm_enable_dialog_msg">Note: This can be turned off later in Settings
+		&gt; Developer Options &gt; Developer Mode.</string>
+	<string name="dev_mode_confirm_disable_dialog_title">Disable developer mode?</string>
+	<string name="dev_mode_confirm_disable_dialog_msg">This cannot be reversed!</string>
+	<string name="pref_header_dev_mode_opts_title">Developer options</string>
+
 	<!-- The about dialog's message -->
 	<string name="about_dialog_msg">Purpose: To help students in their studies\nVersion: %s\n---\nApp is fully open
 		source. Check it out!
@@ -230,6 +248,7 @@
 	<string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
 	<string name="debug_activity_crash_app_summary">Programmatically crash the app with Firebase Crashlytics</string>
 	<string name="debug_activity_crash_app_title">Crash app</string>
+	<string name="debug_activity_dev_mode_enabled_title">Developer mode</string>
 	<string name="debug_activity_device_info_summary">Show information about the current device</string>
 	<string name="debug_activity_device_info_title">Device info</string>
 	<string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
@@ -285,8 +304,10 @@
 	<string name="dialog_action_close">Close</string>
 	<string name="dialog_action_crash">Crash</string>
 	<string name="dialog_action_create">Create</string>
+	<string name="dialog_action_disable">Disable</string>
 	<string name="dialog_action_delete_account">Delete account</string>
 	<string name="dialog_action_dismiss">Dismiss</string>
+	<string name="dialog_action_enable">Enable</string>
 	<string name="dialog_action_login">Login</string>
 	<string name="dialog_action_no">No</string>
 	<string name="dialog_action_ok">OK</string>
@@ -389,7 +410,9 @@
 
 	<string name="pref_about_app_info_title">App info</string>
 	<string name="pref_about_app_info_summary">Open this app\'s info page in Settings</string>
-	<string name="pref_about_app_version_title">Current app version</string>
+	<string name="pref_about_app_version_title">App version</string>
+	<string name="pref_about_app_version_code_title">App version code</string>
+	<string name="pref_about_app_build_variant_title">Build variant</string>
 	<string name="pref_about_author_title">App author</string>
 	<string name="pref_about_author_summary">Tap here to view his website</string>
 	<string name="pref_about_licenses_title">Licenses</string>

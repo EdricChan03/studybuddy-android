@@ -1,26 +1,34 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
-import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.utils.SharedUtils
 import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
 	private var preferences: SharedPreferences? = null
+	private lateinit var devModeOpts: SharedPreferences
 
 	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
 		setPreferencesFromResource(R.xml.pref_headers, rootKey)
+		val context = activity
 		preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
-		if (BuildConfig.DEBUG) {
-			findPreference<Preference>(Constants.prefHeaderDebug)?.isVisible = true
+		devModeOpts = context.getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE, Context.MODE_PRIVATE)
+		findPreference<Preference>(Constants.prefHeaderDebug)?.apply {
+			isVisible = SharedUtils.isDevMode(context)
+			if (SharedUtils.isDevMode(context, true)) {
+				setTitle(R.string.pref_header_dev_mode_opts_title)
+			}
 		}
 		findPreference<SwitchPreferenceCompat>(Constants.prefShowHeaderSummary)?.apply {
 			setOnPreferenceClickListener {

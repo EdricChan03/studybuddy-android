@@ -57,10 +57,13 @@ object Constants {
 	const val prefAboutAppAuthor = "pref_about_app_author"
 	const val prefAboutAppInfo = "pref_about_app_info"
 	const val prefAboutAppVersion = "pref_about_app_version"
+	const val prefAboutAppVersionCode = "pref_about_app_version_code"
+	const val prefAboutAppBuildVariant = "pref_about_app_build_variant"
 	const val prefAboutLicenses = "pref_about_licenses"
 	const val prefAboutSourceCode = "pref_about_source_code"
 
 	// Debug preferences
+	const val debugDevModeEnabled = "debug_dev_mode_enabled"
 	const val debugDeviceInfo = "debug_device_info"
 	const val debugAccountInfo = "debug_account_info"
 	const val debugCrashApp = "debug_crash_app"
