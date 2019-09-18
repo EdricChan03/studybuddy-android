@@ -159,7 +159,6 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 		super.onCreate(savedInstanceState)
 		mUtils = SharedUtils()
 		mInstanceId = FirebaseInstanceId.getInstance()
-		mCrashlytics = Crashlytics.getInstance()
 		mAuth = FirebaseAuth.getInstance()
 		mUser = mAuth.currentUser
 		mConnectivityManager = context?.getSystemService()
