@@ -25,7 +25,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -837,16 +836,11 @@ class SharedUtils() {
 							AppCompatDelegate.MODE_NIGHT_NO -> colorScheme = CustomTabsIntent.COLOR_SCHEME_LIGHT
 							AppCompatDelegate.MODE_NIGHT_YES -> colorScheme = CustomTabsIntent.COLOR_SCHEME_DARK
 						}
-
-						val colorSchemeParams = CustomTabColorSchemeParams.Builder()
-								.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-								.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-								.setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-								.build()
-
-						setColorSchemeParams(colorScheme, colorSchemeParams)
+						setColorScheme(colorScheme)
 					}
 					setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+					setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+					setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
 					addDefaultShareMenuItem()
 					setShowTitle(true)
 					build()
