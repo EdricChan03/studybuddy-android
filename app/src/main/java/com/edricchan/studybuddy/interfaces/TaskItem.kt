@@ -22,9 +22,9 @@ data class TaskItem(
 		@DocumentId override var id: String? = null,
 		val content: String? = null,
 		val dueDate: Timestamp? = null,
-		// Note: Firestore converts done to done when added to the database
+		// Note: Firestore converts isDone to done when added to the database
 		val done: Boolean? = false,
-		// Note: Firestore converts done to archived when added to the database
+		// Note: Firestore converts isArchived to archived when added to the database
 		val archived: Boolean? = false,
 		val project: DocumentReference? = null,
 		val tags: List<String>? = null,
