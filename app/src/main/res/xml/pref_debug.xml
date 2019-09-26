@@ -5,6 +5,10 @@
 			app:icon="@drawable/ic_bug_report_outline_24dp"
 			app:key="debug_dev_mode_enabled"
 			app:title="@string/debug_activity_dev_mode_enabled_title" />
+	<Preference
+			app:icon="@drawable/ic_flag_outline_24dp"
+			app:key="debug_feature_flags"
+			app:title="@string/debug_activity_feature_flags_title" />
 	<PreferenceCategory
 			app:key="debug_category_device"
 			app:title="@string/debug_activity_category_device">

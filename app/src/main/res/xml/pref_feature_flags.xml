@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+	<PreferenceCategory app:title="@string/feature_flags_about_title">
+		<Preference
+				app:enabled="false"
+				app:icon="@drawable/ic_info_outline_24dp"
+				app:summary="@string/feature_flags_about_desc" />
+		<Preference
+				app:enabled="false"
+				app:icon="@drawable/ic_warning_24dp"
+				app:summary="@string/feature_flags_about_warning" />
+	</PreferenceCategory>
+	<PreferenceCategory app:title="@string/feature_flags_category_options_title">
+		<Preference
+				app:icon="@drawable/ic_close_24dp"
+				app:key="feature_flags_reset"
+				app:title="@string/feature_flags_reset_title" />
+	</PreferenceCategory>
+	<PreferenceCategory app:title="@string/feature_flags_category_appearance_title">
+		<Preference
+				app:enabled="false"
+				app:icon="@drawable/ic_info_outline_24dp"
+				app:summary="@string/feature_flags_category_appearance_desc" />
+		<SwitchPreferenceCompat
+				app:defaultValue="false"
+				app:enabled="false"
+				app:key="feature_flags_calendar_enabled"
+				app:summary="@string/feature_flags_calendar_enabled_summary"
+				app:title="@string/feature_flags_calendar_enabled_title" />
+		<SwitchPreferenceCompat
+				app:defaultValue="false"
+				app:enabled="false"
+				app:key="feature_flags_interface_v2_enabled"
+				app:summary="@string/feature_flags_interface_v2_enabled_summary"
+				app:title="@string/feature_flags_interface_v2_enabled_title" />
+		<SwitchPreferenceCompat
+				app:defaultValue="false"
+				app:enabled="false"
+				app:key="feature_flags_about_app_v2_enabled"
+				app:summary="@string/feature_flags_about_app_v2_enabled_summary"
+				app:title="@string/feature_flags_about_app_v2_enabled_title" />
+	</PreferenceCategory>
+</PreferenceScreen>

@@ -252,6 +252,7 @@
 	<string name="debug_activity_device_info_summary">Show information about the current device</string>
 	<string name="debug_activity_device_info_title">Device info</string>
 	<string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
+	<string name="debug_activity_feature_flags_title">Feature flags</string>
 	<string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
 	<string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
 	<string name="debug_activity_send_notification_dialog_body_hint">Body</string>
@@ -302,6 +303,7 @@
 	<string name="dialog_action_cancel">Cancel</string>
 	<string name="dialog_action_clear">Clear</string>
 	<string name="dialog_action_close">Close</string>
+	<string name="dialog_action_confirm">Confirm</string>
 	<string name="dialog_action_crash">Crash</string>
 	<string name="dialog_action_create">Create</string>
 	<string name="dialog_action_disable">Disable</string>
@@ -442,6 +444,34 @@
 	</string>
 
 	<string name="pref_enable_crashlytics_user_tracking_title">Crash report user tracking</string>
+
+	<!-- Feature flags strings -->
+	<eat-comment />
+
+	<string name="feature_flags_about_title">About feature flags</string>
+	<string name="feature_flags_about_desc">Feature flags are features which can be enabled or
+		disabled. This allows for testing of certain unstable features which would not be normally
+		made available to the public.</string>
+	<string name="feature_flags_about_warning"><b>Warning:</b> The developer of this app is not
+		responsible for any data loss caused by enabling certain feature flags.
+		<b>You have been warned.</b></string>
+	<string name="feature_flags_reset_title">Reset feature flags</string>
+	<string name="feature_flags_confirm_reset_dialog_title">Reset feature flags?</string>
+	<string name="feature_flags_confirm_reset_dialog_msg">This cannot be undone!</string>
+	<string name="feature_flags_category_options_title">Options</string>
+	<string name="feature_flags_category_appearance_title">Appearance</string>
+	<string name="feature_flags_category_appearance_desc">Feature flags that affect the design of
+		the application.</string>
+	<string name="feature_flags_calendar_enabled_title">Calendar UI</string>
+	<string name="feature_flags_calendar_enabled_summary">Enables support for a WIP Calendar
+		interface.</string>
+	<string name="feature_flags_interface_v2_enabled_title">App design v2</string>
+	<string name="feature_flags_interface_v2_enabled_summary">Revamps the UI with a fresh new
+		look.</string>
+	<string name="feature_flags_about_app_v2_enabled_title">About app UI v2</string>
+	<string name="feature_flags_about_app_v2_enabled_summary">Revamps the about app UI to show
+		more info about the app.</string>
+
 	<string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture
 	</string>
 	<string name="pref_header_account_title">Account options</string>

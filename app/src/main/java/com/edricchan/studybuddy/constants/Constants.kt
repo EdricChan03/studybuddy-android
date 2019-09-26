@@ -64,6 +64,7 @@ object Constants {
 
 	// Debug preferences
 	const val debugDevModeEnabled = "debug_dev_mode_enabled"
+	const val debugFeatureFlags = "debug_feature_flags"
 	const val debugDeviceInfo = "debug_device_info"
 	const val debugAccountInfo = "debug_account_info"
 	const val debugCrashApp = "debug_crash_app"
@@ -79,6 +80,12 @@ object Constants {
 	const val debugUpdatesClearLastUpdatedDate = "debug_updates_clear_last_updated_date"
 	const val debugOtherClearAppSettings = "debug_other_clear_app_settings"
 	const val debugOtherModalBottomSheetTesting = "debug_other_modal_bottom_sheet_testing"
+
+	// Feature flags
+	const val featureFlagsReset = "feature_flags_reset"
+	const val featureFlagsCalendarEnabled = "feature_flags_calendar_enabled"
+	const val featureFlagsInterfaceV2Enabled = "feature_flags_interface_v2_enabled"
+	const val featureFlagsAboutAppV2Enabled = "feature_flags_about_app_v2_enabled"
 
 	// Actions
 	const val actionNotificationsSettingsIntent = "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT"
