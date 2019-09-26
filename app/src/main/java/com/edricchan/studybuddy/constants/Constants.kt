@@ -107,13 +107,13 @@ object Constants {
 	val uriHelpFeatured: Uri = Uri.parse(urlHelpFeatured)
 	const val urlAuthorWebsite = "https://edricchan03.github.io"
 	val uriAuthorWebsite: Uri = Uri.parse(urlAuthorWebsite)
-	const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy"
+	const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy-android"
 	val uriSrcCode: Uri = Uri.parse(urlSrcCode)
 	const val urlSendFeedback = "https://forms.gle/S6SY7aAgTyQUuKRw6"
 	val uriSendFeedback: Uri = Uri.parse(urlSendFeedback)
 	const val urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92"
 	val uriSubmitTip: Uri = Uri.parse(urlSubmitTip)
-	const val urlWiki = "https://github.com/EdricChan03/StudyBuddy/wiki"
+	const val urlWiki = "https://github.com/EdricChan03/StudyBuddy-android/wiki"
 	val uriWiki: Uri = Uri.parse(urlWiki)
 	// Other
 	/**
