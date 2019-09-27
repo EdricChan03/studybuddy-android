@@ -9,4 +9,7 @@
 	<color name="colorGrey800">#424242</color>
 	<color name="lightGrey">#fff5f5f5</color>
 	<color name="colorWarn">#f44336</color>
+	<color name="mal_text_primary">#FFFFFF</color>
+	<color name="mal_text_secondary">#b4ffffff</color>
+	<color name="mal_card_background">@color/cardview_dark_background</color>
 </resources>

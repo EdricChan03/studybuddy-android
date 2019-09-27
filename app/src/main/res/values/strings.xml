@@ -29,6 +29,22 @@
 		source. Check it out!
 	</string>
 
+	<!-- About fragment strings -->
+	<eat-comment />
+
+	<string name="about_frag_app_info_card_version_title">Version</string>
+	<string name="about_frag_app_info_card_open_app_info_title">Open app info</string>
+	<string name="about_frag_app_info_card_open_app_info_subtitle">Open the app\'s info page in
+		Settings</string>
+	<string name="about_frag_app_info_card_view_source_code_title">View source code</string>
+	<string name="about_frag_app_info_card_view_source_code_subtitle">Opens the app\'s source code in
+		a new tab</string>
+	<string name="about_frag_app_info_card_app_license_title">App license</string>
+	<string name="about_frag_app_info_card_open_source_licenses_title">Open-source licenses</string>
+	<string name="about_frag_about_author_card_title">Author</string>
+	<string name="about_frag_about_author_card_author_name_title">Edric Chan</string>
+	<string name="about_frag_about_author_card_view_author_website_title">Author\'s website</string>
+
 	<!-- ======================== -->
 	<!-- Account activity strings -->
 	<!-- ======================== -->

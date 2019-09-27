@@ -159,6 +159,11 @@ dependencies {
 	// Image picker
 	implementation 'com.github.esafirm.android-image-picker:imagepicker:2.1.0'
 
+	// About screen
+	implementation 'com.github.daniel-stoneuk:material-about-library:2.4.2'
+	// Explcitly specify the AndroidX CardView library for now
+	implementation 'androidx.cardview:cardview:1.0.0'
+
 	// Markwon - Markdown parser for Android
 	// See https://noties.github.io/Markwon for more info
 	implementation 'ru.noties:markwon:2.0.2'

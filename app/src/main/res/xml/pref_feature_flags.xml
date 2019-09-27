@@ -35,7 +35,6 @@
 				app:title="@string/feature_flags_interface_v2_enabled_title" />
 		<SwitchPreferenceCompat
 				app:defaultValue="false"
-				app:enabled="false"
 				app:key="feature_flags_about_app_v2_enabled"
 				app:summary="@string/feature_flags_about_app_v2_enabled_summary"
 				app:title="@string/feature_flags_about_app_v2_enabled_title" />
