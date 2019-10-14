@@ -20,7 +20,6 @@ import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapt
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.datepicker.Month
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -67,9 +66,10 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 				mTaskDate = SharedUtils.getDateFromDatePicker(dpd.datePicker)
 			}*/
 			taskDueDateChip.setOnClickListener {
+				val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 				val constraints = CalendarConstraints.Builder()
-						.setValidator(DateValidatorPointForward())
-						.setStart(Month.today())
+						.setValidator(DateValidatorPointForward.now())
+						.setStart(calendar.timeInMillis)
 						.build()
 				val picker = MaterialDatePicker.Builder.datePicker().apply {
 					setCalendarConstraints(constraints)
