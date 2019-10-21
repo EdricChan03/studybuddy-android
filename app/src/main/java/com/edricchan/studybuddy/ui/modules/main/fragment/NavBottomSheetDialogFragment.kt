@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
@@ -13,6 +14,8 @@ import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -63,6 +66,16 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 		headerView.findViewById<ImageButton>(R.id.userAccountSettings)
 				.setOnClickListener {
 					startActivity<AccountActivity>()
+				}
+
+		headerView.findViewById<Button>(R.id.loginButton)
+				.setOnClickListener {
+					startActivity<LoginActivity>()
+				}
+
+		headerView.findViewById<Button>(R.id.registerButton)
+				.setOnClickListener {
+					startActivity<RegisterActivity>()
 				}
 
 		if (isLoggedIn) {
