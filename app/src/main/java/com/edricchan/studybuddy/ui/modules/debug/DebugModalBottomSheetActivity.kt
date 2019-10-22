@@ -167,7 +167,7 @@ class DebugModalBottomSheetActivity : AppCompatActivity(R.layout.activity_debug_
 		modalBottomSheetFragment.headerTitle = headerTitle
 		return modalBottomSheetFragment
 	}
-	
+
 	private fun modalBottomSheetWith1000Items(): ModalBottomSheetFragment {
 		val modalBottomSheetFragment = ModalBottomSheetFragment()
 		for (i in 1..1000) {
