@@ -13,11 +13,76 @@ buildProperties {
 	}
 }
 
+ext {
+	// See the Semver guide for more info
+	// Adapted from https://medium.com/@maxirosson/versioning-android-apps-d6ec171cfd82
+	versionMajor = 1
+	versionMinor = 1
+	versionPatch = 0
+	versionClassifier = null
+	currentVariant = ""
+}
+
 /**
  * Gets the time when the app was built as a string (Follows the ISO 8601 standard)
  */
 static def getBuildTimeString() {
 	return new Date().format("yyyy-MM-dd-HHmmss") // E.g. 2019-09-07-180540
+}
+
+def generateVersionCodeBuildVariant() {
+	// Default is 1 to represent release variant
+	// 0: Debug variant
+	// 1: Release variant
+	// 10: Nightly variant
+	def result = 1
+	switch (currentVariant) {
+		case "debug":
+			result = 0
+			break
+		case "nightly":
+			result = 10
+			break
+	}
+	return result
+}
+
+def generateVersionCodeClassifier() {
+	// Default is 0 to represent no version classifier
+	def result = 0
+	switch (versionClassifier) {
+		case "alpha":
+			result = 1
+			break
+		case "beta":
+			result = 2
+			break
+		case "rc":
+			result = 3
+			break
+		case "nightly":
+			result = 10
+			break
+	}
+	return result
+}
+
+def generateVersionCode() {
+	/*
+	 * Returns <build-variant type as number>-<version classifier>-<major>-<minor>-<patch>
+	 * E.g. 01-10-01-01-00, with the following config:
+	 * - release build variant
+	 * - nightly classifier
+	 * - version major: 1
+	 * - version minor: 1
+	 * - version patch: 0
+	 */
+	return (generateVersionCodeBuildVariant() * 100000000 + generateVersionCodeClassifier() * 1000000
+			+ versionMajor * 10000 + versionMinor * 100 + versionPatch)
+}
+
+def generateVersionName() {
+	return "${String.valueOf(versionMajor)}.${String.valueOf(versionMinor)}.${String.valueOf(versionPatch)}"
 }
 
 android {
@@ -26,8 +91,9 @@ android {
 		applicationId "com.edricchan.studybuddy"
 		minSdkVersion 21
 		targetSdkVersion 29
-		versionCode 9
-		versionName "1.0.0-rc.543"
+		// versionCode 9
+		versionCode generateVersionCode()
+		versionName generateVersionName()
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 		resConfigs "en"
 		multiDexEnabled true
@@ -51,6 +117,7 @@ android {
 			buildConfigLong "BUILD_TIME", 0L
 			// Can be accessed with R.int.build_time
 			resValueInt "build_time", 0
+			currentVariant = "debug"
 		}
 		release {
 			minifyEnabled true // Enable minification
@@ -61,12 +128,14 @@ android {
 			buildConfigLong "BUILD_TIME", System.currentTimeMillis()
 			// Can be accessed with R.int.build_time
 			resValueInt "build_time", System.currentTimeMillis().toInteger()
+			currentVariant = "release"
 		}
 		nightly {
 			// Nightly releases
 			initWith release
 			applicationIdSuffix ".nightly"
 			versionNameSuffix "-NIGHTLY-$buildTimeString"
+			currentVariant = "nightly"
 		}
 	}
 	compileOptions {
