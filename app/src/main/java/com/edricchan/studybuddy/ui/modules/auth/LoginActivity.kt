@@ -121,7 +121,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 		checkNetwork()
 	}
 
-	public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 
 		if (requestCode == RC_SIGN_IN) {
