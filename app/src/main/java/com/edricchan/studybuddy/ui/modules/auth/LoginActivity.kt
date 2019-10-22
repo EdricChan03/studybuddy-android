@@ -109,7 +109,11 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 					}
 				} else {
 					showLoginSnackBar()
-					startActivity<MainActivity>()
+					// We only want to show the main activity if this activity was explicitly
+					// launched.
+					if (isTaskRoot) {
+						startActivity<MainActivity>()
+					}
 					finish()
 				}
 			}
