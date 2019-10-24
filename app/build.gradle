@@ -204,7 +204,7 @@ dependencies {
 	// Crashlytics
 	implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 	// For JSON parsing
-	implementation 'com.google.code.gson:gson:2.8.5'
+	implementation 'com.google.code.gson:gson:2.8.6'
 	// Emoji AppCompat
 	implementation 'androidx.emoji:emoji-appcompat:1.0.0'
 	// AndroidX Preference
