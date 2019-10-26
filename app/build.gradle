@@ -11,16 +11,29 @@ buildProperties {
 	secrets {
 		using rootProject.file("secret_keys.properties")
 	}
+	// Version metadata
+	versions {
+		using rootProject.file("versions.properties")
+	}
 }
 
 ext {
 	// See the Semver guide for more info
 	// Adapted from https://medium.com/@maxirosson/versioning-android-apps-d6ec171cfd82
-	versionMajor = 1
-	versionMinor = 1
-	versionPatch = 0
-	versionClassifier = null
-	currentVariant = ""
+	// Allows the user to specify the versionMajor via the command-line (See below for an example)
+	versionMajor = project.properties["versionMajor"] as Integer ?: buildProperties
+			.versions["version_major"].int
+	// Allows the user to specify the versionMinor via the command-line (See below for an example)
+	versionMinor = project.properties["versionMinor"] as Integer ?: buildProperties
+			.versions["version_minor"].int
+	// Allows the user to specify the versionPatch via the command-line (See below for an example)
+	versionPatch = project.properties["versionPatch"] as Integer ?: buildProperties
+			.versions["version_patch"].int
+	// Allows the user to specify the versionClassifier via the command-line
+	// Example: ./gradlew <task> -PversionClassifier=nightly
+	versionClassifier = project.properties["versionClassifier"] ?: null
+	// Allows the user to specify the currentVariant via the command-line  (See below for an example)
+	currentVariant = project.properties["currentVariant"] ?: null
 }
 
 /**
@@ -44,6 +57,7 @@ def generateVersionCodeBuildVariant() {
 			result = 10
 			break
 	}
+	println("Generated version code (build variant): $result")
 	return result
 }
 
@@ -64,6 +78,7 @@ def generateVersionCodeClassifier() {
 			result = 10
 			break
 	}
+	println("Generated version code (version classifier): $result")
 	return result
 }
 
@@ -93,7 +108,9 @@ android {
 		targetSdkVersion 29
 		// versionCode 9
 		versionCode generateVersionCode()
+		println("Generated version code: ${generateVersionCode()}")
 		versionName generateVersionName()
+		println("Generated version name: ${generateVersionName()}")
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 		resConfigs "en"
 		multiDexEnabled true
