@@ -71,7 +71,8 @@ jobs:
     - name: Build app
       run: |
         source ~/.profile
-        ./gradlew :app:assembleNightly # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
+        ./gradlew :app:assembleNightly -PversionClassifier=nightly
+        # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
       env:
         CI: ${{ true }}
         APP_KEYSTORE_PASSWORD: ${{ secrets.APP_KEYSTORE_PASSWORD }}
