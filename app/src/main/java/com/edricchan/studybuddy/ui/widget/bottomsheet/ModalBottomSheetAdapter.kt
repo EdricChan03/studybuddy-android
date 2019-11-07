@@ -13,7 +13,6 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.isNotNull
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
-import com.edricchan.studybuddy.utils.SharedUtils
 
 class ModalBottomSheetAdapter(
 		private val context: Context,
