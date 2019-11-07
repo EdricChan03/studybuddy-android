@@ -8,4 +8,4 @@ import com.google.firebase.firestore.FirebaseFirestore
  * @param fs An instance of [FirebaseFirestore] (TIP: Use [FirebaseFirestore.getInstance] to retrieve an instance)
  * @return The user's Firestore document
  */
-fun FirebaseUser.getUserDocument(fs: FirebaseFirestore) = fs.document("users/${this.uid}")
+fun FirebaseUser?.getUserDocument(fs: FirebaseFirestore) = fs.document("users/${this?.uid}")
