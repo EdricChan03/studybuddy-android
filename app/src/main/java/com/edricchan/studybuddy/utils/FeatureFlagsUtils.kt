@@ -14,7 +14,7 @@ import com.edricchan.studybuddy.extensions.showToast
 class FeatureFlagsUtils(
 		val context: Context
 ) {
-	var featureFlagsPrefs: SharedPreferences = context.getSharedPreferences(
+	val featureFlagsPrefs: SharedPreferences = context.getSharedPreferences(
 			FeatureFlagsPrefConstants.FILE_FEATURE_FLAGS, Context.MODE_PRIVATE)
 
 	/**
