@@ -37,10 +37,4 @@ class FeatureFlagsUtils(
 			context.showToast(message, Toast.LENGTH_LONG)
 		}
 	}
-
-	/**
-	 * Retrieves all feature flags as a [Map]. Internally calls [SharedPreferences.getAll].
-	 * @return The feature flags as a [Map]
-	 */
-	fun getAllFeatureFlags() = featureFlagsPrefs.all
 }
