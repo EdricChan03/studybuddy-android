@@ -1,55 +1,29 @@
 package com.edricchan.studybuddy.utils
 
-import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationChannelGroup
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
-import android.net.Uri
-import android.os.Build
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import androidx.preference.PreferenceManagerFix
 import androidx.work.*
-import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
-import com.edricchan.studybuddy.extensions.editTextStrValue
-import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
-import com.edricchan.studybuddy.extensions.isNotNull
-import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
-import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -57,203 +31,17 @@ import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
 import com.google.android.gms.tasks.Task
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import java.util.*
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Shared utility methods
- * @property context The context used for non-static methods
  */
-class SharedUtils() {
-	// Since IDs 0 and 1 have been taken, use 2
-	private val dynamicId = 2
-	private val atomicInteger = AtomicInteger(dynamicId)
-
-	@Deprecated("Use main SharedUtils class")
-	constructor(context: Context) : this()
-
-	/**
-	 * Dynamically creates a new ID for use with Android's notification manager
-	 *
-	 * @return The ID in question
-	 */
-	fun getDynamicId(): Int {
-		return atomicInteger.incrementAndGet()
-	}
-
-	/**
-	 * A newer implementation of the former `sendNotificationToUser` method.
-	 *
-	 *
-	 * This implementation reinforces that notifications are sent as requests to Cloud Firestore
-	 * (which gets saved as a document under the `notificationRequests` collection) and are automatically sent to the associated topic or username.
-	 *
-	 *
-	 * This implementation also uses only 1 parameter to save on the amount of characters required to call the former method.
-	 *
-	 * @param request The notification request to send to Cloud Firestore
-	 * @return A reference of the task
-	 */
-	fun sendNotificationRequest(request: NotificationRequest): Task<DocumentReference> {
-		val fs = FirebaseFirestore.getInstance()
-		return fs.collection("notificationRequests").add(request)
-	}
-
+class SharedUtils {
 	companion object {
-		/**
-		 * Clears the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [FloatingActionButton]
-		 *
-		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
-		 */
-		fun clearBottomAppBarFabOnClickListener(activity: AppCompatActivity) {
-			if (activity is MainActivity) {
-				val fab = activity.findViewById<FloatingActionButton>(R.id.fab)
-				fab.setOnClickListener(null)
-			}
-		}
-
-		/**
-		 * Clears the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [FloatingActionButton]
-		 *
-		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
-		 */
-		fun clearBottomAppBarFabOnClickListener(activity: FragmentActivity) {
-			if (activity is MainActivity) {
-				val fab = activity.findViewById<FloatingActionButton>(R.id.fab)
-				fab.setOnClickListener(null)
-			}
-		}
-
-		/**
-		 * Sets the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [com.google.android.material.floatingactionbutton.FloatingActionButton]
-		 *
-		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
-		 * @param listener The on click listener to set
-		 */
-		fun setBottomAppBarFabOnClickListener(activity: AppCompatActivity, listener: View.OnClickListener) {
-			if (activity is MainActivity) {
-				val fab = activity.findViewById<FloatingActionButton>(R.id.fab)
-				fab.setOnClickListener(listener)
-			}
-		}
-
-		/**
-		 * Sets the on click listener for the [com.google.android.material.bottomappbar.BottomAppBar]'s [com.google.android.material.floatingactionbutton.FloatingActionButton]
-		 *
-		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
-		 * @param listener The on click listener to set
-		 */
-		fun setBottomAppBarFabOnClickListener(activity: FragmentActivity, listener: View.OnClickListener) {
-			if (activity is MainActivity) {
-				val fab = activity.findViewById<FloatingActionButton>(R.id.fab)
-				fab.setOnClickListener(listener)
-			}
-		}
-
-		/**
-		 * Retrieves the image drawable of the FAB in the main activity
-		 *
-		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
-		 * @return The drawable of the FAB
-		 */
-		fun getBottomAppBarFabSrc(activity: AppCompatActivity): Drawable? {
-			if (activity is MainActivity) {
-				val fab = activity.findViewById<FloatingActionButton>(R.id.fab)
-				return fab.drawable
-			}
-			return null
-		}
-
-		/**
-		 * Sets the image drawable of the FAB in the main activity
-		 *
-		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
-		 * @param src      The drawable to set
-		 */
-		fun setBottomAppBarFabSrc(activity: AppCompatActivity, src: Drawable) {
-			if (activity is MainActivity) {
-				val fab = activity.findViewById<FloatingActionButton>(R.id.fab)
-				fab.setImageDrawable(src)
-			}
-		}
-
-
-		/**
-		 * Sets the image drawable of the FAB in the main activity
-		 *
-		 * @param activity An instance of the activity (use [Fragment.getActivity] if you're in a [Fragment], or the current instance if you're in an activity which extends [AppCompatActivity])
-		 * @param srcRes   The drawable resource to set
-		 */
-		fun setBottomAppBarFabSrc(activity: AppCompatActivity, @DrawableRes srcRes: Int) {
-			if (activity is MainActivity) {
-				val fab = activity.findViewById<FloatingActionButton>(R.id.fab)
-				fab.setImageResource(srcRes)
-			}
-		}
-
-		/**
-		 * Utility method to set the app's theme.
-		 * Note that the activity should be recreated after this function is called in order for the theme to be applied.
-		 *
-		 * @param context The context
-		 */
-		fun setAppTheme(context: Context) {
-			when (PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.prefDarkTheme, Constants.prefDarkThemeAutoTime)) {
-				// Note: The old values of the preference will still be supported
-				// TODO: Completely remove support for old values
-				"1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-				// Note: Support for setting night mode based on time is deprecated
-				"2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME)
-				"3" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-				// New values
-				Constants.prefDarkThemeAlways -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-				Constants.prefDarkThemeAuto, Constants.prefDarkThemeAutoTime -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME)
-				Constants.prefDarkThemeAutoBatterySaver -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
-				Constants.prefDarkThemeFollowSystem -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-				Constants.prefDarkThemeNever -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-				else -> Log.w(TAG, "Please supply a valid string integer (1, 2, or 3), or a valid option (\"always\", \"automatic\"/\"automatic_time\", \"automatic_battery_saver\", \"follow_system\" or \"never\")!")
-			}
-		}
-
-		/**
-		 * Enables Crashlytics user tracking
-		 *
-		 * @param context The context
-		 * @param user    The current logged-in user, retrieved from [FirebaseAuth.getCurrentUser]
-		 */
-		fun setCrashlyticsUserTracking(context: Context, user: FirebaseUser?) {
-			val enableUserTrack = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Constants.prefEnableCrashlyticsUserTracking, false)
-			if (enableUserTrack) {
-				if (user != null) {
-					Crashlytics.setUserEmail(user.email)
-					Crashlytics.setUserIdentifier(user.uid)
-					Crashlytics.setUserName(user.displayName)
-				} else {
-					Log.w(TAG, "No current logged-in user exists!")
-				}
-			}
-		}
-
-		/**
-		 * Enables Crashlytics user tracking
-		 *
-		 * @param context The context
-		 * @param auth    An instance of [FirebaseAuth], retrieved from [FirebaseAuth.getInstance]
-		 */
-		fun setCrashlyticsUserTracking(context: Context, auth: FirebaseAuth) {
-			setCrashlyticsUserTracking(context, auth.currentUser)
-		}
-
 		/**
 		 * Replaces a view with an initialised fragment.
 		 * Note: This method checks if there's already a fragment in the view.
@@ -316,117 +104,6 @@ class SharedUtils() {
 		}
 
 		/**
-		 * Saves preferences to [SharedPreferences]
-		 *
-		 * @param context   The context
-		 * @param prefsFile The preference file to save to
-		 * @param mode      The mode of writing the file.
-		 * @param key       The preference key to save to
-		 * @param value     The value to save (as a boolean)
-		 * @return An instance of the [SharedPreferences.Editor]
-		 */
-		fun putPrefs(context: Context, prefsFile: String, mode: Int, key: String, value: Boolean): SharedPreferences.Editor {
-			val preferences = context.getSharedPreferences(prefsFile, mode)
-			return preferences.edit()
-					.putBoolean(key, value)
-		}
-
-		/**
-		 * Saves preferences to [SharedPreferences]
-		 *
-		 * @param context   The context
-		 * @param prefsFile The preference file to save to
-		 * @param mode      The mode of writing the file.
-		 * @param key       The preference key to save to
-		 * @param value     The value to save (as a float)
-		 * @return An instance of the [SharedPreferences.Editor]
-		 */
-		fun putPrefs(context: Context, prefsFile: String, mode: Int, key: String, value: Float): SharedPreferences.Editor {
-			val preferences = context.getSharedPreferences(prefsFile, mode)
-			return preferences.edit()
-					.putFloat(key, value)
-		}
-
-		/**
-		 * Saves preferences to [SharedPreferences]
-		 *
-		 * @param context   The context
-		 * @param prefsFile The preference file to save to
-		 * @param mode      The mode of writing the file.
-		 * @param key       The preference key to save to
-		 * @param value     The value to save (as an integer)
-		 * @return An instance of the [SharedPreferences.Editor]
-		 */
-		fun putPrefs(context: Context, prefsFile: String, mode: Int, key: String, value: Int): SharedPreferences.Editor {
-			val preferences = context.getSharedPreferences(prefsFile, mode)
-			return preferences.edit()
-					.putInt(key, value)
-		}
-
-		/**
-		 * Saves preferences to [SharedPreferences]
-		 *
-		 * @param context   The context
-		 * @param prefsFile The preference file to save to
-		 * @param mode      The mode of writing the file.
-		 * @param key       The preference key to save to
-		 * @param value     The value to save (as a long)
-		 * @return An instance of the [SharedPreferences.Editor]
-		 */
-		fun putPrefs(context: Context, prefsFile: String, mode: Int, key: String, value: Long): SharedPreferences.Editor {
-			val preferences = context.getSharedPreferences(prefsFile, mode)
-			return preferences.edit()
-					.putLong(key, value)
-		}
-
-		/**
-		 * Saves preferences to [SharedPreferences]
-		 *
-		 * @param context   The context
-		 * @param prefsFile The preference file to save to
-		 * @param mode      The mode of writing the file.
-		 * @param key       The preference key to save to
-		 * @param value     The value to save (as a string)
-		 * @return An instance of the [SharedPreferences.Editor]
-		 */
-		fun putPrefs(context: Context, prefsFile: String, mode: Int, key: String, value: String): SharedPreferences.Editor {
-			val preferences = context.getSharedPreferences(prefsFile, mode)
-			return preferences.edit()
-					.putString(key, value)
-		}
-
-		/**
-		 * Saves preferences to [SharedPreferences]
-		 *
-		 * @param context   The context
-		 * @param prefsFile The preference file to save to
-		 * @param mode      The mode of writing the file.
-		 * @param key       The preference key to save to
-		 * @param value     The value to save (as a [<])
-		 * @return An instance of the [SharedPreferences.Editor]
-		 */
-		fun putPrefs(context: Context, prefsFile: String, mode: Int, key: String, value: Set<String>): SharedPreferences.Editor {
-			val preferences = context.getSharedPreferences(prefsFile, mode)
-			return preferences.edit()
-					.putStringSet(key, value)
-		}
-
-		/**
-		 * @param datePicker The datepicker
-		 * @return a [java.util.Date]
-		 */
-		fun getDateFromDatePicker(datePicker: DatePicker): Date {
-			val day = datePicker.dayOfMonth
-			val month = datePicker.month
-			val year = datePicker.year
-
-			val calendar = Calendar.getInstance()
-			calendar.set(year, month, day)
-
-			return calendar.time
-		}
-
-		/**
 		 * Checks whether the network is available
 		 *
 		 * @param context The context
@@ -465,74 +142,6 @@ class SharedUtils() {
 		}
 
 		/**
-		 * Retrieves an [EditText] from Material's [TextInputLayout]
-		 *
-		 * @param inputLayout The [TextInputLayout]
-		 * @return The [EditText] in the [TextInputLayout]
-		 */
-		@Deprecated(
-				"Use TextInputLayout#getEditText()",
-				ReplaceWith(
-						"inputLayout.editText",
-						"com.google.android.material.textfield.TextInputLayout"
-				)
-		)
-		fun getEditText(inputLayout: TextInputLayout?): EditText? {
-			return inputLayout?.editText
-		}
-
-		/**
-		 * Retrieves the text from an [EditText] (or [com.google.android.material.textfield.TextInputEditText])
-		 *
-		 * @param editText The [EditText]
-		 * @return The text of the [EditText]
-		 */
-		@Deprecated(
-				"Use the EditText.editTextStrValue Kotlin extension function",
-				ReplaceWith(
-						"editText.strValue",
-						"com.edricchan.studybuddy.extensions.strValue"
-				)
-		)
-		fun getEditTextString(editText: EditText?): String {
-			return editText?.text.toString()
-		}
-
-		/**
-		 * Retrieves the text from a [TextInputLayout]
-		 *
-		 * @param inputLayout The [TextInputLayout]
-		 * @return The text of the [com.google.android.material.textfield.TextInputEditText] in [TextInputLayout], or [null] if no such [com.google.android.material.textfield.TextInputEditText] exists
-		 */
-		@Deprecated(
-				"Use the TextInputLayout.editTextStrValue Kotlin extension function",
-				ReplaceWith(
-						"inputLayout.editTextStrValue",
-						"com.edricchan.studybuddy.editTextStrValue"
-				)
-		)
-		fun getEditTextString(inputLayout: TextInputLayout?): String? {
-			return if (inputLayout?.editText != null) {
-				inputLayout.editTextStrValue
-			} else {
-				Log.w(TAG, "An EditText/TextInputEditText doesn't exist in the TextInputLayout.")
-				null
-			}
-		}
-
-		/**
-		 * Retrieves the class' simple name of a class. Useful for [android.util.Log].
-		 *
-		 * @param tagClass The class to retrieve the simple name of. Can be any Java class extending [Class].
-		 * @return The tag
-		 */
-		@Suppress("DeprecatedCallableAddReplaceWith")
-		@Deprecated("Use the Any.TAG Kotlin extension")
-		fun getTag(tagClass: Class<*>): String {
-			return tagClass.simpleName
-		}
-
-		/**
 		 * Adds a new task to the Firebase Firestore database
 		 *
 		 * @param item The task item to add
@@ -565,123 +174,6 @@ class SharedUtils() {
 		 */
 		fun removeTask(docID: String, user: FirebaseUser, fs: FirebaseFirestore): Task<Void> {
 			return fs.document("users/${user.uid}/todos/$docID").delete()
-		}
-
-		/**
-		 * Shows a version dialog
-		 *
-		 * @param context The context to retrieve a [LayoutInflater] instance from & instantiate [com.google.android.material.dialog.MaterialAlertDialogBuilder]
-		 */
-		fun showVersionDialog(context: Context) {
-			val versionDialogView = LayoutInflater.from(context).inflate(R.layout.version_dialog, null)
-			val appIconImageView = versionDialogView.findViewById<ImageView>(R.id.appIconImageView)
-			val appNameTextView = versionDialogView.findViewById<TextView>(R.id.appNameTextView)
-			val appVersionTextView = versionDialogView.findViewById<TextView>(R.id.appVersionTextView)
-			try {
-				appIconImageView.setImageDrawable(context.packageManager.getApplicationIcon(BuildConfig.APPLICATION_ID))
-			} catch (e: PackageManager.NameNotFoundException) {
-				Log.e(TAG, "An error occurred while attempting to retrieve the app's icon:", e)
-			}
-
-			appNameTextView.text = context.applicationInfo.loadLabel(context.packageManager)
-			appVersionTextView.text = BuildConfig.VERSION_NAME
-			val versionDialogBuilder = MaterialAlertDialogBuilder(context)
-			versionDialogBuilder
-					.setView(versionDialogView)
-					.show()
-		}
-
-		/**
-		 * Used for setting up notification channels
-		 *
-		 * NOTE: This will only work if the device is Android Oreo or later
-		 *
-		 * @param context The context
-		 */
-		fun createNotificationChannels(context: Context) {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-				val notificationManager = NotificationManagerCompat.from(context)
-				val channels = ArrayList<NotificationChannel>()
-				// Create another list for channel groups
-				val channelGroups = ArrayList<NotificationChannelGroup>()
-				// Task updates notifications
-				val todoUpdatesChannel = NotificationChannel(context.getString(R.string.notification_channel_todo_updates_id), context.getString(R.string.notification_channel_todo_updates_title), NotificationManager.IMPORTANCE_HIGH)
-				todoUpdatesChannel.description = context.getString(R.string.notification_channel_todo_updates_desc)
-				todoUpdatesChannel.group = context.getString(R.string.notification_channel_group_todos_id)
-				todoUpdatesChannel.enableLights(true)
-				todoUpdatesChannel.lightColor = Color.YELLOW
-				todoUpdatesChannel.enableVibration(true)
-				todoUpdatesChannel.setShowBadge(true)
-				channels.add(todoUpdatesChannel)
-
-				// Weekly summary notifications
-				val weeklySummaryChannel = NotificationChannel(context.getString(R.string.notification_channel_weekly_summary_id), context.getString(R.string.notification_channel_weekly_summary_title), NotificationManager.IMPORTANCE_LOW)
-				weeklySummaryChannel.description = context.getString(R.string.notification_channel_weekly_summary_desc)
-				weeklySummaryChannel.group = context.getString(R.string.notification_channel_group_todos_id)
-				weeklySummaryChannel.setShowBadge(true)
-				channels.add(weeklySummaryChannel)
-
-				// Syncing notifications
-				val syncChannel = NotificationChannel(context.getString(R.string.notification_channel_sync_id), context.getString(R.string.notification_channel_sync_title), NotificationManager.IMPORTANCE_LOW)
-				syncChannel.description = context.getString(R.string.notification_channel_sync_desc)
-				syncChannel.setShowBadge(false)
-				channels.add(syncChannel)
-
-				// Update error notifications
-				val updateErrorChannel = NotificationChannel(context.getString(R.string.notification_channel_update_error_id), context.getString(R.string.notification_channel_update_error_title), NotificationManager.IMPORTANCE_HIGH)
-				updateErrorChannel.description = context.getString(R.string.notification_channel_update_error_desc)
-				updateErrorChannel.group = context.getString(R.string.notification_channel_group_updates_id)
-				updateErrorChannel.setShowBadge(false)
-				channels.add(updateErrorChannel)
-				// Update status notifications
-				val updateStatusChannel = NotificationChannel(context.getString(R.string.notification_channel_update_status_id), context.getString(R.string.notification_channel_update_status_title), NotificationManager.IMPORTANCE_LOW)
-				updateStatusChannel.description = context.getString(R.string.notification_channel_update_status_desc)
-				updateStatusChannel.group = context.getString(R.string.notification_channel_group_updates_id)
-				updateStatusChannel.setShowBadge(false)
-				channels.add(updateStatusChannel)
-				// Update complete notifications
-				val updateCompleteChannel = NotificationChannel(context.getString(R.string.notification_channel_update_complete_id), context.getString(R.string.notification_channel_update_complete_title), NotificationManager.IMPORTANCE_LOW)
-				updateCompleteChannel.description = context.getString(R.string.notification_channel_update_complete_desc)
-				updateCompleteChannel.group = context.getString(R.string.notification_channel_group_updates_id)
-				updateCompleteChannel.setShowBadge(false)
-				channels.add(updateCompleteChannel)
-				// Update not available notifications
-				val updateNotAvailableChannel = NotificationChannel(context.getString(R.string.notification_channel_update_not_available_id), context.getString(R.string.notification_channel_update_not_available_title), NotificationManager.IMPORTANCE_DEFAULT)
-				updateNotAvailableChannel.description = context.getString(R.string.notification_channel_update_not_available_desc)
-				updateNotAvailableChannel.group = context.getString(R.string.notification_channel_group_updates_id)
-				updateNotAvailableChannel.setShowBadge(false)
-				channels.add(updateNotAvailableChannel)
-				// Update available notifications
-				val updateAvailableChannel = NotificationChannel(context.getString(R.string.notification_channel_update_available_id), context.getString(R.string.notification_channel_update_available_title), NotificationManager.IMPORTANCE_HIGH)
-				updateAvailableChannel.description = context.getString(R.string.notification_channel_update_available_desc)
-				updateAvailableChannel.group = context.getString(R.string.notification_channel_group_updates_id)
-				updateAvailableChannel.setShowBadge(false)
-				channels.add(updateAvailableChannel)
-
-				// Media playback notifications
-				val playbackChannel = NotificationChannel(context.getString(R.string.notification_channel_playback_id), context.getString(R.string.notification_channel_playback_title), NotificationManager.IMPORTANCE_LOW)
-				playbackChannel.description = context.getString(R.string.notification_channel_playback_desc)
-				// We don't want to consider a playback notification to show a badge
-				playbackChannel.setShowBadge(false)
-				channels.add(playbackChannel)
-
-				// Uncategorised notifications
-				val uncategorisedChannel = NotificationChannel(context.getString(R.string.notification_channel_uncategorised_id), context.getString(R.string.notification_channel_uncategorised_title), NotificationManager.IMPORTANCE_DEFAULT)
-				uncategorisedChannel.description = context.getString(R.string.notification_channel_uncategorised_desc)
-				uncategorisedChannel.setShowBadge(true)
-				channels.add(uncategorisedChannel)
-
-				// Notification channel groups
-				val todoChannelGroup = NotificationChannelGroup(context.getString(R.string.notification_channel_group_todos_id), context.getString(R.string.notification_channel_group_todos_title))
-				channelGroups.add(todoChannelGroup)
-				val updatesChannelGroup = NotificationChannelGroup(context.getString(R.string.notification_channel_group_updates_id), context.getString(R.string.notification_channel_group_updates_title))
-				channelGroups.add(updatesChannelGroup)
-				notificationManager.createNotificationChannelGroups(channelGroups)
-
-				// Pass list to method
-				notificationManager.createNotificationChannels(channels)
-
-			}
 		}
 
 		/**
@@ -796,151 +288,6 @@ class SharedUtils() {
 		 */
 		fun checkPermissionGranted(permission: String, context: Context): Boolean {
 			return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
-		}
-
-		/**
-		 * Launches a [uri] with the given [context]
-		 * @param context The context to be used to launch the intent of the [uri]
-		 * @param uri The URI to launch/open
-		 */
-		fun launchUri(context: Context, uri: Uri) {
-			val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-			launchUri(context, uri, preferences.getBoolean(Constants.prefUseCustomTabs, true),
-					preferences.getBoolean(Constants.prefCustomTabsUseAppColorScheme, true))
-		}
-
-		/**
-		 * Launches a [uri] with the given [context]
-		 * @param context The context to be used to launch the intent of the [uri]
-		 * @param uri The URI to launch/open as a [String]
-		 */
-		fun launchUri(context: Context, uri: String) {
-			launchUri(context, uri.toUri())
-		}
-
-		/**
-		 * Launches a [uri] with the given [context]
-		 * @param context The context to be used to launch the intent of the [uri]
-		 * @param uri The URI to launch/open
-		 * @param useCustomTabs Whether to use Chrome Custom Tabs
-		 * @param useAppColorScheme Whether to respect the app's color/colour scheme
-		 */
-		fun launchUri(context: Context, uri: Uri, useCustomTabs: Boolean = true,
-		              useAppColorScheme: Boolean = true) {
-			var customTabsIntent: CustomTabsIntent? = null
-			if (useCustomTabs) {
-				customTabsIntent = CustomTabsIntent.Builder().apply {
-					if (useAppColorScheme) {
-						@CustomTabsIntent.ColorScheme var colorScheme = CustomTabsIntent.COLOR_SCHEME_SYSTEM
-						@SuppressLint("SwitchIntDef")
-						when (AppCompatDelegate.getDefaultNightMode()) {
-							AppCompatDelegate.MODE_NIGHT_NO -> colorScheme = CustomTabsIntent.COLOR_SCHEME_LIGHT
-							AppCompatDelegate.MODE_NIGHT_YES -> colorScheme = CustomTabsIntent.COLOR_SCHEME_DARK
-						}
-						setColorScheme(colorScheme)
-					}
-					setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-					setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-					setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-					addDefaultShareMenuItem()
-					setShowTitle(true)
-					build()
-				}.build()
-			}
-			launchUri(context, uri, customTabsIntent)
-		}
-
-		/**
-		 * Launches a [uri] with the given [context]
-		 * @param context The context to be used to launch the intent of the [uri]
-		 * @param uri The URI to launch/open as a [String]
-		 * @param useCustomTabs Whether to use Chrome Custom Tabs
-		 * @param useAppColorScheme Whether to respect the app's color/colour scheme
-		 */
-		fun launchUri(context: Context, uri: String, useCustomTabs: Boolean = true,
-		              useAppColorScheme: Boolean = true) {
-			launchUri(context, uri.toUri(), useCustomTabs, useAppColorScheme)
-		}
-
-		/**
-		 * Launches a [uri] with the given [context] and options for the [CustomTabsIntent.Builder]
-		 * with the [customTabsIntentBuilderOptions] parameter.
-		 * @param context The context to be used to launch the [uri]
-		 * @param uri The URI to launch/open
-		 * @param customTabsIntentBuilderOptions Options for the [CustomTabsIntent.Builder]
-		 */
-		fun launchUri(context: Context, uri: Uri,
-		              customTabsIntentBuilderOptions: CustomTabsIntent.Builder.() -> Unit) {
-			val customTabsIntent = CustomTabsIntent.Builder().apply(customTabsIntentBuilderOptions)
-					.build()
-			launchUri(context, uri, customTabsIntent)
-		}
-
-		/**
-		 * Launches a [uri] with the given [context] and options for the [CustomTabsIntent.Builder]
-		 * with the [customTabsIntentBuilderOptions] parameter.
-		 * @param context The context to be used to launch the [uri]
-		 * @param uri The URI to launch/open
-		 * @param customTabsIntentBuilderOptions Options for the [CustomTabsIntent.Builder]
-		 */
-		fun launchUri(context: Context, uri: String,
-		              customTabsIntentBuilderOptions: CustomTabsIntent.Builder.() -> Unit) {
-			launchUri(context, uri.toUri(), customTabsIntentBuilderOptions)
-		}
-
-		/**
-		 * Launches a [uri] with the given [context]
-		 * @param context The context to be used to launch the intent of the [uri]
-		 * @param uri The URI to launch/open
-		 * @param customTabsIntent An instance of a created [CustomTabsIntent] from a [CustomTabsIntent.Builder].
-		 * If this value is not supplied, the URI will be opened as a normal [Intent]
-		 */
-		private fun launchUri(context: Context, uri: Uri, customTabsIntent: CustomTabsIntent?) {
-			if (customTabsIntent.isNotNull()) {
-				customTabsIntent?.launchUrl(context, uri)
-			} else {
-				context.startActivity(Intent(Intent.ACTION_VIEW, uri))
-			}
-		}
-
-		/**
-		 * A newer implementation of the former `sendNotificationToUser` method.
-		 *
-		 *
-		 * This implementation reinforces that notifications are sent as requests to Cloud Firestore
-		 * (which gets saved as a document under the `notificationRequests` collection) and are automatically sent to the associated topic or username.
-		 *
-		 *
-		 * This implementation also uses only 2 parameters to save on the amount of characters required to call the former method.
-		 *
-		 * @param fs      An instance of [FirebaseFirestore] (TIP: Use [FirebaseFirestore.getInstance] to get the instance)
-		 * @param request The notification request to send to Cloud Firestore
-		 * @return A reference of the task
-		 */
-		fun sendNotificationRequest(fs: FirebaseFirestore, request: NotificationRequest): Task<DocumentReference> {
-			return fs.collection("notificationRequests").add(request)
-		}
-
-		/**
-		 * Retrieves the chats that the authenticated user is currently in
-		 * @param firestore An instance of [FirebaseFirestore] (This can be retrieved from [FirebaseFirestore.getInstance])
-		 * @param auth An instance of [FirebaseAuth] (This can be retrieved with [FirebaseAuth.getInstance])
-		 * @return The chats
-		 */
-		fun getChats(firestore: FirebaseFirestore, auth: FirebaseAuth): Query {
-			return firestore.collection("chats")
-					.whereArrayContains("members", auth.currentUser!!.getUserDocument(firestore))
-		}
-
-		/**
-		 * Retrieves the chats that the authenticated user is currently in
-		 * @param firestore An instance of [FirebaseFirestore] (This can be retrieved from [FirebaseFirestore.getInstance])
-		 * @param currentUser An instance of [FirebaseUser] (This can be retrieved with [FirebaseAuth.getCurrentUser])
-		 * @return The chats
-		 */
-		fun getChats(firestore: FirebaseFirestore, currentUser: FirebaseUser): Query {
-			return firestore.collection("chats")
-					.whereArrayContains("members", currentUser.getUserDocument(firestore))
 		}
 
 		/**
