@@ -27,9 +27,9 @@ object FeatureFlagsPrefConstants {
 	const val FEATURE_FLAG_ABOUT_APP_V2_ENABLED = "feature_flags_about_app_v2_enabled"
 
 	@StringDef(
-			FeatureFlagsPrefConstants.FEATURE_FLAG_CALENDAR_ENABLED,
-			FeatureFlagsPrefConstants.FEATURE_FLAG_INTERFACE_V2_ENABLED,
-			FeatureFlagsPrefConstants.FEATURE_FLAG_ABOUT_APP_V2_ENABLED
+			FEATURE_FLAG_CALENDAR_ENABLED,
+			FEATURE_FLAG_INTERFACE_V2_ENABLED,
+			FEATURE_FLAG_ABOUT_APP_V2_ENABLED
 	)
 	annotation class FeatureFlag
 }
