@@ -17,7 +17,7 @@ import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.interfaces.TaskProject
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -71,6 +71,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 			dpd.show()
 			mTaskDate = SharedUtils.getDateFromDatePicker(dpd.datePicker)
 		}*/
+		// TODO: Migrate logic to separate component
 		taskDueDateChip.setOnClickListener {
 			val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 			val constraints = CalendarConstraints.Builder()
@@ -218,11 +219,11 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
 								dueDate = Timestamp(mTaskDate!!)
 							}
 							if (tempTaskProject != null) {
-								project = mFirestore.document("users/${mCurrentUser!!.uid}/todoProjects/$tempTaskProject")
+								project = mFirestore.document("users/${mCurrentUser?.uid}/todoProjects/$tempTaskProject")
 							}
 							done = taskIsDoneCheckbox.isChecked
 						}
-						SharedUtils.addTask(taskItem, mCurrentUser!!, mFirestore)
+						TaskUtils.getInstance(mAuth, mFirestore).addTask(taskItem)
 								.addOnCompleteListener { task ->
 									if (task.isSuccessful) {
 										Toast.makeText(this, "Successfully added task!", Toast.LENGTH_SHORT).show()

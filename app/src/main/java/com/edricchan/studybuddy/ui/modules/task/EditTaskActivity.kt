@@ -65,6 +65,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 				dpd.show()
 				mTaskDate = SharedUtils.getDateFromDatePicker(dpd.datePicker)
 			}*/
+			// TODO: Migrate logic to separate component
 			taskDueDateChip.setOnClickListener {
 				val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 				val constraints = CalendarConstraints.Builder()

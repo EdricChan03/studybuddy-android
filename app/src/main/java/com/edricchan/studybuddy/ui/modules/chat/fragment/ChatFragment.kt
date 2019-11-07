@@ -25,7 +25,8 @@ import com.edricchan.studybuddy.ui.modules.chat.NewChatActivity
 import com.edricchan.studybuddy.ui.modules.chat.adapter.ChatItemDetailsLookup
 import com.edricchan.studybuddy.ui.modules.chat.adapter.ChatItemKeyProvider
 import com.edricchan.studybuddy.ui.modules.chat.adapter.ChatsAdapter
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.ui.modules.chat.utils.ChatUtils
+import com.edricchan.studybuddy.utils.UiUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -41,6 +42,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 	private lateinit var parentActivity: AppCompatActivity
 	private lateinit var firestore: FirebaseFirestore
 	private lateinit var auth: FirebaseAuth
+	private lateinit var chatUtils: ChatUtils
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
@@ -50,12 +52,12 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 
 		fragmentView = view
 
-		SharedUtils.setBottomAppBarFabOnClickListener(parentActivity, View.OnClickListener {
+		UiUtils(parentActivity).bottomAppBar?.setOnClickListener {
 			startActivity<NewChatActivity>()
-		})
+		}
 
 		val recyclerView = fragmentView.findViewById<RecyclerView>(R.id.chatListRecyclerView)
-		firestoreListener = SharedUtils.getChats(FirebaseFirestore.getInstance(), FirebaseAuth.getInstance())
+		firestoreListener = chatUtils.chatCollectionJoinedQuery
 				.addSnapshotListener { docSnapshot, e ->
 					if (e != null) {
 						Log.e(TAG, "An error occurred while retrieving the chats:", e)
@@ -368,6 +370,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 		firestore = FirebaseFirestore.getInstance()
 		auth = FirebaseAuth.getInstance()
 		currentUser = auth.currentUser
+		chatUtils = ChatUtils.getInstance(auth, firestore)
 	}
 
 	override fun onDestroyView() {

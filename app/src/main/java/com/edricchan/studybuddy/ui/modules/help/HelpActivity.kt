@@ -23,7 +23,8 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.interfaces.HelpArticles
 import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.UiUtils
+import com.edricchan.studybuddy.utils.WebUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_help.*
@@ -52,6 +53,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		val webUtils = WebUtils.getInstance(this)
 		when (item.itemId) {
 			android.R.id.home -> {
 				onBackPressed()
@@ -63,11 +65,11 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				return true
 			}
 			R.id.action_send_feedback -> {
-				SharedUtils.launchUri(this, Constants.uriSendFeedback)
+				webUtils.launchUri(Constants.uriSendFeedback)
 				return true
 			}
 			R.id.action_version -> {
-				SharedUtils.showVersionDialog(this)
+				UiUtils.getInstance(this).showVersionDialog()
 				return true
 			}
 			R.id.action_licenses -> {
@@ -75,7 +77,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				return true
 			}
 			R.id.action_source_code -> {
-				SharedUtils.launchUri(this, Constants.uriSrcCode)
+				webUtils.launchUri(Constants.uriSrcCode)
 				return true
 			}
 			else -> return super.onOptionsItemSelected(item)
@@ -136,7 +138,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
 				// Update the adapter
 				val adapter = HelpArticleAdapter(helpArticles)
 				adapter.setOnItemClickListener { article, _ ->
-					SharedUtils.launchUri(activity, article.getArticleUri())
+					WebUtils.getInstance(activity).launchUri(article.getArticleUri())
 				}
 				activity.helpFeaturedRecyclerView.adapter = adapter
 				activity.helpFeaturedRecyclerView.visibility = View.VISIBLE

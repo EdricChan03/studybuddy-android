@@ -18,7 +18,7 @@ import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.NotificationUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -26,7 +26,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
-	private val sharedHelper = SharedUtils()
+	private val notificationUtils = NotificationUtils.getInstance()
 
 	override fun onMessageReceived(remoteMessage: RemoteMessage) {
 		super.onMessageReceived(remoteMessage)
@@ -150,7 +150,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 		val mainPendingIntent = PendingIntent.getActivity(this, 0, mainActivityIntent, PendingIntent.FLAG_ONE_SHOT)
 		builder.setContentIntent(mainPendingIntent)
 
-		manager.notify(sharedHelper.getDynamicId(), builder.build())
+		manager.notify(notificationUtils.incrementAndGetId(), builder.build())
 	}
 
 	override fun onNewToken(token: String) {

@@ -36,6 +36,7 @@ import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.firebase.FirebaseMessagingUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -154,14 +155,12 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
 	private var mConnectivityManager: ConnectivityManager? = null
 	private var mUser: FirebaseUser? = null
-	private lateinit var mUtils: SharedUtils
 	private lateinit var mInstanceId: FirebaseInstanceId
 	private lateinit var mAuth: FirebaseAuth
 	private lateinit var devModeOpts: SharedPreferences
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		mUtils = SharedUtils()
 		mInstanceId = FirebaseInstanceId.getInstance()
 		mAuth = FirebaseAuth.getInstance()
 		mUser = mAuth.currentUser
@@ -316,7 +315,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 										}
 										notificationActions?.add(notificationSettingsAction)
 									}
-									mUtils.sendNotificationRequest(notificationRequest)
+									FirebaseMessagingUtils.sendNotificationRequest(notificationRequest)
 											.addOnCompleteListener { task ->
 												if (task.isSuccessful) {
 													Log.d(TAG, "Successfully sent notification request to Cloud Firestore!")

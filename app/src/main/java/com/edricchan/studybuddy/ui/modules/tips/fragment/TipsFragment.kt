@@ -15,7 +15,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.WebUtils
 
 class TipsFragment : Fragment(R.layout.frag_tips) {
 	private var mFragmentView: View? = null
@@ -33,7 +33,9 @@ class TipsFragment : Fragment(R.layout.frag_tips) {
 		super.onViewCreated(view, savedInstanceState)
 		mFragmentView = view
 		view.findViewById<View>(R.id.tips_empty_state_cta)
-				.setOnClickListener { SharedUtils.launchUri(requireContext(), Constants.uriSubmitTip) }
+				.setOnClickListener {
+					WebUtils.getInstance(requireContext()).launchUri(Constants.uriSubmitTip)
+				}
 	}
 
 
@@ -53,7 +55,7 @@ class TipsFragment : Fragment(R.layout.frag_tips) {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when (item.itemId) {
 			/*R.id.action_submit_tip -> {
-				SharedUtils.launchUri(context!!, Constants.uriSubmitTip)
+				WebUtils.getInstance(requireContext).launchUri(Constants.uriSubmitTip)
 				true
 			}*/
 			R.id.action_debug -> {

@@ -41,6 +41,7 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomShee
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.utils.SharedPrefUtils
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.UiUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -67,12 +68,13 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 	private var mFragmentView: View? = null
 	private var mTaskOptionsPrefs: SharedPreferences? = null
 	//	private var mSelectionTracker: SelectionTracker<String>? = null
-	private var mParentActivity: AppCompatActivity? = null
 	//	private var mActionModeCallback: ActionMode.Callback? = null
 	private lateinit var mAuth: FirebaseAuth
 	private lateinit var mFirestore: FirebaseFirestore
+	private lateinit var mParentActivity: AppCompatActivity
 	private lateinit var mPrefs: SharedPreferences
 	private lateinit var mSharedPrefUtils: SharedPrefUtils
+	private lateinit var uiUtils: UiUtils
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
@@ -229,7 +231,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 									}
 
 								}
-								),
+						),
 						ModalBottomSheetItem(title = getString(R.string.menu_settings_title),
 								icon = R.drawable.ic_settings_outline_24dp,
 								onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
@@ -317,10 +319,11 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 			mSelectionTracker!!.onRestoreInstanceState(savedInstanceState)
 		}*/
 
-
 		mFragmentView = view
 
-		mParentActivity?.let { SharedUtils.setBottomAppBarFabOnClickListener(it, View.OnClickListener { newTaskActivity() }) }
+		uiUtils = UiUtils.getInstance(mParentActivity)
+
+		uiUtils.bottomAppBarFab?.setOnClickListener { newTaskActivity() }
 
 		swipeRefreshLayout.apply {
 			setColorSchemeResources(R.color.colorPrimary)
@@ -361,7 +364,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 			mFirestoreListener?.remove()
 		}
 
-		mParentActivity?.let { SharedUtils.clearBottomAppBarFabOnClickListener(it) }
+		uiUtils.bottomAppBarFab?.setOnClickListener(null)
 	}
 
 	override fun onStart() {

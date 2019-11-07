@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
+import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
@@ -31,7 +32,11 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
+import com.edricchan.studybuddy.utils.NotificationUtils
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.UiUtils
+import com.edricchan.studybuddy.utils.WebUtils
+import com.edricchan.studybuddy.utils.firebase.FirebaseCrashlyticsUtils
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -51,11 +56,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 	private var contentMain: FrameLayout? = null
 	private var bar: BottomAppBar? = null
 	private lateinit var auth: FirebaseAuth
+	private lateinit var uiUtils: UiUtils
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		auth = FirebaseAuth.getInstance()
-		SharedUtils.setAppTheme(this)
+		uiUtils = UiUtils.getInstance(this)
+		uiUtils.setAppTheme()
 		// Use a downloadable font for EmojiCompat
 		val fontRequest = FontRequest(
 				"com.google.android.gms.fonts",
@@ -102,7 +109,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
         */
 		// Check if Android Oreo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			SharedUtils.createNotificationChannels(this@MainActivity)
+			NotificationUtils.createNotificationChannels(this@MainActivity)
 		}
 		// Initially set a fragment view
 		SharedUtils.replaceFragment(this@MainActivity, TaskFragment(), R.id.content_main, false)
@@ -133,14 +140,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 		val currentUser = auth.currentUser
 		val fs = FirebaseFirestore.getInstance()
 		if (currentUser != null) {
-			if (!BuildConfig.DEBUG) {
-				// Crashlytics is disabled on debug builds
-				SharedUtils.setCrashlyticsUserTracking(this, currentUser)
-			} else {
-				Log.d(TAG, "Crashlytics user tracking is disabled on debug builds.")
-			}
+			val crashlyticsTrackingEnabled = PreferenceManager.getDefaultSharedPreferences(this)
+					.getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&
+					!BuildConfig.DEBUG
+			FirebaseCrashlyticsUtils.setCrashlyticsUserTracking(currentUser,
+					crashlyticsTrackingEnabled)
 			// User specific topic
-			FirebaseMessaging.getInstance().subscribeToTopic("user_" + currentUser.uid)
+			FirebaseMessaging.getInstance().subscribeToTopic("user_${currentUser.uid}")
 			FirebaseInstanceId.getInstance().instanceId
 					.addOnCompleteListener { task ->
 						if (task.isSuccessful) {
@@ -263,7 +269,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), GoogleApiClient.
 				aboutDialogBuilder.setMessage(aboutDialogText)
 				aboutDialogBuilder.setPositiveButton(R.string.dialog_action_close) { dialogInterface, _ -> dialogInterface.dismiss() }
 				aboutDialogBuilder.setNeutralButton(R.string.dialog_action_view_source_code) { _, _ ->
-					SharedUtils.launchUri(this, Constants.uriSrcCode)
+					WebUtils.getInstance(this@MainActivity).launchUri(Constants.uriSrcCode)
 				}
 				aboutDialogBuilder.show()
 				return true
