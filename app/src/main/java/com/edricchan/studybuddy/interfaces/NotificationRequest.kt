@@ -6,8 +6,8 @@ import androidx.annotation.StringDef
  * Specifies a notification request to be sent to a device/user/topic
  * @property notificationActions The notification's actions as a [List<NotificationAction>]
  * @property notificationBody The body/message of the notification
- * @property notificationChannelId The notification channel ID of the notification
- *                                 Applicable for devices running Android Oreo ([android.os.Build.VERSION_CODES.O]) and up.
+ * @property notificationChannelId The notification channel ID of the notification.
+ * Applicable for devices running Android Oreo ([android.os.Build.VERSION_CODES.O]) and up.
  * @property notificationColor The color/colour of the notification
  * @property notificationIcon The icon of the notification
  * @property notificationPriority The priority of the notification
