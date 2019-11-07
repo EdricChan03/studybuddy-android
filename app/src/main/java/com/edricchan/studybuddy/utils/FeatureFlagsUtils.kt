@@ -28,7 +28,7 @@ class FeatureFlagsUtils(
 
 	/**
 	 * Resets the feature flags. Optionally, the [message] parameter can be specified to override
-	 * the default message which wold be used for the toast.
+	 * the default message which would be used for the toast.
 	 * @param message The message to be shown as a [Toast] when the feature flags have been reset.
 	 */
 	fun resetFeatureFlags(message: String = "Successfully reset feature flags!") {
