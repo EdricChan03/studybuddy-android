@@ -19,13 +19,22 @@
 				app:title="@string/debug_activity_device_info_title" />
 	</PreferenceCategory>
 	<PreferenceCategory
+			app:key="debug_category_gapi"
+			app:title="@string/debug_activity_category_gapi">
+		<Preference
+			app:icon="@drawable/ic_account_circle_outline_24dp"
+			app:key="debug_account_info_gapi"
+			app:summary="@string/debug_activity_account_info_gapi_summary"
+			app:title="@string/debug_activity_account_info_gapi_title" />
+	</PreferenceCategory>
+	<PreferenceCategory
 			app:key="debug_category_firebase"
 			app:title="@string/debug_activity_category_firebase">
 		<Preference
 				app:icon="@drawable/ic_account_circle_outline_24dp"
-				app:key="debug_account_info"
-				app:summary="@string/debug_activity_account_info_summary"
-				app:title="@string/debug_activity_account_info_title" />
+				app:key="debug_account_info_firebase"
+				app:summary="@string/debug_activity_account_info_firebase_summary"
+				app:title="@string/debug_activity_account_info_firebase_title" />
 		<!-- No longer supported as Crashlytics is disabled on debug builds -->
 		<!--<Preference
 				app:icon="@drawable/ic_close_24dp"

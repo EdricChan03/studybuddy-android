@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/two_line_list_item_height_with_icon"
+		android:background="?attr/selectableItemBackground"
+		android:backgroundTint="@color/tint_state_list"
+		android:paddingStart="@dimen/two_line_list_item_padding_left"
+		android:paddingEnd="@dimen/two_line_list_item_padding_left">
+
+	<ImageView
+			android:id="@+id/iconImageView"
+			android:layout_width="@dimen/two_line_list_item_icon_width"
+			android:layout_height="@dimen/two_line_list_item_icon_height"
+			android:layout_marginTop="@dimen/two_line_list_item_icon_padding_top"
+			android:contentDescription="@string/import_gtasks_adapter_icon_imageview_content_desc"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/ic_format_list_checks_24dp" />
+
+	<TextView
+			android:id="@+id/nameTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/two_line_list_item_text_padding_left_icon"
+			android:ellipsize="end"
+			android:maxLines="1"
+			android:singleLine="true"
+			android:textAppearance="?attr/textAppearanceListItem"
+			app:layout_constraintBottom_toTopOf="@id/descTextView"
+			app:layout_constraintStart_toEndOf="@id/iconImageView"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:text="Task list 1" />
+
+	<TextView
+			android:id="@+id/descTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/two_line_list_item_text_padding_left_icon"
+			android:ellipsize="end"
+			android:maxLines="1"
+			android:singleLine="true"
+			android:textAppearance="?attr/textAppearanceListItemSecondary"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@id/iconImageView"
+			app:layout_constraintTop_toBottomOf="@id/nameTextView"
+			tools:text="Updated: 14/10/2019 at 12:34:56" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

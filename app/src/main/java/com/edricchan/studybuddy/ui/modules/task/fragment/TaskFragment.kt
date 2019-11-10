@@ -1,6 +1,8 @@
 package com.edricchan.studybuddy.ui.modules.task.fragment
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -35,6 +37,7 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TasksAdapter
+import com.edricchan.studybuddy.ui.modules.task.gtasks.ImportGoogleTasksActivity
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
@@ -222,14 +225,13 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 										modalBottomSheet.dismiss()
 									}
 								}),
-						ModalBottomSheetItem(title = getString(R.string.menu_frag_task_import_from_title),
-								visible = false, // Hide option for now
+						ModalBottomSheetItem(title = getString(R.string.menu_frag_task_import_from_gtasks_title),
 								icon = R.drawable.ic_import_24dp,
 								onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
 									override fun onItemClick(item: ModalBottomSheetItem) {
-										TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//										startActivityForResult<ImportGoogleTasksActivity>(RC_IMPORT_GOOGLE_TASKS)
+										startActivity<ImportGoogleTasksActivity>()
 									}
-
 								}
 						),
 						ModalBottomSheetItem(title = getString(R.string.menu_settings_title),
@@ -392,6 +394,15 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 		}
 	}
 
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+
+		if (resultCode == Activity.RESULT_OK && requestCode == RC_IMPORT_GOOGLE_TASKS) {
+			Log.d(TAG, "Successfully imported Google Tasks!")
+			// TODO: Implement handler
+		}
+	}
+
 	override fun onAttach(context: Context) {
 		mParentActivity = context as AppCompatActivity
 		super.onAttach(context as Context)
@@ -454,10 +465,6 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 		modalBottomSheet.setItems(items)
 		modalBottomSheet.headerTitle = "Sort tasks by..."
 		modalBottomSheet.show(requireFragmentManager(), modalBottomSheet.tag)
-	}
-
-	private fun showImportFromOptions() {
-
 	}
 
 	private fun newTaskActivity() {
@@ -735,6 +742,8 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 		 * Request code for new task activity
 		 */
 		private const val ACTION_NEW_TASK = 1
+
+		private const val RC_IMPORT_GOOGLE_TASKS = 10
 
 		private const val SHARED_PREFS_FILE = "TodoFragPrefs"
 	}

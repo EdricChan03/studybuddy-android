@@ -15,10 +15,12 @@ import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -198,6 +200,20 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 				.setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
 					mAuth?.signOut()
+					val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+							.requestIdToken(getString(R.string.default_web_client_id))
+							.requestEmail()
+							.build()
+					val googleSignInClient = GoogleSignIn.getClient(this, gso)
+					googleSignInClient.signOut().addOnCompleteListener {
+						if (it.isSuccessful) {
+							showToast("Successfully signed out from Google!", Toast.LENGTH_SHORT)
+						} else {
+							showToast("An error occurred while attempting to sign out from Google." +
+									"Please try again later.", Toast.LENGTH_LONG)
+							Log.e(TAG, "Could not sign out from Google:", it.exception)
+						}
+					}
 					Toast.makeText(this, "Successfully signed out!", Toast.LENGTH_SHORT).show()
 					dialog.dismiss()
 				}
