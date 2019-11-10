@@ -37,6 +37,7 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.firebase.FirebaseMessagingUtils
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -206,7 +207,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			true
 		}
 
-		findPreference<Preference>(Constants.debugAccountInfo)?.setOnPreferenceClickListener {
+		findPreference<Preference>(Constants.debugAccountInfoFirebase)?.setOnPreferenceClickListener {
 
 			var dialogMsg = ""
 
@@ -226,10 +227,39 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 			}
 
 			val builder = MaterialAlertDialogBuilder(context!!)
-			builder.setTitle(R.string.debug_activity_account_info_title)
+			builder.setTitle(R.string.debug_activity_account_info_firebase_title)
 					.setMessage(dialogMsg)
 					.setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
 					.show()
+			true
+		}
+
+		findPreference<Preference>(Constants.debugAccountInfoGapi)?.setOnPreferenceClickListener {
+			var dialogMsg = ""
+			val googleUser = GoogleSignIn.getLastSignedInAccount(context)
+
+			if (googleUser != null) {
+				dialogMsg += "Display name: ${googleUser.displayName ?: "<not set>"}"
+				dialogMsg += "\nFamily name: ${googleUser.familyName ?: "<not set>"}"
+				dialogMsg += "\nGiven name: ${googleUser.givenName ?: "<not set>"}"
+				dialogMsg += "\nPhoto URL: ${googleUser.photoUrl ?: "<not set>"}"
+				dialogMsg += "\nEmail: ${googleUser.email ?: "<not set>"}"
+				dialogMsg += "\nID: ${googleUser.id ?: "<not set>"}"
+				dialogMsg += "\nID token: ${googleUser.idToken ?: "<not set>"}"
+				dialogMsg += "\nGranted scopes: ${googleUser.grantedScopes.joinToString()}"
+				dialogMsg += "\nRequested scopes: ${googleUser.requestedScopes.joinToString()}"
+				dialogMsg += "\nServer auth code: ${googleUser.serverAuthCode ?: "<not set>"}"
+				dialogMsg += "\nIs expired: ${if (googleUser.isExpired) "yes" else "no"}"
+			} else {
+				dialogMsg = "No current GApi user exists!"
+			}
+
+			val builder = MaterialAlertDialogBuilder(context!!)
+			builder.setTitle(R.string.debug_activity_account_info_gapi_title)
+					.setMessage(dialogMsg)
+					.setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
+					.show()
+
 			true
 		}
 
@@ -583,11 +613,13 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 	private fun createConnectivityInfoDialog(): MaterialAlertDialogBuilder {
 		var dialogMsg = ""
 
-		val isNetworkMetered = mConnectivityManager!!.isActiveNetworkMetered
+		if (SharedUtils.checkPermissionGranted(Manifest.permission.ACCESS_NETWORK_STATE, requireContext())) {
+			val isNetworkMetered = mConnectivityManager?.isActiveNetworkMetered
+			dialogMsg += "\nIs network metered: $isNetworkMetered"
+		}
 		val isNetworkActive = mConnectivityManager!!.isDefaultNetworkActive
 		val isNetworkPermGranted = ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_NETWORK_STATE)
 
-		dialogMsg += "\nIs network metered: $isNetworkMetered"
 		dialogMsg += "\nIs network active: $isNetworkActive"
 		dialogMsg += when (isNetworkPermGranted) {
 			PackageManager.PERMISSION_GRANTED -> "\nIs network permission granted: Yes"

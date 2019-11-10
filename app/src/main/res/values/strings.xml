@@ -155,7 +155,7 @@
 	<!-- The title of the third item in the sort by modal bottom sheet in the task fragment. -->
 	<string name="sort_by_bottomsheet_title_desc_title">Title (descending)</string>
 
-	<string name="menu_frag_task_import_from_title">Import from&#8230;</string>
+	<string name="menu_frag_task_import_from_gtasks_title">Import from Google Tasks&#8230;</string>
 
 	<!-- The title of the source code menu item in the help activity's menu. -->
 	<string name="menu_help_src_code_title">View source code</string>
@@ -245,12 +245,15 @@
 
 	<string name="date_format_pattern">EEE, MMM d yyyy</string>
 
-	<string name="debug_activity_account_info_summary">Show information about the currently signed-in Firebase User
+	<string name="debug_activity_account_info_firebase_summary">Show information about the currently signed-in Firebase User
 	</string>
 
-	<string name="debug_activity_account_info_title">Account info</string>
+	<string name="debug_activity_account_info_firebase_title">Firebase account info</string>
+	<string name="debug_activity_account_info_gapi_summary">Show information about the currently signed-in Google user.</string>
+	<string name="debug_activity_account_info_gapi_title">GApi account info</string>
 	<string name="debug_activity_category_device">Device</string>
 	<string name="debug_activity_category_firebase">Firebase</string>
+	<string name="debug_activity_category_gapi">Google APIs</string>
 	<string name="debug_activity_category_logging">Logging</string>
 	<string name="debug_activity_category_updates">Updates</string>
 	<string name="debug_activity_category_other">Other</string>
@@ -363,6 +366,16 @@
 	<string name="frag_chat_default_group_desc">&lt;No description set&gt;</string>
 
 	<string name="help_activity_empty_state_title">Loading help articles&#8230;</string>
+
+	<string name="import_gtasks_activity_empty_state_cta_no_acct">Sign in</string>
+	<string name="import_gtasks_activity_empty_state_heading_no_acct">Sign in to continue</string>
+	<string name="import_gtasks_activity_empty_state_subheading_no_acct">Please sign in to continue.</string>
+	<string name="import_gtasks_activity_empty_state_cta_no_scopes">Grant permission</string>
+	<string name="import_gtasks_activity_empty_state_heading_no_scopes">Permission required</string>
+	<string name="import_gtasks_activity_empty_state_subheading_no_scopes">StudyBuddy needs the
+	ability to read your tasks.</string>
+	<string name="import_gtasks_adapter_icon_imageview_content_desc">Task list icon</string>
+	<string name="import_gtasks_adapter_desc_textview_text">Last updated on %s</string>
 
 	<string name="minimum_password">The password that you entered is too short, please enter a minimum of 6
 		characters!
@@ -598,6 +611,7 @@
 	<string name="title_activity_edit_task">Edit task</string>
 	<string name="title_activity_help">Help</string>
 	<string name="title_activity_icon_picker">Choose an icon&#8230;</string>
+	<string name="title_activity_import_google_tasks">Import from Google Tasks&#8230;</string>
 	<string name="title_activity_login">Sign in</string>
 	<string name="title_activity_new_chat">New chat</string>
 	<string name="title_activity_new_task">New task</string>

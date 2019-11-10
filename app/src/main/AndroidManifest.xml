@@ -168,6 +168,10 @@
 				android:name=".ui.widget.iconpicker.IconPickerActivity"
 				android:label="@string/title_activity_icon_picker" />
 
+		<activity
+				android:name=".ui.modules.task.gtasks.ImportGoogleTasksActivity"
+				android:label="@string/title_activity_import_google_tasks" />
+
 		<provider
 				android:name="androidx.core.content.FileProvider"
 				android:authorities="${applicationId}.provider"
