@@ -212,7 +212,7 @@ dependencies {
 	implementation 'com.google.firebase:firebase-auth:19.1.0'
 	implementation 'com.google.firebase:firebase-messaging:20.0.0'
 	implementation 'com.google.android.gms:play-services-auth:17.0.0'
-	implementation 'com.google.firebase:firebase-perf:19.0.1'
+	implementation 'com.google.firebase:firebase-perf:19.0.2'
 	implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
 	// Provide a way to update the app
 	implementation 'com.github.javiersantos:AppUpdater:2.7'
