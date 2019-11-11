@@ -210,7 +210,7 @@ dependencies {
 	implementation 'com.google.firebase:firebase-core:17.2.1'
 	implementation 'com.google.firebase:firebase-firestore-ktx:21.2.1'
 	implementation 'com.google.firebase:firebase-auth:19.1.0'
-	implementation 'com.google.firebase:firebase-messaging:20.0.0'
+	implementation 'com.google.firebase:firebase-messaging:20.0.1'
 	implementation 'com.google.android.gms:play-services-auth:17.0.0'
 	implementation 'com.google.firebase:firebase-perf:19.0.1'
 	implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
