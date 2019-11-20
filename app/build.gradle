@@ -190,7 +190,7 @@ dependencies {
 	})
 	androidTestImplementation 'androidx.test:core:1.2.0'
 	// AndroidX Core
-	implementation 'androidx.core:core:1.2.0-beta02'
+	implementation 'androidx.core:core:1.2.0-rc01'
 	implementation 'androidx.core:core-ktx:1.2.0-beta02'
 	// AppCompat
 	implementation 'androidx.appcompat:appcompat:1.1.0'
