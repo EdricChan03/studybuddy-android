@@ -204,7 +204,7 @@ dependencies {
 	// SwipeRefreshLayout (For some reason, it isn't included in AndroidX Core)
 	implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03'
 	// Chrome Custom Tabs
-	implementation 'androidx.browser:browser:1.2.0-alpha09'
+	implementation 'androidx.browser:browser:1.2.0-beta01'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
 	implementation 'com.google.firebase:firebase-core:17.2.1'
