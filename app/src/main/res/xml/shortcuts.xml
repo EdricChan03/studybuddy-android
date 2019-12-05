@@ -16,7 +16,8 @@
 			android:targetClass="com.edricchan.studybuddy.ui.modules.task.NewTaskActivity"
 			android:targetPackage="com.edricchan.studybuddy" />
 	</shortcut>
-	<shortcut
+	<!-- It isn't really useful to show a shortcut to just navigate to a settings screen... -->
+	<!--<shortcut
 		android:enabled="true"
 		android:icon="@drawable/ic_shortcut_settings"
 		android:shortcutId="settings"
@@ -27,6 +28,6 @@
 			android:action="android.intent.action.APPLICATION_PREFERENCE"
 			android:targetClass="com.edricchan.studybuddy.ui.modules.settings.SettingsActivity"
 			android:targetPackage="com.edricchan.studybuddy" />
-	</shortcut>
+	</shortcut>-->
 
 </shortcuts>
