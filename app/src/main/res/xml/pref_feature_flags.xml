@@ -24,6 +24,7 @@
 		<SwitchPreferenceCompat
 				app:defaultValue="false"
 				app:enabled="false"
+				app:icon="@drawable/ic_calendar_24dp"
 				app:key="feature_flags_calendar_enabled"
 				app:summary="@string/feature_flags_calendar_enabled_summary"
 				app:title="@string/feature_flags_calendar_enabled_title" />
@@ -34,6 +35,7 @@
 				app:summary="@string/feature_flags_interface_v2_enabled_summary"
 				app:title="@string/feature_flags_interface_v2_enabled_title" />
 		<SwitchPreferenceCompat
+				app:icon="@drawable/ic_info_24dp"
 				app:defaultValue="false"
 				app:key="feature_flags_about_app_v2_enabled"
 				app:summary="@string/feature_flags_about_app_v2_enabled_summary"
