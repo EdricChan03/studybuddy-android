@@ -47,7 +47,7 @@ class UiUtils(val context: Context) {
 	 */
 	fun setAppTheme() {
 		when (PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.prefDarkTheme,
-				Constants.prefDarkThemeAutoTime)) {
+				Constants.prefDarkThemeAutoBatterySaver)) {
 			// Note: The old values of the preference will still be supported
 			// TODO: Completely remove support for old values
 			"1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -57,8 +57,9 @@ class UiUtils(val context: Context) {
 			// New values
 			Constants.prefDarkThemeAlways -> AppCompatDelegate
 					.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-			Constants.prefDarkThemeAuto, Constants.prefDarkThemeAutoTime -> AppCompatDelegate
-					.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME)
+			// No longer supported
+			/* Constants.prefDarkThemeAuto, Constants.prefDarkThemeAutoTime -> AppCompatDelegate
+					.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME) */
 			Constants.prefDarkThemeAutoBatterySaver -> AppCompatDelegate
 					.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
 			Constants.prefDarkThemeFollowSystem -> AppCompatDelegate
@@ -66,8 +67,8 @@ class UiUtils(val context: Context) {
 			Constants.prefDarkThemeNever -> AppCompatDelegate
 					.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 			else -> Log.w(TAG, "A valid string integer (1, 2, or 3), or a valid option" +
-					" (\"always\", \"automatic\"/\"automatic_time\", \"automatic_battery_saver\"," +
-					"\"follow_system\" or \"never\") was not set.")
+					" (\"always\", \"automatic_battery_saver\"," +
+					"\"follow_system\" or \"never\") was not used.")
 		}
 	}
 

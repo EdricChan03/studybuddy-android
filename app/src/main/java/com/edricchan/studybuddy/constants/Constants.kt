@@ -20,12 +20,18 @@ object Constants {
 	const val prefCategoryGeneral = "pref_category_general"
 	const val prefCategoryTheme = "pref_category_theme"
 	const val prefDarkTheme = "pref_dark_theme"
+	@Deprecated("Not visible in the app's settings")
 	const val prefDarkThemeAuto = "automatic"
+	@Deprecated("No longer supported")
 	const val prefDarkThemeAutoTime = "automatic_time"
 	const val prefDarkThemeAutoBatterySaver = "automatic_battery_saver"
 	const val prefDarkThemeAlways = "always"
 	const val prefDarkThemeFollowSystem = "follow_system"
 	const val prefDarkThemeNever = "never"
+	@Deprecated("Use Constants.prefDarkTheme", ReplaceWith(
+			"Constants.prefDarkTheme",
+			"com.edricchan.studybuddy.constants.Constants"
+	))
 	const val prefAppTheme = prefDarkTheme
 	const val prefLanguage = "pref_language"
 	const val prefUseCustomTabs = "pref_use_custom_tabs"

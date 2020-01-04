@@ -35,20 +35,6 @@
 				app:key="pref_dark_theme"
 				app:title="@string/pref_dark_theme_title"
 				app:useSimpleSummaryProvider="true" />
-		<Preference
-				app:enabled="false"
-				app:icon="@drawable/ic_info_outline_24dp"
-				app:key="pref_daynight_location_perm_info"
-				app:title="@string/pref_daynight_perm_info_summary" />
-		<Preference
-				app:enabled="false"
-				app:icon="@drawable/ic_warning_24dp"
-				app:key="pref_daynight_location_notice"
-				app:summary="@string/pref_daynight_notice_summary" />
-		<Preference
-				app:icon="@drawable/ic_open_in_new_24dp"
-				app:key="pref_daynight_location_grant_perm"
-				app:title="@string/pref_daynight_grant_perm_title" />
 	</PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
