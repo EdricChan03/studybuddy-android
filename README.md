@@ -51,7 +51,7 @@ If you would like to build the source code, follow these steps:
    ```shell
    gradlew.bat assembleDebug
    ```
-3. The APK should be signed with the debug key and will be available available at `app/build/outputs/apk`. See [Build a debug APK](https://developer.android.com/studio/build/building-cmdline.html#DebugMode) for more info.
+3. The APK should be signed with the debug key and will be available at `app/build/outputs/apk`. See [Build a debug APK](https://developer.android.com/studio/build/building-cmdline.html#DebugMode) for more info.
 
 ## Contributing
 
