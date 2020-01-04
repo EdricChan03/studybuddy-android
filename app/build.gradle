@@ -195,24 +195,24 @@ dependencies {
 	// AppCompat
 	implementation 'androidx.appcompat:appcompat:1.1.0'
 	// ConstraintLayout
-	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
+	implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
 	// Design Support
-	implementation 'com.google.android.material:material:1.2.0-alpha02'
+	implementation 'com.google.android.material:material:1.2.0-alpha03'
 	// RecyclerView
 	implementation 'androidx.recyclerview:recyclerview:1.1.0'
 	implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-beta01'
 	// SwipeRefreshLayout (For some reason, it isn't included in AndroidX Core)
 	implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03'
 	// Chrome Custom Tabs
-	implementation 'androidx.browser:browser:1.2.0-rc01'
+	implementation 'androidx.browser:browser:1.2.0'
 	testImplementation 'junit:junit:4.12'
 	// Firebase stuff
 	implementation 'com.google.firebase:firebase-core:17.2.1'
-	implementation 'com.google.firebase:firebase-firestore-ktx:21.3.0'
+	implementation 'com.google.firebase:firebase-firestore-ktx:21.3.1'
 	implementation 'com.google.firebase:firebase-auth:19.2.0'
-	implementation 'com.google.firebase:firebase-messaging:20.0.1'
+	implementation 'com.google.firebase:firebase-messaging:20.1.0'
 	implementation 'com.google.android.gms:play-services-auth:17.0.0'
-	implementation 'com.google.firebase:firebase-perf:19.0.2'
+	implementation 'com.google.firebase:firebase-perf:19.0.4'
 	implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
 	// Provide a way to update the app
 	implementation 'com.github.javiersantos:AppUpdater:2.7'
