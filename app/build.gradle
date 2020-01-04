@@ -164,7 +164,10 @@ android {
 	}
 	buildToolsVersion '29.0.2'
 
-	def isRunningOnActions = System.getenv("CI") == "true"
+	// GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
+	// See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables#default-environment-variables
+	// for more info.
+	def isRunningOnActions = System.getenv("GITHUB_ACTIONS") == "true"
 
 	if (isRunningOnActions) {
 		// Configure keystore

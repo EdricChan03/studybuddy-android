@@ -3,11 +3,9 @@ name: Nightly releases
 on:
   schedule:
     - cron: "0 0 * * *" # Executes every day at 12 midnight UTC
-# on: push # TODO: Remove this once workflow has been tested
 
 jobs:
   deploy:
-    #runs-on: macOS-latest # TODO: Move back to Ubuntu once Android 29 support has been added
     runs-on: ubuntu-latest
     
     steps:
@@ -16,34 +14,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-#     - name: Install Android SDK Platform 29 and Build-Tools 29.0.2
-#       run: |
-#         cd
-#         echo "Current working directory:"
-#         pwd
-#         wget -nv https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-#         unzip -q sdk-tools-linux-4333796.zip
-#         rm sdk-tools-linux-4333796.zip
-#         mkdir android-sdk
-#         mv tools android-sdk/tools
-
-#         echo "Available Platform Tools:"
-#         ls -hAFl --color=auto ~/android-sdk/tools/bin
-#         echo "Adding Android SDK to PATH..."
-#         echo '# Export the Android SDK path' >> ~/.profile
-#         echo 'export ANDROID_HOME=$HOME/android-sdk' >> ~/.profile
-#         echo 'PATH=$PATH:$ANDROID_HOME/tools/bin' >> ~/.profile
-#         echo -e '\n# Fixes sdkmanager error with java versions higher than java 8' >> ~/.profile
-#         echo '# export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"' >> ~/.profile
-#         echo "Result of cat ~/.profile:"
-#         cat ~/.profile
-#         source ~/.profile
-#         echo "Current PATH:"
-#         echo $PATH
-#         echo "Accepting licenses..."
-#         yes | sdkmanager --licenses
-#         echo "Installing Android SDK Platform 29 and Build-Tools 29.0.2 with sdkmanager..."
-#         sdkmanager "build-tools;29.0.2" "platforms;android-29" | grep -v = || true
     - name: Install GPG2
       run: sudo apt-get install gnupg2
     - name: Install Homebrew
@@ -74,7 +44,6 @@ jobs:
         ./gradlew :app:assembleNightly -PversionClassifier=nightly
         # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
       env:
-        CI: ${{ true }}
         APP_KEYSTORE_PASSWORD: ${{ secrets.APP_KEYSTORE_PASSWORD }}
         APP_KEYSTORE_ALIAS: ${{ secrets.APP_KEYSTORE_ALIAS }}
         APP_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
