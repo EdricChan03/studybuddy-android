@@ -518,73 +518,72 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 
 			mAdapter = TasksAdapter(requireContext(), taskItemList)
 			recyclerView.adapter = mAdapter
-			mAdapter!!
-					.setOnItemClickListener(object : TasksAdapter.OnItemClickListener {
-						override fun onItemClick(item: TaskItem, position: Int) {
-							Log.d(TAG, "Task: $item")
-							Log.d(TAG, "Task ID: ${item.id}")
-							startActivity<ViewTaskActivity> {
-								putExtra("taskId", item.id)
-							}
-						}
+			mAdapter?.setOnItemClickListener(object : TasksAdapter.OnItemClickListener {
+				override fun onItemClick(item: TaskItem, position: Int) {
+					Log.d(TAG, "Task: $item")
+					Log.d(TAG, "Task ID: ${item.id}")
+					startActivity<ViewTaskActivity> {
+						putExtra("taskId", item.id)
+					}
+				}
 
-						override fun onDeleteButtonClick(item: TaskItem, position: Int) {
-							val builder = MaterialAlertDialogBuilder(context!!)
-							builder
-									.setTitle(R.string.todo_frag_delete_task_dialog_title)
-									.setMessage(R.string.todo_frag_delete_task_dialog_msg)
-									.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-									.setPositiveButton(R.string.dialog_action_ok) { dialog, which ->
-										mFirestore.document("users/" + mCurrentUser!!.uid + "/todos/" + item.id)
-												.delete()
-												.addOnCompleteListener { task ->
-													if (task.isSuccessful) {
-														findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
-															Snackbar.make(
-																	it,
-																	"Successfully deleted todo!",
-																	Snackbar.LENGTH_SHORT)
-																	.show()
-														}
-														mAdapter!!.notifyItemRemoved(position)
-														dialog.dismiss()
-													} else {
-														Log.e(TAG, "An error occurred while attempting to delete the todo:", task.exception)
-													}
+				override fun onDeleteButtonClick(item: TaskItem, position: Int) {
+					val builder = MaterialAlertDialogBuilder(context!!)
+					builder
+							.setTitle(R.string.todo_frag_delete_task_dialog_title)
+							.setMessage(R.string.todo_frag_delete_task_dialog_msg)
+							.setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+							.setPositiveButton(R.string.dialog_action_ok) { dialog, which ->
+								mFirestore.document("users/" + mCurrentUser!!.uid + "/todos/" + item.id)
+										.delete()
+										.addOnCompleteListener { task ->
+											if (task.isSuccessful) {
+												findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
+													Snackbar.make(
+															it,
+															"Successfully deleted todo!",
+															Snackbar.LENGTH_SHORT)
+															.show()
 												}
-									}
-									.show()
-						}
-
-						override fun onMarkAsDoneButtonClick(item: TaskItem, position: Int) {
-							mFirestore.document("users/${mCurrentUser?.uid}/todos/${item.id}")
-									.update("done", !item.done!!)
-									.addOnCompleteListener { task ->
-										val isDoneStr = if (item.done!!) "done" else "undone"
-										if (task.isSuccessful) {
-											findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
-												Snackbar.make(
-														it,
-														"Successfully marked task as $isDoneStr!",
-														Snackbar.LENGTH_SHORT)
-														.setAnchorView(findParentActivityViewById<FloatingActionButton>(R.id.fab))
-														.show()
+												mAdapter!!.notifyItemRemoved(position)
+												dialog.dismiss()
+											} else {
+												Log.e(TAG, "An error occurred while attempting to delete the todo:", task.exception)
 											}
-											mAdapter?.notifyItemChanged(position)
-										} else {
-											findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
-												Snackbar.make(
-														it,
-														"An error occurred while attempting to mark the todo as $isDoneStr",
-														Snackbar.LENGTH_LONG)
-														.setAnchorView(findParentActivityViewById<FloatingActionButton>(R.id.fab))
-														.show()
-											}
-											Log.e(TAG, "An error occurred while attempting to mark the todo as $isDoneStr:", task.exception)
 										}
+							}
+							.show()
+				}
+
+				override fun onMarkAsDoneButtonClick(item: TaskItem, position: Int) {
+					mFirestore.document("users/${mCurrentUser?.uid}/todos/${item.id}")
+							.update("done", !item.done!!)
+							.addOnCompleteListener { task ->
+								val isDoneStr = if (item.done!!) "done" else "undone"
+								if (task.isSuccessful) {
+									findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
+										Snackbar.make(
+												it,
+												"Successfully marked task as $isDoneStr!",
+												Snackbar.LENGTH_SHORT)
+												.setAnchorView(findParentActivityViewById<FloatingActionButton>(R.id.fab))
+												.show()
 									}
-						}
-					})
+									mAdapter?.notifyItemChanged(position)
+								} else {
+									findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
+										Snackbar.make(
+												it,
+												"An error occurred while attempting to mark the todo as $isDoneStr",
+												Snackbar.LENGTH_LONG)
+												.setAnchorView(findParentActivityViewById<FloatingActionButton>(R.id.fab))
+												.show()
+									}
+									Log.e(TAG, "An error occurred while attempting to mark the todo as $isDoneStr:", task.exception)
+								}
+							}
+				}
+			})
 			/*if (mSelectionTracker == null) {
 				mSelectionTracker = SelectionTracker.Builder(
 						"selection-id",
