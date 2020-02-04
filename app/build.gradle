@@ -164,7 +164,7 @@ android {
 	}
 
 	lintOptions {
-
+		abortOnError false
 	}
 
 	buildToolsVersion '29.0.2'
