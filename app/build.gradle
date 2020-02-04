@@ -163,10 +163,6 @@ android {
 		jvmTarget = "1.8"
 	}
 
-	lintOptions {
-		abortOnError false
-		baseline file("lint-baseline.xml")
-	}
 
 	buildToolsVersion '29.0.2'
 
@@ -175,15 +171,18 @@ android {
 	// for more info.
 	def isRunningOnActions = System.getenv("GITHUB_ACTIONS") == "true"
 
+	lintOptions {
+		textReport isRunningOnActions
+		textOutput 'stdout'
+		abortOnError false
+		baseline file("lint-baseline.xml")
+	}
+
 	if (isRunningOnActions) {
 		// Configure keystore
 		signingConfigs.release.storePassword = System.getenv("APP_KEYSTORE_PASSWORD")
 		signingConfigs.release.keyAlias = System.getenv("APP_KEYSTORE_ALIAS")
 		signingConfigs.release.keyPassword = System.getenv("APP_KEYSTORE_ALIAS_PASSWORD")
-
-		// Configure lint options
-		lintOptions.textReport = true
-		lintOptions.textOutput = 'stdout'
 	} else if (buildProperties.secrets != null) {
 		// Building locally
 		signingConfigs.release.storePassword = buildProperties.secrets['keystore_password'].string
