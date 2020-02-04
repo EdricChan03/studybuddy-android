@@ -1,0 +1,1908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="5" by="lint 4.0.0-alpha09" client="gradle" variant="all" version="4.0.0-alpha09">
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.annotation.experimental.lint.ExperimentalIssueRegistry`) which did not specify the Lint API version it was compiled with.&#xA;&#xA;**This means that the lint checks are likely not compatible.**&#xA;&#xA;If you are the author of this lint check, make your lint `IssueRegistry` class contain&#xA;  override val api: Int = com.android.tools.lint.detector.api.CURRENT_API&#xA;or from Java,&#xA;  @Override public int getApi() { return com.android.tools.lint.detector.api.ApiKt.CURRENT_API; }&#xA;&#xA;If you are just using lint checks from a third party library you have no control over, you can disable these lint checks (if they misbehave) like this:&#xA;&#xA;    android {&#xA;        lintOptions {&#xA;            disable &quot;UnsafeExperimentalUsageError&quot;,&#xA;                    &quot;UnsafeExperimentalUsageWarning&quot;&#xA;        }&#xA;    }&#xA;"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/20cdeecb0835d65308af0fe2e1bb8059/jetified-annotation-experimental-1.0.0/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.appcompat.AppCompatIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 6 (3.6), current lint API level is 7 (4.0+)"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/0b3437cdafa09a4f402c6b820fc89213/appcompat-1.2.0-alpha02/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.work.lint.WorkManagerIssueRegistry`) which did not specify the Lint API version it was compiled with.&#xA;&#xA;**This means that the lint checks are likely not compatible.**&#xA;&#xA;If you are the author of this lint check, make your lint `IssueRegistry` class contain&#xA;  override val api: Int = com.android.tools.lint.detector.api.CURRENT_API&#xA;or from Java,&#xA;  @Override public int getApi() { return com.android.tools.lint.detector.api.ApiKt.CURRENT_API; }&#xA;&#xA;If you are just using lint checks from a third party library you have no control over, you can disable these lint checks (if they misbehave) like this:&#xA;&#xA;    android {&#xA;        lintOptions {&#xA;            disable &quot;BadConfigurationProvider&quot;,&#xA;                    &quot;BadPeriodicWorkRequestEnqueue&quot;,&#xA;                    &quot;RemoveWorkManagerInitializer&quot;&#xA;        }&#xA;    }&#xA;"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/e558c283723027da7104440d9655c953/work-runtime-2.3.0/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="SdCardPath"
+        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
+        errorLine1=" fun sharedPrefFileExists(fileName: String) = File(&quot;/data/data/${context.packageName}/shared_prefs/$fileName.xml&quot;).exists()"
+        errorLine2="                                                    ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
+            line="14"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="SdCardPath"
+        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
+        errorLine1=" fun getSharedPrefsFile(fileName: String) = File(&quot;/data/data/${context.packageName}/shared_prefs/$fileName.xml&quot;)"
+        errorLine2="                                                  ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
+            line="21"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="SdCardPath"
+        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
+        errorLine1=" fun getDefaultSharedPrefsFile() = File(&quot;/data/data/${context.packageName}/shared_prefs/${context.packageName}_preferences.xml&quot;)"
+        errorLine2="                                         ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
+            line="27"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="SdCardPath"
+        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
+        errorLine1=" fun getSharedPrefsFileDir() = File(&quot;/data/data/${context.packageName}/shared_prefs&quot;)"
+        errorLine2="                                     ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
+            line="32"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="BadPeriodicWorkRequestEnqueue"
+        message="Use `enqueueUniquePeriodicWork()` instead of `enqueue()`">
+        <location
+            file="/Users/edricchan/.gradle/caches/transforms-2/files-2.1/e558c283723027da7104440d9655c953/work-runtime-2.3.0/jars/classes.jar!/androidx/work/WorkManager.class"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="  val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
+        errorLine2="                                                                           ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
+            line="208"
+            column="76"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="  val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
+        errorLine2="                                                                           ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
+            line="233"
+            column="76"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="  val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
+        errorLine2="                                                                           ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
+            line="257"
+            column="76"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="     val debugSendNotificationDialogView = layoutInflater.inflate(R.layout.debug_send_fcm_notification_dialog, null)"
+        errorLine2="                                                                                                               ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="248"
+            column="112"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="       val editTextDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
+        errorLine2="                                                                                  ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/task/EditTaskActivity.kt"
+            line="135"
+            column="83"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="       val editTextDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
+        errorLine2="                                                                                  ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/task/NewTaskActivity.kt"
+            line="148"
+            column="83"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1=" var promptDialogView: View = LayoutInflater.from(context).inflate(R.layout.edit_text_dialog, null)"
+        errorLine2="                                                                                              ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/widget/PromptAlertDialogBuilder.kt"
+            line="21"
+            column="95"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="  val versionDialogView = LayoutInflater.from(context).inflate(R.layout.version_dialog, null)"
+        errorLine2="                                                                                        ~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/utils/UiUtils.kt"
+            line="80"
+            column="89"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:editable` is deprecated: Use an `&lt;EditText>` to make it editable"
+        errorLine1="       android:editable=&quot;false&quot; />"
+        errorLine2="       ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_new_chat.xml"
+            line="78"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:editable` is deprecated: Use an `&lt;EditText>` to make it editable"
+        errorLine1="      android:editable=&quot;false&quot; />"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_new_task.xml"
+            line="65"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="UseAppTint"
+        message="Must use &apos;app:tint&apos; instead of &apos;android:tint&apos;."
+        errorLine1="  android:tint=&quot;@color/colorSecondary&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/helparticleadapter_item_row.xml"
+            line="21"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="org/jsoup/helper/HttpConnection$Response$2.class"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="org/jsoup/helper/HttpConnection$Response$2.class"/>
+    </issue>
+
+    <issue
+        id="ExportedService"
+        message="Exported service does not require permission"
+        errorLine1="  &lt;service android:name=&quot;.providers.fcm.StudyBuddyMessagingService&quot;>"
+        errorLine2="   ~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="182"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="Recycle"
+        message="This `TypedArray` should be recycled after use with `#recycle()`"
+        errorLine1="  val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ChipsTextInputLayout, 0, 0)"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/widget/ChipsTextInputLayout.kt"
+            line="33"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (834 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="    &lt;path android:fillColor=&quot;?attr/colorControlNormal&quot; android:pathData=&quot;M16.36 14c0.08-0.66 0.14-1.32 0.14-2 0-0.68-0.06-1.34-0.14-2h3.38C19.9 10.64 20 11.31 20 12s-0.1 1.36-0.26 2m-5.15 5.56c0.6-1.11 1.06-2.31 1.38-3.56h2.95c-0.96 1.65-2.49 2.93-4.33 3.56M14.34 14H9.66c-0.1-0.66-0.16-1.32-0.16-2 0-0.68 0.06-1.35 0.16-2h4.68c0.09 0.65 0.16 1.32 0.16 2 0 0.68-0.07 1.34-0.16 2M12 19.96c-0.83-1.2-1.5-2.53-1.91-3.96h3.82c-0.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08C6.03 6.34 7.57 5.06 9.4 4.44 8.8 5.55 8.35 6.75 8 8m-2.92 8H8c0.35 1.25 0.8 2.45 1.4 3.56-1.83-0.63-3.37-1.91-4.32-3.56m-0.82-2C4.1 13.36 4 12.69 4 12s0.1-1.36 0.26-2h3.38c-0.08 0.66-0.14 1.32-0.14 2 0 0.68 0.06 1.34 0.14 2M12 4.03c0.83 1.2 1.5 2.54 1.91 3.97h-3.82C10.5 6.57 11.17 5.23 12 4.03M18.92 8h-2.95c-0.32-1.25-0.78-2.45-1.38-3.56 1.84 0.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z&quot;/>"
+        errorLine2="                                                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_language_24dp.xml"
+            line="3"
+            column="74"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (821 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="    &lt;path android:fillColor=&quot;?attr/colorControlNormal&quot; android:pathData=&quot;M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c0.04-0.32 0.07-0.64 0.07-0.97 0-0.33-0.03-0.66-0.07-1l2.11-1.63c0.19-0.15 0.24-0.42 0.12-0.64l-2-3.46c-0.12-0.22-0.39-0.31-0.61-0.22l-2.49 1c-0.52-0.39-1.06-0.73-1.69-0.98L14.5 2.42C14.46 2.18 14.25 2 14 2h-4C9.75 2 9.54 2.18 9.5 2.42L9.13 5.07C8.5 5.32 7.96 5.66 7.44 6.05l-2.49-1c-0.22-0.09-0.49 0-0.61 0.22l-2 3.46C2.21 8.95 2.27 9.22 2.46 9.37L4.57 11c-0.04 0.34-0.07 0.67-0.07 1 0 0.33 0.03 0.65 0.07 0.97l-2.11 1.66c-0.19 0.15-0.25 0.42-0.12 0.64l2 3.46c0.12 0.22 0.39 0.3 0.61 0.22l2.49-1.01c0.52 0.4 1.06 0.74 1.69 0.99l0.37 2.65C9.54 21.82 9.75 22 10 22h4c0.25 0 0.46-0.18 0.5-0.42l0.37-2.65c0.63-0.26 1.17-0.59 1.69-0.99l2.49 1.01c0.22 0.08 0.49 0 0.61-0.22l2-3.46c0.12-0.22 0.07-0.49-0.12-0.64l-2.11-1.66z&quot;/>"
+        errorLine2="                                                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_settings_24dp.xml"
+            line="3"
+            column="74"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1589 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="    &lt;path android:fillColor=&quot;?attr/colorControlNormal&quot; android:pathData=&quot;M19.43 12.98c0.04-0.32 0.07-0.64 0.07-0.98 0-0.34-0.03-0.66-0.07-0.98l2.11-1.65c0.19-0.15 0.24-0.42 0.12-0.64l-2-3.46c-0.09-0.16-0.26-0.25-0.44-0.25-0.06 0-0.12 0.01-0.17 0.03l-2.49 1c-0.52-0.4-1.08-0.73-1.69-0.98l-0.38-2.65C14.46 2.18 14.25 2 14 2h-4C9.75 2 9.54 2.18 9.51 2.42L9.13 5.07C8.52 5.32 7.96 5.66 7.44 6.05l-2.49-1C4.89 5.03 4.83 5.02 4.77 5.02c-0.17 0-0.34 0.09-0.43 0.25l-2 3.46C2.21 8.95 2.27 9.22 2.46 9.37l2.11 1.65C4.53 11.34 4.5 11.67 4.5 12c0 0.33 0.03 0.66 0.07 0.98l-2.11 1.65c-0.19 0.15-0.24 0.42-0.12 0.64l2 3.46c0.09 0.16 0.26 0.25 0.44 0.25 0.06 0 0.12-0.01 0.17-0.03l2.49-1c0.52 0.4 1.08 0.73 1.69 0.98l0.38 2.65C9.54 21.82 9.75 22 10 22h4c0.25 0 0.46-0.18 0.49-0.42l0.38-2.65c0.61-0.25 1.17-0.59 1.69-0.98l2.49 1c0.06 0.02 0.12 0.03 0.18 0.03 0.17 0 0.34-0.09 0.43-0.25l2-3.46c0.12-0.22 0.07-0.49-0.12-0.64l-2.11-1.65zm-1.98-1.71c0.04 0.31 0.05 0.52 0.05 0.73 0 0.21-0.02 0.43-0.05 0.73l-0.14 1.13 0.89 0.7 1.08 0.84-0.7 1.21-1.27-0.51-1.04-0.42-0.9 0.68c-0.43 0.32-0.84 0.56-1.25 0.73l-1.06 0.43-0.16 1.13L12.7 20h-1.4l-0.19-1.35-0.16-1.13-1.06-0.43c-0.43-0.18-0.83-0.41-1.23-0.71l-0.91-0.7-1.06 0.43-1.27 0.51-0.7-1.21 1.08-0.84 0.89-0.7-0.14-1.13C6.52 12.43 6.5 12.2 6.5 12s0.02-0.43 0.05-0.73l0.14-1.13-0.89-0.7L4.72 8.6l0.7-1.21L6.69 7.9l1.04 0.42 0.9-0.68c0.43-0.32 0.84-0.56 1.25-0.73l1.06-0.43 0.16-1.13L11.3 4h1.39l0.19 1.35 0.16 1.13 1.06 0.43c0.43 0.18 0.83 0.41 1.23 0.71l0.91 0.7 1.06-0.43 1.27-0.51 0.7 1.21-1.07 0.85-0.89 0.7 0.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-0.9-2-2s0.9-2 2-2 2 0.9 2 2-0.9 2-2 2z&quot;/>"
+        errorLine2="                                                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_settings_outline_24dp.xml"
+            line="3"
+            column="74"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (821 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="    &lt;path android:fillColor=&quot;@color/colorPrimary&quot; android:pathData=&quot;M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c0.04-0.32 0.07-0.64 0.07-0.97 0-0.33-0.03-0.66-0.07-1l2.11-1.63c0.19-0.15 0.24-0.42 0.12-0.64l-2-3.46c-0.12-0.22-0.39-0.31-0.61-0.22l-2.49 1c-0.52-0.39-1.06-0.73-1.69-0.98L14.5 2.42C14.46 2.18 14.25 2 14 2h-4C9.75 2 9.54 2.18 9.5 2.42L9.13 5.07C8.5 5.32 7.96 5.66 7.44 6.05l-2.49-1c-0.22-0.09-0.49 0-0.61 0.22l-2 3.46C2.21 8.95 2.27 9.22 2.46 9.37L4.57 11c-0.04 0.34-0.07 0.67-0.07 1 0 0.33 0.03 0.65 0.07 0.97l-2.11 1.66c-0.19 0.15-0.25 0.42-0.12 0.64l2 3.46c0.12 0.22 0.39 0.3 0.61 0.22l2.49-1.01c0.52 0.4 1.06 0.74 1.69 0.99l0.37 2.65C9.54 21.82 9.75 22 10 22h4c0.25 0 0.46-0.18 0.5-0.42l0.37-2.65c0.63-0.26 1.17-0.59 1.69-0.99l2.49 1.01c0.22 0.08 0.49 0 0.61-0.22l2-3.46c0.12-0.22 0.07-0.49-0.12-0.64l-2.11-1.66z&quot;/>"
+        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_shortcut_settings_foreground.xml"
+            line="3"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1589 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="    &lt;path android:fillColor=&quot;@color/colorPrimary&quot; android:pathData=&quot;M19.43 12.98c0.04-0.32 0.07-0.64 0.07-0.98 0-0.34-0.03-0.66-0.07-0.98l2.11-1.65c0.19-0.15 0.24-0.42 0.12-0.64l-2-3.46c-0.09-0.16-0.26-0.25-0.44-0.25-0.06 0-0.12 0.01-0.17 0.03l-2.49 1c-0.52-0.4-1.08-0.73-1.69-0.98l-0.38-2.65C14.46 2.18 14.25 2 14 2h-4C9.75 2 9.54 2.18 9.51 2.42L9.13 5.07C8.52 5.32 7.96 5.66 7.44 6.05l-2.49-1C4.89 5.03 4.83 5.02 4.77 5.02c-0.17 0-0.34 0.09-0.43 0.25l-2 3.46C2.21 8.95 2.27 9.22 2.46 9.37l2.11 1.65C4.53 11.34 4.5 11.67 4.5 12c0 0.33 0.03 0.66 0.07 0.98l-2.11 1.65c-0.19 0.15-0.24 0.42-0.12 0.64l2 3.46c0.09 0.16 0.26 0.25 0.44 0.25 0.06 0 0.12-0.01 0.17-0.03l2.49-1c0.52 0.4 1.08 0.73 1.69 0.98l0.38 2.65C9.54 21.82 9.75 22 10 22h4c0.25 0 0.46-0.18 0.49-0.42l0.38-2.65c0.61-0.25 1.17-0.59 1.69-0.98l2.49 1c0.06 0.02 0.12 0.03 0.18 0.03 0.17 0 0.34-0.09 0.43-0.25l2-3.46c0.12-0.22 0.07-0.49-0.12-0.64l-2.11-1.65zm-1.98-1.71c0.04 0.31 0.05 0.52 0.05 0.73 0 0.21-0.02 0.43-0.05 0.73l-0.14 1.13 0.89 0.7 1.08 0.84-0.7 1.21-1.27-0.51-1.04-0.42-0.9 0.68c-0.43 0.32-0.84 0.56-1.25 0.73l-1.06 0.43-0.16 1.13L12.7 20h-1.4l-0.19-1.35-0.16-1.13-1.06-0.43c-0.43-0.18-0.83-0.41-1.23-0.71l-0.91-0.7-1.06 0.43-1.27 0.51-0.7-1.21 1.08-0.84 0.89-0.7-0.14-1.13C6.52 12.43 6.5 12.2 6.5 12s0.02-0.43 0.05-0.73l0.14-1.13-0.89-0.7L4.72 8.6l0.7-1.21L6.69 7.9l1.04 0.42 0.9-0.68c0.43-0.32 0.84-0.56 1.25-0.73l1.06-0.43 0.16-1.13L11.3 4h1.39l0.19 1.35 0.16 1.13 1.06 0.43c0.43 0.18 0.83 0.41 1.23 0.71l0.91 0.7 1.06-0.43 1.27-0.51 0.7 1.21-1.07 0.85-0.89 0.7 0.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-0.9-2-2s0.9-2 2-2 2 0.9 2 2-0.9 2-2 2z&quot;/>"
+        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_shortcut_settings_foreground_outline.xml"
+            line="3"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/selectableItemBackground` with a theme that also paints a background (inferred theme is `@style/Theme.App`)"
+        errorLine1="  android:background=&quot;?attr/selectableItemBackground&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_chat.xml"
+            line="8"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.integer.build_time` appears to be unused">
+        <location
+            file="build.gradle"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.menu.cab_tasks` appears to be unused"
+        errorLine1="&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/menu/cab_tasks.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.circle_image_button` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:shape=&quot;rectangle&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/circle_image_button.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_padding_top_bottom` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_padding_top_bottom&quot;>8dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="19"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_height&quot;>48dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="22"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_height_with_icon` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_height_with_icon&quot;>56dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="27"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_icon_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_icon_height&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="29"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_icon_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_icon_width&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="31"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_icon_padding_top_bottom` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_icon_padding_top_bottom&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="33"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_text_padding_left_icon` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_text_padding_left_icon&quot;>32dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="35"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_height_with_avatar` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_height_with_avatar&quot;>56dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="38"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_text_padding_left_avatar` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_text_padding_left_avatar&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="44"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_height_with_square_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_height_with_square_image&quot;>72dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="47"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_square_image_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_square_image_height&quot;>56dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="49"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_square_image_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_square_image_width&quot;>56dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="51"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_text_padding_left_square_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_text_padding_left_square_image&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="53"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_height_with_100x56_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_height_with_100x56_image&quot;>72dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="56"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_100x56_image_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_100x56_image_height&quot;>56dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="58"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_100x56_image_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_100x56_image_width&quot;>100dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="60"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_text_padding_left_100x56_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_text_padding_left_100x56_image&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="62"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_meta_image_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_meta_image_height&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="65"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_meta_image_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_meta_image_width&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="67"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_meta_image_padding_top_bottom_icon` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_meta_image_padding_top_bottom_icon&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="76"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_meta_image_padding_top_bottom_avatar` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_meta_image_padding_top_bottom_avatar&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="79"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_meta_image_padding_top_bottom_square_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_meta_image_padding_top_bottom_square_image&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="82"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.one_line_list_item_meta_image_padding_top_bottom_100x56_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;one_line_list_item_meta_image_padding_top_bottom_100x56_image&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="85"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_icon_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_icon_height&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="103"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_icon_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_icon_width&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="105"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_icon_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_icon_padding_top&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="107"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_text_padding_left_icon` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_text_padding_left_icon&quot;>32dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="109"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_height_with_square_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_height_with_square_image&quot;>72dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="123"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_square_image_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_square_image_height&quot;>40dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="125"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_square_image_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_square_image_width&quot;>40dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="127"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_square_image_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_square_image_padding_top&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="129"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_text_padding_left_square_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_text_padding_left_square_image&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="131"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_height_with_100x56_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_height_with_100x56_image&quot;>72dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="134"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_100x56_image_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_100x56_image_height&quot;>56dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="136"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_100x56_image_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_100x56_image_width&quot;>100dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="138"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_text_padding_left_100x56_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_text_padding_left_100x56_image&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="140"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_meta_image_padding_left` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_meta_image_padding_left&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="149"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_meta_text_padding_left` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_meta_text_padding_left&quot;>28dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="151"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_list_item_meta_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_list_item_meta_padding_top&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="153"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_normal_list_item_primary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_normal_list_item_primary_text_baseline&quot;>28dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="161"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_normal_list_item_secondary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_normal_list_item_secondary_text_baseline&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="163"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_overline_list_item_overline_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_overline_list_item_overline_text_baseline&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="166"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_overline_list_item_primary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_overline_list_item_primary_text_baseline&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="168"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_icon_list_item_primary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_icon_list_item_primary_text_baseline&quot;>32dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="171"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_icon_list_item_secondary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_icon_list_item_secondary_text_baseline&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="173"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_avatar_list_item_primary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_avatar_list_item_primary_text_baseline&quot;>32dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="176"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_avatar_list_item_secondary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_avatar_list_item_secondary_text_baseline&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="179"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_square_image_list_item_primary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_square_image_list_item_primary_text_baseline&quot;>32dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="183"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_square_image_list_item_secondary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_square_image_list_item_secondary_text_baseline&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="186"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_100x56_image_list_item_primary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_100x56_image_list_item_primary_text_baseline&quot;>32dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="190"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.two_line_100x56_image_list_item_secondary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;two_line_100x56_image_list_item_secondary_text_baseline&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="193"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_padding_top_bottom` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_padding_top_bottom&quot;>8dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="201"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_height&quot;>88dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="204"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_padding_left` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_padding_left&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="206"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_icon_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_icon_height&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="209"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_icon_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_icon_width&quot;>24dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="211"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_icon_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_icon_padding_top&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="213"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_text_padding_left_icon` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_text_padding_left_icon&quot;>32dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="215"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_avatar_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_avatar_height&quot;>40dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="218"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_avatar_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_avatar_width&quot;>40dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="220"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_avatar_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_avatar_padding_top&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="222"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_text_padding_left_avatar` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_text_padding_left_avatar&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="224"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_square_image_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_square_image_height&quot;>40dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="227"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_square_image_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_square_image_width&quot;>40dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="229"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_square_image_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_square_image_padding_top&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="231"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_text_padding_left_square_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_text_padding_left_square_image&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="234"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_100x56_image_height` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_100x56_image_height&quot;>56dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="237"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_100x56_image_width` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_100x56_image_width&quot;>100dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="239"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_100x56_image_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_100x56_image_padding_top&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="241"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_text_padding_left_100x56_image` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_text_padding_left_100x56_image&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="244"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_meta_padding_right` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_meta_padding_right&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="247"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_meta_icon_padding_left` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_meta_icon_padding_left&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="249"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_meta_image_padding_top` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_meta_image_padding_top&quot;>16dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="251"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_primary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_primary_text_baseline&quot;>28dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="254"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.three_line_list_item_secondary_text_baseline` appears to be unused"
+        errorLine1=" &lt;dimen name=&quot;three_line_list_item_secondary_text_baseline&quot;>20dp&lt;/dimen>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="256"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_account_circle_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_account_circle_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_brightness_6_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_brightness_6_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_bug_report_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_bug_report_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_calendar_check_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_calendar_check_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_delete_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_delete_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_download_outline_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_download_outline_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_file_document_box_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_file_document_box_24dp.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_forum_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_forum_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_group_outline_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_group_outline_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_help_circle_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_help_circle_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_label_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_label_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notification_alert_decagram_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notification_alert_decagram_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notification_calendar_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notification_calendar_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notification_calendar_today_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notification_calendar_today_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notification_help_circle_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notification_help_circle_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notification_info_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notification_info_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notification_info_outline_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notification_info_outline_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notification_today_outline_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notification_today_outline_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notifications_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notifications_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notifications_outline_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_notifications_outline_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_pencil_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_pencil_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_perm_device_info_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_perm_device_info_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_send_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24.0&quot; android:viewportHeight=&quot;24.0&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_send_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_settings_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_settings_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_share_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_share_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_shortcut_settings` appears to be unused"
+        errorLine1="&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^"
+        includedVariants="debug,release"
+        excludedVariants="nightly">
+        <location
+            file="src/main/res/drawable/ic_shortcut_settings.xml"
+            line="2"
+            column="1"/>
+        <location
+            file="src/main/res/drawable-v26/ic_shortcut_settings.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_shortcut_settings_foreground` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_shortcut_settings_foreground.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_shortcut_settings_foreground_outline` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^"
+        includedVariants="debug,release"
+        excludedVariants="nightly">
+        <location
+            file="src/main/res/drawable/ic_shortcut_settings_foreground_outline.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_text_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_text_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.new_chat_dialog` appears to be unused"
+        errorLine1="&lt;ScrollView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/new_chat_dialog.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.about_frag_app_info_card_app_license_title` appears to be unused"
+        errorLine1=" &lt;string name=&quot;about_frag_app_info_card_app_license_title&quot;>App license&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="42"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.menu_frag_task_new_todo` appears to be unused"
+        errorLine1=" &lt;string name=&quot;menu_frag_task_new_todo&quot;>New todo&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="118"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.cab_action_delete_selected_tasks` appears to be unused"
+        errorLine1=" &lt;string name=&quot;cab_action_delete_selected_tasks&quot;>Delete selected&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="181"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.cab_action_edit_selected_tasks` appears to be unused"
+        errorLine1=" &lt;string name=&quot;cab_action_edit_selected_tasks&quot;>Edit selected&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="182"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.chat_frag_new_chat_dialog_title` appears to be unused"
+        errorLine1=" &lt;string name=&quot;chat_frag_new_chat_dialog_title&quot;>New chat&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="196"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.choose_a_date` appears to be unused"
+        errorLine1=" &lt;string name=&quot;choose_a_date&quot;>Choose a date…&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="242"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.debug_activity_category_logging` appears to be unused"
+        errorLine1=" &lt;string name=&quot;debug_activity_category_logging&quot;>Logging&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="254"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.debug_activity_confirm_crash_app_dialog_title` appears to be unused"
+        errorLine1=" &lt;string name=&quot;debug_activity_confirm_crash_app_dialog_title&quot;>Crash app?&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="257"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.debug_activity_crash_app_summary` appears to be unused"
+        errorLine1=" &lt;string name=&quot;debug_activity_crash_app_summary&quot;>Programmatically crash the app with Firebase Crashlytics&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="265"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.debug_activity_crash_app_title` appears to be unused"
+        errorLine1=" &lt;string name=&quot;debug_activity_crash_app_title&quot;>Crash app&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="266"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dialog_action_crash` appears to be unused"
+        errorLine1=" &lt;string name=&quot;dialog_action_crash&quot;>Crash&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="323"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.due_date` appears to be unused"
+        errorLine1=" &lt;string name=&quot;due_date&quot;>Due date&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="343"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.due_date_text` appears to be unused"
+        errorLine1=" &lt;string name=&quot;due_date_text&quot;>Selected due date shows here&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="345"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.frag_chat_coming_soon` appears to be unused"
+        errorLine1=" &lt;string name=&quot;frag_chat_coming_soon&quot;>Chat feature coming soon!&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="361"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_channel_new_app_features_desc` appears to be unused"
+        errorLine1=" &lt;string name=&quot;notification_channel_new_app_features_desc&quot;>Notifications regarding any new recently"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="373"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_category_todo_general` appears to be unused"
+        errorLine1=" &lt;string name=&quot;pref_category_todo_general&quot;>General&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="445"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_category_weekly_summary` appears to be unused"
+        errorLine1=" &lt;string name=&quot;pref_category_weekly_summary&quot;>Weekly summary&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="447"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_daynight_grant_perm_title` appears to be unused"
+        errorLine1=" &lt;string name=&quot;pref_daynight_grant_perm_title&quot;>Grant location permission&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="453"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_daynight_perm_info_summary` appears to be unused"
+        errorLine1=" &lt;string name=&quot;pref_daynight_perm_info_summary&quot;>Your location is used for adjusting the time when dark theme is"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="454"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_daynight_notice_summary` appears to be unused"
+        errorLine1=" &lt;string name=&quot;pref_daynight_notice_summary&quot;>Note: This option will soon be removed. Please consider switching to an"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="457"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.shortcut_settings_long_msg` appears to be unused"
+        errorLine1=" &lt;string name=&quot;shortcut_settings_long_msg&quot;>Open settings&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="debug,release"
+        excludedVariants="nightly">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="574"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.shortcut_settings_short_msg` appears to be unused"
+        errorLine1=" &lt;string name=&quot;shortcut_settings_short_msg&quot;>Settings&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="debug,release"
+        excludedVariants="nightly">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="575"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.title_activity_edit_chat` appears to be unused"
+        errorLine1=" &lt;string name=&quot;title_activity_edit_chat&quot;>Edit chat info&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="603"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.todo_frag_delete_selected_tasks_dialog_msg` appears to be unused"
+        errorLine1=" &lt;string name=&quot;todo_frag_delete_selected_tasks_dialog_msg&quot;>Note that the deletion process is irreversible and that it"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="617"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.todo_frag_delete_selected_tasks_dialog_title` appears to be unused"
+        errorLine1=" &lt;string name=&quot;todo_frag_delete_selected_tasks_dialog_title&quot;>Delete selected tasks?&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="621"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.menu_view_chat_moderator_title` appears to be unused"
+        errorLine1=" &lt;string name=&quot;menu_view_chat_moderator_title&quot;>Moderator options&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="702"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.tasksadapter_item_row_state` appears to be unused"
+        errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/color/tasksadapter_item_row_state.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        message="This `LinearLayout` layout or its `RelativeLayout` parent is useless"
+        errorLine1="  &lt;LinearLayout"
+        errorLine2="   ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_edit_task.xml"
+            line="16"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1=" &lt;ImageView"
+        errorLine2="  ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_chat.xml"
+            line="12"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1=" &lt;ImageView"
+        errorLine2="  ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_list_icon.xml"
+            line="12"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1=" &lt;ImageView"
+        errorLine2="  ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/modalbottomsheetadapter_item_row_with_icon.xml"
+            line="10"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="LabelFor"
+        message="Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`"
+        errorLine1="     &lt;AutoCompleteTextView"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_new_chat.xml"
+            line="74"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="LabelFor"
+        message="Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`"
+        errorLine1="    &lt;AutoCompleteTextView"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_new_task.xml"
+            line="61"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Account settings&quot;, should use `@string` resource"
+        errorLine1="   android:contentDescription=&quot;Account settings&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/frag_bottomappbar_bottomsheet_header.xml"
+            line="64"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Document icon&quot;, should use `@string` resource"
+        errorLine1="  android:contentDescription=&quot;Document icon&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/helparticleadapter_item_row.xml"
+            line="17"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Icon info&quot;, should use `@string` resource"
+        errorLine1="   android:contentDescription=&quot;Icon info&quot;"
+        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_list_icon.xml"
+            line="58"
+            column="4"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;App icon&quot;, should use `@string` resource"
+        errorLine1="  android:contentDescription=&quot;App icon&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/version_dialog.xml"
+            line="15"
+            column="3"/>
+    </issue>
+
+</issues>
