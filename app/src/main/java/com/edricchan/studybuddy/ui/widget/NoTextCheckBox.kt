@@ -15,8 +15,8 @@ import androidx.appcompat.widget.AppCompatCheckBox
 class NoTextCheckBox : AppCompatCheckBox {
 	private var checkBoxButtonDrawable: Drawable? = null
 
-	constructor(context: Context?) : super(context)
-	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+	constructor(context: Context) : super(context)
+	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
 	@SuppressLint("ObsoleteSdkInt")
 	override fun getSuggestedMinimumWidth(): Int {
