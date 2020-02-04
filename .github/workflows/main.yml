@@ -13,7 +13,37 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install GPG2
+      run: sudo apt-get install gnupg2
+    - name: Install Homebrew
+      run: |
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+        test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+        test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+        echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+        sudo apt-get install build-essential curl file git
+        echo "Current path:"
+        echo $PATH
+    - name: Install Homebrew dependencies
+      run: |
+        source ~/.profile
+        brew bundle
+    - name: Decrypt keystore
+      run: |
+        source ~/.profile
+        echo "Current version of transcrypt:"
+        transcrypt -v
+        transcrypt -c ${{ secrets.TRANSCRYPT_CIPHER }} -p ${{ secrets.TRANSCRYPT_PASSWORD }} -y
+      env:
+        SECRETS_GPG_COMMAND: gpg2
     - name: Setup Android problem matchers
       uses: jonasb/android-problem-matchers-action@v1
     - name: Build Android
-      run: ./gradlew build
+      run: |
+        source ~/.profile
+        ./gradlew build
+      env:
+        APP_KEYSTORE_PASSWORD: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+        APP_KEYSTORE_ALIAS: ${{ secrets.APP_KEYSTORE_ALIAS }}
+        APP_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
