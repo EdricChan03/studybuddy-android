@@ -52,7 +52,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 
 		fragmentView = view
 
-		UiUtils(parentActivity).bottomAppBar?.setOnClickListener {
+		UiUtils(parentActivity).bottomAppBarFab?.setOnClickListener {
 			startActivity<NewChatActivity>()
 		}
 
