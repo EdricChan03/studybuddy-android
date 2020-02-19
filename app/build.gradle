@@ -241,7 +241,7 @@ dependencies {
 	// Kotlin support for AndroidX Preference library
 	implementation 'androidx.preference:preference-ktx:1.1.0'
 	// AndroidX WorkManager
-	implementation "androidx.work:work-runtime-ktx:2.3.0"
+	implementation "androidx.work:work-runtime-ktx:2.3.2"
 
 	// Custom Preferences
 	/*
