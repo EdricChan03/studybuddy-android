@@ -46,25 +46,12 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
 		mAuth = FirebaseAuth.getInstance()
 		mCurrentUser = mAuth.currentUser
 		mTaskId = intent.getStringExtra("taskId")
-//		TooltipCompat.setTooltipText(btnSelectDate, "Open datepicker")
 		if (mTaskId == null) {
 			Log.e(TAG, "Please specify a task item ID!")
 			Toast.makeText(this, "An error occurred while attempting to retrieve the task item's details. Please try again later.", Toast.LENGTH_LONG)
 					.show()
 			finish()
 		} else {
-			/*btnSelectDate.setOnClickListener {
-				val c = Calendar.getInstance()
-				val dpd = DatePickerDialog(this@EditTaskActivity,
-						{ _, year, monthOfYear, dayOfMonth ->
-							val format = SimpleDateFormat(getString(R.string.date_format_pattern), Locale.ENGLISH)
-							val datepickerDate = Date(year, monthOfYear, dayOfMonth)
-							textSelectedDate.text = format.format(datepickerDate)
-						}, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE))
-				dpd.datePicker.minDate = c.timeInMillis
-				dpd.show()
-				mTaskDate = SharedUtils.getDateFromDatePicker(dpd.datePicker)
-			}*/
 			// TODO: Migrate logic to separate component
 			taskDueDateChip.setOnClickListener {
 				val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
