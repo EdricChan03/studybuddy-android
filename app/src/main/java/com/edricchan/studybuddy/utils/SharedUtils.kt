@@ -266,7 +266,7 @@ class SharedUtils {
 		 * @return The JSON update URL as a [String]
 		 */
 		fun getUpdateJsonUrl(context: Context, forceDebugUrl: Boolean = false): String? {
-			return if (SharedUtils.isDevMode(context) || forceDebugUrl) {
+			return if (isDevMode(context) || forceDebugUrl) {
 				val mPrefs = PreferenceManager.getDefaultSharedPreferences(context)
 				if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
 					mPrefs.getString(Constants.debugSetCustomJsonUrl, context.getString(R.string.update_json_testing_url))
