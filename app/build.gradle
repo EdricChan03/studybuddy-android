@@ -275,7 +275,7 @@ dependencies {
 	implementation 'net.sourceforge.streamsupport:streamsupport:1.7.1'
 
 	// Support for Kotlin
-	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version'
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 	// Support for parsing Deep Links
 	implementation 'com.airbnb:deeplinkdispatch:4.1.0'
