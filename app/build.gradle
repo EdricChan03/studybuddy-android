@@ -279,6 +279,6 @@ dependencies {
 
 	// Support for parsing Deep Links
 	implementation 'com.airbnb:deeplinkdispatch:4.1.0'
-	kapt 'com.airbnb:deeplinkdispatch-processor:4.1.0'
+	kapt 'com.airbnb:deeplinkdispatch-processor:5.1.0'
 }
 apply plugin: "com.google.gms.google-services"
