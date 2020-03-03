@@ -1,32 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="5" by="lint 4.0.0-alpha09" client="gradle" variant="all" version="4.0.0-alpha09">
-
-    <issue
-        id="ObsoleteLintCustomCheck"
-        message="Lint found an issue registry (`androidx.annotation.experimental.lint.ExperimentalIssueRegistry`) which did not specify the Lint API version it was compiled with.&#xA;&#xA;**This means that the lint checks are likely not compatible.**&#xA;&#xA;If you are the author of this lint check, make your lint `IssueRegistry` class contain&#xA;  override val api: Int = com.android.tools.lint.detector.api.CURRENT_API&#xA;or from Java,&#xA;  @Override public int getApi() { return com.android.tools.lint.detector.api.ApiKt.CURRENT_API; }&#xA;&#xA;If you are just using lint checks from a third party library you have no control over, you can disable these lint checks (if they misbehave) like this:&#xA;&#xA;    android {&#xA;        lintOptions {&#xA;            disable &quot;UnsafeExperimentalUsageError&quot;,&#xA;                    &quot;UnsafeExperimentalUsageWarning&quot;&#xA;        }&#xA;    }&#xA;"
-        includedVariants="debug"
-        excludedVariants="nightly,release">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/20cdeecb0835d65308af0fe2e1bb8059/jetified-annotation-experimental-1.0.0/jars/lint.jar"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLintCustomCheck"
-        message="Lint found an issue registry (`androidx.appcompat.AppCompatIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 6 (3.6), current lint API level is 7 (4.0+)"
-        includedVariants="debug"
-        excludedVariants="nightly,release">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/0b3437cdafa09a4f402c6b820fc89213/appcompat-1.2.0-alpha02/jars/lint.jar"/>
-    </issue>
-
-    <issue
-        id="ObsoleteLintCustomCheck"
-        message="Lint found an issue registry (`androidx.work.lint.WorkManagerIssueRegistry`) which did not specify the Lint API version it was compiled with.&#xA;&#xA;**This means that the lint checks are likely not compatible.**&#xA;&#xA;If you are the author of this lint check, make your lint `IssueRegistry` class contain&#xA;  override val api: Int = com.android.tools.lint.detector.api.CURRENT_API&#xA;or from Java,&#xA;  @Override public int getApi() { return com.android.tools.lint.detector.api.ApiKt.CURRENT_API; }&#xA;&#xA;If you are just using lint checks from a third party library you have no control over, you can disable these lint checks (if they misbehave) like this:&#xA;&#xA;    android {&#xA;        lintOptions {&#xA;            disable &quot;BadConfigurationProvider&quot;,&#xA;                    &quot;BadPeriodicWorkRequestEnqueue&quot;,&#xA;                    &quot;RemoveWorkManagerInitializer&quot;&#xA;        }&#xA;    }&#xA;"
-        includedVariants="debug"
-        excludedVariants="nightly,release">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/e558c283723027da7104440d9655c953/work-runtime-2.3.0/jars/lint.jar"/>
-    </issue>
+<issues format="5" by="lint 4.0.0-alpha08" client="gradle" variant="all" version="4.0.0-alpha08">
 
     <issue
         id="SdCardPath"
@@ -76,7 +49,7 @@
         id="BadPeriodicWorkRequestEnqueue"
         message="Use `enqueueUniquePeriodicWork()` instead of `enqueue()`">
         <location
-            file="/Users/edricchan/.gradle/caches/transforms-2/files-2.1/e558c283723027da7104440d9655c953/work-runtime-2.3.0/jars/classes.jar!/androidx/work/WorkManager.class"/>
+            file="/Users/edricchan/.gradle/caches/transforms-2/files-2.1/ec1cec1b8d8743cd0a79433deac261ce/work-runtime-2.3.2/jars/classes.jar!/androidx/work/WorkManager.class"/>
     </issue>
 
     <issue
@@ -86,7 +59,7 @@
         errorLine2="                                                                           ~~~~">
         <location
             file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
-            line="208"
+            line="212"
             column="76"/>
     </issue>
 
@@ -97,7 +70,7 @@
         errorLine2="                                                                           ~~~~">
         <location
             file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
-            line="233"
+            line="238"
             column="76"/>
     </issue>
 
@@ -108,7 +81,7 @@
         errorLine2="                                                                           ~~~~">
         <location
             file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
-            line="257"
+            line="262"
             column="76"/>
     </issue>
 
@@ -130,7 +103,7 @@
         errorLine2="                                                                                  ~~~~">
         <location
             file="src/main/java/com/edricchan/studybuddy/ui/modules/task/EditTaskActivity.kt"
-            line="135"
+            line="122"
             column="83"/>
     </issue>
 
@@ -165,6 +138,39 @@
             file="src/main/java/com/edricchan/studybuddy/utils/UiUtils.kt"
             line="80"
             column="89"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-analytics than 17.2.2 is available: 17.2.3"
+        errorLine1=" implementation &apos;com.google.firebase:firebase-analytics:17.2.2&apos;"
+        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="223"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-firestore-ktx than 21.4.0 is available: 21.4.1"
+        errorLine1=" implementation &apos;com.google.firebase:firebase-firestore-ktx:21.4.0&apos;"
+        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="224"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-messaging than 20.1.0 is available: 20.1.1"
+        errorLine1=" implementation &apos;com.google.firebase:firebase-messaging:20.1.0&apos;"
+        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="226"
+            column="2"/>
     </issue>
 
     <issue
@@ -289,6 +295,17 @@
             file="src/main/res/drawable/ic_shortcut_settings_foreground_outline.xml"
             line="3"
             column="69"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/selectableItemBackground` with a theme that also paints a background (inferred theme is `@style/Theme.App`)"
+        errorLine1="  android:background=&quot;?attr/selectableItemBackground&quot;>"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/frag_bottomappbar_bottomsheet_header.xml"
+            line="7"
+            column="3"/>
     </issue>
 
     <issue
@@ -1512,7 +1529,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="118"
+            line="122"
             column="10"/>
     </issue>
 
@@ -1523,7 +1540,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="181"
+            line="185"
             column="10"/>
     </issue>
 
@@ -1534,7 +1551,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="182"
+            line="186"
             column="10"/>
     </issue>
 
@@ -1545,7 +1562,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="196"
+            line="200"
             column="10"/>
     </issue>
 
@@ -1556,7 +1573,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="242"
+            line="246"
             column="10"/>
     </issue>
 
@@ -1567,7 +1584,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="254"
+            line="258"
             column="10"/>
     </issue>
 
@@ -1578,7 +1595,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="257"
+            line="261"
             column="10"/>
     </issue>
 
@@ -1589,7 +1606,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="265"
+            line="269"
             column="10"/>
     </issue>
 
@@ -1600,7 +1617,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="266"
+            line="270"
             column="10"/>
     </issue>
 
@@ -1611,7 +1628,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="323"
+            line="327"
             column="10"/>
     </issue>
 
@@ -1622,7 +1639,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="343"
+            line="347"
             column="10"/>
     </issue>
 
@@ -1633,7 +1650,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="345"
+            line="349"
             column="10"/>
     </issue>
 
@@ -1644,7 +1661,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="361"
+            line="365"
             column="10"/>
     </issue>
 
@@ -1655,7 +1672,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="373"
+            line="377"
             column="10"/>
     </issue>
 
@@ -1666,7 +1683,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="445"
+            line="449"
             column="10"/>
     </issue>
 
@@ -1677,7 +1694,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="447"
+            line="451"
             column="10"/>
     </issue>
 
@@ -1688,7 +1705,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="453"
+            line="457"
             column="10"/>
     </issue>
 
@@ -1699,7 +1716,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="454"
+            line="458"
             column="10"/>
     </issue>
 
@@ -1710,7 +1727,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="457"
+            line="461"
             column="10"/>
     </issue>
 
@@ -1723,7 +1740,7 @@
         excludedVariants="nightly">
         <location
             file="src/main/res/values/strings.xml"
-            line="574"
+            line="578"
             column="10"/>
     </issue>
 
@@ -1736,7 +1753,7 @@
         excludedVariants="nightly">
         <location
             file="src/main/res/values/strings.xml"
-            line="575"
+            line="579"
             column="10"/>
     </issue>
 
@@ -1747,7 +1764,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="603"
+            line="607"
             column="10"/>
     </issue>
 
@@ -1758,7 +1775,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="617"
+            line="621"
             column="10"/>
     </issue>
 
@@ -1769,7 +1786,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="621"
+            line="625"
             column="10"/>
     </issue>
 
@@ -1780,7 +1797,7 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="702"
+            line="706"
             column="10"/>
     </issue>
 
@@ -1859,17 +1876,6 @@
             file="src/main/res/layout/activity_new_task.xml"
             line="61"
             column="6"/>
-    </issue>
-
-    <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Account settings&quot;, should use `@string` resource"
-        errorLine1="   android:contentDescription=&quot;Account settings&quot;"
-        errorLine2="   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/frag_bottomappbar_bottomsheet_header.xml"
-            line="64"
-            column="4"/>
     </issue>
 
     <issue
