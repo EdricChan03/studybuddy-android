@@ -15,98 +15,111 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 
 class IconPickerAdapter(
-		val context: Context
+    val context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-	/**
-	 * The info button's on click listener
-	 */
-	var infoButtonOnClickListener: ((chatIcon: ChatIcon) -> Unit)? = null
-	var items: List<ChatIcon> = listOf()
-	var tracker: SelectionTracker<Long>? = null
-	private var itemType: Int = HolderLayout.LIST.itemType
+    /**
+     * The info button's on click listener
+     */
+    var infoButtonOnClickListener: ((chatIcon: ChatIcon) -> Unit)? = null
+    var items: List<ChatIcon> = listOf()
+    var tracker: SelectionTracker<Long>? = null
+    private var itemType: Int = HolderLayout.LIST.itemType
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-		return when (viewType) {
-			HolderLayout.LIST.itemType -> ListHolder(LayoutInflater.from(parent.context)
-					.inflate(R.layout.item_list_icon, parent, false))
-			HolderLayout.GRID.itemType -> GridHolder(LayoutInflater.from(parent.context)
-					.inflate(R.layout.item_grid_icon, parent, false))
-			else -> ListHolder(LayoutInflater.from(parent.context)
-					.inflate(R.layout.item_list_icon, parent, false))
-		}
-	}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            HolderLayout.LIST.itemType -> ListHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_list_icon, parent, false)
+            )
+            HolderLayout.GRID.itemType -> GridHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_grid_icon, parent, false)
+            )
+            else -> ListHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_list_icon, parent, false)
+            )
+        }
+    }
 
-	override fun getItemCount(): Int {
-		return items.size
-	}
+    override fun getItemCount(): Int {
+        return items.size
+    }
 
-	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-		val item = items[position]
-		when (getItemViewType(position)) {
-			HolderLayout.LIST.itemType -> {
-				val tempHolder = holder as ListHolder
-				if (tracker != null) {
-					tempHolder.itemView.isActivated = tracker?.isSelected(getItemId(position))!!
-				}
-				if (item.assets != null && item.assets.isNotEmpty() && tracker?.isSelected(getItemId(position)) == false) {
-					// See https://stackoverflow.com/a/35306315/6782707 for more info
-					val circularProgressDrawable = CircularProgressDrawable(context)
-					circularProgressDrawable.strokeWidth = 2f
-					circularProgressDrawable.centerRadius = 12f
-					circularProgressDrawable.start()
-					Glide.with(context)
-							.load(item.assets[0].src)
-							.placeholder(circularProgressDrawable)
-							.into(tempHolder.iconImageView)
-				} else if (tracker?.isSelected(getItemId(position)) == true) {
-					tempHolder.iconImageView.setImageResource(R.drawable.ic_check_24dp)
-				} else {
-					tempHolder.iconImageView.setImageResource(R.drawable.ic_forum_outline_24dp)
-				}
-				tempHolder.nameTextView.text = item.name
-				tempHolder.descTextView.text = item.description
-				if (infoButtonOnClickListener != null) {
-					tempHolder.infoImageButton.setOnClickListener {
-						infoButtonOnClickListener!!.invoke(item)
-					}
-				}
-			}
-		}
-	}
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = items[position]
+        when (getItemViewType(position)) {
+            HolderLayout.LIST.itemType -> {
+                val tempHolder = holder as ListHolder
+                if (tracker != null) {
+                    tempHolder.itemView.isActivated = tracker?.isSelected(getItemId(position))!!
+                }
+                if (item.assets != null && item.assets.isNotEmpty() && tracker?.isSelected(
+                        getItemId(
+                            position
+                        )
+                    ) == false
+                ) {
+                    // See https://stackoverflow.com/a/35306315/6782707 for more info
+                    val circularProgressDrawable = CircularProgressDrawable(context)
+                    circularProgressDrawable.strokeWidth = 2f
+                    circularProgressDrawable.centerRadius = 12f
+                    circularProgressDrawable.start()
+                    Glide.with(context)
+                        .load(item.assets[0].src)
+                        .placeholder(circularProgressDrawable)
+                        .into(tempHolder.iconImageView)
+                } else if (tracker?.isSelected(getItemId(position)) == true) {
+                    tempHolder.iconImageView.setImageResource(R.drawable.ic_check_24dp)
+                } else {
+                    tempHolder.iconImageView.setImageResource(R.drawable.ic_forum_outline_24dp)
+                }
+                tempHolder.nameTextView.text = item.name
+                tempHolder.descTextView.text = item.description
+                if (infoButtonOnClickListener != null) {
+                    tempHolder.infoImageButton.setOnClickListener {
+                        infoButtonOnClickListener!!.invoke(item)
+                    }
+                }
+            }
+        }
+    }
 
-	/**
-	 * Sets the ViewHolder layout to use.
-	 * @param layout The layout to use.
-	 * @see HolderLayout
-	 */
-	fun setHolderLayout(layout: HolderLayout) {
-		itemType = layout.itemType
-	}
+    /**
+     * Sets the ViewHolder layout to use.
+     * @param layout The layout to use.
+     * @see HolderLayout
+     */
+    fun setHolderLayout(layout: HolderLayout) {
+        itemType = layout.itemType
+    }
 
-	enum class HolderLayout(val itemType: Int) {
-		/**
-		 * Represents that a list layout should be used
-		 */
-		LIST(0),
-		/**
-		 * Represents that a grid layout should be used
-		 */
-		GRID(1)
-	}
+    enum class HolderLayout(val itemType: Int) {
+        /**
+         * Represents that a list layout should be used
+         */
+        LIST(0),
+        /**
+         * Represents that a grid layout should be used
+         */
+        GRID(1)
+    }
 
-	open inner class Holder(view: View) : RecyclerView.ViewHolder(view) {
-		internal val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
-		internal val nameTextView: TextView = view.findViewById(R.id.nameTextView)
-		internal val descTextView: TextView = view.findViewById(R.id.descTextView)
+    open inner class Holder(view: View) : RecyclerView.ViewHolder(view) {
+        internal val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
+        internal val nameTextView: TextView = view.findViewById(R.id.nameTextView)
+        internal val descTextView: TextView = view.findViewById(R.id.descTextView)
 
-		val itemDetails = IconPickerItemDetailsLookup.IconPickerItemDetails(adapterPosition,
-				itemId)
-	}
+        val itemDetails = IconPickerItemDetailsLookup.IconPickerItemDetails(
+            adapterPosition,
+            itemId
+        )
+    }
 
-	inner class ListHolder(view: View) : Holder(view) {
-		internal val infoImageButton: ImageButton = view.findViewById(R.id.infoImageButton)
-	}
+    inner class ListHolder(view: View) : Holder(view) {
+        internal val infoImageButton: ImageButton = view.findViewById(R.id.infoImageButton)
+    }
 
-	inner class GridHolder(view: View) : Holder(view) {
-	}
+    inner class GridHolder(view: View) : Holder(view) {
+    }
 }

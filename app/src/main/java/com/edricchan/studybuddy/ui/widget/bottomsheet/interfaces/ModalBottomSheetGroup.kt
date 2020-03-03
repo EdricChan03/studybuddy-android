@@ -16,34 +16,34 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomShee
  * @property selected The selected items
  */
 class ModalBottomSheetGroup(
-		var id: Int,
-		@ModalBottomSheetCheckableBehavior var checkableBehavior: String = CHECKABLE_BEHAVIOR_NONE,
-		var onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
-		var visible: Boolean = true,
-		var enabled: Boolean = true,
-		var selected: MutableList<ModalBottomSheetItem> = mutableListOf()
+    var id: Int,
+    @ModalBottomSheetCheckableBehavior var checkableBehavior: String = CHECKABLE_BEHAVIOR_NONE,
+    var onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
+    var visible: Boolean = true,
+    var enabled: Boolean = true,
+    var selected: MutableList<ModalBottomSheetItem> = mutableListOf()
 ) {
-	override fun toString(): String {
-		return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled," +
-				"selected=${selected.joinToString(prefix = "[", postfix = "]")}"
-	}
+    override fun toString(): String {
+        return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled," +
+                "selected=${selected.joinToString(prefix = "[", postfix = "]")}"
+    }
 
-	companion object {
-		/**
-		 * Represents that only one item can be checked
-		 */
-		const val CHECKABLE_BEHAVIOR_NONE = "none"
-		/**
-		 * Represents that all items can be checked
-		 */
-		const val CHECKABLE_BEHAVIOR_ALL = "all"
-		/**
-		 * Represents that only one item can be checked
-		 */
-		const val CHECKABLE_BEHAVIOR_SINGLE = "single"
-		/**
-		 * Represents that the group should not have an ID
-		 */
-		const val ID_NONE = 0
-	}
+    companion object {
+        /**
+         * Represents that only one item can be checked
+         */
+        const val CHECKABLE_BEHAVIOR_NONE = "none"
+        /**
+         * Represents that all items can be checked
+         */
+        const val CHECKABLE_BEHAVIOR_ALL = "all"
+        /**
+         * Represents that only one item can be checked
+         */
+        const val CHECKABLE_BEHAVIOR_SINGLE = "single"
+        /**
+         * Represents that the group should not have an ID
+         */
+        const val ID_NONE = 0
+    }
 }

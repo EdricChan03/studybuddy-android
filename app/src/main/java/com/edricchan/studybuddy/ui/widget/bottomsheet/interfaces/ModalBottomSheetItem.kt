@@ -18,17 +18,17 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
  * @see com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
  */
 data class ModalBottomSheetItem(
-		var id: Int = ID_NONE,
-		var title: String,
-		@DrawableRes var icon: Int? = null,
-		var iconDrawable: Drawable? = null,
-		var onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
-		var visible: Boolean = true,
-		var enabled: Boolean = true,
-		var group: ModalBottomSheetGroup? = null
+    var id: Int = ID_NONE,
+    var title: String,
+    @DrawableRes var icon: Int? = null,
+    var iconDrawable: Drawable? = null,
+    var onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
+    var visible: Boolean = true,
+    var enabled: Boolean = true,
+    var group: ModalBottomSheetGroup? = null
 ) {
-	companion object {
-		/** Represents that the item should not have an ID */
-		const val ID_NONE = 0
-	}
+    companion object {
+        /** Represents that the item should not have an ID */
+        const val ID_NONE = 0
+    }
 }

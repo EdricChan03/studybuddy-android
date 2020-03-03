@@ -8,6 +8,6 @@ import com.google.firebase.Timestamp
  * @property lastModified The timestamp the data class' Firestore document was last modified at
  */
 interface HasTimestampMetadata {
-	val createdAt: Timestamp?
-	val lastModified: Timestamp?
+    val createdAt: Timestamp?
+    val lastModified: Timestamp?
 }

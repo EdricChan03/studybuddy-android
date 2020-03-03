@@ -11,5 +11,6 @@ import java.util.*
  * @param format A format that [SimpleDateFormat] supports
  * @param locale The locale to be used to convert the date
  */
-fun Timestamp.toDateFormat(format: String, locale: Locale = Locale.getDefault()): String = SimpleDateFormat(format, locale)
-		.format(this.toDate())
+fun Timestamp.toDateFormat(format: String, locale: Locale = Locale.getDefault()): String =
+    SimpleDateFormat(format, locale)
+        .format(this.toDate())

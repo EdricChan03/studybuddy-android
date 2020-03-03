@@ -10,12 +10,12 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.utils.SharedUtils
 
 class StartupReceiver : BroadcastReceiver() {
-	private lateinit var sharedPreferences: SharedPreferences
-	override fun onReceive(context: Context, intent: Intent) {
-		sharedPreferences = PreferenceManagerFix.getDefaultSharedPreferences(context)
-		if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-			Log.d(TAG, "Device has booted. Setting up check for updates worker...")
-			SharedUtils.enqueueCheckForUpdatesWorker(context)
-		}
-	}
+    private lateinit var sharedPreferences: SharedPreferences
+    override fun onReceive(context: Context, intent: Intent) {
+        sharedPreferences = PreferenceManagerFix.getDefaultSharedPreferences(context)
+        if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
+            Log.d(TAG, "Device has booted. Setting up check for updates worker...")
+            SharedUtils.enqueueCheckForUpdatesWorker(context)
+        }
+    }
 }

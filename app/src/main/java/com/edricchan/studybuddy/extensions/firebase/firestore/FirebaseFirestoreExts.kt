@@ -16,9 +16,9 @@ import com.google.firebase.firestore.ktx.toObjects
  */
 @Deprecated("Use the DocumentId annotation included in version 20.2.0 of Firestore.")
 inline fun <reified T : HasId> QueryDocumentSnapshot.toObjectWithId(overwriteModelId: Boolean = false): T {
-	val model = this.toObject<T>()
-	if (overwriteModelId) model.id = this.id
-	return model
+    val model = this.toObject<T>()
+    if (overwriteModelId) model.id = this.id
+    return model
 }
 
 
@@ -31,9 +31,9 @@ inline fun <reified T : HasId> QueryDocumentSnapshot.toObjectWithId(overwriteMod
  */
 @Deprecated("Use the DocumentId annotation included in version 20.2.0 of Firestore.")
 inline fun <reified T : HasId> DocumentSnapshot.toObjectWithId(overwriteModelId: Boolean = false): T? {
-	val model = this.toObject<T>()
-	if (overwriteModelId) model?.id = this.id
-	return model
+    val model = this.toObject<T>()
+    if (overwriteModelId) model?.id = this.id
+    return model
 }
 
 /**
@@ -45,11 +45,11 @@ inline fun <reified T : HasId> DocumentSnapshot.toObjectWithId(overwriteModelId:
  */
 @Deprecated("Use the DocumentId annotation included in version 20.2.0 of Firestore.")
 inline fun <reified T : HasId> QuerySnapshot.toObjectsWithId(overwriteModelId: Boolean = false): List<T> {
-	val models = this.toObjects<T>().toMutableList()
-	if (overwriteModelId) {
-		this.documents.forEachIndexed { index, documentSnapshot ->
-			models[index].id = documentSnapshot.id
-		}
-	}
-	return models
+    val models = this.toObjects<T>().toMutableList()
+    if (overwriteModelId) {
+        this.documents.forEachIndexed { index, documentSnapshot ->
+            models[index].id = documentSnapshot.id
+        }
+    }
+    return models
 }

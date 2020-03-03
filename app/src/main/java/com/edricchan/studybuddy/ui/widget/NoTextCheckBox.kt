@@ -13,23 +13,23 @@ import androidx.appcompat.widget.AppCompatCheckBox
  * See: [StackOverflow answer](https://stackoverflow.com/a/20374661/6782707)
  */
 class NoTextCheckBox : AppCompatCheckBox {
-	private var checkBoxButtonDrawable: Drawable? = null
+    private var checkBoxButtonDrawable: Drawable? = null
 
-	constructor(context: Context) : super(context)
-	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-	@SuppressLint("ObsoleteSdkInt")
-	override fun getSuggestedMinimumWidth(): Int {
-		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			compoundPaddingLeft + compoundPaddingRight
-		} else {
-			checkBoxButtonDrawable?.intrinsicWidth ?: 0
+    @SuppressLint("ObsoleteSdkInt")
+    override fun getSuggestedMinimumWidth(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            compoundPaddingLeft + compoundPaddingRight
+        } else {
+            checkBoxButtonDrawable?.intrinsicWidth ?: 0
 //			if (checkBoxButtonDrawable != null) checkBoxButtonDrawable!!.intrinsicWidth else 0
-		}
-	}
+        }
+    }
 
-	override fun setButtonDrawable(drawable: Drawable?) {
-		super.setButtonDrawable(drawable)
-		checkBoxButtonDrawable = drawable
-	}
+    override fun setButtonDrawable(drawable: Drawable?) {
+        super.setButtonDrawable(drawable)
+        checkBoxButtonDrawable = drawable
+    }
 }

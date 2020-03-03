@@ -7,18 +7,18 @@ package com.edricchan.studybuddy.interfaces
  */
 class Visibility {
 
-	companion object {
-		/**
-		 * Enum to indicate that an object should not be visible to the public
-		 */
-		const val PRIVATE = "private"
-		/**
-		 * Enum to indicate that an object should be visible to the public (and should easily be searchable)
-		 */
-		const val PUBLIC = "public"
-		/**
-		 * Enum to indicate that an object should not be visible to the public unless explicitly accessed
-		 */
-		const val UNLISTED = "unlisted"
-	}
+    companion object {
+        /**
+         * Enum to indicate that an object should not be visible to the public
+         */
+        const val PRIVATE = "private"
+        /**
+         * Enum to indicate that an object should be visible to the public (and should easily be searchable)
+         */
+        const val PUBLIC = "public"
+        /**
+         * Enum to indicate that an object should not be visible to the public unless explicitly accessed
+         */
+        const val UNLISTED = "unlisted"
+    }
 }

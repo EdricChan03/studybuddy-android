@@ -19,91 +19,91 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class TaskItem(
-		@DocumentId override var id: String? = null,
-		val content: String? = null,
-		val dueDate: Timestamp? = null,
-		// Note: Firestore converts isDone to done when added to the database
-		val done: Boolean? = false,
-		// Note: Firestore converts isArchived to archived when added to the database
-		val archived: Boolean? = false,
-		val project: DocumentReference? = null,
-		val tags: List<String>? = null,
-		val title: String? = null,
-		@ServerTimestamp override val createdAt: Timestamp? = null,
-		@ServerTimestamp override val lastModified: Timestamp? = null
+    @DocumentId override var id: String? = null,
+    val content: String? = null,
+    val dueDate: Timestamp? = null,
+    // Note: Firestore converts isDone to done when added to the database
+    val done: Boolean? = false,
+    // Note: Firestore converts isArchived to archived when added to the database
+    val archived: Boolean? = false,
+    val project: DocumentReference? = null,
+    val tags: List<String>? = null,
+    val title: String? = null,
+    @ServerTimestamp override val createdAt: Timestamp? = null,
+    @ServerTimestamp override val lastModified: Timestamp? = null
 ) : HasId, HasTimestampMetadata {
 
-	private constructor(builder: Builder) : this(
-			content = builder.content,
-			dueDate = builder.dueDate,
-			done = builder.done,
-			archived = builder.archived,
-			project = builder.project,
-			tags = builder.tags,
-			title = builder.title,
-			createdAt = builder.createdAt,
-			lastModified = builder.lastModified
-	)
+    private constructor(builder: Builder) : this(
+        content = builder.content,
+        dueDate = builder.dueDate,
+        done = builder.done,
+        archived = builder.archived,
+        project = builder.project,
+        tags = builder.tags,
+        title = builder.title,
+        createdAt = builder.createdAt,
+        lastModified = builder.lastModified
+    )
 
-	companion object {
-		/**
-		 * Creates a [TaskItem] using a [Builder] (with support for inlined setting of variables)
-		 * @return The created [TaskItem]
-		 */
-		inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
-	}
+    companion object {
+        /**
+         * Creates a [TaskItem] using a [Builder] (with support for inlined setting of variables)
+         * @return The created [TaskItem]
+         */
+        inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
+    }
 
-	/**
-	 * Builder object for simplifying the creation of a [TaskItem] class
-	 */
-	class Builder {
-		/**
-		 * The content of the task
-		 */
-		var content: String? = null
-		/**
-		 * The task's title
-		 */
-		var title: String? = null
-		/**
-		 * The task's due date
-		 */
-		var dueDate: Timestamp? = null
-		/**
-		 * The task's project
-		 */
-		var project: DocumentReference? = null
-		/**
-		 * The task's tags
-		 */
-		var tags: List<String>? = null
-		/**
-		 * Whether the task has been initially marked as done
-		 */
-		var done: Boolean = false
-		/**
-		 * Whether the task has been archived
-		 */
-		var archived: Boolean = false
-		/**
-		 * The timestamp the task was created at
-		 *
-		 * If left null, this field will be replaced with a server-generated timestamp
-		 * @see ServerTimestamp
-		 */
-		var createdAt: Timestamp? = null
-		/**
-		 * The timestamp the task was last modified
-		 *
-		 * If left null, this field will be replaced with a server-generated timestamp
-		 * @see ServerTimestamp
-		 */
-		var lastModified: Timestamp? = null
+    /**
+     * Builder object for simplifying the creation of a [TaskItem] class
+     */
+    class Builder {
+        /**
+         * The content of the task
+         */
+        var content: String? = null
+        /**
+         * The task's title
+         */
+        var title: String? = null
+        /**
+         * The task's due date
+         */
+        var dueDate: Timestamp? = null
+        /**
+         * The task's project
+         */
+        var project: DocumentReference? = null
+        /**
+         * The task's tags
+         */
+        var tags: List<String>? = null
+        /**
+         * Whether the task has been initially marked as done
+         */
+        var done: Boolean = false
+        /**
+         * Whether the task has been archived
+         */
+        var archived: Boolean = false
+        /**
+         * The timestamp the task was created at
+         *
+         * If left null, this field will be replaced with a server-generated timestamp
+         * @see ServerTimestamp
+         */
+        var createdAt: Timestamp? = null
+        /**
+         * The timestamp the task was last modified
+         *
+         * If left null, this field will be replaced with a server-generated timestamp
+         * @see ServerTimestamp
+         */
+        var lastModified: Timestamp? = null
 
-		/**
-		 * Returns the created [TaskItem]
-		 * @return The created [TaskItem]
-		 */
-		fun build() = TaskItem(this)
-	}
+        /**
+         * Returns the created [TaskItem]
+         * @return The created [TaskItem]
+         */
+        fun build() = TaskItem(this)
+    }
 }

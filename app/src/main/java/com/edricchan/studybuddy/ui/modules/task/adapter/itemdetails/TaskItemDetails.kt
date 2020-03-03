@@ -10,20 +10,20 @@ import androidx.recyclerview.selection.ItemDetailsLookup
  * @param selectionKey    The selection key
  */
 class TaskItemDetails(
-		private val adapterPosition: Int,
-		private val selectionKey: String?
+    private val adapterPosition: Int,
+    private val selectionKey: String?
 ) : ItemDetailsLookup.ItemDetails<String>() {
 
 
-	override fun getPosition(): Int {
-		return adapterPosition
-	}
+    override fun getPosition(): Int {
+        return adapterPosition
+    }
 
-	override fun getSelectionKey(): String? {
-		return selectionKey
-	}
+    override fun getSelectionKey(): String? {
+        return selectionKey
+    }
 
-	override fun inSelectionHotspot(e: MotionEvent): Boolean {
-		return false
-	}
+    override fun inSelectionHotspot(e: MotionEvent): Boolean {
+        return false
+    }
 }

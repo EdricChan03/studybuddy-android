@@ -15,72 +15,79 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 
 class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
-	/** Listener for the [NavigationView] */
-	var navigationViewListener: NavigationView.OnNavigationItemSelectedListener? = null
-	/** Whether there is a logged in user */
-	var isLoggedIn: Boolean = false
-	var displayName: String? = null
-	var email: String? = null
-	var photoUrl: Uri? = null
-	var navigationViewCheckedItemId: Int? = null
-	private lateinit var navigationView: NavigationView
+    /** Listener for the [NavigationView] */
+    var navigationViewListener: NavigationView.OnNavigationItemSelectedListener? = null
+    /** Whether there is a logged in user */
+    var isLoggedIn: Boolean = false
+    var displayName: String? = null
+    var email: String? = null
+    var photoUrl: Uri? = null
+    var navigationViewCheckedItemId: Int? = null
+    private lateinit var navigationView: NavigationView
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.frag_bottomappbar_bottomsheet, container, false)
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.frag_bottomappbar_bottomsheet, container, false)
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		navigationView = view.findViewById(R.id.navigationView)
-		if (navigationViewListener != null) {
-			navigationView.setNavigationItemSelectedListener(navigationViewListener)
-		}
-		if (navigationViewCheckedItemId != null) {
-			navigationView.setCheckedItem(navigationViewCheckedItemId!!)
-		}
+        navigationView = view.findViewById(R.id.navigationView)
+        if (navigationViewListener != null) {
+            navigationView.setNavigationItemSelectedListener(navigationViewListener)
+        }
+        if (navigationViewCheckedItemId != null) {
+            navigationView.setCheckedItem(navigationViewCheckedItemId!!)
+        }
 
-		if (savedInstanceState != null) {
-			isLoggedIn = savedInstanceState.getBoolean(IS_LOGGED_IN_TAG)
-			displayName = savedInstanceState.getString(USER_NAME_TAG)
-			email = savedInstanceState.getString(USER_EMAIL_TAG)
-			photoUrl = savedInstanceState.getString(USER_PHOTO_URL_TAG)?.toUri()
-		}
+        if (savedInstanceState != null) {
+            isLoggedIn = savedInstanceState.getBoolean(IS_LOGGED_IN_TAG)
+            displayName = savedInstanceState.getString(USER_NAME_TAG)
+            email = savedInstanceState.getString(USER_EMAIL_TAG)
+            photoUrl = savedInstanceState.getString(USER_PHOTO_URL_TAG)?.toUri()
+        }
 
-		val headerView = navigationView.getHeaderView(0)
+        val headerView = navigationView.getHeaderView(0)
 
-		headerView.setOnClickListener {
-			startActivity<AccountActivity>()
-		}
+        headerView.setOnClickListener {
+            startActivity<AccountActivity>()
+        }
 
-		if (isLoggedIn) {
-			if (displayName != null) headerView.findViewById<TextView>(R.id.userName).text = displayName
-			if (email != null) headerView.findViewById<TextView>(R.id.userEmail).text = email
-			if (photoUrl != null) {
-				Glide.with(this)
-						.load(photoUrl)
-						.into(headerView.findViewById(R.id.userAvatar))
-			}
-		} else {
-			headerView.findViewById<TextView>(R.id.userName).text = getString(
-					R.string.account_user_name_default)
-			headerView.findViewById<TextView>(R.id.userEmail).text =getString(
-					R.string.account_user_email_default)
-		}
-	}
+        if (isLoggedIn) {
+            if (displayName != null) headerView.findViewById<TextView>(R.id.userName).text =
+                displayName
+            if (email != null) headerView.findViewById<TextView>(R.id.userEmail).text = email
+            if (photoUrl != null) {
+                Glide.with(this)
+                    .load(photoUrl)
+                    .into(headerView.findViewById(R.id.userAvatar))
+            }
+        } else {
+            headerView.findViewById<TextView>(R.id.userName).text = getString(
+                R.string.account_user_name_default
+            )
+            headerView.findViewById<TextView>(R.id.userEmail).text = getString(
+                R.string.account_user_email_default
+            )
+        }
+    }
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		outState.putBoolean(IS_LOGGED_IN_TAG, isLoggedIn)
-		outState.putString(USER_NAME_TAG, displayName)
-		outState.putString(USER_EMAIL_TAG, email)
-		outState.putString(USER_PHOTO_URL_TAG, photoUrl.toString())
-		super.onSaveInstanceState(outState)
-	}
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(IS_LOGGED_IN_TAG, isLoggedIn)
+        outState.putString(USER_NAME_TAG, displayName)
+        outState.putString(USER_EMAIL_TAG, email)
+        outState.putString(USER_PHOTO_URL_TAG, photoUrl.toString())
+        super.onSaveInstanceState(outState)
+    }
 
-	companion object {
-		private const val IS_LOGGED_IN_TAG = "isLoggedIn"
-		private const val USER_NAME_TAG = "userName"
-		private const val USER_EMAIL_TAG = "userEmail"
-		private const val USER_PHOTO_URL_TAG = "userPhotoUrl"
-	}
+    companion object {
+        private const val IS_LOGGED_IN_TAG = "isLoggedIn"
+        private const val USER_NAME_TAG = "userName"
+        private const val USER_EMAIL_TAG = "userEmail"
+        private const val USER_PHOTO_URL_TAG = "userPhotoUrl"
+    }
 }

@@ -20,7 +20,7 @@ fun Any?.isNotNull() = this != null
  * See https://stackoverflow.com/a/53510106/6782707 for more info
  */
 val Any.TAG: String
-	get() {
-		val tag = javaClass.simpleName
-		return if (tag.length <= 23) tag else tag.substring(0, 23)
-	}
+    get() {
+        val tag = javaClass.simpleName
+        return if (tag.length <= 23) tag else tag.substring(0, 23)
+    }

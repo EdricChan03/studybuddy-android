@@ -23,122 +23,132 @@ import kotlinx.android.synthetic.main.activity_register.*
 @AppDeepLink(["/register"])
 class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
 
-	private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		supportActionBar?.setDisplayHomeAsUpEnabled(true)
-		auth = FirebaseAuth.getInstance()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        auth = FirebaseAuth.getInstance()
 
-		signInBtn.setOnClickListener {
-			startActivity<LoginActivity>()
-			finish()
-		}
+        signInBtn.setOnClickListener {
+            startActivity<LoginActivity>()
+            finish()
+        }
 
-		signUpBtn.setOnClickListener {
-			val email = emailTextInputLayout.editTextStrValue
-			val password = passwordTextInputLayout.editTextStrValue
+        signUpBtn.setOnClickListener {
+            val email = emailTextInputLayout.editTextStrValue
+            val password = passwordTextInputLayout.editTextStrValue
 
-			if (email.isNullOrBlank()) {
-				if (
-						emailTextInputLayout.error.isNullOrEmpty() ||
-						emailTextInputLayout.error == getString(R.string.edittext_errors_invalid_email)
-				) {
-					emailTextInputLayout.error = getString(R.string.edittext_errors_empty_email)
-				}
-			} else if (email.isInvalidEmail()) {
-				if (
-						emailTextInputLayout.error.isNullOrEmpty() ||
-						emailTextInputLayout.error == getString(R.string.edittext_errors_empty_email)
-				) {
-					emailTextInputLayout.error = getString(R.string.edittext_errors_invalid_email)
-				}
-			} else {
-				if (emailTextInputLayout.error != null) {
-					if (emailTextInputLayout.error!!.isNotEmpty()) {
-						emailTextInputLayout.error = null
-					}
-				}
-			}
-			if (password.isNullOrEmpty()) {
-				if (
-						passwordTextInputLayout.error.isNullOrEmpty() ||
-						passwordTextInputLayout.error == getString(R.string.edittext_errors_invalid_password)
-				) {
-					passwordTextInputLayout.error = getString(R.string.edittext_errors_empty_password)
-				}
-			} else if (password.length < 6) {
-				if (
-						passwordTextInputLayout.error.isNullOrEmpty() ||
-						passwordTextInputLayout.error == getString(R.string.edittext_errors_empty_password)
-				) {
-					passwordTextInputLayout.error = getString(R.string.edittext_errors_invalid_password)
-				}
-			} else {
-				if (passwordTextInputLayout.error != null) {
-					if (passwordTextInputLayout.error!!.isNotEmpty()) {
-						passwordTextInputLayout.error = null
-					}
-				}
-			}
-			if (passwordTextInputLayout.error!!.isNotEmpty() || emailTextInputLayout.error!!.isNotEmpty()) {
-				return@setOnClickListener
-			}
+            if (email.isNullOrBlank()) {
+                if (
+                    emailTextInputLayout.error.isNullOrEmpty() ||
+                    emailTextInputLayout.error == getString(R.string.edittext_errors_invalid_email)
+                ) {
+                    emailTextInputLayout.error = getString(R.string.edittext_errors_empty_email)
+                }
+            } else if (email.isInvalidEmail()) {
+                if (
+                    emailTextInputLayout.error.isNullOrEmpty() ||
+                    emailTextInputLayout.error == getString(R.string.edittext_errors_empty_email)
+                ) {
+                    emailTextInputLayout.error = getString(R.string.edittext_errors_invalid_email)
+                }
+            } else {
+                if (emailTextInputLayout.error != null) {
+                    if (emailTextInputLayout.error!!.isNotEmpty()) {
+                        emailTextInputLayout.error = null
+                    }
+                }
+            }
+            if (password.isNullOrEmpty()) {
+                if (
+                    passwordTextInputLayout.error.isNullOrEmpty() ||
+                    passwordTextInputLayout.error == getString(R.string.edittext_errors_invalid_password)
+                ) {
+                    passwordTextInputLayout.error =
+                        getString(R.string.edittext_errors_empty_password)
+                }
+            } else if (password.length < 6) {
+                if (
+                    passwordTextInputLayout.error.isNullOrEmpty() ||
+                    passwordTextInputLayout.error == getString(R.string.edittext_errors_empty_password)
+                ) {
+                    passwordTextInputLayout.error =
+                        getString(R.string.edittext_errors_invalid_password)
+                }
+            } else {
+                if (passwordTextInputLayout.error != null) {
+                    if (passwordTextInputLayout.error!!.isNotEmpty()) {
+                        passwordTextInputLayout.error = null
+                    }
+                }
+            }
+            if (passwordTextInputLayout.error!!.isNotEmpty() || emailTextInputLayout.error!!.isNotEmpty()) {
+                return@setOnClickListener
+            }
 
-			progressBar?.visibility = View.VISIBLE
-			// Assume that email and password are non-null
-			auth.createUserWithEmailAndPassword(email!!, password!!)
-					.addOnCompleteListener(this@RegisterActivity) { task ->
-						progressBar?.visibility = View.GONE
-						if (task.isSuccessful) {
-							startActivity<MainActivity>()
-							finish()
-						} else {
-							Snackbar.make(findViewById(R.id.registerActivity), "An error occurred while authenticating. Try again later.", Snackbar.LENGTH_LONG)
-									.show()
-							Log.e(TAG, "An error occurred while authenticating.", task.exception)
-						}
-					}
+            progressBar?.visibility = View.VISIBLE
+            // Assume that email and password are non-null
+            auth.createUserWithEmailAndPassword(email!!, password!!)
+                .addOnCompleteListener(this@RegisterActivity) { task ->
+                    progressBar?.visibility = View.GONE
+                    if (task.isSuccessful) {
+                        startActivity<MainActivity>()
+                        finish()
+                    } else {
+                        Snackbar.make(
+                            findViewById(R.id.registerActivity),
+                            "An error occurred while authenticating. Try again later.",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .show()
+                        Log.e(TAG, "An error occurred while authenticating.", task.exception)
+                    }
+                }
 
-		}
-		checkNetwork()
-	}
+        }
+        checkNetwork()
+    }
 
-	override fun onResume() {
-		super.onResume()
-		progressBar?.visibility = View.GONE
-	}
+    override fun onResume() {
+        super.onResume()
+        progressBar?.visibility = View.GONE
+    }
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		return when (item.itemId) {
-			android.R.id.home -> {
-				onBackPressed()
-				true
-			}
-			else -> super.onOptionsItemSelected(item)
-		}
-	}
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
-	private fun checkNetwork() {
-		if (SharedUtils.isNetworkAvailable(this)) {
-			setViewsEnabled(true)
-		} else {
-			setViewsEnabled(false)
-			Snackbar.make(findViewById(R.id.registerActivity), "No internet connection available. Some actions are disabled", Snackbar.LENGTH_INDEFINITE)
-					.setBehavior(NoSwipeBehavior())
-					.setAction("Retry") { checkNetwork() }.show()
-		}
-	}
+    private fun checkNetwork() {
+        if (SharedUtils.isNetworkAvailable(this)) {
+            setViewsEnabled(true)
+        } else {
+            setViewsEnabled(false)
+            Snackbar.make(
+                findViewById(R.id.registerActivity),
+                "No internet connection available. Some actions are disabled",
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setBehavior(NoSwipeBehavior())
+                .setAction("Retry") { checkNetwork() }.show()
+        }
+    }
 
-	/**
-	 * Sets all views as shown/hidden
-	 *
-	 * @param enabled Whether to show the views
-	 */
-	private fun setViewsEnabled(enabled: Boolean) {
-		signUpBtn.isEnabled = enabled
-		signInBtn.isEnabled = enabled
-		emailTextInputLayout.isEnabled = enabled
-		passwordTextInputLayout.isEnabled = enabled
-	}
+    /**
+     * Sets all views as shown/hidden
+     *
+     * @param enabled Whether to show the views
+     */
+    private fun setViewsEnabled(enabled: Boolean) {
+        signUpBtn.isEnabled = enabled
+        signInBtn.isEnabled = enabled
+        emailTextInputLayout.isEnabled = enabled
+        passwordTextInputLayout.isEnabled = enabled
+    }
 }
