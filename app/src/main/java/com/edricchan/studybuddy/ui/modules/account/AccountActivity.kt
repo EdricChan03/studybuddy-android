@@ -261,6 +261,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account),
 	private fun updatePassword() {
 		val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)
 		val textInputLayout = promptDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
+		textInputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
 		textInputLayout.editText?.setHint(R.string.account_new_password_dialog_edittext_title)
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setView(promptDialogView)
