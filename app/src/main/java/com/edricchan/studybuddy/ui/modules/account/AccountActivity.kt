@@ -28,14 +28,18 @@ import kotlinx.android.synthetic.main.activity_account.*
 
 @WebDeepLink(["/account"])
 @AppDeepLink(["/account"])
-class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAuth.AuthStateListener {
-	private var mAuth: FirebaseAuth? = null
-	private var mUser: FirebaseUser? = null
+class AccountActivity : AppCompatActivity(R.layout.activity_account),
+		FirebaseAuth.AuthStateListener {
+	private lateinit var auth: FirebaseAuth
+	private var user: FirebaseUser? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
-		mAuth = FirebaseAuth.getInstance()
+
+		auth = FirebaseAuth.getInstance()
+		auth.addAuthStateListener(this)
+		user = auth.currentUser
 
 		accountActionSignInButton.setOnClickListener {
 			startActivity<LoginActivity>()
@@ -76,24 +80,12 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 
 	override fun onStart() {
 		super.onStart()
-		mUser = mAuth?.currentUser
-		if (mUser == null) {
-			accountNameTextView.visibility = View.GONE
-			accountEmailTextView.visibility = View.GONE
-			Toast.makeText(this, "Not signed in!", Toast.LENGTH_SHORT).show()
-			accountActionsButton.visibility = View.GONE
-			accountActionSignInButton.visibility = View.VISIBLE
-			accountAvatarImageView.visibility = View.GONE
-		} else {
-			accountActionsButton.visibility = View.VISIBLE
-			accountActionSignInButton.visibility = View.GONE
-			accountNameTextView.text = mUser?.displayName
-			accountEmailTextView.text = mUser?.email
-			accountAvatarImageView.visibility = View.VISIBLE
-			Glide.with(this)
-					.load(mUser?.photoUrl)
-					.into(accountAvatarImageView)
-		}
+		updateSignedIn()
+	}
+
+	override fun onDestroy() {
+		super.onDestroy()
+		auth.removeAuthStateListener(this)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -115,24 +107,8 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 	}
 
 	override fun onAuthStateChanged(auth: FirebaseAuth) {
-		val user = auth.currentUser
-		if (user == null) {
-			accountNameTextView.visibility = View.GONE
-			accountEmailTextView.visibility = View.GONE
-			Toast.makeText(this, "Not signed in!", Toast.LENGTH_SHORT).show()
-			accountActionsButton.visibility = View.GONE
-			accountActionSignInButton.visibility = View.VISIBLE
-			accountAvatarImageView.visibility = View.GONE
-		} else {
-			accountActionsButton.visibility = View.VISIBLE
-			accountActionSignInButton.visibility = View.GONE
-			accountNameTextView.text = user.displayName
-			accountEmailTextView.text = user.email
-			accountAvatarImageView.visibility = View.VISIBLE
-			Glide.with(this)
-					.load(user.photoUrl)
-					.into(accountAvatarImageView)
-		}
+		user = auth.currentUser
+		updateSignedIn()
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -150,7 +126,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		confirmBuilder.setTitle(R.string.account_delete_account_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 				.setPositiveButton(R.string.dialog_action_delete_account) { _, _ ->
-					mUser?.delete()
+					user?.delete()
 							?.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully deleted account!", Toast.LENGTH_SHORT).show()
@@ -160,18 +136,24 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 										is FirebaseAuthRecentLoginRequiredException -> {
 											val account = GoogleSignIn.getLastSignedInAccount(this)
 											val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-											mUser?.reauthenticate(credential)
+											user?.reauthenticate(credential)
 													?.addOnCompleteListener { reAuthTask ->
 														if (reAuthTask.isSuccessful) {
-															Toast.makeText(this, "Successfully reauthenticated account!", Toast.LENGTH_SHORT).show()
+															Toast.makeText(this, "Successfully reauthenticated account!", Toast.LENGTH_SHORT)
+																	.show()
 															deleteAccount()
 														} else {
-															Log.e(TAG, "An error occurred while attempting to reauthenticate:", reAuthTask.exception)
+															Log.e(TAG, "An error occurred while attempting to reauthenticate:",
+																	reAuthTask.exception)
 														}
 													}
 										}
 										is FirebaseAuthInvalidUserException -> {
-											Toast.makeText(this, "Current user is either disabled, deleted, or has invalid credentials", Toast.LENGTH_LONG).show()
+											Toast.makeText(this,
+													"Current user is either disabled, deleted, or has invalid credentials",
+													Toast.LENGTH_LONG
+											)
+													.show()
 										}
 									}
 								}
@@ -179,13 +161,35 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				}.show()
 	}
 
+	private fun updateSignedIn() {
+		if (user != null) {
+			accountActionsButton.visibility = View.VISIBLE
+			accountActionSignInButton.visibility = View.GONE
+			accountNameTextView.text = user?.displayName
+			accountEmailTextView.text = user?.email
+			accountAvatarImageView.visibility = View.VISIBLE
+			Glide.with(this)
+					.load(user?.photoUrl)
+					.into(accountAvatarImageView)
+		} else {
+			accountNameTextView.visibility = View.GONE
+			accountEmailTextView.visibility = View.GONE
+			Toast.makeText(this, "Not signed in!", Toast.LENGTH_SHORT).show()
+			accountActionsButton.visibility = View.GONE
+			accountActionSignInButton.visibility = View.VISIBLE
+			accountAvatarImageView.visibility = View.GONE
+		}
+	}
+
 	private fun refreshCredentials() {
-		Snackbar.make(findViewById(R.id.constraintLayout), "Refreshing credentials...", Snackbar.LENGTH_SHORT).show()
-		mUser?.reload()
+		Snackbar.make(findViewById(R.id.constraintLayout), "Refreshing credentials...",
+				Snackbar.LENGTH_SHORT).show()
+		user?.reload()
 				?.addOnCompleteListener { task ->
 					if (!task.isSuccessful) {
 						Log.e(TAG, "An error occurred while attempting to refresh the credentials:", task.exception)
-						Snackbar.make(findViewById(R.id.constraintLayout), "An error occurred while attempting to refresh the credentials", Snackbar.LENGTH_LONG)
+						Snackbar.make(findViewById(R.id.constraintLayout),
+								"An error occurred while attempting to refresh the credentials", Snackbar.LENGTH_LONG)
 								.setAction("Retry") { refreshCredentials() }
 								.show()
 					}
@@ -197,7 +201,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		confirmBuilder.setTitle(R.string.account_sign_out_dialog_title)
 				.setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
 				.setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
-					mAuth?.signOut()
+					auth.signOut()
 					Toast.makeText(this, "Successfully signed out!", Toast.LENGTH_SHORT).show()
 					dialog.dismiss()
 				}
@@ -212,15 +216,16 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		val promptBuilder = MaterialAlertDialogBuilder(this)
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_new_email_dialog_title)
-				.setPositiveButton(R.string.dialog_action_update_email) { dialog, which ->
-					textInputLayout.editTextStrValue?.let {
-						mUser?.updateEmail(it)
+				.setPositiveButton(R.string.dialog_action_update_email) { dialog, _ ->
+					textInputLayout.editTextStrValue.let {
+						user?.updateEmail(it)
 								?.addOnCompleteListener { task ->
 									if (task.isSuccessful) {
 										Toast.makeText(this, "Successfully updated email address!", Toast.LENGTH_SHORT).show()
 										dialog.dismiss()
 									} else {
-										Log.e(TAG, "An error occurred when attempting to update the email address", task.exception)
+										Log.e(TAG, "An error occurred when attempting to update the email address",
+												task.exception)
 									}
 								}
 					}
@@ -239,7 +244,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 				.setPositiveButton(R.string.dialog_action_update_name) { dialog, _ ->
 					val requestBuilder = UserProfileChangeRequest.Builder()
 					requestBuilder.setDisplayName(textInputLayout.editTextStrValue)
-					mUser?.updateProfile(requestBuilder.build())
+					user?.updateProfile(requestBuilder.build())
 							?.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 									Toast.makeText(this, "Successfully updated name!", Toast.LENGTH_SHORT).show()
@@ -261,8 +266,8 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account), FirebaseAu
 		promptBuilder.setView(promptDialogView)
 				.setTitle(R.string.account_new_password_dialog_title)
 				.setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
-					textInputLayout.editTextStrValue?.let {
-						mUser?.updatePassword(it)
+					textInputLayout.editTextStrValue.let {
+						user?.updatePassword(it)
 								?.addOnCompleteListener { task ->
 									if (task.isSuccessful) {
 										Toast.makeText(this, "Successfully updated password!", Toast.LENGTH_SHORT).show()
