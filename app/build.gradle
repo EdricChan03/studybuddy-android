@@ -278,7 +278,20 @@ dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 	// Support for parsing Deep Links
-	implementation 'com.airbnb:deeplinkdispatch:4.1.0'
-	kapt 'com.airbnb:deeplinkdispatch-processor:4.1.0'
+	implementation 'com.airbnb:deeplinkdispatch:5.1.0'
+	kapt 'com.airbnb:deeplinkdispatch-processor:5.1.0'
+}
+
+kapt {
+	arguments {
+		// See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for more info
+		arg('deepLink.incremental', 'true')
+		arg('deepLink.customAnnotations',
+				'com.edricchan.studybuddy.annotations.AppDeepLink,'
+				+ 'com.edricchan.studybuddy.annotations.WebDeepLink')
+		// Add support for documenting deep links
+		// See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for more info
+		arg('deepLinkDoc.output', "${rootDir}/docs/deeplinks.md")
+	}
 }
 apply plugin: "com.google.gms.google-services"
