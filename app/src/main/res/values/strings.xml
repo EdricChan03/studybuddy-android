@@ -6,22 +6,29 @@
 		<item quantity="other">%d selected</item>
 	</plurals>
 
-	<!-- Countdown toast message for the number of user taps to enable dev mode -->
+	<!-- The countdown message to indicate the number of user taps left to enable dev mode. -->
 	<plurals name="dev_mode_countdown">
 		<item quantity="one">You are now %d more step away from being a developer!</item>
 		<item quantity="other">You are now %d steps away from being a developer!</item>
 	</plurals>
+	<!-- The message to indicate that developer mode has been disabled. -->
 	<string name="dev_mode_disabled">Successfully disabled developer mode!</string>
-	<!-- Toast message for confirmation message that developer mode is on -->
+	<!-- The message to indicate that developer mode is on. -->
 	<string name="dev_mode_on">You\'re now a developer!</string>
+	<!-- The message to indicate that developer mode is off. -->
 	<string name="dev_mode_off">Successfully turned off developer mode!</string>
-	<!-- Toast message when user clicks even after confirmation is shown -->
+	<!-- The message to indicate that developer mode has already been enabled. -->
 	<string name="dev_mode_already">Stop clicking - you\'re already a developer!</string>
+	<!-- The dialog's title to confirm whether to enable developer mode. -->
 	<string name="dev_mode_confirm_enable_dialog_title">Enable developer mode?</string>
+	<!-- The dialog's message to confirm whether to enable developer mode. -->
 	<string name="dev_mode_confirm_enable_dialog_msg">Note: This can be turned off later in Settings
 		&gt; Developer Options &gt; Developer Mode.</string>
+	<!-- The dialog's title to confirm whether to disable developer mode. -->
 	<string name="dev_mode_confirm_disable_dialog_title">Disable developer mode?</string>
+	<!-- The dialog's message to confirm whether to disable developer mode. -->
 	<string name="dev_mode_confirm_disable_dialog_msg">This cannot be reversed!</string>
+	<!-- The title of the developer options activity. -->
 	<string name="pref_header_dev_mode_opts_title">Developer options</string>
 
 	<!-- The about dialog's message -->
