@@ -8,7 +8,7 @@
 	<!-- Required for checking if network is available -->
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<!-- Required for writing/reading to external storage -->
-	<!-- Note: This is no longer needed in Android Q -->
+	<!-- Note: This is no longer needed in Android 10 -->
 	<uses-permission
 			android:name="android.permission.WRITE_EXTERNAL_STORAGE"
 			android:maxSdkVersion="28" />
@@ -19,11 +19,6 @@
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 	<!-- Needed to auto-start the worker for checking for updates -->
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<!--
-	Needed for DayNight theme auto detection
-	TODO: Remove this permission
-	-->
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 	<application
 			android:allowBackup="true"

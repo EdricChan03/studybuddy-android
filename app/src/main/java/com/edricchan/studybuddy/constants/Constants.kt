@@ -20,10 +20,6 @@ object Constants {
 	const val prefCategoryGeneral = "pref_category_general"
 	const val prefCategoryTheme = "pref_category_theme"
 	const val prefDarkTheme = "pref_dark_theme"
-	@Deprecated("Not visible in the app's settings")
-	const val prefDarkThemeAuto = "automatic"
-	@Deprecated("No longer supported")
-	const val prefDarkThemeAutoTime = "automatic_time"
 	const val prefDarkThemeAutoBatterySaver = "automatic_battery_saver"
 	const val prefDarkThemeAlways = "always"
 	const val prefDarkThemeFollowSystem = "follow_system"
@@ -37,9 +33,6 @@ object Constants {
 	const val prefUseCustomTabs = "pref_use_custom_tabs"
 	const val prefCustomTabsUseAppColorScheme = "pref_custom_tabs_use_app_color_scheme"
 	const val prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking"
-	const val prefDayNightLocationPermInfo = "pref_daynight_location_perm_info"
-	const val prefDayNightLocationNotice = "pref_daynight_location_notice"
-	const val prefDaynightLocationGrantPerm = "pref_daynight_location_grant_perm"
 
 	// Preferences > Todos
 	const val prefTodoDefaultSort = "pref_todo_default_sort"
