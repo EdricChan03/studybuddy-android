@@ -86,7 +86,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 							)
 									.withSelectionPredicate(SelectionPredicates.createSelectAnything())
 									.build()
-							(recyclerView.adapter as ChatsAdapter).selectionTracker = selectionTracker
+							adapter.selectionTracker = selectionTracker
 							selectionTracker?.addObserver(object : SelectionTracker.SelectionObserver<String>() {
 								override fun onSelectionChanged() {
 									super.onSelectionChanged()
