@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/mainView"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:animateLayoutChanges="true"
-	tools:context=".ui.modules.task.ViewTaskActivity">
-
-	<androidx.core.widget.NestedScrollView
-		android:id="@+id/scrollTaskView"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/mainView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginBottom="?attr/actionBarSize"
-		android:fillViewport="true"
-		android:visibility="gone">
+		android:animateLayoutChanges="true"
+		tools:context=".ui.modules.task.ViewTaskActivity">
+
+	<androidx.core.widget.NestedScrollView
+			android:id="@+id/scrollTaskView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginBottom="?attr/actionBarSize"
+			android:fillViewport="true"
+			android:visibility="gone">
 
 		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:padding="16dp"
-			android:orientation="vertical">
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="16dp">
 
 			<!-- Note: The task's title will be shown in the activity's title. -->
 			<!--<TextView
@@ -30,28 +30,28 @@
 				android:textAppearance="?attr/textAppearanceHeadline5" />-->
 
 			<TextView
-				android:id="@+id/taskContent"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?attr/textAppearanceBody1" />
+					android:id="@+id/taskContent"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textAppearance="?attr/textAppearanceBody1" />
 
 			<TextView
-				android:id="@+id/taskDate"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:drawableStart="@drawable/ic_calendar_check_outline_24dp"
-				android:drawablePadding="16dp"
-				android:padding="16dp"
-				android:textAppearance="?attr/textAppearanceBody1" />
+					android:id="@+id/taskDate"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:drawableStart="@drawable/ic_calendar_check_outline_24dp"
+					android:drawablePadding="16dp"
+					android:padding="16dp"
+					android:textAppearance="?attr/textAppearanceBody1" />
 
 			<TextView
-				android:id="@+id/taskProject"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:drawableStart="@drawable/ic_format_list_checks_24dp"
-				android:drawablePadding="16dp"
-				android:padding="16dp"
-				android:textAppearance="?attr/textAppearanceBody1" />
+					android:id="@+id/taskProject"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:drawableStart="@drawable/ic_format_list_checks_24dp"
+					android:drawablePadding="16dp"
+					android:padding="16dp"
+					android:textAppearance="?attr/textAppearanceBody1" />
 			<!--<LinearLayout
 				android:id="@+id/taskProjectParentView"
 				android:layout_width="match_parent"
@@ -72,60 +72,61 @@
 			</LinearLayout>-->
 
 			<LinearLayout
-				android:id="@+id/taskTagsParentView"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-				<ImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:contentDescription="@string/view_task_label_icon_content_desc"
-					android:padding="16dp"
-					android:src="@drawable/ic_label_outline_24dp" />
-
-				<com.google.android.material.chip.ChipGroup
-					android:id="@+id/taskTags"
+					android:id="@+id/taskTagsParentView"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_gravity="center_vertical" />
+					android:orientation="horizontal">
+
+				<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:contentDescription="@string/view_task_label_icon_content_desc"
+						android:padding="16dp"
+						android:src="@drawable/ic_label_outline_24dp" />
+
+				<com.google.android.material.chip.ChipGroup
+						android:id="@+id/taskTags"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center_vertical" />
 			</LinearLayout>
 		</LinearLayout>
 	</androidx.core.widget.NestedScrollView>
 
 	<LinearLayout
-		android:id="@+id/progressBar"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:gravity="center"
-		android:orientation="vertical">
+			android:id="@+id/progressBar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical">
 
 		<ProgressBar
-			style="?android:attr/progressBarStyleLarge"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:paddingBottom="4dp" />
+				style="?android:attr/progressBarStyleLarge"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:paddingBottom="4dp" />
 
 		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:text="@string/view_task_loading"
-			android:textAppearance="?attr/textAppearanceHeadline6" />
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:text="@string/view_task_loading"
+				android:textAppearance="?attr/textAppearanceHeadline6" />
 	</LinearLayout>
 
 	<com.google.android.material.bottomappbar.BottomAppBar
-		android:id="@+id/bottomAppBar"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_gravity="bottom"
-		app:fabAlignmentMode="end" />
+			android:id="@+id/bottomAppBar"
+			style="@style/Widget.MaterialComponents.BottomAppBar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			app:fabAlignmentMode="end" />
 
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/editTaskFab"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_anchor="@id/bottomAppBar"
-		app:srcCompat="@drawable/ic_edit_outline_24dp" />
+			android:id="@+id/editTaskFab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_anchor="@id/bottomAppBar"
+			app:srcCompat="@drawable/ic_edit_outline_24dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
