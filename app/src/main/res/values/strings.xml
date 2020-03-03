@@ -56,6 +56,10 @@
 	<string name="account_sign_in_button_title">Sign in</string>
 	<!-- The content description of the account avatar in the account activity. -->
 	<string name="account_avatar_desc">Account avatar</string>
+	<!-- The default name to be shown if no user is logged-in. -->
+	<string name="account_user_name_default">Guest</string>
+	<!-- The default email address to be shown if no user is logged-in. -->
+	<string name="account_user_email_default">(No email address)</string>
 	<!-- The title of the delete account dialog in the account activity. -->
 	<string name="account_delete_account_dialog_title">Delete account?</string>
 	<!-- The title of the EditText in the new email dialog in the account activity. -->
