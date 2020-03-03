@@ -28,7 +28,7 @@ class DeepLinkActivity : AppCompatActivity() {
 						}
 					}
 		}
-		DeepLinkDelegate(DeepLinkModuleLoader()).dispatchFrom(this)
+		DeepLinkDelegate(DeepLinkModuleRegistry()).dispatchFrom(this)
 		finish()
 	}
 }
