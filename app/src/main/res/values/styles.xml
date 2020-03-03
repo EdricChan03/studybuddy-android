@@ -93,20 +93,6 @@
 
 	<style name="Theme.App.MaterialAboutFragment" parent="Theme.Mal.DayNight" />
 
-	<!-- Workaround for rounded corners showing at the bottom of the bottom sheet -->
-	<!-- TODO: Remove this -->
-	<!--<style name="ThemeOverlay.App.BottomSheetDialog"
-	       parent="ThemeOverlay.MaterialComponents.DayNight.BottomSheetDialog">
-		<item name="bottomSheetStyle">@style/Widget.App.BottomSheet</item>
-	</style>
-
-	<style name="Widget.App.BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
-		<item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.BottomSheet.Modal</item>
-	</style>
-	<style name="ShapeAppearanceOverlay.App.BottomSheet.Modal" parent="">
-		<item name="cornerSizeBottomLeft">0dp</item>
-		<item name="cornerSizeBottomRight">0dp</item>
-	</style>-->
 	<!--
 	TODO: Customize the ShapeAppearance
 	Note that such styles should come in the next release
@@ -125,10 +111,4 @@
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">24dp</item>
 	</style>
-
-	<!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
-	<!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />-->
-	<!--<style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Dialog">
-		<item name="fontFamily">@font/baloo</item>
-	</style>-->
 </resources>
