@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
-import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.edricchan.studybuddy.ui.modules.chat.NewChatActivity
@@ -33,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.ktx.toObjects
 
 class ChatFragment : Fragment(R.layout.frag_chat) {
 	private var firestoreListener: ListenerRegistration? = null
@@ -63,8 +63,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 						Log.e(TAG, "An error occurred while retrieving the chats:", e)
 					} else {
 						if (docSnapshot != null && !docSnapshot.isEmpty) {
-							val chatList = arrayListOf<Chat>()
-							docSnapshot.mapTo(chatList) { it.toObjectWithId() }
+							val chatList = docSnapshot.toObjects<Chat>()
 
 							val adapter = ChatsAdapter(requireContext(), chatList, onItemClickListener = { chat ->
 								Log.d(TAG, "Chat ${chat.id} clicked!")
