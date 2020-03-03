@@ -12,10 +12,10 @@
 		<!-- The font family of the app -->
 		<item name="fontFamily">@font/baloo</item>
 		<!-- The text input style -->
-		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox
+		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
 		</item>
 		<!-- The edit text style -->
-		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox
+		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox
 		</item>
 		<!-- The bottom app bar style -->
 		<item name="bottomAppBarStyle">
@@ -44,10 +44,10 @@
 		<!-- The font family of the app -->
 		<item name="fontFamily">@font/baloo</item>
 		<!-- The text input style -->
-		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox
+		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
 		</item>
 		<!-- The edit text style -->
-		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.FilledBox
+		<item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox
 		</item>
 		<!-- The bottom app bar style -->
 		<item name="bottomAppBarStyle">
