@@ -96,6 +96,7 @@ def generateVersionCode() {
 			+ versionMajor * 10000 + versionMinor * 100 + versionPatch)
 }
 
+@SuppressWarnings("GrMethodMayBeStatic")
 def generateVersionName() {
 	return "${String.valueOf(versionMajor)}.${String.valueOf(versionMinor)}.${String.valueOf(versionPatch)}"
 }
