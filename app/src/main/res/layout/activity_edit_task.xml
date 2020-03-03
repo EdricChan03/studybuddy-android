@@ -65,7 +65,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_margin="10dp"
-					android:hint="@string/task_content">
+					android:hint="@string/task_content"
+					app:helperText="@string/markdown_supported_helpertext">
 
 				<com.google.android.material.textfield.TextInputEditText
 						android:layout_width="match_parent"
