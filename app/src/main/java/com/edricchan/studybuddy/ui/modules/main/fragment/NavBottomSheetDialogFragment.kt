@@ -5,17 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.constraintlayout.widget.Group
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
-import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -29,16 +24,6 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 	var photoUrl: Uri? = null
 	var navigationViewCheckedItemId: Int? = null
 	private lateinit var navigationView: NavigationView
-	/**
-	 * Sets the listener for the [NavigationView]
-	 *
-	 * @param listener The listener
-	 */
-	@Deprecated("Use the navigationViewListener variable")
-	fun setNavigationItemSelectedListener(listener: NavigationView.OnNavigationItemSelectedListener) {
-		this.navigationViewListener = listener
-	}
-
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.frag_bottomappbar_bottomsheet, container, false)
@@ -46,6 +31,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+
 		navigationView = view.findViewById(R.id.navigationView)
 		if (navigationViewListener != null) {
 			navigationView.setNavigationItemSelectedListener(navigationViewListener)
@@ -63,24 +49,11 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
 		val headerView = navigationView.getHeaderView(0)
 
-		headerView.findViewById<ImageButton>(R.id.userAccountSettings)
-				.setOnClickListener {
-					startActivity<AccountActivity>()
-				}
-
-		headerView.findViewById<Button>(R.id.loginButton)
-				.setOnClickListener {
-					startActivity<LoginActivity>()
-				}
-
-		headerView.findViewById<Button>(R.id.registerButton)
-				.setOnClickListener {
-					startActivity<RegisterActivity>()
-				}
+		headerView.setOnClickListener {
+			startActivity<AccountActivity>()
+		}
 
 		if (isLoggedIn) {
-			headerView.findViewById<Group>(R.id.userLoggedInGroup).visibility = View.VISIBLE
-			headerView.findViewById<Group>(R.id.noUserLoggedInGroup).visibility = View.GONE
 			if (displayName != null) headerView.findViewById<TextView>(R.id.userName).text = displayName
 			if (email != null) headerView.findViewById<TextView>(R.id.userEmail).text = email
 			if (photoUrl != null) {
@@ -89,8 +62,10 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 						.into(headerView.findViewById(R.id.userAvatar))
 			}
 		} else {
-			headerView.findViewById<Group>(R.id.noUserLoggedInGroup).visibility = View.VISIBLE
-			headerView.findViewById<Group>(R.id.userLoggedInGroup).visibility = View.GONE
+			headerView.findViewById<TextView>(R.id.userName).text = getString(
+					R.string.account_user_name_default)
+			headerView.findViewById<TextView>(R.id.userEmail).text =getString(
+					R.string.account_user_email_default)
 		}
 	}
 

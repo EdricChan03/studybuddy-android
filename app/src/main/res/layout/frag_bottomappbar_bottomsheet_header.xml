@@ -3,7 +3,10 @@
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:clickable="true"
+		android:focusable="true"
+		android:background="?attr/selectableItemBackground">
 	<!--
 	Design based on
 	https://github.com/ArthurNagy/WorkoutLog/blob/762125a91aeee0c0b6443d8aad6681659f8a5960/app/src/main/res/layout/fragment_account_menu.xml
@@ -44,6 +47,7 @@
 			android:id="@+id/userName"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:text="@string/account_user_name_default"
 			android:textAppearance="?attr/textAppearanceSubtitle1"
 			app:layout_constraintStart_toEndOf="@id/headerTextGuideline"
 			app:layout_constraintTop_toTopOf="@id/userAvatar"
@@ -53,51 +57,21 @@
 			android:id="@+id/userEmail"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:text="@string/account_user_email_default"
 			android:textAppearance="?attr/textAppearanceSubtitle2"
 			app:layout_constraintStart_toEndOf="@id/headerTextGuideline"
 			app:layout_constraintTop_toBottomOf="@id/userName"
-			tools:text="john.appleseed@gmail.com" />
+			tools:text="john.appleseed@gmail.com"
+			tools:visibility="visible" />
 
-	<ImageButton
+	<!-- No longer needed as the main header is now clickable. -->
+	<!--<ImageButton
 			android:id="@+id/userAccountSettings"
 			style="@style/Theme.App.ImageButton"
 			android:contentDescription="Account settings"
 			android:src="@drawable/ic_account_circle_outline_24dp"
 			app:layout_constraintBottom_toTopOf="@+id/headerGuideline"
 			app:layout_constraintEnd_toStartOf="@+id/headerMetaGuideline"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent" />-->
 
-	<androidx.constraintlayout.widget.Group
-			android:id="@+id/userLoggedInGroup"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:visibility="gone"
-			app:constraint_referenced_ids="userName,userEmail,userAccountSettings" />
-
-	<Button
-			android:id="@+id/loginButton"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/login_sign_in_button_title"
-			app:layout_constraintBottom_toTopOf="@id/headerGuideline"
-			app:layout_constraintStart_toStartOf="@id/headerTextGuideline"
-			app:layout_constraintTop_toTopOf="parent" />
-
-	<Button
-			android:id="@+id/registerButton"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/activity_horizontal_margin"
-			android:text="@string/register_signup_button_title"
-			app:layout_constraintBottom_toTopOf="@id/headerGuideline"
-			app:layout_constraintStart_toEndOf="@id/loginButton"
-			app:layout_constraintTop_toTopOf="parent" />
-
-	<androidx.constraintlayout.widget.Group
-			android:id="@+id/noUserLoggedInGroup"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:constraint_referenced_ids="loginButton,registerButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
