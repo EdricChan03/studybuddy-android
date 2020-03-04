@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/two_line_list_item_height_with_icon"
-		android:background="?attr/selectableItemBackground"
-		android:paddingStart="@dimen/two_line_list_item_padding_left"
-		android:paddingEnd="@dimen/two_line_list_item_padding_left">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/two_line_list_item_height_with_icon"
+    android:background="?attr/selectableItemBackground"
+    android:paddingStart="@dimen/two_line_list_item_padding_left"
+    android:paddingEnd="@dimen/two_line_list_item_padding_left">
 
-	<ImageView
-			android:id="@+id/iconImageView"
-			android:layout_width="@dimen/two_line_list_item_avatar_width"
-			android:layout_height="@dimen/two_line_list_item_avatar_height"
-			android:layout_marginTop="@dimen/two_line_list_item_avatar_padding_top"
-			android:clickable="false"
-			android:focusable="false"
-			android:focusableInTouchMode="false"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:src="@tools:sample/avatars"/>
+    <ImageView
+        android:id="@+id/iconImageView"
+        android:layout_width="@dimen/two_line_list_item_avatar_width"
+        android:layout_height="@dimen/two_line_list_item_avatar_height"
+        android:layout_marginTop="@dimen/two_line_list_item_avatar_padding_top"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
-	<com.edricchan.studybuddy.ui.widget.NoTextCheckBox
-			android:id="@+id/selectionCheckBox"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:duplicateParentState="true"
-			android:visibility="gone"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
+    <com.edricchan.studybuddy.ui.widget.NoTextCheckBox
+        android:id="@+id/selectionCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-			android:id="@+id/nameTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/two_line_list_item_text_padding_left_avatar"
-			android:ellipsize="end"
-			android:maxLines="1"
-			android:singleLine="true"
-			android:textAppearance="?attr/textAppearanceListItem"
-			app:layout_constraintBottom_toTopOf="@id/descTextView"
-			app:layout_constraintStart_toEndOf="@id/iconImageView"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_chainStyle="packed"
-			tools:text="@sample/chats.json/data/name"/>
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/two_line_list_item_text_padding_left_avatar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintBottom_toTopOf="@id/descTextView"
+        app:layout_constraintStart_toEndOf="@id/iconImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="@sample/chats.json/data/name" />
 
-	<TextView
-			android:id="@+id/descTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/two_line_list_item_text_padding_left_avatar"
-			android:ellipsize="end"
-			android:maxLines="1"
-			android:singleLine="true"
-			android:textAppearance="?attr/textAppearanceListItemSecondary"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toEndOf="@id/iconImageView"
-			app:layout_constraintTop_toBottomOf="@id/nameTextView"
-			tools:text="@sample/chats.json/data/description"/>
+    <TextView
+        android:id="@+id/descTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/two_line_list_item_text_padding_left_avatar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iconImageView"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
+        tools:text="@sample/chats.json/data/description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

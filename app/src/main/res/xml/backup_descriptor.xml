@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
-	<!-- Exclude specific shared preferences that contain GCM registration Id -->
-	<!-- See https://stackoverflow.com/a/51718354/6782707 for code below -->
-	<exclude
-			domain="sharedpref"
-			path="com.google.android.gms.appid.xml" />
-	<exclude
-			domain="sharedpref"
-			path="com.google.android.gms.measurement.prefs.xml" />
+    <!-- Exclude specific shared preferences that contain GCM registration Id -->
+    <!-- See https://stackoverflow.com/a/51718354/6782707 for code below -->
+    <exclude
+        domain="sharedpref"
+        path="com.google.android.gms.appid.xml" />
+    <exclude
+        domain="sharedpref"
+        path="com.google.android.gms.measurement.prefs.xml" />
 </full-backup-content>

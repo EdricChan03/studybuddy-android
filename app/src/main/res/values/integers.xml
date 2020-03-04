@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<integer name="pref_check_for_updates_frequency_default_value" translatable="false">12</integer>
+    <integer name="pref_check_for_updates_frequency_default_value" translatable="false">12</integer>
 </resources>

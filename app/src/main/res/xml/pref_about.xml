@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-	<Preference
-			app:enableCopying="true"
-			app:key="pref_about_app_version"
-			app:title="@string/pref_about_app_version_title" />
-	<Preference
-			app:enableCopying="true"
-			app:key="pref_about_app_version_code"
-			app:title="@string/pref_about_app_version_code_title" />
-	<Preference
-			app:enableCopying="true"
-			app:key="pref_about_app_build_variant"
-			app:title="@string/pref_about_app_build_variant_title" />
-	<Preference
-			app:icon="@drawable/ic_code_24dp"
-			app:key="pref_about_app_src_code"
-			app:summary="@string/pref_about_source_code_summary"
-			app:title="@string/pref_about_source_code_title" />
-	<Preference
-			app:icon="@drawable/ic_account_circle_outline_24dp"
-			app:key="pref_about_app_author"
-			app:summary="@string/pref_about_author_summary"
-			app:title="@string/pref_about_author_title" />
-	<Preference
-			app:icon="@drawable/ic_info_outline_24dp"
-			app:key="pref_about_app_info"
-			app:summary="@string/pref_about_app_info_summary"
-			app:title="@string/pref_about_app_info_title" />
-	<Preference
-			app:icon="@drawable/ic_file_document_box_outline_24dp"
-			app:key="pref_about_licenses"
-			app:summary="@string/pref_about_licenses_summary"
-			app:title="@string/pref_about_licenses_title" />
+    <Preference
+        app:enableCopying="true"
+        app:key="pref_about_app_version"
+        app:title="@string/pref_about_app_version_title" />
+    <Preference
+        app:enableCopying="true"
+        app:key="pref_about_app_version_code"
+        app:title="@string/pref_about_app_version_code_title" />
+    <Preference
+        app:enableCopying="true"
+        app:key="pref_about_app_build_variant"
+        app:title="@string/pref_about_app_build_variant_title" />
+    <Preference
+        app:icon="@drawable/ic_code_24dp"
+        app:key="pref_about_app_src_code"
+        app:summary="@string/pref_about_source_code_summary"
+        app:title="@string/pref_about_source_code_title" />
+    <Preference
+        app:icon="@drawable/ic_account_circle_outline_24dp"
+        app:key="pref_about_app_author"
+        app:summary="@string/pref_about_author_summary"
+        app:title="@string/pref_about_author_title" />
+    <Preference
+        app:icon="@drawable/ic_info_outline_24dp"
+        app:key="pref_about_app_info"
+        app:summary="@string/pref_about_app_info_summary"
+        app:title="@string/pref_about_app_info_title" />
+    <Preference
+        app:icon="@drawable/ic_file_document_box_outline_24dp"
+        app:key="pref_about_licenses"
+        app:summary="@string/pref_about_licenses_summary"
+        app:title="@string/pref_about_licenses_title" />
 </androidx.preference.PreferenceScreen>

@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools">
-	<shortcut
-			android:enabled="true"
-			android:icon="@drawable/ic_shortcut_todo"
-			android:shortcutDisabledMessage="@string/shortcut_todo_disabled_msg"
-			android:shortcutId="new_todo"
-			android:shortcutLongLabel="@string/shortcut_todo_long_msg"
-			android:shortcutShortLabel="@string/shortcut_todo_short_msg"
-			tools:targetApi="n_mr1">
-		<!-- Each one of these intents needs an android:action, even if you don't
-			 do anything with it. Otherwise you're in for a crash! -->
-		<intent
-				android:action="com.edricchan.studybuddy.ACTION_NEW_TASK_FROM_SHORTCUT"
-				android:targetClass="com.edricchan.studybuddy.ui.modules.task.NewTaskActivity"
-				android:targetPackage="com.edricchan.studybuddy.debug" />
-	</shortcut>
-	<!-- It isn't really useful to show a shortcut to just navigate to a settings screen... -->
-	<!--<shortcut
-			android:enabled="true"
-			android:icon="@drawable/ic_shortcut_settings"
-			android:shortcutId="settings"
-			android:shortcutLongLabel="@string/shortcut_settings_long_msg"
-			android:shortcutShortLabel="@string/shortcut_settings_short_msg"
-			tools:targetApi="n_mr1">
-		<intent
-				android:action="android.intent.action.APPLICATION_PREFERENCE"
-				android:targetClass="com.edricchan.studybuddy.ui.modules.settings.SettingsActivity"
-				android:targetPackage="com.edricchan.studybuddy.debug" />
-	</shortcut>-->
+    xmlns:tools="http://schemas.android.com/tools">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_todo"
+        android:shortcutDisabledMessage="@string/shortcut_todo_disabled_msg"
+        android:shortcutId="new_todo"
+        android:shortcutLongLabel="@string/shortcut_todo_long_msg"
+        android:shortcutShortLabel="@string/shortcut_todo_short_msg"
+        tools:targetApi="n_mr1">
+        <!-- Each one of these intents needs an android:action, even if you don't
+             do anything with it. Otherwise you're in for a crash! -->
+        <intent
+            android:action="com.edricchan.studybuddy.ACTION_NEW_TASK_FROM_SHORTCUT"
+            android:targetClass="com.edricchan.studybuddy.ui.modules.task.NewTaskActivity"
+            android:targetPackage="com.edricchan.studybuddy.debug" />
+    </shortcut>
+    <!-- It isn't really useful to show a shortcut to just navigate to a settings screen... -->
+    <!--<shortcut
+            android:enabled="true"
+            android:icon="@drawable/ic_shortcut_settings"
+            android:shortcutId="settings"
+            android:shortcutLongLabel="@string/shortcut_settings_long_msg"
+            android:shortcutShortLabel="@string/shortcut_settings_short_msg"
+            tools:targetApi="n_mr1">
+        <intent
+                android:action="android.intent.action.APPLICATION_PREFERENCE"
+                android:targetClass="com.edricchan.studybuddy.ui.modules.settings.SettingsActivity"
+                android:targetPackage="com.edricchan.studybuddy.debug" />
+    </shortcut>-->
 
 </shortcuts>

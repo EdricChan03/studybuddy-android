@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-		xmlns:app="http://schemas.android.com/apk/res-auto">
-	<Preference
-			app:enableCopying="true"
-			app:icon="@drawable/ic_info_outline_24dp"
-			app:key="debug_updates_last_checked_for_updates_date"
-			app:title="@string/debug_activity_updates_last_checked_for_updates_date_title"/>
-	<Preference
-			app:icon="@drawable/ic_close_24dp"
-			app:key="debug_updates_clear_last_checked_for_updates_date"
-			app:title="@string/debug_activity_updates_clear_last_checked_for_updates_date_title"/>
-	<Preference
-			app:enableCopying="true"
-			app:icon="@drawable/ic_info_outline_24dp"
-			app:key="debug_updates_last_updated_date"
-			app:title="@string/debug_activity_updates_last_updated_date_title"/>
-	<Preference
-			app:icon="@drawable/ic_close_24dp"
-			app:key="debug_updates_clear_last_updated_date"
-			app:title="@string/debug_activity_updates_clear_last_updated_date_title"/>
-	<Preference
-			app:enabled="false"
-			app:icon="@drawable/ic_info_outline_24dp"
-			app:key="debug_updates_tip"
-			app:summary="@string/debug_activity_updates_tip_summary"/>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        app:enableCopying="true"
+        app:icon="@drawable/ic_info_outline_24dp"
+        app:key="debug_updates_last_checked_for_updates_date"
+        app:title="@string/debug_activity_updates_last_checked_for_updates_date_title" />
+    <Preference
+        app:icon="@drawable/ic_close_24dp"
+        app:key="debug_updates_clear_last_checked_for_updates_date"
+        app:title="@string/debug_activity_updates_clear_last_checked_for_updates_date_title" />
+    <Preference
+        app:enableCopying="true"
+        app:icon="@drawable/ic_info_outline_24dp"
+        app:key="debug_updates_last_updated_date"
+        app:title="@string/debug_activity_updates_last_updated_date_title" />
+    <Preference
+        app:icon="@drawable/ic_close_24dp"
+        app:key="debug_updates_clear_last_updated_date"
+        app:title="@string/debug_activity_updates_clear_last_updated_date_title" />
+    <Preference
+        app:enabled="false"
+        app:icon="@drawable/ic_info_outline_24dp"
+        app:key="debug_updates_tip"
+        app:summary="@string/debug_activity_updates_tip_summary" />
 </PreferenceScreen>

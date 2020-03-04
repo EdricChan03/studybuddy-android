@@ -1,140 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:padding="@dimen/activity_horizontal_margin"
-		android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
 
-	<TextView
-			android:id="@+id/iconInfoTitle"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/icon_picker_info_header_title"
-			android:textAppearance="?attr/textAppearanceHeadline6" />
+    <TextView
+        android:id="@+id/iconInfoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_picker_info_header_title"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
 
-	<LinearLayout
-			android:id="@+id/iconNameContainer"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/iconNameContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
-		<TextView
-				android:id="@+id/iconNameHeader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_name_title"
-				android:textAppearance="?attr/textAppearanceSubtitle1" />
+        <TextView
+            android:id="@+id/iconNameHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_name_title"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-		<TextView
-				android:id="@+id/iconNameValue"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_name_default" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/iconNameValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_name_default" />
+    </LinearLayout>
 
-	<LinearLayout
-			android:id="@+id/iconDescContainer"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/iconDescContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
-		<TextView
-				android:id="@+id/iconDescHeader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_desc_title"
-				android:textAppearance="?attr/textAppearanceSubtitle1" />
+        <TextView
+            android:id="@+id/iconDescHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_desc_title"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-		<TextView
-				android:id="@+id/iconDescValue"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_desc_default" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/iconDescValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_desc_default" />
+    </LinearLayout>
 
-	<LinearLayout
-			android:id="@+id/iconAuthorContainer"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/iconAuthorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
-		<TextView
-				android:id="@+id/iconAuthorHeader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_author_title"
-				android:textAppearance="?attr/textAppearanceSubtitle1" />
+        <TextView
+            android:id="@+id/iconAuthorHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_author_title"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-		<TextView
-				android:id="@+id/iconAuthorValue"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_author_default" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/iconAuthorValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_author_default" />
+    </LinearLayout>
 
-	<LinearLayout
-			android:id="@+id/iconAboutAuthorContainer"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/iconAboutAuthorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
-		<TextView
-				android:id="@+id/iconAboutAuthorHeader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_about_author_title"
-				android:textAppearance="?attr/textAppearanceSubtitle1" />
+        <TextView
+            android:id="@+id/iconAboutAuthorHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_about_author_title"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-		<TextView
-				android:id="@+id/iconAboutAuthorValue"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_about_author_default" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/iconAboutAuthorValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_about_author_default" />
+    </LinearLayout>
 
-	<LinearLayout
-			android:id="@+id/iconDateCreatedAtContainer"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/iconDateCreatedAtContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
-		<TextView
-				android:id="@+id/iconDateCreatedAtHeader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_created_at_title"
-				android:textAppearance="?attr/textAppearanceSubtitle1" />
+        <TextView
+            android:id="@+id/iconDateCreatedAtHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_created_at_title"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-		<TextView
-				android:id="@+id/iconDateCreatedAtValue"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_created_at_default" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/iconDateCreatedAtValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_created_at_default" />
+    </LinearLayout>
 
-	<LinearLayout
-			android:id="@+id/iconDateLastModifiedContainer"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/iconDateLastModifiedContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
 
-		<TextView
-				android:id="@+id/iconDateLastModifiedHeader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_last_modified_title"
-				android:textAppearance="?attr/textAppearanceSubtitle1" />
+        <TextView
+            android:id="@+id/iconDateLastModifiedHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_last_modified_title"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-		<TextView
-				android:id="@+id/iconDateLastModifiedValue"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/icon_picker_info_last_modified_default" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/iconDateLastModifiedValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_picker_info_last_modified_default" />
+    </LinearLayout>
 </LinearLayout>

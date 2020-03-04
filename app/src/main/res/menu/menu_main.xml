@@ -1,33 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
-	<item
-		android:id="@+id/action_settings"
-		android:icon="@drawable/ic_settings_outline_24dp"
-		android:title="@string/menu_settings_title"
-		app:showAsAction="never" />
-	<item
-		android:id="@+id/action_account"
-		android:icon="@drawable/ic_account_circle_outline_24dp"
-		android:title="@string/menu_main_account_title"
-		app:showAsAction="ifRoom" />
-	<item
-		android:id="@+id/action_about"
-		android:icon="@drawable/ic_info_outline_24dp"
-		android:title="@string/menu_main_about_title"
-		app:showAsAction="never" />
-	<item
-		android:id="@+id/action_share"
-		android:icon="@drawable/ic_share_outline_24dp"
-		android:title="@string/menu_main_share_app_title"
-		app:showAsAction="never" />
-	<item
-		android:id="@+id/action_help"
-		android:icon="@drawable/ic_help_outline_24dp"
-		android:title="@string/menu_help_title"
-		app:showAsAction="never" />
-	<item
-		android:id="@+id/action_debug"
-		android:icon="@drawable/ic_bug_report_outline_24dp"
-		android:title="@string/menu_debug_title"
-		app:showAsAction="never" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_outline_24dp"
+        android:title="@string/menu_settings_title"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_account"
+        android:icon="@drawable/ic_account_circle_outline_24dp"
+        android:title="@string/menu_main_account_title"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_about"
+        android:icon="@drawable/ic_info_outline_24dp"
+        android:title="@string/menu_main_about_title"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share_outline_24dp"
+        android:title="@string/menu_main_share_app_title"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/ic_help_outline_24dp"
+        android:title="@string/menu_help_title"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_debug"
+        android:icon="@drawable/ic_bug_report_outline_24dp"
+        android:title="@string/menu_debug_title"
+        app:showAsAction="never" />
 </menu>

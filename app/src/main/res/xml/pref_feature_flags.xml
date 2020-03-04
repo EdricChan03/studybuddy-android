@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-	<PreferenceCategory app:title="@string/feature_flags_about_title">
-		<Preference
-				app:selectable="false"
-				app:icon="@drawable/ic_info_outline_24dp"
-				app:summary="@string/feature_flags_about_desc" />
-		<Preference
-				app:selectable="false"
-				app:icon="@drawable/ic_warning_24dp"
-				app:summary="@string/feature_flags_about_warning" />
-	</PreferenceCategory>
-	<PreferenceCategory app:title="@string/feature_flags_category_options_title">
-		<Preference
-				app:icon="@drawable/ic_cancel_outline_24dp"
-				app:key="feature_flags_opt_out"
-				app:title="@string/feature_flags_opt_out_title" />
-		<Preference
-				app:icon="@drawable/ic_delete_outline_24dp"
-				app:key="feature_flags_reset"
-				app:title="@string/feature_flags_reset_title" />
-		<SwitchPreferenceCompat
-				app:defaultValue="true"
-				app:icon="@drawable/ic_language_24dp"
-				app:key="feature_flags_prefer_remote_config"
-				app:summary="@string/feature_flags_prefer_remote_config_msg"
-				app:title="@string/feature_flags_prefer_remote_config_title" />
-	</PreferenceCategory>
-	<PreferenceCategory app:title="@string/feature_flags_category_appearance_title">
-		<Preference
-				app:selectable="false"
-				app:icon="@drawable/ic_info_outline_24dp"
-				app:summary="@string/feature_flags_category_appearance_desc" />
-		<SwitchPreferenceCompat
-				app:defaultValue="false"
-				app:enabled="false"
-				app:icon="@drawable/ic_calendar_24dp"
-				app:key="feature_flags_calendar_enabled"
-				app:summary="@string/feature_flags_calendar_enabled_summary"
-				app:title="@string/feature_flags_calendar_enabled_title" />
-		<SwitchPreferenceCompat
-				app:defaultValue="false"
-				app:enabled="false"
-				app:key="feature_flags_interface_v2_enabled"
-				app:summary="@string/feature_flags_interface_v2_enabled_summary"
-				app:title="@string/feature_flags_interface_v2_enabled_title" />
-		<SwitchPreferenceCompat
-				app:icon="@drawable/ic_info_24dp"
-				app:defaultValue="false"
-				app:key="feature_flags_about_app_v2_enabled"
-				app:summary="@string/feature_flags_about_app_v2_enabled_summary"
-				app:title="@string/feature_flags_about_app_v2_enabled_title" />
-	</PreferenceCategory>
+    <PreferenceCategory app:title="@string/feature_flags_about_title">
+        <Preference
+            app:icon="@drawable/ic_info_outline_24dp"
+            app:selectable="false"
+            app:summary="@string/feature_flags_about_desc" />
+        <Preference
+            app:icon="@drawable/ic_warning_24dp"
+            app:selectable="false"
+            app:summary="@string/feature_flags_about_warning" />
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/feature_flags_category_options_title">
+        <Preference
+            app:icon="@drawable/ic_cancel_outline_24dp"
+            app:key="feature_flags_opt_out"
+            app:title="@string/feature_flags_opt_out_title" />
+        <Preference
+            app:icon="@drawable/ic_delete_outline_24dp"
+            app:key="feature_flags_reset"
+            app:title="@string/feature_flags_reset_title" />
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_language_24dp"
+            app:key="feature_flags_prefer_remote_config"
+            app:summary="@string/feature_flags_prefer_remote_config_msg"
+            app:title="@string/feature_flags_prefer_remote_config_title" />
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/feature_flags_category_appearance_title">
+        <Preference
+            app:icon="@drawable/ic_info_outline_24dp"
+            app:selectable="false"
+            app:summary="@string/feature_flags_category_appearance_desc" />
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:enabled="false"
+            app:icon="@drawable/ic_calendar_24dp"
+            app:key="feature_flags_calendar_enabled"
+            app:summary="@string/feature_flags_calendar_enabled_summary"
+            app:title="@string/feature_flags_calendar_enabled_title" />
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:enabled="false"
+            app:key="feature_flags_interface_v2_enabled"
+            app:summary="@string/feature_flags_interface_v2_enabled_summary"
+            app:title="@string/feature_flags_interface_v2_enabled_title" />
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:icon="@drawable/ic_info_24dp"
+            app:key="feature_flags_about_app_v2_enabled"
+            app:summary="@string/feature_flags_about_app_v2_enabled_summary"
+            app:title="@string/feature_flags_about_app_v2_enabled_title" />
+    </PreferenceCategory>
 </PreferenceScreen>

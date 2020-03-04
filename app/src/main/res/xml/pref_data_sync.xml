@@ -1,32 +1,32 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
-	<!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
-	<Preference
-		app:enabled="false"
-		app:icon="@drawable/ic_sync_24dp"
-		app:key="manual_sync"
-		app:summary="@string/pref_manual_sync_summary"
-		app:title="@string/pref_manual_sync_title" />
-	<PreferenceCategory app:title="Preferences">
-		<ListPreference
-			app:defaultValue="180"
-			app:entries="@array/pref_sync_frequency_titles"
-			app:entryValues="@array/pref_sync_frequency_values"
-			app:icon="@drawable/ic_access_time_24dp"
-			app:key="sync_frequency"
-			app:title="@string/pref_sync_frequency_title"
-			app:useSimpleSummaryProvider="true" />
-		<SwitchPreferenceCompat
-			app:icon="@drawable/ic_network_cell_24dp"
-			app:key="sync_cellular_networks"
-			app:title="@string/pref_sync_cellular_networks_title" />
-		<!-- This preference simply launches an intent when selected. Use this UI sparingly, per
-			 design guidelines. -->
-		<Preference
-			app:icon="@drawable/ic_settings_outline_24dp"
-			app:title="@string/pref_system_sync_settings_title">
-			<intent android:action="android.settings.SYNC_SETTINGS" />
-		</Preference>
-	</PreferenceCategory>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <Preference
+        app:enabled="false"
+        app:icon="@drawable/ic_sync_24dp"
+        app:key="manual_sync"
+        app:summary="@string/pref_manual_sync_summary"
+        app:title="@string/pref_manual_sync_title" />
+    <PreferenceCategory app:title="Preferences">
+        <ListPreference
+            app:defaultValue="180"
+            app:entries="@array/pref_sync_frequency_titles"
+            app:entryValues="@array/pref_sync_frequency_values"
+            app:icon="@drawable/ic_access_time_24dp"
+            app:key="sync_frequency"
+            app:title="@string/pref_sync_frequency_title"
+            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_network_cell_24dp"
+            app:key="sync_cellular_networks"
+            app:title="@string/pref_sync_cellular_networks_title" />
+        <!-- This preference simply launches an intent when selected. Use this UI sparingly, per
+             design guidelines. -->
+        <Preference
+            app:icon="@drawable/ic_settings_outline_24dp"
+            app:title="@string/pref_system_sync_settings_title">
+            <intent android:action="android.settings.SYNC_SETTINGS" />
+        </Preference>
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-	<com.google.android.material.textfield.TextInputLayout
-			android:id="@+id/textInputLayout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-		<!--Horizontal ScrollView to accommodate chips overflow by making them scroll-->
+        <!--Horizontal ScrollView to accommodate chips overflow by making them scroll-->
 
-		<HorizontalScrollView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:scrollbars="none">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
 
-			<androidx.constraintlayout.widget.ConstraintLayout
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-				<!-- ChipGroup to hold multiple chips and help in removal by getting child elements -->
+                <!-- ChipGroup to hold multiple chips and help in removal by getting child elements -->
 
-				<com.google.android.material.chip.ChipGroup
-						android:id="@+id/chipGroup"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						app:layout_constraintBottom_toBottomOf="@+id/textInputEditText"
-						app:layout_constraintEnd_toStartOf="@+id/textInputEditText"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toTopOf="@+id/textInputEditText" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textInputEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textInputEditText" />
 
-				<!-- Entering chip generation text and using commas to detect when a new chip is to be generated -->
+                <!-- Entering chip generation text and using commas to detect when a new chip is to be generated -->
 
-				<com.google.android.material.textfield.TextInputEditText
-						android:id="@+id/textInputEditText"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintStart_toEndOf="@+id/chipGroup"
-						app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/chipGroup"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-			</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-		</HorizontalScrollView>
-	</com.google.android.material.textfield.TextInputLayout>
+        </HorizontalScrollView>
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

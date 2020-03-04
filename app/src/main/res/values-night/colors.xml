@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!--<color name="colorPrimary">#9c27b0</color>-->
-	<!--<color name="colorPrimaryDark">#7B1FA2</color>-->
-	<!--<color name="colorSecondary">#69F0AE</color>-->
-	<color name="colorPrimary">#8e24aa</color>
-	<color name="colorPrimaryDark">#5c007a</color>
-	<color name="colorSecondary">#fdd835</color>
-	<color name="colorGrey800">#424242</color>
-	<color name="lightGrey">#fff5f5f5</color>
-	<color name="colorWarn">#f44336</color>
-	<color name="mal_text_primary">#FFFFFF</color>
-	<color name="mal_text_secondary">#b4ffffff</color>
-	<color name="mal_card_background">@color/cardview_dark_background</color>
+    <!--<color name="colorPrimary">#9c27b0</color>-->
+    <!--<color name="colorPrimaryDark">#7B1FA2</color>-->
+    <!--<color name="colorSecondary">#69F0AE</color>-->
+    <color name="colorPrimary">#8e24aa</color>
+    <color name="colorPrimaryDark">#5c007a</color>
+    <color name="colorSecondary">#fdd835</color>
+    <color name="colorGrey800">#424242</color>
+    <color name="lightGrey">#fff5f5f5</color>
+    <color name="colorWarn">#f44336</color>
+    <color name="mal_text_primary">#FFFFFF</color>
+    <color name="mal_text_secondary">#b4ffffff</color>
+    <color name="mal_card_background">@color/cardview_dark_background</color>
 </resources>

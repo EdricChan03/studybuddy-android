@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/modal_bottom_sheet_list_item_height"
-		android:background="?android:attr/selectableItemBackground"
-		android:orientation="horizontal">
-	<TextView
-			android:id="@+id/itemTitle"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/modal_bottom_sheet_list_item_padding_left"
-			android:duplicateParentState="true"
-			android:textAppearance="?attr/textAppearanceListItem"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:text="@sample/actions.json/data/name"/>
-	<com.edricchan.studybuddy.ui.widget.NoTextRadioButton
-			android:id="@+id/itemRadioButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/one_line_list_item_meta_image_padding_top_bottom"
-			android:layout_marginEnd="@dimen/one_line_list_item_meta_image_padding_left_right"
-			android:layout_marginBottom="@dimen/one_line_list_item_meta_image_padding_top_bottom"
-			android:duplicateParentState="true"
-			android:visibility="gone"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
-	<com.edricchan.studybuddy.ui.widget.NoTextCheckBox
-			android:id="@+id/itemCheckBox"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/one_line_list_item_meta_image_padding_left_right"
-			android:layout_marginEnd="@dimen/one_line_list_item_meta_image_padding_left_right"
-			android:duplicateParentState="true"
-			android:visibility="gone"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/modal_bottom_sheet_list_item_height"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/modal_bottom_sheet_list_item_padding_left"
+        android:duplicateParentState="true"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@sample/actions.json/data/name" />
+
+    <com.edricchan.studybuddy.ui.widget.NoTextRadioButton
+        android:id="@+id/itemRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/one_line_list_item_meta_image_padding_top_bottom"
+        android:layout_marginEnd="@dimen/one_line_list_item_meta_image_padding_left_right"
+        android:layout_marginBottom="@dimen/one_line_list_item_meta_image_padding_top_bottom"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.edricchan.studybuddy.ui.widget.NoTextCheckBox
+        android:id="@+id/itemCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/one_line_list_item_meta_image_padding_left_right"
+        android:layout_marginEnd="@dimen/one_line_list_item_meta_image_padding_left_right"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

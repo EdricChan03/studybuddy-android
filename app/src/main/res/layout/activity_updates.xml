@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/mainCoordinatorLayout"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ui.modules.updates.UpdatesActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainCoordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.modules.updates.UpdatesActivity">
 
-	<RelativeLayout
-		android:id="@+id/emptyStateRelativeLayout"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_gravity="center"
-		android:layout_margin="@dimen/activity_horizontal_margin"
-		android:gravity="center">
+    <RelativeLayout
+        android:id="@+id/emptyStateRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center">
 
-		<Button
-			android:id="@+id/emptyStateCtaBtn"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/emptyStateSubheadingTextView"
-			android:layout_centerHorizontal="true"
-			android:layout_marginTop="8dp"
-			android:text="@string/menu_updates_check_for_updates_title" />
+        <Button
+            android:id="@+id/emptyStateCtaBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emptyStateSubheadingTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="@string/menu_updates_check_for_updates_title" />
 
-		<TextView
-			android:id="@+id/emptyStateSubheadingTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/emptyStateHeadingTextView"
-			android:layout_centerHorizontal="true"
-			android:text="@string/update_activity_empty_state_subhead"
-			android:textAppearance="?attr/textAppearanceBody1" />
+        <TextView
+            android:id="@+id/emptyStateSubheadingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emptyStateHeadingTextView"
+            android:layout_centerHorizontal="true"
+            android:text="@string/update_activity_empty_state_subhead"
+            android:textAppearance="?attr/textAppearanceBody1" />
 
-		<TextView
-			android:id="@+id/emptyStateHeadingTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerHorizontal="true"
-			android:text="@string/update_activity_empty_state_head"
-			android:textAppearance="?attr/textAppearanceHeadline4" />
-	</RelativeLayout>
+        <TextView
+            android:id="@+id/emptyStateHeadingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/update_activity_empty_state_head"
+            android:textAppearance="?attr/textAppearanceHeadline4" />
+    </RelativeLayout>
 
-	<!-- TODO: Remove this layout -->
-	<!-- <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-		android:id="@+id/recyclerViewSwipeRefreshLayout"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:scrollbars="vertical"
-		android:visibility="gone">
+    <!-- TODO: Remove this layout -->
+    <!-- <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/recyclerViewSwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:visibility="gone">
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/recyclerView"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
-	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout> -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout> -->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
