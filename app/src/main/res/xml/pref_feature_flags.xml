@@ -12,9 +12,19 @@
 	</PreferenceCategory>
 	<PreferenceCategory app:title="@string/feature_flags_category_options_title">
 		<Preference
-				app:icon="@drawable/ic_close_24dp"
+				app:icon="@drawable/ic_cancel_outline_24dp"
+				app:key="feature_flags_opt_out"
+				app:title="@string/feature_flags_opt_out_title" />
+		<Preference
+				app:icon="@drawable/ic_delete_outline_24dp"
 				app:key="feature_flags_reset"
 				app:title="@string/feature_flags_reset_title" />
+		<SwitchPreferenceCompat
+				app:defaultValue="true"
+				app:icon="@drawable/ic_language_24dp"
+				app:key="feature_flags_prefer_remote_config"
+				app:summary="@string/feature_flags_prefer_remote_config_msg"
+				app:title="@string/feature_flags_prefer_remote_config_title" />
 	</PreferenceCategory>
 	<PreferenceCategory app:title="@string/feature_flags_category_appearance_title">
 		<Preference

@@ -380,9 +380,7 @@
 	</string>
 
 	<string name="notification_channel_group_todos_id" translatable="false">todos</string>
-
 	<string name="notification_channel_group_todos_title">Todos</string>
-
 	<string name="notification_channel_group_updates_id" translatable="false">updates</string>
 	<string name="notification_channel_group_updates_title">App updates</string>
 	<string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
@@ -478,6 +476,10 @@
 	<string name="feature_flags_reset_title">Reset feature flags</string>
 	<string name="feature_flags_confirm_reset_dialog_title">Reset feature flags?</string>
 	<string name="feature_flags_confirm_reset_dialog_msg">This cannot be undone!</string>
+	<string name="feature_flags_opt_out_title">Opt out of feature flags</string>
+	<string name="feature_flags_prefer_remote_config_title">Prefer Firebase Remote Config</string>
+	<string name="feature_flags_prefer_remote_config_msg">Whether the feature flag values from
+		Firebase Remote Config should take precedence over the local preferences.</string>
 	<string name="feature_flags_category_options_title">Options</string>
 	<string name="feature_flags_category_appearance_title">Appearance</string>
 	<string name="feature_flags_category_appearance_desc">Feature flags that affect the design of
