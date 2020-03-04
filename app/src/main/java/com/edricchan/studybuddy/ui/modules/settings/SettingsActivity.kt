@@ -20,79 +20,84 @@ import com.edricchan.studybuddy.utils.WebUtils
 
 @WebDeepLink(["/settings"])
 @AppDeepLink(["/settings"])
-class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-	private var preferences: SharedPreferences? = null
+class SettingsActivity : AppCompatActivity(),
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+    private var preferences: SharedPreferences? = null
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		supportActionBar?.setDisplayHomeAsUpEnabled(true)
-		preferences = PreferenceManager.getDefaultSharedPreferences(this)
-		if (savedInstanceState == null) {
-			SharedUtils.replaceFragment(this, SettingsFragment(), android.R.id.content, false)
-		} else {
-			title = savedInstanceState.getCharSequence(TITLE_TAG)
-		}
-		supportFragmentManager.addOnBackStackChangedListener {
-			if (supportFragmentManager.backStackEntryCount == 0) {
-				setTitle(R.string.title_activity_settings)
-			}
-		}
-	}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if (savedInstanceState == null) {
+            SharedUtils.replaceFragment(this, SettingsFragment(), android.R.id.content, false)
+        } else {
+            title = savedInstanceState.getCharSequence(TITLE_TAG)
+        }
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                setTitle(R.string.title_activity_settings)
+            }
+        }
+    }
 
-	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.menu_settings, menu)
-		return true
-	}
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_settings, menu)
+        return true
+    }
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		return when (item.itemId) {
-			android.R.id.home -> {
-				onBackPressed()
-				true
-			}
-			R.id.action_send_feedback -> {
-				WebUtils.getInstance(this).launchUri(Constants.uriSendFeedback)
-				true
-			}
-			R.id.action_help -> {
-				startActivity<HelpActivity>()
-				true
-			}
-			else -> super.onOptionsItemSelected(item)
-		}
-	}
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            R.id.action_send_feedback -> {
+                WebUtils.getInstance(this).launchUri(Constants.uriSendFeedback)
+                true
+            }
+            R.id.action_help -> {
+                startActivity<HelpActivity>()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		// Save current activity title so we can set it again after a configuration change
-		outState.putCharSequence(TITLE_TAG, title)
-	}
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Save current activity title so we can set it again after a configuration change
+        outState.putCharSequence(TITLE_TAG, title)
+    }
 
-	override fun onSupportNavigateUp(): Boolean {
-		if (supportFragmentManager.popBackStackImmediate()) {
-			return true
-		}
-		return super.onSupportNavigateUp()
-	}
+    override fun onSupportNavigateUp(): Boolean {
+        if (supportFragmentManager.popBackStackImmediate()) {
+            return true
+        }
+        return super.onSupportNavigateUp()
+    }
 
-	override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-		// Instantiate the new Fragment
-		val args = pref.extras
-		val fragment = supportFragmentManager.fragmentFactory.instantiate(
-				classLoader,
-				pref.fragment)
-				.apply {
-					arguments = args
-					setTargetFragment(caller, 0)
-				}
-		title = pref.title
-		// Replace the existing Fragment with the new Fragment
-		SharedUtils.replaceFragment(this, fragment, android.R.id.content, true)
-		return true
-	}
+    override fun onPreferenceStartFragment(
+        caller: PreferenceFragmentCompat,
+        pref: Preference
+    ): Boolean {
+        // Instantiate the new Fragment
+        val args = pref.extras
+        val fragment = supportFragmentManager.fragmentFactory.instantiate(
+            classLoader,
+            pref.fragment
+        )
+            .apply {
+                arguments = args
+                setTargetFragment(caller, 0)
+            }
+        title = pref.title
+        // Replace the existing Fragment with the new Fragment
+        SharedUtils.replaceFragment(this, fragment, android.R.id.content, true)
+        return true
+    }
 
-	companion object {
-		// The title tag used for saving the title state
-		private const val TITLE_TAG = "settingsActivityTitle"
-	}
+    companion object {
+        // The title tag used for saving the title state
+        private const val TITLE_TAG = "settingsActivityTitle"
+    }
 }

@@ -8,8 +8,8 @@ package com.edricchan.studybuddy.interfaces.chat.icon
  * @property storageLocation The Firebase storage location of the asset
  */
 data class ChatIconAsset(
-		val fileType: String? = null,
-		val size: String? = "1x",
-		val src: String? = null,
-		val storageLocation: String? = null
+    val fileType: String? = null,
+    val size: String? = "1x",
+    val src: String? = null,
+    val storageLocation: String? = null
 )

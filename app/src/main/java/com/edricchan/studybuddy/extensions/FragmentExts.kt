@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
  * @param T The activity to launch
  */
 inline fun <reified T : Activity> Fragment.startActivity() {
-	startActivity(Intent(context, T::class.java))
+    startActivity(Intent(context, T::class.java))
 }
 
 /**
@@ -20,8 +20,8 @@ inline fun <reified T : Activity> Fragment.startActivity() {
  * @param intentOptions Intent options
  */
 inline fun <reified T : Activity> Fragment.startActivity(intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivity(intent)
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivity(intent)
 }
 
 /**
@@ -30,7 +30,7 @@ inline fun <reified T : Activity> Fragment.startActivity(intentOptions: Intent.(
  * @param context The context to be used to launch the activity
  */
 inline fun <reified T : Activity> Fragment.startActivity(context: Context) {
-	startActivity(Intent(context, T::class.java))
+    startActivity(Intent(context, T::class.java))
 }
 
 /**
@@ -39,9 +39,12 @@ inline fun <reified T : Activity> Fragment.startActivity(context: Context) {
  * @param context The context to be used to launch the activity
  * @param intentOptions Options for the intent
  */
-inline fun <reified T : Activity> Fragment.startActivity(context: Context, intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivity(intent)
+inline fun <reified T : Activity> Fragment.startActivity(
+    context: Context,
+    intentOptions: Intent.() -> Unit
+) {
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivity(intent)
 }
 
 /**
@@ -51,7 +54,7 @@ inline fun <reified T : Activity> Fragment.startActivity(context: Context, inten
  * @see Intent.getExtras This can be used in the activity launched to retrieve the [options] specified
  */
 inline fun <reified T : Activity> Fragment.startActivity(options: Bundle?) {
-	startActivity(Intent(context, T::class.java), options)
+    startActivity(Intent(context, T::class.java), options)
 }
 
 /**
@@ -61,9 +64,12 @@ inline fun <reified T : Activity> Fragment.startActivity(options: Bundle?) {
  * @param intentOptions Options to be set on the [Intent]
  * @see Intent.getExtras This can be used in the activity launched to retrieve the [options] specified
  */
-inline fun <reified T : Activity> Fragment.startActivity(options: Bundle?, intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivity(intent, options)
+inline fun <reified T : Activity> Fragment.startActivity(
+    options: Bundle?,
+    intentOptions: Intent.() -> Unit
+) {
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivity(intent, options)
 }
 
 /**
@@ -74,7 +80,7 @@ inline fun <reified T : Activity> Fragment.startActivity(options: Bundle?, inten
  * @see Intent.getExtras This can be used in the activity launched to retrieve the [options] specified
  */
 inline fun <reified T : Activity> Fragment.startActivity(context: Context, options: Bundle?) {
-	startActivity(Intent(context, T::class.java), options)
+    startActivity(Intent(context, T::class.java), options)
 }
 
 /**
@@ -85,9 +91,13 @@ inline fun <reified T : Activity> Fragment.startActivity(context: Context, optio
  * @param intentOptions Options to be set on the [Intent]
  * @see Intent.getExtras This can be used in the activity launched to retrieve the [options] specified
  */
-inline fun <reified T : Activity> Fragment.startActivity(context: Context, options: Bundle?, intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivity(intent, options)
+inline fun <reified T : Activity> Fragment.startActivity(
+    context: Context,
+    options: Bundle?,
+    intentOptions: Intent.() -> Unit
+) {
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivity(intent, options)
 }
 
 /**
@@ -97,7 +107,7 @@ inline fun <reified T : Activity> Fragment.startActivity(context: Context, optio
  * @see Fragment.onActivityResult
  */
 inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: Int) {
-	startActivityForResult(Intent(context, T::class.java), requestCode)
+    startActivityForResult(Intent(context, T::class.java), requestCode)
 }
 
 /**
@@ -107,9 +117,12 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: I
  * @param intentOptions Options to be set on the [Intent]
  * @see Fragment.onActivityResult
  */
-inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: Int, intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivityForResult(intent, requestCode)
+inline fun <reified T : Activity> Fragment.startActivityForResult(
+    requestCode: Int,
+    intentOptions: Intent.() -> Unit
+) {
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivityForResult(intent, requestCode)
 }
 
 /**
@@ -119,8 +132,11 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: I
  * @param requestCode The request code returned by the activity once finished
  * @see Fragment.onActivityResult
  */
-inline fun <reified T : Activity> Fragment.startActivityForResult(context: Context, requestCode: Int) {
-	startActivityForResult(Intent(context, T::class.java), requestCode)
+inline fun <reified T : Activity> Fragment.startActivityForResult(
+    context: Context,
+    requestCode: Int
+) {
+    startActivityForResult(Intent(context, T::class.java), requestCode)
 }
 
 /**
@@ -131,9 +147,13 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(context: Conte
  * @param intentOptions Options to be set on the [Intent]
  * @see Fragment.onActivityResult
  */
-inline fun <reified T : Activity> Fragment.startActivityForResult(context: Context, requestCode: Int, intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivityForResult(intent, requestCode)
+inline fun <reified T : Activity> Fragment.startActivityForResult(
+    context: Context,
+    requestCode: Int,
+    intentOptions: Intent.() -> Unit
+) {
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivityForResult(intent, requestCode)
 }
 
 /**
@@ -145,8 +165,11 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(context: Conte
  * @see Fragment.onActivityResult
  * @see Intent.getExtras
  */
-inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: Int, options: Bundle?) {
-	startActivityForResult(Intent(context, T::class.java), requestCode, options)
+inline fun <reified T : Activity> Fragment.startActivityForResult(
+    requestCode: Int,
+    options: Bundle?
+) {
+    startActivityForResult(Intent(context, T::class.java), requestCode, options)
 }
 
 /**
@@ -159,9 +182,13 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: I
  * @see Fragment.onActivityResult
  * @see Intent.getExtras
  */
-inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: Int, options: Bundle?, intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivityForResult(intent, requestCode, options)
+inline fun <reified T : Activity> Fragment.startActivityForResult(
+    requestCode: Int,
+    options: Bundle?,
+    intentOptions: Intent.() -> Unit
+) {
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivityForResult(intent, requestCode, options)
 }
 
 /**
@@ -172,8 +199,12 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(requestCode: I
  * @param options Options to be passed to the activity
  * @see Intent.getExtras This can be used in the activity launched to retrieve the [options] specified
  */
-inline fun <reified T : Activity> Fragment.startActivityForResult(context: Context, requestCode: Int, options: Bundle?) {
-	startActivityForResult(Intent(context, T::class.java), requestCode, options)
+inline fun <reified T : Activity> Fragment.startActivityForResult(
+    context: Context,
+    requestCode: Int,
+    options: Bundle?
+) {
+    startActivityForResult(Intent(context, T::class.java), requestCode, options)
 }
 
 /**
@@ -186,7 +217,8 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(context: Conte
  * @see Intent.getExtras This can be used in the activity launched to retrieve the [options] specified
  */
 inline fun <reified T : Activity> Fragment.startActivityForResult(
-		context: Context, requestCode: Int, options: Bundle?, intentOptions: Intent.() -> Unit) {
-	val intent = Intent(context, T::class.java).apply(intentOptions)
-	startActivityForResult(intent, requestCode, options)
+    context: Context, requestCode: Int, options: Bundle?, intentOptions: Intent.() -> Unit
+) {
+    val intent = Intent(context, T::class.java).apply(intentOptions)
+    startActivityForResult(intent, requestCode, options)
 }

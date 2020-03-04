@@ -13,23 +13,23 @@ import androidx.appcompat.widget.AppCompatRadioButton
  * See: [StackOverflow answer](https://stackoverflow.com/a/20374661/6782707)
  */
 class NoTextRadioButton : AppCompatRadioButton {
-	private var radioButtonDrawable: Drawable? = null
+    private var radioButtonDrawable: Drawable? = null
 
-	constructor(context: Context?) : super(context)
-	constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
-	@SuppressLint("ObsoleteSdkInt")
-	override fun getSuggestedMinimumWidth(): Int {
-		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			compoundPaddingLeft + compoundPaddingRight
-		} else {
-			radioButtonDrawable?.intrinsicWidth ?: 0
+    @SuppressLint("ObsoleteSdkInt")
+    override fun getSuggestedMinimumWidth(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            compoundPaddingLeft + compoundPaddingRight
+        } else {
+            radioButtonDrawable?.intrinsicWidth ?: 0
 //			if (radioButtonDrawable != null) radioButtonDrawable!!.intrinsicWidth else 0
-		}
-	}
+        }
+    }
 
-	override fun setButtonDrawable(drawable: Drawable?) {
-		super.setButtonDrawable(drawable)
-		radioButtonDrawable = drawable
-	}
+    override fun setButtonDrawable(drawable: Drawable?) {
+        super.setButtonDrawable(drawable)
+        radioButtonDrawable = drawable
+    }
 }

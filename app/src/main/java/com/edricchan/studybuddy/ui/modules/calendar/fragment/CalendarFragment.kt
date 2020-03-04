@@ -6,10 +6,10 @@ import androidx.fragment.app.Fragment
 import com.edricchan.studybuddy.R
 
 class CalendarFragment : Fragment(R.layout.frag_calendar) {
-	private var fragmentView: View? = null
+    private var fragmentView: View? = null
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		fragmentView = view
-	}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fragmentView = view
+    }
 }

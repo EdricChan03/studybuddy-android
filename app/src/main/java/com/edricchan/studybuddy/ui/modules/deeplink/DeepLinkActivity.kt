@@ -10,25 +10,29 @@ import com.google.firebase.ktx.Firebase
 
 @DeepLinkHandler(DeepLinkModule::class)
 class DeepLinkActivity : AppCompatActivity() {
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		if (intent.data?.host == "studybuddy.page.link") {
-			// The intent is from the Dynamic Link host
-			Firebase.dynamicLinks
-					.getDynamicLink(intent)
-					.addOnCompleteListener {
-						if (it.isSuccessful) {
-							/*Toast.makeText(this, "Link received: ${it.result?.link}", Toast.LENGTH_LONG)
-									.show()*/
-							Log.d(TAG, "Deep link received: ${it.result?.link}")
-							// Overwrite intent's data with new Uri
-							intent.data = it.result?.link
-						} else {
-							Log.e(TAG, "An error occurred while attempting to retrieve the dynamic link:", it.exception)
-						}
-					}
-		}
-		DeepLinkDelegate(DeepLinkModuleRegistry()).dispatchFrom(this)
-		finish()
-	}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (intent.data?.host == "studybuddy.page.link") {
+            // The intent is from the Dynamic Link host
+            Firebase.dynamicLinks
+                .getDynamicLink(intent)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        /*Toast.makeText(this, "Link received: ${it.result?.link}", Toast.LENGTH_LONG)
+                                .show()*/
+                        Log.d(TAG, "Deep link received: ${it.result?.link}")
+                        // Overwrite intent's data with new Uri
+                        intent.data = it.result?.link
+                    } else {
+                        Log.e(
+                            TAG,
+                            "An error occurred while attempting to retrieve the dynamic link:",
+                            it.exception
+                        )
+                    }
+                }
+        }
+        DeepLinkDelegate(DeepLinkModuleRegistry()).dispatchFrom(this)
+        finish()
+    }
 }

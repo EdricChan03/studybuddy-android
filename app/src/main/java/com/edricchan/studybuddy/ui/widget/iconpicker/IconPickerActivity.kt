@@ -20,70 +20,78 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObjects
 
 class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
-	lateinit var firestore: FirebaseFirestore
-	var recyclerViewLayout: IconPickerAdapter.HolderLayout = IconPickerAdapter.HolderLayout.LIST
-	lateinit var tracker: SelectionTracker<Long>
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		supportActionBar?.setDisplayHomeAsUpEnabled(true)
-		if (savedInstanceState != null) {
-			tracker.onRestoreInstanceState(savedInstanceState)
-		}
-		firestore = FirebaseFirestore.getInstance()
+    lateinit var firestore: FirebaseFirestore
+    var recyclerViewLayout: IconPickerAdapter.HolderLayout = IconPickerAdapter.HolderLayout.LIST
+    lateinit var tracker: SelectionTracker<Long>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (savedInstanceState != null) {
+            tracker.onRestoreInstanceState(savedInstanceState)
+        }
+        firestore = FirebaseFirestore.getInstance()
 
-		val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-		if (recyclerViewLayout == IconPickerAdapter.HolderLayout.LIST) {
-			recyclerView.layoutManager = LinearLayoutManager(this)
-		} else if (recyclerViewLayout == IconPickerAdapter.HolderLayout.GRID) {
-			recyclerView.layoutManager = GridLayoutManager(this, 3)
-		}
-		recyclerView.setHasFixedSize(false)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        if (recyclerViewLayout == IconPickerAdapter.HolderLayout.LIST) {
+            recyclerView.layoutManager = LinearLayoutManager(this)
+        } else if (recyclerViewLayout == IconPickerAdapter.HolderLayout.GRID) {
+            recyclerView.layoutManager = GridLayoutManager(this, 3)
+        }
+        recyclerView.setHasFixedSize(false)
 
-		val adapter = IconPickerAdapter(this)
-		recyclerView.adapter = adapter
+        val adapter = IconPickerAdapter(this)
+        recyclerView.adapter = adapter
 
-		tracker = SelectionTracker.Builder(
-				"icon-picker-selection",
-				recyclerView,
-				StableIdKeyProvider(recyclerView),
-				IconPickerItemDetailsLookup(recyclerView),
-				StorageStrategy.createLongStorage()
-		).withSelectionPredicate(SelectionPredicates.createSelectSingleAnything())
-				.withOnItemActivatedListener { item, e ->
-					Toast.makeText(this@IconPickerActivity, "Position ${item.position} has been activated.", Toast.LENGTH_SHORT)
-							.show()
-					true
-				}
-				.build()
+        tracker = SelectionTracker.Builder(
+            "icon-picker-selection",
+            recyclerView,
+            StableIdKeyProvider(recyclerView),
+            IconPickerItemDetailsLookup(recyclerView),
+            StorageStrategy.createLongStorage()
+        ).withSelectionPredicate(SelectionPredicates.createSelectSingleAnything())
+            .withOnItemActivatedListener { item, e ->
+                Toast.makeText(
+                    this@IconPickerActivity,
+                    "Position ${item.position} has been activated.",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                true
+            }
+            .build()
 
-		adapter.tracker = tracker
-		adapter.infoButtonOnClickListener = { chatIcon ->
-			val infoBottomSheetFragment = IconPickerInfoBottomSheetFragment()
-			infoBottomSheetFragment.icon = chatIcon
-			infoBottomSheetFragment.show(supportFragmentManager, "iconInfo")
-		}
+        adapter.tracker = tracker
+        adapter.infoButtonOnClickListener = { chatIcon ->
+            val infoBottomSheetFragment = IconPickerInfoBottomSheetFragment()
+            infoBottomSheetFragment.icon = chatIcon
+            infoBottomSheetFragment.show(supportFragmentManager, "iconInfo")
+        }
 
 
-		firestore.collection("chatIconLibrary")
-				.addSnapshotListener { snapshot, exception ->
-					if (snapshot != null && !snapshot.isEmpty && exception == null) {
-						adapter.items = snapshot.toObjects()
-						adapter.notifyDataSetChanged()
-					} else {
-						Log.e(TAG, "An error occurred while attempting to retrieve the library:", exception)
-					}
-				}
-	}
+        firestore.collection("chatIconLibrary")
+            .addSnapshotListener { snapshot, exception ->
+                if (snapshot != null && !snapshot.isEmpty && exception == null) {
+                    adapter.items = snapshot.toObjects()
+                    adapter.notifyDataSetChanged()
+                } else {
+                    Log.e(
+                        TAG,
+                        "An error occurred while attempting to retrieve the library:",
+                        exception
+                    )
+                }
+            }
+    }
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		tracker.onSaveInstanceState(outState)
-	}
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        tracker.onSaveInstanceState(outState)
+    }
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		if (item.itemId == android.R.id.home) {
-			onBackPressed()
-		}
-		return super.onOptionsItemSelected(item)
-	}
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

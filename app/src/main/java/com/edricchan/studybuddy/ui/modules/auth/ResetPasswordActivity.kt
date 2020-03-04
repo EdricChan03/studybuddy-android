@@ -20,57 +20,73 @@ import com.google.firebase.auth.FirebaseAuth
 @AppDeepLink(["/resetPassword", "/reset-password"])
 class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password) {
 
-	private var inputEmail: EditText? = null
-	private var btnReset: Button? = null
-	private var btnBack: Button? = null
-	private var auth: FirebaseAuth? = null
-	private var progressBar: ProgressBar? = null
+    private var inputEmail: EditText? = null
+    private var btnReset: Button? = null
+    private var btnBack: Button? = null
+    private var auth: FirebaseAuth? = null
+    private var progressBar: ProgressBar? = null
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-		inputEmail = findViewById(R.id.email)
-		btnReset = findViewById(R.id.btn_reset_password)
-		btnBack = findViewById(R.id.btn_back)
-		progressBar = findViewById(R.id.progressBar)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        inputEmail = findViewById(R.id.email)
+        btnReset = findViewById(R.id.btn_reset_password)
+        btnBack = findViewById(R.id.btn_back)
+        progressBar = findViewById(R.id.progressBar)
 
-		auth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 
-		btnBack!!.setOnClickListener { finish() }
+        btnBack!!.setOnClickListener { finish() }
 
-		btnReset!!.setOnClickListener {
+        btnReset!!.setOnClickListener {
 
-			val email = inputEmail!!.text.toString().trim { it <= ' ' }
+            val email = inputEmail!!.text.toString().trim { it <= ' ' }
 
-			if (TextUtils.isEmpty(email)) {
-				Snackbar.make(findViewById(R.id.mainView), "Please enter an email address", Snackbar.LENGTH_LONG).show()
-				return@setOnClickListener
-			}
+            if (TextUtils.isEmpty(email)) {
+                Snackbar.make(
+                    findViewById(R.id.mainView),
+                    "Please enter an email address",
+                    Snackbar.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
 
-			progressBar!!.visibility = View.VISIBLE
-			auth!!.sendPasswordResetEmail(email)
-					.addOnCompleteListener { task ->
-						if (task.isSuccessful) {
-							Snackbar.make(findViewById(R.id.mainView), "An email has been sent to the email address that you have specified", Snackbar.LENGTH_LONG)
-									.show()
-						} else {
-							Snackbar.make(findViewById(R.id.mainView), "An error occurred while attempting to send an email. Please try again later", Snackbar.LENGTH_LONG)
-									.show()
-							Log.e(TAG, "An error occurred while attempting to send a reset password email.", task.exception)
-						}
+            progressBar!!.visibility = View.VISIBLE
+            auth!!.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Snackbar.make(
+                            findViewById(R.id.mainView),
+                            "An email has been sent to the email address that you have specified",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .show()
+                    } else {
+                        Snackbar.make(
+                            findViewById(R.id.mainView),
+                            "An error occurred while attempting to send an email. Please try again later",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .show()
+                        Log.e(
+                            TAG,
+                            "An error occurred while attempting to send a reset password email.",
+                            task.exception
+                        )
+                    }
 
-						progressBar!!.visibility = View.GONE
-					}
-		}
-	}
+                    progressBar!!.visibility = View.GONE
+                }
+        }
+    }
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		return when (item.itemId) {
-			android.R.id.home -> {
-				onBackPressed()
-				true
-			}
-			else -> super.onOptionsItemSelected(item)
-		}
-	}
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }

@@ -5,23 +5,23 @@ import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 import java.util.*
 
 class IconPickerKeyProvider(
-		private val items: List<ChatIcon>
+    private val items: List<ChatIcon>
 ) : ItemKeyProvider<String>(SCOPE_CACHED) {
-	private val keyToPosition: MutableMap<String?, Int>
+    private val keyToPosition: MutableMap<String?, Int>
 
-	init {
-		keyToPosition = HashMap(items.size)
-		for ((i, item) in items.withIndex()) {
-			keyToPosition[item.id] = i
-		}
+    init {
+        keyToPosition = HashMap(items.size)
+        for ((i, item) in items.withIndex()) {
+            keyToPosition[item.id] = i
+        }
 
-	}
+    }
 
-	override fun getKey(position: Int): String? {
-		return items[position].id
-	}
+    override fun getKey(position: Int): String? {
+        return items[position].id
+    }
 
-	override fun getPosition(key: String): Int {
-		return keyToPosition[key]!!
-	}
+    override fun getPosition(key: String): Int {
+        return keyToPosition[key]!!
+    }
 }

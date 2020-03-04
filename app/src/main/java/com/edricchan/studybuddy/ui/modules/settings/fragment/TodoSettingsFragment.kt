@@ -8,8 +8,9 @@ import com.edricchan.studybuddy.ui.modules.settings.fragment.todo.WeeklySummaryS
 import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class TodoSettingsFragment : PreferenceFragmentCompat() {
-	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
-		setPreferencesFromResource(R.xml.pref_todos, rootKey)
-		findPreference<Preference>(Constants.prefWeeklySummaryEnabled)?.fragment = WeeklySummarySettingsFragment::class.java.name
-	}
+    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.pref_todos, rootKey)
+        findPreference<Preference>(Constants.prefWeeklySummaryEnabled)?.fragment =
+            WeeklySummarySettingsFragment::class.java.name
+    }
 }

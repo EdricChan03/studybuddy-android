@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
  * @see [Toast.setDuration]
  */
 fun Context.showToast(message: CharSequence, duration: Int) {
-	Toast.makeText(this, message, duration).show()
+    Toast.makeText(this, message, duration).show()
 }
 
 /**
@@ -27,7 +27,7 @@ fun Context.showToast(message: CharSequence, duration: Int) {
  * @see [Toast.setDuration]
  */
 fun Context.showToast(@StringRes messageResId: Int, duration: Int) {
-	Toast.makeText(this, messageResId, duration).show()
+    Toast.makeText(this, messageResId, duration).show()
 }
 
 /**
@@ -37,8 +37,8 @@ fun Context.showToast(@StringRes messageResId: Int, duration: Int) {
  * @param toastOptions Options to be passed to the [Toast]
  */
 fun Context.showToast(toastOptions: Toast.() -> Unit) {
-	Toast(this).apply(toastOptions)
-			.show()
+    Toast(this).apply(toastOptions)
+        .show()
 }
 
 /**
@@ -50,7 +50,7 @@ fun Context.showToast(toastOptions: Toast.() -> Unit) {
  * @see [Toast.setDuration]
  */
 fun Activity.showToast(message: CharSequence, duration: Int) {
-	Toast.makeText(this, message, duration).show()
+    Toast.makeText(this, message, duration).show()
 }
 
 /**
@@ -62,7 +62,7 @@ fun Activity.showToast(message: CharSequence, duration: Int) {
  * @see [Toast.setDuration]
  */
 fun Activity.showToast(@StringRes messageResId: Int, duration: Int) {
-	Toast.makeText(this, messageResId, duration).show()
+    Toast.makeText(this, messageResId, duration).show()
 }
 
 /**
@@ -72,8 +72,8 @@ fun Activity.showToast(@StringRes messageResId: Int, duration: Int) {
  * @param toastOptions Options to be passed to the [Toast]
  */
 fun Activity.showToast(toastOptions: Toast.() -> Unit) {
-	Toast(this).apply(toastOptions)
-			.show()
+    Toast(this).apply(toastOptions)
+        .show()
 }
 
 /**
@@ -85,7 +85,7 @@ fun Activity.showToast(toastOptions: Toast.() -> Unit) {
  * @see [Toast.setDuration]
  */
 fun Fragment.showToast(message: CharSequence, duration: Int) {
-	Toast.makeText(context, message, duration).show()
+    Toast.makeText(context, message, duration).show()
 }
 
 /**
@@ -97,7 +97,7 @@ fun Fragment.showToast(message: CharSequence, duration: Int) {
  * @see [Toast.setDuration]
  */
 fun Fragment.showToast(@StringRes messageResId: Int, duration: Int) {
-	Toast.makeText(context, messageResId, duration).show()
+    Toast.makeText(context, messageResId, duration).show()
 }
 
 /**
@@ -107,6 +107,6 @@ fun Fragment.showToast(@StringRes messageResId: Int, duration: Int) {
  * @param toastOptions Options to be passed to the [Toast]
  */
 fun Fragment.showToast(toastOptions: Toast.() -> Unit) {
-	Toast(context).apply(toastOptions)
-			.show()
+    Toast(context).apply(toastOptions)
+        .show()
 }

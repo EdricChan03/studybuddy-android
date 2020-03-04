@@ -13,19 +13,19 @@ import com.edricchan.studybuddy.utils.SharedUtils
  */
 
 class DebugActivity : AppCompatActivity() {
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		supportActionBar?.setDisplayHomeAsUpEnabled(true)
-		SharedUtils.replaceFragment(this, DebugSettingsFragment(), android.R.id.content, false)
-	}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        SharedUtils.replaceFragment(this, DebugSettingsFragment(), android.R.id.content, false)
+    }
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		return when (item.itemId) {
-			android.R.id.home -> {
-				onBackPressed()
-				true
-			}
-			else -> super.onOptionsItemSelected(item)
-		}
-	}
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }

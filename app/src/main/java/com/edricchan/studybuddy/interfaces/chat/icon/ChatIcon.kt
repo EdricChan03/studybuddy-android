@@ -15,14 +15,14 @@ import com.google.firebase.Timestamp
  * @property userSubmitted Whether the chat icon was submitted by a user
  */
 data class ChatIcon(
-		val assets: List<ChatIconAsset>? = null,
-		val id: String? = null,
-		val name: String? = null,
-		val description: String? = null,
-		@ChatIconSubjectTypeAnnotation val subjectType: String? = ChatIconSubjectType.OTHER,
-		val author: Any? = null,
-		var authorInfo: String? = null,
-		val userSubmitted: Boolean? = true,
-		override val createdAt: Timestamp? = null,
-		override val lastModified: Timestamp? = null
+    val assets: List<ChatIconAsset>? = null,
+    val id: String? = null,
+    val name: String? = null,
+    val description: String? = null,
+    @ChatIconSubjectTypeAnnotation val subjectType: String? = ChatIconSubjectType.OTHER,
+    val author: Any? = null,
+    var authorInfo: String? = null,
+    val userSubmitted: Boolean? = true,
+    override val createdAt: Timestamp? = null,
+    override val lastModified: Timestamp? = null
 ) : HasTimestampMetadata
