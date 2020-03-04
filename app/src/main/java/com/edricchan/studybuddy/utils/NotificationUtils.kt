@@ -85,6 +85,7 @@ class NotificationUtils(
                 val channels = ArrayList<NotificationChannel>()
                 // Create another list for channel groups
                 val channelGroups = ArrayList<NotificationChannelGroup>()
+
                 // Task updates notifications
                 val todoUpdatesChannel = NotificationChannel(
                     context.getString(R.string.notification_channel_todo_updates_id),
@@ -196,6 +197,15 @@ class NotificationUtils(
                 // We don't want to consider a playback notification to show a badge
                 playbackChannel.setShowBadge(false)
                 channels.add(playbackChannel)
+
+                // New in-app features notifications
+                val newFeaturesChannel = NotificationChannel(
+                    context.getString(R.string.notification_channel_new_app_features_id),
+                    context.getString(R.string.notification_channel_new_app_features_title),
+                    NotificationManager.IMPORTANCE_LOW
+                )
+                newFeaturesChannel.setShowBadge(true)
+                channels.add(newFeaturesChannel)
 
                 // Uncategorised notifications
                 val uncategorisedChannel = NotificationChannel(

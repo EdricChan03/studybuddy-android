@@ -379,6 +379,10 @@
 		characters!
 	</string>
 
+	<string name="notification_channel_new_app_features_id" translatable="false">new_app_features</string>
+	<string name="notification_channel_new_app_features_title">New in-app features</string>
+	<string name="notification_channel_new_app_features_desc">Notifications regarding any new recently
+		introduced features to the app.</string>
 	<string name="notification_channel_group_todos_id" translatable="false">todos</string>
 	<string name="notification_channel_group_todos_title">Todos</string>
 	<string name="notification_channel_group_updates_id" translatable="false">updates</string>
