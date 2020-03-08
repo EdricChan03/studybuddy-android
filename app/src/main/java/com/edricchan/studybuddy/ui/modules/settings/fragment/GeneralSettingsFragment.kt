@@ -5,7 +5,7 @@ import com.edricchan.studybuddy.R
 import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class GeneralSettingsFragment : PreferenceFragmentCompat() {
-	override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
-		setPreferencesFromResource(R.xml.pref_general, rootKey)
-	}
+    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.pref_general, rootKey)
+    }
 }
