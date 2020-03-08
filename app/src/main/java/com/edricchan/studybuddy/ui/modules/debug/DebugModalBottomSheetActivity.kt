@@ -147,7 +147,7 @@ class DebugModalBottomSheetActivity :
         val modalBottomSheetFragment = ModalBottomSheetFragment()
         val headerTitle = getString(R.string.share_intent_value)
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            putExtra(Intent.EXTRA_TEXT, R.string.share_content)
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_content))
             type = MimeTypeConstants.textPlainMime
         }
         // See https://stackoverflow.com/a/9083910/6782707
@@ -163,6 +163,8 @@ class DebugModalBottomSheetActivity :
                         // Code adapted from
                         // https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
                         val activity = resolveInfo.activityInfo
+                        // Passing an intent to the `Intent` constructor will create a copy of that
+                        // intent.
                         val intent = Intent(shareIntent).apply {
                             component = ComponentName(activity.packageName, activity.name)
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK

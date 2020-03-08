@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private fun share() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, R.string.share_content)
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_content))
             type = MimeTypeConstants.textPlainMime
         }
         startActivity(Intent.createChooser(shareIntent, getString(R.string.share_intent_value)))
