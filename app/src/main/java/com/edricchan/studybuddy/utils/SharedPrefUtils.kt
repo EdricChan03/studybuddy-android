@@ -23,19 +23,6 @@ class SharedPrefUtils(
      * specified [context]'s package name (or [Context.getPackageName]).
      * @return A [File] instance
      */
-
-    /**
-     * Retrieve the default shared preference file of the application
-     * @return A [File] instance
-     */
-    fun getDefaultSharedPrefsFile() =
-        File("/data/data/${context.packageName}/shared_prefs/${context.packageName}_preferences.xml")
-
-    /**
-     * Retrieve the shared preferences file directory
-     * @return A [File] instance
-     */
-    fun getSharedPrefsFileDir() = File("/data/data/${context.packageName}/shared_prefs")
     fun getSharedPrefsFile(fileName: String, packageName: String = context.packageName) =
         File("/data/data/$packageName/shared_prefs/$fileName.xml")
 }
