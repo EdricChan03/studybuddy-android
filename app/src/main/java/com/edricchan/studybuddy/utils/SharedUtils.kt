@@ -176,6 +176,13 @@ class SharedUtils {
          * @param fs   An instance of [FirebaseFirestore]
          * @return The result.
          */
+        @Deprecated(
+            "Use com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils#addTask instead",
+            ReplaceWith(
+                "TaskUtils.getInstance(user, fs).addTask(item)",
+                "com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils"
+            )
+        )
         fun addTask(
             item: TaskItem,
             user: FirebaseUser,
@@ -198,13 +205,20 @@ class SharedUtils {
         /**
          * Removes a task from the Firebase Firestore database
          *
-         * @param docID The document's ID
+         * @param docId The document's ID
          * @param user  The currently authenticated user
          * @param fs    An instance of [FirebaseFirestore]
          * @return The result of the deletion
          */
-        fun removeTask(docID: String, user: FirebaseUser, fs: FirebaseFirestore): Task<Void> {
-            return fs.document("users/${user.uid}/todos/$docID").delete()
+        @Deprecated(
+            "Use com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils#removeTask instead",
+            ReplaceWith(
+                "TaskUtils.getInstance(user, fs).removeTask(docId)",
+                "com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils"
+            )
+        )
+        fun removeTask(docId: String, user: FirebaseUser, fs: FirebaseFirestore): Task<Void> {
+            return fs.document("users/${user.uid}/todos/$docId").delete()
         }
 
         /**
