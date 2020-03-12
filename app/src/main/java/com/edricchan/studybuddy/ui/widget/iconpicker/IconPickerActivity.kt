@@ -18,7 +18,9 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerAdapter
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerItemDetailsLookup
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.ktx.Firebase
 
 class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
     lateinit var firestore: FirebaseFirestore
@@ -31,7 +33,7 @@ class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
         if (savedInstanceState != null) {
             tracker.onRestoreInstanceState(savedInstanceState)
         }
-        firestore = FirebaseFirestore.getInstance()
+        firestore = Firebase.firestore
 
         recyclerView = findViewById(R.id.recyclerView)
         updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
