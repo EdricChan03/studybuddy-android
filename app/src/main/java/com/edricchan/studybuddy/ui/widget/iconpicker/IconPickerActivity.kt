@@ -23,10 +23,11 @@ import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 
 class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
-    lateinit var firestore: FirebaseFirestore
-    lateinit var recyclerView: RecyclerView
-    var recyclerViewLayout: IconPickerAdapter.HolderLayout = IconPickerAdapter.HolderLayout.LIST
-    lateinit var tracker: SelectionTracker<Long>
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var recyclerView: RecyclerView
+    private var recyclerViewLayout: IconPickerAdapter.HolderLayout =
+        IconPickerAdapter.HolderLayout.LIST
+    private lateinit var tracker: SelectionTracker<Long>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
