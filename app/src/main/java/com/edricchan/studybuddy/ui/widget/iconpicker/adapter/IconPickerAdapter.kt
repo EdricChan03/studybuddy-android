@@ -27,10 +27,6 @@ class IconPickerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            HolderLayout.LIST.itemType -> ListHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_list_icon, parent, false)
-            )
             HolderLayout.GRID.itemType -> GridHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_grid_icon, parent, false)
