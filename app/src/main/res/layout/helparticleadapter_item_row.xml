@@ -18,10 +18,10 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:src="@drawable/ic_file_document_box_outline_24dp"
-        android:tint="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorSecondary" />
 
     <TextView
         android:id="@+id/nameTextView"
