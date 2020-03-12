@@ -11,7 +11,6 @@ import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.extensions.isNotNull
 
 /**
  * Utility class for web-related functionality.
@@ -117,8 +116,8 @@ class WebUtils(val context: Context) {
     }
 
     private fun launchUri(uri: Uri, customTabsIntent: CustomTabsIntent?) {
-        if (customTabsIntent.isNotNull()) {
-            customTabsIntent?.launchUrl(context, uri)
+        if (customTabsIntent != null) {
+            customTabsIntent.launchUrl(context, uri)
         } else {
             context.startActivity(Intent(Intent.ACTION_VIEW, uri))
         }
