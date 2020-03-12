@@ -415,5 +415,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
     companion object {
         // Tag to be used for saving the task item's title
         private const val TASK_TITLE_TAG = "taskTitle"
+        /** The extra tag for the task's ID. */
+        const val EXTRA_TASK_ID = "taskId"
     }
 }

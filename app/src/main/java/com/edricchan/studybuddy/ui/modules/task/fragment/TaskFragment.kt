@@ -24,7 +24,6 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.TaskOptionsPrefConstants
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.interfaces.TaskItem
@@ -35,6 +34,7 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TasksAdapter
+import com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
@@ -46,35 +46,30 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
-import java8.util.stream.IntStreams
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.frag_todo.*
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
-import java.util.*
-import java.util.stream.IntStream
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
 class TaskFragment : Fragment(R.layout.frag_todo) {
-    private var mCurrentUser: FirebaseUser? = null
-    private var mAdapter: TasksAdapter? = null
-    private var mFirestoreListener: ListenerRegistration? = null
-    private var mFragmentView: View? = null
-    private var mTaskOptionsPrefs: SharedPreferences? = null
+    private lateinit var adapter: TasksAdapter
+    private var firestoreListener: ListenerRegistration? = null
+    private lateinit var fragmentView: View
+    private lateinit var taskOptionsPrefs: SharedPreferences
     //	private var mSelectionTracker: SelectionTracker<String>? = null
     //	private var mActionModeCallback: ActionMode.Callback? = null
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var mFirestore: FirebaseFirestore
-    private lateinit var mParentActivity: AppCompatActivity
-    private lateinit var mPrefs: SharedPreferences
-    private lateinit var mSharedPrefUtils: SharedPrefUtils
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var parentActivity: AppCompatActivity
+    private lateinit var prefs: SharedPreferences
+    private lateinit var sharedPrefUtils: SharedPrefUtils
     private lateinit var uiUtils: UiUtils
+    private lateinit var taskUtils: TaskUtils
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -149,24 +144,24 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-        mSharedPrefUtils = SharedPrefUtils(requireContext())
+        prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        sharedPrefUtils = SharedPrefUtils(requireContext())
         // Checks if old preference file exists
-        if (mSharedPrefUtils.sharedPrefFileExists(SHARED_PREFS_FILE)) {
+        if (sharedPrefUtils.sharedPrefFileExists(SHARED_PREFS_FILE)) {
             Log.d(TAG, "Migrating shared preference file...")
             // Rename existing file to new file
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 // Use better implementation of renaming file
                 try {
                     Files.move(
-                        mSharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath(),
-                        mSharedPrefUtils.getSharedPrefsFile(TaskOptionsPrefConstants.FILE_TASK_OPTIONS).toPath(),
+                        sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath(),
+                        sharedPrefUtils.getSharedPrefsFile(TaskOptionsPrefConstants.FILE_TASK_OPTIONS).toPath(),
                         StandardCopyOption.REPLACE_EXISTING
                     )
                     // Delete existing
                     Log.d(TAG, "Deleting previous shared preference file...")
                     val result =
-                        Files.deleteIfExists(mSharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath())
+                        Files.deleteIfExists(sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath())
                     if (result) {
                         Log.d(TAG, "Successfully deleted previous shared preference file!")
                     } else {
@@ -183,8 +178,8 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                     )
                 }
             } else {
-                val result = mSharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE)
-                    .renameTo(mSharedPrefUtils.getSharedPrefsFile(TaskOptionsPrefConstants.FILE_TASK_OPTIONS))
+                val result = sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE)
+                    .renameTo(sharedPrefUtils.getSharedPrefsFile(TaskOptionsPrefConstants.FILE_TASK_OPTIONS))
                 if (result) {
                     Log.d(TAG, "Successfully migrated shared preference file!")
                 } else {
@@ -197,11 +192,13 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
         }
         // Migrate keys and their values
         migrateTaskOptsPrefs()
-        mTaskOptionsPrefs = context?.getSharedPreferences(
+        taskOptionsPrefs = requireContext().getSharedPreferences(
             TaskOptionsPrefConstants.FILE_TASK_OPTIONS,
             Context.MODE_PRIVATE
         )
-        mFirestore = FirebaseFirestore.getInstance()
+        firestore = Firebase.firestore
+        auth = FirebaseAuth.getInstance()
+        taskUtils = TaskUtils.getInstance(auth, firestore)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -211,16 +208,16 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
             mSelectionTracker!!.onRestoreInstanceState(savedInstanceState)
         }*/
 
-        mFragmentView = view
+        fragmentView = view
 
-        uiUtils = UiUtils.getInstance(mParentActivity)
+        uiUtils = UiUtils.getInstance(parentActivity)
 
         uiUtils.bottomAppBarFab?.setOnClickListener { newTaskActivity() }
 
         swipeRefreshLayout.apply {
             setColorSchemeResources(R.color.colorPrimary)
             setOnRefreshListener {
-                mAdapter?.notifyDataSetChanged()
+                adapter?.notifyDataSetChanged()
                 loadTasksListHandler()
             }
         }
@@ -241,7 +238,9 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                mAdapter?.deleteTask(viewHolder.adapterPosition)
+                if (adapter != null) {
+                    taskUtils.removeTask(adapter!!.taskItemList[viewHolder.adapterPosition].id)
+                }
             }
         }).attachToRecyclerView(recyclerView)
         actionNewTodo.setOnClickListener { newTaskActivity() }
@@ -257,8 +256,8 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        if (mFirestoreListener != null) {
-            mFirestoreListener?.remove()
+        if (firestoreListener != null) {
+            firestoreListener?.remove()
         }
 
         uiUtils.bottomAppBarFab?.setOnClickListener(null)
@@ -266,22 +265,22 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 
     override fun onStart() {
         super.onStart()
-        mAuth = FirebaseAuth.getInstance()
-        mCurrentUser = mAuth.currentUser
-        if (mCurrentUser == null) {
+        if (auth.currentUser == null) {
             Log.d(TAG, "Not logged in")
             val signInDialogBuilder = MaterialAlertDialogBuilder(context)
             signInDialogBuilder.setTitle("Sign in")
                 .setMessage("To access the content, please login or register for an account.")
-                .setPositiveButton(R.string.dialog_action_login) { dialogInterface, i ->
+                .setPositiveButton(R.string.dialog_action_login) { dialog, _ ->
                     startActivity<LoginActivity>()
-                    dialogInterface.dismiss()
+                    dialog.dismiss()
                 }
-                .setNeutralButton(R.string.dialog_action_sign_up) { dialogInterface, i ->
+                .setNeutralButton(R.string.dialog_action_sign_up) { dialog, _ ->
                     startActivity<RegisterActivity>()
-                    dialogInterface.dismiss()
+                    dialog.dismiss()
                 }
-                .setNegativeButton(R.string.dialog_action_cancel) { dialogInterface, i -> dialogInterface.cancel() }
+                .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+                    dialog.cancel()
+                }
                 .show()
 
         } else {
@@ -290,7 +289,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
     }
 
     override fun onAttach(context: Context) {
-        mParentActivity = context as AppCompatActivity
+        parentActivity = context as AppCompatActivity
         super.onAttach(context as Context)
     }
 
@@ -307,7 +306,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                 override fun onItemCheckedChange(item: ModalBottomSheetItem) {
                     when (item.id) {
                         itemNoneId -> {
-                            mTaskOptionsPrefs?.edit {
+                            taskOptionsPrefs.edit {
                                 putString(
                                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
                                     TaskOptionsPrefConstants.TaskSortValues.NONE
@@ -315,7 +314,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                             }
                         }
                         itemTitleDescId -> {
-                            mTaskOptionsPrefs?.edit {
+                            taskOptionsPrefs.edit {
                                 putString(
                                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
                                     TaskOptionsPrefConstants.TaskSortValues.TITLE_DESC
@@ -323,7 +322,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                             }
                         }
                         itemTitleAscId -> {
-                            mTaskOptionsPrefs?.edit {
+                            taskOptionsPrefs.edit {
                                 putString(
                                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
                                     TaskOptionsPrefConstants.TaskSortValues.TITLE_ASC
@@ -331,7 +330,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                             }
                         }
                         itemDueDateNewestId -> {
-                            mTaskOptionsPrefs?.edit {
+                            taskOptionsPrefs.edit {
                                 putString(
                                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
                                     TaskOptionsPrefConstants.TaskSortValues.DUE_DATE_NEW_TO_OLD
@@ -339,7 +338,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                             }
                         }
                         itemDueDateOldestId -> {
-                            mTaskOptionsPrefs?.edit {
+                            taskOptionsPrefs.edit {
                                 putString(
                                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
                                     TaskOptionsPrefConstants.TaskSortValues.DUE_DATE_OLD_TO_NEW
@@ -394,18 +393,18 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 
     private fun migrateTaskOptsPrefs() {
         Log.d(TAG, "Migrating task options shared preference keys...")
-        if (mTaskOptionsPrefs?.getString(
+        if (taskOptionsPrefs.getString(
                 TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
                 null
             ) != null
         ) {
             Log.d(TAG, "Old task sorting tag still exists.")
             // Old SharedPreference key still exists
-            val oldValue = mTaskOptionsPrefs?.getString(
+            val oldValue = taskOptionsPrefs.getString(
                 TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
                 TaskOptionsPrefConstants.TaskSortValues.NONE
             )
-            mTaskOptionsPrefs?.edit {
+            taskOptionsPrefs.edit {
                 putString(TaskOptionsPrefConstants.PREF_DEFAULT_SORT, oldValue)
                 remove(TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD)
             }
@@ -414,25 +413,25 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 
     private fun loadTasksListHandler() {
         @Suppress("MoveVariableDeclarationIntoWhen")
-        val sortPref = if (mPrefs.getString(Constants.prefTodoDefaultSort, null) == null) {
+        val sortPref = if (prefs.getString(Constants.prefTodoDefaultSort, null) == null) {
             // TODO: Migrate old key's value to new key
-            if (mTaskOptionsPrefs?.getString(
+            if (taskOptionsPrefs.getString(
                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
                     null
                 ) == null
             ) {
-                mTaskOptionsPrefs?.getString(
+                taskOptionsPrefs.getString(
                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
                     TaskOptionsPrefConstants.TaskSortValues.NONE
                 )
             } else {
-                mTaskOptionsPrefs?.getString(
+                taskOptionsPrefs.getString(
                     TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
                     TaskOptionsPrefConstants.TaskSortValues.NONE
                 )
             }
         } else {
-            mPrefs.getString(
+            prefs.getString(
                 Constants.prefTodoDefaultSort,
                 TaskOptionsPrefConstants.TaskSortValues.NONE
             )
@@ -467,23 +466,21 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
      */
     private fun loadTasksList(fieldPath: String? = null, direction: Query.Direction? = null) {
         // Reduce the amount of duplicate code by placing the listener into a variable
-        val listener = EventListener<QuerySnapshot> { documentSnapshots, e ->
+        val listener = EventListener<QuerySnapshot> { snapshot, e ->
             if (e != null) {
                 Log.e(TAG, "Listen failed!", e)
                 return@EventListener
             }
-            val taskItemList = ArrayList<TaskItem>()
+            val taskItemList = snapshot?.toObjects<TaskItem>() ?: listOf()
 
-            documentSnapshots?.mapTo(taskItemList) { it.toObjectWithId() }
-
-            mAdapter = TasksAdapter(requireContext(), taskItemList)
-            recyclerView.adapter = mAdapter
-            mAdapter?.setOnItemClickListener(object : TasksAdapter.OnItemClickListener {
+            adapter = TasksAdapter(requireContext(), taskItemList)
+            recyclerView.adapter = adapter
+            adapter.setOnItemClickListener(object : TasksAdapter.OnItemClickListener {
                 override fun onItemClick(item: TaskItem, position: Int) {
                     Log.d(TAG, "Task: $item")
                     Log.d(TAG, "Task ID: ${item.id}")
                     startActivity<ViewTaskActivity> {
-                        putExtra("taskId", item.id)
+                        putExtra(ViewTaskActivity.EXTRA_TASK_ID, item.id)
                     }
                 }
 
@@ -492,10 +489,11 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                     builder
                         .setTitle(R.string.todo_frag_delete_task_dialog_title)
                         .setMessage(R.string.todo_frag_delete_task_dialog_msg)
-                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-                        .setPositiveButton(R.string.dialog_action_ok) { dialog, which ->
-                            mFirestore.document("users/" + mCurrentUser!!.uid + "/todos/" + item.id)
-                                .delete()
+                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
+                            taskUtils.removeTask(item.id)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
@@ -506,7 +504,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                                             )
                                                 .show()
                                         }
-                                        mAdapter!!.notifyItemRemoved(position)
+                                        adapter.notifyItemRemoved(position)
                                         dialog.dismiss()
                                     } else {
                                         Log.e(
@@ -521,10 +519,10 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                 }
 
                 override fun onMarkAsDoneButtonClick(item: TaskItem, position: Int) {
-                    mFirestore.document("users/${mCurrentUser?.uid}/todos/${item.id}")
+                    taskUtils.getTask(item.id)
                         .update("done", !item.done!!)
                         .addOnCompleteListener { task ->
-                            val isDoneStr = if (item.done!!) "done" else "undone"
+                            val isDoneStr = if (item.done) "done" else "undone"
                             if (task.isSuccessful) {
                                 findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
                                     Snackbar.make(
@@ -539,20 +537,22 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                                         )
                                         .show()
                                 }
-                                mAdapter?.notifyItemChanged(position)
+                                adapter.notifyItemChanged(position)
                             } else {
-                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
-                                    Snackbar.make(
-                                        it,
-                                        "An error occurred while attempting to mark the todo as $isDoneStr",
-                                        Snackbar.LENGTH_LONG
-                                    )
-                                        .setAnchorView(
-                                            findParentActivityViewById<FloatingActionButton>(
-                                                R.id.fab
-                                            )
+                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout).let {
+                                    if (it != null) {
+                                        Snackbar.make(
+                                            it,
+                                            "An error occurred while attempting to mark the todo as $isDoneStr",
+                                            Snackbar.LENGTH_LONG
                                         )
-                                        .show()
+                                            .setAnchorView(
+                                                findParentActivityViewById<FloatingActionButton>(
+                                                    R.id.fab
+                                                )
+                                            )
+                                            .show()
+                                    }
                                 }
                                 Log.e(
                                     TAG,
@@ -580,8 +580,8 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                         .build()
             }*/
             swipeRefreshLayout.isRefreshing = false
-            if (documentSnapshots != null) {
-                if (documentSnapshots.isEmpty) {
+            if (snapshot != null) {
+                if (snapshot.isEmpty) {
                     Log.d(TAG, "Empty!")
                     findViewById<View>(R.id.todoEmptyStateView)?.visibility = View.VISIBLE
                     swipeRefreshLayout.visibility = View.GONE
@@ -668,44 +668,21 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
             */
         }
         swipeRefreshLayout.isRefreshing = true
-        val collectionRef = mFirestore.collection("users/${mCurrentUser?.uid}/todos")
-        if (fieldPath != null && direction != null) {
-            mFirestoreListener = collectionRef.orderBy(fieldPath, direction)
+        val collectionRef = taskUtils.taskCollectionRef
+        firestoreListener = if (fieldPath != null && direction != null) {
+            collectionRef.orderBy(fieldPath, direction)
                 .addSnapshotListener(listener)
         } else {
-            mFirestoreListener = collectionRef.addSnapshotListener(listener)
-        }
-    }
-
-
-    /**
-     * Gets the position of the first occurrence of the document ID
-     *
-     * @param list The list to get the position for
-     * @param id   The ID of the document
-     * @return The position of the first occurrence of the document ID
-     */
-    private fun getTaskItemPosition(list: List<TaskItem>, id: String): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            IntStream.range(0, list.size)
-                .filter { index -> list[index].id == id }
-                .findFirst()
-                .orElse(-1)
-        } else {
-            IntStreams
-                .range(0, list.size)
-                .filter { index -> list[index].id == id }
-                .findFirst()
-                .orElse(-1)
+            collectionRef.addSnapshotListener(listener)
         }
     }
 
     private fun <T : View> findParentActivityViewById(@IdRes idRes: Int): T? {
-        return mParentActivity?.findViewById(idRes)
+        return parentActivity.findViewById(idRes)
     }
 
     private fun <T : View> findViewById(@IdRes idRes: Int): T? {
-        return mFragmentView?.findViewById(idRes)
+        return fragmentView.findViewById(idRes)
     }
 
     companion object {
