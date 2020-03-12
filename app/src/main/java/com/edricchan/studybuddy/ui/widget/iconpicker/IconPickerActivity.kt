@@ -23,6 +23,7 @@ import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 
 class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
+    private lateinit var adapter: IconPickerAdapter
     private lateinit var firestore: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
     private var recyclerViewLayout: IconPickerAdapter.HolderLayout =
@@ -40,7 +41,7 @@ class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
         updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
         recyclerView.setHasFixedSize(false)
 
-        val adapter = IconPickerAdapter(this)
+        adapter = IconPickerAdapter(this)
         recyclerView.adapter = adapter
 
         tracker = SelectionTracker.Builder(
@@ -126,6 +127,7 @@ class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
 
     private fun updateRecyclerViewLayout(layout: IconPickerAdapter.HolderLayout) {
         this.recyclerViewLayout = layout
+        adapter.setHolderLayout(layout)
         if (layout == IconPickerAdapter.HolderLayout.LIST) {
             recyclerView.layoutManager = LinearLayoutManager(this)
         } else if (layout == IconPickerAdapter.HolderLayout.GRID) {
