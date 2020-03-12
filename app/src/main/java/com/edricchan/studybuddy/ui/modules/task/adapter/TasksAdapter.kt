@@ -299,7 +299,7 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder> {
             notifyItemRemoved(position)
             mSnackbarView?.let {
                 Snackbar.make(it, "Todo was deleted", Snackbar.LENGTH_LONG)
-                    .setAction("Undo") { view1 ->
+                    .setAction("Undo") {
                         SharedUtils.addTask(item, mUser!!, mFirestore!!).addOnFailureListener { e ->
                             Snackbar.make(
                                 mSnackbarView!!,
