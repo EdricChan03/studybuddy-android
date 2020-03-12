@@ -32,7 +32,6 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.concurrent.TimeUnit
@@ -189,17 +188,6 @@ class SharedUtils {
             fs: FirebaseFirestore
         ): Task<DocumentReference> {
             return fs.collection("users/${user.uid}/todos").add(item)
-        }
-
-        /**
-         * Retrieves todos from the Firebase Firestore database
-         *
-         * @param user The currently authenticated user
-         * @param fs   An instance of [FirebaseFirestore]
-         * @return A collection reference
-         */
-        fun getTasks(user: FirebaseUser, fs: FirebaseFirestore): CollectionReference {
-            return fs.collection("users/${user.uid}/todos")
         }
 
         /**
