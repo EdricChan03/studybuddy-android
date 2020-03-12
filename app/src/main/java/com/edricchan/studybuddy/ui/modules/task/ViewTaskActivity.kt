@@ -14,32 +14,53 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
+import com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar.Duration
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_view_task.*
 import ru.noties.markwon.Markwon
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var mFirestore: FirebaseFirestore
-    private var mCurrentUser: FirebaseUser? = null
-    private var mTaskId: String? = null
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var taskDocument: DocumentReference
+    private lateinit var taskId: String
+    private lateinit var taskUtils: TaskUtils
+    private var currentUser: FirebaseUser? = null
     private var taskItem: TaskItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mTaskId = intent.getStringExtra("taskId")
-        Log.d(TAG, "Task ID: $mTaskId")
+        firestore = Firebase.firestore
+        auth = FirebaseAuth.getInstance()
+        currentUser = auth.currentUser
+        taskUtils = TaskUtils.getInstance(auth, firestore)
+
+        taskId = intent.getStringExtra(EXTRA_TASK_ID) ?: ""
+        if (taskId.isEmpty()) {
+            Log.e(TAG, "No task ID was specified!")
+            Toast.makeText(
+                this, "An unknown error occurred while attempting to retrieve the" +
+                        "task. Try again later.", Toast.LENGTH_LONG
+            ).show()
+            finish()
+        } else {
+            taskDocument = taskUtils.getTask(taskId)
+        }
+        Log.d(TAG, "Task ID: $taskId")
 
         bottomAppBar.replaceMenu(R.menu.menu_view_task)
 
@@ -50,17 +71,16 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
         }
 
         bottomAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
+            return@setOnMenuItemClickListener when (it.itemId) {
                 android.R.id.home -> {
                     onBackPressed()
-                    return@setOnMenuItemClickListener true
+                    true
                 }
                 R.id.action_delete -> {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Delete todo?")
                         .setPositiveButton(R.string.dialog_action_ok) { _, _ ->
-                            mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
-                                .delete()
+                            taskUtils.removeTask(taskId)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         Toast.makeText(
@@ -85,48 +105,49 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                         }
                         .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
                         .show()
-                    return@setOnMenuItemClickListener true
+                    true
                 }
                 R.id.action_edit -> {
                     startActivity<EditTaskActivity> {
                         putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
                     }
-                    return@setOnMenuItemClickListener true
+                    true
                 }
                 R.id.action_mark_as_done -> {
-                    mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
+                    taskDocument
                         .update("done", !taskItem?.done!!)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 showSnackbar(
-                                    "Task marked as " + if ((!taskItem!!.done!!)) "done" else "undone",
+                                    "Successfully marked task as " +
+                                            if (!taskItem!!.done!!) "done" else "undone",
                                     Snackbar.LENGTH_SHORT
                                 )
                                 Log.d(
                                     TAG,
-                                    "Task marked as " + if ((!taskItem!!.done!!)) "done" else "undone"
+                                    "Task marked as " + if (!taskItem!!.done!!) "done" else "undone"
                                 )
                             } else {
-                                Toast.makeText(
-                                    this,
-                                    "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone",
-                                    Toast.LENGTH_LONG
+                                showSnackbar(
+                                    "An error occurred while marking the todo as " +
+                                            if (!taskItem!!.done!!) "done" else "undone",
+                                    Snackbar.LENGTH_LONG
                                 )
-                                    .show()
                                 Log.e(
                                     TAG,
-                                    "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone",
+                                    "An error occurred while marking the todo as " +
+                                            if (!taskItem!!.done!!) "done" else "undone",
                                     task.exception
                                 )
                             }
                         }
-                    return@setOnMenuItemClickListener true
+                    true
                 }
                 R.id.action_archive -> {
                     // Variable to indicate whether task was already archived
                     val hasArchived = taskItem?.archived ?: false
                     Log.d(TAG, "Archived state: $hasArchived")
-                    mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
+                    taskDocument
                         .update("archived", !hasArchived)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -147,13 +168,13 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                         }
                     bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = true
                     bottomAppBar.menu.findItem(R.id.action_archive).isVisible = false
-                    return@setOnMenuItemClickListener true
+                    true
                 }
                 R.id.action_unarchive -> {
                     // Variable to indicate whether task was already archived
                     val hasArchived = taskItem?.archived ?: true
                     Log.d(TAG, "Archived state: $hasArchived")
-                    mFirestore.document("users/${mCurrentUser?.uid}/todos/$mTaskId")
+                    taskDocument
                         .update("archived", !hasArchived)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -181,22 +202,20 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
         }
         editTaskFab.setOnClickListener {
             startActivity<EditTaskActivity> {
-                putExtra("taskId", mTaskId)
+                putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
             }
         }
     }
 
     override fun onStart() {
         super.onStart()
-        mFirestore = FirebaseFirestore.getInstance()
-        mAuth = FirebaseAuth.getInstance()
-        mCurrentUser = mAuth.currentUser
-        if (mCurrentUser == null) {
+        if (currentUser == null) {
             Log.d(TAG, "Not logged in")
             val signInDialogBuilder = MaterialAlertDialogBuilder(this)
             signInDialogBuilder
                 .setTitle("Sign in")
                 .setMessage("To access the content, please login or register for an account.")
+                .setCancelable(false)
                 .setPositiveButton(R.string.dialog_action_login) { dialogInterface, _ ->
                     startActivity<LoginActivity>()
                     dialogInterface.dismiss()
@@ -205,65 +224,22 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                     startActivity<RegisterActivity>()
                     dialogInterface.dismiss()
                 }
-                .setNegativeButton(R.string.dialog_action_cancel) { dialogInterface, _ -> dialogInterface.cancel() }
+                .setNegativeButton(R.string.dialog_action_cancel) { dialogInterface, _ ->
+                    dialogInterface.cancel()
+                }
                 .show()
         } else {
             loadTask()
-            /*if (taskItem != null && taskItem!!.title != null) {
-                title = taskItem!!.title
-            }*/
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             }
-            /*R.id.action_delete -> {
-                val builder = MaterialAlertDialogBuilder(this)
-                builder.setTitle("Delete todo?")
-                        .setPositiveButton(R.string.dialog_action_ok) { dialog, which ->
-                            mFirestore.document("users/" + mCurrentUser!!.uid + "/todos/" + mTaskId)
-                                    .delete()
-                                    .addOnCompleteListener { task ->
-                                        if (task.isSuccessful) {
-                                            Toast.makeText(this, "Successfully deleted todo!", Toast.LENGTH_SHORT).show()
-                                            finish()
-                                        } else {
-                                            Toast.makeText(this, "An error occurred while deleting the todo. Try again later.", Toast.LENGTH_LONG).show()
-                                            Log.e(TAG, "An error occurred while deleting the todo.", task.exception)
-                                        }
-                                    }
-                        }
-                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-                        .show()
-                return true
-            }
-            R.id.action_edit -> {
-                val editTaskIntent = Intent(this@ViewTaskActivity, NewTaskActivity::class.java)
-                editTaskIntent.putExtra("taskId", mTaskId)
-                startActivity(editTaskIntent)
-                return true
-            }
-            R.id.action_mark_as_done -> {
-                mFirestore.document("users/" + mCurrentUser!!.uid + "/todos/" + mTaskId)
-                        .update("done", !taskItem!!.done!!)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Snackbar.make(findViewById(R.id.mainView), "Task marked as " + if ((!taskItem!!.done!!)) "done" else "undone", Snackbar.LENGTH_SHORT)
-                                        .show()
-                            } else {
-                                Toast.makeText(this, "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone", Toast.LENGTH_LONG)
-                                        .show()
-                                Log.e(TAG, "An error occurred while marking the todo as " + if ((!taskItem!!.done!!)) "done" else "undone", task.exception)
-                            }
-                            invalidateOptionsMenu()
-                        }
-                return true
-            }*/
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -285,7 +261,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
      * Loads the task that was supplied via `taskId`
      */
     private fun loadTask() {
-        mFirestore.document("users/" + mCurrentUser!!.uid + "/todos/" + mTaskId)
+        taskDocument
             .addSnapshotListener { documentSnapshot, e ->
                 if (e != null) {
                     Log.e(TAG, "An error occurred while retrieving the task:", e)
@@ -345,23 +321,23 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
      */
     private fun setViews(item: TaskItem?) {
         if (item?.content != null) {
-            Markwon.setMarkdown(taskContent, item.content!!)
+            Markwon.setMarkdown(taskContent, item.content)
             toggleViewVisibility(taskContent, View.GONE, View.VISIBLE)
         } else {
             toggleViewVisibility(taskContent, View.VISIBLE, View.GONE)
         }
         if (item?.dueDate != null) {
             val format = SimpleDateFormat(getString(R.string.date_format_pattern), Locale.ENGLISH)
-            taskDate.text = format.format(item.dueDate!!.toDate())
+            taskDate.text = format.format(item.dueDate.toDate())
             toggleViewVisibility(taskDate, View.GONE, View.VISIBLE)
         } else {
             toggleViewVisibility(taskDate, View.VISIBLE, View.GONE)
         }
         if (item?.project != null) {
-            item.project!!
+            item.project
                 .get()
                 .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
+                    if (task.isSuccessful && task.result != null && task.result!!.exists()) {
                         taskProject.text = task.result!!.getString("name")
                     } else {
                         Toast.makeText(
@@ -386,10 +362,10 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
         } else {
             toggleViewVisibility(taskTitle!!, View.VISIBLE, View.GONE)
         }*/
-        if (item?.tags != null && !item.tags!!.isEmpty()) {
+        if (item?.tags != null && item.tags.isNotEmpty()) {
             // Remove all chips or this will cause duplicate tags
             taskTags.removeAllViews()
-            for (tag in item.tags!!) {
+            for (tag in item.tags) {
                 val tempChip = Chip(this)
                 tempChip.text = tag
                 taskTags.addView(tempChip)
