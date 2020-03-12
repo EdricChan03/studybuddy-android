@@ -89,7 +89,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                 }
                 R.id.action_edit -> {
                     startActivity<EditTaskActivity> {
-                        putExtra("taskId", mTaskId)
+                        putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
                     }
                     return@setOnMenuItemClickListener true
                 }
