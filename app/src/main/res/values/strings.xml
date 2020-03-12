@@ -702,6 +702,9 @@
     <string name="icon_picker_info_last_modified_title">Last modified</string>
     <string name="icon_picker_info_last_modified_default"><em>Unknown date</em></string>
 
+    <string name="menu_icon_picker_switch_list_view_title">Switch to list view</string>
+    <string name="menu_icon_picker_switch_grid_view_title">Switch to grid view</string>
+
     <string name="menu_view_chat_moderator_title">Moderator options</string>
     <string name="menu_view_chat_info_title">Chat info</string>
     <string name="menu_view_chat_create_shortcut_title">Create shortcut</string>
