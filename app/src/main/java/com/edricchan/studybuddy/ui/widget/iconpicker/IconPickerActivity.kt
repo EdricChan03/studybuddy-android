@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.ui.widget.iconpicker
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.ktx.toObjects
 
 class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
     lateinit var firestore: FirebaseFirestore
+    lateinit var recyclerView: RecyclerView
     var recyclerViewLayout: IconPickerAdapter.HolderLayout = IconPickerAdapter.HolderLayout.LIST
     lateinit var tracker: SelectionTracker<Long>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +33,8 @@ class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
         }
         firestore = FirebaseFirestore.getInstance()
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        if (recyclerViewLayout == IconPickerAdapter.HolderLayout.LIST) {
-            recyclerView.layoutManager = LinearLayoutManager(this)
-        } else if (recyclerViewLayout == IconPickerAdapter.HolderLayout.GRID) {
-            recyclerView.layoutManager = GridLayoutManager(this, 3)
-        }
+        recyclerView = findViewById(R.id.recyclerView)
+        updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
         recyclerView.setHasFixedSize(false)
 
         val adapter = IconPickerAdapter(this)
@@ -67,7 +65,6 @@ class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
             infoBottomSheetFragment.show(supportFragmentManager, "iconInfo")
         }
 
-
         firestore.collection("chatIconLibrary")
             .addSnapshotListener { snapshot, exception ->
                 if (snapshot != null && !snapshot.isEmpty && exception == null) {
@@ -88,10 +85,48 @@ class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
         tracker.onSaveInstanceState(outState)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_icon_picker, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
+        return when (item.itemId) {
+            R.id.action_switch_list_view -> {
+                updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
+                invalidateOptionsMenu()
+                true
+            }
+            R.id.action_switch_grid_view -> {
+                updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.GRID)
+                invalidateOptionsMenu()
+                true
+            }
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (recyclerViewLayout == IconPickerAdapter.HolderLayout.LIST) {
+            menu?.findItem(R.id.action_switch_grid_view)?.isVisible = true
+            menu?.findItem(R.id.action_switch_list_view)?.isVisible = false
+        } else if (recyclerViewLayout == IconPickerAdapter.HolderLayout.GRID) {
+            menu?.findItem(R.id.action_switch_grid_view)?.isVisible = false
+            menu?.findItem(R.id.action_switch_list_view)?.isVisible = true
+        }
+        return true
+    }
+
+    private fun updateRecyclerViewLayout(layout: IconPickerAdapter.HolderLayout) {
+        this.recyclerViewLayout = layout
+        if (layout == IconPickerAdapter.HolderLayout.LIST) {
+            recyclerView.layoutManager = LinearLayoutManager(this)
+        } else if (layout == IconPickerAdapter.HolderLayout.GRID) {
+            recyclerView.layoutManager = GridLayoutManager(this, 3)
+        }
     }
 }
