@@ -536,21 +536,4 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
             firestoreListener?.remove()
         }
     }
-
-    /*private fun newChatDialog() {
-        val newChatDialogView = layoutInflater.inflate(R.layout.new_chat_dialog, null)
-        context?.let {
-            MaterialAlertDialogBuilder(it)
-                    .setTitle(R.string.chat_frag_new_chat_dialog_title)
-                    .setView(newChatDialogView)
-                    .setNegativeButton(R.string.dialog_action_cancel) { dialog, which ->
-                        dialog.dismiss()
-                    }
-                    .setPositiveButton(R.string.dialog_action_create) { dialog, which ->
-                        // TODO: Add support to create new chat
-                        Log.d(TAG, "Creating new chat...")
-                    }
-                    .show()
-        }
-    }*/
 }
