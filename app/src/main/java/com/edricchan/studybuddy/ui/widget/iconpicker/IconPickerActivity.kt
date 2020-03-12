@@ -126,7 +126,7 @@ class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
     }
 
     private fun updateRecyclerViewLayout(layout: IconPickerAdapter.HolderLayout) {
-        this.recyclerViewLayout = layout
+        recyclerViewLayout = layout
         adapter.setHolderLayout(layout)
         if (layout == IconPickerAdapter.HolderLayout.LIST) {
             recyclerView.layoutManager = LinearLayoutManager(this)
