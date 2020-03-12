@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "title": "Getting started with StudyBuddy",
+            "description": "Learn how to use StudyBuddy in 4 steps."
+        },
+        {
+            "title": "About StudyBuddy's todos feature",
+            "description": "Information on how to create a new todo and to manage your todos."
+        },
+        {
+            "title": "Joining chats",
+            "description": "Information on the ways to join chats."
+        },
+        {
+            "title": "Advanced features",
+            "description": "Details on the advanced features in the app."
+        },
+        {
+            "title": "Sorting/filtering todos",
+            "description": "Learn how to use the sorting and/or filtering feature to show archived, completed and/or todos with a due-date."
+        },
+        {
+            "title": "Contributing to StudyBuddy",
+            "description": "Learn more about how to contribute back to the project."
+        }
+    ]
+}

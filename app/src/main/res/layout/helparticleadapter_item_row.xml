@@ -36,7 +36,7 @@
         app:layout_constraintStart_toEndOf="@id/articleImageView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Getting started with StudyBuddy" />
+        tools:text="@sample/help_articles.json/data/title" />
 
     <TextView
         android:id="@+id/descTextView"
@@ -50,6 +50,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/articleImageView"
         app:layout_constraintTop_toBottomOf="@id/nameTextView"
-        tools:text="Getting started with StudyBuddy in 4 simple steps." />
+        tools:text="@sample/help_articles.json/data/description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
