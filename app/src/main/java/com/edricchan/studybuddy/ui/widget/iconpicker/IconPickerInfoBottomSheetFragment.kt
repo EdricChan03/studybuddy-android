@@ -24,7 +24,7 @@ class IconPickerInfoBottomSheetFragment : BottomSheetDialogFragment() {
      */
     var icon: ChatIcon? = null
 
-    lateinit var fragmentView: View
+    private lateinit var fragmentView: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
