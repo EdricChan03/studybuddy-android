@@ -74,7 +74,7 @@ class IconPickerAdapter(
                 tempHolder.descTextView.text = item.description
                 if (infoButtonOnClickListener != null) {
                     tempHolder.infoImageButton.setOnClickListener {
-                        infoButtonOnClickListener!!.invoke(item)
+                        infoButtonOnClickListener?.invoke(item)
                     }
                 }
             }
