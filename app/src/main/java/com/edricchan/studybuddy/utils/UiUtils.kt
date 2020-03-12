@@ -42,14 +42,19 @@ class UiUtils(val context: Context) {
 
     /**
      * Utility method to set the app's theme.
-     * Note that the activity should be recreated after this function is called in order for the theme
-     * to be applied.
+     *
+     * Note that the activity should be recreated after this function is called in order for the
+     * theme to be applied.
+     * @param themeValue The current theme value.
      */
-    fun setAppTheme() {
-        when (PreferenceManager.getDefaultSharedPreferences(context).getString(
-            Constants.prefDarkTheme,
-            Constants.prefDarkThemeAutoBatterySaver
-        )) {
+    fun setAppTheme(
+        themeValue: String? = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                Constants.prefDarkTheme,
+                Constants.prefDarkThemeAutoBatterySaver
+            )
+    ) {
+        when (themeValue) {
             // Note: The old values of the preference will still be supported
             // TODO: Completely remove support for old values
             "1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
