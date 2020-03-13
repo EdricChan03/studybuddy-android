@@ -99,11 +99,11 @@ class IconPickerAdapter(
         /**
          * Represents that a list layout should be used
          */
-        LIST(0),
+        LIST(HOLDER_LAYOUT_LIST_ITEM_TYPE),
         /**
          * Represents that a grid layout should be used
          */
-        GRID(1)
+        GRID(HOLDER_LAYOUT_GRID_ITEM_TYPE)
     }
 
     open inner class Holder(view: View) : RecyclerView.ViewHolder(view) {
@@ -122,5 +122,12 @@ class IconPickerAdapter(
     }
 
     inner class GridHolder(view: View) : Holder(view) {
+    }
+
+    companion object {
+        /** The numerical value of [HolderLayout.LIST.itemType]. */
+        const val HOLDER_LAYOUT_LIST_ITEM_TYPE = 0
+        /** The numerical value of [HolderLayout.GRID.itemType]. */
+        const val HOLDER_LAYOUT_GRID_ITEM_TYPE = 1
     }
 }
