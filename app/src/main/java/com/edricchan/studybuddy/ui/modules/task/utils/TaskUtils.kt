@@ -13,8 +13,8 @@ import com.google.firebase.firestore.FirebaseFirestore
  * @param fs An instance of [FirebaseFirestore].
  */
 class TaskUtils(
-    val user: FirebaseUser?,
-    val fs: FirebaseFirestore
+    private val user: FirebaseUser?,
+    private val fs: FirebaseFirestore
 ) {
     private val taskCollectionPath = "users/${user?.uid}/todos"
 
