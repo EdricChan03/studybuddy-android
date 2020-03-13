@@ -473,9 +473,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
             }
             val taskItemList = snapshot?.toObjects<TaskItem>() ?: listOf()
 
-            adapter = TasksAdapter(requireContext(), taskItemList)
-            recyclerView.adapter = adapter
-            adapter.setOnItemClickListener(object : TasksAdapter.OnItemClickListener {
+            val itemListener = object : TasksAdapter.OnItemClickListener {
                 override fun onItemClick(item: TaskItem, position: Int) {
                     Log.d(TAG, "Task: $item")
                     Log.d(TAG, "Task ID: ${item.id}")
@@ -562,7 +560,9 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                             }
                         }
                 }
-            })
+            }
+            adapter = TasksAdapter(requireContext(), taskItemList, itemListener)
+            recyclerView.adapter = adapter
             /*if (mSelectionTracker == null) {
                 mSelectionTracker = SelectionTracker.Builder(
                         "selection-id",

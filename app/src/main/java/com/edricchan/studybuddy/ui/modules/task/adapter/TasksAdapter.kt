@@ -18,7 +18,7 @@ import ru.noties.markwon.Markwon
 class TasksAdapter(
     val context: Context,
     val taskItemList: List<TaskItem>,
-    var itemListener: OnItemClickListener? = null
+    private var itemListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<TasksAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val context = parent.context
@@ -129,14 +129,5 @@ class TasksAdapter(
          * @param position The position of the adapter
          */
         fun onMarkAsDoneButtonClick(item: TaskItem, position: Int)
-    }
-
-    /**
-     * Sets the on click listener for views in the holder
-     *
-     * @param listener The on click listener
-     */
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.itemListener = listener
     }
 }
