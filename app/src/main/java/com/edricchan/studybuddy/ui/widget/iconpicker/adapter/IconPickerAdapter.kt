@@ -52,7 +52,8 @@ class IconPickerAdapter(
             HolderLayout.LIST.itemType -> {
                 val tempHolder = holder as ListHolder
                 if (tracker != null) {
-                    tempHolder.itemView.isActivated = tracker?.isSelected(getItemId(position))!!
+                    tempHolder.itemView.isActivated = tracker?.isSelected(getItemId(position))
+                        ?: false
                 }
                 if (item.assets != null && item.assets.isNotEmpty() && tracker?.isSelected(
                         getItemId(
