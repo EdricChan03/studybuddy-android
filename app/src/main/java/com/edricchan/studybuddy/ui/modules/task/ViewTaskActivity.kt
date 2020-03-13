@@ -10,6 +10,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.firebase.toDateFormat
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
@@ -28,8 +29,6 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_view_task.*
 import ru.noties.markwon.Markwon
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
     private lateinit var auth: FirebaseAuth
@@ -327,8 +326,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
             toggleViewVisibility(taskContent, View.VISIBLE, View.GONE)
         }
         if (item?.dueDate != null) {
-            val format = SimpleDateFormat(getString(R.string.date_format_pattern), Locale.ENGLISH)
-            taskDate.text = format.format(item.dueDate.toDate())
+            taskDate.text = item.dueDate.toDateFormat(getString(R.string.date_format_pattern))
             toggleViewVisibility(taskDate, View.GONE, View.VISIBLE)
         } else {
             toggleViewVisibility(taskDate, View.VISIBLE, View.GONE)
