@@ -25,6 +25,10 @@ class IconPickerAdapter(
     var tracker: SelectionTracker<Long>? = null
     private var itemType: Int = HolderLayout.LIST.itemType
 
+    override fun getItemViewType(position: Int): Int {
+        return itemType
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             HolderLayout.GRID.itemType -> GridHolder(
