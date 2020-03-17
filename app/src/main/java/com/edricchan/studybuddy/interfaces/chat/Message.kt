@@ -15,7 +15,7 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class Message(
-    @DocumentId override var id: String? = null,
+    @DocumentId override var id: String = "",
     val text: String? = "",
     val author: DocumentReference? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,

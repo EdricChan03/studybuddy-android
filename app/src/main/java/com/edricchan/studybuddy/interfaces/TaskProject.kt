@@ -14,14 +14,14 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class TaskProject(
+    @DocumentId override var id: String = "",
     var color: String? = null,
-    @DocumentId override var id: String? = null,
     var name: String? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
     @ServerTimestamp override val lastModified: Timestamp? = null
 ) : HasId, HasTimestampMetadata {
     private constructor(builder: Builder) : this(
-        builder.color,
+        color = builder.color,
         name = builder.name,
         createdAt = builder.createdAt,
         lastModified = builder.lastModified

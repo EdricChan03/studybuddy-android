@@ -19,7 +19,7 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class TaskItem(
-    @DocumentId override var id: String? = null,
+    @DocumentId override var id: String = "",
     val content: String? = null,
     val dueDate: Timestamp? = null,
     // Note: Firestore converts isDone to done when added to the database

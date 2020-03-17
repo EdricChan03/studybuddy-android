@@ -26,7 +26,7 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class Chat(
-    @DocumentId override var id: String? = null,
+    @DocumentId override var id: String = "",
     val name: String? = "",
     val description: String? = null,
     val icon: ChatIcon? = null,
