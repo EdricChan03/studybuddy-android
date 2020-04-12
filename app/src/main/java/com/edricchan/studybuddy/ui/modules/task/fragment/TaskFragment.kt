@@ -191,11 +191,11 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
             }
         }
         // Migrate keys and their values
-        migrateTaskOptsPrefs()
         taskOptionsPrefs = requireContext().getSharedPreferences(
             TaskOptionsPrefConstants.FILE_TASK_OPTIONS,
             Context.MODE_PRIVATE
         )
+        migrateTaskOptsPrefs()
         firestore = Firebase.firestore
         auth = FirebaseAuth.getInstance()
         taskUtils = TaskUtils.getInstance(auth, firestore)
