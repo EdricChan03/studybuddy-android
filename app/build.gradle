@@ -98,7 +98,8 @@ def generateVersionCode() {
 
 @SuppressWarnings("GrMethodMayBeStatic")
 def generateVersionName() {
-    return "${String.valueOf(versionMajor)}.${String.valueOf(versionMinor)}.${String.valueOf(versionPatch)}"
+    return "${String.valueOf(versionMajor)}.${String.valueOf(versionMinor)}" +
+            ".${String.valueOf(versionPatch)}"
 }
 
 android {
@@ -201,31 +202,31 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
         exclude group: "com.android.support", module: "support-annotations"
     })
-    androidTestImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation 'androidx.test:core:1.3.0-alpha05'
     // AndroidX Core
-    implementation 'androidx.core:core:1.3.0-alpha01'
-    implementation 'androidx.core:core-ktx:1.3.0-alpha01'
+    implementation 'androidx.core:core:1.3.0-beta01'
+    implementation 'androidx.core:core-ktx:1.3.0-beta01'
     // AppCompat
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
     // ConstraintLayout
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     // Design Support
     implementation 'com.google.android.material:material:1.2.0-alpha05'
     // RecyclerView
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha01'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc01'
     // SwipeRefreshLayout (For some reason, it isn't included in AndroidX Core)
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01'
     // Chrome Custom Tabs
     implementation 'androidx.browser:browser:1.3.0-alpha01'
     testImplementation 'junit:junit:4.13'
     // Firebase stuff
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.0'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
-    implementation 'com.google.android.gms:play-services-auth:17.0.0'
-    implementation 'com.google.firebase:firebase-perf:19.0.5'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-perf:19.0.6'
     implementation 'com.google.firebase:firebase-dynamic-links-ktx:19.1.0'
     // Provide a way to update the app
     implementation 'com.github.javiersantos:AppUpdater:2.7'
@@ -242,7 +243,7 @@ dependencies {
     // Kotlin support for AndroidX Preference library
     implementation 'androidx.preference:preference-ktx:1.1.0'
     // AndroidX WorkManager
-    implementation 'androidx.work:work-runtime-ktx:2.3.2'
+    implementation 'androidx.work:work-runtime-ktx:2.4.0-alpha02'
 
     // Custom Preferences
     /*
@@ -259,12 +260,21 @@ dependencies {
 
     // About screen
     implementation 'com.github.daniel-stoneuk:material-about-library:2.4.2'
-    // Explcitly specify the AndroidX CardView library for now
+    // Explicitly specify the AndroidX CardView library for now
     implementation 'androidx.cardview:cardview:1.0.0'
 
     // Markwon - Markdown parser for Android
-    // See https://noties.github.io/Markwon for more info
-    implementation 'ru.noties:markwon:2.0.2'
+    // See https://noties.io/Markwon for more info
+    final def markwon_version = 'latest_version'
+    implementation "io.noties.markwon:core:$markwon_version"
+    implementation "io.noties.markwon:editor:$markwon_version"
+    implementation "io.noties.markwon:ext-strikethrough:$markwon_version"
+    implementation "io.noties.markwon:ext-tables:$markwon_version"
+    implementation "io.noties.markwon:ext-tasklist:$markwon_version"
+    implementation "io.noties.markwon:html:$markwon_version"
+    implementation "io.noties.markwon:image-glide:$markwon_version"
+    implementation "io.noties.markwon:linkify:$markwon_version"
+    implementation "io.noties.markwon:syntax-highlight:$markwon_version"
 
     // Used to handle loading of remote images
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -288,13 +298,15 @@ dependencies {
 
 kapt {
     arguments {
-        // See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for more info
+        // See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for
+        // more info
         arg('deepLink.incremental', 'true')
         arg('deepLink.customAnnotations',
                 'com.edricchan.studybuddy.annotations.AppDeepLink,'
                         + 'com.edricchan.studybuddy.annotations.WebDeepLink')
         // Add support for documenting deep links
-        // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for more info
+        // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for
+        // more info
         arg('deepLinkDoc.output', "${rootDir}/docs/deeplinks.md")
     }
 }
