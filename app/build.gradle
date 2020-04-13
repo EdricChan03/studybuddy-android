@@ -265,7 +265,7 @@ dependencies {
 
     // Markwon - Markdown parser for Android
     // See https://noties.io/Markwon for more info
-    final def markwon_version = 'latest_version'
+    final def markwon_version = '4.3.1'
     implementation "io.noties.markwon:core:$markwon_version"
     implementation "io.noties.markwon:editor:$markwon_version"
     implementation "io.noties.markwon:ext-strikethrough:$markwon_version"
