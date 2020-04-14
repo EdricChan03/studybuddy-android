@@ -1,33 +1,38 @@
 package com.edricchan.studybuddy.utils.firebase
 
 import android.util.Log
-import com.crashlytics.android.Crashlytics
 import com.edricchan.studybuddy.extensions.TAG
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class FirebaseCrashlyticsUtils {
     companion object {
         /**
-         * Enables Crashlytics user tracking for the currently logged-in user.
+         * Enables Firebase Crashlytics user tracking for the currently logged-in user.
          *
          * @param user The current logged-in user, retrieved from [FirebaseAuth.getCurrentUser]
          * @param enabled Whether to enable user tracking.
          */
         fun setCrashlyticsUserTracking(user: FirebaseUser?, enabled: Boolean) {
+            val crashlytics = FirebaseCrashlytics.getInstance()
             if (enabled) {
                 if (user != null) {
-                    Crashlytics.setUserEmail(user.email)
+                    crashlytics.setUserId(user.uid)
+                    /* Crashlytics.setUserEmail(user.email)
                     Crashlytics.setUserIdentifier(user.uid)
-                    Crashlytics.setUserName(user.displayName)
+                    Crashlytics.setUserName(user.displayName) */
                 } else {
                     Log.w(TAG, "No currently logged-in user exists.")
                 }
+            } else {
+                // Reset the user's ID.
+                crashlytics.setUserId("")
             }
         }
 
         /**
-         * Enables Crashlytics user tracking for the currently logged-in user.
+         * Enables Firebase Crashlytics user tracking for the currently logged-in user.
          *
          * @param auth An instance of [FirebaseAuth], retrieved from [FirebaseAuth.getInstance]
          * @param enabled Whether to enable user tracking.
