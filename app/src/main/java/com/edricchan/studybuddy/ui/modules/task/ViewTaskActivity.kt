@@ -28,7 +28,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_view_task.*
-import ru.noties.markwon.Markwon
+import io.noties.markwon.Markwon
 
 class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
     private lateinit var auth: FirebaseAuth
@@ -320,7 +320,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
      */
     private fun setViews(item: TaskItem?) {
         if (item?.content != null) {
-            Markwon.setMarkdown(taskContent, item.content)
+            Markwon.create(this).setMarkdown(taskContent, item.content)
             toggleViewVisibility(taskContent, View.GONE, View.VISIBLE)
         } else {
             toggleViewVisibility(taskContent, View.VISIBLE, View.GONE)

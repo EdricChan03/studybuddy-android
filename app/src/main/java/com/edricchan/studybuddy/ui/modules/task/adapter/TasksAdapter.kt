@@ -13,7 +13,7 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TaskItemDetails
 import com.google.android.material.card.MaterialCardView
-import ru.noties.markwon.Markwon
+import io.noties.markwon.Markwon
 
 class TasksAdapter(
     val context: Context,
@@ -46,7 +46,7 @@ class TasksAdapter(
             itemDate.setText(date);
         }*/
         if (item.content != null && item.content.isNotEmpty()) {
-            Markwon.setMarkdown(itemContent, item.content)
+            Markwon.create(context).setMarkdown(itemContent, item.content)
         } else {
             itemContent.setText(R.string.task_adapter_empty_content)
         }
