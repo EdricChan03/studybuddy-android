@@ -293,7 +293,7 @@ dependencies {
     // OSS licenses library to show open source licenses
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
     // Backported Java Stream library for Java 6/7
-    implementation 'net.sourceforge.streamsupport:streamsupport:1.7.1'
+    implementation 'net.sourceforge.streamsupport:streamsupport:1.7.2'
 
     // Support for Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
