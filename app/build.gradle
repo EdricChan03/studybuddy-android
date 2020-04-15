@@ -242,7 +242,7 @@ dependencies {
     // Emoji AppCompat
     implementation 'androidx.emoji:emoji-appcompat:1.0.0'
     // AndroidX Preference
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
     // Kotlin support for AndroidX Preference library
     implementation 'androidx.preference:preference-ktx:1.1.0'
     // AndroidX WorkManager
