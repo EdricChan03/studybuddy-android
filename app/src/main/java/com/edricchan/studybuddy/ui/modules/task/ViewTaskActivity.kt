@@ -29,6 +29,10 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_view_task.*
 import io.noties.markwon.Markwon
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
+import io.noties.markwon.ext.tasklist.TaskListPlugin
+import io.noties.markwon.image.glide.GlideImagesPlugin
+import io.noties.markwon.linkify.LinkifyPlugin
 
 class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
     private lateinit var auth: FirebaseAuth
@@ -320,7 +324,13 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
      */
     private fun setViews(item: TaskItem?) {
         if (item?.content != null) {
-            Markwon.create(this).setMarkdown(taskContent, item.content)
+            Markwon.builder(this)
+                .usePlugin(GlideImagesPlugin.create(this))
+                .usePlugin(LinkifyPlugin.create())
+                .usePlugin(StrikethroughPlugin.create())
+                .usePlugin(TaskListPlugin.create(this))
+                .build()
+                .setMarkdown(taskContent, item.content)
             toggleViewVisibility(taskContent, View.GONE, View.VISIBLE)
         } else {
             toggleViewVisibility(taskContent, View.VISIBLE, View.GONE)
