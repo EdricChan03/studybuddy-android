@@ -7,7 +7,6 @@ object Constants {
 	// Preference headers
 	const val prefHeaderGeneral = "pref_header_general"
 	const val prefHeaderTodo = "pref_header_todo"
-	const val prefHeaderSync = "pref_header_sync"
 	const val prefHeaderDebug = "pref_header_debug"
 	const val prefHeaderUpdates = "pref_header_updates"
 	const val prefHeaderAbout = "pref_header_about"

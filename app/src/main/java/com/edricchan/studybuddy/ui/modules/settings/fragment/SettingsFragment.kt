@@ -57,8 +57,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             GeneralSettingsFragment::class.java.name
         findPreference<Preference>(Constants.prefHeaderTodo)?.fragment =
             TodoSettingsFragment::class.java.name
-        findPreference<Preference>(Constants.prefHeaderSync)?.fragment =
-            SyncSettingsFragment::class.java.name
         findPreference<Preference>(Constants.prefHeaderDebug)?.fragment =
             DebugSettingsFragment::class.java.name
         findPreference<Preference>(Constants.prefHeaderUpdates)?.fragment =
@@ -83,7 +81,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findPreference<Preference>(Constants.prefHeaderAccount)?.setSummary(R.string.pref_header_account_summary)
             findPreference<Preference>(Constants.prefHeaderDebug)?.setSummary(R.string.pref_header_debug_summary)
             findPreference<Preference>(Constants.prefHeaderGeneral)?.setSummary(R.string.pref_header_general_summary)
-            findPreference<Preference>(Constants.prefHeaderSync)?.setSummary(R.string.pref_header_data_sync_summary)
             findPreference<Preference>(Constants.prefHeaderTodo)?.setSummary(R.string.pref_header_todo_summary)
         } else {
             findPreference<Preference>(Constants.prefHeaderAbout)?.summary = null
@@ -91,7 +88,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findPreference<Preference>(Constants.prefHeaderAccount)?.summary = null
             findPreference<Preference>(Constants.prefHeaderDebug)?.summary = null
             findPreference<Preference>(Constants.prefHeaderGeneral)?.summary = null
-            findPreference<Preference>(Constants.prefHeaderSync)?.summary = null
             findPreference<Preference>(Constants.prefHeaderTodo)?.summary = null
         }
     }
