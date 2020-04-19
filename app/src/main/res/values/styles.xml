@@ -10,7 +10,7 @@
         <!-- The colour of the navigation bar -->
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <!-- The font family of the app -->
-        <item name="fontFamily">@font/baloo</item>
+        <item name="fontFamily">@font/baloo_2</item>
         <!-- The text input style -->
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
         </item>
@@ -22,7 +22,7 @@
             @style/Widget.MaterialComponents.BottomAppBar.PrimarySurface
         </item>
         <!-- The font family of the app -->
-        <item name="android:fontFamily">@font/baloo</item>
+        <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
         </item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
@@ -42,7 +42,7 @@
         <!-- The colour of the navigation bar -->
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <!-- The font family of the app -->
-        <item name="fontFamily">@font/baloo</item>
+        <item name="fontFamily">@font/baloo_2</item>
         <!-- The text input style -->
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
         </item>
@@ -54,7 +54,7 @@
             @style/Widget.MaterialComponents.BottomAppBar.PrimarySurface
         </item>
         <!-- The font family of the app -->
-        <item name="android:fontFamily">@font/baloo</item>
+        <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
         </item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
