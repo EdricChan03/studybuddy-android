@@ -45,5 +45,5 @@
         app:icon="@drawable/ic_account_circle_outline_24dp"
         app:key="pref_header_account"
         app:summary="@string/pref_header_account_summary"
-        app:title="@string/pref_header_account_title"></Preference>
+        app:title="@string/pref_header_account_title" />
 </androidx.preference.PreferenceScreen>
