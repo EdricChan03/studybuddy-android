@@ -26,7 +26,7 @@ class WebUtils(val context: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         launchUri(
             uri, preferences.getBoolean(Constants.prefUseCustomTabs, true),
-            preferences.getBoolean(Constants.prefCustomTabsUseAppColorScheme, true)
+            true
         )
     }
 

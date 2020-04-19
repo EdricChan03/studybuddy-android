@@ -19,11 +19,6 @@
         app:icon="@drawable/ic_open_in_browser_24dp"
         app:key="pref_use_custom_tabs"
         app:title="@string/pref_use_custom_tabs_title" />
-    <SwitchPreferenceCompat
-        app:defaultValue="true"
-        app:icon="@drawable/ic_brightness_6_outline_24dp"
-        app:key="pref_custom_tabs_use_app_color_scheme"
-        app:title="@string/pref_custom_tabs_use_app_color_scheme_title" />
     <PreferenceCategory
         app:key="pref_category_theme"
         app:title="@string/pref_category_theme">
