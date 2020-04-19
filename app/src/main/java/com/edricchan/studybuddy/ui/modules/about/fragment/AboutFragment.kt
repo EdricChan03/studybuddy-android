@@ -58,7 +58,7 @@ class AboutFragment : MaterialAboutFragment() {
                         if (devHitCountdown == 0) {
                             // Add 1 count back
                             devHitCountdown++
-                            MaterialAlertDialogBuilder(context).apply {
+                            MaterialAlertDialogBuilder(requireContext()).apply {
                                 setTitle(R.string.dev_mode_confirm_enable_dialog_title)
                                 setMessage(R.string.dev_mode_confirm_enable_dialog_msg)
                                 setNeutralButton(R.string.dialog_action_cancel, null)

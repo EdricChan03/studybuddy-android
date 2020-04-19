@@ -162,7 +162,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                             when (item?.itemId) {
                                                 R.id.cab_action_archive_selected_chats -> {
                                                     if (selectedChatsWithNoAdminPerm.size == 0) {
-                                                        MaterialAlertDialogBuilder(context).apply {
+                                                        MaterialAlertDialogBuilder(requireContext()).apply {
                                                             setTitle(R.string.chat_frag_archive_selected_chats_confirm_dialog_title)
                                                             setMessage(R.string.chat_frag_archive_selected_chats_confirm_dialog_msg)
                                                             setPositiveButton(R.string.chat_frag_archive_selected_chats_confirm_dialog_positive_btn_text) { dialog,
@@ -219,7 +219,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                         selectedChatsWithNoAdminPerm.joinToString(
                                                                             "\n- "
                                                                         ) { it.name.toString() })
-                                                        MaterialAlertDialogBuilder(context).apply {
+                                                        MaterialAlertDialogBuilder(requireContext()).apply {
                                                             setTitle(R.string.chat_frag_archive_selected_chats_denied_dialog_title)
                                                             setMessage(
                                                                 getString(
@@ -235,7 +235,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                 }
                                                 R.id.cab_action_leave_selected_chats -> {
                                                     if (selectedChatsIsOwner.size == 0) {
-                                                        MaterialAlertDialogBuilder(context).apply {
+                                                        MaterialAlertDialogBuilder(requireContext()).apply {
                                                             setTitle(R.string.chat_frag_leave_selected_chats_confirm_dialog_title)
                                                             if (selectedChatsWithAdminPerm.size > 0) {
                                                                 setMessage(R.string.chat_frag_leave_selected_chats_confirm_dialog_msg_with_admin)
@@ -315,7 +315,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                         selectedChatsIsOwner.joinToString(
                                                                             "\n- "
                                                                         ) { it.name.toString() })
-                                                        MaterialAlertDialogBuilder(context).apply {
+                                                        MaterialAlertDialogBuilder(requireContext()).apply {
                                                             setTitle(R.string.chat_frag_leave_selected_chats_denied_dialog_title)
                                                             setMessage(
                                                                 getString(
@@ -334,7 +334,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                     isCallbackHandled = true
                                                 }
                                                 R.id.cab_action_delete_selected_chats -> {
-                                                    MaterialAlertDialogBuilder(context).apply {
+                                                    MaterialAlertDialogBuilder(requireContext()).apply {
                                                         setTitle(R.string.chat_frag_delete_selected_chats_confirm_dialog_title)
                                                         setMessage(
                                                             getString(R.string.chat_frag_delete_selected_chats_confirm_dialog_msg,

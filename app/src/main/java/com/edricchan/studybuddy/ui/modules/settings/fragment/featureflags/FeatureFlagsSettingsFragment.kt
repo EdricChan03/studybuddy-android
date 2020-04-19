@@ -22,7 +22,7 @@ class FeatureFlagsSettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.pref_feature_flags, rootKey)
         findPreference<Preference>(Constants.featureFlagsReset)?.setOnPreferenceClickListener {
             // Show a confirmation dialog to reset
-            MaterialAlertDialogBuilder(context).apply {
+            MaterialAlertDialogBuilder(requireContext()).apply {
                 setTitle(R.string.feature_flags_confirm_reset_dialog_title)
                 setMessage(R.string.feature_flags_confirm_reset_dialog_msg)
                 setNegativeButton(R.string.dialog_action_cancel, null)

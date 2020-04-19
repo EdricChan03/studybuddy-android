@@ -37,7 +37,7 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
         return super.create()
     }
 
-    override fun setBackground(background: Drawable): PromptAlertDialogBuilder {
+    override fun setBackground(background: Drawable?): PromptAlertDialogBuilder {
         return super.setBackground(background) as PromptAlertDialogBuilder
     }
 
@@ -90,50 +90,50 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
     }
 
     override fun setPositiveButton(
-        @StringRes textId: Int, listener: DialogInterface.OnClickListener
+        @StringRes textId: Int, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setPositiveButton(textId, listener) as PromptAlertDialogBuilder
     }
 
     override fun setPositiveButton(
-        text: CharSequence, listener: DialogInterface.OnClickListener
+        text: CharSequence?, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setPositiveButton(text, listener) as PromptAlertDialogBuilder
     }
 
-    override fun setPositiveButtonIcon(icon: Drawable): PromptAlertDialogBuilder {
+    override fun setPositiveButtonIcon(icon: Drawable?): PromptAlertDialogBuilder {
         return super.setPositiveButtonIcon(icon) as PromptAlertDialogBuilder
     }
 
     override fun setNegativeButton(
-        @StringRes textId: Int, listener: DialogInterface.OnClickListener
+        @StringRes textId: Int, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setNegativeButton(textId, listener) as PromptAlertDialogBuilder
     }
 
     override fun setNegativeButton(
-        text: CharSequence, listener: DialogInterface.OnClickListener
+        text: CharSequence?, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setNegativeButton(text, listener) as PromptAlertDialogBuilder
     }
 
-    override fun setNegativeButtonIcon(icon: Drawable): PromptAlertDialogBuilder {
+    override fun setNegativeButtonIcon(icon: Drawable?): PromptAlertDialogBuilder {
         return super.setNegativeButtonIcon(icon) as PromptAlertDialogBuilder
     }
 
     override fun setNeutralButton(
-        @StringRes textId: Int, listener: DialogInterface.OnClickListener
+        @StringRes textId: Int, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setNeutralButton(textId, listener) as PromptAlertDialogBuilder
     }
 
     override fun setNeutralButton(
-        text: CharSequence, listener: DialogInterface.OnClickListener
+        text: CharSequence?, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setNeutralButton(text, listener) as PromptAlertDialogBuilder
     }
 
-    override fun setNeutralButtonIcon(icon: Drawable): PromptAlertDialogBuilder {
+    override fun setNeutralButtonIcon(icon: Drawable?): PromptAlertDialogBuilder {
         return super.setNeutralButtonIcon(icon) as PromptAlertDialogBuilder
     }
 
@@ -141,46 +141,46 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
         return super.setCancelable(cancelable) as PromptAlertDialogBuilder
     }
 
-    override fun setOnCancelListener(onCancelListener: DialogInterface.OnCancelListener): PromptAlertDialogBuilder {
+    override fun setOnCancelListener(onCancelListener: DialogInterface.OnCancelListener?): PromptAlertDialogBuilder {
         return super.setOnCancelListener(onCancelListener) as PromptAlertDialogBuilder
     }
 
-    override fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener): PromptAlertDialogBuilder {
+    override fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener?): PromptAlertDialogBuilder {
         return super.setOnDismissListener(onDismissListener) as PromptAlertDialogBuilder
     }
 
-    override fun setOnKeyListener(onKeyListener: DialogInterface.OnKeyListener): PromptAlertDialogBuilder {
+    override fun setOnKeyListener(onKeyListener: DialogInterface.OnKeyListener?): PromptAlertDialogBuilder {
         return super.setOnKeyListener(onKeyListener) as PromptAlertDialogBuilder
     }
 
     override fun setItems(
-        @ArrayRes itemsId: Int, listener: DialogInterface.OnClickListener
+        @ArrayRes itemsId: Int, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setItems(itemsId, listener) as PromptAlertDialogBuilder
     }
 
     override fun setItems(
-        items: Array<CharSequence>,
-        listener: DialogInterface.OnClickListener
+        items: Array<CharSequence>?,
+        listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setItems(items, listener) as PromptAlertDialogBuilder
     }
 
     override fun setAdapter(
-        adapter: ListAdapter, listener: DialogInterface.OnClickListener
+        adapter: ListAdapter?, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setAdapter(adapter, listener) as PromptAlertDialogBuilder
     }
 
     override fun setCursor(
-        cursor: Cursor, listener: DialogInterface.OnClickListener, labelColumn: String
+        cursor: Cursor?, listener: DialogInterface.OnClickListener?, labelColumn: String
     ): PromptAlertDialogBuilder {
         return super.setCursor(cursor, listener, labelColumn) as PromptAlertDialogBuilder
     }
 
     override fun setMultiChoiceItems(
-        @ArrayRes itemsId: Int, checkedItems: BooleanArray,
-        listener: DialogInterface.OnMultiChoiceClickListener
+        @ArrayRes itemsId: Int, checkedItems: BooleanArray?,
+        listener: DialogInterface.OnMultiChoiceClickListener?
     ): PromptAlertDialogBuilder {
         return super.setMultiChoiceItems(
             itemsId,
@@ -190,18 +190,18 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
     }
 
     override fun setMultiChoiceItems(
-        items: Array<CharSequence>,
-        checkedItems: BooleanArray,
-        listener: DialogInterface.OnMultiChoiceClickListener
+        items: Array<CharSequence>?,
+        checkedItems: BooleanArray?,
+        listener: DialogInterface.OnMultiChoiceClickListener?
     ): PromptAlertDialogBuilder {
         return super.setMultiChoiceItems(items, checkedItems, listener) as PromptAlertDialogBuilder
     }
 
     override fun setMultiChoiceItems(
-        cursor: Cursor,
+        cursor: Cursor?,
         isCheckedColumn: String,
         labelColumn: String,
-        listener: DialogInterface.OnMultiChoiceClickListener
+        listener: DialogInterface.OnMultiChoiceClickListener?
     ): PromptAlertDialogBuilder {
         return super.setMultiChoiceItems(
             cursor,
@@ -212,7 +212,7 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
     }
 
     override fun setSingleChoiceItems(
-        @ArrayRes itemsId: Int, checkedItem: Int, listener: DialogInterface.OnClickListener
+        @ArrayRes itemsId: Int, checkedItem: Int, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setSingleChoiceItems(
             itemsId,
@@ -222,10 +222,10 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
     }
 
     override fun setSingleChoiceItems(
-        cursor: Cursor,
+        cursor: Cursor?,
         checkedItem: Int,
         labelColumn: String,
-        listener: DialogInterface.OnClickListener
+        listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setSingleChoiceItems(
             cursor,
@@ -236,13 +236,13 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
     }
 
     override fun setSingleChoiceItems(
-        items: Array<CharSequence>, checkedItem: Int, listener: DialogInterface.OnClickListener
+        items: Array<CharSequence>?, checkedItem: Int, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setSingleChoiceItems(items, checkedItem, listener) as PromptAlertDialogBuilder
     }
 
     override fun setSingleChoiceItems(
-        adapter: ListAdapter, checkedItem: Int, listener: DialogInterface.OnClickListener
+        adapter: ListAdapter?, checkedItem: Int, listener: DialogInterface.OnClickListener?
     ): PromptAlertDialogBuilder {
         return super.setSingleChoiceItems(
             adapter,
@@ -252,7 +252,7 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
     }
 
     override fun setOnItemSelectedListener(
-        listener: AdapterView.OnItemSelectedListener
+        listener: AdapterView.OnItemSelectedListener?
     ): PromptAlertDialogBuilder {
         return super.setOnItemSelectedListener(listener) as PromptAlertDialogBuilder
     }
@@ -261,7 +261,7 @@ class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(co
         return super.setView(layoutResId) as PromptAlertDialogBuilder
     }
 
-    override fun setView(view: View): PromptAlertDialogBuilder {
+    override fun setView(view: View?): PromptAlertDialogBuilder {
         return super.setView(view) as PromptAlertDialogBuilder
     }
 }

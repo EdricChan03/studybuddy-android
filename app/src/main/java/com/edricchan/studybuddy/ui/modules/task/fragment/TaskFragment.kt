@@ -267,7 +267,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
         super.onStart()
         if (auth.currentUser == null) {
             Log.d(TAG, "Not logged in")
-            val signInDialogBuilder = MaterialAlertDialogBuilder(context)
+            val signInDialogBuilder = MaterialAlertDialogBuilder(requireContext())
             signInDialogBuilder.setTitle("Sign in")
                 .setMessage("To access the content, please login or register for an account.")
                 .setPositiveButton(R.string.dialog_action_login) { dialog, _ ->
