@@ -501,11 +501,6 @@
 	</string>
     <string name="pref_header_account_title">Account options</string>
 
-    <string name="pref_header_data_sync_summary">Manual sync, sync frequency, sync on metered networks, system sync
-		settings
-	</string>
-    <string name="pref_header_data_sync_title">Data &amp; sync</string>
-
     <string name="pref_header_debug_summary">Device info, account info, crash app, send
 		notification, delete device\'s instance ID, clear app settings, modal bottom sheet testing
 	</string>
@@ -524,18 +519,7 @@
 	</string>
     <string name="pref_header_about_title">About</string>
     <string name="pref_language_title">Language</string>
-    <string name="pref_manual_sync_summary">Tap here to sync manually</string>
-    <string name="pref_manual_sync_title">Manual sync</string>
     <string name="pref_show_header_summary_title">Show header summaries</string>
-
-    <string name="pref_sync_cellular_networks_dialog_msg">Note: I am not responsible for any charges incurred from
-		excessive data usage.
-	</string>
-    <string name="pref_sync_cellular_networks_dialog_title">Enable syncing with cellular networks?</string>
-    <string name="pref_sync_cellular_networks_title">Sync on cellular network</string>
-
-    <string name="pref_sync_frequency_title">Sync frequency</string>
-    <string name="pref_system_sync_settings_title">System sync settings</string>
 
     <string name="pref_todo_default_sort_title">Default sorting mode</string>
 
