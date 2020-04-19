@@ -13,14 +13,6 @@
         app:icon="@drawable/ic_format_list_checks_24dp"
         app:key="pref_header_todo"
         app:summary="@string/pref_header_todo_summary"
-        app:title="@string/pref_header_todo_title" />
-    <!-- Note: This preference will have its fragment defined programmatically -->
-    <Preference
-        app:icon="@drawable/ic_sync_24dp"
-        app:isPreferenceVisible="false"
-        app:key="pref_header_sync"
-        app:summary="@string/pref_header_data_sync_summary"
-        app:title="@string/pref_header_data_sync_title" />
     <!-- Note: This preference will have its fragment defined programmatically -->
     <Preference
         app:icon="@drawable/ic_bug_report_outline_24dp"
