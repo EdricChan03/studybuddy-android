@@ -22,7 +22,6 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
-import com.edricchan.studybuddy.interfaces.TaskItem
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
@@ -165,48 +164,6 @@ class SharedUtils {
             }
 
             return false
-        }
-
-        /**
-         * Adds a new task to the Firebase Firestore database
-         *
-         * @param item The task item to add
-         * @param user The currently authenticated user
-         * @param fs   An instance of [FirebaseFirestore]
-         * @return The result.
-         */
-        @Deprecated(
-            "Use com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils#addTask instead",
-            ReplaceWith(
-                "TaskUtils.getInstance(user, fs).addTask(item)",
-                "com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils"
-            )
-        )
-        fun addTask(
-            item: TaskItem,
-            user: FirebaseUser,
-            fs: FirebaseFirestore
-        ): Task<DocumentReference> {
-            return fs.collection("users/${user.uid}/todos").add(item)
-        }
-
-        /**
-         * Removes a task from the Firebase Firestore database
-         *
-         * @param docId The document's ID
-         * @param user  The currently authenticated user
-         * @param fs    An instance of [FirebaseFirestore]
-         * @return The result of the deletion
-         */
-        @Deprecated(
-            "Use com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils#removeTask instead",
-            ReplaceWith(
-                "TaskUtils.getInstance(user, fs).removeTask(docId)",
-                "com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils"
-            )
-        )
-        fun removeTask(docId: String, user: FirebaseUser, fs: FirebaseFirestore): Task<Void> {
-            return fs.document("users/${user.uid}/todos/$docId").delete()
         }
 
         /**
