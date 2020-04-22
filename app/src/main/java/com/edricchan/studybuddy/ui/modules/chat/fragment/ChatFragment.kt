@@ -289,7 +289,8 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                         dialog.dismiss()
                                                                         isActionModeFinished = true
                                                                     } else {
-                                                                        Log.e(TAG,
+                                                                        Log.e(
+                                                                            TAG,
                                                                             "An error occurred while attempting to leave selected chats (" +
                                                                                     "${selectedChats.joinToString { it.id.toString() }}):",
                                                                             task.exception
@@ -357,7 +358,8 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                             deleteBatch.commit()
                                                                 .addOnCompleteListener { task ->
                                                                     if (task.isSuccessful) {
-                                                                        Log.d(TAG,
+                                                                        Log.d(
+                                                                            TAG,
                                                                             "Successfully deleted selected chats (" +
                                                                                     "${selectedChatsWithAdminPerm.joinToString { it.id.toString() }})!"
                                                                         )
@@ -367,7 +369,8 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                             Toast.LENGTH_SHORT
                                                                         ).show()
                                                                     } else {
-                                                                        Log.e(TAG,
+                                                                        Log.e(
+                                                                            TAG,
                                                                             "An error occurred while attempting to delete the selected chats (" +
                                                                                     "${selectedChatsWithAdminPerm.joinToString { it.id.toString() }}):",
                                                                             task.exception
