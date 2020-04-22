@@ -27,7 +27,9 @@ class FeatureFlagsSettingsFragment : PreferenceFragmentCompat() {
                 setMessage(R.string.feature_flags_confirm_reset_dialog_msg)
                 setNegativeButton(R.string.dialog_action_cancel, null)
                 setPositiveButton(R.string.dialog_action_confirm) { dialog, _ ->
-                    featureFlagsUtils.resetFeatureFlags()
+                    featureFlagsUtils.resetFeatureFlags(
+                        R.string.feature_flags_successfully_reset_toast_msg
+                    )
                     dialog.dismiss()
                 }
             }.show()

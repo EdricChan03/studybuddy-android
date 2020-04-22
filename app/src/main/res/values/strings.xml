@@ -478,6 +478,8 @@
     <string name="feature_flags_reset_title">Reset feature flags</string>
     <string name="feature_flags_confirm_reset_dialog_title">Reset feature flags?</string>
     <string name="feature_flags_confirm_reset_dialog_msg">This cannot be undone!</string>
+    <string name="feature_flags_successfully_reset_toast_msg">Successfully reset feature
+        flags!</string>
     <string name="feature_flags_opt_out_title">Opt out of feature flags</string>
     <string name="feature_flags_prefer_remote_config_title">Prefer Firebase Remote Config</string>
     <string name="feature_flags_prefer_remote_config_msg">Whether the feature flag values from
