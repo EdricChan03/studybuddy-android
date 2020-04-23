@@ -236,7 +236,7 @@ dependencies {
     // implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
     // Crashlytics
     // implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     // For JSON parsing
     implementation 'com.google.code.gson:gson:2.8.6'
     // Emoji AppCompat
