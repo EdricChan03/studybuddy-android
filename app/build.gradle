@@ -223,7 +223,7 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     // Firebase stuff
     implementation 'com.google.firebase:firebase-analytics-ktx:17.3.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-messaging:20.1.5'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
