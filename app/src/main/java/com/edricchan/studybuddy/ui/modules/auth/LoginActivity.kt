@@ -34,14 +34,14 @@ import com.google.firebase.ktx.Firebase
 @WebDeepLink(["/login"])
 @AppDeepLink(["/login"])
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
-    private var inputEmail: TextInputLayout? = null
-    private var inputPassword: TextInputLayout? = null
-    private var progressBar: ProgressBar? = null
-    private var btnSignup: Button? = null
-    private var btnLogin: Button? = null
-    private var btnReset: Button? = null
-    private var signInButton: SignInButton? = null
+    private lateinit var inputEmail: TextInputLayout
+    private lateinit var inputPassword: TextInputLayout
     private lateinit var auth: FirebaseAuth
+    private lateinit var progressBar: ProgressBar
+    private lateinit var btnSignup: Button
+    private lateinit var btnLogin: Button
+    private lateinit var btnReset: Button
+    private lateinit var signInButton: SignInButton
     private var googleSignInClient: GoogleSignInClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,42 +65,42 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         btnLogin = findViewById(R.id.loginBtn)
         btnReset = findViewById(R.id.resetPasswordBtn)
         signInButton = findViewById(R.id.googleSignInBtn)
-        signInButton?.setColorScheme(SignInButton.COLOR_DARK)
-        signInButton?.setSize(SignInButton.SIZE_STANDARD)
-        signInButton?.setOnClickListener { signInWithGoogle() }
+        signInButton.setColorScheme(SignInButton.COLOR_DARK)
+        signInButton.setSize(SignInButton.SIZE_STANDARD)
+        signInButton.setOnClickListener { signInWithGoogle() }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        btnSignup?.setOnClickListener { startActivity<RegisterActivity>() }
+        btnSignup.setOnClickListener { startActivity<RegisterActivity>() }
 
-        btnReset?.setOnClickListener { startActivity<ResetPasswordActivity>() }
+        btnReset.setOnClickListener { startActivity<ResetPasswordActivity>() }
 
-        btnLogin?.setOnClickListener {
-            val email = inputEmail!!.editTextStrValue
-            val password = inputPassword!!.editTextStrValue
+        btnLogin.setOnClickListener {
+            val email = inputEmail.editTextStrValue
+            val password = inputPassword.editTextStrValue
             // Clear any previous errors
-            inputEmail?.error = null
-            inputPassword?.error = null
-            if (email!!.isEmpty() || password!!.isEmpty()) {
+            inputEmail.error = null
+            inputPassword.error = null
+            if (email.isEmpty() || password.isEmpty()) {
                 if (email.isEmpty()) {
-                    inputEmail?.error = "Please enter a valid email address"
+                    inputEmail.error = "Please enter a valid email address"
                 }
-                if (password!!.isEmpty()) {
-                    inputPassword?.error = "Please enter a password"
+                if (password.isEmpty()) {
+                    inputPassword.error = "Please enter a password"
                 }
                 return@setOnClickListener
             }
-            progressBar?.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
             // Authenticate the user
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this@LoginActivity) { task ->
                     // If sign in fails, display a message to the user. If sign in succeeds
                     // the auth state listener will be notified and logic to handle the
                     // signed in user can be handled in the listener.
-                    progressBar?.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                     if (!task.isSuccessful) {
                         Log.e(
                             TAG,
@@ -109,7 +109,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                         )
                         // there was an error
                         if (password.length < 6) {
-                            inputPassword?.error = getString(R.string.minimum_password)
+                            inputPassword.error = getString(R.string.minimum_password)
                         } else {
                             Snackbar.make(
                                 findViewById(R.id.loginActivity),
@@ -200,12 +200,12 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
      * @param enabled Whether to show the views
      */
     private fun setViewsEnabled(enabled: Boolean) {
-        btnSignup!!.isEnabled = enabled
-        btnLogin!!.isEnabled = enabled
-        btnReset!!.isEnabled = enabled
-        signInButton!!.isEnabled = enabled
-        inputEmail!!.isEnabled = enabled
-        inputPassword!!.isEnabled = enabled
+        btnSignup.isEnabled = enabled
+        btnLogin.isEnabled = enabled
+        btnReset.isEnabled = enabled
+        signInButton.isEnabled = enabled
+        inputEmail.isEnabled = enabled
+        inputPassword.isEnabled = enabled
     }
 
     /**
