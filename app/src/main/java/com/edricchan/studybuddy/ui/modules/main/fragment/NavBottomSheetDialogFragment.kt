@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.modules.main.fragment
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -16,7 +17,7 @@ import com.google.android.material.navigation.NavigationView
 
 class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
     /** Listener for the [NavigationView] */
-    var navigationViewListener: NavigationView.OnNavigationItemSelectedListener? = null
+    var navigationViewListener: (menuItem: MenuItem) -> Boolean = {false}
     /** Whether there is a logged in user */
     var isLoggedIn: Boolean = false
     var displayName: String? = null
@@ -37,9 +38,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navigationView = view.findViewById(R.id.navigationView)
-        if (navigationViewListener != null) {
-            navigationView.setNavigationItemSelectedListener(navigationViewListener)
-        }
+        navigationView.setNavigationItemSelectedListener(navigationViewListener)
         if (navigationViewCheckedItemId != null) {
             navigationView.setCheckedItem(navigationViewCheckedItemId!!)
         }

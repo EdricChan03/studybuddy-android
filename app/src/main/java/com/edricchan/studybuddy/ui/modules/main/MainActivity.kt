@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.main
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
+import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
@@ -22,7 +22,6 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.chat.fragment.ChatFragment
@@ -42,10 +41,8 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
@@ -56,10 +53,8 @@ import java.util.*
 @AppDeepLink(["/"])
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     GoogleApiClient.OnConnectionFailedListener {
-    private var mOptionsMenu: Menu? = null
-    //	private BottomNavigationView navigationView;
-    private var contentMain: FrameLayout? = null
-    private var bar: BottomAppBar? = null
+    private lateinit var contentMain: FrameLayout
+    private lateinit var bar: BottomAppBar
     private lateinit var auth: FirebaseAuth
     private lateinit var uiUtils: UiUtils
 
@@ -87,11 +82,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                 }
             })
         EmojiCompat.init(config)
+
         bar = findViewById(R.id.bottomAppBar)
         setSupportActionBar(bar)
         // Checks if the add new shortcut was tapped
         if (ACTION_ADD_NEW_TODO == intent.action) {
-            newTaskActivity()
+            startActivity<NewTaskActivity>()
         }
 
         // Create notification channels
@@ -99,7 +95,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             NotificationUtils.createNotificationChannels(this@MainActivity)
         }
         // Initially set a fragment view
-        SharedUtils.replaceFragment(this@MainActivity, TodoFragment(), R.id.content_main, false)
+        // Note: As there isn't any fragment before this, we don't want this fragment
+        // to be added to the back stack.
+        setCurrentFragment(TodoFragment(), /* addToBackStack = */ false)
         contentMain = findViewById(R.id.content_main)
     }
 
@@ -158,28 +156,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         startActivity(Intent.createChooser(shareIntent, getString(R.string.share_intent_value)))
     }
 
-    private fun newTaskActivity() {
-        startActivityForResult<NewTaskActivity>(ACTION_NEW_TASK)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        // Checks if the activity was from the New task activity
-        if (requestCode == ACTION_NEW_TASK) {
-            if (resultCode == Activity.RESULT_OK) {
-                val builder = MaterialAlertDialogBuilder(this)
-                builder.setTitle("Activity result")
-                    .setMessage(
-                        "taskTitle: " + data!!.getStringExtra("taskTitle") + "\ntaskProject: " + data.getStringExtra(
-                            "taskProject"
-                        ) + "\ntaskContent: " + data.getStringExtra("taskContent")
-                    )
-                    .setPositiveButton("Dismiss") { dialog, _ -> dialog.dismiss() }
-                builder.show()
-            }
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -187,7 +163,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         if (!BuildConfig.DEBUG) {
             menu.removeItem(R.id.action_debug)
         }
-        mOptionsMenu = menu
         return true
     }
 
@@ -199,48 +174,27 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         when (item.itemId) {
             android.R.id.home -> {
                 val navBottomSheet = NavBottomSheetDialogFragment()
-                navBottomSheet.navigationViewListener =
-                    NavigationView.OnNavigationItemSelectedListener {
-                        when (it.itemId) {
-                            R.id.navigation_calendar -> {
-                                SharedUtils.replaceFragment(
-                                    this@MainActivity,
-                                    CalendarFragment(),
-                                    R.id.content_main,
-                                    true
-                                )
-                                return@OnNavigationItemSelectedListener true
-                            }
-                            R.id.navigation_chat -> {
-                                SharedUtils.replaceFragment(
-                                    this@MainActivity,
-                                    ChatFragment(),
-                                    R.id.content_main,
-                                    true
-                                )
-                                return@OnNavigationItemSelectedListener true
-                            }
-                            R.id.navigation_todos -> {
-                                SharedUtils.replaceFragment(
-                                    this@MainActivity,
-                                    TodoFragment(),
-                                    R.id.content_main,
-                                    true
-                                )
-                                return@OnNavigationItemSelectedListener true
-                            }
-                            R.id.navigation_tips -> {
-                                SharedUtils.replaceFragment(
-                                    this@MainActivity,
-                                    TipsFragment(),
-                                    R.id.content_main,
-                                    true
-                                )
-                                return@OnNavigationItemSelectedListener true
-                            }
-                            else -> return@OnNavigationItemSelectedListener false
+                navBottomSheet.navigationViewListener = {
+                    when (it.itemId) {
+                        R.id.navigation_calendar -> {
+                            setCurrentFragment(CalendarFragment())
+                            true
                         }
+                        R.id.navigation_chat -> {
+                            setCurrentFragment(ChatFragment())
+                            true
+                        }
+                        R.id.navigation_todos -> {
+                            setCurrentFragment(TodoFragment())
+                            true
+                        }
+                        R.id.navigation_tips -> {
+                            setCurrentFragment(TipsFragment())
+                            true
+                        }
+                        else -> false
                     }
+                }
                 if (auth.currentUser != null) {
                     navBottomSheet.isLoggedIn = true
                     if (auth.currentUser?.displayName != null) navBottomSheet.displayName =
@@ -272,7 +226,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                 val aboutDialogBuilder = MaterialAlertDialogBuilder(this)
                 aboutDialogBuilder.setTitle("About this app")
                 aboutDialogBuilder.setMessage(aboutDialogText)
-                aboutDialogBuilder.setPositiveButton(R.string.dialog_action_close) { dialogInterface, _ -> dialogInterface.dismiss() }
+                aboutDialogBuilder.setPositiveButton(R.string.dialog_action_close) { dialog, _ -> dialog.dismiss() }
                 aboutDialogBuilder.setNeutralButton(R.string.dialog_action_view_source_code) { _, _ ->
                     WebUtils.getInstance(this@MainActivity).launchUri(Constants.uriSrcCode)
                 }
@@ -303,11 +257,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         Log.e(TAG, "Connection failed:$connectionResult")
     }
 
+    private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+        SharedUtils.replaceFragment(this, fragment, R.id.content_main, addToBackStack)
+    }
+
     companion object {
-        /**
-         * Request code for new task activity
-         */
-        private const val ACTION_NEW_TASK = 1
         /**
          * The constant for a new task shortcut
          */
