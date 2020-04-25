@@ -22,11 +22,11 @@ import com.google.firebase.ktx.Firebase
 @AppDeepLink(["/resetPassword", "/reset-password"])
 class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password) {
 
-    private var inputEmail: EditText? = null
-    private var btnReset: Button? = null
-    private var btnBack: Button? = null
-    private var progressBar: ProgressBar? = null
+    private lateinit var inputEmail: EditText
+    private lateinit var btnReset: Button
+    private lateinit var btnBack: Button
     private lateinit var auth: FirebaseAuth
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +38,11 @@ class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password
 
         auth = Firebase.auth
 
-        btnBack!!.setOnClickListener { finish() }
+        btnBack.setOnClickListener { finish() }
 
-        btnReset!!.setOnClickListener {
+        btnReset.setOnClickListener {
 
-            val email = inputEmail!!.text.toString().trim { it <= ' ' }
+            val email = inputEmail.text.toString().trim { it <= ' ' }
 
             if (TextUtils.isEmpty(email)) {
                 Snackbar.make(
@@ -53,7 +53,7 @@ class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password
                 return@setOnClickListener
             }
 
-            progressBar!!.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
             auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -77,7 +77,7 @@ class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password
                         )
                     }
 
-                    progressBar!!.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                 }
         }
     }
