@@ -43,8 +43,11 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         uiUtils = UiUtils.getInstance(this)
         uiUtils.setAppTheme()
         // Use a downloadable font for EmojiCompat
@@ -140,7 +143,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        val fs = FirebaseFirestore.getInstance()
+        val fs = Firebase.firestore
         if (currentUser != null) {
             val crashlyticsTrackingEnabled = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&

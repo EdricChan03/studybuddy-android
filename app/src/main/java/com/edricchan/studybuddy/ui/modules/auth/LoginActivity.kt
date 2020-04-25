@@ -28,27 +28,29 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/login"])
 @AppDeepLink(["/login"])
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     private var inputEmail: TextInputLayout? = null
     private var inputPassword: TextInputLayout? = null
-    private var auth: FirebaseAuth? = null
     private var progressBar: ProgressBar? = null
     private var btnSignup: Button? = null
     private var btnLogin: Button? = null
     private var btnReset: Button? = null
     private var signInButton: SignInButton? = null
+    private lateinit var auth: FirebaseAuth
     private var googleSignInClient: GoogleSignInClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Result code used to check for authentication
         RC_SIGN_IN = 9001
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         // Check if there's already an authenticated user
-        if (auth?.currentUser != null && SharedUtils.isNetworkAvailable(this)) {
+        if (auth.currentUser != null && SharedUtils.isNetworkAvailable(this)) {
             // This activity (`LoginActivity`) shouldn't be shown to an already authenticated user
             // Instead, redirect the user to the main activity and close this activity
             startActivity<MainActivity>()
@@ -93,8 +95,8 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             }
             progressBar?.visibility = View.VISIBLE
             // Authenticate the user
-            auth?.signInWithEmailAndPassword(email, password)
-                ?.addOnCompleteListener(this@LoginActivity) { task ->
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this@LoginActivity) { task ->
                     // If sign in fails, display a message to the user. If sign in succeeds
                     // the auth state listener will be notified and logic to handle the
                     // signed in user can be handled in the listener.
@@ -156,9 +158,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     }
 
     private fun showLoginSnackBar() {
-        if (auth?.currentUser != null) {
-            // TODO(Edric): Figure out a way to show this snackbar before the main activity shows
-            //			Snackbar.make(findViewById(android.R.id.content), String.format(getString(R.string.snackbar_user_login), auth.getCurrentUser().getEmail()), Snackbar.LENGTH_LONG).show();
+        if (auth.currentUser != null) {
             Toast.makeText(
                 applicationContext,
                 getString(R.string.snackbar_user_login, auth?.currentUser?.email),
@@ -215,8 +215,8 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
      */
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        auth?.signInWithCredential(credential)
-            ?.addOnCompleteListener(this) { task ->
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "Successfully signed in!")

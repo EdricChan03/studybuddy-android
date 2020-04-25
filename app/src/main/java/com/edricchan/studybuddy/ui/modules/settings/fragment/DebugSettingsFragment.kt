@@ -41,7 +41,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.ktx.Firebase
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import java.io.IOException
 import java.util.*
@@ -173,7 +175,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mInstanceId = FirebaseInstanceId.getInstance()
-        mAuth = FirebaseAuth.getInstance()
+        mAuth = Firebase.auth
         mUser = mAuth.currentUser
         mConnectivityManager = context?.getSystemService()
     }

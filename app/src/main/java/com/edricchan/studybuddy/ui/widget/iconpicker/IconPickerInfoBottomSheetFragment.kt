@@ -16,6 +16,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class IconPickerInfoBottomSheetFragment : BottomSheetDialogFragment() {
@@ -62,7 +64,7 @@ class IconPickerInfoBottomSheetFragment : BottomSheetDialogFragment() {
 
     fun updateInfoAuthor(
         view: View, author: Any? = null,
-        firestore: FirebaseFirestore? = FirebaseFirestore.getInstance()
+        firestore: FirebaseFirestore? = Firebase.firestore
     ) {
         val tempAuthor = icon?.author ?: author
         // Whether the value is a document reference

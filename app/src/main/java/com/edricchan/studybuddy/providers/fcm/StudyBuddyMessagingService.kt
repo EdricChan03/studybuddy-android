@@ -19,8 +19,11 @@ import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.utils.NotificationUtils
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -193,8 +196,8 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "Refreshed token: $token")
 
         // Add token to Firebase Firestore in the user's document
-        val fs = FirebaseFirestore.getInstance()
-        val auth = FirebaseAuth.getInstance()
+        val fs = Firebase.firestore
+        val auth = Firebase.auth
         if (auth.currentUser != null) {
             fs.document("users/${auth.currentUser?.uid}")
                 .update("registrationToken", token)

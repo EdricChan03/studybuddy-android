@@ -15,6 +15,8 @@ import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.TAG
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/resetPassword", "/reset-password"])
 @AppDeepLink(["/resetPassword", "/reset-password"])
@@ -23,8 +25,8 @@ class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password
     private var inputEmail: EditText? = null
     private var btnReset: Button? = null
     private var btnBack: Button? = null
-    private var auth: FirebaseAuth? = null
     private var progressBar: ProgressBar? = null
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,7 @@ class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password
         btnBack = findViewById(R.id.btn_back)
         progressBar = findViewById(R.id.progressBar)
 
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
 
         btnBack!!.setOnClickListener { finish() }
 
@@ -52,7 +54,7 @@ class ResetPasswordActivity : AppCompatActivity(R.layout.activity_reset_password
             }
 
             progressBar!!.visibility = View.VISIBLE
-            auth!!.sendPasswordResetEmail(email)
+            auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Snackbar.make(

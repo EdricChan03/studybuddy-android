@@ -17,18 +17,20 @@ import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_register.*
 
 @WebDeepLink(["/register"])
 @AppDeepLink(["/register"])
 class RegisterActivity : AppCompatActivity(R.layout.activity_register) {
 
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
 
         signInBtn.setOnClickListener {
             startActivity<LoginActivity>()

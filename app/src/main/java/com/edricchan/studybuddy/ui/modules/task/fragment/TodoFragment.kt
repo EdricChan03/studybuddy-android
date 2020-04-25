@@ -46,6 +46,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
@@ -198,7 +199,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
         )
         migrateTaskOptsPrefs()
         firestore = Firebase.firestore
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         todoUtils = TodoUtils.getInstance(auth, firestore)
     }
 

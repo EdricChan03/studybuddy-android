@@ -27,8 +27,11 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_new_task.*
 import java.util.*
 
@@ -47,8 +50,8 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        mAuth = FirebaseAuth.getInstance()
-        mFirestore = FirebaseFirestore.getInstance()
+        mAuth = Firebase.auth
+        mFirestore = Firebase.firestore
         mCurrentUser = mAuth.currentUser
         mAllowAccess = if (mAuth.currentUser == null) {
             Toast.makeText(this, "Please sign in before continuing", Toast.LENGTH_SHORT).show()

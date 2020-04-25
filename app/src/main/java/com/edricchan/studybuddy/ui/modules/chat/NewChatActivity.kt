@@ -28,7 +28,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/chats/new"])
 @AppDeepLink(["/chats/new"])
@@ -42,8 +45,8 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        auth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance()
+        auth = Firebase.auth
+        firestore = Firebase.firestore
 
         if (auth.currentUser == null) {
             Toast.makeText(this, "Please sign in before continuing", Toast.LENGTH_SHORT).show()

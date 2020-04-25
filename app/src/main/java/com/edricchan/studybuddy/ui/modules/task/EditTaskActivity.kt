@@ -25,6 +25,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -49,7 +50,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         firestore = Firebase.firestore
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         currentUser = auth.currentUser
         todoUtils = TodoUtils.getInstance(auth, firestore)
         taskId = intent.getStringExtra(EXTRA_TASK_ID) ?: ""

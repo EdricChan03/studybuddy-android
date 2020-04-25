@@ -23,6 +23,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_account.*
 
 
@@ -37,7 +39,7 @@ class AccountActivity : AppCompatActivity(R.layout.activity_account),
 		super.onCreate(savedInstanceState)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-		auth = FirebaseAuth.getInstance()
+		auth = Firebase.auth
 		auth.addAuthStateListener(this)
 		user = auth.currentUser
 

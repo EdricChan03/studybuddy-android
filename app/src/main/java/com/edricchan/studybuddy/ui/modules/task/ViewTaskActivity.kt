@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar.Duration
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -48,7 +49,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         firestore = Firebase.firestore
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         currentUser = auth.currentUser
         todoUtils = TodoUtils.getInstance(auth, firestore)
 
