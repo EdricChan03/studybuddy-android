@@ -93,51 +93,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             newTaskActivity()
         }
 
-        /*
-        // Handles swiping down to refresh logic
-        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.recycler_swiperefresh);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        // Sets a refreshing listener
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            mAdapter.notifyDataSetChanged();
-            loadTasksList(currentUser.getUid(), swipeRefreshLayout);
-        });
-        mRecyclerView = findViewById(R.id.recycler_list);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(false);
-
-        // use a linear layout manager
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        */
-        // Check if Android Oreo
+        // Create notification channels
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationUtils.createNotificationChannels(this@MainActivity)
         }
         // Initially set a fragment view
         SharedUtils.replaceFragment(this@MainActivity, TodoFragment(), R.id.content_main, false)
         contentMain = findViewById(R.id.content_main)
-        /*navigationView = findViewById(R.id.bottom_navigation_view);
-        navigationView.setOnNavigationItemSelectedListener((@NonNull MenuItem item) -> {
-            switch (item.getItemId()) {
-                case R.id.navigation_calendar:
-                    SharedUtils.replaceFragment(MainActivity.this, new CalendarFragment(), R.id.content_main, true);
-                    break;
-                case R.id.navigation_chat:
-                    SharedUtils.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
-                    break;
-                case R.id.navigation_todos:
-                    SharedUtils.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
-                    break;
-                case R.id.navigation_tips:
-                    SharedUtils.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
-                    break;
-            }
-            // Return a boolean to indicate that the listener has been set
-            return true;
-        });*/
     }
 
     override fun onStart() {
@@ -186,9 +148,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         FirebaseMessaging.getInstance().subscribeToTopic("all")
     }
 
-    /**
-     * Shares the app
-     */
     private fun share() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
