@@ -1,121 +1,230 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="5" by="lint 4.0.0-alpha08" client="gradle" variant="all" version="4.0.0-alpha08">
+<issues format="5" by="lint 4.1.0-alpha07" client="gradle" variant="all" version="4.1.0-alpha07">
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.annotation.experimental.lint.ExperimentalIssueRegistry`) which did not specify the Lint API version it was compiled with.&#xA;&#xA;**This means that the lint checks are likely not compatible.**&#xA;&#xA;If you are the author of this lint check, make your lint `IssueRegistry` class contain&#xA;  override val api: Int = com.android.tools.lint.detector.api.CURRENT_API&#xA;or from Java,&#xA;  @Override public int getApi() { return com.android.tools.lint.detector.api.ApiKt.CURRENT_API; }&#xA;&#xA;If you are just using lint checks from a third party library you have no control over, you can disable these lint checks (if they misbehave) like this:&#xA;&#xA;    android {&#xA;        lintOptions {&#xA;            disable &quot;UnsafeExperimentalUsageError&quot;,&#xA;                    &quot;UnsafeExperimentalUsageWarning&quot;&#xA;        }&#xA;    }&#xA;"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/0d2972be7d0bc9585bebb6e6538a3f91/jetified-annotation-experimental-1.0.0/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.fragment.lint.FragmentIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 6 (3.6), current lint API level is 7 (4.0+)"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/c3cee140c8cad7d03737a3d0298f987a/fragment-1.2.4/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.lifecycle.lint.LifecycleRuntimeIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 6 (3.6), current lint API level is 7 (4.0+)"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/e259a6909d15acee3193a7329050021c/jetified-lifecycle-runtime-ktx-2.2.0/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.recyclerview.lint.RecyclerViewIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 3 (3.3), current lint API level is 7 (4.0+)"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/cb0649d443190c5a5ced21f1a12277fa/recyclerview-1.2.0-alpha02/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`androidx.work.lint.WorkManagerIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 3 (3.3), current lint API level is 7 (4.0+)"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/74378bd74250f13a435918121f1c3936/work-runtime-2.4.0-alpha02/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`com.google.firebase.installations.lint.Checks`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 2 (3.2), current lint API level is 7 (4.0+)"
+        includedVariants="debug"
+        excludedVariants="nightly,release">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/7fb0b824aec216b030d463bf392e654c/jetified-firebase-installations-16.2.1/jars/lint.jar"/>
+    </issue>
 
     <issue
         id="SdCardPath"
         message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
-        errorLine1="        File(&quot;/data/data/${context.packageName}/shared_prefs/$fileName.xml&quot;).exists()"
+        errorLine1="        File(&quot;/data/data/$packageName/shared_prefs/$fileName.xml&quot;).exists()"
         errorLine2="              ~~~~~~~~~~~">
         <location
             file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
-            line="15"
+            line="17"
             column="15"/>
     </issue>
 
     <issue
         id="SdCardPath"
         message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
-        errorLine1="        File(&quot;/data/data/${context.packageName}/shared_prefs/$fileName.xml&quot;)"
+        errorLine1="        File(&quot;/data/data/$packageName/shared_prefs/$fileName.xml&quot;)"
         errorLine2="              ~~~~~~~~~~~">
         <location
             file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
-            line="23"
+            line="27"
             column="15"/>
     </issue>
 
     <issue
-        id="SdCardPath"
-        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
-        errorLine1="        File(&quot;/data/data/${context.packageName}/shared_prefs/${context.packageName}_preferences.xml&quot;)"
-        errorLine2="              ~~~~~~~~~~~">
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="        preferences = PreferenceManager.getDefaultSharedPreferences(context!!)"
+        errorLine2="                                                                    ~~~~~~~~~">
         <location
-            file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
-            line="30"
-            column="15"/>
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/AboutSettingsFragment.kt"
+            line="38"
+            column="69"/>
     </issue>
 
     <issue
-        id="SdCardPath"
-        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead"
-        errorLine1="    fun getSharedPrefsFileDir() = File(&quot;/data/data/${context.packageName}/shared_prefs&quot;)"
-        errorLine2="                                        ~~~~~~~~~~~">
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="            val builder = MaterialAlertDialogBuilder(context!!)"
+        errorLine2="                                                     ~~~~~~~~~">
         <location
-            file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
-            line="36"
-            column="41"/>
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="247"
+            column="54"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="                val builder = MaterialAlertDialogBuilder(context!!)"
+        errorLine2="                                                         ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="285"
+            column="58"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="            val builder = MaterialAlertDialogBuilder(context!!)"
+        errorLine2="                                                     ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="486"
+            column="54"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="        return MaterialAlertDialogBuilder(context!!)"
+        errorLine2="                                          ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="632"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="            ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION)"
+        errorLine2="                                              ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="644"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="        return MaterialAlertDialogBuilder(context!!)"
+        errorLine2="                                          ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="662"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="            ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_NETWORK_STATE)"
+        errorLine2="                                              ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="674"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="        return MaterialAlertDialogBuilder(context!!)"
+        errorLine2="                                          ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="683"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="        val builder = MaterialAlertDialogBuilder(context!!)"
+        errorLine2="                                                 ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
+            line="690"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="        preferences = PreferenceManager.getDefaultSharedPreferences(context!!)"
+        errorLine2="                                                                    ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/SettingsFragment.kt"
+            line="29"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireContext() instead of context!!"
+        errorLine1="        preferences = PreferenceManager.getDefaultSharedPreferences(context!!)"
+        errorLine2="                                                                    ~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/tips/fragment/TipsFragment.kt"
+            line="29"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="UseRequireInsteadOfGet"
+        message="Use requireActivity() instead of activity!!"
+        errorLine1="            intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity!!.packageName)"
+        errorLine2="                                                        ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/todo/WeeklySummarySettingsFragment.kt"
+            line="17"
+            column="57"/>
     </issue>
 
     <issue
         id="BadPeriodicWorkRequestEnqueue"
         message="Use `enqueueUniquePeriodicWork()` instead of `enqueue()`">
         <location
-            file="/Users/edricchan/.gradle/caches/transforms-2/files-2.1/ec1cec1b8d8743cd0a79433deac261ce/work-runtime-2.3.2/jars/classes.jar!/androidx/work/WorkManager.class"/>
-    </issue>
-
-    <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="  val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
-        errorLine2="                                                                           ~~~~">
-        <location
-            file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
-            line="212"
-            column="76"/>
-    </issue>
-
-    <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="  val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
-        errorLine2="                                                                           ~~~~">
-        <location
-            file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
-            line="238"
-            column="76"/>
-    </issue>
-
-    <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="  val promptDialogView = layoutInflater.inflate(R.layout.edit_text_dialog, null)"
-        errorLine2="                                                                           ~~~~">
-        <location
-            file="src/main/java/com/edricchan/studybuddy/ui/modules/account/AccountActivity.kt"
-            line="262"
-            column="76"/>
-    </issue>
-
-    <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="                    layoutInflater.inflate(R.layout.debug_send_fcm_notification_dialog, null)"
-        errorLine2="                                                                                        ~~~~">
-        <location
-            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/DebugSettingsFragment.kt"
-            line="267"
-            column="89"/>
-    </issue>
-
-    <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="                                layoutInflater.inflate(R.layout.edit_text_dialog, null)"
-        errorLine2="                                                                                  ~~~~">
-        <location
-            file="src/main/java/com/edricchan/studybuddy/ui/modules/task/EditTaskActivity.kt"
-            line="145"
-            column="83"/>
-    </issue>
-
-    <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="                                    layoutInflater.inflate(R.layout.edit_text_dialog, null)"
-        errorLine2="                                                                                      ~~~~">
-        <location
-            file="src/main/java/com/edricchan/studybuddy/ui/modules/task/NewTaskActivity.kt"
-            line="167"
-            column="87"/>
+            file="/Users/edricchan/.gradle/caches/transforms-2/files-2.1/74378bd74250f13a435918121f1c3936/work-runtime-2.4.0-alpha02/jars/classes.jar!/androidx/work/WorkManager.class"/>
     </issue>
 
     <issue
@@ -130,46 +239,101 @@
     </issue>
 
     <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="        val versionDialogView = LayoutInflater.from(context).inflate(R.layout.version_dialog, null)"
-        errorLine2="                                                                                              ~~~~">
-        <location
-            file="src/main/java/com/edricchan/studybuddy/utils/UiUtils.kt"
-            line="84"
-            column="95"/>
-    </issue>
-
-    <issue
         id="GradleDependency"
-        message="A newer version of com.google.firebase:firebase-analytics than 17.2.2 is available: 17.2.3"
-        errorLine1="    implementation &apos;com.google.firebase:firebase-analytics:17.2.2&apos;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        message="A newer version of androidx.test:core than 1.3.0-alpha05 is available: 1.3.0-beta01"
+        errorLine1="    androidTestImplementation &apos;androidx.test:core:1.3.0-alpha05&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="223"
+            line="208"
             column="5"/>
     </issue>
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.google.firebase:firebase-firestore-ktx than 21.4.0 is available: 21.4.1"
-        errorLine1="    implementation &apos;com.google.firebase:firebase-firestore-ktx:21.4.0&apos;"
+        message="A newer version of androidx.test:runner than 1.3.0-alpha05 is available: 1.3.0-beta01"
+        errorLine1="    androidTestImplementation &apos;androidx.test:runner:1.3.0-alpha05&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="209"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:rules than 1.3.0-alpha05 is available: 1.3.0-beta01"
+        errorLine1="    androidTestImplementation &apos;androidx.test:rules:1.3.0-alpha05&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="210"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-analytics-ktx than 17.3.0 is available: 17.4.0"
+        errorLine1="    implementation &apos;com.google.firebase:firebase-analytics-ktx:17.3.0&apos;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="224"
+            line="230"
             column="5"/>
     </issue>
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.google.firebase:firebase-messaging than 20.1.0 is available: 20.1.1"
-        errorLine1="    implementation &apos;com.google.firebase:firebase-messaging:20.1.0&apos;"
+        message="A newer version of com.google.firebase:firebase-firestore-ktx than 21.4.2 is available: 21.4.3"
+        errorLine1="    implementation &apos;com.google.firebase:firebase-firestore-ktx:21.4.2&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="231"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-auth than 19.3.0 is available: 19.3.1"
+        errorLine1="    implementation &apos;com.google.firebase:firebase-auth:19.3.0&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="232"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-messaging than 20.1.5 is available: 20.1.6"
+        errorLine1="    implementation &apos;com.google.firebase:firebase-messaging:20.1.5&apos;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="226"
+            line="233"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-perf than 19.0.6 is available: 19.0.7"
+        errorLine1="    implementation &apos;com.google.firebase:firebase-perf:19.0.6&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="235"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.firebase:firebase-crashlytics than 17.0.0-beta04 is available: 17.0.0"
+        errorLine1="    implementation &apos;com.google.firebase:firebase-crashlytics:17.0.0-beta04&apos;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="244"
             column="5"/>
     </issue>
 
@@ -193,6 +357,61 @@
             file="src/main/res/layout/activity_new_task.xml"
             line="65"
             column="21"/>
+    </issue>
+
+    <issue
+        id="UseCompatLoadingForDrawables"
+        message="Use `ContextCompat.getDrawable()`"
+        errorLine1="                        context.getDrawable("
+        errorLine2="                        ^">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/widget/bottomsheet/ModalBottomSheetAdapter.kt"
+            line="167"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseCompatLoadingForDrawables"
+        message="Use `ContextCompat.getDrawable()`"
+        errorLine1="                        context.getDrawable("
+        errorLine2="                        ^">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/widget/bottomsheet/ModalBottomSheetAdapter.kt"
+            line="187"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseCompatLoadingForDrawables"
+        message="Use `ContextCompat.getDrawable()`"
+        errorLine1="                        context.getDrawable("
+        errorLine2="                        ^">
+        <location
+            file="src/main/java/com/edricchan/studybuddy/ui/widget/bottomsheet/ModalBottomSheetAdapter.kt"
+            line="227"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UseCompatTextViewDrawableXml"
+        message="Use `app:drawableStartCompat` instead of `android:drawableStart`"
+        errorLine1="                android:drawableStart=&quot;@drawable/ic_calendar_check_outline_24dp&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_view_task.xml"
+            line="44"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="UseCompatTextViewDrawableXml"
+        message="Use `app:drawableStartCompat` instead of `android:drawableStart`"
+        errorLine1="                android:drawableStart=&quot;@drawable/ic_format_list_checks_24dp&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_view_task.xml"
+            line="54"
+            column="17"/>
     </issue>
 
     <issue
@@ -1164,6 +1383,17 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.drawable.ic_access_time_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_access_time_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.drawable.ic_account_circle_24dp` appears to be unused"
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
@@ -1279,6 +1509,17 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_label_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_network_cell_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_network_cell_24dp.xml"
             line="2"
             column="1"/>
     </issue>
@@ -1480,6 +1721,17 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.drawable.ic_sync_24dp` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_sync_24dp.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.drawable.ic_text_24dp` appears to be unused"
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
@@ -1513,12 +1765,45 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.pref_general_cct_color_scheme_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pref_general_cct_color_scheme_title&quot;>Use app color scheme for in-app"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/prefs_resources.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_tasks_category_weekly_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pref_tasks_category_weekly_summary&quot;>Weekly summary&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/prefs_resources.xml"
+            line="94"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.about_frag_app_info_card_app_license_title` appears to be unused"
         errorLine1="    &lt;string name=&quot;about_frag_app_info_card_app_license_title&quot;>App license&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
             line="48"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_mark_as_undone` appears to be unused"
+        errorLine1="    &lt;string name=&quot;action_mark_as_undone&quot;>Mark as undone&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="125"
             column="13"/>
     </issue>
 
@@ -1634,6 +1919,28 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.dialog_action_no` appears to be unused"
+        errorLine1="    &lt;string name=&quot;dialog_action_no&quot;>No&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="340"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dialog_action_yes` appears to be unused"
+        errorLine1="    &lt;string name=&quot;dialog_action_yes&quot;>Yes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="351"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.due_date` appears to be unused"
         errorLine1="    &lt;string name=&quot;due_date&quot;>Due date&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~">
@@ -1678,28 +1985,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.pref_category_todo_general` appears to be unused"
-        errorLine1="    &lt;string name=&quot;pref_category_todo_general&quot;>General&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="455"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.pref_category_weekly_summary` appears to be unused"
-        errorLine1="    &lt;string name=&quot;pref_category_weekly_summary&quot;>Weekly summary&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="457"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.string.shortcut_settings_long_msg` appears to be unused"
         errorLine1="    &lt;string name=&quot;shortcut_settings_long_msg&quot;>Open settings&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -1707,7 +1992,7 @@
         excludedVariants="nightly">
         <location
             file="src/main/res/values/strings.xml"
-            line="577"
+            line="479"
             column="13"/>
     </issue>
 
@@ -1720,7 +2005,46 @@
         excludedVariants="nightly">
         <location
             file="src/main/res/values/strings.xml"
-            line="578"
+            line="480"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.shortcut_todo_disabled_msg` appears to be unused"
+        errorLine1="    &lt;string name=&quot;shortcut_todo_disabled_msg&quot;>Todo is disabled&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="release"
+        excludedVariants="debug,nightly">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="481"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.shortcut_todo_long_msg` appears to be unused"
+        errorLine1="    &lt;string name=&quot;shortcut_todo_long_msg&quot;>Create a new todo&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="release"
+        excludedVariants="debug,nightly">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="482"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.shortcut_todo_short_msg` appears to be unused"
+        errorLine1="    &lt;string name=&quot;shortcut_todo_short_msg&quot;>New todo&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="release"
+        excludedVariants="debug,nightly">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="483"
             column="13"/>
     </issue>
 
@@ -1731,7 +2055,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="606"
+            line="511"
             column="13"/>
     </issue>
 
@@ -1742,7 +2066,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="620"
+            line="525"
             column="13"/>
     </issue>
 
@@ -1753,7 +2077,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="624"
+            line="529"
             column="13"/>
     </issue>
 
@@ -1764,19 +2088,8 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="708"
+            line="613"
             column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.tasksadapter_item_row_state` appears to be unused"
-        errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
-        errorLine2="^">
-        <location
-            file="src/main/res/color/tasksadapter_item_row_state.xml"
-            line="2"
-            column="1"/>
     </issue>
 
     <issue
@@ -1788,6 +2101,39 @@
             file="src/main/res/layout/activity_edit_task.xml"
             line="16"
             column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="38"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_new_chat.xml"
+            line="24"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_view_task.xml"
+            line="130"
+            column="6"/>
     </issue>
 
     <issue
