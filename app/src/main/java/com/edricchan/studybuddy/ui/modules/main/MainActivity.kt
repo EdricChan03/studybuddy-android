@@ -41,6 +41,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -258,6 +259,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     }
 
     private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+        fragment.enterTransition = MaterialFadeThrough.create()
+        fragment.exitTransition = MaterialFadeThrough.create()
         SharedUtils.replaceFragment(this, fragment, R.id.content_main, addToBackStack)
     }
 
