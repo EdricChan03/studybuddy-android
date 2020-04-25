@@ -22,6 +22,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.toDateFormat
 import com.edricchan.studybuddy.utils.WebUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -40,7 +41,9 @@ class AboutFragment : MaterialAboutFragment() {
             .addItem(ConvenienceBuilder.createAppTitleItem(context))
             .addItem(MaterialAboutActionItem.Builder()
                 .text(R.string.about_frag_app_info_card_version_title)
-                .subText(BuildConfig.VERSION_NAME)
+                .subText("${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n" +
+                        "Build type: ${BuildConfig.BUILD_TYPE}\n" +
+                        "Build time: ${BuildConfig.BUILD_TIME.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")}")
                 .icon(R.drawable.ic_info_outline_24dp)
                 .setOnClickAction {
                     if (!devModeOptions.getBoolean(

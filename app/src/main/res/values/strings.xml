@@ -182,7 +182,7 @@
     <string name="bottom_nav_calendar">Calendar</string>
     <string name="bottom_nav_chat">Chat</string>
     <string name="bottom_nav_tips">Tips</string>
-    <string name="bottom_nav_todos">Todos</string>
+    <string name="bottom_nav_todos">Tasks</string>
 
     <string name="btn_back">&lt; Go back</string>
 
@@ -383,7 +383,7 @@
     <string name="notification_channel_new_app_features_desc">Notifications regarding any new recently
 		introduced features to the app.</string>
     <string name="notification_channel_group_todos_id" translatable="false">todos</string>
-    <string name="notification_channel_group_todos_title">Todos</string>
+    <string name="notification_channel_group_todos_title">Tasks</string>
     <string name="notification_channel_group_updates_id" translatable="false">updates</string>
     <string name="notification_channel_group_updates_title">App updates</string>
     <string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
@@ -392,9 +392,9 @@
     <string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
     <string name="notification_channel_sync_id" translatable="false">sync</string>
     <string name="notification_channel_sync_title">Sync</string>
-    <string name="notification_channel_todo_updates_desc">Shows updates on the status of todos</string>
+    <string name="notification_channel_todo_updates_desc">Shows updates on the status of tasks</string>
     <string name="notification_channel_todo_updates_id" translatable="false">todo_updates</string>
-    <string name="notification_channel_todo_updates_title">Todo updates</string>
+    <string name="notification_channel_todo_updates_title">Task updates</string>
     <string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the
 		previous channels
 	</string>
