@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
@@ -256,7 +257,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                         is ChatFragment -> R.id.navigation_chat
                         is TodoFragment -> R.id.navigation_todos
                         is TipsFragment -> R.id.navigation_tips
-                        else -> 0 // Resources.ID_NULL
+                        else -> ResourcesCompat.ID_NULL
                     }
                 navBottomSheet.navigationViewCheckedItemId = selectedMenuItem
                 return true
