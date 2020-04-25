@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.interfaces.TaskItem
-import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TaskItemDetails
+import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TodoItemDetails
 import com.google.android.material.card.MaterialCardView
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
@@ -19,20 +19,20 @@ import io.noties.markwon.ext.tasklist.TaskListPlugin
 import io.noties.markwon.image.glide.GlideImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
 
-class TasksAdapter(
+class TodosAdapter(
     val context: Context,
-    val taskItemList: List<TaskItem>,
+    val todoItemList: List<TodoItem>,
     private var itemListener: OnItemClickListener? = null
-) : RecyclerView.Adapter<TasksAdapter.Holder>() {
+) : RecyclerView.Adapter<TodosAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val itemView = inflater.inflate(R.layout.taskadapter_item_row, parent, false)
+        val itemView = inflater.inflate(R.layout.todos_adapter_item_row, parent, false)
         return Holder(itemView)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val item = taskItemList[position]
+        val item = todoItemList[position]
 
         val itemTitle = holder.itemTitle
         // TextView itemDate = holder.itemDate;
@@ -87,13 +87,15 @@ class TasksAdapter(
     }
 
     override fun getItemCount(): Int {
-        return taskItemList.size
+        return todoItemList.size
     }
 
     inner class Holder(view: View) : RecyclerView.ViewHolder(view) {
         internal var itemTitle: TextView = view.findViewById(R.id.itemTitle)
+
         // TextView itemDate;
         internal var itemContent: TextView = view.findViewById(R.id.itemContent)
+
         // ChipGroup itemProjects;
         // ChipGroup itemTags;
         internal var markAsDoneBtn: Button = view.findViewById(R.id.itemMarkAsDone)
@@ -106,11 +108,11 @@ class TasksAdapter(
             // itemTags = view.findViewById(R.id.itemTags);
         }
 
-        fun getItemDetails(): TaskItemDetails {
+        fun getItemDetails(): TodoItemDetails {
             Log.d(TAG, "Adapter position: $adapterPosition")
-            val id = taskItemList[adapterPosition].id
+            val id = todoItemList[adapterPosition].id
             Log.d(TAG, "ID at adapter position $adapterPosition: $id")
-            return TaskItemDetails(adapterPosition, id)
+            return TodoItemDetails(adapterPosition, id)
         }
     }
 
@@ -122,7 +124,7 @@ class TasksAdapter(
          * @param position The position of the adapter
          */
         @Deprecated("Use {@link androidx.recyclerview.selection.SelectionTracker.Builder#withOnItemActivatedListener(OnItemActivatedListener)}")
-        fun onItemClick(item: TaskItem, position: Int)
+        fun onItemClick(item: TodoItem, position: Int)
 
         /**
          * Called when the delete button is clicked on
@@ -130,7 +132,7 @@ class TasksAdapter(
          * @param item     The task item at this position
          * @param position The position of the adapter
          */
-        fun onDeleteButtonClick(item: TaskItem, position: Int)
+        fun onDeleteButtonClick(item: TodoItem, position: Int)
 
         /**
          * Called when the mark as done button is clicked on
@@ -138,6 +140,6 @@ class TasksAdapter(
          * @param item     The task item at this position
          * @param position The position of the adapter
          */
-        fun onMarkAsDoneButtonClick(item: TaskItem, position: Int)
+        fun onMarkAsDoneButtonClick(item: TodoItem, position: Int)
     }
 }

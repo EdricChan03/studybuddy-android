@@ -9,7 +9,7 @@ import androidx.recyclerview.selection.ItemDetailsLookup
  * @param adapterPosition The adapter position of this item
  * @param selectionKey    The selection key
  */
-class TaskItemDetails(
+class TodoItemDetails(
     private val adapterPosition: Int,
     private val selectionKey: String?
 ) : ItemDetailsLookup.ItemDetails<String>() {

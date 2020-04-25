@@ -13,11 +13,11 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.toDateFormat
-import com.edricchan.studybuddy.interfaces.TaskItem
-import com.edricchan.studybuddy.interfaces.TaskProject
+import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.task.adapter.TaskProjectDropdownAdapter
-import com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils
+import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
+import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -42,7 +42,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
     private var mCurrentUser: FirebaseUser? = null
     private var mAllowAccess: Boolean = false
     private var tempTaskProject: String? = null
-    private var mTaskProjectDropdownAdapter: TaskProjectDropdownAdapter? = null
+    private var mTodoProjectDropdownAdapter: TodoProjectDropdownAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,10 +106,10 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
             taskDueDateChip.setText(R.string.select_date_chip_default_text)
         }
 
-        val projectArrayList = ArrayList<TaskProject>()
-        mTaskProjectDropdownAdapter =
-            TaskProjectDropdownAdapter(this, R.layout.dropdown_menu_popup_item, projectArrayList)
-        taskProjectAutocompleteTextView.setAdapter(mTaskProjectDropdownAdapter)
+        val projectArrayList = ArrayList<TodoProject>()
+        mTodoProjectDropdownAdapter =
+            TodoProjectDropdownAdapter(this, R.layout.dropdown_menu_popup_item, projectArrayList)
+        taskProjectAutocompleteTextView.setAdapter(mTodoProjectDropdownAdapter)
         if (mCurrentUser != null) {
             mFirestore.collection("users/" + mCurrentUser!!.uid + "/todoProjects")
                 .addSnapshotListener { documentSnapshots, e ->
@@ -119,28 +119,28 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
                     }
 
                     projectArrayList.clear()
-                    projectArrayList.add(TaskProject.build {
+                    projectArrayList.add(TodoProject.build {
                         id = PROJECT_NONE_ID
                         name = getString(R.string.task_project_none)
                     })
 
-                    projectArrayList.add(TaskProject.build {
+                    projectArrayList.add(TodoProject.build {
                         id = PROJECT_CREATE_ID
                         name = getString(R.string.task_project_create)
                     })
 
                     documentSnapshots?.mapTo(projectArrayList) { it.toObject() }
 
-                    projectArrayList.add(TaskProject.build {
+                    projectArrayList.add(TodoProject.build {
                         id = PROJECT_CHOOSE_ID
                         name = getString(R.string.task_project_prompt)
                     })
 
                     Log.d(TAG, "Array list: ${projectArrayList.joinToString()}")
 
-                    mTaskProjectDropdownAdapter?.notifyDataSetChanged()
+                    mTodoProjectDropdownAdapter?.notifyDataSetChanged()
                 }
-            taskProjectAutocompleteTextView.setSelection(mTaskProjectDropdownAdapter!!.count)
+            taskProjectAutocompleteTextView.setSelection(mTodoProjectDropdownAdapter!!.count)
             taskProjectAutocompleteTextView.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -151,17 +151,17 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
                     ) {
                         Log.d(
                             TAG,
-                            "Task project ID: " + mTaskProjectDropdownAdapter!!.getTaskProjectId(
+                            "Task project ID: " + mTodoProjectDropdownAdapter!!.getTaskProjectId(
                                 position
                             )!!
                         )
                         Log.d(
                             TAG,
-                            "Task project name: " + Objects.requireNonNull<TaskProject>(
-                                mTaskProjectDropdownAdapter!!.getItem(position)
+                            "Task project name: " + Objects.requireNonNull<TodoProject>(
+                                mTodoProjectDropdownAdapter!!.getItem(position)
                             ).name!!
                         )
-                        when (mTaskProjectDropdownAdapter!!.getTaskProjectId(position)) {
+                        when (mTodoProjectDropdownAdapter!!.getTaskProjectId(position)) {
                             PROJECT_CREATE_ID -> {
                                 val editTextDialogView =
                                     layoutInflater.inflate(R.layout.edit_text_dialog, null)
@@ -172,7 +172,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
                                 builder.setTitle("New project")
                                     .setView(editTextDialogView)
                                     .setPositiveButton(R.string.dialog_action_create) { dialog, which ->
-                                        val project = TaskProject.build {
+                                        val project = TodoProject.build {
                                             name = textInputLayout.editTextStrValue!!
                                         }
                                         mFirestore.collection("users/" + mCurrentUser!!.uid + "/todoProjects")
@@ -238,7 +238,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
                 if (mAllowAccess) {
                     if (taskTitleTextInputLayout.editText!!.length() != 0) {
                         taskTitleTextInputLayout.isErrorEnabled = false
-                        val taskItem = TaskItem.build {
+                        val taskItem = TodoItem.build {
                             title = taskTitleTextInputLayout.editTextStrValue
                             if (taskContentTextInputLayout.editTextStrValue.isNotEmpty()) {
                                 content = taskContentTextInputLayout.editTextStrValue
@@ -258,7 +258,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
                             }
                             done = taskIsDoneCheckbox.isChecked
                         }
-                        TaskUtils.getInstance(mAuth, mFirestore).addTask(taskItem)
+                        TodoUtils.getInstance(mAuth, mFirestore).addTask(taskItem)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     Toast.makeText(

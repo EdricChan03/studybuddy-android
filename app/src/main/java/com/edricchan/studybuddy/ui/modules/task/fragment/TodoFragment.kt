@@ -22,19 +22,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.TaskOptionsPrefConstants
+import com.edricchan.studybuddy.constants.sharedprefs.TodoOptionsPrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
-import com.edricchan.studybuddy.interfaces.TaskItem
+import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
-import com.edricchan.studybuddy.ui.modules.task.adapter.TasksAdapter
-import com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils
+import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
+import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
@@ -56,8 +56,8 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
-class TaskFragment : Fragment(R.layout.frag_todo) {
-    private lateinit var adapter: TasksAdapter
+class TodoFragment : Fragment(R.layout.frag_todo) {
+    private lateinit var adapter: TodosAdapter
     private var firestoreListener: ListenerRegistration? = null
     private lateinit var fragmentView: View
     private lateinit var taskOptionsPrefs: SharedPreferences
@@ -69,7 +69,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
     private lateinit var prefs: SharedPreferences
     private lateinit var sharedPrefUtils: SharedPrefUtils
     private lateinit var uiUtils: UiUtils
-    private lateinit var taskUtils: TaskUtils
+    private lateinit var todoUtils: TodoUtils
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -147,6 +147,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
         sharedPrefUtils = SharedPrefUtils(requireContext())
         // Checks if old preference file exists
+        // TODO: Move to a separate class
         if (sharedPrefUtils.sharedPrefFileExists(SHARED_PREFS_FILE)) {
             Log.d(TAG, "Migrating shared preference file...")
             // Rename existing file to new file
@@ -155,7 +156,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                 try {
                     Files.move(
                         sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath(),
-                        sharedPrefUtils.getSharedPrefsFile(TaskOptionsPrefConstants.FILE_TASK_OPTIONS).toPath(),
+                        sharedPrefUtils.getSharedPrefsFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS).toPath(),
                         StandardCopyOption.REPLACE_EXISTING
                     )
                     // Delete existing
@@ -179,7 +180,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                 }
             } else {
                 val result = sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE)
-                    .renameTo(sharedPrefUtils.getSharedPrefsFile(TaskOptionsPrefConstants.FILE_TASK_OPTIONS))
+                    .renameTo(sharedPrefUtils.getSharedPrefsFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS))
                 if (result) {
                     Log.d(TAG, "Successfully migrated shared preference file!")
                 } else {
@@ -192,13 +193,13 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
         }
         // Migrate keys and their values
         taskOptionsPrefs = requireContext().getSharedPreferences(
-            TaskOptionsPrefConstants.FILE_TASK_OPTIONS,
+            TodoOptionsPrefConstants.FILE_TODO_OPTIONS,
             Context.MODE_PRIVATE
         )
         migrateTaskOptsPrefs()
         firestore = Firebase.firestore
         auth = FirebaseAuth.getInstance()
-        taskUtils = TaskUtils.getInstance(auth, firestore)
+        todoUtils = TodoUtils.getInstance(auth, firestore)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -239,7 +240,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 if (adapter != null) {
-                    taskUtils.removeTask(adapter!!.taskItemList[viewHolder.adapterPosition].id)
+                    todoUtils.removeTask(adapter!!.todoItemList[viewHolder.adapterPosition].id)
                 }
             }
         }).attachToRecyclerView(recyclerView)
@@ -308,40 +309,40 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                         itemNoneId -> {
                             taskOptionsPrefs.edit {
                                 putString(
-                                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TaskOptionsPrefConstants.TaskSortValues.NONE
+                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                    TodoOptionsPrefConstants.TodoSortValues.NONE
                                 )
                             }
                         }
                         itemTitleDescId -> {
                             taskOptionsPrefs.edit {
                                 putString(
-                                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TaskOptionsPrefConstants.TaskSortValues.TITLE_DESC
+                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                    TodoOptionsPrefConstants.TodoSortValues.TITLE_DESC
                                 )
                             }
                         }
                         itemTitleAscId -> {
                             taskOptionsPrefs.edit {
                                 putString(
-                                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TaskOptionsPrefConstants.TaskSortValues.TITLE_ASC
+                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                    TodoOptionsPrefConstants.TodoSortValues.TITLE_ASC
                                 )
                             }
                         }
                         itemDueDateNewestId -> {
                             taskOptionsPrefs.edit {
                                 putString(
-                                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TaskOptionsPrefConstants.TaskSortValues.DUE_DATE_NEW_TO_OLD
+                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                    TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_NEW_TO_OLD
                                 )
                             }
                         }
                         itemDueDateOldestId -> {
                             taskOptionsPrefs.edit {
                                 putString(
-                                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TaskOptionsPrefConstants.TaskSortValues.DUE_DATE_OLD_TO_NEW
+                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                    TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_OLD_TO_NEW
                                 )
                             }
                         }
@@ -394,19 +395,19 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
     private fun migrateTaskOptsPrefs() {
         Log.d(TAG, "Migrating task options shared preference keys...")
         if (taskOptionsPrefs.getString(
-                TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
+                TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
                 null
             ) != null
         ) {
             Log.d(TAG, "Old task sorting tag still exists.")
             // Old SharedPreference key still exists
             val oldValue = taskOptionsPrefs.getString(
-                TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
-                TaskOptionsPrefConstants.TaskSortValues.NONE
+                TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
+                TodoOptionsPrefConstants.TodoSortValues.NONE
             )
             taskOptionsPrefs.edit {
-                putString(TaskOptionsPrefConstants.PREF_DEFAULT_SORT, oldValue)
-                remove(TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD)
+                putString(TodoOptionsPrefConstants.PREF_DEFAULT_SORT, oldValue)
+                remove(TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD)
             }
         }
     }
@@ -416,41 +417,41 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
         val sortPref = if (prefs.getString(Constants.prefTodoDefaultSort, null) == null) {
             // TODO: Migrate old key's value to new key
             if (taskOptionsPrefs.getString(
-                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
+                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
                     null
                 ) == null
             ) {
                 taskOptionsPrefs.getString(
-                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT,
-                    TaskOptionsPrefConstants.TaskSortValues.NONE
+                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                    TodoOptionsPrefConstants.TodoSortValues.NONE
                 )
             } else {
                 taskOptionsPrefs.getString(
-                    TaskOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
-                    TaskOptionsPrefConstants.TaskSortValues.NONE
+                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
+                    TodoOptionsPrefConstants.TodoSortValues.NONE
                 )
             }
         } else {
             prefs.getString(
                 Constants.prefTodoDefaultSort,
-                TaskOptionsPrefConstants.TaskSortValues.NONE
+                TodoOptionsPrefConstants.TodoSortValues.NONE
             )
         }
         when (sortPref) {
-            TaskOptionsPrefConstants.TaskSortValues.NONE -> loadTasksList()
-            TaskOptionsPrefConstants.TaskSortValues.TITLE_DESC -> loadTasksList(
+            TodoOptionsPrefConstants.TodoSortValues.NONE -> loadTasksList()
+            TodoOptionsPrefConstants.TodoSortValues.TITLE_DESC -> loadTasksList(
                 "title",
                 Query.Direction.DESCENDING
             )
-            TaskOptionsPrefConstants.TaskSortValues.TITLE_ASC -> loadTasksList(
+            TodoOptionsPrefConstants.TodoSortValues.TITLE_ASC -> loadTasksList(
                 "title",
                 Query.Direction.ASCENDING
             )
-            TaskOptionsPrefConstants.TaskSortValues.DUE_DATE_NEW_TO_OLD -> loadTasksList(
+            TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_NEW_TO_OLD -> loadTasksList(
                 "dueDate",
                 Query.Direction.DESCENDING
             )
-            TaskOptionsPrefConstants.TaskSortValues.DUE_DATE_OLD_TO_NEW -> loadTasksList(
+            TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_OLD_TO_NEW -> loadTasksList(
                 "dueDate",
                 Query.Direction.ASCENDING
             )
@@ -471,10 +472,10 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                 Log.e(TAG, "Listen failed!", e)
                 return@EventListener
             }
-            val taskItemList = snapshot?.toObjects<TaskItem>() ?: listOf()
+            val taskItemList = snapshot?.toObjects<TodoItem>() ?: listOf()
 
-            val itemListener = object : TasksAdapter.OnItemClickListener {
-                override fun onItemClick(item: TaskItem, position: Int) {
+            val itemListener = object : TodosAdapter.OnItemClickListener {
+                override fun onItemClick(item: TodoItem, position: Int) {
                     Log.d(TAG, "Task: $item")
                     Log.d(TAG, "Task ID: ${item.id}")
                     startActivity<ViewTaskActivity> {
@@ -482,7 +483,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                     }
                 }
 
-                override fun onDeleteButtonClick(item: TaskItem, position: Int) {
+                override fun onDeleteButtonClick(item: TodoItem, position: Int) {
                     val builder = MaterialAlertDialogBuilder(context!!)
                     builder
                         .setTitle(R.string.todo_frag_delete_task_dialog_title)
@@ -491,7 +492,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                             dialog.dismiss()
                         }
                         .setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
-                            taskUtils.removeTask(item.id)
+                            todoUtils.removeTask(item.id)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
@@ -516,8 +517,8 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                         .show()
                 }
 
-                override fun onMarkAsDoneButtonClick(item: TaskItem, position: Int) {
-                    taskUtils.getTask(item.id)
+                override fun onMarkAsDoneButtonClick(item: TodoItem, position: Int) {
+                    todoUtils.getTask(item.id)
                         .update("done", !item.done!!)
                         .addOnCompleteListener { task ->
                             val isDoneStr = if (item.done) "done" else "undone"
@@ -561,14 +562,14 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
                         }
                 }
             }
-            adapter = TasksAdapter(requireContext(), taskItemList, itemListener)
+            adapter = TodosAdapter(requireContext(), taskItemList, itemListener)
             recyclerView.adapter = adapter
             /*if (mSelectionTracker == null) {
                 mSelectionTracker = SelectionTracker.Builder(
                         "selection-id",
                         mRecyclerView!!,
-                        TaskItemKeyProvider(taskItemList),
-                        TaskItemLookup(mRecyclerView!!),
+                        TodoItemKeyProvider(taskItemList),
+                        TodoItemLookup(mRecyclerView!!),
                         StorageStrategy.createStringStorage())
                         .withOnItemActivatedListener { item, event ->
                             val viewItemIntent = Intent(context, ViewTaskActivity::class.java)
@@ -668,7 +669,7 @@ class TaskFragment : Fragment(R.layout.frag_todo) {
             */
         }
         swipeRefreshLayout.isRefreshing = true
-        val collectionRef = taskUtils.taskCollectionRef
+        val collectionRef = todoUtils.taskCollectionRef
         firestoreListener = if (fieldPath != null && direction != null) {
             collectionRef.orderBy(fieldPath, direction)
                 .addSnapshotListener(listener)

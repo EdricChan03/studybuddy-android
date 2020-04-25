@@ -7,7 +7,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
 
 /**
- * Specifies a task
+ * Specifies a task (in the old format)
  * @property content The contents of this task
  * @property dueDate The due date of this task
  * @property done Whether the task is initially marked as done
@@ -18,7 +18,7 @@ import com.google.firebase.firestore.ServerTimestamp
  * @property title The title of this task
  */
 @IgnoreExtraProperties
-data class TaskItem(
+data class TodoItem(
     @DocumentId override var id: String = "",
     val content: String? = null,
     val dueDate: Timestamp? = null,
@@ -47,14 +47,14 @@ data class TaskItem(
 
     companion object {
         /**
-         * Creates a [TaskItem] using a [Builder] (with support for inlined setting of variables)
-         * @return The created [TaskItem]
+         * Creates a [TodoItem] using a [Builder] (with support for inlined setting of variables)
+         * @return The created [TodoItem]
          */
         inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
     }
 
     /**
-     * Builder object for simplifying the creation of a [TaskItem] class
+     * Builder object for simplifying the creation of a [TodoItem] class
      */
     class Builder {
         /**
@@ -101,9 +101,9 @@ data class TaskItem(
         var lastModified: Timestamp? = null
 
         /**
-         * Returns the created [TaskItem]
-         * @return The created [TaskItem]
+         * Returns the created [TodoItem]
+         * @return The created [TodoItem]
          */
-        fun build() = TaskItem(this)
+        fun build() = TodoItem(this)
     }
 }

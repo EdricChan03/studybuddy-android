@@ -2,7 +2,7 @@ package com.edricchan.studybuddy.ui.modules.task.adapter.itemkeyprovider
 
 import android.os.Build
 import androidx.recyclerview.selection.ItemKeyProvider
-import com.edricchan.studybuddy.interfaces.TaskItem
+import com.edricchan.studybuddy.interfaces.TodoItem
 import java8.util.stream.IntStreams
 import java.util.*
 import java.util.stream.IntStream
@@ -12,8 +12,8 @@ import java.util.stream.IntStream
  *
  * @param mItemList The list of tasks
  */
-class TaskItemKeyProvider(
-    private val mItemList: List<TaskItem>
+class TodoItemKeyProvider(
+    private val mItemList: List<TodoItem>
 ) : ItemKeyProvider<String>(ItemKeyProvider.SCOPE_CACHED) {
     private val mKeyToPosition: MutableMap<String, Int>
 
@@ -43,7 +43,7 @@ class TaskItemKeyProvider(
      * @return The position of the first occurrence of the document ID
      */
     @Deprecated("")
-    private fun getTaskItemPosition(list: List<TaskItem>, id: String): Int {
+    private fun getTaskItemPosition(list: List<TodoItem>, id: String): Int {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             IntStream.range(0, list.size)
                 .filter { index -> list[index].id == id }

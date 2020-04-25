@@ -13,7 +13,7 @@ import com.google.firebase.firestore.ServerTimestamp
  * @property name The name of this project
  */
 @IgnoreExtraProperties
-data class TaskProject(
+data class TodoProject(
     @DocumentId override var id: String = "",
     var color: String? = null,
     var name: String? = null,
@@ -29,8 +29,8 @@ data class TaskProject(
 
     companion object {
         /**
-         * Creates a [TaskItem] using a [Builder] (with support for inlined setting of variables)
-         * @return The created [TaskItem]
+         * Creates a [TodoItem] using a [Builder] (with support for inlined setting of variables)
+         * @return The created [TodoItem]
          */
         inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
     }
@@ -155,9 +155,9 @@ data class TaskProject(
         }
 
         /**
-         * Creates the [TaskProject]
-         * @return The created [TaskProject]
+         * Creates the [TodoProject]
+         * @return The created [TodoProject]
          */
-        fun build() = TaskProject(this)
+        fun build() = TodoProject(this)
     }
 }

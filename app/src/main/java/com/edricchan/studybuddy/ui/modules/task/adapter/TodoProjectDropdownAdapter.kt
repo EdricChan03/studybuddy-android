@@ -7,20 +7,20 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.interfaces.TaskProject
+import com.edricchan.studybuddy.interfaces.TodoProject
 
-class TaskProjectDropdownAdapter(
+class TodoProjectDropdownAdapter(
     context: Context,
     textViewResourceId: Int,
-    private val projects: List<TaskProject>
-) : ArrayAdapter<TaskProject>(context, textViewResourceId, projects) {
+    private val projects: List<TodoProject>
+) : ArrayAdapter<TodoProject>(context, textViewResourceId, projects) {
 
     /*override fun getCount(): Int {
         val count = super.getCount()
         return if (count > 0) count else count
     }*/
 
-    override fun getItem(position: Int): TaskProject? {
+    override fun getItem(position: Int): TodoProject? {
         return projects[position]
     }
 
@@ -29,8 +29,8 @@ class TaskProjectDropdownAdapter(
      *
      * @param position The position of the task project
      */
-    @Deprecated("Use TaskProjectDropdownAdapter#getItem(int) instead")
-    fun getTaskProject(position: Int): TaskProject? {
+    @Deprecated("Use TodoProjectDropdownAdapter#getItem(int) instead")
+    fun getTaskProject(position: Int): TodoProject? {
         return getItem(position)
     }
 
@@ -50,7 +50,7 @@ class TaskProjectDropdownAdapter(
      * @param id The ID to search for
      * @return The task project
      */
-    fun getTaskProjectById(id: String): TaskProject? {
+    fun getTaskProjectById(id: String): TodoProject? {
         for (project in projects) {
             if (project.id == id) {
                 return project

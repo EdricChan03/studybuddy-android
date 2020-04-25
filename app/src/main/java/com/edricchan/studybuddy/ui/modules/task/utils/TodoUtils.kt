@@ -1,6 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.task.utils
 
-import com.edricchan.studybuddy.interfaces.TaskItem
+import com.edricchan.studybuddy.interfaces.TodoItem
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
  * @param user The currently logged-in [user][FirebaseUser].
  * @param fs An instance of [FirebaseFirestore].
  */
-class TaskUtils(
+class TodoUtils(
     private val user: FirebaseUser?,
     private val fs: FirebaseFirestore
 ) {
@@ -34,7 +34,7 @@ class TaskUtils(
      * @param item The task item to add
      * @return The result.
      */
-    fun addTask(item: TaskItem): Task<DocumentReference> {
+    fun addTask(item: TodoItem): Task<DocumentReference> {
         return taskCollectionRef.add(item)
     }
 
@@ -62,7 +62,7 @@ class TaskUtils(
          * @param user The currently logged-in [user][FirebaseUser].
          * @param fs An instance of [FirebaseFirestore].
          */
-        fun getInstance(user: FirebaseUser, fs: FirebaseFirestore) = TaskUtils(user, fs)
+        fun getInstance(user: FirebaseUser, fs: FirebaseFirestore) = TodoUtils(user, fs)
 
         /**
          * Creates a new instance of the utility class.
@@ -70,6 +70,6 @@ class TaskUtils(
          * @param fs An instance of [FirebaseFirestore].
          */
         fun getInstance(auth: FirebaseAuth, fs: FirebaseFirestore) =
-            TaskUtils(auth.currentUser, fs)
+            TodoUtils(auth.currentUser, fs)
     }
 }

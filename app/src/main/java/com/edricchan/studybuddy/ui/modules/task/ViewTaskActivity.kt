@@ -12,10 +12,10 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.firebase.toDateFormat
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.interfaces.TaskItem
+import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
-import com.edricchan.studybuddy.ui.modules.task.utils.TaskUtils
+import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar.Duration
@@ -39,9 +39,9 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var taskDocument: DocumentReference
     private lateinit var taskId: String
-    private lateinit var taskUtils: TaskUtils
+    private lateinit var todoUtils: TodoUtils
     private var currentUser: FirebaseUser? = null
-    private var taskItem: TaskItem? = null
+    private var todoItem: TodoItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
         firestore = Firebase.firestore
         auth = FirebaseAuth.getInstance()
         currentUser = auth.currentUser
-        taskUtils = TaskUtils.getInstance(auth, firestore)
+        todoUtils = TodoUtils.getInstance(auth, firestore)
 
         taskId = intent.getStringExtra(EXTRA_TASK_ID) ?: ""
         if (taskId.isEmpty()) {
@@ -61,13 +61,13 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
             ).show()
             finish()
         } else {
-            taskDocument = taskUtils.getTask(taskId)
+            taskDocument = todoUtils.getTask(taskId)
         }
         Log.d(TAG, "Task ID: $taskId")
 
         bottomAppBar.replaceMenu(R.menu.menu_view_task)
 
-        if (taskItem?.archived == true) {
+        if (todoItem?.archived == true) {
             // Task has already been archived - show the unarchive menu item instead
             bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = true
             bottomAppBar.menu.findItem(R.id.action_archive).isVisible = false
@@ -83,7 +83,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Delete todo?")
                         .setPositiveButton(R.string.dialog_action_ok) { _, _ ->
-                            taskUtils.removeTask(taskId)
+                            todoUtils.removeTask(taskId)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         Toast.makeText(
@@ -118,28 +118,28 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                 }
                 R.id.action_mark_as_done -> {
                     taskDocument
-                        .update("done", !taskItem?.done!!)
+                        .update("done", !todoItem?.done!!)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 showSnackbar(
                                     "Successfully marked task as " +
-                                            if (!taskItem!!.done!!) "done" else "undone",
+                                            if (!todoItem!!.done!!) "done" else "undone",
                                     Snackbar.LENGTH_SHORT
                                 )
                                 Log.d(
                                     TAG,
-                                    "Task marked as " + if (!taskItem!!.done!!) "done" else "undone"
+                                    "Task marked as " + if (!todoItem!!.done!!) "done" else "undone"
                                 )
                             } else {
                                 showSnackbar(
                                     "An error occurred while marking the todo as " +
-                                            if (!taskItem!!.done!!) "done" else "undone",
+                                            if (!todoItem!!.done!!) "done" else "undone",
                                     Snackbar.LENGTH_LONG
                                 )
                                 Log.e(
                                     TAG,
                                     "An error occurred while marking the todo as " +
-                                            if (!taskItem!!.done!!) "done" else "undone",
+                                            if (!todoItem!!.done!!) "done" else "undone",
                                     task.exception
                                 )
                             }
@@ -148,7 +148,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                 }
                 R.id.action_archive -> {
                     // Variable to indicate whether task was already archived
-                    val hasArchived = taskItem?.archived ?: false
+                    val hasArchived = todoItem?.archived ?: false
                     Log.d(TAG, "Archived state: $hasArchived")
                     taskDocument
                         .update("archived", !hasArchived)
@@ -175,7 +175,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                 }
                 R.id.action_unarchive -> {
                     // Variable to indicate whether task was already archived
-                    val hasArchived = taskItem?.archived ?: true
+                    val hasArchived = todoItem?.archived ?: true
                     Log.d(TAG, "Archived state: $hasArchived")
                     taskDocument
                         .update("archived", !hasArchived)
@@ -248,8 +248,8 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (taskItem != null && taskItem?.title != null) {
-            outState.putString(TASK_TITLE_TAG, taskItem?.title)
+        if (todoItem != null && todoItem?.title != null) {
+            outState.putString(TASK_TITLE_TAG, todoItem?.title)
         }
     }
 
@@ -274,11 +274,11 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                     )
                 } else {
                     if (documentSnapshot != null && documentSnapshot.exists()) {
-                        setViews(documentSnapshot.toObject<TaskItem>())
-                        taskItem = documentSnapshot.toObject<TaskItem>()
-                        Log.d(TAG, "Task item: $taskItem")
+                        setViews(documentSnapshot.toObject<TodoItem>())
+                        todoItem = documentSnapshot.toObject<TodoItem>()
+                        Log.d(TAG, "Task item: $todoItem")
                         Log.d(TAG, "Document snapshot data: ${documentSnapshot.data}")
-                        title = taskItem?.title
+                        title = todoItem?.title
                     }
                 }
             }
@@ -322,7 +322,7 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
      *
      * @param item The task item
      */
-    private fun setViews(item: TaskItem?) {
+    private fun setViews(item: TodoItem?) {
         if (item?.content != null) {
             Markwon.builder(this)
                 .usePlugin(GlideImagesPlugin.create(this))

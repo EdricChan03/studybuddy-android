@@ -30,7 +30,7 @@ import com.edricchan.studybuddy.ui.modules.help.HelpActivity
 import com.edricchan.studybuddy.ui.modules.main.fragment.NavBottomSheetDialogFragment
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
-import com.edricchan.studybuddy.ui.modules.task.fragment.TaskFragment
+import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.NotificationUtils
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             NotificationUtils.createNotificationChannels(this@MainActivity)
         }
         // Initially set a fragment view
-        SharedUtils.replaceFragment(this@MainActivity, TaskFragment(), R.id.content_main, false)
+        SharedUtils.replaceFragment(this@MainActivity, TodoFragment(), R.id.content_main, false)
         contentMain = findViewById(R.id.content_main)
         /*navigationView = findViewById(R.id.bottom_navigation_view);
         navigationView.setOnNavigationItemSelectedListener((@NonNull MenuItem item) -> {
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                     SharedUtils.replaceFragment(MainActivity.this, new ChatFragment(), R.id.content_main, true);
                     break;
                 case R.id.navigation_todos:
-                    SharedUtils.replaceFragment(MainActivity.this, new TaskFragment(), R.id.content_main, true);
+                    SharedUtils.replaceFragment(MainActivity.this, new TodoFragment(), R.id.content_main, true);
                     break;
                 case R.id.navigation_tips:
                     SharedUtils.replaceFragment(MainActivity.this, new TipsFragment(), R.id.content_main, true);
@@ -260,7 +260,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                             R.id.navigation_todos -> {
                                 SharedUtils.replaceFragment(
                                     this@MainActivity,
-                                    TaskFragment(),
+                                    TodoFragment(),
                                     R.id.content_main,
                                     true
                                 )
@@ -292,7 +292,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                     when (supportFragmentManager.findFragmentById(R.id.content_main)) {
                         is CalendarFragment -> R.id.navigation_calendar
                         is ChatFragment -> R.id.navigation_chat
-                        is TaskFragment -> R.id.navigation_todos
+                        is TodoFragment -> R.id.navigation_todos
                         is TipsFragment -> R.id.navigation_tips
                         else -> 0 // Resources.ID_NULL
                     }

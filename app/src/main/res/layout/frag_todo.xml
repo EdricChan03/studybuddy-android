@@ -42,7 +42,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/taskadapter_item_row"
+            tools:listitem="@layout/todos_adapter_item_row"
             tools:visibility="visible" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
