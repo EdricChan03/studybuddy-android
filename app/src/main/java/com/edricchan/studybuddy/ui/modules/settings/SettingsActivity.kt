@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -22,14 +23,14 @@ import com.edricchan.studybuddy.utils.WebUtils
 @AppDeepLink(["/settings"])
 class SettingsActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-    private var preferences: SharedPreferences? = null
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         if (savedInstanceState == null) {
-            SharedUtils.replaceFragment(this, SettingsFragment(), android.R.id.content, false)
+            setCurrentFragment(SettingsFragment(), /* addToBackStack = */ false)
         } else {
             title = savedInstanceState.getCharSequence(TITLE_TAG)
         }
@@ -83,17 +84,21 @@ class SettingsActivity : AppCompatActivity(),
         // Instantiate the new Fragment
         val args = pref.extras
         val fragment = supportFragmentManager.fragmentFactory.instantiate(
-            classLoader,
-            pref.fragment
-        )
+                classLoader,
+                pref.fragment
+            )
             .apply {
                 arguments = args
                 setTargetFragment(caller, 0)
             }
         title = pref.title
         // Replace the existing Fragment with the new Fragment
-        SharedUtils.replaceFragment(this, fragment, android.R.id.content, true)
+        setCurrentFragment(fragment)
         return true
+    }
+
+    private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+        SharedUtils.replaceFragment(this, fragment, android.R.id.content, addToBackStack)
     }
 
     companion object {
