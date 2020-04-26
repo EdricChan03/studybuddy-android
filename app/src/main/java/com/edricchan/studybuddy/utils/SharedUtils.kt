@@ -44,70 +44,29 @@ class SharedUtils {
          * Replaces a view with an initialised fragment.
          * Note: This method checks if there's already a fragment in the view.
          *
-         * @param activity       The activity.
-         * @param fragment       The fragment to replace the view with. (Needs to be initialised with a `new` constructor).
-         * @param viewId         The ID of the view.
-         * @param tag            The tag to assign to the fragment.
+         * @param activity The activity.
+         * @param fragment The fragment to replace the view with. (Needs to be initialised with a `new` constructor).
+         * @param viewId The ID of the view.
          * @param addToBackStack Whether to add the fragment to the back stack.
+         * @param hasAnimations Whether there should be custom animations.
          * @return True if the fragment was replaced, false if there's already an existing fragment.
          */
         fun replaceFragment(
             activity: AppCompatActivity,
             fragment: Fragment, @IdRes viewId: Int,
-            tag: String,
-            addToBackStack: Boolean
-        ): Boolean {
-            // Check if fragment already has been replaced
-            if (activity.supportFragmentManager.findFragmentByTag(tag) !== fragment && activity.supportFragmentManager.findFragmentById(
-                    viewId
-                ) !== fragment
-            ) {
-                val transaction = activity.supportFragmentManager.beginTransaction()
-                transaction.setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
-                transaction.replace(
-                    viewId,
-                    fragment,
-                    tag
-                )
-                if (addToBackStack) {
-                    transaction.addToBackStack(null)
-                }
-                transaction.commit()
-                // Indicate that the fragment replacement has been done.
-                return true
-            }
-            // Return false if there's already an existing fragment.
-            return false
-        }
-
-        /**
-         * Replaces a view with an initialised fragment.
-         * Note: This method checks if there's already a fragment in the view.
-         *
-         * @param activity       The activity.
-         * @param fragment       The fragment to replace the view with. (Needs to be initialised with a `new` constructor).
-         * @param viewId         The ID of the view.
-         * @param addToBackStack Whether to add the fragment to the back stack.
-         * @return True if the fragment was replaced, false if there's already an existing fragment.
-         */
-        fun replaceFragment(
-            activity: AppCompatActivity,
-            fragment: Fragment, @IdRes viewId: Int,
-            addToBackStack: Boolean
+            addToBackStack: Boolean,
+            hasAnimations: Boolean = true
         ): Boolean {
             if (activity.supportFragmentManager.findFragmentById(viewId) !== fragment) {
                 val transaction = activity.supportFragmentManager.beginTransaction()
-                transaction.setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
+                if (hasAnimations) {
+                    transaction.setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
+                }
                 transaction.replace(
                     viewId,
                     fragment
