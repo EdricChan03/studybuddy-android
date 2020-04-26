@@ -390,7 +390,7 @@ class SharedUtils {
          * Whether the app is in developer mode.
          * @param context The context to be used to retrieve the developer mode options from.
          * @param useSharedPrefsOnly Whether to only check from shared preferences
-         * @return [true] if the app is in developer mode, [false] otherwise.
+         * @return `true` if the app is in developer mode, `false` otherwise.
          */
         fun isDevMode(context: Context, useSharedPrefsOnly: Boolean = false): Boolean {
             val devModeOpts = context.getSharedPreferences(
