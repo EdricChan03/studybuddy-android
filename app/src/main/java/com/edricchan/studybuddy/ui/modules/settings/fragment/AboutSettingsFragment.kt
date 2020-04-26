@@ -48,7 +48,7 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
             tapsToDev
         }
         findPreference<Preference>(Constants.prefAboutAppVersion)?.apply {
-            summary = BuildConfig.VERSION_NAME
+            summary = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
             setOnPreferenceClickListener {
                 if (!devModeOptions.getBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)) {
                     Log.d(TAG, "User has disabled overriding of developer mode.")
