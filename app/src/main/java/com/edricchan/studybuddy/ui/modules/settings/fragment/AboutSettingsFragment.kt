@@ -27,8 +27,10 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
     private lateinit var preferences: SharedPreferences
     private lateinit var devModeOptions: SharedPreferences
     private lateinit var webUtils: WebUtils
+
     // Number of times the version code has been clicked
     private var devHitCountdown by Delegates.notNull<Int>()
+
     // Max number of clicks to unlock
     private val tapsToDev: Int = 7
 
@@ -36,8 +38,10 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.pref_about, rootKey)
         preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         devModeOptions =
-            requireContext().getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE,
-                Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(
+                DevModePrefConstants.FILE_DEV_MODE,
+                Context.MODE_PRIVATE
+            )
         webUtils = WebUtils.getInstance(requireContext())
 
         devHitCountdown = if (devModeOptions
@@ -70,10 +74,10 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
                                 devModeOptions.edit {
                                     putBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)
                                     Toast.makeText(
-                                        context,
-                                        R.string.dev_mode_disabled,
-                                        Toast.LENGTH_SHORT
-                                    )
+                                            context,
+                                            R.string.dev_mode_disabled,
+                                            Toast.LENGTH_SHORT
+                                        )
                                         .show()
                                 }
                                 dialog.dismiss()
