@@ -16,6 +16,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.utils.WebUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -73,37 +74,34 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
                             setNegativeButton(R.string.dialog_action_disable) { dialog, _ ->
                                 devModeOptions.edit {
                                     putBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)
-                                    Toast.makeText(
-                                            context,
-                                            R.string.dev_mode_disabled,
-                                            Toast.LENGTH_SHORT
-                                        )
-                                        .show()
+                                    showToast(
+                                        R.string.dev_mode_disabled,
+                                        Toast.LENGTH_SHORT
+                                    )
                                 }
                                 dialog.dismiss()
                             }
                             setPositiveButton(R.string.dialog_action_enable) { dialog, _ ->
                                 devModeOptions.edit {
                                     putBoolean(DevModePrefConstants.DEV_MODE_ENABLED, true)
-                                    Toast.makeText(
-                                        context,
+                                    showToast(
                                         R.string.dev_mode_on,
                                         Toast.LENGTH_SHORT
-                                    ).show()
+                                    )
                                 }
                                 dialog.dismiss()
                             }
                         }.show()
                     } else if (devHitCountdown > 0 && devHitCountdown < (tapsToDev - 2)) {
-                        Toast.makeText(
-                            context, context.resources.getQuantityString(
+                        showToast(
+                            context.resources.getQuantityString(
                                 R.plurals.dev_mode_countdown, devHitCountdown,
                                 devHitCountdown
                             ), Toast.LENGTH_SHORT
-                        ).show()
+                        )
                     }
                 } else if (devHitCountdown < 0) {
-                    Toast.makeText(context, R.string.dev_mode_already, Toast.LENGTH_LONG).show()
+                    showToast(R.string.dev_mode_already, Toast.LENGTH_LONG)
                 }
                 true
             }
