@@ -108,7 +108,6 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
             BuildConfig.VERSION_CODE.toString()
         findPreference<Preference>(Constants.prefAboutAppBuildVariant)?.summary =
             BuildConfig.BUILD_TYPE
-//		findPreference<Preference>(Constants.prefUpdates)?.intent = Intent(activity, UpdatesActivity::class.java)
         findPreference<Preference>(Constants.prefAboutSourceCode)?.setOnPreferenceClickListener {
             webUtils.launchUri(Constants.uriSrcCode)
             true
