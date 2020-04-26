@@ -118,7 +118,7 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
             true
         }
         findPreference<Preference>(Constants.prefAboutAppInfo)?.intent =
-            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:" + BuildConfig.APPLICATION_ID))
+            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:${BuildConfig.APPLICATION_ID}"))
         findPreference<Preference>(Constants.prefAboutLicenses)?.intent =
             Intent(activity, OssLicensesMenuActivity::class.java)
     }
