@@ -25,6 +25,7 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.utils.IOUtils
+import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -273,9 +274,8 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
                 // Check if the device is running Android Marshmallow or higher
                 // Marshmallow introduces the capability for runtime permissions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (SharedUtils.checkPermissionGranted(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            this@UpdatesActivity
+                    if (PermissionUtils.getInstance(this@UpdatesActivity).checkPermissionGranted(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
                         )
                     ) {
                         downloadUpdate(appUpdate.urlToDownload.toString(), appUpdate.latestVersion)

@@ -291,28 +291,6 @@ class SharedUtils {
         }
 
         /**
-         * Checks if the permission is granted.
-         * Returns false if the permission isn't granted, true otherwise.
-         *
-         * @param permission The permission to check
-         * @param context    The context
-         * @return A boolean
-         */
-        @Deprecated(
-            "Use com.edricchan.studybuddy.utils.PermissionUtils#checkPermissionGranted instead.",
-            ReplaceWith(
-                "PermissionUtils.getInstance(context).checkPermissionGranted(permission)",
-                "com.edricchan.studybuddy.utils.PermissionUtils"
-            )
-        )
-        fun checkPermissionGranted(permission: String, context: Context): Boolean {
-            return ContextCompat.checkSelfPermission(
-                context,
-                permission
-            ) == PackageManager.PERMISSION_GRANTED
-        }
-
-        /**
          * Enqueues the [CheckForUpdatesWorker] request
          * @param context The context
          * @return The results of the enqueued worker request
