@@ -34,11 +34,11 @@ class AboutSettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_about, rootKey)
-        val context = activity
-        preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
+        preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         devModeOptions =
-            context.getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE, Context.MODE_PRIVATE)
-        webUtils = WebUtils.getInstance(context)
+            requireContext().getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE,
+                Context.MODE_PRIVATE)
+        webUtils = WebUtils.getInstance(requireContext())
 
         devHitCountdown = if (devModeOptions
                 .getBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)
