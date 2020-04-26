@@ -34,7 +34,7 @@ class FirebaseCrashlyticsUtils {
         /**
          * Enables Firebase Crashlytics user tracking for the currently logged-in user.
          *
-         * @param auth An instance of [FirebaseAuth], retrieved from [FirebaseAuth.getInstance]
+         * @param auth An instance of [FirebaseAuth].
          * @param enabled Whether to enable user tracking.
          */
         fun setCrashlyticsUserTracking(auth: FirebaseAuth, enabled: Boolean) {
