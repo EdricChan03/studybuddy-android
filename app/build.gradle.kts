@@ -256,8 +256,9 @@ dependencies {
     implementation(deps.misc.about)
     implementation(deps.misc.appUpdater)
     implementation(deps.misc.gson)
-    implementation(deps.misc.takisoftPreferencex)
     implementation(deps.misc.imagePicker)
+    implementation(deps.misc.streamSupport)
+    implementation(deps.misc.takisoftPreferencex)
     implementation(deps.licenses.ossLicenses)
 
     // DeepLinkDispatch dependencies

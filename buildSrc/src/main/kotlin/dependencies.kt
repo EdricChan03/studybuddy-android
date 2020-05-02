@@ -96,6 +96,7 @@ object deps {
         const val appUpdater = "com.github.javiersantos:AppUpdater:2.7"
         const val gson = "com.google.code.gson:gson:2.8.6"
         const val imagePicker = "com.github.esafirm.android-image-picker:imagepicker:2.1.0"
+        const val streamSupport = "net.sourceforge.streamsupport:streamsupport:1.7.2"
         const val takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
     }
 
