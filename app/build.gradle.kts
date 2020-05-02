@@ -219,118 +219,84 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
-    // AndroidX Test
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
-    androidTestImplementation("androidx.test:core:1.3.0-beta01")
-    androidTestImplementation("androidx.test:runner:1.3.0-beta01")
-    androidTestImplementation("androidx.test:rules:1.3.0-beta01")
-    testImplementation("org.mockito:mockito-core:3.3.3")
-    // AndroidX Core
-    implementation("androidx.core:core-ktx:1.3.0-rc01")
-    // AppCompat
-    implementation("androidx.appcompat:appcompat:1.2.0-beta01")
-    // ConstraintLayout
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
-    // Design Support
-    implementation("com.google.android.material:material:1.2.0-alpha06")
-    // RecyclerView
-    implementation("androidx.recyclerview:recyclerview:1.2.0-alpha03")
-    implementation("androidx.recyclerview:recyclerview-selection:1.1.0-rc01")
-    // SwipeRefreshLayout
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01")
-    // Chrome Custom Tabs
-    implementation("androidx.browser:browser:1.3.0-alpha01")
-    testImplementation("junit:junit:4.13")
-    // Firebase stuff
-    implementation("com.google.firebase:firebase-analytics-ktx:17.4.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:21.4.3")
-    implementation("com.google.firebase:firebase-auth-ktx:19.3.1")
-    implementation("com.google.firebase:firebase-messaging:20.1.6")
-    implementation("com.google.android.gms:play-services-auth:18.0.0")
-    implementation("com.google.firebase:firebase-perf:19.0.7")
-    implementation("com.google.firebase:firebase-dynamic-links-ktx:19.1.0")
-    implementation("com.google.guava:guava:29.0-android")
-    // Provide a way to update the app
-    implementation("com.github.javiersantos:AppUpdater:2.7")
-    // Crashlytics
-    implementation("com.google.firebase:firebase-crashlytics:17.0.0")
-    // For JSON parsing
-    implementation("com.google.code.gson:gson:2.8.6")
-    // Emoji AppCompat
-    implementation("androidx.emoji:emoji-appcompat:1.1.0-rc01")
-    // AndroidX Preference
-    implementation("androidx.preference:preference-ktx:1.1.1")
-    // AndroidX WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.4.0-alpha03")
+    // Test dependencies
+    androidTestImplementation(deps.test.android.espressoCore)
+    androidTestImplementation(deps.test.android.testCore)
+    androidTestImplementation(deps.test.android.runner)
+    androidTestImplementation(deps.test.android.rules)
+    testImplementation(deps.test.mockitoCore)
+    testImplementation(deps.test.junit)
 
-    // Custom Preferences
-    /*
-    - New releases to the AndroidX preference library have broken the following 2 libraries
-      (this has since been fixed in newer versions of the library)
-    - See https://github.com/takisoft/preferencex-android/issues/4 for the relevant issue
-      and https://issuetracker.google.com/issues/128579401 for the issue tracker
-    */
-    implementation("com.takisoft.preferencex:preferencex:1.1.0")
-    // implementation("com.takisoft.preferencex:preferencex-datetimepicker:1.1.0-alpha05")
+    // AndroidX dependencies
+    implementation(deps.android.androidx.coreKtx)
+    implementation(deps.android.androidx.appCompat)
+    implementation(deps.android.androidx.browser)
+    implementation(deps.android.androidx.cardView)
+    implementation(deps.android.androidx.constraintLayout)
+    implementation(deps.android.androidx.emojiAppCompat)
+    implementation(deps.android.androidx.materialComponents)
+    implementation(deps.android.androidx.preferenceKtx)
+    implementation(deps.android.androidx.recyclerView)
+    implementation(deps.android.androidx.recyclerViewSelection)
+    implementation(deps.android.androidx.swipeRefreshLayout)
+    implementation(deps.android.androidx.workRuntimeKtx)
 
-    // Image picker
-    implementation("com.github.esafirm.android-image-picker:imagepicker:2.1.0")
+    // Firebase dependencies
+    implementation(deps.firebase.analyticsKtx)
+    implementation(deps.firebase.authKtx)
+    implementation(deps.firebase.playServicesAuth)
+    implementation(deps.firebase.crashlytics)
+    implementation(deps.firebase.dynamicLinksKtx)
+    implementation(deps.firebase.firestoreKtx)
+    implementation(deps.firebase.messaging)
+    implementation(deps.firebase.perf)
+    implementation(deps.firebase.guava)
 
-    // About screen
-    implementation("com.github.daniel-stoneuk:material-about-library:2.4.2")
-    // Explicitly specify the AndroidX CardView library for now
-    implementation("androidx.cardview:cardview:1.0.0")
+    // Other dependencies
+    implementation(deps.misc.about)
+    implementation(deps.misc.appUpdater)
+    implementation(deps.misc.gson)
+    implementation(deps.misc.takisoftPreferencex)
+    implementation(deps.misc.imagePicker)
+    implementation(deps.licenses.ossLicenses)
 
-    // Markwon - Markdown parser for Android
+    // DeepLinkDispatch dependencies
+    implementation(deps.deepLink.deepLinkDispatch)
+    kapt(deps.deepLink.processor)
+
+    // Glide dependencies
+    implementation(deps.glide.glide)
+    kapt(deps.glide.compiler)
+
+    // Markwon dependencies
     // See https://noties.io/Markwon for more info
-    val markwon_version = "4.3.1"
-    implementation("io.noties.markwon:core:$markwon_version")
-    implementation("io.noties.markwon:editor:$markwon_version")
-    implementation("io.noties.markwon:ext-strikethrough:$markwon_version")
-    implementation("io.noties.markwon:ext-tables:$markwon_version")
-    implementation("io.noties.markwon:ext-tasklist:$markwon_version")
-    implementation("io.noties.markwon:html:$markwon_version")
-    implementation("io.noties.markwon:image-glide:$markwon_version")
-    implementation("io.noties.markwon:linkify:$markwon_version")
-    implementation("io.noties.markwon:syntax-highlight:$markwon_version")
+    implementation(deps.markwon.core)
+    implementation(deps.markwon.editor)
+    implementation(deps.markwon.ext.strikethrough)
+    implementation(deps.markwon.ext.tables)
+    implementation(deps.markwon.ext.tasklist)
+    implementation(deps.markwon.html)
+    implementation(deps.markwon.imageGlide)
+    implementation(deps.markwon.linkify)
+    implementation(deps.markwon.syntaxHighlight)
     // See https://github.com/noties/Markwon/issues/148#issuecomment-508003794
     configurations.all {
         exclude("org.jetbrains", "annotations-java5")
     }
 
-    // Used to handle loading of remote images
-    implementation("com.github.bumptech.glide:glide:4.11.0")
-    kapt("com.github.bumptech.glide:compiler:4.11.0")
-
-    // ExpandableLayout
-    implementation("net.cachapa.expandablelayout:expandablelayout:2.9.2")
-
-    // OSS licenses library to show open source licenses
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    // Backported Java Stream library for Java 6/7
-    implementation("net.sourceforge.streamsupport:streamsupport:1.7.2")
-
-    // Support for Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.extra["kotlin_version"]}")
-
-    // Support for parsing Deep Links
-    implementation("com.airbnb:deeplinkdispatch:5.1.0")
-    kapt("com.airbnb:deeplinkdispatch-processor:5.1.0")
+    // Kotlin dependencies
+    implementation(deps.kotlin.stdlibJdk8)
 }
 
 kapt {
     arguments {
         // See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for
         // more info
-        arg("deepLink.incremental", "true")
-        arg(
-            "deepLink.customAnnotations",
-            "com.edricchan.studybuddy.annotations.AppDeepLink,"
-                    + "com.edricchan.studybuddy.annotations.WebDeepLink"
-        )
+        arg("deepLink.incremental", deps.build.deepLink.incremental)
+        arg("deepLink.customAnnotations", deps.build.deepLink.customAnnotations)
         // Add support for documenting deep links
         // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for
         // more info
-        arg("deepLinkDoc.output", "${rootDir}/docs/deeplinks.md")
+        arg("deepLinkDoc.output", "${rootDir}${deps.build.deepLink.outputSuffix}")
     }
 }

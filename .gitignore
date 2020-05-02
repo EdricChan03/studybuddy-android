@@ -6,6 +6,7 @@
 
 # Local configuration
 /local.properties
+*/local.properties
 
 # Android Studio
 /.idea/workspace.xml
@@ -16,6 +17,7 @@
 
 # Android builds
 /build
+*/build
 /captures
 .externalNativeBuild
 
