@@ -158,8 +158,6 @@ android {
             // Reduce amount of time needed to compile app in debug mode
             // Can be accessed with BuildConfig.BUILD_TIME
             buildConfigField("Long", "BUILD_TIME", "0L")
-            // Can be accessed with R.int.build_time
-            resValue("integer", "build_time", "0")
             extra["currentVariant"] = "debug"
         }
         maybeCreate("release").apply {
@@ -168,9 +166,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs["release"]
             // Can be accessed with BuildConfig.BUILD_TIME
-            buildConfigField("long", "BUILD_TIME", System.currentTimeMillis().toString())
-            // Can be accessed with R.int.build_time
-            resValue("integer", "build_time", System.currentTimeMillis().toInt().toString())
+            buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
             extra["currentVariant"] = "release"
         }
         maybeCreate("nightly").apply {
