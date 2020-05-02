@@ -222,10 +222,6 @@ android {
 }
 
 dependencies {
-    // Support Lib
-    // implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    // Support Annotations
-    implementation("androidx.annotation:annotation:1.1.0")
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
     // AndroidX Test
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
@@ -234,7 +230,6 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.3.0-beta01")
     testImplementation("org.mockito:mockito-core:3.3.3")
     // AndroidX Core
-    implementation("androidx.core:core:1.3.0-rc01")
     implementation("androidx.core:core-ktx:1.3.0-rc01")
     // AppCompat
     implementation("androidx.appcompat:appcompat:1.2.0-beta01")
@@ -261,18 +256,13 @@ dependencies {
     implementation("com.google.guava:guava:29.0-android")
     // Provide a way to update the app
     implementation("com.github.javiersantos:AppUpdater:2.7")
-    // The app"s intro screen
-    // implementation("com.heinrichreimersoftware:material-intro:1.6.2")
     // Crashlytics
-    // implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
     implementation("com.google.firebase:firebase-crashlytics:17.0.0")
     // For JSON parsing
     implementation("com.google.code.gson:gson:2.8.6")
     // Emoji AppCompat
-    implementation("androidx.emoji:emoji-appcompat:1.0.0")
+    implementation("androidx.emoji:emoji-appcompat:1.1.0-rc01")
     // AndroidX Preference
-    implementation("androidx.preference:preference:1.1.1")
-    // Kotlin support for AndroidX Preference library
     implementation("androidx.preference:preference-ktx:1.1.1")
     // AndroidX WorkManager
     implementation("androidx.work:work-runtime-ktx:2.4.0-alpha03")
