@@ -1,11 +1,5 @@
 @file:Suppress("ClassName")
 
-/*
-   // AndroidX Test
-
-   // Backported Java Stream library for Java 6/7
-   implementation("net.sourceforge.streamsupport:streamsupport:1.7.2")
-*/
 object deps {
     object versions {
         const val androidxTest = "1.3.0-beta01"
