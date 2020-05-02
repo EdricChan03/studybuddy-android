@@ -15,8 +15,11 @@ plugins {
 }
 
 buildProperties {
+    create("env") {
+        using(System.getenv() as Map<String, Any>?)
+    }
     create("secrets") {
-        using(rootProject.file("secret_keys.properties"))
+        using(rootProject.file("secret_keys.properties")).or(null)
     }
     // Version metadata
     create("versions") {
@@ -24,6 +27,7 @@ buildProperties {
     }
 }
 
+val envProperties = buildProperties["env"].asMap()
 val versionsProperties = buildProperties["versions"].asMap()
 val secretsProperties = buildProperties["secrets"].asMap()
 
@@ -188,7 +192,7 @@ android {
     // GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
     // See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables#default-environment-variables
     // for more info.
-    val isRunningOnActions = System.getenv("GITHUB_ACTIONS") == "true"
+    val isRunningOnActions = envProperties["GITHUB_ACTIONS"]?.boolean ?: false
 
     lintOptions {
         textReport = isRunningOnActions
@@ -197,11 +201,11 @@ android {
         baseline(file("lint-baseline.xml"))
     }
 
-    if (isRunningOnActions) {
+    if (isRunningOnActions && envProperties != null) {
         // Configure keystore
-        signingConfigs["release"].storePassword = System.getenv("APP_KEYSTORE_PASSWORD")
-        signingConfigs["release"].keyAlias = System.getenv("APP_KEYSTORE_ALIAS")
-        signingConfigs["release"].keyPassword = System.getenv("APP_KEYSTORE_ALIAS_PASSWORD")
+        signingConfigs["release"].storePassword = envProperties["APP_KEYSTORE_PASSWORD"]?.string
+        signingConfigs["release"].keyAlias = envProperties["APP_KEYSTORE_ALIAS"]?.string
+        signingConfigs["release"].keyPassword = envProperties["APP_KEYSTORE_ALIAS_PASSWORD"]?.string
     } else if (secretsProperties != null) {
         // Building locally
         signingConfigs["release"].storePassword = secretsProperties["keystore_password"]?.string
