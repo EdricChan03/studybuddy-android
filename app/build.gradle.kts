@@ -19,7 +19,13 @@ buildProperties {
         using(System.getenv() as Map<String, Any>?)
     }
     create("secrets") {
-        using(rootProject.file("secret_keys.properties")).or(null)
+        if (rootProject.file("secret_keys.properties").exists()) {
+            using(rootProject.file("secret_keys.properties"))
+        } else {
+            println("Secret keys properties file does not exist. Setting `secrets`" +
+                    "build property as empty.")
+            using(mapOf())
+        }
     }
     // Version metadata
     create("versions") {
@@ -201,12 +207,12 @@ android {
         baseline(file("lint-baseline.xml"))
     }
 
-    if (isRunningOnActions && envProperties != null) {
+    if (isRunningOnActions && envProperties.isNotEmpty()) {
         // Configure keystore
         signingConfigs["release"].storePassword = envProperties["APP_KEYSTORE_PASSWORD"]?.string
         signingConfigs["release"].keyAlias = envProperties["APP_KEYSTORE_ALIAS"]?.string
         signingConfigs["release"].keyPassword = envProperties["APP_KEYSTORE_ALIAS_PASSWORD"]?.string
-    } else if (secretsProperties != null) {
+    } else if (secretsProperties.isNotEmpty()) {
         // Building locally
         signingConfigs["release"].storePassword = secretsProperties["keystore_password"]?.string
         signingConfigs["release"].keyAlias = secretsProperties["keystore_alias"]?.string
