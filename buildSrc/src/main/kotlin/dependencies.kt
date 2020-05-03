@@ -1,5 +1,7 @@
 @file:Suppress("ClassName")
 
+import java.io.File
+
 object deps {
     object versions {
         const val androidxTest = "1.3.0-beta01"
@@ -12,7 +14,12 @@ object deps {
             const val customAnnotations = "com.edricchan.studybuddy.annotations.AppDeepLink," +
                     "com.edricchan.studybuddy.annotations.WebDeepLink"
             const val incremental = "true"
-            const val outputSuffix = "/docs/deeplinks.md"
+            private const val outputSuffix = "docs/deeplinks.md"
+            fun getDocOutput(dir: File): String {
+                // Interestingly, the `toString` method of `java.io.File` actually invokes
+                // the `getPath` method so we don't have to convert it to a path explicitly.
+                return "$dir/$outputSuffix"
+            }
         }
         object repositories {
             const val jitpack = "https://jitpack.io"

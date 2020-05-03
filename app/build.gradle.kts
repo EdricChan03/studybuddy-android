@@ -298,6 +298,6 @@ kapt {
         // Add support for documenting deep links
         // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for
         // more info
-        arg("deepLinkDoc.output", "${rootDir}${deps.build.deepLink.outputSuffix}")
+        arg("deepLinkDoc.output", deps.build.deepLink.getDocOutput(rootDir))
     }
 }
