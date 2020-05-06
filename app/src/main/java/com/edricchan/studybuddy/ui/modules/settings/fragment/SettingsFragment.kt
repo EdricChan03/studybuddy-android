@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
+import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
@@ -18,17 +19,16 @@ import com.edricchan.studybuddy.utils.SharedUtils
 import com.takisoft.preferencex.PreferenceFragmentCompat
 
 class SettingsFragment : PreferenceFragmentCompat() {
-
-    private var preferences: SharedPreferences? = null
+    private lateinit var preferences: SharedPreferences
     private lateinit var devModeOpts: SharedPreferences
     private lateinit var featureFlagsUtils: FeatureFlagsUtils
 
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_headers, rootKey)
-        val context = activity
-        preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
+        preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         devModeOpts =
-            context.getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE, Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE,
+                Context.MODE_PRIVATE)
         featureFlagsUtils = FeatureFlagsUtils(requireContext())
         findPreference<Preference>(Constants.prefHeaderDebug)?.apply {
             isVisible = SharedUtils.isDevMode(context)
@@ -37,9 +37,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
         findPreference<SwitchPreferenceCompat>(Constants.prefShowHeaderSummary)?.apply {
+            if (!BuildConfig.DEBUG) {
+                // Hide the preference
+                isVisible = false
+            }
             setOnPreferenceClickListener {
                 updateHeaderSummaries(
-                    preferences!!.getBoolean(
+                    preferences.getBoolean(
                         Constants.prefShowHeaderSummary,
                         false
                     )
