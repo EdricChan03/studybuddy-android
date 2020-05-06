@@ -86,6 +86,7 @@ class CheckForUpdatesWorker(
         ).apply {
             setSmallIcon(R.drawable.ic_notification_system_update_24dp)
             setContentTitle(appContext.getString(R.string.notification_check_update))
+            setCategory(NotificationCompat.CATEGORY_PROGRESS)
             priority = NotificationCompat.PRIORITY_DEFAULT
             setProgress(100, 0, true)
             color = ContextCompat.getColor(appContext, R.color.colorPrimary)
@@ -98,6 +99,7 @@ class CheckForUpdatesWorker(
     private fun showNoUpdatesNotification() {
         notificationBuilder?.apply {
             setContentTitle(appContext.getString(R.string.notification_no_updates))
+            setCategory(null)
             setProgress(0, 0, false)
             setOngoing(false)
         }
@@ -134,6 +136,7 @@ class CheckForUpdatesWorker(
             )
             setContentIntent(pContentIntent)
             setProgress(0, 0, false)
+            setCategory(null)
             setOngoing(false)
             setChannelId(appContext.getString(R.string.notification_channel_update_available_id))
             addAction(

@@ -139,6 +139,7 @@ class SharedUtils {
                 .setSmallIcon(R.drawable.ic_notification_system_update_24dp)
                 .setContentTitle(context.getString(R.string.notification_check_update))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_STATUS)
                 .setProgress(100, 0, true)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setOngoing(true)
@@ -157,6 +158,7 @@ class SharedUtils {
                                 // User is running latest version
                                 notifyBuilder.setContentTitle(context.getString(R.string.notification_no_updates))
                                     .setProgress(0, 0, false)
+                                    .setCategory(null)
                                     .setOngoing(false)
                                 notificationManager.notify(
                                     Constants.notificationCheckForUpdatesId,
@@ -197,6 +199,7 @@ class SharedUtils {
                                         )
                                     )
                                     .setProgress(0, 0, false)
+                                    .setCategory(null)
                                     .setOngoing(false)
                                     .setChannelId(context.getString(R.string.notification_channel_update_available_id))
                                     .setContentIntent(pContentIntent)
@@ -248,6 +251,7 @@ class SharedUtils {
                                 Constants.notificationCheckForUpdatesId,
                                 notifyBuilder
                                     .setProgress(0, 0, false)
+                                    .setCategory(NotificationCompat.CATEGORY_ERROR)
                                     .setOngoing(false)
                                     .setChannelId(context.getString(R.string.notification_channel_update_error_id))
                                     .setColor(ContextCompat.getColor(context, R.color.colorWarn))
