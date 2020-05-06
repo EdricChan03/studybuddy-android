@@ -29,7 +29,9 @@
         </item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent
         </item>
-        <!--<item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>-->
+        <item name="editTextPreferenceStyle">
+            @style/Preference.DialogPreference.EditTextPreference.App
+        </item>
     </style>
     <!-- Base application theme. -->
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -61,7 +63,9 @@
         </item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent
         </item>
-        <!--<item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>-->
+        <item name="editTextPreferenceStyle">
+            @style/Preference.DialogPreference.EditTextPreference.App
+        </item>
     </style>
     <!-- ImageButton theme that more closely matches the Material specs. -->
     <style name="Theme.App.ImageButton" parent="Widget.AppCompat.ImageButton">
@@ -110,5 +114,9 @@
     <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">24dp</item>
+    </style>
+
+    <style name="Preference.DialogPreference.EditTextPreference.App" parent="Preference.DialogPreference.EditTextPreference.Material">
+        <item name="dialogLayout">@layout/preference_dialog_edittext_material</item>
     </style>
 </resources>
