@@ -152,10 +152,6 @@ class AboutFragment : MaterialAboutFragment() {
             .build()
     }
 
-    override fun getTheme(): Int {
-        return R.style.Theme_App_MaterialAboutFragment
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initFragment()

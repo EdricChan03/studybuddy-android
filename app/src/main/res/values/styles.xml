@@ -85,18 +85,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Mal.Toolbar.DayNight" parent="ThemeOverlay.AppCompat.DayNight" />
-
-    <style name="Theme.Mal.DayNight" parent="Theme.App">
-        <item name="mal_toolbarTheme">@style/Theme.Mal.Toolbar.DayNight</item>
-        <item name="mal_toolbarPopupTheme">@style/Theme.Mal.Toolbar.DayNight</item>
-        <item name="mal_color_primary">@color/mal_text_primary</item>
-        <item name="mal_color_secondary">@color/mal_text_secondary</item>
-        <item name="mal_card_background">@color/mal_card_background</item>
-    </style>
-
-    <style name="Theme.App.MaterialAboutFragment" parent="Theme.Mal.DayNight" />
-
     <!--
     TODO: Customize the ShapeAppearance
     Note that such styles should come in the next release
