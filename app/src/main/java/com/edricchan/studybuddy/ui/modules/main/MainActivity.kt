@@ -37,8 +37,6 @@ import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils
 import com.edricchan.studybuddy.utils.firebase.FirebaseCrashlyticsUtils
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialFadeThrough
@@ -52,8 +50,7 @@ import java.util.*
 
 @WebDeepLink(["/"])
 @AppDeepLink(["/"])
-class MainActivity : AppCompatActivity(R.layout.activity_main),
-    GoogleApiClient.OnConnectionFailedListener {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var contentMain: FrameLayout
     private lateinit var bar: BottomAppBar
     private lateinit var auth: FirebaseAuth
@@ -254,13 +251,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         }
     }
 
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        Log.e(TAG, "Connection failed:$connectionResult")
-    }
-
     private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
-        fragment.enterTransition = MaterialFadeThrough.create()
-        fragment.exitTransition = MaterialFadeThrough.create()
+        fragment.enterTransition = MaterialFadeThrough()
+        fragment.exitTransition = MaterialFadeThrough()
         SharedUtils.replaceFragment(this, fragment, R.id.content_main, addToBackStack)
     }
 
