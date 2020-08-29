@@ -189,7 +189,7 @@ android {
     }
 
 
-    buildToolsVersion = "29.0.2"
+    buildToolsVersion = "29.0.3"
 
     // GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
     // See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables#default-environment-variables
