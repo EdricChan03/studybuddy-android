@@ -22,7 +22,7 @@
     <string name="dev_mode_confirm_enable_dialog_title">Enable developer mode?</string>
     <!-- The dialog's message to confirm whether to enable developer mode. -->
     <string name="dev_mode_confirm_enable_dialog_msg">Note: This can be turned off later in Settings
-		&gt; Developer Options &gt; Developer Mode.</string>
+        &gt; Developer Options &gt; Developer Mode.</string>
     <!-- The dialog's title to confirm whether to disable developer mode. -->
     <string name="dev_mode_confirm_disable_dialog_title">Disable developer mode?</string>
     <!-- The dialog's message to confirm whether to disable developer mode. -->
@@ -32,8 +32,8 @@
 
     <!-- The about dialog's message -->
     <string name="about_dialog_msg">Purpose: To help students in their studies\nVersion: %s\n---\nApp is fully open
-		source. Check it out!
-	</string>
+        source. Check it out!
+    </string>
 
     <!-- About fragment strings -->
     <eat-comment />
@@ -41,10 +41,10 @@
     <string name="about_frag_app_info_card_version_title">Version</string>
     <string name="about_frag_app_info_card_open_app_info_title">Open app info</string>
     <string name="about_frag_app_info_card_open_app_info_subtitle">Open the app\'s info page in
-		Settings</string>
+        Settings</string>
     <string name="about_frag_app_info_card_view_source_code_title">View source code</string>
     <string name="about_frag_app_info_card_view_source_code_subtitle">Opens the app\'s source code in
-		a new tab</string>
+        a new tab</string>
     <string name="about_frag_app_info_card_app_license_title">App license</string>
     <string name="about_frag_app_info_card_open_source_licenses_title">Open-source licenses</string>
     <string name="about_frag_about_author_card_title">Author</string>
@@ -82,8 +82,8 @@
     <string name="account_new_password_dialog_title">Set new password</string>
     <!-- The message of the new profile picture dialog in the account activity. -->
     <string name="account_new_profile_pic_dialog_msg">The feature to set a new profile picture is coming
-		soon!
-	</string>
+        soon!
+    </string>
     <!-- The title of the new profile picture dialog in the account activity. -->
     <string name="account_new_profile_pic_dialog_title">Set new profile picture</string>
     <!-- The title of the sign out dialog in the account activity. -->
@@ -206,46 +206,46 @@
     <string name="chat_frag_new_chat_dialog_title">New chat</string>
     <string name="chat_frag_archive_selected_chats_confirm_dialog_title">Archive selected chats?</string>
     <string name="chat_frag_archive_selected_chats_confirm_dialog_msg">Archiving the selected chats will mark them as
-		read-only.\nThis means that the chat\'s members can only <i>view</i> the chat\'s messages, but not be able to
-		<i>send</i>
-		any new messages.
-	</string>
+        read-only.\nThis means that the chat\'s members can only <i>view</i> the chat\'s messages, but not be able to
+        <i>send</i>
+        any new messages.
+    </string>
     <string name="chat_frag_archive_selected_chats_confirm_dialog_positive_btn_text">Archive selected</string>
     <string name="chat_frag_archive_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
     <string name="chat_frag_archive_selected_chats_denied_dialog_title">Could not archive selected chats</string>
     <string name="chat_frag_archive_selected_chats_denied_dialog_msg">Reason:\n%s</string>
     <string name="chat_frag_archive_selected_chats_denied_dialog_reason_not_admin">You\'re not an administrator of the
-		following chats:\n%s
-	</string>
+        following chats:\n%s
+    </string>
     <string name="chat_frag_archive_selected_chats_denied_dialog_positive_btn_text">Dismiss</string>
     <string name="chat_frag_leave_selected_chats_confirm_dialog_title">Leave selected chats?</string>
     <string name="chat_frag_leave_selected_chats_confirm_dialog_msg">This is non-reversible!\nThings to note:\n-
-		Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to the
-		group.
-	</string>
+        Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to the
+        group.
+    </string>
     <string name="chat_frag_leave_selected_chats_confirm_dialog_msg_with_admin">This is non-reversible!\nThings to note:
-		\n- Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to
-		the group.\n- If you\'re an administrator of any groups, your role will be revoked unless an existing
-		administrator gives you back the roles if you rejoin.
-	</string>
+        \n- Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to
+        the group.\n- If you\'re an administrator of any groups, your role will be revoked unless an existing
+        administrator gives you back the roles if you rejoin.
+    </string>
     <string name="chat_frag_leave_selected_chats_confirm_dialog_positive_btn_text">Leave selected</string>
     <string name="chat_frag_leave_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
     <string name="chat_frag_leave_selected_chats_denied_dialog_title">Could not leave selected chats</string>
     <string name="chat_frag_leave_selected_chats_denied_dialog_msg">Reason:\n%s</string>
     <string name="chat_frag_leave_selected_chats_denied_reason_is_owner">You\'re an owner of the following chats:\n%s
-	</string>
+    </string>
     <string name="chat_frag_leave_selected_chats_denied_dialog_positive_btn_text">Dismiss</string>
     <string name="chat_frag_delete_selected_chats_confirm_dialog_title">Delete selected chats?</string>
     <string name="chat_frag_delete_selected_chats_confirm_dialog_msg">This is a non-reversible deletion!\nThe following
-		chats will be deleted:\n%s\n\nAre you sure you want to continue?\n\nTIP: Before continuing, ensure that you\'ve
-		notified the members in the respective chats that you\'re deleting the selected chats.
-	</string>
+        chats will be deleted:\n%s\n\nAre you sure you want to continue?\n\nTIP: Before continuing, ensure that you\'ve
+        notified the members in the respective chats that you\'re deleting the selected chats.
+    </string>
     <string name="chat_frag_delete_selected_chats_confirm_dialog_positive_btn_text">Delete selected</string>
     <string name="chat_frag_delete_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
 
     <string name="new_chat_activity_select_chat_icon_dialog_title">Select chat icon</string>
     <string name="new_chat_activity_select_chat_icon_dialog_item_choose_from_library">Choose from
-		icon library</string>
+        icon library</string>
     <string name="new_chat_activity_select_chat_icon_dialog_item_upload">Upload</string>
     <string name="new_chat_activity_select_chat_icon_dialog_item_default">Default</string>
 
@@ -256,7 +256,7 @@
     <string name="date_format_pattern">EEE, MMM d yyyy</string>
 
     <string name="debug_activity_account_info_summary">Show information about the currently signed-in Firebase User
-	</string>
+    </string>
 
     <string name="debug_activity_account_info_title">Account info</string>
     <string name="debug_activity_category_device">Device</string>
@@ -266,8 +266,8 @@
     <string name="debug_activity_category_other">Other</string>
     <string name="debug_activity_confirm_crash_app_dialog_title">Crash app?</string>
     <string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n(Note that a new ID will
-		be generated after you delete the current ID)
-	</string>
+        be generated after you delete the current ID)
+    </string>
     <string name="debug_activity_confirm_reset_instance_id_dialog_title">Delete device\'s Instance ID?</string>
     <string name="debug_activity_confirm_clear_app_settings_dialog_title">Clear app settings?</string>
     <string name="debug_activity_confirm_clear_app_settings_dialog_msg">This cannot be undone!</string>
@@ -283,19 +283,19 @@
     <string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
     <string name="debug_activity_send_notification_dialog_body_hint">Body</string>
     <string name="debug_activity_send_notification_dialog_channel_id_helpertext">Applicable for devices running Android
-		Oreo and up
-	</string>
+        Oreo and up
+    </string>
     <string name="debug_activity_send_notification_dialog_channel_id_hint">Notification Channel ID</string>
     <string name="debug_activity_send_notification_dialog_color_helpertext">Only hexadecimal values are supported.
-	</string>
+    </string>
     <string name="debug_activity_send_notification_dialog_color_hint">Color</string>
     <string name="debug_activity_send_notification_dialog_priority_high">High</string>
     <string name="debug_activity_send_notification_dialog_priority_normal">Normal</string>
     <string name="debug_activity_send_notification_dialog_priority_title">Priority</string>
     <string name="debug_activity_send_notification_dialog_title_hint">Title</string>
     <string name="debug_activity_send_notification_dialog_ttl_helpertext">The time specified (in milliseconds) to keep
-		the notification in FCM storage. (Default: 4 weeks)
-	</string>
+        the notification in FCM storage. (Default: 4 weeks)
+    </string>
     <string name="debug_activity_send_notification_dialog_ttl_hint">Time-to-live</string>
     <string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
     <string name="debug_activity_send_notification_summary">Programmatically send a FCM notification request</string>
@@ -305,19 +305,19 @@
     <string name="debug_activity_updates_update_metadata_title">Update metadata</string>
     <string name="debug_activity_updates_start_worker_title">Start check for updates worker</string>
     <string name="debug_activity_updates_start_worker_summary">Explicitly start the worker. (Note: The worker is
-		automatically started on boot.)
-	</string>
+        automatically started on boot.)
+    </string>
     <string name="debug_activity_updates_tip_summary">Tip: You can copy the values by long pressing on the preference
-		and tapping on "Copy" in the context menu that shows
-	</string>
+        and tapping on "Copy" in the context menu that shows
+    </string>
     <string name="debug_activity_updates_last_checked_for_updates_date_title">Last checked for updates date</string>
     <string name="debug_activity_updates_last_checked_for_updates_date_summary_default">&lt;Not set&gt;</string>
     <string name="debug_activity_updates_clear_last_checked_for_updates_date_title">Clear last checked for updates
-		date
-	</string>
+        date
+    </string>
     <string name="debug_activity_updates_clear_last_checked_for_updates_date_confirm_dialog_title">Clear last checked
-		for updates date?
-	</string>
+        for updates date?
+    </string>
     <string name="debug_activity_updates_last_updated_date_title">Last updated date</string>
     <string name="debug_activity_updates_last_updated_date_summary_default">&lt;Not set&gt;</string>
     <string name="debug_activity_updates_clear_last_updated_date_title">Clear last updated date</string>
@@ -325,7 +325,7 @@
     <string name="debug_activity_other_clear_app_settings_title">Clear app settings</string>
     <string name="debug_activity_other_modal_bottom_sheet_testing_title">Modal Bottom Sheet testing</string>
     <string name="debug_activity_other_modal_bottom_sheet_testing_summary">Show examples of the Modal Bottom Sheet
-	</string>
+    </string>
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_action_clear">Clear</string>
     <string name="dialog_action_close">Close</string>
@@ -361,8 +361,8 @@
     <string name="edittext_errors_invalid_password">Please enter a valid password</string>
     <string name="email_hint">Email</string>
     <string name="forgot_password_msg">Just enter your email address in the input below and click the "Reset password"
-		button to reset your password.\nYou\'ll be sent an email ASAP with the reset password.
-	</string>
+        button to reset your password.\nYou\'ll be sent an email ASAP with the reset password.
+    </string>
 
     <string name="forgot_password_title">Forgot password?</string>
 
@@ -375,13 +375,13 @@
     <string name="help_activity_empty_state_title">Loading help articles&#8230;</string>
 
     <string name="minimum_password">The password that you entered is too short, please enter a minimum of 6
-		characters!
-	</string>
+        characters!
+    </string>
 
     <string name="notification_channel_new_app_features_id" translatable="false">new_app_features</string>
     <string name="notification_channel_new_app_features_title">New in-app features</string>
     <string name="notification_channel_new_app_features_desc">Notifications regarding any new recently
-		introduced features to the app.</string>
+        introduced features to the app.</string>
     <string name="notification_channel_group_todos_id" translatable="false">todos</string>
     <string name="notification_channel_group_todos_title">Tasks</string>
     <string name="notification_channel_group_updates_id" translatable="false">updates</string>
@@ -396,8 +396,8 @@
     <string name="notification_channel_todo_updates_id" translatable="false">todo_updates</string>
     <string name="notification_channel_todo_updates_title">Task updates</string>
     <string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the
-		previous channels
-	</string>
+        previous channels
+    </string>
     <string name="notification_channel_uncategorised_id" translatable="false">uncategorised</string>
     <string name="notification_channel_uncategorised_title">Uncategorised</string>
     <string name="notification_channel_update_available_desc">Shows that an update is available</string>
@@ -407,8 +407,8 @@
     <string name="notification_channel_update_complete_id" translatable="false">update_complete</string>
     <string name="notification_channel_update_complete_title">Update complete</string>
     <string name="notification_channel_update_error_desc">Shows when an error occurred while downloading/checking for
-		updates
-	</string>
+        updates
+    </string>
     <string name="notification_channel_update_error_id" translatable="false">update_error</string>
     <string name="notification_channel_update_error_title">Update error</string>
     <string name="notification_channel_update_not_available_desc">Shows that an update is unavailable</string>
@@ -427,14 +427,14 @@
 
     <string name="notification_no_updates">No updates available</string>
     <string name="notification_updates_error_no_internet_text">You are not connected to the internet. Check your network
-		connection before retrying.
-	</string>
+        connection before retrying.
+    </string>
 
     <string name="notification_updates_error_no_internet_title">No internet connection</string>
 
     <string name="notification_updates_error_not_found_text">The file specified does not exist. Please check that you
-		have enabled the Storage permission.
-	</string>
+        have enabled the Storage permission.
+    </string>
     <string name="notification_updates_error_not_found_title">File not found</string>
     <string name="password_hint">Password</string>
 
@@ -470,11 +470,11 @@
 
     <string name="feature_flags_about_title">About feature flags</string>
     <string name="feature_flags_about_desc">Feature flags are features which can be enabled or
-		disabled. This allows for testing of certain unstable features which would not be normally
-		made available to the public.</string>
+        disabled. This allows for testing of certain unstable features which would not be normally
+        made available to the public.</string>
     <string name="feature_flags_about_warning"><b>Warning:</b> The developer of this app is not
-		responsible for any data loss caused by enabling certain feature flags.
-		<b>You have been warned.</b></string>
+        responsible for any data loss caused by enabling certain feature flags.
+        <b>You have been warned.</b></string>
     <string name="feature_flags_reset_title">Reset feature flags</string>
     <string name="feature_flags_confirm_reset_dialog_title">Reset feature flags?</string>
     <string name="feature_flags_confirm_reset_dialog_msg">This cannot be undone!</string>
@@ -483,17 +483,17 @@
     <string name="feature_flags_opt_out_title">Opt out of feature flags</string>
     <string name="feature_flags_prefer_remote_config_title">Prefer Firebase Remote Config</string>
     <string name="feature_flags_prefer_remote_config_msg">Whether the feature flag values from
-		Firebase Remote Config should take precedence over the local preferences.</string>
+        Firebase Remote Config should take precedence over the local preferences.</string>
     <string name="feature_flags_category_options_title">Options</string>
     <string name="feature_flags_category_appearance_title">Appearance</string>
     <string name="feature_flags_category_appearance_desc">Feature flags that affect the design of
-		the application.</string>
+        the application.</string>
     <string name="feature_flags_calendar_enabled_title">Calendar UI</string>
     <string name="feature_flags_calendar_enabled_summary">Enables support for a WIP Calendar
-		interface.</string>
+        interface.</string>
     <string name="feature_flags_interface_v2_enabled_title">App design v2</string>
     <string name="feature_flags_interface_v2_enabled_summary">Revamps the UI with a fresh new
-		look.</string>
+        look.</string>
     <string name="feature_flags_about_app_v2_enabled_title">About app UI v2</string>
     <string name="feature_flags_about_app_v2_enabled_summary">Revamps the about app UI to show
 		more info about the app.</string>
@@ -555,8 +555,8 @@
     <string name="pref_weekly_summary_notification_opts_title">Notification settings</string>
 
     <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at
-		https://github.com/EdricChan03/StudyBuddy
-	</string>
+        https://github.com/EdricChan03/StudyBuddy
+    </string>
     <string name="share_intent_value">Share this app via&#8230;</string>
 
     <string name="shortcut_settings_long_msg">Open settings</string>
@@ -603,8 +603,8 @@
     <string name="title_activity_view_task">Task view</string>
 
     <string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is irreversible and that it
-		may take a while to delete the selected tasks.
-	</string>
+        may take a while to delete the selected tasks.
+    </string>
 
     <string name="todo_frag_delete_selected_tasks_dialog_title">Delete selected tasks?</string>
     <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is irreversible.</string>
@@ -614,24 +614,24 @@
     <string name="todo_frag_empty_state_head">All todos done!</string>
     <string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
     <string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve
-		configured your settings to not download updates when on a cellular network.\nIf you still want to download the
-		update, tap on "Download anyway".
-	</string>
+        configured your settings to not download updates when on a cellular network.\nIf you still want to download the
+        update, tap on "Download anyway".
+    </string>
     <string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download anyway</string>
     <string name="update_activity_cannot_download_cellular_dialog_title">Warning</string>
     <string name="update_activity_delete_update_success_toast">Successfully deleted update!</string>
     <string name="update_activity_empty_state_head">No updates available</string>
     <string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up
-		here.
-	</string>
+        here.
+    </string>
     <string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app sources" in Settings
-		before continuing. Click on the "Settings" button to configure.
-	</string>
+        before continuing. Click on the "Settings" button to configure.
+    </string>
     <string name="update_activity_enable_unknown_sources_dialog_positive_btn">Settings</string>
     <string name="update_activity_update_already_downloaded_dialog_msg">An update has already been downloaded! Tap on
-		"Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on
-		"Download anyway" will delete the existing file)
-	</string>
+        "Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on
+        "Download anyway" will delete the existing file)
+    </string>
 
     <string name="update_activity_update_already_downloaded_dialog_negative_btn">Download anyway</string>
     <string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
@@ -642,30 +642,30 @@
 
     <string name="update_perm_rationale_dialog_grant">Grant</string>
     <string name="update_perm_rationale_dialog_msg">The storage permission is required in order to download updates to
-		your (default) download folder.
-	</string>
+        your (default) download folder.
+    </string>
     <string name="update_perm_rationale_dialog_title">Permission request</string>
     <string name="update_snackbar_checking">Checking for updates…</string>
     <string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.
-	</string>
+    </string>
     <string name="update_snackbar_error_malformed">Could not parse JSON. Please try again later.</string>
     <string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.
-	</string>
+    </string>
     <string name="update_snackbar_latest">You already have the latest version!</string>
     <string name="view_task_label_icon_content_desc">Label icon</string>
     <string name="view_task_loading">Loading task\'s contents…</string>
     <string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
     <string name="debug_activity_updates_set_custom_json_url_default_value" translatable="false">
-		https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
-	</string>
+        https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
+    </string>
 
     <string name="update_json_release_url" translatable="false">
-		https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/release/changelog.json
-	</string>
+        https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/release/changelog.json
+    </string>
 
     <string name="update_json_testing_url" translatable="false">
-		https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
-	</string>
+        https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
+    </string>
     <string name="markdown_supported_helpertext">Markdown is supported</string>
     <string name="action_menu_overflow_title">More options</string>
 
