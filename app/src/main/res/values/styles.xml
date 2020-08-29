@@ -8,7 +8,7 @@
         <!-- The accent colour -->
         <item name="colorSecondary">@color/colorSecondary</item>
         <!-- The colour of the navigation bar -->
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <!-- The font family of the app -->
         <item name="fontFamily">@font/baloo_2</item>
         <!-- The text input style -->
@@ -42,7 +42,7 @@
         <!-- The accent colour -->
         <item name="colorSecondary">@color/colorSecondary</item>
         <!-- The colour of the navigation bar -->
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <!-- The font family of the app -->
         <item name="fontFamily">@font/baloo_2</item>
         <!-- The text input style -->
