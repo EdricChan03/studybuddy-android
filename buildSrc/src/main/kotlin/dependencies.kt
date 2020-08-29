@@ -44,7 +44,7 @@ object deps {
             const val workRuntimeKtx = "androidx.work:work-runtime-ktx:2.5.0-alpha01"
         }
 
-        const val gradlePlugin = "com.android.tools.build:gradle:4.2.0-alpha07"
+        const val gradlePlugin = "com.android.tools.build:gradle:4.2.0-alpha08"
     }
 
     object deepLink {
