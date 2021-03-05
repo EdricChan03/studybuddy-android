@@ -188,15 +188,12 @@ android {
         jvmTarget = "1.8"
     }
 
-
-    buildToolsVersion = "29.0.3"
-
     // GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
     // See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables#default-environment-variables
     // for more info.
     val isRunningOnActions = envProperties["GITHUB_ACTIONS"]?.boolean ?: false
 
-    lintOptions {
+    lint {
         textReport = isRunningOnActions
         textOutput("stdout")
         isAbortOnError = false
