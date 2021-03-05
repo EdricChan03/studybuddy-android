@@ -62,8 +62,8 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
     private var firestoreListener: ListenerRegistration? = null
     private lateinit var fragmentView: View
     private lateinit var taskOptionsPrefs: SharedPreferences
-    //	private var mSelectionTracker: SelectionTracker<String>? = null
-    //	private var mActionModeCallback: ActionMode.Callback? = null
+    // private var mSelectionTracker: SelectionTracker<String>? = null
+    // private var mActionModeCallback: ActionMode.Callback? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var parentActivity: AppCompatActivity

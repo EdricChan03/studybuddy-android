@@ -106,7 +106,6 @@ data class TodoProject(
             try {
                 Color.parseColor(color)
                 // The color is valid
-//				project!!.color = color
                 this.color = color
             } catch (iae: IllegalArgumentException) {
                 // This color string is not valid
@@ -128,7 +127,6 @@ data class TodoProject(
             if (checkValidRGBCode(r)) {
                 if (checkValidRGBCode(g)) {
                     if (checkValidRGBCode(b)) {
-//						project!!.color = this.convertRGBtoHex(r, g, b)
                         this.color = this.convertRGBtoHex(r, g, b)
                     } else {
                         throw IllegalArgumentException("Please supply a valid RGB blue code!")
@@ -149,7 +147,6 @@ data class TodoProject(
          * @return The builder object to allow for chaining of methods
          */
         fun setColor(@ColorRes color: Int): Builder {
-//			project?.color = this.convertColorToHex(color)
             this.color = this.convertColorToHex(color)
             return this
         }

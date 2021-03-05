@@ -233,7 +233,6 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
                             }
                             if (todoItem?.dueDate != null) {
                                 val date = Date(todoItem!!.dueDate!!.toDate().time)
-//									textSelectedDate.text = format.format(date)
                                 taskDueDateChip.text =
                                     date.toDateFormat(getString(R.string.date_format_pattern))
                                 // Allow due date to be reset
@@ -287,7 +286,7 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
                         taskItemUpdates["content"] = textInputContent.editTextStrValue!!
                     }
                     if (spinnerProject.selectedItem != null) {
-//						taskItemUpdates["project"] = mFirestore.document("users/${mCurrentUser?.uid}/todoProjects/${spinnerProject.selectedItem}")
+                        // taskItemUpdates["project"] = mFirestore.document("users/${mCurrentUser?.uid}/todoProjects/${spinnerProject.selectedItem}")
                         Log.d(TAG, "Selected item: ${spinnerProject.selectedItem}")
                     }
                     if (taskDate != null && todoItem!!.dueDate!! != taskDate!!.toTimestamp()) {

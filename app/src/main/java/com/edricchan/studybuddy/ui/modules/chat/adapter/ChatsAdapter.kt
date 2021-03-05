@@ -59,18 +59,6 @@ class ChatsAdapter(
         if (item.icon != null) {
             // Reset to group pic style
             itemIconImageView.setImageDrawable(null)
-//			if (
-//					itemIconImageView.layoutParams.width == context.resources
-//							.getDimensionPixelSize(R.dimen.two_line_list_item_icon_width) ||
-//					itemIconImageView.layoutParams.height == context.resources
-//							.getDimensionPixelSize(R.dimen.two_line_list_item_icon_height)
-//			) {
-            // Reset width/height
-//				itemIconImageView.updateLayoutParams {
-//					width = context.resources.getDimensionPixelSize(R.dimen.two_line_list_item_avatar_width)
-//					height = context.resources.getDimensionPixelSize(R.dimen.two_line_list_item_avatar_height)
-//				}
-//			}
 
             Glide.with(context)
                 .load(item.icon)
@@ -79,10 +67,6 @@ class ChatsAdapter(
         } else {
             // Reset to no group pic style
             itemIconImageView.setImageResource(R.drawable.ic_forum_outline_24dp)
-//			itemIconImageView.updateLayoutParams {
-//				width = context.resources.getDimensionPixelSize(R.dimen.two_line_list_item_icon_width)
-//				height = context.resources.getDimensionPixelSize(R.dimen.two_line_list_item_icon_height)
-//			}
         }
 
         holder.itemView.setOnClickListener {

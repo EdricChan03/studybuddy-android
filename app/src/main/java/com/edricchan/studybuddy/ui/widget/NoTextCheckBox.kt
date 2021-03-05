@@ -24,7 +24,6 @@ class NoTextCheckBox : AppCompatCheckBox {
             compoundPaddingLeft + compoundPaddingRight
         } else {
             checkBoxButtonDrawable?.intrinsicWidth ?: 0
-//			if (checkBoxButtonDrawable != null) checkBoxButtonDrawable!!.intrinsicWidth else 0
         }
     }
 

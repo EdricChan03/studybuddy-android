@@ -24,7 +24,6 @@ class NoTextRadioButton : AppCompatRadioButton {
             compoundPaddingLeft + compoundPaddingRight
         } else {
             radioButtonDrawable?.intrinsicWidth ?: 0
-//			if (radioButtonDrawable != null) radioButtonDrawable!!.intrinsicWidth else 0
         }
     }
 
