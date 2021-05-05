@@ -5,7 +5,7 @@ import java.io.File
 @Suppress("HardCodedStringLiteral")
 object deps {
     object versions {
-        const val androidxTest = "1.4.0-alpha04"
+        const val androidxTest = "1.4.0-alpha06"
         const val kotlin = "1.4.31"
         const val markwon = "4.6.2"
     }
@@ -29,40 +29,39 @@ object deps {
 
     object android {
         object androidx {
-            const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
+            const val appCompat = "androidx.appcompat:appcompat:1.3.0-rc01"
             const val browser = "androidx.browser:browser:1.3.0"
             // Only needed for com.github.daniel-stoneuk:material-about-library
-            const val cardView = "androidx.cardview:cardview:1.0.0"
-            const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0-alpha2"
-            const val coreKtx = "androidx.core:core-ktx:1.5.0-beta02"
+            const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0-beta01"
+            const val coreKtx = "androidx.core:core-ktx:1.6.0-alpha02"
             const val emojiAppCompat = "androidx.emoji:emoji-appcompat:1.2.0-alpha03"
-            const val materialComponents = "com.google.android.material:material:1.4.0-alpha01"
+            const val materialComponents = "com.google.android.material:material:1.4.0-alpha02"
             const val preferenceKtx = "androidx.preference:preference-ktx:1.1.1"
-            const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-beta02"
+            const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"
             const val recyclerViewSelection = "androidx.recyclerview:recyclerview-selection:1.1.0"
             const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-            const val workRuntimeKtx = "androidx.work:work-runtime-ktx:2.5.0"
+            const val workRuntimeKtx = "androidx.work:work-runtime-ktx:2.6.0-alpha02"
         }
 
-        const val gradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha08"
+        const val gradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha15"
     }
 
     object deepLink {
-        const val deepLinkDispatch = "com.airbnb:deeplinkdispatch:5.2.0"
-        const val processor = "com.airbnb:deeplinkdispatch-processor:5.2.0"
+        const val deepLinkDispatch = "com.airbnb:deeplinkdispatch:5.3.0"
+        const val processor = "com.airbnb:deeplinkdispatch-processor:5.3.0"
     }
 
     object firebase {
-        const val analyticsKtx = "com.google.firebase:firebase-analytics-ktx:18.0.2"
-        const val authKtx = "com.google.firebase:firebase-auth-ktx:20.0.3"
+        const val analyticsKtx = "com.google.firebase:firebase-analytics-ktx:18.0.3"
+        const val authKtx = "com.google.firebase:firebase-auth-ktx:20.0.4"
         const val playServicesAuth = "com.google.android.gms:play-services-auth:19.0.0"
-        const val crashlytics = "com.google.firebase:firebase-crashlytics:17.3.1"
-        const val crashlyticsPlugin = "com.google.firebase:firebase-crashlytics-gradle:2.5.1"
+        const val crashlyticsKtx = "com.google.firebase:firebase-crashlytics-ktx:17.4.1"
+        const val crashlyticsPlugin = "com.google.firebase:firebase-crashlytics-gradle:2.5.2"
         const val dynamicLinksKtx = "com.google.firebase:firebase-dynamic-links-ktx:19.1.1"
-        const val firestoreKtx = "com.google.firebase:firebase-firestore-ktx:22.1.1"
-        const val messaging = "com.google.firebase:firebase-messaging:21.0.1"
-        const val perf = "com.google.firebase:firebase-perf:19.1.1"
-        const val perfPlugin = "com.google.firebase:perf-plugin:1.3.1"
+        const val firestoreKtx = "com.google.firebase:firebase-firestore-ktx:22.1.2"
+        const val messagingKtx = "com.google.firebase:firebase-messaging-ktx:21.0.1"
+        const val perfKtx = "com.google.firebase:firebase-perf-ktx:19.1.1"
+        const val perfPlugin = "com.google.firebase:perf-plugin:1.3.5"
         const val guava = "com.google.guava:guava:29.0-android"
         const val gradlePlugin = "com.google.gms:google-services:4.3.5"
     }
@@ -104,7 +103,7 @@ object deps {
         const val appUpdater = "com.github.javiersantos:AppUpdater:2.7"
         const val gson = "com.google.code.gson:gson:2.8.6"
         const val imagePicker = "com.github.esafirm.android-image-picker:imagepicker:2.4.0"
-        const val streamSupport = "net.sourceforge.streamsupport:streamsupport:1.7.2"
+        const val streamSupport = "net.sourceforge.streamsupport:streamsupport:1.7.3"
         const val takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
     }
 

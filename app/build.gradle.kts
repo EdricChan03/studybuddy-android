@@ -127,11 +127,11 @@ fun generateVersionName(): String {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdk = 30
     defaultConfig {
         applicationId = "com.edricchan.studybuddy"
-        minSdkVersion(21)
-        targetSdkVersion(29)
+        minSdk = 21
+        targetSdk = 30
         // versionCode 9
         versionCode = generateVersionCode()
         println("Generated version code: ${generateVersionCode()}")
@@ -146,13 +146,13 @@ android {
 
     signingConfigs {
         maybeCreate("release").apply {
-            storeFile(rootProject.file("studybuddy.jks"))
+            storeFile = rootProject.file("studybuddy.jks")
         }
     }
 
     buildTypes {
-        maybeCreate("debug").apply {
-            debuggable(true) // Allow app to be debuggable
+        debug {
+            isDebuggable = true // Allow app to be debuggable
             applicationIdSuffix = ".debug"
 
             // Reduce amount of time needed to compile app in debug mode
@@ -160,26 +160,42 @@ android {
             buildConfigField("Long", "BUILD_TIME", "0L")
             extra["currentVariant"] = "debug"
         }
-        maybeCreate("release").apply {
+
+        release {
             isMinifyEnabled = true // Enable minification
-            isShrinkResources = true // Shrink resources to reduce APK size
+            // See https://issuetracker.google.com/issues/186806256
+            // isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs["release"]
             // Can be accessed with BuildConfig.BUILD_TIME
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
             extra["currentVariant"] = "release"
         }
-        maybeCreate("nightly").apply {
+        create("nightly").apply {
+            // See https://issuetracker.google.com/issues/186798050#comment4
             // Nightly releases
-            initWith(getByName("release"))
+            // initWith(getByName("release"))
+
+            // To be removed once AS 7.0 Beta 1 is released
+
+            isMinifyEnabled = true // Enable minification
+            // See https://issuetracker.google.com/issues/186806256
+            // isShrinkResources = true // Shrink resources to reduce APK size
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs["release"]
+            // Can be accessed with BuildConfig.BUILD_TIME
+            buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
+
+            // End to be removed
+
             applicationIdSuffix = ".nightly"
             versionNameSuffix = "-NIGHTLY-$buildTimeString"
             extra["currentVariant"] = "nightly"
         }
     }
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_11)
-        targetCompatibility(JavaVersion.VERSION_11)
+        sourceCompatibility(JavaVersion.VERSION_16)
+        targetCompatibility(JavaVersion.VERSION_16)
     }
     testOptions {
         unitTests.isIncludeAndroidResources = true
@@ -228,7 +244,6 @@ dependencies {
     implementation(deps.android.androidx.coreKtx)
     implementation(deps.android.androidx.appCompat)
     implementation(deps.android.androidx.browser)
-    implementation(deps.android.androidx.cardView)
     implementation(deps.android.androidx.constraintLayout)
     implementation(deps.android.androidx.emojiAppCompat)
     implementation(deps.android.androidx.materialComponents)
@@ -242,11 +257,11 @@ dependencies {
     implementation(deps.firebase.analyticsKtx)
     implementation(deps.firebase.authKtx)
     implementation(deps.firebase.playServicesAuth)
-    implementation(deps.firebase.crashlytics)
+    implementation(deps.firebase.crashlyticsKtx)
     implementation(deps.firebase.dynamicLinksKtx)
     implementation(deps.firebase.firestoreKtx)
-    implementation(deps.firebase.messaging)
-    implementation(deps.firebase.perf)
+    implementation(deps.firebase.messagingKtx)
+    implementation(deps.firebase.perfKtx)
     implementation(deps.firebase.guava)
 
     // Other dependencies
@@ -254,6 +269,7 @@ dependencies {
     implementation(deps.misc.appUpdater)
     implementation(deps.misc.gson)
     implementation(deps.misc.imagePicker)
+    // TODO: Check if this library is still needed
     implementation(deps.misc.streamSupport) {
         because("we need a backported library for Java 8 streams")
     }
