@@ -23,9 +23,7 @@ fun Long?.toDate(): Date? = this?.let { Date(it) }
  * @see Date.toDateFormat
  */
 fun Long.toDateFormat(format: String, locale: Locale = Locale.getDefault()) =
-    SimpleDateFormat(format, locale).format(
-        Date(this)
-    )
+    SimpleDateFormat(format, locale).format(Date(this))
 
 /**
  * Converts a [Long] to a [SimpleDateFormat]
