@@ -78,7 +78,7 @@ object deps {
 
     object licenses {
         const val ossLicenses = "com.google.android.gms:play-services-oss-licenses:17.0.0"
-        const val gradlePlugin = "com.google.android.gms:oss-licenses-plugin:0.10.2"
+        const val gradlePlugin = "com.google.android.gms:oss-licenses-plugin:0.10.4"
     }
 
     object markwon {
