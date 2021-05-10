@@ -6,7 +6,7 @@ import java.io.File
 object deps {
     object versions {
         const val androidxTest = "1.4.0-alpha06"
-        const val kotlin = "1.4.31"
+        const val kotlin = "1.5.0"
         const val markwon = "4.6.2"
     }
 
