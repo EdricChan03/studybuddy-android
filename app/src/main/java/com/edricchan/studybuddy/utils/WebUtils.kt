@@ -66,9 +66,8 @@ class WebUtils(val context: Context) {
                 setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                 setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                addDefaultShareMenuItem()
+                setShareState(CustomTabsIntent.SHARE_STATE_ON)
                 setShowTitle(true)
-                build()
             }.build()
         }
         launchUri(uri, customTabsIntent)
