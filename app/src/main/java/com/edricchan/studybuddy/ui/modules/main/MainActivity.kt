@@ -10,8 +10,6 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.provider.FontRequest
-import androidx.emoji.text.EmojiCompat
-import androidx.emoji.text.FontRequestEmojiCompatConfig
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
@@ -43,7 +41,6 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
@@ -61,25 +58,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         auth = Firebase.auth
         uiUtils = UiUtils.getInstance(this)
         uiUtils.setAppTheme()
-        // Use a downloadable font for EmojiCompat
-        val fontRequest = FontRequest(
-            "com.google.android.gms.fonts",
-            "com.google.android.gms",
-            "Noto Color Emoji Compat",
-            R.array.com_google_android_gms_fonts_certs
-        )
-        val config = FontRequestEmojiCompatConfig(applicationContext, fontRequest)
-            .setReplaceAll(true)
-            .registerInitCallback(object : EmojiCompat.InitCallback() {
-                override fun onInitialized() {
-                    Log.i(TAG, "EmojiCompat initialized")
-                }
-
-                override fun onFailed(throwable: Throwable?) {
-                    Log.e(TAG, "EmojiCompat initialization failed", throwable)
-                }
-            })
-        EmojiCompat.init(config)
 
         bar = findViewById(R.id.bottomAppBar)
         setSupportActionBar(bar)
@@ -113,33 +91,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             )
             // User specific topic
             FirebaseMessaging.getInstance().subscribeToTopic("user_${currentUser.uid}")
-            FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, "Successfully retrieved instance ID!")
-                        val docData = HashMap<String, Any>()
-                        docData["registrationToken"] = task.result!!.token
-                        fs.document("users/" + currentUser.uid)
-                            .set(docData)
-                            .addOnCompleteListener { updateTask ->
-                                if (updateTask.isSuccessful) {
-                                    Log.d(TAG, "Successfully updated token!")
-                                } else {
-                                    Log.e(
-                                        TAG,
-                                        "An error occurred while attempting to update the token:",
-                                        updateTask.exception
-                                    )
-                                }
-                            }
-                    } else {
-                        Log.e(
-                            TAG,
-                            "An error occurred while attempting to retrieve the instance ID:",
-                            task.exception
-                        )
-                    }
-                }
         }
         // By default, subscribe to the "topic_all" topic
         FirebaseMessaging.getInstance().subscribeToTopic("all")

@@ -204,7 +204,7 @@ android {
         unitTests.isIncludeAndroidResources = true
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     // GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
@@ -248,7 +248,6 @@ dependencies {
     implementation(deps.android.androidx.appCompat)
     implementation(deps.android.androidx.browser)
     implementation(deps.android.androidx.constraintLayout)
-    implementation(deps.android.androidx.emojiAppCompat)
     implementation(deps.android.androidx.materialComponents)
     implementation(deps.android.androidx.preferenceKtx)
     implementation(deps.android.androidx.recyclerView)
@@ -257,6 +256,7 @@ dependencies {
     implementation(deps.android.androidx.workRuntimeKtx)
 
     // Firebase dependencies
+    implementation(platform(deps.firebase.bom))
     implementation(deps.firebase.analyticsKtx)
     implementation(deps.firebase.authKtx)
     implementation(deps.firebase.playServicesAuth)
@@ -272,12 +272,12 @@ dependencies {
     implementation(deps.misc.appUpdater)
     implementation(deps.misc.gson)
     implementation(deps.misc.imagePicker)
+    implementation(deps.licenses.ossLicenses)
     // TODO: Check if this library is still needed
     implementation(deps.misc.streamSupport) {
         because("we need a backported library for Java 8 streams")
     }
     implementation(deps.misc.takisoftPreferencex)
-    implementation(deps.licenses.ossLicenses)
 
     // DeepLinkDispatch dependencies
     implementation(deps.deepLink.deepLinkDispatch)
