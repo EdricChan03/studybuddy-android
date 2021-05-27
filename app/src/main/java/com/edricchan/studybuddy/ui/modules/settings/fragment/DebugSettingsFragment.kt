@@ -42,7 +42,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import java.io.IOException
@@ -168,13 +169,13 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
     private var mConnectivityManager: ConnectivityManager? = null
     private var mUser: FirebaseUser? = null
-    private lateinit var mInstanceId: FirebaseInstanceId
+    private lateinit var installations: FirebaseInstallations
     private lateinit var mAuth: FirebaseAuth
     private lateinit var devModeOpts: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mInstanceId = FirebaseInstanceId.getInstance()
+        installations = Firebase.installations
         mAuth = Firebase.auth
         mUser = mAuth.currentUser
         mConnectivityManager = context?.getSystemService()
@@ -491,24 +492,23 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
             builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
                 .setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
                 .setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
-                    try {
-                        // TODO: This should be wrapped inside of an AsyncTask
-                        mInstanceId.deleteInstanceId()
-                        Toast.makeText(
-                            context,
-                            "Successfully deleted instance ID!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } catch (e: IOException) {
-                        Toast.makeText(
-                            context,
-                            "An error occurred while deleting the device's instance ID." +
-                                    " Please consult the logcat for the stacktrace of the exception.",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        Log.e(TAG, "An error occurred while deleting the device's instance ID: ", e)
+                    installations.delete().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                context,
+                                "Successfully deleted instance ID!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "An error occurred while deleting the device's instance ID." +
+                                        " Please consult the logcat for the stacktrace of the exception.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            Log.e(TAG, "An error occurred while deleting the device's instance ID: ", task.exception)
+                        }
                     }
-
                     dialog.dismiss()
                 }
                 .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }

@@ -57,6 +57,7 @@ object deps {
         const val crashlyticsPlugin = "com.google.firebase:firebase-crashlytics-gradle:2.5.2"
         const val dynamicLinksKtx = "com.google.firebase:firebase-dynamic-links-ktx"
         const val firestoreKtx = "com.google.firebase:firebase-firestore-ktx"
+        const val installationsKtx = "com.google.firebase:firebase-installations-ktx"
         const val messagingKtx = "com.google.firebase:firebase-messaging-ktx"
         const val perfKtx = "com.google.firebase:firebase-perf-ktx"
         const val perfPlugin = "com.google.firebase:perf-plugin:1.4.0"

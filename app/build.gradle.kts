@@ -263,6 +263,7 @@ dependencies {
     implementation(deps.firebase.crashlyticsKtx)
     implementation(deps.firebase.dynamicLinksKtx)
     implementation(deps.firebase.firestoreKtx)
+    implementation(deps.firebase.installationsKtx)
     implementation(deps.firebase.messagingKtx)
     implementation(deps.firebase.perfKtx)
     implementation(deps.firebase.guava)
