@@ -32,7 +32,7 @@ object deps {
             const val browser = "androidx.browser:browser:1.3.0"
             const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0-beta01"
             const val coreKtx = "androidx.core:core-ktx:1.6.0-beta01"
-            const val materialComponents = "com.google.android.material:material:1.4.0-alpha02"
+            const val materialComponents = "com.google.android.material:material:1.4.0-beta01"
             const val preferenceKtx = "androidx.preference:preference-ktx:1.1.1"
             const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"
             const val recyclerViewSelection = "androidx.recyclerview:recyclerview-selection:1.1.0"
