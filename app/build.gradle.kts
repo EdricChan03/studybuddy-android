@@ -179,8 +179,7 @@ android {
             // To be removed once AS 7.0 Beta 1 is released
 
             isMinifyEnabled = true // Enable minification
-            // See https://issuetracker.google.com/issues/186806256
-            // isShrinkResources = true // Shrink resources to reduce APK size
+            isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs["release"]
             // Can be accessed with BuildConfig.BUILD_TIME
