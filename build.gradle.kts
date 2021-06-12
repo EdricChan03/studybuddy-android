@@ -7,13 +7,11 @@ buildscript {
     }
     dependencies {
         classpath(deps.android.gradlePlugin)
+        classpath(deps.kotlin.gradlePlugin)
         classpath(deps.firebase.gradlePlugin)
         classpath(deps.firebase.crashlyticsPlugin)
-        // Plugin to show all licenses
-        classpath(deps.licenses.gradlePlugin)
-        classpath(deps.kotlin.gradlePlugin)
-        // Performance Monitoring plugin
         classpath(deps.firebase.perfPlugin)
+        classpath(deps.licenses.gradlePlugin)
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

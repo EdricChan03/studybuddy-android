@@ -5,7 +5,7 @@ import java.io.File
 object deps {
     object versions {
         const val androidxTest = "1.4.0-alpha06"
-        const val kotlin = "1.5.0"
+        const val kotlin = "1.5.10"
         const val markwon = "4.6.2"
     }
 
@@ -28,28 +28,28 @@ object deps {
 
     object android {
         object androidx {
-            const val appCompat = "androidx.appcompat:appcompat:1.4.0-alpha01"
+            const val appCompat = "androidx.appcompat:appcompat:1.4.0-alpha02"
             const val browser = "androidx.browser:browser:1.3.0"
-            const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0-beta01"
-            const val coreKtx = "androidx.core:core-ktx:1.6.0-beta01"
-            const val materialComponents = "com.google.android.material:material:1.4.0-beta01"
+            const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0-beta02"
+            const val coreKtx = "androidx.core:core-ktx:1.6.0-beta02"
+            const val materialComponents = "com.google.android.material:material:1.4.0-rc01"
             const val preferenceKtx = "androidx.preference:preference-ktx:1.1.1"
-            const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"
-            const val recyclerViewSelection = "androidx.recyclerview:recyclerview-selection:1.1.0"
+            const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
+            const val recyclerViewSelection = "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
             const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-            const val workRuntimeKtx = "androidx.work:work-runtime-ktx:2.6.0-alpha02"
+            const val workRuntimeKtx = "androidx.work:work-runtime-ktx:2.6.0-beta01"
         }
 
-        const val gradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha01"
+        const val gradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha02"
     }
 
     object deepLink {
-        const val deepLinkDispatch = "com.airbnb:deeplinkdispatch:5.4.0"
-        const val processor = "com.airbnb:deeplinkdispatch-processor:5.4.0"
+        const val deepLinkDispatch = "com.airbnb:deeplinkdispatch:5.4.3"
+        const val processor = "com.airbnb:deeplinkdispatch-processor:5.4.3"
     }
 
     object firebase {
-        const val bom = "com.google.firebase:firebase-bom:28.0.1"
+        const val bom = "com.google.firebase:firebase-bom:28.1.0"
         const val analyticsKtx = "com.google.firebase:firebase-analytics-ktx"
         const val authKtx = "com.google.firebase:firebase-auth-ktx"
         const val playServicesAuth = "com.google.android.gms:play-services-auth:19.0.0"
