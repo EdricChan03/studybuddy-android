@@ -9,7 +9,7 @@ updates:
     timezone: Asia/Singapore
   open-pull-requests-limit: 10
   labels:
-    - "dependabot: github-actions"
+    - "dependabot: gradle"
     - "pr: dependency update"
 # GitHub Actions updates
 - package-ecosystem: github-actions
@@ -21,5 +21,5 @@ updates:
     timezone: Asia/Singapore
   open-pull-requests-limit: 5
   labels:
-    - "dependabot: gradle"
+    - "dependabot: github-actions"
     - "pr: dependency update"
