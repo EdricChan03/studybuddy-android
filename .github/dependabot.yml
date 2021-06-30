@@ -1,5 +1,6 @@
 version: 2
 updates:
+# Gradle updates
 - package-ecosystem: gradle
   directory: "/"
   schedule:
@@ -7,3 +8,18 @@ updates:
     time: "07:00"
     timezone: Asia/Singapore
   open-pull-requests-limit: 10
+  labels:
+    - "dependabot: github-actions"
+    - "pr: dependency update"
+# GitHub Actions updates
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: monday
+    time: "07:00"
+    timezone: Asia/Singapore
+  open-pull-requests-limit: 5
+  labels:
+    - "dependabot: gradle"
+    - "pr: dependency update"
