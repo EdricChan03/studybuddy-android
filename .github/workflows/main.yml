@@ -4,31 +4,16 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup JDK 1.8
+    - name: Setup Java
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Install GPG2
-      run: sudo apt-get install gnupg2
-    - name: Install Homebrew
-      run: |
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-        test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-        test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-        test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
-        echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
-        sudo apt-get install build-essential curl file git
-        echo "Current path:"
-        echo $PATH
     - name: Install Homebrew dependencies
-      run: |
-        source ~/.profile
-        brew bundle
+      run: brew bundle
     - name: Decrypt keystore
       run: |
         source ~/.profile
