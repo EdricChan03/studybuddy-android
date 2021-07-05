@@ -138,7 +138,7 @@ android {
         versionName = generateVersionName()
         println("Generated version name: ${generateVersionName()}")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        resConfigs("en") // TODO: Don't restrict to just en
+        resourceConfigurations += "en" // TODO: Don't restrict to just en
         multiDexEnabled = true
         // Enable support library for vector drawables
         vectorDrawables.useSupportLibrary = true
@@ -164,7 +164,7 @@ android {
         release {
             isMinifyEnabled = true // Enable minification
             // See https://issuetracker.google.com/issues/186806256
-            // isShrinkResources = true // Shrink resources to reduce APK size
+            isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs["release"]
             // Can be accessed with BuildConfig.BUILD_TIME
