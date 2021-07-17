@@ -496,7 +496,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                             todoUtils.removeTask(item.id)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
-                                        findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
+                                        findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
                                             Snackbar.make(
                                                 it,
                                                 "Successfully deleted todo!",
@@ -524,7 +524,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                         .addOnCompleteListener { task ->
                             val isDoneStr = if (item.done) "done" else "undone"
                             if (task.isSuccessful) {
-                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout)?.let {
+                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
                                     Snackbar.make(
                                         it,
                                         "Successfully marked task as $isDoneStr!",
@@ -539,7 +539,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                                 }
                                 adapter.notifyItemChanged(position)
                             } else {
-                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayout).let {
+                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain).let {
                                     if (it != null) {
                                         Snackbar.make(
                                             it,
