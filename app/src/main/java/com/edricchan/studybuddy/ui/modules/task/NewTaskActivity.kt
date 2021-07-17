@@ -286,7 +286,7 @@ class NewTaskActivity : AppCompatActivity(R.layout.activity_new_task) {
                     } else {
                         taskTitleTextInputLayout.error = "Please enter something."
                         Snackbar.make(
-                            findViewById(R.id.coordinatorLayout),
+                            findViewById(R.id.coordinatorLayoutNewTask),
                             "Some errors occurred while attempting to submit the form.",
                             Snackbar.LENGTH_LONG
                         ).show()
