@@ -4,7 +4,8 @@ import android.util.Log
 import com.edricchan.studybuddy.extensions.TAG
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 
 class FirebaseCrashlyticsUtils {
     companion object {
@@ -15,7 +16,7 @@ class FirebaseCrashlyticsUtils {
          * @param enabled Whether to enable user tracking.
          */
         fun setCrashlyticsUserTracking(user: FirebaseUser?, enabled: Boolean) {
-            val crashlytics = FirebaseCrashlytics.getInstance()
+            val crashlytics = Firebase.crashlytics
             if (enabled) {
                 if (user != null) {
                     crashlytics.setUserId(user.uid)
