@@ -246,7 +246,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
                 dialogMsg = "No current signed-in Firebase user exists!"
             }
 
-            val builder = MaterialAlertDialogBuilder(context!!)
+            val builder = MaterialAlertDialogBuilder(requireContext())
             builder.setTitle(R.string.debug_activity_account_info_title)
                 .setMessage(dialogMsg)
                 .setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
@@ -284,7 +284,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
                 val priorityRadioGroup =
                     debugSendNotificationDialogView.findViewById<RadioGroup>(R.id.priorityRadioGroup)
 
-                val builder = MaterialAlertDialogBuilder(context!!)
+                val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle(R.string.debug_activity_send_notification_title)
                     .setView(debugSendNotificationDialogView)
                     .setIcon(R.drawable.ic_send_outline_24dp)
@@ -488,7 +488,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
         // TODO: Fix broken code
         findPreference<Preference>(Constants.debugResetInstanceId)?.setOnPreferenceClickListener {
-            val builder = MaterialAlertDialogBuilder(context!!)
+            val builder = MaterialAlertDialogBuilder(requireContext())
             builder.setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
                 .setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
                 .setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
@@ -633,7 +633,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
             dialogMsg += "\nRadio firmware version: ${Build.getRadioVersion()}"
         }
 
-        return MaterialAlertDialogBuilder(context!!)
+        return MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.debug_activity_device_sdk_info_dialog_title)
             .setMessage(dialogMsg)
             .setPositiveButton(R.string.dialog_action_dismiss) { dialog, which -> dialog.dismiss() }
@@ -645,7 +645,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
 
         val defaultNightMode = AppCompatDelegate.getDefaultNightMode()
         val isLocationPermGranted =
-            ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION)
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
 
         dialogMsg += when (defaultNightMode) {
             // Note: This is deprecated in the latest version of appcompat
@@ -663,7 +663,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
             PackageManager.PERMISSION_DENIED -> "\nIs location permission granted: No"
             else -> "\nIs location permission granted: Unknown"
         }
-        return MaterialAlertDialogBuilder(context!!)
+        return MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.debug_activity_night_mode_info_dialog_title)
             .setMessage(dialogMsg)
             .setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
@@ -675,7 +675,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
         val isNetworkMetered = mConnectivityManager!!.isActiveNetworkMetered
         val isNetworkActive = mConnectivityManager!!.isDefaultNetworkActive
         val isNetworkPermGranted =
-            ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_NETWORK_STATE)
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_NETWORK_STATE)
 
         dialogMsg += "\nIs network metered: $isNetworkMetered"
         dialogMsg += "\nIs network active: $isNetworkActive"
@@ -684,14 +684,14 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
             PackageManager.PERMISSION_DENIED -> "\nIs network permission granted: No"
             else -> "\nIs network permission granted: Unknown"
         }
-        return MaterialAlertDialogBuilder(context!!)
+        return MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.debug_activity_connectivity_info_dialog_title)
             .setMessage(dialogMsg)
             .setPositiveButton(R.string.dialog_action_dismiss) { dialog, which -> dialog.dismiss() }
     }
 
     private fun showDeviceInfoDialog() {
-        val builder = MaterialAlertDialogBuilder(context!!)
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle(R.string.debug_activity_device_info_title)
             .setItems(R.array.debug_activity_device_info_array) { dialog, which ->
                 when (which) {
