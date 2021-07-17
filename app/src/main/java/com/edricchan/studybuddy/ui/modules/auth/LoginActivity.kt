@@ -5,16 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
-import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.editTextStrValue
-import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.databinding.ActivityLoginBinding
+import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -25,7 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -33,22 +29,26 @@ import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/login"])
 @AppDeepLink(["/login"])
-class LoginActivity : AppCompatActivity(R.layout.activity_login) {
-    private lateinit var inputEmail: TextInputLayout
-    private lateinit var inputPassword: TextInputLayout
+class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var progressBar: ProgressBar
-    private lateinit var btnSignup: Button
-    private lateinit var btnLogin: Button
-    private lateinit var btnReset: Button
-    private lateinit var signInButton: SignInButton
-    private var googleSignInClient: GoogleSignInClient? = null
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        auth = Firebase.auth
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
         // Result code used to check for authentication
         RC_SIGN_IN = 9001
-        auth = Firebase.auth
         // Check if there's already an authenticated user
         if (auth.currentUser != null && SharedUtils.isNetworkAvailable(this)) {
             // This activity (`LoginActivity`) shouldn't be shown to an already authenticated user
@@ -56,80 +56,70 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
             startActivity<MainActivity>()
             finish()
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        inputEmail = findViewById(R.id.emailLogin)
-        inputPassword = findViewById(R.id.passwordLogin)
-        progressBar = findViewById(R.id.progressBar)
-        btnSignup = findViewById(R.id.signUpBtn)
-        btnLogin = findViewById(R.id.loginBtn)
-        btnReset = findViewById(R.id.resetPasswordBtn)
-        signInButton = findViewById(R.id.googleSignInBtn)
-        signInButton.setColorScheme(SignInButton.COLOR_DARK)
-        signInButton.setSize(SignInButton.SIZE_STANDARD)
-        signInButton.setOnClickListener { signInWithGoogle() }
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        btnSignup.setOnClickListener { startActivity<RegisterActivity>() }
-
-        btnReset.setOnClickListener { startActivity<ResetPasswordActivity>() }
-
-        btnLogin.setOnClickListener {
-            val email = inputEmail.editTextStrValue
-            val password = inputPassword.editTextStrValue
-            // Clear any previous errors
-            inputEmail.error = null
-            inputPassword.error = null
-            if (email.isEmpty() || password.isEmpty()) {
-                if (email.isEmpty()) {
-                    inputEmail.error = "Please enter a valid email address"
-                }
-                if (password.isEmpty()) {
-                    inputPassword.error = "Please enter a password"
-                }
-                return@setOnClickListener
+        binding.apply {
+            googleSignInBtn.apply {
+                setColorScheme(SignInButton.COLOR_DARK)
+                setSize(SignInButton.SIZE_STANDARD)
+                setOnClickListener { signInWithGoogle() }
             }
-            progressBar.visibility = View.VISIBLE
-            // Authenticate the user
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this@LoginActivity) { task ->
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    progressBar.visibility = View.GONE
-                    if (!task.isSuccessful) {
-                        Log.e(
-                            TAG,
-                            "An error occurred while attempting to login using an email and password.",
-                            task.exception
-                        )
-                        // there was an error
-                        if (password.length < 6) {
-                            inputPassword.error = getString(R.string.minimum_password)
-                        } else {
-                            Snackbar.make(
-                                findViewById(R.id.loginActivity),
-                                "An error occurred while attempting to login. Please try again later",
-                                Snackbar.LENGTH_LONG
-                            )
-                                .show()
-                        }
-                    } else {
-                        showLoginSnackBar()
-                        // We only want to show the main activity if this activity was explicitly
-                        // launched.
-                        if (isTaskRoot) {
-                            startActivity<MainActivity>()
-                        }
-                        finish()
+
+            signUpBtn.setOnClickListener { startActivity<RegisterActivity>() }
+
+            resetPasswordBtn.setOnClickListener { startActivity<ResetPasswordActivity>() }
+
+            loginBtn.setOnClickListener {
+                val email = emailLogin.editTextStrValue
+                val password = passwordLogin.editTextStrValue
+                // Clear any previous errors
+                emailLogin.error = null
+                passwordLogin.error = null
+                if (email.isEmpty() || password.isEmpty()) {
+                    if (email.isEmpty()) {
+                        emailLogin.error = "Please enter a valid email address"
                     }
+                    if (password.isEmpty()) {
+                        passwordLogin.error = "Please enter a password"
+                    }
+                    return@setOnClickListener
                 }
+                progressBar.visibility = View.VISIBLE
+                // Authenticate the user
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this@LoginActivity) { task ->
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        progressBar.visibility = View.GONE
+                        if (!task.isSuccessful) {
+                            Log.e(
+                                TAG,
+                                "An error occurred while attempting to login using an email and password.",
+                                task.exception
+                            )
+                            // there was an error
+                            if (password.length < 6) {
+                                passwordLogin.error = getString(R.string.minimum_password)
+                            } else {
+                                showSnackbar(binding.coordinatorLayoutLogin,
+                                    "An error occurred while attempting to login. Please try again later",
+                                    Snackbar.LENGTH_LONG
+                                )
+                            }
+                        } else {
+                            showLoginSnackBar()
+                            // We only want to show the main activity if this activity was explicitly
+                            // launched.
+                            if (isTaskRoot) {
+                                startActivity<MainActivity>()
+                            }
+                            finish()
+                        }
+                    }
+            }
         }
-        checkNetwork()
+
+        checkNetwork(null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -147,65 +137,55 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        android.R.id.home -> {
+            onBackPressed()
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun showLoginSnackBar() {
         if (auth.currentUser != null) {
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.snackbar_user_login, auth?.currentUser?.email),
+            showToast(
+                getString(R.string.snackbar_user_login, auth.currentUser?.email),
                 Toast.LENGTH_SHORT
-            ).show()
+            )
         }
     }
 
     private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient?.signInIntent
+        val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    /**
-     * A method used to disable all functionality if no internet connection is available
-     *
-     *
-     * TODO: Bring this to SharedUtils instead
-     */
-    private fun checkNetwork() {
+    private fun checkNetwork(snackbar: Snackbar?) {
         Log.d(TAG, "isNetworkAvailable: " + SharedUtils.isNetworkAvailable(this))
         if (SharedUtils.isNetworkAvailable(this)) {
             setViewsEnabled(true)
+            snackbar?.dismiss()
         } else {
             setViewsEnabled(false)
-            Snackbar.make(
-                findViewById(R.id.loginActivity),
+            showSnackbar(
+                binding.coordinatorLayoutLogin,
                 R.string.snackbar_internet_unavailable_login,
                 Snackbar.LENGTH_INDEFINITE
-            )
-                .setBehavior(NoSwipeBehavior())
-                .setAction(R.string.snackbar_internet_unavailable_action) { checkNetwork() }.show()
+            ) {
+                behavior = NoSwipeBehavior()
+                setAction(R.string.snackbar_internet_unavailable_action) { checkNetwork(this) }
+            }
         }
     }
 
-    /**
-     * Sets all views as shown/hidden
-     *
-     * @param enabled Whether to show the views
-     */
     private fun setViewsEnabled(enabled: Boolean) {
-        btnSignup.isEnabled = enabled
-        btnLogin.isEnabled = enabled
-        btnReset.isEnabled = enabled
-        signInButton.isEnabled = enabled
-        inputEmail.isEnabled = enabled
-        inputPassword.isEnabled = enabled
+        binding.apply {
+            signUpBtn.isEnabled = enabled
+            loginBtn.isEnabled = enabled
+            resetPasswordBtn.isEnabled = enabled
+            googleSignInBtn.isEnabled = enabled
+            emailLogin.isEnabled = enabled
+            passwordLogin.isEnabled = enabled
+        }
     }
 
     /**
@@ -230,8 +210,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                         "An error occurred while attempting to sign in with Google:",
                         task.exception
                     )
-                    Toast.makeText(applicationContext, "Authentication failed.", Toast.LENGTH_SHORT)
-                        .show()
+                    showToast("Authentication failed.", Toast.LENGTH_SHORT)
                 }
 
                 // ...
