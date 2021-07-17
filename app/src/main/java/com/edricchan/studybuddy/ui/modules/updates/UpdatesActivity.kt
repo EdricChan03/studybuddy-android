@@ -23,7 +23,9 @@ import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.databinding.ActivityUpdatesBinding
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -33,26 +35,30 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_updates.*
 import java.io.File
 
 @AppDeepLink(["/updates"])
-class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
-
+class UpdatesActivity : AppCompatActivity() {
     // Whether the user has pressed the "check for updates" menu item
     private var isChecking = false
     private lateinit var appUpdate: Update
+    private lateinit var binding: ActivityUpdatesBinding
     private lateinit var preferences: SharedPreferences
+
     // SharedPreferences used for the storing of info on when the app was last updated
     private lateinit var updateInfoPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityUpdatesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        emptyStateCtaBtn.setOnClickListener { checkForUpdates() }
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         updateInfoPreferences =
             getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
+
+        binding.emptyStateCtaBtn.setOnClickListener { checkForUpdates() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,12 +74,12 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
             }
             R.id.action_check_for_updates -> {
                 Log.d(TAG, "Check for updates clicked!")
-                Snackbar.make(
-                    mainCoordinatorLayout,
+                showSnackbar(
+                    binding.coordinatorLayoutUpdates,
                     R.string.update_snackbar_checking,
                     Snackbar.LENGTH_SHORT
                 )
-                    .show()
+
                 checkForUpdates()
                 true
             }
@@ -339,13 +345,11 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
                         appUpdate = update
                         if (update.latestVersionCode == BuildConfig.VERSION_CODE && !updateAvailable!!) {
                             // User is running latest version
-                            Snackbar.make(
-                                mainCoordinatorLayout,
+                            showSnackbar(
+                                binding.coordinatorLayoutUpdates,
                                 R.string.update_snackbar_latest,
                                 Snackbar.LENGTH_SHORT
                             )
-                                .show()
-
                         } else {
                             showUpdateDialog()
                         }
@@ -354,28 +358,16 @@ class UpdatesActivity : AppCompatActivity(R.layout.activity_updates) {
                     override fun onFailed(appUpdaterError: AppUpdaterError) {
                         isChecking = false
                         invalidateOptionsMenu()
-                        when (appUpdaterError) {
-                            AppUpdaterError.NETWORK_NOT_AVAILABLE -> Snackbar.make(
-                                mainCoordinatorLayout,
-                                R.string.update_snackbar_error_no_internet,
-                                Snackbar.LENGTH_LONG
-                            )
-                                .setAction(R.string.dialog_action_retry) { checkForUpdates() }
-                                .show()
-                            AppUpdaterError.JSON_ERROR -> Snackbar.make(
-                                mainCoordinatorLayout,
-                                R.string.update_snackbar_error_malformed,
-                                Snackbar.LENGTH_LONG
-                            )
-                                .setAction(R.string.dialog_action_retry) { checkForUpdates() }
-                                .show()
-                            else -> Snackbar.make(
-                                mainCoordinatorLayout,
-                                R.string.update_snackbar_error,
-                                Snackbar.LENGTH_LONG
-                            )
-                                .setAction(R.string.dialog_action_retry) { checkForUpdates() }
-                                .show()
+                        val snackbarMsgRes = when (appUpdaterError) {
+                            AppUpdaterError.NETWORK_NOT_AVAILABLE ->
+                                R.string.update_snackbar_error_no_internet
+                            AppUpdaterError.JSON_ERROR -> R.string.update_snackbar_error_malformed
+                            else -> R.string.update_snackbar_error
+                        }
+
+                        showSnackbar(binding.coordinatorLayoutUpdates, snackbarMsgRes,
+                            Snackbar.LENGTH_LONG) {
+                            setAction(R.string.dialog_action_retry) { checkForUpdates() }
                         }
                     }
                 })
