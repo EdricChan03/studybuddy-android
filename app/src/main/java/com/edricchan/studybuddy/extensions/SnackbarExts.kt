@@ -20,9 +20,7 @@ fun Context.showSnackbar(
     @BaseTransientBottomBar.Duration duration: Int,
     snackbarOptions: Snackbar.() -> Unit = {}
 ) {
-    Snackbar.make(view, text, duration)
-        .apply(snackbarOptions)
-        .show()
+    createSnackbar(view, text, duration, snackbarOptions).show()
 }
 
 /**
@@ -37,10 +35,37 @@ fun Context.showSnackbar(
     @BaseTransientBottomBar.Duration duration: Int,
     snackbarOptions: Snackbar.() -> Unit = {}
 ) {
-    Snackbar.make(view, textResId, duration)
-        .apply(snackbarOptions)
-        .show()
+    createSnackbar(view, textResId, duration, snackbarOptions).show()
 }
+
+/**
+ * Creates a [Snackbar] given the specified options.
+ * @param view The view where the snackbar will show at.
+ * @param text The text to be shown as a [CharSequence].
+ * @param duration The duration to show the snackbar for.
+ * @param snackbarOptions Additional options to be passed to the [Snackbar].
+ * @return The created [Snackbar].
+ */
+fun Context.createSnackbar(
+    view: View, text: CharSequence,
+    @BaseTransientBottomBar.Duration duration: Int,
+    snackbarOptions: Snackbar.() -> Unit
+) = Snackbar.make(view, text, duration).apply(snackbarOptions)
+
+/**
+ * Creates a [Snackbar] given the specified options.
+ * @param view The view where the snackbar will show at.
+ * @param textResId The text to be shown as a string resource.
+ * @param duration The duration to show the snackbar for.
+ * @param snackbarOptions Additional options to be passed to the [Snackbar].
+ * @return The created [Snackbar].
+ */
+fun Context.createSnackbar(
+    view: View, @StringRes textResId: Int,
+    @BaseTransientBottomBar.Duration duration: Int,
+    snackbarOptions: Snackbar.() -> Unit
+) = Snackbar.make(view, textResId, duration).apply(snackbarOptions)
+
 
 /**
  * Shows a [Snackbar] with the specified options.
@@ -54,9 +79,7 @@ fun Activity.showSnackbar(
     @BaseTransientBottomBar.Duration duration: Int,
     snackbarOptions: Snackbar.() -> Unit = {}
 ) {
-    Snackbar.make(view, text, duration)
-        .apply(snackbarOptions)
-        .show()
+    createSnackbar(view, text, duration, snackbarOptions).show()
 }
 
 /**
@@ -71,10 +94,36 @@ fun Activity.showSnackbar(
     @BaseTransientBottomBar.Duration duration: Int,
     snackbarOptions: Snackbar.() -> Unit = {}
 ) {
-    Snackbar.make(view, textResId, duration)
-        .apply(snackbarOptions)
-        .show()
+    createSnackbar(view, textResId, duration, snackbarOptions).show()
 }
+
+/**
+ * Creates a [Snackbar] given the specified options.
+ * @param view The view where the snackbar will show at.
+ * @param text The text to be shown as a [CharSequence].
+ * @param duration The duration to show the snackbar for.
+ * @param snackbarOptions Additional options to be passed to the [Snackbar].
+ * @return The created [Snackbar].
+ */
+fun Activity.createSnackbar(
+    view: View, text: CharSequence,
+    @BaseTransientBottomBar.Duration duration: Int,
+    snackbarOptions: Snackbar.() -> Unit
+) = Snackbar.make(view, text, duration).apply(snackbarOptions)
+
+/**
+ * Creates a [Snackbar] given the specified options.
+ * @param view The view where the snackbar will show at.
+ * @param textResId The text to be shown as a string resource.
+ * @param duration The duration to show the snackbar for.
+ * @param snackbarOptions Additional options to be passed to the [Snackbar].
+ * @return The created [Snackbar].
+ */
+fun Activity.createSnackbar(
+    view: View, @StringRes textResId: Int,
+    @BaseTransientBottomBar.Duration duration: Int,
+    snackbarOptions: Snackbar.() -> Unit
+) = Snackbar.make(view, textResId, duration).apply(snackbarOptions)
 
 /**
  * Shows a [Snackbar] with the specified options.
@@ -88,9 +137,7 @@ fun Fragment.showSnackbar(
     @BaseTransientBottomBar.Duration duration: Int,
     snackbarOptions: Snackbar.() -> Unit = {}
 ) {
-    Snackbar.make(view, text, duration)
-        .apply(snackbarOptions)
-        .show()
+    createSnackbar(view, text, duration, snackbarOptions).show()
 }
 
 /**
@@ -105,7 +152,33 @@ fun Fragment.showSnackbar(
     @BaseTransientBottomBar.Duration duration: Int,
     snackbarOptions: Snackbar.() -> Unit = {}
 ) {
-    Snackbar.make(view, textResId, duration)
-        .apply(snackbarOptions)
-        .show()
+    createSnackbar(view, textResId, duration, snackbarOptions).show()
 }
+
+/**
+ * Creates a [Snackbar] given the specified options.
+ * @param view The view where the snackbar will show at.
+ * @param text The text to be shown as a [CharSequence].
+ * @param duration The duration to show the snackbar for.
+ * @param snackbarOptions Additional options to be passed to the [Snackbar].
+ * @return The created [Snackbar].
+ */
+fun Fragment.createSnackbar(
+    view: View, text: CharSequence,
+    @BaseTransientBottomBar.Duration duration: Int,
+    snackbarOptions: Snackbar.() -> Unit
+) = Snackbar.make(view, text, duration).apply(snackbarOptions)
+
+/**
+ * Creates a [Snackbar] given the specified options.
+ * @param view The view where the snackbar will show at.
+ * @param textResId The text to be shown as a string resource.
+ * @param duration The duration to show the snackbar for.
+ * @param snackbarOptions Additional options to be passed to the [Snackbar].
+ * @return The created [Snackbar].
+ */
+fun Fragment.createSnackbar(
+    view: View, @StringRes textResId: Int,
+    @BaseTransientBottomBar.Duration duration: Int,
+    snackbarOptions: Snackbar.() -> Unit
+) = Snackbar.make(view, textResId, duration).apply(snackbarOptions)
