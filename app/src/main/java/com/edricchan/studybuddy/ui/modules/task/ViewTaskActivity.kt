@@ -9,8 +9,10 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.firebase.toDateFormat
+import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
@@ -28,24 +30,27 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_view_task.*
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.ext.tasklist.TaskListPlugin
 import io.noties.markwon.image.glide.GlideImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
 
-class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
+class ViewTaskActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var taskDocument: DocumentReference
     private lateinit var taskId: String
     private lateinit var todoUtils: TodoUtils
+    private lateinit var binding: ActivityViewTaskBinding
     private var currentUser: FirebaseUser? = null
     private var todoItem: TodoItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityViewTaskBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         firestore = Firebase.firestore
@@ -56,155 +61,155 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
         taskId = intent.getStringExtra(EXTRA_TASK_ID) ?: ""
         if (taskId.isEmpty()) {
             Log.e(TAG, "No task ID was specified!")
-            Toast.makeText(
-                this, "An unknown error occurred while attempting to retrieve the" +
+            // TODO: i18n code
+            showToast(
+                "An unknown error occurred while attempting to retrieve the" +
                         "task. Try again later.", Toast.LENGTH_LONG
-            ).show()
+            )
             finish()
         } else {
             taskDocument = todoUtils.getTask(taskId)
         }
         Log.d(TAG, "Task ID: $taskId")
 
-        bottomAppBar.replaceMenu(R.menu.menu_view_task)
+        binding.bottomAppBar.apply {
+            replaceMenu(R.menu.menu_view_task)
+            if (todoItem?.archived == true) {
+                // Task has already been archived - show the unarchive menu item instead
+                menu.findItem(R.id.action_unarchive).isVisible = true
+                menu.findItem(R.id.action_archive).isVisible = false
+            }
 
-        if (todoItem?.archived == true) {
-            // Task has already been archived - show the unarchive menu item instead
-            bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = true
-            bottomAppBar.menu.findItem(R.id.action_archive).isVisible = false
-        }
-
-        bottomAppBar.setOnMenuItemClickListener {
-            return@setOnMenuItemClickListener when (it.itemId) {
-                android.R.id.home -> {
-                    onBackPressed()
-                    true
-                }
-                R.id.action_delete -> {
-                    val builder = MaterialAlertDialogBuilder(this)
-                    builder.setTitle("Delete todo?")
-                        .setPositiveButton(R.string.dialog_action_ok) { _, _ ->
-                            todoUtils.removeTask(taskId)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        Toast.makeText(
-                                            this,
-                                            "Successfully deleted todo!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        finish()
-                                    } else {
-                                        Toast.makeText(
-                                            this,
-                                            "An error occurred while deleting the todo. Try again later.",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                        Log.e(
-                                            TAG,
-                                            "An error occurred while deleting the todo.",
-                                            task.exception
-                                        )
-                                    }
-                                }
-                        }
-                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-                        .show()
-                    true
-                }
-                R.id.action_edit -> {
-                    startActivity<EditTaskActivity> {
-                        putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    android.R.id.home -> {
+                        onBackPressed()
+                        true
                     }
-                    true
-                }
-                R.id.action_mark_as_done -> {
-                    taskDocument
-                        .update("done", !todoItem?.done!!)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                showSnackbar(
-                                    "Successfully marked task as " +
-                                            if (!todoItem!!.done!!) "done" else "undone",
-                                    Snackbar.LENGTH_SHORT
-                                )
-                                Log.d(
-                                    TAG,
-                                    "Task marked as " + if (!todoItem!!.done!!) "done" else "undone"
-                                )
-                            } else {
-                                showSnackbar(
-                                    "An error occurred while marking the todo as " +
-                                            if (!todoItem!!.done!!) "done" else "undone",
-                                    Snackbar.LENGTH_LONG
-                                )
-                                Log.e(
-                                    TAG,
-                                    "An error occurred while marking the todo as " +
-                                            if (!todoItem!!.done!!) "done" else "undone",
-                                    task.exception
-                                )
+                    R.id.action_delete -> {
+                        val builder = MaterialAlertDialogBuilder(this@ViewTaskActivity)
+                        // TODO: i18n code
+                        builder.setTitle("Delete todo?")
+                            .setPositiveButton(R.string.dialog_action_ok) { _, _ ->
+                                todoUtils.removeTask(taskId)
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            showToast(
+                                                "Successfully deleted todo!",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                            finish()
+                                        } else {
+                                            showToast(
+                                                "An error occurred while deleting the todo. Try again later.",
+                                                Toast.LENGTH_LONG
+                                            )
+                                            Log.e(
+                                                TAG,
+                                                "An error occurred while deleting the todo.",
+                                                task.exception
+                                            )
+                                        }
+                                    }
                             }
+                            .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+                            .show()
+                        true
+                    }
+                    R.id.action_edit -> {
+                        startActivity<EditTaskActivity> {
+                            putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
                         }
-                    true
-                }
-                R.id.action_archive -> {
-                    // Variable to indicate whether task was already archived
-                    val hasArchived = todoItem?.archived ?: false
-                    Log.d(TAG, "Archived state: $hasArchived")
-                    taskDocument
-                        .update("archived", !hasArchived)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                showSnackbar("Successfully archived task!", Snackbar.LENGTH_SHORT)
-                                Log.d(TAG, "Successfully archived task!")
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "An error occurred while attempting to archive the task",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                Log.e(
-                                    TAG,
-                                    "An error occurred while attempting to archive the task:",
-                                    task.exception
-                                )
+                        true
+                    }
+                    R.id.action_mark_as_done -> {
+                        taskDocument
+                            .update("done", !todoItem?.done!!)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    showSnackbar(
+                                        "Successfully marked task as " +
+                                                if (!todoItem!!.done!!) "done" else "undone",
+                                        Snackbar.LENGTH_SHORT
+                                    )
+                                    Log.d(
+                                        TAG,
+                                        "Task marked as " + if (!todoItem!!.done!!) "done" else "undone"
+                                    )
+                                } else {
+                                    showSnackbar(
+                                        "An error occurred while marking the todo as " +
+                                                if (!todoItem!!.done!!) "done" else "undone",
+                                        Snackbar.LENGTH_LONG
+                                    )
+                                    Log.e(
+                                        TAG,
+                                        "An error occurred while marking the todo as " +
+                                                if (!todoItem!!.done!!) "done" else "undone",
+                                        task.exception
+                                    )
+                                }
                             }
-                        }
-                    bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = true
-                    bottomAppBar.menu.findItem(R.id.action_archive).isVisible = false
-                    true
-                }
-                R.id.action_unarchive -> {
-                    // Variable to indicate whether task was already archived
-                    val hasArchived = todoItem?.archived ?: true
-                    Log.d(TAG, "Archived state: $hasArchived")
-                    taskDocument
-                        .update("archived", !hasArchived)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                showSnackbar("Successfully unarchived task!", Snackbar.LENGTH_SHORT)
-                                Log.d(TAG, "Successfully unarchived task!")
-                            } else {
-                                Toast.makeText(
-                                    this,
-                                    "An error occurred while attempting to unarchive the task",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                Log.e(
-                                    TAG,
-                                    "An error occurred while attempting to unarchive the task:",
-                                    task.exception
-                                )
+                        true
+                    }
+                    R.id.action_archive -> {
+                        // Variable to indicate whether task was already archived
+                        val hasArchived = todoItem?.archived ?: false
+                        Log.d(TAG, "Archived state: $hasArchived")
+                        taskDocument
+                            .update("archived", !hasArchived)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    showSnackbar("Successfully archived task!", Snackbar.LENGTH_SHORT)
+                                    Log.d(TAG, "Successfully archived task!")
+                                } else {
+                                    showToast(
+                                        "An error occurred while attempting to archive the task",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    Log.e(
+                                        TAG,
+                                        "An error occurred while attempting to archive the task:",
+                                        task.exception
+                                    )
+                                }
                             }
-                        }
-                    bottomAppBar.menu.findItem(R.id.action_archive).isVisible = true
-                    bottomAppBar.menu.findItem(R.id.action_unarchive).isVisible = false
-                    return@setOnMenuItemClickListener true
+                        menu.findItem(R.id.action_unarchive).isVisible = true
+                        menu.findItem(R.id.action_archive).isVisible = false
+                        true
+                    }
+                    R.id.action_unarchive -> {
+                        // Variable to indicate whether task was already archived
+                        val hasArchived = todoItem?.archived ?: true
+                        Log.d(TAG, "Archived state: $hasArchived")
+                        taskDocument
+                            .update("archived", !hasArchived)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    showSnackbar("Successfully unarchived task!", Snackbar.LENGTH_SHORT)
+                                    Log.d(TAG, "Successfully unarchived task!")
+                                } else {
+                                    showToast(
+                                        "An error occurred while attempting to unarchive the task",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    Log.e(
+                                        TAG,
+                                        "An error occurred while attempting to unarchive the task:",
+                                        task.exception
+                                    )
+                                }
+                            }
+                        menu.findItem(R.id.action_archive).isVisible = true
+                        menu.findItem(R.id.action_unarchive).isVisible = false
+                        true
+                    }
+                    else -> super.onOptionsItemSelected(it)
                 }
-                else -> return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
             }
         }
-        editTaskFab.setOnClickListener {
+
+        binding.editTaskFab.setOnClickListener {
             startActivity<EditTaskActivity> {
                 putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
             }
@@ -283,26 +288,6 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                     }
                 }
             }
-        /*.addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            mItem = document.toObject(TaskItem.class);
-                            findViewById(R.id.progressBar).setVisibility(View.GONE);
-                            findViewById(R.id.taskView).setVisibility(View.VISIBLE);
-                            mTaskTitle.setText(mItem.title);
-                            if (mItem.content != null) {
-                                mTaskContent.setText(mItem.content);
-                            }
-                        } else {
-                            // TODO: Add handler for document not existing
-                        }
-                    } else {
-                        Snackbar.make(findViewById(R.id.mainView), R.string.view_task_unsuccessful_snackbar_text, Snackbar.LENGTH_INDEFINITE)
-                                .setBehavior(new NoSwipeBehavior())
-                                .setAction(R.string.view_task_unsuccessful_snackbar_btn_text, v -> loadTask());
-                    }
-                });*/
     }
 
     /**
@@ -331,29 +316,28 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                 .usePlugin(StrikethroughPlugin.create())
                 .usePlugin(TaskListPlugin.create(this))
                 .build()
-                .setMarkdown(taskContent, item.content)
-            toggleViewVisibility(taskContent, View.GONE, View.VISIBLE)
+                .setMarkdown(binding.taskContent, item.content)
+            toggleViewVisibility(binding.taskContent, View.GONE, View.VISIBLE)
         } else {
-            toggleViewVisibility(taskContent, View.VISIBLE, View.GONE)
+            toggleViewVisibility(binding.taskContent, View.VISIBLE, View.GONE)
         }
         if (item?.dueDate != null) {
-            taskDate.text = item.dueDate.toDateFormat(getString(R.string.date_format_pattern))
-            toggleViewVisibility(taskDate, View.GONE, View.VISIBLE)
+            binding.taskDate.text = item.dueDate.toDateFormat(getString(R.string.date_format_pattern))
+            toggleViewVisibility(binding.taskDate, View.GONE, View.VISIBLE)
         } else {
-            toggleViewVisibility(taskDate, View.VISIBLE, View.GONE)
+            toggleViewVisibility(binding.taskDate, View.VISIBLE, View.GONE)
         }
         if (item?.project != null) {
             item.project
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful && task.result != null && task.result!!.exists()) {
-                        taskProject.text = task.result!!.getString("name")
+                        binding.taskProject.text = task.result!!.getString("name")
                     } else {
-                        Toast.makeText(
-                            this,
+                        showToast(
                             "An error occurred while attempting to retrieve the project. Please try again later.",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        )
                         Log.e(
                             TAG,
                             "An error occurred while attempting to retrieve the project:",
@@ -361,9 +345,9 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
                         )
                     }
                 }
-            toggleViewVisibility(taskProject, View.GONE, View.VISIBLE)
+            toggleViewVisibility(binding.taskProject, View.GONE, View.VISIBLE)
         } else {
-            toggleViewVisibility(taskProject, View.VISIBLE, View.GONE)
+            toggleViewVisibility(binding.taskProject, View.VISIBLE, View.GONE)
         }
         /*if (item?.title != null) {
             taskTitle.text = item.title
@@ -373,23 +357,23 @@ class ViewTaskActivity : AppCompatActivity(R.layout.activity_view_task) {
         }*/
         if (item?.tags != null && item.tags.isNotEmpty()) {
             // Remove all chips or this will cause duplicate tags
-            taskTags.removeAllViews()
+            binding.taskTags.removeAllViews()
             for (tag in item.tags) {
                 val tempChip = Chip(this)
                 tempChip.text = tag
-                taskTags.addView(tempChip)
+                binding.taskTags.addView(tempChip)
             }
-            toggleViewVisibility(taskTagsParentView, View.GONE, View.VISIBLE)
+            toggleViewVisibility(binding.taskTagsParentView, View.GONE, View.VISIBLE)
         } else {
-            toggleViewVisibility(taskTagsParentView, View.VISIBLE, View.GONE)
+            toggleViewVisibility(binding.taskTagsParentView, View.VISIBLE, View.GONE)
         }
-        toggleViewVisibility(progressBar, View.VISIBLE, View.GONE)
-        toggleViewVisibility(scrollTaskView, View.GONE, View.VISIBLE)
+        toggleViewVisibility(binding.progressBar, View.VISIBLE, View.GONE)
+        toggleViewVisibility(binding.scrollTaskView, View.GONE, View.VISIBLE)
     }
 
     private fun showSnackbar(text: String, @Duration duration: Int) {
-        Snackbar.make(mainView, text, duration)
-            .setAnchorView(editTaskFab)
+        Snackbar.make(binding.mainView, text, duration)
+            .setAnchorView(binding.editTaskFab)
             .show()
     }
 
