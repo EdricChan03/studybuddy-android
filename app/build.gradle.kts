@@ -172,20 +172,8 @@ android {
             extra["currentVariant"] = "release"
         }
         create("nightly").apply {
-            // See https://issuetracker.google.com/issues/186798050#comment4
             // Nightly releases
-            // initWith(getByName("release"))
-
-            // To be removed once AS 7.0 Beta 1 is released
-
-            isMinifyEnabled = true // Enable minification
-            isShrinkResources = true // Shrink resources to reduce APK size
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs["release"]
-            // Can be accessed with BuildConfig.BUILD_TIME
-            buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
-
-            // End to be removed
+            initWith(getByName("release"))
 
             applicationIdSuffix = ".nightly"
             versionNameSuffix = "-NIGHTLY-$buildTimeString"
