@@ -3,9 +3,6 @@ package com.edricchan.studybuddy.ui.modules.task.adapter.itemkeyprovider
 import android.os.Build
 import androidx.recyclerview.selection.ItemKeyProvider
 import com.edricchan.studybuddy.interfaces.TodoItem
-import java8.util.stream.IntStreams
-import java.util.*
-import java.util.stream.IntStream
 
 /**
  * Creates a new provider.
@@ -33,28 +30,5 @@ class TodoItemKeyProvider(
 
     override fun getPosition(key: String): Int {
         return mKeyToPosition[key]!!
-    }
-
-    /**
-     * Gets the position of the first occurrence of the document ID
-     *
-     * @param list The list to get the position for
-     * @param id   The ID of the document
-     * @return The position of the first occurrence of the document ID
-     */
-    @Deprecated("")
-    private fun getTaskItemPosition(list: List<TodoItem>, id: String): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            IntStream.range(0, list.size)
-                .filter { index -> list[index].id == id }
-                .findFirst()
-                .orElse(-1)
-        } else {
-            IntStreams
-                .range(0, list.size)
-                .filter { index -> list[index].id == id }
-                .findFirst()
-                .orElse(-1)
-        }
     }
 }

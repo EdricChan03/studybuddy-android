@@ -261,10 +261,6 @@ dependencies {
     implementation(deps.misc.gson)
     implementation(deps.misc.imagePicker)
     implementation(deps.licenses.ossLicenses)
-    // TODO: Check if this library is still needed
-    implementation(deps.misc.streamSupport) {
-        because("we need a backported library for Java 8 streams")
-    }
     implementation(deps.misc.takisoftPreferencex)
 
     // DeepLinkDispatch dependencies
