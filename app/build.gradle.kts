@@ -200,6 +200,7 @@ android {
     val isRunningOnActions = envProperties["GITHUB_ACTIONS"]?.boolean ?: false
 
     // TODO: Revert back to "lint" once https://issuetracker.google.com/issues/196209595 is resolved
+    @kotlin.Suppress("DEPRECATION")
     lintOptions {
         textReport = isRunningOnActions
         textOutput("stdout")
