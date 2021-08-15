@@ -199,7 +199,8 @@ android {
     // for more info.
     val isRunningOnActions = envProperties["GITHUB_ACTIONS"]?.boolean ?: false
 
-    lint {
+    // TODO: Revert back to "lint" once https://issuetracker.google.com/issues/196209595 is resolved
+    lintOptions {
         textReport = isRunningOnActions
         textOutput("stdout")
         isAbortOnError = false
