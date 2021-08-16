@@ -48,6 +48,8 @@ class EditTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityEditTaskBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         firestore = Firebase.firestore
         auth = Firebase.auth
         currentUser = auth.currentUser
