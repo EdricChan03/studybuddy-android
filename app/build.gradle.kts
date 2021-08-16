@@ -163,7 +163,6 @@ android {
 
         release {
             isMinifyEnabled = true // Enable minification
-            // See https://issuetracker.google.com/issues/186806256
             isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs["release"]
@@ -171,6 +170,7 @@ android {
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
             extra["currentVariant"] = "release"
         }
+
         create("nightly").apply {
             // Nightly releases
             initWith(getByName("release"))
@@ -180,16 +180,20 @@ android {
             extra["currentVariant"] = "nightly"
         }
     }
+
     buildFeatures {
         viewBinding = true
     }
+
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_11)
         targetCompatibility(JavaVersion.VERSION_11)
     }
+
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
@@ -208,17 +212,19 @@ android {
         baseline(file("lint-baseline.xml"))
     }
 
-    if (isRunningOnActions && envProperties.isNotEmpty()) {
-        // Configure keystore
-        signingConfigs["release"].storePassword = envProperties["APP_KEYSTORE_PASSWORD"]?.string
-        signingConfigs["release"].keyAlias = envProperties["APP_KEYSTORE_ALIAS"]?.string
-        signingConfigs["release"].keyPassword = envProperties["APP_KEYSTORE_ALIAS_PASSWORD"]?.string
-    } else if (secretsProperties.isNotEmpty()) {
-        // Building locally
-        signingConfigs["release"].storePassword = secretsProperties["keystore_password"]?.string
-        signingConfigs["release"].keyAlias = secretsProperties["keystore_alias"]?.string
-        signingConfigs["release"].keyPassword =
-            secretsProperties["keystore_alias_password"]?.string
+    signingConfigs["release"].apply {
+        if (isRunningOnActions && envProperties.isNotEmpty()) {
+            // Configure keystore
+            storePassword = envProperties["APP_KEYSTORE_PASSWORD"]?.string
+            keyAlias = envProperties["APP_KEYSTORE_ALIAS"]?.string
+            keyPassword = envProperties["APP_KEYSTORE_ALIAS_PASSWORD"]?.string
+        } else if (secretsProperties.isNotEmpty()) {
+            // Building locally
+            storePassword = secretsProperties["keystore_password"]?.string
+            keyAlias = secretsProperties["keystore_alias"]?.string
+            keyPassword =
+                secretsProperties["keystore_alias_password"]?.string
+        }
     }
 }
 
