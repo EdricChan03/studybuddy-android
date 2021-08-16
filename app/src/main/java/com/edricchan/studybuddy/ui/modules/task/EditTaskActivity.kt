@@ -9,11 +9,9 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
+import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
-import com.edricchan.studybuddy.extensions.toDateFormat
-import com.edricchan.studybuddy.extensions.toTimestamp
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
@@ -31,12 +29,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_edit_task.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
+class EditTaskActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivityEditTaskBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var taskDocument: DocumentReference
     private lateinit var taskId: String
@@ -49,9 +47,11 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding = ActivityEditTaskBinding.inflate(layoutInflater)
         firestore = Firebase.firestore
         auth = Firebase.auth
         currentUser = auth.currentUser
+
         todoUtils = TodoUtils.getInstance(auth, firestore)
         taskId = intent.getStringExtra(EXTRA_TASK_ID) ?: ""
         if (taskId.isEmpty()) {
@@ -65,203 +65,201 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
             finish()
         } else {
             taskDocument = todoUtils.getTask(taskId)
-            // TODO: Migrate logic to separate component
-            taskDueDateChip.setOnClickListener {
-                val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-                val constraints = CalendarConstraints.Builder()
-                    .setValidator(DateValidatorPointForward.now())
-                    .setStart(calendar.timeInMillis)
-                    .build()
-                val picker = MaterialDatePicker.Builder.datePicker().apply {
-                    setCalendarConstraints(constraints)
-                    if (taskDate != null) {
-                        // Set the initial selection
-                        setSelection(taskDate?.time)
+            binding.apply {
+                // TODO: Migrate logic to separate component
+                taskDueDateChip.setOnClickListener {
+                    val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+                    val constraints = CalendarConstraints.Builder()
+                        .setValidator(DateValidatorPointForward.now())
+                        .setStart(calendar.timeInMillis)
+                        .build()
+                    val picker = MaterialDatePicker.Builder.datePicker().apply {
+                        setCalendarConstraints(constraints)
+                        if (taskDate != null) {
+                            // Set the initial selection
+                            setSelection(taskDate?.time)
+                        }
+                    }.build()
+                    picker.addOnPositiveButtonClickListener { selection ->
+                        taskDate = Date(selection)
+                        // Produces <day name>, <month> <year>
+                        taskDueDateChip.text =
+                            selection.toDateFormat(getString(R.string.date_format_pattern))
+                        // Allow due date to be reset
+                        taskDueDateChip.isCloseIconVisible = true
                     }
-                }.build()
-                picker.addOnPositiveButtonClickListener { selection ->
-                    taskDate = Date(selection)
-                    // Produces <day name>, <month> <year>
-                    taskDueDateChip.text =
-                        selection.toDateFormat(getString(R.string.date_format_pattern))
-                    // Allow due date to be reset
-                    taskDueDateChip.isCloseIconVisible = true
+                    picker.show(supportFragmentManager, "taskDueDatePicker")
                 }
-                picker.show(supportFragmentManager, "taskDueDatePicker")
-            }
-            taskDueDateChip.setOnCloseIconClickListener {
-                // Reset due date
-                taskDate = null
+                taskDueDateChip.setOnCloseIconClickListener {
+                    // Reset due date
+                    taskDate = null
 
-                // Reset chip's state
-                taskDueDateChip.isCloseIconVisible = false
-                taskDueDateChip.setText(R.string.select_date_chip_default_text)
-            }
-            var tempTaskProject: String? = null
-            val projectArrayList = ArrayList<TodoProject>()
-            todoProjectDropdownAdapter = TodoProjectDropdownAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                projectArrayList
-            )
-            todoProjectDropdownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerProject.adapter = todoProjectDropdownAdapter
-            firestore.collection("users/${currentUser?.uid}/todoProjects")
-                .addSnapshotListener { documentSnapshots, e ->
-                    if (e != null) {
-                        Log.e(TAG, "An error occurred while listening to changes:", e)
-                        return@addSnapshotListener
-                    }
-                    projectArrayList.clear()
-                    projectArrayList.add(TodoProject.build {
-                        id = PROJECT_NONE_ID
-                        name = getString(R.string.task_project_none)
-                    })
-                    projectArrayList.add(TodoProject.build {
-                        id = PROJECT_CREATE_ID
-                        name = getString(R.string.task_project_create)
-                    })
-                    projectArrayList.add(TodoProject.build {
-                        id = PROJECT_CHOOSE_ID
-                        name = getString(R.string.task_project_prompt)
-                    })
-                    documentSnapshots?.mapTo(projectArrayList) { it.toObjectWithId() }
-                    todoProjectDropdownAdapter.notifyDataSetChanged()
+                    // Reset chip's state
+                    taskDueDateChip.isCloseIconVisible = false
+                    taskDueDateChip.setText(R.string.select_date_chip_default_text)
                 }
-            spinnerProject.setSelection(todoProjectDropdownAdapter.count)
-            spinnerProject.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View,
-                    position: Int,
-                    id: Long
-                ) {
-                    if (todoProjectDropdownAdapter.getTaskProjectId(position) != null) {
-                        Log.d(
-                            TAG,
-                            "Task project ID: " + todoProjectDropdownAdapter.getTaskProjectId(
-                                position
+                var tempTaskProject: String? = null
+                val projectArrayList = ArrayList<TodoProject>()
+                todoProjectDropdownAdapter = TodoProjectDropdownAdapter(
+                    this@EditTaskActivity,
+                    android.R.layout.simple_spinner_item,
+                    projectArrayList
+                )
+                todoProjectDropdownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerProject.adapter = todoProjectDropdownAdapter
+                firestore.collection("users/${currentUser?.uid}/todoProjects")
+                    .addSnapshotListener { documentSnapshots, e ->
+                        if (e != null) {
+                            Log.e(TAG, "An error occurred while listening to changes:", e)
+                            return@addSnapshotListener
+                        }
+                        projectArrayList.clear()
+                        projectArrayList.add(TodoProject.build {
+                            id = PROJECT_NONE_ID
+                            name = getString(R.string.task_project_none)
+                        })
+                        projectArrayList.add(TodoProject.build {
+                            id = PROJECT_CREATE_ID
+                            name = getString(R.string.task_project_create)
+                        })
+                        projectArrayList.add(TodoProject.build {
+                            id = PROJECT_CHOOSE_ID
+                            name = getString(R.string.task_project_prompt)
+                        })
+                        documentSnapshots?.mapTo(projectArrayList) { it.toObjectWithId() }
+                        todoProjectDropdownAdapter.notifyDataSetChanged()
+                    }
+                spinnerProject.setSelection(todoProjectDropdownAdapter.count)
+                spinnerProject.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>,
+                            view: View,
+                            position: Int,
+                            id: Long
+                        ) {
+                            if (todoProjectDropdownAdapter.getTaskProjectId(position) != null) {
+                                Log.d(
+                                    TAG,
+                                    "Task project ID: " + todoProjectDropdownAdapter.getTaskProjectId(
+                                        position
+                                    )
+                                )
+                            }
+                            Log.d(
+                                TAG,
+                                "Task project name: " + todoProjectDropdownAdapter.getItem(position)?.name
                             )
-                        )
-                    }
-                    Log.d(
-                        TAG,
-                        "Task project name: " + todoProjectDropdownAdapter.getItem(position)?.name
-                    )
-                    when (todoProjectDropdownAdapter.getTaskProjectId(position)) {
-                        PROJECT_CREATE_ID -> {
-                            val editTextDialogView =
-                                layoutInflater.inflate(R.layout.edit_text_dialog, null)
-                            val textInputLayout =
-                                editTextDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
-                            textInputLayout.editText?.hint = "Project name"
-                            val builder = MaterialAlertDialogBuilder(this@EditTaskActivity)
-                            builder.setTitle("New project")
-                                .setView(editTextDialogView)
-                                .setPositiveButton(R.string.dialog_action_create) { dialog, which ->
-                                    val project = TodoProject.build {
-                                        name = textInputLayout.editTextStrValue!!
-                                    }
-                                    firestore.collection("users/${currentUser?.uid}/todoProjects")
-                                        .add(project)
-                                        .addOnCompleteListener { task ->
-                                            if (task.isSuccessful) {
-                                                Toast.makeText(
-                                                    this@EditTaskActivity,
-                                                    "Successfully created project!",
-                                                    Toast.LENGTH_SHORT
-                                                )
-                                                    .show()
-                                                dialog.dismiss()
-                                            } else {
-                                                Toast.makeText(
-                                                    this@EditTaskActivity,
-                                                    "An error occurred while attempting to create the project." +
-                                                            "Try again later.",
-                                                    Toast.LENGTH_LONG
-                                                )
-                                                    .show()
-                                                Log.e(
-                                                    TAG,
-                                                    "An error occurred while attempting to create the project:",
-                                                    task.exception
-                                                )
+                            when (todoProjectDropdownAdapter.getTaskProjectId(position)) {
+                                PROJECT_CREATE_ID -> {
+                                    val editTextDialogView =
+                                        layoutInflater.inflate(R.layout.edit_text_dialog, null)
+                                    val textInputLayout =
+                                        editTextDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
+                                    textInputLayout.editText?.hint = "Project name"
+                                    val builder = MaterialAlertDialogBuilder(this@EditTaskActivity)
+                                    builder.setTitle("New project")
+                                        .setView(editTextDialogView)
+                                        .setPositiveButton(R.string.dialog_action_create) { dialog, which ->
+                                            val project = TodoProject.build {
+                                                name = textInputLayout.editTextStrValue
                                             }
+                                            firestore.collection("users/${currentUser?.uid}/todoProjects")
+                                                .add(project)
+                                                .addOnCompleteListener { task ->
+                                                    if (task.isSuccessful) {
+                                                        showToast(
+                                                            "Successfully created project!",
+                                                            Toast.LENGTH_SHORT
+                                                        )
+                                                        dialog.dismiss()
+                                                    } else {
+                                                        showToast(
+                                                            "An error occurred while attempting to create the project." +
+                                                                    "Try again later.",
+                                                            Toast.LENGTH_LONG
+                                                        )
+                                                        Log.e(
+                                                            TAG,
+                                                            "An error occurred while attempting to create the project:",
+                                                            task.exception
+                                                        )
+                                                    }
+                                                }
                                         }
+                                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+                                        .show()
                                 }
-                                .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
-                                .show()
+                                PROJECT_NONE_ID -> {
+                                    Log.d(TAG, "Selected no project!")
+                                }
+                                PROJECT_CHOOSE_ID -> {
+                                    Log.d(TAG, "Selected choose project!")
+                                }
+                                else -> {
+                                    val (_, id1) = spinnerProject.getItemAtPosition(spinnerProject.selectedItemPosition) as TodoProject
+                                    tempTaskProject = id1
+                                }
+                            }
                         }
-                        PROJECT_NONE_ID -> {
-                            Log.d(TAG, "Selected no project!")
-                        }
-                        PROJECT_CHOOSE_ID -> {
-                            Log.d(TAG, "Selected choose project!")
-                        }
-                        else -> {
-                            val (_, id1) = spinnerProject.getItemAtPosition(spinnerProject.selectedItemPosition) as TodoProject
-                            tempTaskProject = id1
-                        }
-                    }
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    tempTaskProject = null
-                }
-            }
-            progressBar.visibility = View.VISIBLE
-            scrollView.visibility = View.GONE
-            taskDocument
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val document = task.result
-                        if (document != null && document.exists()) {
-                            progressBar.visibility = View.GONE
-                            scrollView.visibility = View.VISIBLE
-                            todoItem = document.toObject<TodoItem>()
-                            if (todoItem?.title != null) {
-                                textInputTitle.editText?.setText(todoItem!!.title)
-                            }
-                            if (todoItem?.content != null) {
-                                textInputContent.editText?.setText(todoItem!!.content)
-                            }
-                            if (todoItem?.done != null) {
-                                checkboxMarkAsDone.isChecked = todoItem!!.done!!
-                            } else {
-                                checkboxMarkAsDone.isChecked = false
-                            }
-                            if (todoItem?.dueDate != null) {
-                                val date = Date(todoItem!!.dueDate!!.toDate().time)
-                                taskDueDateChip.text =
-                                    date.toDateFormat(getString(R.string.date_format_pattern))
-                                // Allow due date to be reset
-                                taskDueDateChip.isCloseIconVisible = true
-                            }
-                            if (todoItem?.project != null) {
-                                spinnerProject!!.setSelection(
-                                    todoProjectDropdownAdapter.getPosition(
-                                        todoProjectDropdownAdapter.getTaskProjectById(todoItem!!.project!!.id)
-                                    )
-                                )
-                            }
-                            if (todoItem?.tags != null) {
-                                textInputTags.editText?.setText(
-                                    todoItem!!.tags!!.toMutableList().joinToString(
-                                        ","
-                                    )
-                                )
-                            }
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+                            tempTaskProject = null
                         }
-                    } else {
-                        Log.i(TAG, "Could not load task.", task.exception)
-                        Toast.makeText(
-                            this,
-                            "An error occurred while loading the task",
-                            Toast.LENGTH_LONG
-                        ).show()
                     }
-                }
+                progressBar.visibility = View.VISIBLE
+                scrollView.visibility = View.GONE
+                taskDocument
+                    .get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val document = task.result
+                            if (document != null && document.exists()) {
+                                progressBar.visibility = View.GONE
+                                scrollView.visibility = View.VISIBLE
+                                todoItem = document.toObject<TodoItem>()
+                                if (todoItem?.title != null) {
+                                    textInputTitle.editText?.setText(todoItem!!.title)
+                                }
+                                if (todoItem?.content != null) {
+                                    textInputContent.editText?.setText(todoItem!!.content)
+                                }
+                                if (todoItem?.done != null) {
+                                    checkboxMarkAsDone.isChecked = todoItem!!.done!!
+                                } else {
+                                    checkboxMarkAsDone.isChecked = false
+                                }
+                                if (todoItem?.dueDate != null) {
+                                    val date = Date(todoItem!!.dueDate!!.toDate().time)
+                                    taskDueDateChip.text =
+                                        date.toDateFormat(getString(R.string.date_format_pattern))
+                                    // Allow due date to be reset
+                                    taskDueDateChip.isCloseIconVisible = true
+                                }
+                                if (todoItem?.project != null) {
+                                    spinnerProject!!.setSelection(
+                                        todoProjectDropdownAdapter.getPosition(
+                                            todoProjectDropdownAdapter.getTaskProjectById(todoItem!!.project!!.id)
+                                        )
+                                    )
+                                }
+                                if (todoItem?.tags != null) {
+                                    textInputTags.editText?.setText(
+                                        todoItem!!.tags!!.toMutableList().joinToString(
+                                            ","
+                                        )
+                                    )
+                                }
+                            }
+                        } else {
+                            Log.i(TAG, "Could not load task.", task.exception)
+                            showToast(
+                                "An error occurred while loading the task",
+                                Toast.LENGTH_LONG
+                            )
+                        }
+                    }
+            }
         }
     }
 
@@ -279,15 +277,17 @@ class EditTaskActivity : AppCompatActivity(R.layout.activity_edit_task) {
             R.id.action_save -> {
                 val taskItemUpdates = HashMap<String, Any>()
                 if (todoItem != null) {
-                    if (textInputTitle?.editTextStrValue != null && textInputTitle.editTextStrValue != todoItem!!.title) {
-                        taskItemUpdates["title"] = textInputTitle.editTextStrValue!!
-                    }
-                    if (textInputContent?.editTextStrValue != null && textInputContent.editTextStrValue != todoItem!!.content) {
-                        taskItemUpdates["content"] = textInputContent.editTextStrValue!!
-                    }
-                    if (spinnerProject.selectedItem != null) {
-                        // taskItemUpdates["project"] = mFirestore.document("users/${mCurrentUser?.uid}/todoProjects/${spinnerProject.selectedItem}")
-                        Log.d(TAG, "Selected item: ${spinnerProject.selectedItem}")
+                    binding.apply {
+                        if (textInputTitle.editTextStrValue != todoItem?.title) {
+                            taskItemUpdates["title"] = textInputTitle.editTextStrValue
+                        }
+                        if (textInputContent.editTextStrValue != todoItem?.content) {
+                            taskItemUpdates["content"] = textInputContent.editTextStrValue
+                        }
+                        if (spinnerProject.selectedItem != null) {
+                            // taskItemUpdates["project"] = mFirestore.document("users/${mCurrentUser?.uid}/todoProjects/${spinnerProject.selectedItem}")
+                            Log.d(TAG, "Selected item: ${spinnerProject.selectedItem}")
+                        }
                     }
                     if (taskDate != null && todoItem!!.dueDate!! != taskDate!!.toTimestamp()) {
                         taskItemUpdates["dueDate"] = taskDate!!.toTimestamp()
