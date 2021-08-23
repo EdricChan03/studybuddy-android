@@ -12,6 +12,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: 11
+        distribution: adopt
     - name: Install Homebrew dependencies
       run: brew bundle
     - name: Decrypt keystore
