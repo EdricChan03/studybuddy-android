@@ -10,7 +10,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("com.novoda.build-properties") version "0.4.1"
+    alias(libs.plugins.buildProperties)
     id("com.google.gms.google-services")
 }
 
