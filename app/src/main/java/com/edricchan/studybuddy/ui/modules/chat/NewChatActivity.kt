@@ -22,7 +22,9 @@ import com.edricchan.studybuddy.interfaces.Visibility
 import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.IconPickerActivity
-import com.esafirm.imagepicker.features.ImagePicker
+import com.esafirm.imagepicker.features.ImagePickerConfig
+import com.esafirm.imagepicker.features.ImagePickerMode
+import com.esafirm.imagepicker.features.registerImagePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -40,6 +42,11 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private val ICON_PICKER_RESULT = 100
+
+    private val imagePickerLauncher = registerImagePicker {
+        // TODO: Add proper image picker support
+        Log.d(TAG, "Selected images: $it")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,11 +91,11 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
                         }
                         1 -> {
                             // Upload
-                            ImagePicker.create(this@NewChatActivity)
-                                .folderMode(true)
-                                .single()
-                                .theme(R.style.Theme_App_ImagePicker)
-                                .start()
+                            imagePickerLauncher.launch(ImagePickerConfig {
+                                theme = R.style.Theme_App_ImagePicker
+                                mode = ImagePickerMode.SINGLE
+                                isFolderMode = true
+                            })
                         }
                         2 -> {
                             // Default
@@ -195,11 +202,7 @@ class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-            // TODO: Add actual functionality
-            val images = ImagePicker.getImages(data)
-            Log.d(TAG, "Selected images: ${images.joinToString()}")
-        } else if (requestCode == ICON_PICKER_RESULT) {
+        if (requestCode == ICON_PICKER_RESULT) {
             Log.d(TAG, "Icon picker returned!")
         }
         super.onActivityResult(requestCode, resultCode, data)

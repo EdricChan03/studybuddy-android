@@ -127,7 +127,7 @@ fun generateVersionName(): String {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 31
     defaultConfig {
         applicationId = "com.edricchan.studybuddy"
         minSdk = 21
