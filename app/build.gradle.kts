@@ -261,7 +261,6 @@ dependencies {
     implementation(deps.firebase.installationsKtx)
     implementation(deps.firebase.messagingKtx)
     implementation(deps.firebase.perfKtx)
-    implementation(deps.firebase.guava)
 
     // Other dependencies
     implementation(deps.misc.about)
