@@ -145,7 +145,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         sharedPrefUtils = SharedPrefUtils(requireContext())
         // Checks if old preference file exists
         // TODO: Move to a separate class

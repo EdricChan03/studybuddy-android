@@ -103,7 +103,7 @@ object deps {
         const val about = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
         const val appUpdater = "com.github.javiersantos:AppUpdater:2.7"
         const val gson = "com.google.code.gson:gson:2.8.6"
-        const val imagePicker = "com.github.esafirm.android-image-picker:imagepicker:2.4.0"
+        const val imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta4"
         const val takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
     }
 
