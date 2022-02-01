@@ -62,6 +62,13 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 if (displayName != null) findViewById<TextView>(R.id.userName).text = displayName
                 if (email != null) findViewById<TextView>(R.id.userEmail).text = email
                 if (photoUrl != null) findViewById<ImageView>(R.id.userAvatar).load(photoUrl)
+            } else {
+                findViewById<TextView>(R.id.userName).text = getString(
+                    R.string.account_user_name_default
+                )
+                findViewById<TextView>(R.id.userEmail).text = getString(
+                    R.string.account_user_email_default
+                )
             }
         }
     }
