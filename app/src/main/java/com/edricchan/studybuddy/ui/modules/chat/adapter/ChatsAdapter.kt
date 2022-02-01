@@ -9,7 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.chat.Chat
 
@@ -58,12 +59,14 @@ class ChatsAdapter(
 
         if (item.icon != null) {
             // Reset to group pic style
-            itemIconImageView.setImageDrawable(null)
+            itemIconImageView.apply {
+                setImageDrawable(null)
 
-            Glide.with(context)
-                .load(item.icon)
-                .circleCrop()
-                .into(itemIconImageView)
+                load(item.icon) {
+                    transformations(CircleCropTransformation())
+                    fallback(R.drawable.ic_forum_outline_24dp)
+                }
+            }
         } else {
             // Reset to no group pic style
             itemIconImageView.setImageResource(R.drawable.ic_forum_outline_24dp)

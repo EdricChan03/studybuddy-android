@@ -7,8 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
 import com.airbnb.deeplinkdispatch.DeepLink
-import com.bumptech.glide.Glide
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
@@ -201,11 +201,7 @@ class AccountActivity : AppCompatActivity(),
             }
             accountAvatarImageView.apply {
                 visibility = if (isSignedIn) View.VISIBLE else View.GONE
-                if (isSignedIn && user?.photoUrl != null) {
-                    Glide.with(this@AccountActivity)
-                        .load(user?.photoUrl)
-                        .into(this)
-                }
+                if (isSignedIn && user?.photoUrl != null) load(user?.photoUrl)
             }
         }
     }

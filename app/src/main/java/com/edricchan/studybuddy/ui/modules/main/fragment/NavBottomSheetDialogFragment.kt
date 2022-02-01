@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
-import com.bumptech.glide.Glide
+import coil.load
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
@@ -52,18 +53,15 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         val headerView = navigationView.getHeaderView(0)
 
-        headerView.setOnClickListener {
-            startActivity<AccountActivity>()
-        }
+        headerView.apply {
+            setOnClickListener {
+                startActivity<AccountActivity>()
+            }
 
-        if (isLoggedIn) {
-            if (displayName != null) headerView.findViewById<TextView>(R.id.userName).text =
-                displayName
-            if (email != null) headerView.findViewById<TextView>(R.id.userEmail).text = email
-            if (photoUrl != null) {
-                Glide.with(this)
-                    .load(photoUrl)
-                    .into(headerView.findViewById(R.id.userAvatar))
+            if (isLoggedIn) {
+                if (displayName != null) findViewById<TextView>(R.id.userName).text = displayName
+                if (email != null) findViewById<TextView>(R.id.userEmail).text = email
+                if (photoUrl != null) findViewById<ImageView>(R.id.userAvatar).load(photoUrl)
             }
         } else {
             headerView.findViewById<TextView>(R.id.userName).text = getString(

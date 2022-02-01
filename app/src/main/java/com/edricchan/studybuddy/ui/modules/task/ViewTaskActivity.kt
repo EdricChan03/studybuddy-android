@@ -33,7 +33,7 @@ import com.google.firebase.ktx.Firebase
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.ext.tasklist.TaskListPlugin
-import io.noties.markwon.image.glide.GlideImagesPlugin
+import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
 
 class ViewTaskActivity : AppCompatActivity() {
@@ -311,7 +311,7 @@ class ViewTaskActivity : AppCompatActivity() {
     private fun setViews(item: TodoItem?) {
         if (item?.content != null) {
             Markwon.builder(this)
-                .usePlugin(GlideImagesPlugin.create(this))
+                .usePlugin(CoilImagesPlugin.create(this))
                 .usePlugin(LinkifyPlugin.create())
                 .usePlugin(StrikethroughPlugin.create())
                 .usePlugin(TaskListPlugin.create(this))

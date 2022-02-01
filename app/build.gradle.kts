@@ -251,6 +251,9 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
 
+    // IO/Network dependencies
+    implementation(libs.coil)
+
     // Other dependencies
     implementation(libs.materialAbout)
     implementation(libs.appUpdater)
@@ -263,10 +266,6 @@ dependencies {
     implementation(libs.deepLinkDispatch.core)
     kapt(libs.deepLinkDispatch.processor)
 
-    // Glide dependencies
-    implementation(libs.glide)
-    implementation(libs.glide.compiler)
-
     // Markwon dependencies
     // See https://noties.io/Markwon for more info
     implementation(libs.bundles.markwon)
@@ -277,6 +276,7 @@ dependencies {
 
     // Kotlin dependencies
     implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlinx.coroutines.android)
 }
 
 kapt {
