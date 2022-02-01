@@ -3,8 +3,8 @@ androidx-test = "1.4.1-alpha03"
 deep-link-dispatch = "6.0.0-beta06"
 firebase = "29.0.4"
 kotlin = "1.6.10"
+kotlinx-coroutines = "1.6.0"
 markwon = "4.6.2"
-glide = "4.12.0"
 
 [libraries]
 # AndroidX dependencies
@@ -45,6 +45,7 @@ googleServices-gradle = "com.google.gms:google-services:4.3.10"
 # Kotlin
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 
 # Google Play Services OSS Licenses
 playServices-ossLicenses-core = "com.google.android.gms:play-services-oss-licenses:17.0.0"
@@ -54,12 +55,17 @@ playServices-ossLicenses-gradle = "com.google.android.gms:oss-licenses-plugin:0.
 markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-editor = { module = "io.noties.markwon:editor", version.ref = "markwon" }
 markwon-html = { module = "io.noties.markwon:html", version.ref = "markwon" }
-markwon-imageGlide = { module = "io.noties.markwon:image-glide", version.ref = "markwon" }
+markwon-imageCoil = { module = "io.noties.markwon:image-coil", version.ref = "markwon" }
 markwon-linkify = { module = "io.noties.markwon:linkify", version.ref = "markwon" }
 markwon-syntaxHighlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwon" }
 markwon-ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwon" }
 markwon-ext-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
 markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
+
+# I/O Dependencies
+
+# Coil
+coil = "io.coil-kt:coil:2.0.0-alpha07"
 
 # Miscellaneous
 
@@ -68,10 +74,6 @@ appUpdater = "com.github.javiersantos:AppUpdater:2.7"
 gson = "com.google.code.gson:gson:2.8.6"
 imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta4"
 takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
-
-# Glide
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 
 # Testing dependencies
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-alpha03"
@@ -93,6 +95,6 @@ firebase = [
 ]
 markwon = [
     "markwon-core", "markwon-editor", "markwon-html",
-    "markwon-imageGlide", "markwon-linkify", "markwon-syntaxHighlight",
+    "markwon-imageCoil", "markwon-linkify", "markwon-syntaxHighlight",
     "markwon-ext-strikethrough", "markwon-ext-tables", "markwon-ext-tasklist"
 ]

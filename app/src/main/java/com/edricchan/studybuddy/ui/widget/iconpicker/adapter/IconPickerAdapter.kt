@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.bumptech.glide.Glide
+import coil.load
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 
@@ -66,10 +66,9 @@ class IconPickerAdapter(
                     circularProgressDrawable.strokeWidth = 2f
                     circularProgressDrawable.centerRadius = 12f
                     circularProgressDrawable.start()
-                    Glide.with(context)
-                        .load(item.assets[0].src)
-                        .placeholder(circularProgressDrawable)
-                        .into(tempHolder.iconImageView)
+                    tempHolder.iconImageView.load(item.assets[0].src) {
+                        placeholder(circularProgressDrawable)
+                    }
                 } else if (tracker?.isSelected(getItemId(position)) == true) {
                     tempHolder.iconImageView.setImageResource(R.drawable.ic_check_24dp)
                 } else {

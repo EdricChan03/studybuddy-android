@@ -16,7 +16,7 @@ import com.google.android.material.card.MaterialCardView
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.ext.tasklist.TaskListPlugin
-import io.noties.markwon.image.glide.GlideImagesPlugin
+import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
 
 class TodosAdapter(
@@ -51,7 +51,7 @@ class TodosAdapter(
         }*/
         if (item.content != null && item.content.isNotEmpty()) {
             Markwon.builder(context)
-                .usePlugin(GlideImagesPlugin.create(context))
+                .usePlugin(CoilImagesPlugin.create(context))
                 .usePlugin(LinkifyPlugin.create())
                 .usePlugin(StrikethroughPlugin.create())
                 .usePlugin(TaskListPlugin.create(context))

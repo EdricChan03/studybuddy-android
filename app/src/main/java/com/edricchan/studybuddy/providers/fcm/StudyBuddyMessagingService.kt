@@ -4,12 +4,14 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.TAG
@@ -77,25 +79,20 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
 
             // Image support was added in FCM 20.0.0
             if (remoteMessage.notification?.imageUrl != null) {
-                val thumbnailImageFutureTarget = Glide.with(this)
-                    .asBitmap()
-                    .load(remoteMessage.notification?.imageUrl)
-                    .thumbnail()
-                    .submit()
-                val imageFutureTarget = Glide.with(this)
-                    .asBitmap()
-                    .load(remoteMessage.notification?.imageUrl)
-                    .submit()
-                builder.setLargeIcon(thumbnailImageFutureTarget.get())
-                builder.setStyle(
-                    NotificationCompat.BigPictureStyle()
-                        .bigPicture(imageFutureTarget.get())
-                        .bigLargeIcon(null)
-                )
-                Glide.with(this).apply {
-                    clear(thumbnailImageFutureTarget)
-                    clear(imageFutureTarget)
-                }
+                val loader = applicationContext.imageLoader
+                val req = ImageRequest.Builder(this)
+                    .data(remoteMessage.notification?.imageUrl)
+                    .target { result ->
+                        val bitmap = (result as BitmapDrawable).bitmap
+                        builder.setLargeIcon(bitmap)
+                        builder.setStyle(
+                            NotificationCompat.BigPictureStyle()
+                                .bigPicture(bitmap)
+                                .bigLargeIcon(null)
+                        )
+                    }
+                    .build()
+                loader.enqueue(req)
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
