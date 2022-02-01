@@ -231,71 +231,52 @@ android {
 dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
     // Test dependencies
-    androidTestImplementation(deps.test.android.espressoCore)
-    androidTestImplementation(deps.test.android.testCore)
-    androidTestImplementation(deps.test.android.runner)
-    androidTestImplementation(deps.test.android.rules)
-    testImplementation(deps.test.mockitoCore)
-    testImplementation(deps.test.junit)
+    androidTestImplementation(libs.bundles.androidx.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.junit)
 
     // AndroidX dependencies
-    implementation(deps.android.androidx.coreKtx)
-    implementation(deps.android.androidx.appCompat)
-    implementation(deps.android.androidx.browser)
-    implementation(deps.android.androidx.constraintLayout)
-    implementation(deps.android.androidx.materialComponents)
-    implementation(deps.android.androidx.preferenceKtx)
-    implementation(deps.android.androidx.recyclerView)
-    implementation(deps.android.androidx.recyclerViewSelection)
-    implementation(deps.android.androidx.swipeRefreshLayout)
-    implementation(deps.android.androidx.workRuntimeKtx)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.materialComponents)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.recyclerview.core)
+    implementation(libs.androidx.recyclerview.selection)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.work.runtime.ktx)
 
     // Firebase dependencies
-    implementation(platform(deps.firebase.bom))
-    implementation(deps.firebase.analyticsKtx)
-    implementation(deps.firebase.authKtx)
-    implementation(deps.firebase.playServicesAuth)
-    implementation(deps.firebase.crashlyticsKtx)
-    implementation(deps.firebase.dynamicLinksKtx)
-    implementation(deps.firebase.firestoreKtx)
-    implementation(deps.firebase.installationsKtx)
-    implementation(deps.firebase.messagingKtx)
-    implementation(deps.firebase.perfKtx)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase)
 
     // Other dependencies
-    implementation(deps.misc.about)
-    implementation(deps.misc.appUpdater)
-    implementation(deps.misc.gson)
-    implementation(deps.misc.imagePicker)
-    implementation(deps.licenses.ossLicenses)
-    implementation(deps.misc.takisoftPreferencex)
+    implementation(libs.materialAbout)
+    implementation(libs.appUpdater)
+    implementation(libs.gson)
+    implementation(libs.imagePicker)
+    implementation(libs.playServices.ossLicenses.core)
+    implementation(libs.takisoftPreferencex)
 
     // DeepLinkDispatch dependencies
-    implementation(deps.deepLink.deepLinkDispatch)
-    kapt(deps.deepLink.processor)
+    implementation(libs.deepLinkDispatch.core)
+    kapt(libs.deepLinkDispatch.processor)
 
     // Glide dependencies
-    implementation(deps.glide.glide)
-    kapt(deps.glide.compiler)
+    implementation(libs.glide)
+    implementation(libs.glide.compiler)
 
     // Markwon dependencies
     // See https://noties.io/Markwon for more info
-    implementation(deps.markwon.core)
-    implementation(deps.markwon.editor)
-    implementation(deps.markwon.ext.strikethrough)
-    implementation(deps.markwon.ext.tables)
-    implementation(deps.markwon.ext.tasklist)
-    implementation(deps.markwon.html)
-    implementation(deps.markwon.imageGlide)
-    implementation(deps.markwon.linkify)
-    implementation(deps.markwon.syntaxHighlight)
+    implementation(libs.bundles.markwon)
     // See https://github.com/noties/Markwon/issues/148#issuecomment-508003794
     configurations.all {
         exclude("org.jetbrains", "annotations-java5")
     }
 
     // Kotlin dependencies
-    implementation(deps.kotlin.stdlibJdk8)
+    implementation(libs.kotlin.stdlib.jdk8)
 }
 
 kapt {
