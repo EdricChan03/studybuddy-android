@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import coil.load
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.startActivity
@@ -48,7 +48,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
             isLoggedIn = savedInstanceState.getBoolean(IS_LOGGED_IN_TAG)
             displayName = savedInstanceState.getString(USER_NAME_TAG)
             email = savedInstanceState.getString(USER_EMAIL_TAG)
-            photoUrl = savedInstanceState.getString(USER_PHOTO_URL_TAG)?.toUri()
+            photoUrl = savedInstanceState.getParcelable(USER_PHOTO_URL_TAG)
         }
 
         val headerView = navigationView.getHeaderView(0)
@@ -74,10 +74,12 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean(IS_LOGGED_IN_TAG, isLoggedIn)
-        outState.putString(USER_NAME_TAG, displayName)
-        outState.putString(USER_EMAIL_TAG, email)
-        outState.putString(USER_PHOTO_URL_TAG, photoUrl.toString())
+        outState.putAll(bundleOf(
+            IS_LOGGED_IN_TAG to isLoggedIn,
+            USER_NAME_TAG to displayName,
+            USER_EMAIL_TAG to email,
+            USER_PHOTO_URL_TAG to photoUrl
+        ))
         super.onSaveInstanceState(outState)
     }
 
