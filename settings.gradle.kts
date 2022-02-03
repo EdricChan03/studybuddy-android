@@ -1,2 +1,23 @@
+plugins {
+    // Used for Gradle's Build Scan feature - see
+    // https://docs.gradle.com/enterprise/gradle-plugin/
+    id("com.gradle.enterprise") version("3.8.1")
+}
 include(":app")
+
+// Enable Gradle 7 Version Catalogs
 enableFeaturePreview("VERSION_CATALOGS")
+
+// Configure the Gradle Enterprise Plugin
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+
+        // Only publish build scans on CI
+        if (!System.getenv("CI").isNullOrEmpty()) {
+            publishAlways()
+            tag("CI")
+        }
+    }
+}
