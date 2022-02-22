@@ -1,6 +1,7 @@
 [versions]
 android-gradle = "7.3.0-alpha07"
 androidx-test = "1.4.1-alpha04"
+dagger = "2.41"
 deep-link-dispatch = "6.1.0"
 firebase = "29.2.1"
 kotlin = "1.6.10"
@@ -90,6 +91,10 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-
 junit = "junit:junit:4.13.2"
 mockito-core = "org.mockito:mockito-core:4.4.0"
 
+# DI dependencies
+dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
+
 [bundles]
 androidx-test = [
     "androidx-test-espresso-core", "androidx-test-core",
@@ -116,3 +121,4 @@ firebase-perf = "com.google.firebase.firebase-perf:1.4.1"
 googleServices = "com.google.gms.google-services:4.3.10"
 gradleVersions = "com.github.ben-manes.versions:0.42.0"
 gradleVersions-catalog = "nl.littlerobots.version-catalog-update:0.3.1"
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }

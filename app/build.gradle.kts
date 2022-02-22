@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.googleServices)
     id("com.google.android.gms.oss-licenses-plugin")
     alias(libs.plugins.buildProperties)
+    id("com.google.dagger.hilt.android")
 }
 
 buildProperties {
@@ -264,6 +265,10 @@ dependencies {
     implementation(libs.playServices.ossLicenses.core)
     implementation(libs.takisoftPreferencex)
 
+    // Dagger dependencies
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+
     // DeepLinkDispatch dependencies
     implementation(libs.deepLinkDispatch.core)
     kapt(libs.deepLinkDispatch.processor)
@@ -282,6 +287,7 @@ dependencies {
 }
 
 kapt {
+    correctErrorTypes = true
     arguments {
         // See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for
         // more info
@@ -291,5 +297,10 @@ kapt {
         // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for
         // more info
         arg("deepLinkDoc.output", deps.build.deepLink.getDocOutput(rootDir))
+    }
+    javacOptions {
+        // Increase the max count of errors from annotation processors.
+        // Default is 100.
+        option("-Xmaxerrs", 500)
     }
 }
