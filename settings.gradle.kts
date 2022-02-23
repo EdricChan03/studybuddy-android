@@ -26,9 +26,6 @@ plugins {
 }
 include(":app")
 
-// Enable Gradle 7 Version Catalogs
-enableFeaturePreview("VERSION_CATALOGS")
-
 // Configure the Gradle Enterprise Plugin
 gradleEnterprise {
     buildScan {
