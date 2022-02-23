@@ -2,16 +2,17 @@ import org.jetbrains.kotlin.utils.addToStdlib.cast
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.googleServices)
     id("com.google.android.gms.oss-licenses-plugin")
-    id("com.novoda.build-properties") version "0.4.1"
-    id("com.google.gms.google-services")
+    alias(libs.plugins.buildProperties)
 }
 
 buildProperties {

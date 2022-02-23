@@ -1,3 +1,24 @@
+// Repository settings
+// (See https://developer.android.com/studio/releases/gradle-plugin#settings-gradle)
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io")
+        // (AppUpdater is only published on JCenter)
+        jcenter()
+    }
+}
+
 plugins {
     // Used for Gradle's Build Scan feature - see
     // https://docs.gradle.com/enterprise/gradle-plugin/

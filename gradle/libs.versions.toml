@@ -1,4 +1,5 @@
 [versions]
+android-gradle-plugin = "7.2.0-beta02"
 androidx-test = "1.4.1-alpha03"
 deep-link-dispatch = "6.0.0-beta06"
 firebase = "29.1.0"
@@ -98,3 +99,12 @@ markwon = [
     "markwon-imageCoil", "markwon-linkify", "markwon-syntaxHighlight",
     "markwon-ext-strikethrough", "markwon-ext-tables", "markwon-ext-tasklist"
 ]
+
+[plugins]
+android-gradle-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+android-gradle-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+buildProperties = "com.novoda.build-properties:0.4.1"
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+firebase-crashlytics = "com.google.firebase.crashlytics:2.8.1"
+firebase-perf = "com.google.firebase.firebase-perf:1.4.1"
+googleServices = "com.google.gms.google-services:4.3.10"
