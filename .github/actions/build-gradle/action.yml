@@ -74,7 +74,7 @@ runs:
         APP_KEYSTORE_ALIAS: ${{ inputs.app-keystore-alias }}
         APP_KEYSTORE_ALIAS_PASSWORD: ${{ inputs.app-keystore-alias-password }}
     - name: Upload artifacts
-      if: ${{ !inputs.skip-upload }}
+      if: ${{ inputs.skip-upload == 'true' }}
       uses: actions/upload-artifact@v3
       with:
         name: ${{ inputs.upload-name }}
