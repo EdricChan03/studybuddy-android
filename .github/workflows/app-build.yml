@@ -45,6 +45,8 @@ jobs:
           upload-name: dependency-updates
           # Dependency update info is available at build/dependencyUpdates/report.<filetype>
           upload-path: build/dependencyUpdates/
+          transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
+          transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
           app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
           app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
           app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
