@@ -16,6 +16,13 @@ plugins {
     alias(libs.plugins.android.gradle.application) apply false
     alias(libs.plugins.android.gradle.library) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.gradleVersions)
+    alias(libs.plugins.gradleVersions.catalog)
+}
+
+versionCatalogUpdate {
+    // Don't sort by keys to preserve comments
+    sortByKey.set(false)
 }
 
 tasks {
