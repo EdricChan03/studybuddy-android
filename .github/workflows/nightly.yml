@@ -5,44 +5,20 @@ on:
     - cron: "0 0 * * *" # Executes every day at 12 midnight UTC
 
 jobs:
-  deploy:
+  build-nightly:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: 11
-          distribution: adopt
-      - name: Install Homebrew dependencies
-        run: brew bundle
-      - name: Decrypt keystore
-        run: |
-          source ~/.profile
-          echo "Current version of transcrypt:"
-          transcrypt -v
-          transcrypt -c ${{ secrets.TRANSCRYPT_CIPHER }} -p ${{ secrets.TRANSCRYPT_PASSWORD }} -y
-        env:
-          SECRETS_GPG_COMMAND: gpg2
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          # Disable writing to cache on Nightly builds
-          cache-read-only: true
-      - name: Build app
-        run: |
-          source ~/.profile
-          ./gradlew :app:assembleNightly -PversionClassifier=nightly
-          # APK is available at app/build/outputs/apk/nightly/app-nightly.apk
-        env:
-          APP_KEYSTORE_PASSWORD: ${{ secrets.APP_KEYSTORE_PASSWORD }}
-          APP_KEYSTORE_ALIAS: ${{ secrets.APP_KEYSTORE_ALIAS }}
-          APP_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-nightly.apk
-          path: app/build/outputs/apk/nightly/app-nightly.apk
+  steps:
+    - name: Build nightly app
+      uses: ./.github/workflows/build
+      with:
+        gradle-cache-read-only: true
+        gradle-arguments: :app:assembleNightly
+        upload-name: app-nightly.apk
+        upload-path: app/build/outputs/apk/nightly/app-nightly.apk
+      secrets:
+        transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
+        transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
+        app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+        app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
+        app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
