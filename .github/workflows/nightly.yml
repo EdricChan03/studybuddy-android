@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
   steps:
+    - uses: actions/checkout@v3
     - name: Build nightly app
       uses: ./.github/actions/build
       with:
