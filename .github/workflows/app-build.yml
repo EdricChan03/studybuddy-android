@@ -26,6 +26,8 @@ jobs:
           gradle-arguments: :app:assemble${{ steps.capitalise-build-type.outputs.build-type }}
           upload-name: app-${{ matrix.app-build-types }}.apk
           upload-path: app/build/outputs/apk/${{ matrix.app-build-types }}/app-${{ matrix.app-build-types }}.apk
+          transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
+          transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
           app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
           app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
           app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
