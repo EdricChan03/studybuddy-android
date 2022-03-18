@@ -1,0 +1,51 @@
+# Reusable workflow to use for pre-building Gradle
+name: Setup Gradle
+
+on:
+  workflow_call:
+    inputs:
+      gradle-cache-read-only:
+        description: "Whether to disallow writing Gradle cache."
+        type: boolean
+        default: false
+        required: false
+    secrets:
+      transcrypt-cipher:
+        description: "The cipher to use for Transcrypt."
+        required: true
+      transcrypt-password:
+        description: "The password to use for the encrypted Transcrypt files."
+        required: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: adopt
+      - name: Install Homebrew dependencies
+        run: brew bundle
+        shell: bash
+      - name: Decrypt keystore
+        run: |
+          source ~/.profile
+          echo "Current version of transcrypt:"
+          transcrypt -v
+          transcrypt -c ${{ secrets.transcrypt-cipher }} -p ${{ secrets.transcrypt-password }} -y
+        shell: bash
+        env:
+          SECRETS_GPG_COMMAND: gpg2
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          cache-read-only: ${{ inputs.gradle-cache-read-only }}
+      - name: Setup Android problem matchers
+        uses: jonasb/android-problem-matchers-action@v1

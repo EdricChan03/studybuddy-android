@@ -5,20 +5,27 @@ on:
     - cron: "0 0 * * *" # Executes every day at 12 midnight UTC
 
 jobs:
+  setup:
+    name: Setup build
+    uses: ./.github/workflows/setup.yml
+    with:
+      gradle-cache-read-only: true
+    secrets:
+      transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
+      transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
+
   build-nightly:
+    name: Build nightly
     runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v3
-    - name: Build nightly app
-      uses: ./.github/actions/build
-      with:
-        gradle-cache-read-only: true
-        gradle-arguments: :app:assembleNightly
-        upload-name: app-nightly.apk
-        upload-path: app/build/outputs/apk/nightly/app-nightly.apk
-        transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
-        transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
-        app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
-        app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
-        app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build nightly app
+        uses: ./.github/actions/build
+        with:
+          gradle-arguments: :app:assembleNightly
+          upload-name: app-nightly.apk
+          upload-path: app/build/outputs/apk/nightly/app-nightly.apk
+          app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+          app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
+          app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}

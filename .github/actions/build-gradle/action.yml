@@ -2,10 +2,6 @@
 name: Build Gradle
 description: Composite action to setup Gradle and run a given Gradle task
 inputs:
-  gradle-cache-read-only:
-    description: "Whether to disallow writing Gradle cache."
-    default: "false"
-    required: false
   gradle-arguments:
     description: "Arguments to be passed to ./gradlew for building."
     required: true
@@ -20,12 +16,6 @@ inputs:
     description: "The path to the artifact to upload."
     required: true
   # Secrets
-  transcrypt-cipher:
-    description: "The cipher to use for Transcrypt."
-    required: true
-  transcrypt-password:
-    description: "The password to use for the encrypted Transcrypt files."
-    required: true
   app-keystore-password:
     description: "The keystore password to use."
     required: true
@@ -38,32 +28,8 @@ inputs:
 
 runs:
   using: "composite"
+  # Note: This composite action assumes that the "setup" workflow has already been run
   steps:
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        java-version: 11
-        distribution: adopt
-    - name: Install Homebrew dependencies
-      run: brew bundle
-      shell: bash
-    - name: Decrypt keystore
-      run: |
-        source ~/.profile
-        echo "Current version of transcrypt:"
-        transcrypt -v
-        transcrypt -c ${{ inputs.transcrypt-cipher }} -p ${{ inputs.transcrypt-password }} -y
-      shell: bash
-      env:
-        SECRETS_GPG_COMMAND: gpg2
-    - name: Validate Gradle wrapper
-      uses: gradle/wrapper-validation-action@v1
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        cache-read-only: ${{ inputs.gradle-cache-read-only }}
-    - name: Setup Android problem matchers
-      uses: jonasb/android-problem-matchers-action@v1
     - name: Build Android
       run: |
         source ~/.profile
