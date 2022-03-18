@@ -68,5 +68,5 @@ jobs:
           name: Dependency updates report
           conclusion: ${{ job.status }}
           output: |
-            {"summary": ${{ steps.parse_dep_updates.outputs.summary }}}
+            {"summary": "${{ steps.parse_dep_updates.outputs.summary }}"}
           output_text_description_file: build/dependencyUpdates/report.txt
