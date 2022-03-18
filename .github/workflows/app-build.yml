@@ -3,19 +3,7 @@ name: App build
 on: [ push ]
 
 jobs:
-  setup:
-    name: Setup build
-    uses: ./.github/workflows/setup.yml
-    with:
-      # Only write to the cache for builds on the 'main' branch.
-      # Builds on other branches will only read existing entries from the cache.
-      gradle-cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-    secrets:
-      transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
-      transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
-
   build:
-    needs: [setup]
     runs-on: ubuntu-latest
 
     strategy:
