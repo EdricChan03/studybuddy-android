@@ -62,6 +62,7 @@ runs:
       uses: gradle/gradle-build-action@v2
       with:
         cache-read-only: ${{ inputs.gradle-cache-read-only }}
+        gradle-home-cache-strict-match: true
     - name: Setup Android problem matchers
       uses: jonasb/android-problem-matchers-action@v1
     - name: Build Android
