@@ -211,7 +211,6 @@ class MarkdownReporter(
     @OptIn(ExperimentalStdlibApi::class)
     private val SortedSet<out Dependency>.table: String
         get() = buildList<List<String>> {
-            println(this@table.map { it.javaClass.name })
             val getProjectUrl =
                 { url: String? -> if (url != null) "Link".link(url) else "(No project URL specified)" }
 
@@ -256,7 +255,6 @@ class MarkdownReporter(
                     }
                 }
             } else if (this@table.all { it is DependencyOutdated }) {
-                println("Yes there are ${this@table.size} outdated dependencies")
                 // DependencyOutdated contains the following:
                 // group, name, version, projectUrl, userReason, available
                 if (options.useSimpleDependencyNotation) {
