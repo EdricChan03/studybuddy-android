@@ -76,6 +76,10 @@ gson = "com.google.code.gson:gson:2.8.6"
 imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta4"
 takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
 
+# Gradle Versions (declared here as a library and not as a plugin
+# such that it can be used in a custom reporter)
+gradleVersions-gradle = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
+
 # Testing dependencies
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-alpha04"
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
