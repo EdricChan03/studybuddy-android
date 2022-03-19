@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build nightly app
-        uses: ./.github/actions/build
+        uses: ./.github/actions/build-gradle
         with:
           gradle-cache-read-only: true
           gradle-arguments: :app:assembleNightly
