@@ -1,8 +1,8 @@
 [versions]
-android-gradle-plugin = "7.2.0-beta04"
-androidx-test = "1.4.1-alpha03"
-deep-link-dispatch = "6.0.0-beta06"
-firebase = "29.1.0"
+android-gradle = "7.3.0-alpha07"
+androidx-test = "1.4.1-alpha04"
+deep-link-dispatch = "6.1.0"
+firebase = "29.2.1"
 kotlin = "1.6.10"
 kotlinx-coroutines = "1.6.0"
 markwon = "4.6.2"
@@ -21,8 +21,7 @@ androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-alpha01"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.6.0-alpha02"
-android-gradle = "com.android.tools.build:gradle:7.2.0-beta02"
+materialComponents = "com.google.android.material:material:1.6.0-alpha03"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -34,23 +33,22 @@ firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx"
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 playServices-auth = "com.google.android.gms:play-services-auth:20.1.0"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-firebase-crashlytics-gradle = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
 firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links-ktx" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
 firebase-installations-ktx = { module = "com.google.firebase:firebase-installations-ktx" }
 firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx" }
 firebase-perf-ktx = { module = "com.google.firebase:firebase-perf-ktx" }
+# (The following line is still needed as there is no plugin marker available as of yet)
 firebase-perf-gradle = "com.google.firebase:perf-plugin:1.4.1"
-googleServices-gradle = "com.google.gms:google-services:4.3.10"
 
 # Kotlin
-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 
 # Google Play Services OSS Licenses
 playServices-ossLicenses-core = "com.google.android.gms:play-services-oss-licenses:17.0.0"
-playServices-ossLicenses-gradle = "com.google.android.gms:oss-licenses-plugin:0.10.4"
+# (The following line is still needed as there is no plugin marker available as of yet)
+playServices-ossLicenses-gradle = "com.google.android.gms:oss-licenses-plugin:0.10.5"
 
 # Markwon
 markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
@@ -66,13 +64,13 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # I/O Dependencies
 
 # Coil
-coil = "io.coil-kt:coil:2.0.0-alpha09"
+coil = "io.coil-kt:coil:2.0.0-rc01"
 
 # Miscellaneous
 
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
 appUpdater = "com.github.javiersantos:AppUpdater:2.7"
-gson = "com.google.code.gson:gson:2.8.6"
+gson = "com.google.code.gson:gson:2.9.0"
 imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta4"
 takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
 
@@ -86,7 +84,7 @@ androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-te
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
 junit = "junit:junit:4.13.2"
-mockito-core = "org.mockito:mockito-core:4.2.0"
+mockito-core = "org.mockito:mockito-core:4.4.0"
 
 [bundles]
 androidx-test = [
@@ -105,8 +103,8 @@ markwon = [
 ]
 
 [plugins]
-android-gradle-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
-android-gradle-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+android-gradle-application = { id = "com.android.application", version.ref = "android-gradle" }
+android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
 buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 firebase-crashlytics = "com.google.firebase.crashlytics:2.8.1"
