@@ -1,28 +1,17 @@
 package com.edricchan.studybuddy.gradle.versions
 
-import com.github.benmanes.gradle.versions.reporter.Reporter
+import com.github.benmanes.gradle.versions.reporter.AbstractReporter
 import com.github.benmanes.gradle.versions.reporter.result.*
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import org.gradle.api.Project
 import java.io.PrintWriter
 import java.util.*
 
 // Matches that of AbstractReporter
 @Suppress("HardCodedStringLiteral", "LongLine")
 class MarkdownReporter(
-    private val project: Project,
-    private val revision: String,
-    private val gradleReleaseChannel: String,
+    task: DependencyUpdatesTask,
     private val options: MarkdownReporterOptions = MarkdownReporterOptions()
-) : Reporter {
-    companion object {
-        fun fromTask(
-            task: DependencyUpdatesTask,
-            options: MarkdownReporterOptions = MarkdownReporterOptions()
-        ) =
-            MarkdownReporter(task.project, task.revision, task.gradleReleaseChannel, options)
-    }
-
+) : AbstractReporter(task.project, task.revision, task.gradleReleaseChannel) {
     data class MarkdownReporterOptions(
         /**
          * Whether to use [simple dependency notation](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.DependencyHandler.html#N16F60).
@@ -49,11 +38,12 @@ class MarkdownReporter(
     override fun write(target: Any?, result: Result) {
         // Assume that the target is a PrintWriter
         val out = target as? PrintWriter
+
         out?.apply {
+            writeHeader()
             if (result.count == 0) {
-                println("\nNo dependencies found.")
+                println("No dependencies found.")
             } else {
-                writeHeader()
                 writeGradleUpdates(result)
                 writeUpToDate(result)
                 writeExceedLatestFound(result)

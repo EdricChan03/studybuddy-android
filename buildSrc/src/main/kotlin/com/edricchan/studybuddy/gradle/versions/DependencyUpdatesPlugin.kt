@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.gradle.versions
 
 import com.github.benmanes.gradle.versions.reporter.JsonReporter
 import com.github.benmanes.gradle.versions.reporter.PlainTextReporter
+import com.github.benmanes.gradle.versions.reporter.Reporter
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -14,27 +15,60 @@ class DependencyUpdatesPlugin : Plugin<Project> {
         // Add the Markdown reporter
         target.tasks.withType<DependencyUpdatesTask> {
             outputFormatter =
+                @Suppress("LongLine")
                 closureOf<com.github.benmanes.gradle.versions.reporter.result.Result> {
-                    // Generate plain-text
-                    PlainTextReporter(project, revision, gradleReleaseChannel).write(
-                        System.out,
-                        this
+                    // (Logic from https://github.com/ben-manes/gradle-versions-plugin/blob/fba92314f34b24bf93fc3fb4f2243e2e887ed12f/src/main/groovy/com/github/benmanes/gradle/versions/updates/DependencyUpdatesReporter.groovy#L114-L124)
+
+                    // Ensure that the output directory already exists
+                    target.file(outputDir).mkdirs()
+
+                    val reporters = mapOf(
+                        // Generate console output
+                        null to getReporter {
+                            PlainTextReporter(
+                                it.project,
+                                it.revision,
+                                it.gradleReleaseChannel
+                            )
+                        },
+                        // Generate JSON file
+                        project.file(File(outputDir, "$reportfileName.json")) to getReporter {
+                            JsonReporter(
+                                it.project,
+                                it.revision,
+                                it.gradleReleaseChannel
+                            )
+                        },
+                        // Generate Markdown file
+                        project.file(File(outputDir, "$reportfileName.md"))
+                            to getReporter {
+                            MarkdownReporter(
+                                it,
+                                MarkdownReporter.MarkdownReporterOptions(useSimpleDependencyNotation = false)
+                            )
+                        }
                     )
 
-                    // Generate JSON (used to show a brief summary of results)
-                    JsonReporter(project, revision, gradleReleaseChannel).write(
-                        File(
-                            outputDir,
-                            "$reportfileName.json"
-                        ).printWriter(), this
-                    )
-
-                    // Generate custom Markdown (for the details in the GitHub Check description)
-                    MarkdownReporter.fromTask(
-                        this@withType,
-                        MarkdownReporter.MarkdownReporterOptions(useSimpleDependencyNotation = false)
-                    ).write(File(outputDir, "$reportfileName.md").printWriter(), this)
+                    reporters.forEach { (output, reporter) ->
+                        if (output == null)
+                            project.logger.debug(
+                                "\nNo output file was specified for " +
+                                    "the reporter ${reporter.javaClass.simpleName}. " +
+                                    "Assuming write to standard output"
+                            )
+                        // Note: The PrintWriter must be closed to persist writes,
+                        // otherwise it doesn't write
+                        output?.printWriter().use {
+                            reporter.write(it ?: System.out, this@closureOf)
+                        }
+                        if (output != null) project.logger.lifecycle("\nGenerated report file $output")
+                    }
                 }
         }
     }
+
+    private fun DependencyUpdatesTask.getReporter(
+        reporterFn: (DependencyUpdatesTask) -> Reporter
+    ) =
+        reporterFn(this)
 }
