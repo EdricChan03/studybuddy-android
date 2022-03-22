@@ -46,7 +46,6 @@ import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
 import com.takisoft.preferencex.PreferenceFragmentCompat
-import java.io.IOException
 import java.util.*
 
 class DebugSettingsFragment : PreferenceFragmentCompat() {
@@ -357,9 +356,9 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
                                     notificationTtl = ttlTextInputLayout.editTextStrValue!!.toLong()
                                 }
                                 val notificationSettingsAction = NotificationAction.build {
-                                    actionTitle = "Configure Notifications"
-                                    actionIcon = "ic_settings_24dp"
-                                    actionType = Constants.actionNotificationsSettingsIntent
+                                    title = "Configure Notifications"
+                                    icon = "ic_settings_24dp"
+                                    type = Constants.actionNotificationsSettingsIntent
                                 }
                                 notificationActions?.add(notificationSettingsAction)
                             }
