@@ -152,7 +152,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
                 // Update the adapter
                 val adapter = HelpArticleAdapter(helpArticles)
                 adapter.setOnItemClickListener { article, _ ->
-                    WebUtils.getInstance(activity).launchUri(article.uri)
+                    article.uri?.let { WebUtils.getInstance(activity).launchUri(it) }
                 }
                 activity.helpFeaturedRecyclerView.adapter = adapter
                 activity.helpFeaturedRecyclerView.visibility = View.VISIBLE
