@@ -20,19 +20,19 @@ import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.utils.NotificationUtils
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
     private val notificationUtils = NotificationUtils.getInstance()
 
+    @OptIn(ExperimentalStdlibApi::class)
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
@@ -45,7 +45,9 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
         if (remoteMessage.notification != null) {
             if (remoteMessage.notification?.title != null) {
                 builder.setContentTitle(remoteMessage.notification?.title)
-                builder.setStyle(NotificationCompat.BigTextStyle().bigText(remoteMessage.notification?.body))
+                builder.setStyle(
+                    NotificationCompat.BigTextStyle().bigText(remoteMessage.notification?.body)
+                )
             }
 
             if (remoteMessage.notification?.body != null) {
@@ -101,7 +103,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                         Log.w(
                             TAG,
                             "No such notification channel ${remoteMessage.notification?.channelId} exists." +
-                                    "Assigning \"uncategorised\" channel."
+                                "Assigning \"uncategorised\" channel."
                         )
                         builder.setChannelId(getString(R.string.notification_channel_uncategorised_id))
                     } else {
@@ -111,71 +113,63 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
             }
         }
 
-        if (remoteMessage.data != null) {
-            if (remoteMessage.data.containsKey("notificationActions")) {
-                Log.d(TAG, "notificationActions: ${remoteMessage.data["notificationActions"]}")
-                var notificationActions: List<NotificationAction> = listOf()
+        if (remoteMessage.data["notificationActions"] != null) {
+            Log.d(TAG, "notificationActions: ${remoteMessage.data["notificationActions"]}")
+            var notificationActions: List<NotificationAction> = listOf()
 
-                try {
-                    val gson = Gson()
-                    // TODO: Use Kotson library (https://github.com/SalomonBrys/Kotson)
-                    val remoteNotificationActions = gson.fromJson(
-                        remoteMessage.data["notificationActions"],
-                        Array<NotificationAction>::class.java
+            try {
+                val moshi = Moshi.Builder()
+                    .build()
+                notificationActions = remoteMessage.data["notificationActions"]?.let {
+                    moshi.adapter<List<NotificationAction>>().fromJson(
+                        it
                     )
-                    notificationActions = remoteNotificationActions.asList()
-                    Log.d(TAG, "Size: ${remoteNotificationActions.size}")
-                    Log.d(TAG, "JSON: $remoteNotificationActions")
-                    Log.d(
-                        TAG,
-                        "NotificationAction#actionTitle: ${remoteNotificationActions[0].actionTitle}"
-                    )
-                } catch (e: Exception) {
-                    Log.e(TAG, "Could not parse notification actions:", e)
-                    FirebaseCrashlytics.getInstance().recordException(e)
+                } ?: listOf()
+            } catch (e: Exception) {
+                Log.e(TAG, "Could not parse notification actions:", e)
+                FirebaseCrashlytics.getInstance().recordException(e)
+            }
+
+            for (notificationAction in notificationActions) {
+                // This property is set to 0 by default to indicate that no such icon exists
+                var icon = 0
+                val intent: Intent
+                var notificationPendingIntent: PendingIntent? = null
+                val drawableIcon = resources.getIdentifier(
+                    notificationAction.icon,
+                    "drawable",
+                    packageName
+                )
+                // getIdentifier returns Resources.ID_NULL (0) if no such resource exists
+                if (drawableIcon != Resources.ID_NULL) {
+                    icon = drawableIcon
                 }
 
-                for (notificationAction in notificationActions) {
-                    // This property is set to 0 by default to indicate that no such icon exists
-                    var icon = 0
-                    val intent: Intent
-                    var notificationPendingIntent: PendingIntent? = null
-                    val drawableIcon = resources.getIdentifier(
-                        notificationAction.actionIcon,
-                        "drawable",
-                        packageName
-                    )
-                    // getIdentifier returns Resources.ID_NULL (0) if no such resource exists
-                    if (drawableIcon != Resources.ID_NULL) {
-                        icon = drawableIcon
-                    }
-
-                    when (notificationAction.actionType) {
-                        // TODO: Don't hardcode action types
-                        Constants.actionNotificationsSettingsIntent -> {
-                            intent = buildIntent<SettingsActivity>(this) {
-                                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            }
-                            notificationPendingIntent = PendingIntent.getActivity(
-                                this,
-                                0,
-                                intent,
-                                PendingIntent.FLAG_ONE_SHOT
-                            )
+                when (notificationAction.type) {
+                    // TODO: Don't hardcode action types
+                    Constants.actionNotificationsSettingsIntent -> {
+                        intent = buildIntent<SettingsActivity>(this) {
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         }
-                        else -> Log.w(
-                            TAG,
-                            "Unknown action type ${notificationAction.actionType} specified for $notificationAction."
+                        notificationPendingIntent = PendingIntent.getActivity(
+                            this,
+                            0,
+                            intent,
+                            PendingIntent.FLAG_ONE_SHOT
                         )
                     }
-                    builder.addAction(
-                        NotificationCompat.Action(
-                            icon,
-                            notificationAction.actionTitle,
-                            notificationPendingIntent
-                        )
+                    else -> Log.w(
+                        TAG,
+                        "Unknown action type ${notificationAction.type} specified for $notificationAction."
                     )
                 }
+                builder.addAction(
+                    NotificationCompat.Action(
+                        icon,
+                        notificationAction.title,
+                        notificationPendingIntent
+                    )
+                )
             }
         }
 

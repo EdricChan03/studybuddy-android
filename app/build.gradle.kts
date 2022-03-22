@@ -254,11 +254,12 @@ dependencies {
 
     // IO/Network dependencies
     implementation(libs.coil)
+    implementation(libs.moshi.core)
+    kapt(libs.moshi.kotlinCodegen)
 
     // Other dependencies
     implementation(libs.materialAbout)
     implementation(libs.appUpdater)
-    implementation(libs.gson)
     implementation(libs.imagePicker)
     implementation(libs.playServices.ossLicenses.core)
     implementation(libs.takisoftPreferencex)

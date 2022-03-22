@@ -25,8 +25,10 @@ import com.edricchan.studybuddy.interfaces.HelpArticles
 import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils
+import com.edricchan.studybuddy.utils.moshi.adapters.UriJsonAdapter
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import kotlinx.android.synthetic.main.activity_help.*
 import java.io.InputStreamReader
 import java.lang.ref.WeakReference
@@ -120,6 +122,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
         // See this great post on StackOverflow for more info (to prevent memory leaks): https://stackoverflow.com/a/46166223
         private val activityRef: WeakReference<HelpActivity> = WeakReference(activity)
 
+        @OptIn(ExperimentalStdlibApi::class)
         override fun doInBackground(vararg urls: URL): List<HelpArticle>? {
             var reader: InputStreamReader? = null
             try {
@@ -128,8 +131,13 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
                 Log.e(TAG, "An error occurred while attempting to parse the JSON file:", e)
             }
 
-            if (reader != null) {
-                return Gson().fromJson(reader, HelpArticles::class.java).articles
+            reader?.use {
+                return Moshi.Builder()
+                    .add(UriJsonAdapter)
+                    .build()
+                    .adapter<HelpArticles>()
+                    .fromJson(it.readText())
+                    ?.articles
             }
             return null
         }
@@ -144,7 +152,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
                 // Update the adapter
                 val adapter = HelpArticleAdapter(helpArticles)
                 adapter.setOnItemClickListener { article, _ ->
-                    WebUtils.getInstance(activity).launchUri(article.getArticleUri())
+                    WebUtils.getInstance(activity).launchUri(article.uri)
                 }
                 activity.helpFeaturedRecyclerView.adapter = adapter
                 activity.helpFeaturedRecyclerView.visibility = View.VISIBLE

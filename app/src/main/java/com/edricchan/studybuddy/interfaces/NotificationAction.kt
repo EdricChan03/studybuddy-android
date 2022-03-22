@@ -1,20 +1,24 @@
 package com.edricchan.studybuddy.interfaces
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
 /**
  * Specifies a notification request's action
- * @property actionIcon The action's icon
- * @property actionTitle The action's title
- * @property actionType The action's type
+ * @property icon The action's icon
+ * @property title The action's title
+ * @property type The action's type
  */
+@JsonClass(generateAdapter = true)
 data class NotificationAction(
-    val actionTitle: String? = null,
-    val actionIcon: String? = null,
-    val actionType: String? = null
+    @Json(name = "actionTitle") val title: String? = null,
+    @Json(name = "actionIcon") val icon: String? = null,
+    @Json(name = "actionType") val type: String? = null
 ) {
     private constructor(builder: Builder) : this(
-        builder.actionTitle,
-        builder.actionIcon,
-        builder.actionType
+        builder.title,
+        builder.icon,
+        builder.type
     )
 
     companion object {
@@ -33,15 +37,15 @@ data class NotificationAction(
         /**
          * The notification action's title
          */
-        var actionTitle: String? = null
+        var title: String? = null
         /**
          * The notification action's icon
          */
-        var actionIcon: String? = null
+        var icon: String? = null
         /**
          * The notification action's intent type
          */
-        var actionType: String? = null
+        var type: String? = null
 
         /**
          * Returns the created [NotificationAction]

@@ -6,6 +6,7 @@ firebase = "29.2.1"
 kotlin = "1.6.10"
 kotlinx-coroutines = "1.6.0"
 markwon = "4.6.2"
+moshi = "1.13.0"
 
 [libraries]
 # AndroidX dependencies
@@ -66,11 +67,14 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # Coil
 coil = "io.coil-kt:coil:2.0.0-rc01"
 
+# Moshi
+moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-kotlinCodegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+
 # Miscellaneous
 
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
 appUpdater = "com.github.javiersantos:AppUpdater:2.7"
-gson = "com.google.code.gson:gson:2.9.0"
 imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta4"
 takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
 
