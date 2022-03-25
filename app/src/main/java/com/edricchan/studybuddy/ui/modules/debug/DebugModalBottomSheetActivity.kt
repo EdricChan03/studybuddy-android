@@ -131,12 +131,10 @@ class DebugModalBottomSheetActivity :
         for (i in 1..10) {
             modalBottomSheetFragment.addItem(
                 ModalBottomSheetItem(id = i, title = "Item $i",
-                    onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                        override fun onItemClick(item: ModalBottomSheetItem) {
-                            // Note: This is used to show that the onItemClick listener actually works by showing
-                            // the passing of the item data from the fragment to the adapter
-                            showToast(item)
-                        }
+                    onItemClickListener = { item ->
+                        // Note: This is used to show that the onItemClick listener works by showing
+                        // the item data being passed from the fragment to the adapter
+                        showToast(item)
                     })
             )
         }
@@ -157,23 +155,21 @@ class DebugModalBottomSheetActivity :
             modalBottomSheetFragment.addItem(ModalBottomSheetItem(
                 title = resolveInfo.loadLabel(packageManager).toString(),
                 iconDrawable = resolveInfo.loadIcon(packageManager),
-                onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                    override fun onItemClick(item: ModalBottomSheetItem) {
-                        showToast("Item ${item.title} clicked!")
-                        // Code adapted from
-                        // https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
-                        val activity = resolveInfo.activityInfo
-                        // Passing an intent to the `Intent` constructor will create a copy of that
-                        // intent.
-                        val intent = Intent(shareIntent).apply {
-                            component = ComponentName(activity.packageName, activity.name)
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        }
-                        startActivity(intent)
-
-                        // Dismiss the bottom sheet
-                        modalBottomSheetFragment.dismiss()
+                onItemClickListener = { item ->
+                    showToast("Item ${item.title} clicked!")
+                    // Code adapted from
+                    // https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
+                    val activity = resolveInfo.activityInfo
+                    // Passing an intent to the `Intent` constructor will create a copy of that
+                    // intent.
+                    val intent = Intent(shareIntent).apply {
+                        component = ComponentName(activity.packageName, activity.name)
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     }
+                    startActivity(intent)
+
+                    // Dismiss the bottom sheet
+                    modalBottomSheetFragment.dismiss()
                 }
             ))
         }
@@ -187,12 +183,7 @@ class DebugModalBottomSheetActivity :
             modalBottomSheetFragment.addItem(ModalBottomSheetItem(
                 id = i,
                 title = "Item $i",
-                onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                    override fun onItemClick(item: ModalBottomSheetItem) {
-                        showToast(item)
-                    }
-
-                }
+                onItemClickListener = { item -> showToast(item) }
             ))
         }
         return modalBottomSheetFragment
@@ -200,12 +191,8 @@ class DebugModalBottomSheetActivity :
 
     private fun modalBottomSheetWithIconItems(): ModalBottomSheetFragment {
         val modalBottomSheetFragment = ModalBottomSheetFragment()
-        val onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-            override fun onItemClick(item: ModalBottomSheetItem) {
-                showToast("Item ${item.title} clicked!")
-            }
-
-        }
+        val onItemClickListener =
+            ModalBottomSheetAdapter.OnItemClickListener { item -> showToast("Item ${item.title} clicked!") }
         modalBottomSheetFragment.items = mutableListOf(
             ModalBottomSheetItem(
                 id = 1, title = "About app", icon = R.drawable.ic_info_outline_24dp,
@@ -236,12 +223,7 @@ class DebugModalBottomSheetActivity :
         val group = ModalBottomSheetGroup(
             id = 1000,
             checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL,
-            onItemCheckedChangeListener = object :
-                ModalBottomSheetAdapter.OnItemCheckedChangeListener {
-                override fun onItemCheckedChange(item: ModalBottomSheetItem) {
-                    showToast(item)
-                }
-            }
+            onItemCheckedChangeListener = { item -> showToast(item) }
         )
         for (i in 1..10) {
             modalBottomSheetFragment.addItem(
@@ -261,12 +243,7 @@ class DebugModalBottomSheetActivity :
         val group = ModalBottomSheetGroup(
             id = groupId,
             checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE,
-            onItemCheckedChangeListener = object :
-                ModalBottomSheetAdapter.OnItemCheckedChangeListener {
-                override fun onItemCheckedChange(item: ModalBottomSheetItem) {
-                    showToast(item)
-                }
-            }
+            onItemCheckedChangeListener = { item -> showToast(item) }
         )
         for (i in 1..10) {
             modalBottomSheetFragment.addItem(
@@ -289,12 +266,7 @@ class DebugModalBottomSheetActivity :
                 id = i,
                 title = "Item $i",
                 enabled = !disabled,
-                onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                    override fun onItemClick(item: ModalBottomSheetItem) {
-                        showToast(item)
-                    }
-
-                }
+                onItemClickListener = { item -> showToast(item) }
             ))
         }
         return modalBottomSheetFragment
@@ -310,11 +282,7 @@ class DebugModalBottomSheetActivity :
                 id = i,
                 title = "Item $i",
                 visible = visible,
-                onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                    override fun onItemClick(item: ModalBottomSheetItem) {
-                        showToast(item)
-                    }
-                }
+                onItemClickListener = { item -> showToast(item) }
             ))
         }
         return modalBottomSheetFragment

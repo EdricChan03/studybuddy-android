@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.HelpArticle
+import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter.OnItemClickListener
 
 class HelpArticleAdapter(
     private val helpArticlesList: List<HelpArticle>?
@@ -20,11 +21,8 @@ class HelpArticleAdapter(
         }
 
     fun setOnItemClickListener(listener: (article: HelpArticle, position: Int) -> Unit) {
-        onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(article: HelpArticle, position: Int) {
-                listener.invoke(article, position)
-            }
-        }
+        onItemClickListener =
+            OnItemClickListener { article, position -> listener.invoke(article, position) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -75,7 +73,7 @@ class HelpArticleAdapter(
     /**
      * The on item click listener
      */
-    interface OnItemClickListener {
+    fun interface OnItemClickListener {
         /**
          * Called when an item is clicked on
          *

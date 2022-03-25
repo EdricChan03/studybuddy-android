@@ -309,7 +309,7 @@ class ModalBottomSheetAdapter(
     }
 
     /** Listener for when an item's checked state is toggled */
-    interface OnItemCheckedChangeListener {
+    fun interface OnItemCheckedChangeListener {
         /**
          * Called when an item's checked state is toggled
          * @param item The item whose checked state was toggled
@@ -318,7 +318,7 @@ class ModalBottomSheetAdapter(
     }
 
     /** Listener for when an item has been clicked on */
-    interface OnItemClickListener {
+    fun interface OnItemClickListener {
         /**
          * Called when an item has been clicked on
          * @param item The item that was clicked on

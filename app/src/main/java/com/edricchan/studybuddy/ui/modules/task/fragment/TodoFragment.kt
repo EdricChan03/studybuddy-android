@@ -79,46 +79,35 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                 val items = arrayOf(
                     ModalBottomSheetItem(title = getString(R.string.menu_frag_task_refresh_todos_title),
                         icon = R.drawable.ic_refresh_24dp,
-                        onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                            override fun onItemClick(item: ModalBottomSheetItem) {
-                                loadTasksListHandler()
-                                modalBottomSheet.dismiss()
-                            }
+                        onItemClickListener = {
+                            loadTasksListHandler()
+                            modalBottomSheet.dismiss()
                         }),
                     ModalBottomSheetItem(title = getString(R.string.menu_frag_task_sort_by_title),
                         icon = R.drawable.ic_sort_24dp,
-                        onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                            override fun onItemClick(item: ModalBottomSheetItem) {
-                                showSortByOptions()
-                                modalBottomSheet.dismiss()
-                            }
+                        onItemClickListener = {
+                            showSortByOptions()
+                            modalBottomSheet.dismiss()
                         }),
                     ModalBottomSheetItem(title = getString(R.string.menu_frag_task_import_from_title),
                         visible = false, // Hide option for now
                         icon = R.drawable.ic_import_24dp,
-                        onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                            override fun onItemClick(item: ModalBottomSheetItem) {
-                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                            }
-
+                        onItemClickListener = {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                         }
                     ),
                     ModalBottomSheetItem(title = getString(R.string.menu_settings_title),
                         icon = R.drawable.ic_settings_outline_24dp,
-                        onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                            override fun onItemClick(item: ModalBottomSheetItem) {
-                                startActivity<SettingsActivity>()
-                                modalBottomSheet.dismiss()
-                            }
+                        onItemClickListener = {
+                            startActivity<SettingsActivity>()
+                            modalBottomSheet.dismiss()
                         }),
                     ModalBottomSheetItem(title = getString(R.string.menu_debug_title),
                         icon = R.drawable.ic_bug_report_outline_24dp,
                         visible = SharedUtils.isDevMode(requireContext()),
-                        onItemClickListener = object : ModalBottomSheetAdapter.OnItemClickListener {
-                            override fun onItemClick(item: ModalBottomSheetItem) {
-                                startActivity<DebugActivity>()
-                                modalBottomSheet.dismiss()
-                            }
+                        onItemClickListener = {
+                            startActivity<DebugActivity>()
+                            modalBottomSheet.dismiss()
                         })
                 )
                 modalBottomSheet.setItems(items)
@@ -303,53 +292,50 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
         val itemDueDateOldestId = 5
         val group = ModalBottomSheetGroup(id = 100,
             checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE,
-            onItemCheckedChangeListener = object :
-                ModalBottomSheetAdapter.OnItemCheckedChangeListener {
-                override fun onItemCheckedChange(item: ModalBottomSheetItem) {
-                    when (item.id) {
-                        itemNoneId -> {
-                            taskOptionsPrefs.edit {
-                                putString(
-                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TodoOptionsPrefConstants.TodoSortValues.NONE
-                                )
-                            }
-                        }
-                        itemTitleDescId -> {
-                            taskOptionsPrefs.edit {
-                                putString(
-                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TodoOptionsPrefConstants.TodoSortValues.TITLE_DESC
-                                )
-                            }
-                        }
-                        itemTitleAscId -> {
-                            taskOptionsPrefs.edit {
-                                putString(
-                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TodoOptionsPrefConstants.TodoSortValues.TITLE_ASC
-                                )
-                            }
-                        }
-                        itemDueDateNewestId -> {
-                            taskOptionsPrefs.edit {
-                                putString(
-                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_NEW_TO_OLD
-                                )
-                            }
-                        }
-                        itemDueDateOldestId -> {
-                            taskOptionsPrefs.edit {
-                                putString(
-                                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                    TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_OLD_TO_NEW
-                                )
-                            }
+            onItemCheckedChangeListener = { item ->
+                when (item.id) {
+                    itemNoneId -> {
+                        taskOptionsPrefs.edit {
+                            putString(
+                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                TodoOptionsPrefConstants.TodoSortValues.NONE
+                            )
                         }
                     }
-                    loadTasksListHandler()
+                    itemTitleDescId -> {
+                        taskOptionsPrefs.edit {
+                            putString(
+                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                TodoOptionsPrefConstants.TodoSortValues.TITLE_DESC
+                            )
+                        }
+                    }
+                    itemTitleAscId -> {
+                        taskOptionsPrefs.edit {
+                            putString(
+                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                TodoOptionsPrefConstants.TodoSortValues.TITLE_ASC
+                            )
+                        }
+                    }
+                    itemDueDateNewestId -> {
+                        taskOptionsPrefs.edit {
+                            putString(
+                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_NEW_TO_OLD
+                            )
+                        }
+                    }
+                    itemDueDateOldestId -> {
+                        taskOptionsPrefs.edit {
+                            putString(
+                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                                TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_OLD_TO_NEW
+                            )
+                        }
+                    }
                 }
+                loadTasksListHandler()
             })
         val items = arrayOf(
             ModalBottomSheetItem(
