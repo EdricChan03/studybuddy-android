@@ -1,8 +1,7 @@
 [versions]
 android-gradle = "7.3.0-alpha07"
-androidx-test = "1.4.1-alpha04"
 deep-link-dispatch = "6.1.0"
-firebase = "29.2.1"
+firebase = "29.3.0"
 kotlin = "1.6.10"
 kotlinx-coroutines = "1.6.0"
 markwon = "4.6.2"
@@ -65,7 +64,7 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # I/O Dependencies
 
 # Coil
-coil = "io.coil-kt:coil:2.0.0-rc01"
+coil = "io.coil-kt:coil:2.0.0-rc02"
 
 # Moshi
 moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
@@ -84,9 +83,9 @@ gradleVersions-gradle = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 
 # Testing dependencies
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-alpha04"
-androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
-androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
-androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
+androidx-test-core = "androidx.test:core:1.4.1-alpha05"
+androidx-test-runner = "androidx.test:runner:1.5.0-alpha02"
+androidx-test-rules = "androidx.test:rules:1.4.1-alpha05"
 junit = "junit:junit:4.13.2"
 mockito-core = "org.mockito:mockito-core:4.4.0"
 
