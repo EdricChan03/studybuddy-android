@@ -146,7 +146,7 @@ class DebugModalBottomSheetActivity :
     private fun modalBottomSheetWithTextAndHeader() =
         ModalBottomSheetFragment().apply {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_content))
+                putExtra(Intent.EXTRA_TEXT, this@DebugModalBottomSheetActivity.getString(R.string.share_content))
                 type = MimeTypeConstants.textPlainMime
             }
             // See https://stackoverflow.com/a/9083910/6782707
