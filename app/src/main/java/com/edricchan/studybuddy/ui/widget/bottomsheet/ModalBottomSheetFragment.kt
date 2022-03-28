@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.databinding.FragModalBottomSheetBinding
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -19,15 +16,22 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 
     /** The current list of items */
     var items: MutableList<ModalBottomSheetItem> = mutableListOf()
+
     /** The bottom sheet's title to be shown on top of the list of items */
     var headerTitle: String? = null
+
+    private lateinit var binding: FragModalBottomSheetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.frag_modal_bottom_sheet, container, false)
+    ): View {
+        return FragModalBottomSheetBinding.inflate(
+            layoutInflater,
+            container,
+            false
+        ).also { binding = it }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,28 +39,30 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
         if (savedInstanceState != null) {
             headerTitle = savedInstanceState.getString(HEADER_TITLE_TAG)
         }
+
         if (headerTitle != null) {
-            setHeaderVisibility(view, View.VISIBLE)
-            setHeaderTitle(view, headerTitle)
+            setHeaderViewVisibility(View.VISIBLE)
+            setHeaderViewTitle(headerTitle)
         } else {
-            setHeaderVisibility(view, View.GONE)
-            setHeaderTitle(view, null)
+            setHeaderViewVisibility(View.GONE)
+            setHeaderViewTitle(null)
         }
-        view.findViewById<RecyclerView>(R.id.bottomSheetRecyclerView).apply {
-            adapter = ModalBottomSheetAdapter(requireContext(), items.toTypedArray())
+
+        binding.bottomSheetRecyclerView.apply {
+            adapter = ModalBottomSheetAdapter(requireContext(), items)
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
     }
 
-    private fun setHeaderVisibility(view: View, visibility: Int) {
-        view.findViewById<LinearLayout>(R.id.bottomSheetHeader).apply {
+    private fun setHeaderViewVisibility(visibility: Int) {
+        binding.bottomSheetHeader.apply {
             setVisibility(visibility)
         }
     }
 
-    private fun setHeaderTitle(view: View, headerTitle: String?) {
-        view.findViewById<TextView>(R.id.bottomSheetHeaderTitleTextView).apply {
+    private fun setHeaderViewTitle(headerTitle: String?) {
+        binding.bottomSheetHeaderTitleTextView.apply {
             text = headerTitle
         }
     }
@@ -66,7 +72,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
      * @param item The item to add
      */
     fun addItem(item: ModalBottomSheetItem) {
-        items.add(item)
+        items += item
     }
 
     /**

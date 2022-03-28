@@ -16,7 +16,7 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomShee
 
 class ModalBottomSheetAdapter(
     private val context: Context,
-    private val items: Array<ModalBottomSheetItem>
+    private val items: List<ModalBottomSheetItem>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
