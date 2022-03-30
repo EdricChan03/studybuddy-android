@@ -82,6 +82,12 @@ class DebugModalBottomSheetActivity :
                 "Modal bottom sheet with hidden odd text items",
                 buildOnClickListener(modalBottomSheetHiddenOddItems())
             )
+
+            addModalBottomSheetLauncher(
+                this,
+                "Modal bottom sheet with DSL syntax",
+                buildOnClickListener(modalBottomSheetDSL())
+            )
         }
     }
 
@@ -284,6 +290,62 @@ class DebugModalBottomSheetActivity :
                         onItemClickListener = onItemClickListener
                     )
                 )
+            }
+        }
+
+    private fun modalBottomSheetDSL() =
+        ModalBottomSheetFragment().apply {
+            setItems {
+                for (i in 1..10) {
+                    item {
+                        id = i
+                        title = "Item $i"
+                        onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
+                    }
+                }
+                // plusAssign test
+                this += item { title = "Item from plusAssign operator" }
+                this += {
+                    title = "Item from plusAssign with DSL"
+                }
+
+                // Group
+                group {
+                    id = 1
+                    onItemCheckedChangeListener =
+                        this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
+                    checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL
+                }.apply {
+                    items(buildList {
+                        for (i in 1..5) {
+                            this += item {
+                                id = i + 10
+                                title = "Item ${i + 10}"
+                                onItemClickListener =
+                                    this@DebugModalBottomSheetActivity.onItemClickListener
+                            }
+                        }
+                    })
+                }
+                // Another group
+                group({
+                    id = 2
+                    onItemCheckedChangeListener =
+                        this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
+                    checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
+                }) {
+                    items(buildList {
+                        for (i in 1..5) {
+                            this += item {
+                                id = i + 20
+                                title = "Item ${i + 20}"
+                                onItemClickListener =
+                                    this@DebugModalBottomSheetActivity.onItemClickListener
+                                setIcon(R.drawable.ic_info_outline_24dp)
+                            }
+                        }
+                    })
+                }
             }
         }
 }

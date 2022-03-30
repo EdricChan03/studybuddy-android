@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.databinding.FragModalBottomSheetBinding
+import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.ModalBottomSheetDSL
+import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.items
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -95,6 +97,42 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
      */
     fun setItems(items: Array<ModalBottomSheetItem>) {
         this.items = items.toMutableList()
+    }
+
+    /**
+     * Overwrites the current list of items with the specified list of items
+     * using DSL-like syntax.
+     * Example:
+     * ```kt
+     * fragment.setItems {
+     *     // Add an item
+     *     item {
+     *         title = "Hello world!"
+     *         icon = R.drawable.ic_info_outline_24dp
+     *     }
+     *     // Add a list of items
+     *     items({ title = "Hello item 2!" }, { title = "Another item!" })
+     *     // Add a group
+     *     group {
+     *         // Provide group metadata
+     *         id = 123
+     *     }.apply {
+     *         // Add items
+     *         items({ title = "This is in a group!" }, { title = "Yet another item" })
+     *     }
+     *     // Or specify the items as a second argument
+     *     group({
+     *         id = 234
+     *     }) {
+     *         // Add items
+     *         item { title = "Hello another group!" }
+     *     }
+     * }
+     * ```
+     * @param init The new list of items.
+     */
+    fun setItems(init: ModalBottomSheetDSL.() -> Unit) {
+        this.items = items(init).toMutableList()
     }
 
     companion object {
