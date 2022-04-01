@@ -14,11 +14,7 @@ class HelpArticleAdapter(
 ) : RecyclerView.Adapter<HelpArticleAdapter.Holder>() {
     private var listener: OnItemClickListener? = null
 
-    var onItemClickListener: OnItemClickListener?
-        get() = this.listener
-        set(listener) {
-            this.listener = listener
-        }
+    var onItemClickListener by ::listener
 
     fun setOnItemClickListener(listener: (article: HelpArticle, position: Int) -> Unit) {
         onItemClickListener =
