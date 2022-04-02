@@ -4,8 +4,7 @@
 
 [![GitHub Actions Status](https://img.shields.io/github/workflow/status/EdricChan03/StudyBuddy-android/CI?label=CI&logo=github&style=flat-square)](https://github.com/EdricChan03/StudyBuddy-android/actions?query=workflow%3ACI)
 [![CodeFactor](https://www.codefactor.io/repository/github/edricchan03/studybuddy-android/badge?style=flat-square)](https://www.codefactor.io/repository/github/edricchan03/studybuddy-android)
-[![App license](https://img.shields.io/github/license/EdricChan03/StudyBuddy-android?style=flat-square)](https://github.com/EdricChan03/StudyBuddy-android/blob/master/LICENSE)
-[![Dependabot status](https://flat.badgen.net/dependabot/EdricChan03/StudyBuddy-android?icon=dependabot)](https://dependabot.com)
+[![App license](https://img.shields.io/github/license/EdricChan03/StudyBuddy-android?style=flat-square)](https://github.com/EdricChan03/StudyBuddy-android/blob/main/LICENSE)
 
 </div>
 
@@ -32,7 +31,7 @@ Firebase (Analytics, Authentication, Crashlytics, Cloud Messaging, Firestore) | 
 
 ## Libraries used
 
-For more info about the list of libraries used, check out the `build.gradle` files ([root `build.gradle`](build.gradle), [app `build.gradle`](app/build.gradle)).
+For more info about the list of libraries used, check out the `build.gradle.kts` files ([root `build.gradle.kts`](build.gradle.kts), [app `build.gradle.kts`](app/build.gradle.kts)) and the [Version Catalog](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml) file ([`gradle/libs.versions.toml`](gradle/libs.versions.toml).
 
 ---
 
