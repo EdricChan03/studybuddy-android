@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -63,9 +64,14 @@ class WebUtils(val context: Context) {
                     }
                     setColorScheme(colorScheme)
                 }
-                setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-                setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                setDefaultColorSchemeParams(CustomTabColorSchemeParams.Builder().apply {
+                    setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                    setSecondaryToolbarColor(
+                        ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                    )
+                    setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                }.build())
+
                 setShareState(CustomTabsIntent.SHARE_STATE_ON)
                 setShowTitle(true)
             }.build()
