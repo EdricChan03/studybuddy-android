@@ -31,8 +31,8 @@
     <string name="pref_header_dev_mode_opts_title">Developer options</string>
 
     <!-- The about dialog's message -->
-    <string name="about_dialog_msg">Purpose: To help students in their studies\nVersion: %s\n---\nApp is fully open
-        source. Check it out!
+    <string name="about_dialog_msg">Purpose: To help students in their studies
+        \nVersion: %s\n---\nApp is fully open source. Check it out!
     </string>
 
     <!-- About fragment strings -->
@@ -43,8 +43,8 @@
     <string name="about_frag_app_info_card_open_app_info_subtitle">Open the app\'s info page in
         Settings</string>
     <string name="about_frag_app_info_card_view_source_code_title">View source code</string>
-    <string name="about_frag_app_info_card_view_source_code_subtitle">Opens the app\'s source code in
-        a new tab</string>
+    <string name="about_frag_app_info_card_view_source_code_subtitle">Opens the app\'s source code
+        in a new tab</string>
     <string name="about_frag_app_info_card_app_license_title">App license</string>
     <string name="about_frag_app_info_card_open_source_licenses_title">Open-source licenses</string>
     <string name="about_frag_about_author_card_title">Author</string>
@@ -81,8 +81,8 @@
     <!-- The title of the new password dialog in the account activity. -->
     <string name="account_new_password_dialog_title">Set new password</string>
     <!-- The message of the new profile picture dialog in the account activity. -->
-    <string name="account_new_profile_pic_dialog_msg">The feature to set a new profile picture is coming
-        soon!
+    <string name="account_new_profile_pic_dialog_msg">The feature to set a new profile picture is
+        coming soon!
     </string>
     <!-- The title of the new profile picture dialog in the account activity. -->
     <string name="account_new_profile_pic_dialog_title">Set new profile picture</string>
@@ -204,43 +204,53 @@
     <string name="chat_frag_new_chat_dialog_name_editext_hint">Chat name</string>
     <string name="chat_frag_new_chat_dialog_visibility_editext_hint">Chat visibility</string>
     <string name="chat_frag_new_chat_dialog_title">New chat</string>
-    <string name="chat_frag_archive_selected_chats_confirm_dialog_title">Archive selected chats?</string>
-    <string name="chat_frag_archive_selected_chats_confirm_dialog_msg">Archiving the selected chats will mark them as
-        read-only.\nThis means that the chat\'s members can only <i>view</i> the chat\'s messages, but not be able to
-        <i>send</i>
-        any new messages.
+    <string name="chat_frag_archive_selected_chats_confirm_dialog_title">
+        Archive selected chats?</string>
+    <string name="chat_frag_archive_selected_chats_confirm_dialog_msg">Archiving the selected chats
+        will mark them as read-only.\nThis means that the chat\'s members can only <i>view</i> the
+        chat\'s messages, but not be able to <i>send</i> any new messages.
     </string>
-    <string name="chat_frag_archive_selected_chats_confirm_dialog_positive_btn_text">Archive selected</string>
+    <string name="chat_frag_archive_selected_chats_confirm_dialog_positive_btn_text">
+        Archive selected</string>
     <string name="chat_frag_archive_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
-    <string name="chat_frag_archive_selected_chats_denied_dialog_title">Could not archive selected chats</string>
+    <string name="chat_frag_archive_selected_chats_denied_dialog_title">
+        Could not archive selected chats</string>
     <string name="chat_frag_archive_selected_chats_denied_dialog_msg">Reason:\n%s</string>
-    <string name="chat_frag_archive_selected_chats_denied_dialog_reason_not_admin">You\'re not an administrator of the
-        following chats:\n%s
+    <string name="chat_frag_archive_selected_chats_denied_dialog_reason_not_admin">
+        You\'re not an administrator of the following chats:\n%s
     </string>
     <string name="chat_frag_archive_selected_chats_denied_dialog_positive_btn_text">Dismiss</string>
-    <string name="chat_frag_leave_selected_chats_confirm_dialog_title">Leave selected chats?</string>
-    <string name="chat_frag_leave_selected_chats_confirm_dialog_msg">This is non-reversible!\nThings to note:\n-
-        Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to the
-        group.
+    <string name="chat_frag_leave_selected_chats_confirm_dialog_title">
+        Leave selected chats?</string>
+    <string name="chat_frag_leave_selected_chats_confirm_dialog_msg">This is non-reversible!
+        \nThings to note:\n- Private groups that you\'re currently in cannot be rejoined unless an
+        existing member reinvites you back to the group.
     </string>
-    <string name="chat_frag_leave_selected_chats_confirm_dialog_msg_with_admin">This is non-reversible!\nThings to note:
-        \n- Private groups that you\'re currently in cannot be rejoined unless an existing member reinvites you back to
-        the group.\n- If you\'re an administrator of any groups, your role will be revoked unless an existing
-        administrator gives you back the roles if you rejoin.
+    <string name="chat_frag_leave_selected_chats_confirm_dialog_msg_with_admin">This is
+        non-reversible!\nThings to note:
+        \n- Private groups that you\'re currently in cannot be rejoined unless an existing member
+        reinvites you back to the group.\n- If you\'re an administrator of any groups, your role
+        will be revoked unless an existing administrator gives you back the roles if you rejoin.
     </string>
-    <string name="chat_frag_leave_selected_chats_confirm_dialog_positive_btn_text">Leave selected</string>
+    <string name="chat_frag_leave_selected_chats_confirm_dialog_positive_btn_text">
+        Leave selected</string>
     <string name="chat_frag_leave_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
-    <string name="chat_frag_leave_selected_chats_denied_dialog_title">Could not leave selected chats</string>
+    <string name="chat_frag_leave_selected_chats_denied_dialog_title">
+        Could not leave selected chats</string>
     <string name="chat_frag_leave_selected_chats_denied_dialog_msg">Reason:\n%s</string>
-    <string name="chat_frag_leave_selected_chats_denied_reason_is_owner">You\'re an owner of the following chats:\n%s
+    <string name="chat_frag_leave_selected_chats_denied_reason_is_owner">
+        You\'re an owner of the following chats:\n%s
     </string>
     <string name="chat_frag_leave_selected_chats_denied_dialog_positive_btn_text">Dismiss</string>
-    <string name="chat_frag_delete_selected_chats_confirm_dialog_title">Delete selected chats?</string>
-    <string name="chat_frag_delete_selected_chats_confirm_dialog_msg">This is a non-reversible deletion!\nThe following
-        chats will be deleted:\n%s\n\nAre you sure you want to continue?\n\nTIP: Before continuing, ensure that you\'ve
-        notified the members in the respective chats that you\'re deleting the selected chats.
+    <string name="chat_frag_delete_selected_chats_confirm_dialog_title">
+        Delete selected chats?</string>
+    <string name="chat_frag_delete_selected_chats_confirm_dialog_msg">This is a non-reversible
+        deletion!\nThe following chats will be deleted:\n%s\n\nAre you sure you want to continue?
+        \n\nTIP: Before continuing, ensure that you\'ve notified the members in the respective
+        chats that you\'re deleting the selected chats.
     </string>
-    <string name="chat_frag_delete_selected_chats_confirm_dialog_positive_btn_text">Delete selected</string>
+    <string name="chat_frag_delete_selected_chats_confirm_dialog_positive_btn_text">
+        Delete selected</string>
     <string name="chat_frag_delete_selected_chats_confirm_dialog_negative_btn_text">Cancel</string>
 
     <string name="new_chat_activity_select_chat_icon_dialog_title">Select chat icon</string>
@@ -255,7 +265,8 @@
 
     <string name="date_format_pattern">EEE, MMM d yyyy</string>
 
-    <string name="debug_activity_account_info_summary">Show information about the currently signed-in Firebase User
+    <string name="debug_activity_account_info_summary">Show information about the currently
+        signed-in Firebase User
     </string>
 
     <string name="debug_activity_account_info_title">Account info</string>
@@ -265,66 +276,82 @@
     <string name="debug_activity_category_updates">Updates</string>
     <string name="debug_activity_category_other">Other</string>
     <string name="debug_activity_confirm_crash_app_dialog_title">Crash app?</string>
-    <string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n(Note that a new ID will
-        be generated after you delete the current ID)
+    <string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n
+        (Note that a new ID will be generated after you delete the current ID)
     </string>
-    <string name="debug_activity_confirm_reset_instance_id_dialog_title">Delete device\'s Instance ID?</string>
-    <string name="debug_activity_confirm_clear_app_settings_dialog_title">Clear app settings?</string>
-    <string name="debug_activity_confirm_clear_app_settings_dialog_msg">This cannot be undone!</string>
+    <string name="debug_activity_confirm_reset_instance_id_dialog_title">Delete device\'s Instance
+        ID?</string>
+    <string name="debug_activity_confirm_clear_app_settings_dialog_title">Clear app
+        settings?</string>
+    <string name="debug_activity_confirm_clear_app_settings_dialog_msg">This cannot be
+        undone!</string>
     <string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
-    <string name="debug_activity_crash_app_summary">Programmatically crash the app with Firebase Crashlytics</string>
+    <string name="debug_activity_crash_app_summary">Programmatically crash the app with Firebase
+        Crashlytics</string>
     <string name="debug_activity_crash_app_title">Crash app</string>
     <string name="debug_activity_dev_mode_enabled_title">Developer mode</string>
-    <string name="debug_activity_device_info_summary">Show information about the current device</string>
+    <string name="debug_activity_device_info_summary">Show information about the current
+        device</string>
     <string name="debug_activity_device_info_title">Device info</string>
     <string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
     <string name="debug_activity_feature_flags_title">Feature flags</string>
     <string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
     <string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
     <string name="debug_activity_send_notification_dialog_body_hint">Body</string>
-    <string name="debug_activity_send_notification_dialog_channel_id_helpertext">Applicable for devices running Android
-        Oreo and up
+    <string name="debug_activity_send_notification_dialog_channel_id_helpertext">Applicable for
+        devices running Android Oreo and up
     </string>
-    <string name="debug_activity_send_notification_dialog_channel_id_hint">Notification Channel ID</string>
-    <string name="debug_activity_send_notification_dialog_color_helpertext">Only hexadecimal values are supported.
+    <string name="debug_activity_send_notification_dialog_channel_id_hint">Notification Channel
+        ID</string>
+    <string name="debug_activity_send_notification_dialog_color_helpertext">Only hexadecimal values
+        are supported.
     </string>
     <string name="debug_activity_send_notification_dialog_color_hint">Color</string>
     <string name="debug_activity_send_notification_dialog_priority_high">High</string>
     <string name="debug_activity_send_notification_dialog_priority_normal">Normal</string>
     <string name="debug_activity_send_notification_dialog_priority_title">Priority</string>
     <string name="debug_activity_send_notification_dialog_title_hint">Title</string>
-    <string name="debug_activity_send_notification_dialog_ttl_helpertext">The time specified (in milliseconds) to keep
-        the notification in FCM storage. (Default: 4 weeks)
+    <string name="debug_activity_send_notification_dialog_ttl_helpertext">The time specified (in
+        milliseconds) to keep the notification in FCM storage. (Default: 4 weeks)
     </string>
     <string name="debug_activity_send_notification_dialog_ttl_hint">Time-to-live</string>
     <string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
-    <string name="debug_activity_send_notification_summary">Programmatically send a FCM notification request</string>
+    <string name="debug_activity_send_notification_summary">Programmatically send a FCM
+        notification request</string>
     <string name="debug_activity_send_notification_title">Send FCM notification</string>
-    <string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON URL</string>
-    <string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON URL</string>
+    <string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON
+        URL</string>
+    <string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON
+        URL</string>
     <string name="debug_activity_updates_update_metadata_title">Update metadata</string>
     <string name="debug_activity_updates_start_worker_title">Start check for updates worker</string>
-    <string name="debug_activity_updates_start_worker_summary">Explicitly start the worker. (Note: The worker is
-        automatically started on boot.)
+    <string name="debug_activity_updates_start_worker_summary">Explicitly start the worker. (Note:
+        The worker is automatically started on boot.)
     </string>
-    <string name="debug_activity_updates_tip_summary">Tip: You can copy the values by long pressing on the preference
-        and tapping on "Copy" in the context menu that shows
+    <string name="debug_activity_updates_tip_summary">Tip: You can copy the values by long pressing
+        on the preference and tapping on "Copy" in the context menu
     </string>
-    <string name="debug_activity_updates_last_checked_for_updates_date_title">Last checked for updates date</string>
-    <string name="debug_activity_updates_last_checked_for_updates_date_summary_default">&lt;Not set&gt;</string>
-    <string name="debug_activity_updates_clear_last_checked_for_updates_date_title">Clear last checked for updates
-        date
+    <string name="debug_activity_updates_last_checked_for_updates_date_title">Last checked for
+        updates date</string>
+    <string name="debug_activity_updates_last_checked_for_updates_date_summary_default">&lt;Not
+        set&gt;</string>
+    <string name="debug_activity_updates_clear_last_checked_for_updates_date_title">Clear last
+        checked for updates date
     </string>
-    <string name="debug_activity_updates_clear_last_checked_for_updates_date_confirm_dialog_title">Clear last checked
-        for updates date?
+    <string name="debug_activity_updates_clear_last_checked_for_updates_date_confirm_dialog_title">
+        Clear last checked for updates date?
     </string>
     <string name="debug_activity_updates_last_updated_date_title">Last updated date</string>
     <string name="debug_activity_updates_last_updated_date_summary_default">&lt;Not set&gt;</string>
-    <string name="debug_activity_updates_clear_last_updated_date_title">Clear last updated date</string>
-    <string name="debug_activity_updates_clear_last_updated_date_confirm_dialog_title">Clear last updated date?</string>
+    <string name="debug_activity_updates_clear_last_updated_date_title">Clear last updated
+        date</string>
+    <string name="debug_activity_updates_clear_last_updated_date_confirm_dialog_title">Clear last
+        updated date?</string>
     <string name="debug_activity_other_clear_app_settings_title">Clear app settings</string>
-    <string name="debug_activity_other_modal_bottom_sheet_testing_title">Modal Bottom Sheet testing</string>
-    <string name="debug_activity_other_modal_bottom_sheet_testing_summary">Show examples of the Modal Bottom Sheet
+    <string name="debug_activity_other_modal_bottom_sheet_testing_title">Modal Bottom Sheet
+        testing</string>
+    <string name="debug_activity_other_modal_bottom_sheet_testing_summary">Show examples of the
+        Modal Bottom Sheet
     </string>
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_action_clear">Clear</string>
@@ -360,8 +387,9 @@
     <string name="edittext_errors_invalid_email">Please enter a valid email address</string>
     <string name="edittext_errors_invalid_password">Please enter a valid password</string>
     <string name="email_hint">Email</string>
-    <string name="forgot_password_msg">Just enter your email address in the input below and click the "Reset password"
-        button to reset your password.\nYou\'ll be sent an email ASAP with the reset password.
+    <string name="forgot_password_msg">Enter your email address in the input below and click
+        the "Reset password" button to reset your password.\nYou\'ll be sent an email with a
+        link to reset your password.
     </string>
 
     <string name="forgot_password_title">Forgot password?</string>
@@ -374,66 +402,79 @@
 
     <string name="help_activity_empty_state_title">Loading help articles&#8230;</string>
 
-    <string name="minimum_password">The password that you entered is too short, please enter a minimum of 6
-        characters!
+    <string name="minimum_password">The password that you entered is too short, please enter a
+        minimum of 6 characters!
     </string>
 
-    <string name="notification_channel_new_app_features_id" translatable="false">new_app_features</string>
+    <string name="notification_channel_new_app_features_id" translatable="false">
+        new_app_features</string>
     <string name="notification_channel_new_app_features_title">New in-app features</string>
-    <string name="notification_channel_new_app_features_desc">Notifications regarding any new recently
-        introduced features to the app.</string>
+    <string name="notification_channel_new_app_features_desc">Notifications regarding any new
+        recently introduced features to the app.</string>
     <string name="notification_channel_group_todos_id" translatable="false">todos</string>
     <string name="notification_channel_group_todos_title">Tasks</string>
     <string name="notification_channel_group_updates_id" translatable="false">updates</string>
     <string name="notification_channel_group_updates_title">App updates</string>
-    <string name="notification_channel_playback_desc">Shows music that is currently being played by the app</string>
+    <string name="notification_channel_playback_desc">Shows music that is currently being played by
+        the app</string>
     <string name="notification_channel_playback_id" translatable="false">playback</string>
     <string name="notification_channel_playback_title">Playback</string>
-    <string name="notification_channel_sync_desc">Shows the sync progress of data to the cloud</string>
+    <string name="notification_channel_sync_desc">Shows the sync progress of data to the
+        cloud</string>
     <string name="notification_channel_sync_id" translatable="false">sync</string>
     <string name="notification_channel_sync_title">Sync</string>
-    <string name="notification_channel_todo_updates_desc">Shows updates on the status of tasks</string>
+    <string name="notification_channel_todo_updates_desc">Shows updates on the status of
+        tasks</string>
     <string name="notification_channel_todo_updates_id" translatable="false">todo_updates</string>
     <string name="notification_channel_todo_updates_title">Task updates</string>
-    <string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit in any of the
-        previous channels
+    <string name="notification_channel_uncategorised_desc">All other notifications that don\'t fit
+        in any of the previous channels
     </string>
     <string name="notification_channel_uncategorised_id" translatable="false">uncategorised</string>
     <string name="notification_channel_uncategorised_title">Uncategorised</string>
-    <string name="notification_channel_update_available_desc">Shows that an update is available</string>
-    <string name="notification_channel_update_available_id" translatable="false">update_available</string>
+    <string name="notification_channel_update_available_desc">Shows that an update is
+        available</string>
+    <string name="notification_channel_update_available_id" translatable="false">
+        update_available</string>
     <string name="notification_channel_update_available_title">Update available</string>
-    <string name="notification_channel_update_complete_desc">Shows that an update has completed download</string>
-    <string name="notification_channel_update_complete_id" translatable="false">update_complete</string>
+    <string name="notification_channel_update_complete_desc">Shows that an update has completed
+        download</string>
+    <string name="notification_channel_update_complete_id" translatable="false">
+        update_complete</string>
     <string name="notification_channel_update_complete_title">Update complete</string>
-    <string name="notification_channel_update_error_desc">Shows when an error occurred while downloading/checking for
-        updates
+    <string name="notification_channel_update_error_desc">Shows when an error occurred while
+        downloading/checking for updates
     </string>
     <string name="notification_channel_update_error_id" translatable="false">update_error</string>
     <string name="notification_channel_update_error_title">Update error</string>
-    <string name="notification_channel_update_not_available_desc">Shows that an update is unavailable</string>
-    <string name="notification_channel_update_not_available_id" translatable="false">update_not_available</string>
+    <string name="notification_channel_update_not_available_desc">Shows that an update is
+        unavailable</string>
+    <string name="notification_channel_update_not_available_id" translatable="false">
+        update_not_available</string>
     <string name="notification_channel_update_not_available_title">Update unavailable</string>
     <string name="notification_channel_update_status_desc">Shows the status of updates</string>
     <string name="notification_channel_update_status_id" translatable="false">update_status</string>
     <string name="notification_channel_update_status_title">Update status</string>
-    <string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying status</string>
-    <string name="notification_channel_weekly_summary_id" translatable="false">weekly_summary</string>
+    <string name="notification_channel_weekly_summary_desc">Shows a weekly summary on your studying
+        status</string>
+    <string name="notification_channel_weekly_summary_id" translatable="false">
+        weekly_summary</string>
     <string name="notification_channel_weekly_summary_title">Weekly summary</string>
     <string name="notification_check_update">Checking for updates…</string>
-    <string name="notification_new_update_text">Version %s is available! Tap here to download &amp; install</string>
+    <string name="notification_new_update_text">Version %s is available! Tap here to download &amp;
+        install</string>
 
     <string name="notification_new_update_title">New update available!</string>
 
     <string name="notification_no_updates">No updates available</string>
-    <string name="notification_updates_error_no_internet_text">You are not connected to the internet. Check your network
-        connection before retrying.
+    <string name="notification_updates_error_no_internet_text">You are not connected to the
+        internet. Check your network connection before retrying.
     </string>
 
     <string name="notification_updates_error_no_internet_title">No internet connection</string>
 
-    <string name="notification_updates_error_not_found_text">The file specified does not exist. Please check that you
-        have enabled the Storage permission.
+    <string name="notification_updates_error_not_found_text">The file specified does not exist.
+        Please check that you have enabled the Storage permission.
     </string>
     <string name="notification_updates_error_not_found_title">File not found</string>
     <string name="password_hint">Password</string>
@@ -446,7 +487,8 @@
     <string name="pref_about_author_title">App author</string>
     <string name="pref_about_author_summary">Tap here to view his website</string>
     <string name="pref_about_licenses_title">Licenses</string>
-    <string name="pref_about_licenses_summary">License details for open source libraries/software</string>
+    <string name="pref_about_licenses_summary">License details for open source libraries/
+        software</string>
     <string name="pref_about_source_code_summary">View the app\'s source code on Github</string>
     <string name="pref_about_source_code_title">Source code</string>
 
@@ -459,9 +501,10 @@
     <string name="pref_check_for_update_frequency_title">Checking frequency</string>
     <string name="pref_dark_theme_title">Dark theme</string>
 
-    <string name="pref_enable_crashlytics_user_tracking_summary">Add your email address and your name to future crash
-		reports.\nThis data will only be used for crash reports and will be applied once the app has restarted.
-	</string>
+    <string name="pref_enable_crashlytics_user_tracking_summary">Add your email address and your
+        name to future crash reports.\nThis data will only be used for crash reports and will be
+        applied once the app has restarted.
+    </string>
 
     <string name="pref_enable_crashlytics_user_tracking_title">Crash report user tracking</string>
 
@@ -496,52 +539,57 @@
         look.</string>
     <string name="feature_flags_about_app_v2_enabled_title">About app UI v2</string>
     <string name="feature_flags_about_app_v2_enabled_summary">Revamps the about app UI to show
-		more info about the app.</string>
+        more info about the app.</string>
 
-    <string name="pref_header_account_summary">Delete account, sign out, update email/name/password/profile picture
-	</string>
+    <string name="pref_header_account_summary">Delete account, sign out, update email/name/password/
+        profile picture
+    </string>
     <string name="pref_header_account_title">Account options</string>
 
     <string name="pref_header_debug_summary">Device info, account info, crash app, send
-		notification, delete device\'s instance ID, clear app settings, modal bottom sheet testing
-	</string>
+        notification, delete device\'s instance ID, clear app settings, modal bottom sheet testing
+    </string>
     <string name="pref_header_debug_title">Debug</string>
 
-    <string name="pref_header_general_summary">Language, in-app browser, Firebase Crashlytics user tracking, dark
-		theme
-	</string>
+    <string name="pref_header_general_summary">Language, in-app browser, Firebase Crashlytics user
+        tracking, dark theme
+    </string>
     <string name="pref_header_general_title">General</string>
-    <string name="pref_header_todo_summary">Default sorting mode, weekly summary preferences</string>
+    <string name="pref_header_todo_summary">Default sorting mode, weekly summary
+        preferences</string>
     <string name="pref_header_todo_title">Todos</string>
     <string name="pref_header_updates_title">Updates</string>
     <string name="pref_header_updates_summary">Updates, update options</string>
     <string name="pref_header_about_summary">About
-		app, about app author, licenses, view source code
-	</string>
+        app, about app author, licenses, view source code
+    </string>
     <string name="pref_header_about_title">About</string>
     <string name="pref_language_title">Language</string>
     <string name="pref_show_header_summary_title">Show header summaries</string>
 
     <string name="pref_todo_default_sort_title">Default sorting mode</string>
 
-    <string name="pref_updates_download_over_metered_summary">Switching this on will allow downloads on cellular as well
-		as other metered networks. For more info, check your network settings
-	</string>
+    <string name="pref_updates_download_over_metered_summary">Switching this on will allow
+        downloads on cellular as well
+        as other metered networks. For more info, check your network settings
+    </string>
     <string name="pref_updates_download_over_metered_title">Download over metered networks</string>
-    <string name="pref_updates_download_only_when_charging_summary">When switched on, updates will only be downloaded
-		when your device is charging.
-	</string>
-    <string name="pref_updates_download_only_when_charging_title">Download only when charging</string>
+    <string name="pref_updates_download_only_when_charging_summary">When switched on, updates will
+        only be downloaded when your device is charging.
+    </string>
+    <string name="pref_updates_download_only_when_charging_title">Download only when
+        charging</string>
     <string name="pref_updates_options_title">Update options</string>
     <string name="pref_updates_title">Updates</string>
     <string name="pref_updates_summary">Last checked: %1$s\nLast updated: %2$s</string>
     <string name="pref_updates_summary_never">Never</string>
 
     <string name="pref_use_custom_tabs_title">Open web links in-app</string>
-    <string name="pref_weekly_summary_about_desc">A curated summary of the progress of your completion of your todos,
-		sent as a notification
-	</string>
-    <string name="pref_weekly_summary_configure_list_desc">Set the items to be shown in weekly summary</string>
+    <string name="pref_weekly_summary_about_desc">A curated summary of the progress of your
+        completion of your todos, sent as a notification
+    </string>
+    <string name="pref_weekly_summary_configure_list_desc">Set the items to be shown in weekly
+        summary</string>
     <string name="pref_weekly_summary_configure_list_title">Configure weekly summary list</string>
     <string name="pref_weekly_summary_day_desc">Set a day to get your weekly summary</string>
 
@@ -551,11 +599,12 @@
     <string name="pref_weekly_summary_masterswitch_enabled_title">Enable weekly summary</string>
     <string name="pref_weekly_summary_enabled_summary_off">Disabled</string>
     <string name="pref_weekly_summary_enabled_summary_on">Enabled</string>
-    <string name="pref_weekly_summary_notification_opts_summary">Customize how the notifications are shown</string>
+    <string name="pref_weekly_summary_notification_opts_summary">Customize how the notifications
+        are shown</string>
     <string name="pref_weekly_summary_notification_opts_title">Notification settings</string>
 
-    <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code available at
-        https://github.com/EdricChan03/StudyBuddy
+    <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code
+        available at https://github.com/EdricChan03/StudyBuddy
     </string>
     <string name="share_intent_value">Share this app via&#8230;</string>
 
@@ -569,7 +618,8 @@
     <string name="sign_in_providers_or">OR</string>
 
     <string name="snackbar_internet_unavailable_action">Retry</string>
-    <string name="snackbar_internet_unavailable_login">An internet connection is required to login.</string>
+    <string name="snackbar_internet_unavailable_login">An internet connection is required to
+        login.</string>
     <string name="snackbar_user_login">Signed in as %s</string>
 
     <string name="task_adapter_empty_content">&lt;No content&gt;</string>
@@ -602,67 +652,80 @@
     <string name="title_activity_view_chat">Chat view</string>
     <string name="title_activity_view_task">Task view</string>
 
-    <string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is irreversible and that it
-        may take a while to delete the selected tasks.
+    <string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is
+        irreversible and that it may take a while to delete the selected tasks.
     </string>
 
     <string name="todo_frag_delete_selected_tasks_dialog_title">Delete selected tasks?</string>
-    <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is irreversible.</string>
+    <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is
+        irreversible.</string>
 
     <string name="todo_frag_delete_task_dialog_title">Delete task?</string>
     <string name="todo_frag_empty_state_cta">New todo</string>
     <string name="todo_frag_empty_state_head">All todos done!</string>
-    <string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again later</string>
-    <string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be downloaded as you\'ve
-        configured your settings to not download updates when on a cellular network.\nIf you still want to download the
-        update, tap on "Download anyway".
+    <string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again
+        later</string>
+    <string name="update_activity_cannot_download_cellular_dialog_msg">The file can\'t be
+        downloaded as you\'ve configured your settings to not download updates when on a cellular
+        network.\nIf you still want to download the update, tap on "Download anyway".
     </string>
-    <string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download anyway</string>
+    <string name="update_activity_cannot_download_cellular_dialog_positive_btn">Download
+        anyway</string>
     <string name="update_activity_cannot_download_cellular_dialog_title">Warning</string>
     <string name="update_activity_delete_update_success_toast">Successfully deleted update!</string>
     <string name="update_activity_empty_state_head">No updates available</string>
-    <string name="update_activity_empty_state_subhead">When new versions of the app are available, they\'ll show up
-        here.
+    <string name="update_activity_empty_state_subhead">When new versions of the app are available,
+        they\'ll show up here.
     </string>
-    <string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app sources" in Settings
-        before continuing. Click on the "Settings" button to configure.
+    <string name="update_activity_enable_unknown_sources_dialog_msg">Please enable "Unknown app
+        sources" in Settings before continuing. Click on the "Settings" button to configure.
     </string>
     <string name="update_activity_enable_unknown_sources_dialog_positive_btn">Settings</string>
-    <string name="update_activity_update_already_downloaded_dialog_msg">An update has already been downloaded! Tap on
-        "Download anyway" to download the update, or tap on "Install update" to install the update.\n(Note: Tapping on
-        "Download anyway" will delete the existing file)
+    <string name="update_activity_update_already_downloaded_dialog_msg">An update has already been
+        downloaded! Tap on "Download anyway" to download the update, or tap on "Install update" to
+        install the update.\n(Note: Tapping on "Download anyway" will delete the existing file)
     </string>
 
-    <string name="update_activity_update_already_downloaded_dialog_negative_btn">Download anyway</string>
-    <string name="update_activity_update_already_downloaded_dialog_positive_btn">Install update</string>
-    <string name="update_activity_update_already_downloaded_dialog_title">Update already downloaded</string>
+    <string name="update_activity_update_already_downloaded_dialog_negative_btn">Download
+        anyway</string>
+    <string name="update_activity_update_already_downloaded_dialog_positive_btn">Install
+        update</string>
+    <string name="update_activity_update_already_downloaded_dialog_title">Update already
+        downloaded</string>
     <string name="update_dialog_positive_btn_text">Download build</string>
     <string name="update_dialog_title_new">New version (%s) available!</string>
     <string name="update_perm_rationale_dialog_deny">Deny</string>
 
     <string name="update_perm_rationale_dialog_grant">Grant</string>
-    <string name="update_perm_rationale_dialog_msg">The storage permission is required in order to download updates to
+    <string name="update_perm_rationale_dialog_msg">The storage permission is required in order to
+        download updates to
         your (default) download folder.
     </string>
     <string name="update_perm_rationale_dialog_title">Permission request</string>
     <string name="update_snackbar_checking">Checking for updates…</string>
-    <string name="update_snackbar_error">An error occurred while attempting to check for updates. Try again later.
+    <string name="update_snackbar_error">An error occurred while attempting to check for updates.
+        Try again later.
     </string>
-    <string name="update_snackbar_error_malformed">Could not parse JSON. Please try again later.</string>
-    <string name="update_snackbar_error_no_internet">Could not access the server. An internet connection is required.
+    <string name="update_snackbar_error_malformed">Could not parse JSON. Please try again
+        later.</string>
+    <string name="update_snackbar_error_no_internet">Could not access the server. An internet
+        connection is required.
     </string>
     <string name="update_snackbar_latest">You already have the latest version!</string>
     <string name="view_task_label_icon_content_desc">Label icon</string>
     <string name="view_task_loading">Loading task\'s contents…</string>
     <string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
+    <!--suppress LongLine -->
     <string name="debug_activity_updates_set_custom_json_url_default_value" translatable="false">
         https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
     </string>
 
+    <!--suppress LongLine -->
     <string name="update_json_release_url" translatable="false">
         https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/release/changelog.json
     </string>
 
+    <!--suppress LongLine -->
     <string name="update_json_testing_url" translatable="false">
         https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
     </string>
@@ -681,7 +744,8 @@
     <string name="icon_picker_info_author_title">Author</string>
     <string name="icon_picker_info_author_default"><em>&lt;No author specified&gt;</em></string>
     <string name="icon_picker_info_about_author_title">About the author</string>
-    <string name="icon_picker_info_about_author_default"><em>&lt;No info was specified&gt;</em></string>
+    <string name="icon_picker_info_about_author_default"><em>&lt;No info was specified&gt;</em>
+    </string>
     <string name="icon_picker_info_created_at_title">Created at</string>
     <string name="icon_picker_info_created_at_default"><em>Unknown date</em></string>
     <string name="icon_picker_info_last_modified_title">Last modified</string>
