@@ -55,7 +55,7 @@ class AccountActivity : AppCompatActivity(),
             .setOnClickListener {
                 val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle(R.string.account_account_actions_button_title)
-                    .setItems(R.array.account_activity_account_actions_array) { dialog, which ->
+                    .setItems(R.array.account_activity_account_actions_array) { _, which ->
                         when (which) {
                             0 -> deleteAccount()
                             1 -> signOut()
@@ -295,7 +295,7 @@ class AccountActivity : AppCompatActivity(),
                         }
                     }
             }
-            .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+            .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
@@ -326,7 +326,7 @@ class AccountActivity : AppCompatActivity(),
                         }
                     }
             }
-            .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+            .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
@@ -340,7 +340,7 @@ class AccountActivity : AppCompatActivity(),
                     .show()
                 dialog.dismiss()
             }
-            .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+            .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 }
