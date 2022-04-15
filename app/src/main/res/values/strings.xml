@@ -89,6 +89,43 @@
     <!-- The title of the sign out dialog in the account activity. -->
     <string name="account_sign_out_dialog_title">Sign out?</string>
 
+    <!-- About activity > toast message strings -->
+    <eat-comment />
+
+    <!-- Message used to notify that the account deletion request was successful. -->
+    <string name="account_delete_account_success_msg">Your account was successfully deleted</string>
+    <!-- Message used to notify that the account reauthentication request was successful. -->
+    <string name="account_delete_account_reauth_success_msg">
+        You\'ve successfully reauthenticated!</string>
+    <!-- Message used to notify that the account is invalid. -->
+    <string name="account_delete_account_invalid_msg">Your account appears to be not valid. Please
+        try again later</string>
+
+    <!-- Message used to notify that the account's credentials is being refreshed. -->
+    <string name="account_refresh_creds_start_msg">Refreshing your account\'s information…</string>
+    <!-- Message used to notify that an error occurred while attempting to refresh the account's
+    credentials. -->
+    <string name="account_refresh_creds_error_msg">Could not refresh your account\'s information.
+        Please try again later</string>
+
+    <!-- Message used to notify that the user has successfully signed out. -->
+    <string name="account_log_out_success_msg">You\'ve successfully been signed out!</string>
+
+    <!-- Message used to notify that the user has successfully updated their email address. -->
+    <string name="account_update_email_success_msg">Your email address has successfully been
+        updated!</string>
+
+    <!-- Message used to notify that the user has successfully updated their name. -->
+    <string name="account_update_name_success_msg">Your name has successfully been updated!</string>
+
+    <!-- Message used to notify that the user has successfully updated their password. -->
+    <string name="account_update_password_success_msg">Your password has successfully been
+        updated!</string>
+
+    <!-- Message used to notify that the user has successfully updated their profile picture. -->
+    <string name="account_update_pic_success_msg">Your profile picture has successfully been
+        updated!</string>
+
     <!-- The title of the about menu item in the main activity's menu. -->
     <string name="menu_main_about_title">About</string>
     <!-- The title of the account menu item in the main activity's menu. -->

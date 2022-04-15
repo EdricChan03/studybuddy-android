@@ -14,10 +14,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityAccountBinding
-import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.editTextStrValue
-import com.edricchan.studybuddy.extensions.showSnackbar
-import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -136,11 +133,10 @@ class AccountActivity : AppCompatActivity(),
                 user?.delete()
                     ?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(
-                                this,
-                                "Successfully deleted account!",
+                            showToast(
+                                R.string.account_delete_account_success_msg,
                                 Toast.LENGTH_SHORT
-                            ).show()
+                            )
                         } else {
                             Log.e(
                                 TAG,
@@ -155,12 +151,10 @@ class AccountActivity : AppCompatActivity(),
                                     user?.reauthenticate(credential)
                                         ?.addOnCompleteListener { reAuthTask ->
                                             if (reAuthTask.isSuccessful) {
-                                                Toast.makeText(
-                                                        this,
-                                                        "Successfully reauthenticated account!",
-                                                        Toast.LENGTH_SHORT
-                                                    )
-                                                    .show()
+                                                showToast(
+                                                    R.string.account_delete_account_reauth_success_msg,
+                                                    Toast.LENGTH_SHORT
+                                                )
                                                 deleteAccount()
                                             } else {
                                                 Log.e(
@@ -172,12 +166,10 @@ class AccountActivity : AppCompatActivity(),
                                         }
                                 }
                                 is FirebaseAuthInvalidUserException -> {
-                                    Toast.makeText(
-                                            this,
-                                            "Current user is either disabled, deleted, or has invalid credentials",
-                                            Toast.LENGTH_LONG
-                                        )
-                                        .show()
+                                    showToast(
+                                        R.string.account_delete_account_invalid_msg,
+                                        Toast.LENGTH_LONG
+                                    )
                                 }
                             }
                         }
@@ -207,7 +199,11 @@ class AccountActivity : AppCompatActivity(),
     }
 
     private fun refreshCredentials() {
-        showSnackbar(binding.constraintLayout, "Refreshing credentials", Snackbar.LENGTH_SHORT)
+        showSnackbar(
+            binding.constraintLayout,
+            R.string.account_refresh_creds_start_msg,
+            Snackbar.LENGTH_SHORT
+        )
 
         user?.reload()
             ?.addOnCompleteListener { task ->
@@ -218,8 +214,11 @@ class AccountActivity : AppCompatActivity(),
                         task.exception
                     )
 
-                    showSnackbar(binding.constraintLayout, "An error occurred while attempting " +
-                            "to refresh the credentials", Snackbar.LENGTH_LONG) {
+                    showSnackbar(
+                        binding.constraintLayout,
+                        R.string.account_refresh_creds_error_msg,
+                        Snackbar.LENGTH_LONG
+                    ) {
                         setAction(R.string.dialog_action_retry) { refreshCredentials() }
                     }
                 }
@@ -232,7 +231,7 @@ class AccountActivity : AppCompatActivity(),
             .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             .setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
                 auth.signOut()
-                Toast.makeText(this, "Successfully signed out!", Toast.LENGTH_SHORT).show()
+                showToast(R.string.account_log_out_success_msg, Toast.LENGTH_SHORT)
                 dialog.dismiss()
             }
             .show()
@@ -250,11 +249,7 @@ class AccountActivity : AppCompatActivity(),
                 user?.updateEmail(textInputLayout.editTextStrValue)
                     ?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(
-                                this,
-                                "Successfully updated email address!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(R.string.account_update_email_success_msg, Toast.LENGTH_SHORT)
                             dialog.dismiss()
                         } else {
                             Log.e(
@@ -283,8 +278,7 @@ class AccountActivity : AppCompatActivity(),
                 user?.updateProfile(requestBuilder.build())
                     ?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Successfully updated name!", Toast.LENGTH_SHORT)
-                                .show()
+                            showToast(R.string.account_update_name_success_msg, Toast.LENGTH_SHORT)
                             dialog.dismiss()
                         } else {
                             Log.e(
@@ -311,11 +305,9 @@ class AccountActivity : AppCompatActivity(),
                 user?.updatePassword(textInputLayout.editTextStrValue)
                     ?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(
-                                this,
-                                "Successfully updated password!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(
+                                R.string.account_update_password_success_msg, Toast.LENGTH_SHORT
+                            )
                             dialog.dismiss()
                         } else {
                             Log.e(
@@ -336,8 +328,7 @@ class AccountActivity : AppCompatActivity(),
         promptBuilder.setTitle(R.string.account_new_profile_pic_dialog_title)
             .setMessage(R.string.account_new_profile_pic_dialog_msg)
             .setPositiveButton(R.string.dialog_action_update_profile_picture) { dialog, _ ->
-                Toast.makeText(this, "Successfully updated profile picture!", Toast.LENGTH_SHORT)
-                    .show()
+                showToast(R.string.account_update_pic_success_msg, Toast.LENGTH_SHORT)
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
