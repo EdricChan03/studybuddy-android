@@ -339,10 +339,10 @@ object SharedUtils {
 
             val networkType = if (isMetered) NetworkType.METERED else NetworkType.UNMETERED
 
-            val constraints = Constraints.Builder().apply {
-                setRequiredNetworkType(networkType)
-                setRequiresCharging(requiresCharging)
-            }.build()
+            val constraints = Constraints(
+                requiredNetworkType = networkType,
+                requiresCharging = requiresCharging
+            )
 
             val checkForUpdatesWorkerRequest =
                 PeriodicWorkRequestBuilder<CheckForUpdatesWorker>(
