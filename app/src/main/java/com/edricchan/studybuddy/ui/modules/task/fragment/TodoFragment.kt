@@ -16,9 +16,7 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -41,6 +39,8 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomShee
 import com.edricchan.studybuddy.utils.SharedPrefUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.UiUtils
+import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
+import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -136,13 +136,16 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                 try {
                     Files.move(
                         sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath(),
-                        sharedPrefUtils.getSharedPrefsFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS).toPath(),
+                        sharedPrefUtils.getSharedPrefsFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS)
+                            .toPath(),
                         StandardCopyOption.REPLACE_EXISTING
                     )
                     // Delete existing
                     Log.d(TAG, "Deleting previous shared preference file...")
                     val result =
-                        Files.deleteIfExists(sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath())
+                        Files.deleteIfExists(
+                            sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath()
+                        )
                     if (result) {
                         Log.d(TAG, "Successfully deleted previous shared preference file!")
                     } else {
@@ -203,21 +206,20 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
+            setItemTouchHelper(
+                listOf(ItemTouchDirection.None),
+                listOf(
+                    ItemTouchDirection.Left,
+                    ItemTouchDirection.Right
+                ),
+                onSwiped = { viewHolder, _ ->
+                    todoUtils.removeTask(
+                        this@TodoFragment.adapter.todoItemList[viewHolder.bindingAdapterPosition].id
+                    )
+                }
+            )
         }
-        ItemTouchHelper(object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                todoUtils.removeTask(adapter.todoItemList[viewHolder.bindingAdapterPosition].id)
-            }
-        }).attachToRecyclerView(recyclerView)
         actionNewTodo.setOnClickListener { newTaskActivity() }
     }
 
