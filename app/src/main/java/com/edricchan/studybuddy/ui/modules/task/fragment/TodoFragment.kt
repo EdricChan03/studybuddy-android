@@ -35,7 +35,6 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
-import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
@@ -62,8 +61,6 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
     private var firestoreListener: ListenerRegistration? = null
     private lateinit var fragmentView: View
     private lateinit var taskOptionsPrefs: SharedPreferences
-    // private var mSelectionTracker: SelectionTracker<String>? = null
-    // private var mActionModeCallback: ActionMode.Callback? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var parentActivity: AppCompatActivity
@@ -89,13 +86,6 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                             showSortByOptions()
                             modalBottomSheet.dismiss()
                         }),
-                    ModalBottomSheetItem(title = getString(R.string.menu_frag_task_import_from_title),
-                        visible = false, // Hide option for now
-                        icon = R.drawable.ic_import_24dp,
-                        onItemClickListener = {
-                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                        }
-                    ),
                     ModalBottomSheetItem(title = getString(R.string.menu_settings_title),
                         icon = R.drawable.ic_settings_outline_24dp,
                         onItemClickListener = {
@@ -111,7 +101,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                         })
                 )
                 modalBottomSheet.setItems(items)
-                modalBottomSheet.show(requireFragmentManager(), modalBottomSheet.tag)
+                modalBottomSheet.show(parentFragmentManager, modalBottomSheet.tag)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -195,10 +185,6 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*if (savedInstanceState != null && mSelectionTracker != null) {
-            mSelectionTracker!!.onRestoreInstanceState(savedInstanceState)
-        }*/
-
         fragmentView = view
 
         uiUtils = UiUtils.getInstance(parentActivity)
@@ -208,7 +194,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
         swipeRefreshLayout.apply {
             setColorSchemeResources(R.color.colorPrimary)
             setOnRefreshListener {
-                adapter?.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
                 loadTasksListHandler()
             }
         }
@@ -229,20 +215,11 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if (adapter != null) {
-                    todoUtils.removeTask(adapter!!.todoItemList[viewHolder.adapterPosition].id)
-                }
+                todoUtils.removeTask(adapter.todoItemList[viewHolder.bindingAdapterPosition].id)
             }
         }).attachToRecyclerView(recyclerView)
         actionNewTodo.setOnClickListener { newTaskActivity() }
     }
-
-    /*override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        if (mSelectionTracker != null) {
-            mSelectionTracker!!.onSaveInstanceState(outState)
-        }
-    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -368,11 +345,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
         val modalBottomSheet = ModalBottomSheetFragment()
         modalBottomSheet.setItems(items)
         modalBottomSheet.headerTitle = "Sort tasks by..."
-        modalBottomSheet.show(requireFragmentManager(), modalBottomSheet.tag)
-    }
-
-    private fun showImportFromOptions() {
-
+        modalBottomSheet.show(parentFragmentManager, modalBottomSheet.tag)
     }
 
     private fun newTaskActivity() {
@@ -551,22 +524,7 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
             }
             adapter = TodosAdapter(requireContext(), taskItemList, itemListener)
             recyclerView.adapter = adapter
-            /*if (mSelectionTracker == null) {
-                mSelectionTracker = SelectionTracker.Builder(
-                        "selection-id",
-                        mRecyclerView!!,
-                        TodoItemKeyProvider(taskItemList),
-                        TodoItemLookup(mRecyclerView!!),
-                        StorageStrategy.createStringStorage())
-                        .withOnItemActivatedListener { item, event ->
-                            val viewItemIntent = Intent(context, ViewTaskActivity::class.java)
-                            viewItemIntent.putExtra("taskId", taskItemList[item.position].id)
-                            startActivity(viewItemIntent)
-                            true
-                        }
-                        .withSelectionPredicate(SelectionPredicates.createSelectAnything())
-                        .build()
-            }*/
+
             swipeRefreshLayout.isRefreshing = false
             if (snapshot != null) {
                 if (snapshot.isEmpty) {
@@ -579,81 +537,6 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                     swipeRefreshLayout.visibility = View.VISIBLE
                 }
             }
-            /*mActionModeCallback = object : ActionMode.Callback {
-                override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                    val inflater = mode.menuInflater
-                    inflater.inflate(R.menu.cab_tasks, menu)
-                    return true
-                }
-
-                override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                    if (mSelectionTracker!!.hasSelection()) {
-                        if (mSelectionTracker!!.selection.size() == taskItemList.size) {
-                            menu.removeItem(R.id.cab_action_select_all)
-                        }
-                    }
-                    return true
-                }
-
-                override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-                    when (item.itemId) {
-                        R.id.cab_action_delete_selected -> {
-                            val confirmBuilder = MaterialAlertDialogBuilder(context!!)
-                            confirmBuilder
-                                    .setTitle(R.string.todo_frag_delete_selected_tasks_dialog_title)
-                                    .setMessage(R.string.todo_frag_delete_selected_tasks_dialog_msg)
-                                    .setNegativeButton(R.string.dialog_action_cancel) { dialog, which ->
-                                        mode.finish()
-                                        dialog.dismiss()
-                                    }
-                                    .setPositiveButton(R.string.dialog_action_ok) { dialog, which ->
-                                        for (id in mSelectionTracker!!.selection) {
-                                            mFirestore!!.document("users/" + mCurrentUser!!.uid + "/todos/" + id)
-                                                    .delete()
-                                                    .addOnCompleteListener { task ->
-                                                        if (task.isSuccessful) {
-                                                            Log.d(TAG, "Successfully deleted todo!")
-                                                            mAdapter!!.notifyItemRemoved(getTaskItemPosition(taskItemList, id))
-                                                        } else {
-                                                            Log.e(TAG, "An error occurred while attempting to delete the todo at ID $id:", task.exception)
-                                                            Toast.makeText(mParentActivity, "An error occurred while attempting to delete the todo at ID $id", Toast.LENGTH_SHORT).show()
-                                                        }
-                                                    }
-                                        }
-                                        dialog.dismiss()
-                                    }
-                                    .show()
-                            return true
-                        }
-                        R.id.cab_action_select_all -> {
-                            Toast.makeText(mParentActivity, "Not implemented!", Toast.LENGTH_SHORT).show()
-                            return true
-                        }
-                        R.id.cab_action_edit_selected -> {
-                            Toast.makeText(mParentActivity, "Not implemented!", Toast.LENGTH_SHORT).show()
-                            return false
-                        }
-                        else -> return false
-                    }
-                }
-
-                override fun onDestroyActionMode(mode: ActionMode) {
-                    mSelectionTracker!!.clearSelection()
-                }
-            }
-            mSelectionTracker!!
-                    .addObserver(object : SelectionTracker.SelectionObserver<String>() {
-                        override fun onSelectionChanged() {
-                            super.onSelectionChanged()
-                            Log.d(TAG, "Current size of selection: " + mSelectionTracker!!.selection.size())
-                            if (mSelectionTracker!!.hasSelection()) {
-                                val mode = mParentActivity!!.startSupportActionMode(mActionModeCallback!!)
-                                mode!!.setTitle(R.string.cab_title)
-                                mode.subtitle = resources.getQuantityString(R.plurals.cab_subtitle, mSelectionTracker!!.selection.size(), mSelectionTracker!!.selection.size())
-                            }
-                        }
-                    })
-            */
         }
         swipeRefreshLayout.isRefreshing = true
         val collectionRef = todoUtils.taskCollectionRef
