@@ -18,6 +18,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.databinding.ActivityHelpBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.HelpArticle
@@ -29,22 +30,28 @@ import com.edricchan.studybuddy.utils.moshi.adapters.UriJsonAdapter
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
-import kotlinx.android.synthetic.main.activity_help.*
 import java.io.InputStreamReader
 import java.lang.ref.WeakReference
 import java.net.URL
 
 @WebDeepLink(["/help"])
 @AppDeepLink(["/help"])
-class HelpActivity : AppCompatActivity(R.layout.activity_help) {
+class HelpActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
+    private lateinit var binding: ActivityHelpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding = ActivityHelpBinding.inflate(layoutInflater).also { setContentView(it.root) }
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        swipeRefreshLayout.setOnRefreshListener { this.loadFeaturedList() }
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+
+        binding.apply {
+            swipeRefreshLayout.setOnRefreshListener { loadFeaturedList() }
+            swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+        }
         initRecyclerView()
         loadFeaturedList()
     }
@@ -62,7 +69,7 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
                 return true
             }
             R.id.action_refresh -> {
-                swipeRefreshLayout.isRefreshing = true
+                binding.swipeRefreshLayout.isRefreshing = true
                 loadFeaturedList()
                 return true
             }
@@ -90,15 +97,17 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
      * Initialises the recycler view by calling the needed methods
      */
     private fun initRecyclerView() {
-        helpFeaturedRecyclerView.setHasFixedSize(true)
-        helpFeaturedRecyclerView.itemAnimator = DefaultItemAnimator()
-        helpFeaturedRecyclerView.layoutManager = LinearLayoutManager(this)
-        helpFeaturedRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                DividerItemDecoration.VERTICAL
+        binding.helpFeaturedRecyclerView.apply {
+            setHasFixedSize(true)
+            itemAnimator = DefaultItemAnimator()
+            layoutManager = LinearLayoutManager(this@HelpActivity)
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@HelpActivity,
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
+        }
     }
 
     /**
@@ -106,8 +115,10 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
      */
     private fun loadFeaturedList() {
         try {
-            progressBarLinearLayout.visibility = View.VISIBLE
-            helpFeaturedRecyclerView.visibility = View.GONE
+            binding.apply {
+                progressBarLinearLayout.visibility = View.VISIBLE
+                helpFeaturedRecyclerView.visibility = View.GONE
+            }
             GetHelpArticlesAsyncTask(this).execute(URL(Constants.urlHelpFeatured))
         } catch (e: Exception) {
             Log.e(TAG, "An error occurred while attempting to parse the JSON:", e)
@@ -154,11 +165,13 @@ class HelpActivity : AppCompatActivity(R.layout.activity_help) {
                 adapter.setOnItemClickListener { article, _ ->
                     article.uri?.let { WebUtils.getInstance(activity).launchUri(it) }
                 }
-                activity.helpFeaturedRecyclerView.adapter = adapter
-                activity.helpFeaturedRecyclerView.visibility = View.VISIBLE
-                activity.swipeRefreshLayout.isRefreshing = false
-                TransitionManager.beginDelayedTransition(activity.constraintLayout!!, Fade(Fade.IN))
-                activity.progressBarLinearLayout.visibility = View.GONE
+                activity.binding.apply {
+                    helpFeaturedRecyclerView.adapter = adapter
+                    helpFeaturedRecyclerView.visibility = View.VISIBLE
+                    swipeRefreshLayout.isRefreshing = false
+                    TransitionManager.beginDelayedTransition(constraintLayout, Fade(Fade.IN))
+                    progressBarLinearLayout.visibility = View.GONE
+                }
             }
         }
     }
