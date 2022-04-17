@@ -6,7 +6,6 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
