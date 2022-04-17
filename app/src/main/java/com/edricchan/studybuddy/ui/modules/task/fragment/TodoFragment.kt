@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -21,6 +18,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.TodoOptionsPrefConstants
+import com.edricchan.studybuddy.databinding.FragTodoBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
@@ -50,13 +48,12 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.frag_todo.*
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
-class TodoFragment : Fragment(R.layout.frag_todo) {
+class TodoFragment : Fragment() {
     private lateinit var adapter: TodosAdapter
     private var firestoreListener: ListenerRegistration? = null
     private lateinit var fragmentView: View
@@ -68,6 +65,9 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
     private lateinit var sharedPrefUtils: SharedPrefUtils
     private lateinit var uiUtils: UiUtils
     private lateinit var todoUtils: TodoUtils
+
+    private var _binding: FragTodoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -185,6 +185,12 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
         todoUtils = TodoUtils.getInstance(auth, firestore)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = FragTodoBinding.inflate(inflater, container, false).also { _binding = it }.root
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -194,37 +200,41 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
 
         uiUtils.bottomAppBarFab?.setOnClickListener { newTaskActivity() }
 
-        swipeRefreshLayout.apply {
-            setColorSchemeResources(R.color.colorPrimary)
-            setOnRefreshListener {
-                adapter.notifyDataSetChanged()
-                loadTasksListHandler()
-            }
-        }
-
-        recyclerView.apply {
-            setHasFixedSize(false)
-            layoutManager = LinearLayoutManager(context)
-            itemAnimator = DefaultItemAnimator()
-            setItemTouchHelper(
-                listOf(ItemTouchDirection.None),
-                listOf(
-                    ItemTouchDirection.Left,
-                    ItemTouchDirection.Right
-                ),
-                onSwiped = { viewHolder, _ ->
-                    todoUtils.removeTask(
-                        this@TodoFragment.adapter.todoItemList[viewHolder.bindingAdapterPosition].id
-                    )
+        binding.apply {
+            swipeRefreshLayout.apply {
+                setColorSchemeResources(R.color.colorPrimary)
+                setOnRefreshListener {
+                    adapter.notifyDataSetChanged()
+                    loadTasksListHandler()
                 }
-            )
-        }
+            }
 
-        actionNewTodo.setOnClickListener { newTaskActivity() }
+            recyclerView.apply {
+                setHasFixedSize(false)
+                layoutManager = LinearLayoutManager(context)
+                itemAnimator = DefaultItemAnimator()
+                setItemTouchHelper(
+                    listOf(ItemTouchDirection.None),
+                    listOf(
+                        ItemTouchDirection.Left,
+                        ItemTouchDirection.Right
+                    ),
+                    onSwiped = { viewHolder, _ ->
+                        todoUtils.removeTask(
+                            this@TodoFragment.adapter.todoItemList[viewHolder.bindingAdapterPosition].id
+                        )
+                    }
+                )
+            }
+
+            actionNewTodo.setOnClickListener { newTaskActivity() }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        _binding = null
 
         if (firestoreListener != null) {
             firestoreListener?.remove()
@@ -525,22 +535,27 @@ class TodoFragment : Fragment(R.layout.frag_todo) {
                 }
             }
             adapter = TodosAdapter(requireContext(), taskItemList, itemListener)
-            recyclerView.adapter = adapter
 
-            swipeRefreshLayout.isRefreshing = false
-            if (snapshot != null) {
-                if (snapshot.isEmpty) {
-                    Log.d(TAG, "Empty!")
-                    findViewById<View>(R.id.todoEmptyStateView)?.visibility = View.VISIBLE
-                    swipeRefreshLayout.visibility = View.GONE
-                } else {
-                    Log.d(TAG, "Not Empty!")
-                    findViewById<View>(R.id.todoEmptyStateView)?.visibility = View.GONE
-                    swipeRefreshLayout.visibility = View.VISIBLE
+            binding.apply {
+                recyclerView.adapter = adapter
+
+                swipeRefreshLayout.apply {
+                    isRefreshing = false
+                    if (snapshot != null) {
+                        if (snapshot.isEmpty) {
+                            Log.d(TAG, "Empty!")
+                            findViewById<View>(R.id.todoEmptyStateView)?.visibility = View.VISIBLE
+                            visibility = View.GONE
+                        } else {
+                            Log.d(TAG, "Not Empty!")
+                            findViewById<View>(R.id.todoEmptyStateView)?.visibility = View.GONE
+                            visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         }
-        swipeRefreshLayout.isRefreshing = true
+        binding.swipeRefreshLayout.isRefreshing = true
         val collectionRef = todoUtils.taskCollectionRef
         firestoreListener = if (fieldPath != null && direction != null) {
             collectionRef.orderBy(fieldPath, direction)
