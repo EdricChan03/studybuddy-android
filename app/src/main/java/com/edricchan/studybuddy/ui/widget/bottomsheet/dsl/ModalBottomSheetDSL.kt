@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.ui.widget.bottomsheet.dsl
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
+import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.annotations.ModalBottomSheetCheckableBehavior
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
@@ -86,6 +87,11 @@ class ModalBottomSheetGroupDSL(
     @ModalBottomSheetCheckableBehavior
     var checkableBehavior by group::checkableBehavior
     var onItemCheckedChangeListener by group::onItemCheckedChangeListener
+
+    fun setItemCheckedChangeListener(listener: ModalBottomSheetAdapter.OnItemCheckedChangeListener) {
+        onItemCheckedChangeListener = listener
+    }
+
     var visible by group::visible
     var enabled by group::enabled
     var selected by group::selected
@@ -146,6 +152,11 @@ class ModalBottomSheetItemDSL(
     }
 
     var onItemClickListener by item::onItemClickListener
+
+    fun setItemClickListener(listener: ModalBottomSheetAdapter.OnItemClickListener) {
+        onItemClickListener = listener
+    }
+
     var visible by item::visible
     var enabled by item::enabled
 
