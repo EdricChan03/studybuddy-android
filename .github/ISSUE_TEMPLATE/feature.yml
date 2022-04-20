@@ -1,0 +1,51 @@
+name: Feature request
+description: Have an idea you want to share? Use this template!
+title: "[Feature] "
+labels: ["enhancement :star:", "needs: triage"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the feature request you are filing.
+      options:
+      - label: I have searched the existing issues
+        required: true
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill up this feature request!
+  - type: dropdown
+    id: type
+    attributes:
+      label: Feature type
+      options:
+        - User interface/User experience
+        - Subfeature
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Provide a concise description of the problem you're trying to solve.
+      placeholder: I have an issue when...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Description
+      description: Provide a concise description of the feature request.
+    validations:
+      required: true
+  - type: textarea
+    id: solution-alternatives
+    attributes:
+      label: Alternatives?
+      description: You may provide any alternatives you've considered, if any.
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional info
+      description: Provide any additional information for the feature request, if any. (You may provide mockups if you wish to)
