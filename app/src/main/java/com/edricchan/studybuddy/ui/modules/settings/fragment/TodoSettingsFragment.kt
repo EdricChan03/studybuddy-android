@@ -5,9 +5,9 @@ import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.ui.modules.settings.fragment.todo.WeeklySummarySettingsFragment
-import com.takisoft.preferencex.PreferenceFragmentCompat
+import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 
-class TodoSettingsFragment : PreferenceFragmentCompat() {
+class TodoSettingsFragment : MaterialPreferenceFragment() {
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_todos, rootKey)
         findPreference<Preference>(Constants.prefWeeklySummaryEnabled)?.fragment =

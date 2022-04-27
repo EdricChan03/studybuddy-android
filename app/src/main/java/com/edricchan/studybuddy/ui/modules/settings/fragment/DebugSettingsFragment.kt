@@ -35,6 +35,7 @@ import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
+import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.firebase.FirebaseMessagingUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -45,13 +46,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
-import com.takisoft.preferencex.PreferenceFragmentCompat
 import java.util.*
 
-class DebugSettingsFragment : PreferenceFragmentCompat() {
+class DebugSettingsFragment : MaterialPreferenceFragment() {
 
     @Suppress("unused")
-    class DebugUpdateInfoSettingsFragment : PreferenceFragmentCompat(),
+    class DebugUpdateInfoSettingsFragment : MaterialPreferenceFragment(),
         SharedPreferences.OnSharedPreferenceChangeListener {
 
         private lateinit var updateInfoPreferences: SharedPreferences

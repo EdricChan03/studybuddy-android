@@ -6,15 +6,15 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.toDate
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
+import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import java.util.*
 
-class UpdateSettingsFragment : PreferenceFragmentCompat(),
+class UpdateSettingsFragment : MaterialPreferenceFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var updateInfoPreferences: SharedPreferences
@@ -47,7 +47,7 @@ class UpdateSettingsFragment : PreferenceFragmentCompat(),
         super.onSaveInstanceState(outState)
     }
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_updates, rootKey)
 
         updateInfoPreferences = requireContext().getSharedPreferences(
