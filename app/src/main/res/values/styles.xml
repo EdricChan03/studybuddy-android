@@ -1,25 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.App.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.App.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- The default primary colour -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <!-- The dark primary colour variant -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- The accent colour -->
         <item name="colorSecondary">@color/colorSecondary</item>
-        <!-- The colour of the navigation bar -->
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <!-- The font family of the app -->
         <item name="fontFamily">@font/baloo_2</item>
         <!-- The text input style -->
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox
         </item>
         <!-- The edit text style -->
-        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox
-        </item>
-        <!-- The bottom app bar style -->
-        <item name="bottomAppBarStyle">
-            @style/Widget.MaterialComponents.BottomAppBar.PrimarySurface
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
         <!-- The font family of the app -->
         <item name="android:fontFamily">@font/baloo_2</item>
@@ -34,26 +26,18 @@
         </item>
     </style>
     <!-- Base application theme. -->
-    <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.App" parent="Theme.Material3.DayNight">
         <!-- The default primary colour -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <!-- The dark primary colour variant -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- The accent colour -->
         <item name="colorSecondary">@color/colorSecondary</item>
-        <!-- The colour of the navigation bar -->
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <!-- The font family of the app -->
         <item name="fontFamily">@font/baloo_2</item>
         <!-- The text input style -->
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox
         </item>
         <!-- The edit text style -->
-        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox
-        </item>
-        <!-- The bottom app bar style -->
-        <item name="bottomAppBarStyle">
-            @style/Widget.MaterialComponents.BottomAppBar.PrimarySurface
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
         <!-- The font family of the app -->
         <item name="android:fontFamily">@font/baloo_2</item>
@@ -89,17 +73,17 @@
     TODO: Customize the ShapeAppearance
     Note that such styles should come in the next release
     -->
-    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">4dp</item>
     </style>
 
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">24dp</item>
     </style>
