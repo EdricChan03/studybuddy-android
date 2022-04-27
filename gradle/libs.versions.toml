@@ -1,8 +1,8 @@
 [versions]
-android-gradle = "7.3.0-alpha08"
+android-gradle = "7.3.0-alpha09"
 deep-link-dispatch = "6.1.0"
 firebase = "29.3.1"
-kotlin = "1.6.20"
+kotlin = "1.6.21"
 kotlinx-coroutines = "1.6.1"
 markwon = "4.6.2"
 moshi = "1.13.0"
@@ -21,7 +21,7 @@ androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-alpha02"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.6.0-beta01"
+materialComponents = "com.google.android.material:material:1.7.0-alpha01"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -72,7 +72,7 @@ moshi-kotlinCodegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", vers
 
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
 appUpdater = "com.github.javiersantos:AppUpdater:2.7"
-imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta4"
+imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta5"
 takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
 
 # Gradle Versions (declared here as a library and not as a plugin
@@ -85,7 +85,7 @@ androidx-test-core = "androidx.test:core:1.4.1-alpha05"
 androidx-test-runner = "androidx.test:runner:1.5.0-alpha02"
 androidx-test-rules = "androidx.test:rules:1.4.1-alpha05"
 junit = "junit:junit:4.13.2"
-mockito-core = "org.mockito:mockito-core:4.4.0"
+mockito-core = "org.mockito:mockito-core:4.5.1"
 
 [bundles]
 androidx-test = [
