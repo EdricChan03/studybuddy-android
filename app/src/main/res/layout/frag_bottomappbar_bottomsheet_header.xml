@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/account_user_name_default"
-        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
         app:layout_constraintStart_toEndOf="@id/headerTextGuideline"
         app:layout_constraintTop_toTopOf="@id/userAvatar"
         tools:text="John Appleseed" />
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/account_user_email_default"
-        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:textAppearance="?attr/textAppearanceTitleSmall"
         app:layout_constraintStart_toEndOf="@id/headerTextGuideline"
         app:layout_constraintTop_toBottomOf="@id/userName"
         tools:text="john.appleseed@gmail.com"

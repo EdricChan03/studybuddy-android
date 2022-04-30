@@ -30,7 +30,8 @@
             android:layout_below="@id/emptyStateHeadingTextView"
             android:layout_centerHorizontal="true"
             android:text="@string/update_activity_empty_state_subhead"
-            android:textAppearance="?attr/textAppearanceBody1" />
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/emptyStateHeadingTextView"
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/update_activity_empty_state_head"
-            android:textAppearance="?attr/textAppearanceHeadline4" />
+            android:textAppearance="?attr/textAppearanceHeadlineSmall" />
     </RelativeLayout>
 
     <!-- TODO: Remove this layout -->
