@@ -5,11 +5,11 @@ import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
+import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.takisoft.preferencex.PreferenceFragmentCompat
 
-class FeatureFlagsSettingsFragment : PreferenceFragmentCompat() {
+class FeatureFlagsSettingsFragment : MaterialPreferenceFragment() {
     private lateinit var featureFlagsUtils: FeatureFlagsUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
