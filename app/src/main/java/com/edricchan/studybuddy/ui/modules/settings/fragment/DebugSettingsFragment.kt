@@ -35,8 +35,12 @@ import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
+import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.ThemeUtils
 import com.edricchan.studybuddy.utils.firebase.FirebaseMessagingUtils
+import com.edricchan.studybuddy.utils.isDynamicColorAvailable
+import com.edricchan.studybuddy.utils.themeUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -45,13 +49,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
-import com.takisoft.preferencex.PreferenceFragmentCompat
 import java.util.*
 
-class DebugSettingsFragment : PreferenceFragmentCompat() {
+class DebugSettingsFragment : MaterialPreferenceFragment() {
 
     @Suppress("unused")
-    class DebugUpdateInfoSettingsFragment : PreferenceFragmentCompat(),
+    class DebugUpdateInfoSettingsFragment : MaterialPreferenceFragment(),
         SharedPreferences.OnSharedPreferenceChangeListener {
 
         private lateinit var updateInfoPreferences: SharedPreferences
@@ -172,12 +175,16 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var devModeOpts: SharedPreferences
 
+    private lateinit var themeUtil: ThemeUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installations = Firebase.installations
         mAuth = Firebase.auth
         mUser = mAuth.currentUser
         mConnectivityManager = context?.getSystemService()
+
+        themeUtil = requireContext().themeUtils
     }
 
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
@@ -668,6 +675,25 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
             .setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
     }
 
+    private fun createDynamicThemeInfoDialog() =
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(R.string.debug_activity_dynamic_theme_info_dialog_title)
+            setMessage("""
+                Is dynamic colour supported? $isDynamicColorAvailable
+                Is dynamic colour applied? ${themeUtil.isUsingDynamicColor}
+            """.trimIndent())
+            setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
+            setNeutralButton(
+                R.string.debug_activity_dynamic_theme_info_dialog_toggle_btn
+            ) { _, _ ->
+                themeUtil.apply {
+                    isUsingDynamicColor = !themeUtil.isUsingDynamicColor
+                    applyTheme()
+                }
+                activity?.recreate()
+            }
+        }
+
     private fun createConnectivityInfoDialog(): MaterialAlertDialogBuilder {
         var dialogMsg = ""
 
@@ -697,6 +723,7 @@ class DebugSettingsFragment : PreferenceFragmentCompat() {
                     0 -> createSdkInfoDialog().show()
                     1 -> createConnectivityInfoDialog().show()
                     2 -> createNightModeInfoDialog().show()
+                    3 -> createDynamicThemeInfoDialog().show()
                     else -> Log.w(TAG, "Unknown item clicked! Index was at $which")
                 }
                 dialog.dismiss()

@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 
 @WebDeepLink(["/chat/{id}", "/chats/view/{id}"])
 @AppDeepLink(["/chat/{id}", "/chats/view/{id}"])
-class ViewChatActivity : AppCompatActivity(R.layout.activity_view_chat) {
+class ViewChatActivity : BaseActivity(R.layout.activity_view_chat) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/tips_empty_state_head"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            android:textAppearance="?attr/textAppearanceTitleLarge" />
 
         <Button
             android:id="@+id/tips_empty_state_cta"

@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/frag_calendar_coming_soon"
-        android:textAppearance="?attr/textAppearanceHeadline5" />
+        android:textAppearance="?attr/textAppearanceTitleLarge" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

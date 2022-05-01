@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
@@ -26,6 +25,7 @@ import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.ActivityUpdatesBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -38,7 +38,7 @@ import com.google.android.material.snackbar.Snackbar
 import java.io.File
 
 @AppDeepLink(["/updates"])
-class UpdatesActivity : AppCompatActivity() {
+class UpdatesActivity : BaseActivity() {
     // Whether the user has pressed the "check for updates" menu item
     private var isChecking = false
     private lateinit var appUpdate: Update

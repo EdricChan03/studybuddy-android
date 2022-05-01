@@ -12,7 +12,7 @@
         app:elevation="0dp"
         app:headerLayout="@layout/frag_bottomappbar_bottomsheet_header"
         app:itemIconPadding="@dimen/one_line_list_item_padding_left"
-        app:itemTextAppearance="?attr/textAppearanceSubtitle2"
+        app:itemTextAppearance="?attr/textAppearanceTitleSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav" />

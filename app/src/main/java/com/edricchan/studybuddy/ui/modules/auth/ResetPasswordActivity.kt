@@ -10,6 +10,7 @@ import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityResetPasswordBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,7 +18,7 @@ import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/resetPassword", "/reset-password"])
 @AppDeepLink(["/resetPassword", "/reset-password"])
-class ResetPasswordActivity : AppCompatActivity() {
+class ResetPasswordActivity : BaseActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityResetPasswordBinding

@@ -14,11 +14,11 @@ import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
 import com.edricchan.studybuddy.utils.SharedUtils
-import com.takisoft.preferencex.PreferenceFragmentCompat
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : MaterialPreferenceFragment() {
     private lateinit var preferences: SharedPreferences
     private lateinit var devModeOpts: SharedPreferences
     private lateinit var featureFlagsUtils: FeatureFlagsUtils

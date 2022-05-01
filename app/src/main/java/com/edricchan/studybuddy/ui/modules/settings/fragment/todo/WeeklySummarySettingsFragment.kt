@@ -7,9 +7,9 @@ import android.provider.Settings
 import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.takisoft.preferencex.PreferenceFragmentCompatMasterSwitch
+import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragmentMasterSwitch
 
-class WeeklySummarySettingsFragment : PreferenceFragmentCompatMasterSwitch() {
+class WeeklySummarySettingsFragment : MaterialPreferenceFragmentMasterSwitch() {
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_todos_weekly_summary, rootKey)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

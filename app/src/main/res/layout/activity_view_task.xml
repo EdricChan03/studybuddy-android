@@ -34,7 +34,7 @@
                 android:id="@+id/taskContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceBody1"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
                 tools:text="&lt;Content of task goes here&gt;" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:drawableStart="@drawable/ic_calendar_check_outline_24dp"
                 android:drawablePadding="16dp"
                 android:padding="16dp"
-                android:textAppearance="?attr/textAppearanceBody1"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
                 tools:text="1 Jan 2100" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:drawableStart="@drawable/ic_format_list_checks_24dp"
                 android:drawablePadding="16dp"
                 android:padding="16dp"
-                android:textAppearance="?attr/textAppearanceBody1"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
                 tools:text="Project" />
             <!--<LinearLayout
                 android:id="@+id/taskProjectParentView"
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/view_task_loading"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            android:textAppearance="?attr/textAppearanceTitleLarge" />
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar

@@ -40,6 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/help_activity_empty_state_title"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
+            android:textAppearance="?attr/textAppearanceTitleLarge" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
