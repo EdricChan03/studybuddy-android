@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
@@ -21,6 +20,7 @@ import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.interfaces.Visibility
 import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.IconPickerActivity
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.ImagePickerMode
@@ -37,7 +37,7 @@ import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/chats/new"])
 @AppDeepLink(["/chats/new"])
-class NewChatActivity : AppCompatActivity(R.layout.activity_new_chat) {
+class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore

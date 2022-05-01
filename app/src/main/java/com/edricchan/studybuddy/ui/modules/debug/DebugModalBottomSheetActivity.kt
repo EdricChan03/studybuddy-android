@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.plusAssign
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityDebugModalBottomSheetBinding
 import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
@@ -23,8 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 
 // TODO: Move demo class to dedicated Gradle module
-class DebugModalBottomSheetActivity :
-    AppCompatActivity() {
+class DebugModalBottomSheetActivity : BaseActivity() {
     private lateinit var binding: ActivityDebugModalBottomSheetBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

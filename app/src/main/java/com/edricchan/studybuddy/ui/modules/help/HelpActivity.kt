@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -23,6 +22,7 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.interfaces.HelpArticles
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils
@@ -36,7 +36,7 @@ import java.net.URL
 
 @WebDeepLink(["/help"])
 @AppDeepLink(["/help"])
-class HelpActivity : AppCompatActivity() {
+class HelpActivity : BaseActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var binding: ActivityHelpBinding
 

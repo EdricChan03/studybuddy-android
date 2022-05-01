@@ -331,6 +331,8 @@
         device</string>
     <string name="debug_activity_device_info_title">Device info</string>
     <string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
+    <string name="debug_activity_dynamic_theme_info_dialog_title">Dynamic theme info</string>
+    <string name="debug_activity_dynamic_theme_info_dialog_toggle_btn">Toggle theme</string>
     <string name="debug_activity_feature_flags_title">Feature flags</string>
     <string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
     <string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
@@ -537,6 +539,9 @@
     <string name="pref_category_weekly_summary_prefs">Weekly summary preferences</string>
     <string name="pref_check_for_update_frequency_title">Checking frequency</string>
     <string name="pref_dark_theme_title">Dark theme</string>
+    <string name="pref_dynamic_theme_title">Dynamic theme</string>
+    <string name="pref_dynamic_theme_summary">Whether to use your phone\'s theme. (Android 12+)
+    </string>
 
     <string name="pref_enable_crashlytics_user_tracking_summary">Add your email address and your
         name to future crash reports.\nThis data will only be used for crash reports and will be

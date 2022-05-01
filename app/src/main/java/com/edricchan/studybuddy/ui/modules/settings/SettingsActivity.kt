@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -14,6 +13,7 @@ import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.help.HelpActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -21,7 +21,7 @@ import com.edricchan.studybuddy.utils.WebUtils
 
 @WebDeepLink(["/settings"])
 @AppDeepLink(["/settings"])
-class SettingsActivity : AppCompatActivity(),
+class SettingsActivity : BaseActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private lateinit var preferences: SharedPreferences
 

@@ -14,6 +14,7 @@ import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.datepicker.CalendarConstraints
@@ -32,7 +33,7 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.HashMap
 
-class EditTaskActivity : AppCompatActivity() {
+class EditTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityEditTaskBinding
     private lateinit var firestore: FirebaseFirestore

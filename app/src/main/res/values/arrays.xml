@@ -12,6 +12,7 @@
         <item>Device SDK Info</item>
         <item>Connectivity Info</item>
         <item>Night Mode Info</item>
+        <item>Dynamic Theme Info</item>
     </string-array>
     <string-array name="pref_check_for_updates_frequencies">
         <item>Manual/Never</item>

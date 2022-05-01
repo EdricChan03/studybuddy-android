@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerAdapter
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerItemDetailsLookup
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,7 +22,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 
-class IconPickerActivity : AppCompatActivity(R.layout.activity_icon_picker) {
+class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
     private lateinit var adapter: IconPickerAdapter
     private lateinit var firestore: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView

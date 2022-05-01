@@ -12,6 +12,7 @@ import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityLoginBinding
 import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -29,7 +30,7 @@ import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/login"])
 @AppDeepLink(["/login"])
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
     private lateinit var googleSignInClient: GoogleSignInClient

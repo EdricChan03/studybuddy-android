@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.edricchan.studybuddy.BuildConfig
@@ -16,6 +15,7 @@ import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityAccountBinding
 import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -27,7 +27,7 @@ import com.google.firebase.ktx.Firebase
 
 @WebDeepLink(["/account"])
 @AppDeepLink(["/account"])
-class AccountActivity : AppCompatActivity(),
+class AccountActivity : BaseActivity(),
     FirebaseAuth.AuthStateListener {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityAccountBinding

@@ -30,6 +30,11 @@
             app:key="pref_dark_theme"
             app:title="@string/pref_dark_theme_title"
             app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            app:key="pref_dynamic_theme"
+            app:icon="@drawable/ic_palette_outline_24dp"
+            app:title="@string/pref_dynamic_theme_title"
+            app:summary="@string/pref_dynamic_theme_summary" />
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

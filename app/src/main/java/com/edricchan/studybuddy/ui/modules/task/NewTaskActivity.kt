@@ -14,6 +14,7 @@ import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.datepicker.CalendarConstraints
@@ -35,7 +36,7 @@ import java.util.*
 /**
  * Created by edricchan on 8/3/18.
  */
-class NewTaskActivity : AppCompatActivity() {
+class NewTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityNewTaskBinding
     private lateinit var firestore: FirebaseFirestore

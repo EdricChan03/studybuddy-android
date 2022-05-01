@@ -18,6 +18,7 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.chat.fragment.ChatFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
@@ -42,7 +43,7 @@ import java.util.*
 
 @WebDeepLink(["/"])
 @AppDeepLink(["/"])
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var uiUtils: UiUtils
     private lateinit var binding: ActivityMainBinding
