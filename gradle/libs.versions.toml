@@ -31,7 +31,7 @@ deepLinkDispatch-processor = { module = "com.airbnb:deeplinkdispatch-processor",
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
-playServices-auth = "com.google.android.gms:play-services-auth:20.1.0"
+playServices-auth = "com.google.android.gms:play-services-auth:20.2.0"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links-ktx" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
@@ -81,9 +81,9 @@ gradleVersions-gradle = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 
 # Testing dependencies
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-alpha05"
-androidx-test-core = "androidx.test:core:1.4.1-alpha05"
-androidx-test-runner = "androidx.test:runner:1.5.0-alpha02"
-androidx-test-rules = "androidx.test:rules:1.4.1-alpha05"
+androidx-test-core = "androidx.test:core:1.4.1-alpha06"
+androidx-test-runner = "androidx.test:runner:1.5.0-alpha03"
+androidx-test-rules = "androidx.test:rules:1.4.1-alpha06"
 junit = "junit:junit:4.13.2"
 mockito-core = "org.mockito:mockito-core:4.5.1"
 
