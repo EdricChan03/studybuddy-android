@@ -109,24 +109,22 @@ class ModalBottomSheetGroupItemsDSL(val group: ModalBottomSheetGroup) {
 
     /** Adds the specified item to the group and returns the created item. */
     fun item(item: ModalBottomSheetItem) =
-        item.apply { group = this@ModalBottomSheetGroupItemsDSL.group }
-            .also { items += it }
+        item.also { items += it }
 
     /** Adds the specified list of items to the group and returns the created items. */
     fun items(vararg init: ModalBottomSheetItemDSL.() -> Unit) =
         init.map { ModalBottomSheetItemDSL().apply(it).build() }
             .also { items += it }
 
-    /** Adds the specified list of items to the group. */
+    /** Adds the specified list of items to the group and returns the created items. */
     fun items(vararg items: ModalBottomSheetItem) = items(items.toList())
 
-    /** Adds the specified list of items to the group. */
+    /** Adds the specified list of items to the group and returns the created items. */
     fun items(items: List<ModalBottomSheetItem>) =
-        items.map {
-            it.apply { group = this@ModalBottomSheetGroupItemsDSL.group }
-        }.also { this.items = it.toMutableList() }
+        items.also { this.items = it.toMutableList() }
 
-    fun build() = items
+    /** Returns the added list of items with the group assigned to it. */
+    fun build() = items.map { it.apply { group = this@ModalBottomSheetGroupItemsDSL.group } }
 }
 
 class ModalBottomSheetItemDSL(
