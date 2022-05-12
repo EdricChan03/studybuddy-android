@@ -61,6 +61,11 @@ jobs:
             dep_update_summary+="\n- $(jq -r --arg dep "$dep" '.[$dep].count' $report_file) $dep dependencies"
           done
           echo "::set-output name=summary::$dep_update_summary"
+      - name: Add job summary
+        run: |
+          echo "${{ steps.parse_dep_updates.outputs.summary }}" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GIHUB_STEP_SUMMARY
+          echo "$(cat build/dependencyUpdates/report.md)" >> $GITHUB_STEP_SUMMARY
       - name: Add GitHub check to commit
         uses: LouisBrunner/checks-action@v1.2.0
         with:
