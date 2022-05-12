@@ -32,25 +32,77 @@ class MarkdownReporter(
          * ---|---|---
          * `com.example:example-name:1.0.0` | [Link](https://example.com) | Reason goes here
          */
-        val useSimpleDependencyNotation: Boolean = true
-    )
+        val useSimpleDependencyNotation: Boolean = true,
+        /** Whether to write the top-level header. */
+        val shouldWriteHeader: Boolean = true,
+        /**
+         * Specifies what sections (as well as the order to output them) are outputted.
+         *
+         * Note: No checks are done to see if there are multiple of the same sections.
+         */
+        val sections: List<MarkdownSection> = DEFAULT_SECTIONS
+    ) {
+        companion object {
+            /** The default order of the Markdown sections. */
+            val DEFAULT_SECTIONS = MarkdownSection.values().toList()
+        }
+    }
+
+    /** Defines the list of Markdown sections to output. */
+    enum class MarkdownSection {
+        /** Specifies the section for Gradle release channel information. */
+        GRADLE {
+            override fun write(reporter: MarkdownReporter, writer: PrintWriter, result: Result) {
+                reporter.writeGradleUpdates(writer, result)
+            }
+        },
+
+        /** Specifies the section for up-to-date dependencies. */
+        DEPENDENCIES_UP_TO_DATE {
+            override fun write(reporter: MarkdownReporter, writer: PrintWriter, result: Result) {
+                reporter.writeUpToDate(writer, result)
+            }
+        },
+
+        /** Specifies the section for dependencies that are exceeding the specified version. */
+        DEPENDENCIES_EXCEEDING {
+            override fun write(reporter: MarkdownReporter, writer: PrintWriter, result: Result) {
+                reporter.writeExceedLatestFound(writer, result)
+            }
+        },
+
+        /** Specifies the section for dependencies that are outdated. */
+        DEPENDENCIES_OUTDATED {
+            override fun write(reporter: MarkdownReporter, writer: PrintWriter, result: Result) {
+                reporter.writeOutdated(writer, result)
+            }
+        },
+
+        /** Specifies the section for dependencies that are not declared. */
+        DEPENDENCIES_UNDECLARED {
+            override fun write(reporter: MarkdownReporter, writer: PrintWriter, result: Result) {
+                reporter.writeUndeclared(writer, result)
+            }
+        },
+
+        /** Specifies the section for dependencies that were unable to be resolved. */
+        DEPENDENCIES_UNRESOLVED {
+            override fun write(reporter: MarkdownReporter, writer: PrintWriter, result: Result) {
+                reporter.writeUnresolved(writer, result)
+            }
+        };
+
+        abstract fun write(reporter: MarkdownReporter, writer: PrintWriter, result: Result)
+    }
 
     override fun write(target: Any?, result: Result) {
         // Assume that the target is a PrintWriter
         val out = target as? PrintWriter
 
         out?.apply {
-            writeHeader()
-            if (result.count == 0) {
-                println("No dependencies found.")
-            } else {
-                writeGradleUpdates(result)
-                writeUpToDate(result)
-                writeExceedLatestFound(result)
-                writeOutdated(result)
-                writeUndeclared(result)
-                writeUnresolved(result)
-            }
+            if (options.shouldWriteHeader) writeHeader()
+            if (result.count == 0) println("No dependencies found.")
+            else options.sections.forEach { it.write(this@MarkdownReporter, this, result) }
         }
     }
 
@@ -111,6 +163,10 @@ class MarkdownReporter(
         println()
     }
 
+    internal fun writeGradleUpdates(writer: PrintWriter, result: Result) {
+        writer.writeGradleUpdates(result)
+    }
+
     private fun PrintWriter.writeUpToDate(result: Result) {
         val versions = result.current.dependencies
         println("Up to date dependencies".header(2))
@@ -119,6 +175,10 @@ class MarkdownReporter(
             println(versions.table)
         } else println("(No up to date dependencies were found)".italics)
         println()
+    }
+
+    internal fun writeUpToDate(writer: PrintWriter, result: Result) {
+        writer.writeUpToDate(result)
     }
 
     private fun PrintWriter.writeExceedLatestFound(result: Result) {
@@ -131,6 +191,10 @@ class MarkdownReporter(
         println()
     }
 
+    internal fun writeExceedLatestFound(writer: PrintWriter, result: Result) {
+        writer.writeExceedLatestFound(result)
+    }
+
     private fun PrintWriter.writeOutdated(result: Result) {
         val versions = result.outdated.dependencies
         println("Outdated dependencies".header(2))
@@ -139,6 +203,10 @@ class MarkdownReporter(
             println(versions.table)
         } else println("(No outdated dependencies were found)".italics)
         println()
+    }
+
+    internal fun writeOutdated(writer: PrintWriter, result: Result) {
+        writer.writeOutdated(result)
     }
 
     private fun PrintWriter.writeUndeclared(result: Result) {
@@ -151,6 +219,10 @@ class MarkdownReporter(
         println()
     }
 
+    internal fun writeUndeclared(writer: PrintWriter, result: Result) {
+        writer.writeUndeclared(result)
+    }
+
     private fun PrintWriter.writeUnresolved(result: Result) {
         val versions = result.unresolved.dependencies
         println("Unresolved dependencies".header(2))
@@ -159,6 +231,10 @@ class MarkdownReporter(
             println(versions.table)
         } else println("(No unresolved dependencies were found)".italics)
         println()
+    }
+
+    internal fun writeUnresolved(writer: PrintWriter, result: Result) {
+        writer.writeUnresolved(result)
     }
 
     // Markdown utilities

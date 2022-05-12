@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.gradle.versions
 
+import com.edricchan.studybuddy.gradle.versions.MarkdownReporter.MarkdownSection
 import com.github.benmanes.gradle.versions.reporter.JsonReporter
 import com.github.benmanes.gradle.versions.reporter.PlainTextReporter
 import com.github.benmanes.gradle.versions.reporter.Reporter
@@ -44,7 +45,17 @@ class DependencyUpdatesPlugin : Plugin<Project> {
                             to getReporter {
                             MarkdownReporter(
                                 it,
-                                MarkdownReporter.MarkdownReporterOptions(useSimpleDependencyNotation = false)
+                                MarkdownReporter.MarkdownReporterOptions(
+                                    useSimpleDependencyNotation = false,
+                                    sections = listOf(
+                                        MarkdownSection.DEPENDENCIES_OUTDATED,
+                                        MarkdownSection.DEPENDENCIES_UNRESOLVED,
+                                        MarkdownSection.DEPENDENCIES_UNDECLARED,
+                                        MarkdownSection.DEPENDENCIES_EXCEEDING,
+                                        MarkdownSection.GRADLE,
+                                        MarkdownSection.DEPENDENCIES_UP_TO_DATE,
+                                    )
+                                )
                             )
                         }
                     )
