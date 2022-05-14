@@ -1,7 +1,7 @@
 [versions]
-android-gradle = "7.4.0-alpha01"
+android-gradle = "7.4.0-alpha02"
 deep-link-dispatch = "6.1.0"
-firebase = "30.0.0"
+firebase = "30.0.1"
 kotlin = "1.6.21"
 kotlinx-coroutines = "1.6.1"
 markwon = "4.6.2"
