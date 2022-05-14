@@ -26,7 +26,6 @@ import com.edricchan.studybuddy.databinding.ActivityUpdatesBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
-import com.edricchan.studybuddy.utils.IOUtils
 import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -114,11 +113,11 @@ class UpdatesActivity : BaseActivity() {
         val fileName = getString(R.string.download_apk_name, version)
 
         // Check if the user wants to redownload the APK file or if the user does not have the APK already downloaded
-        if (downloadAgain || !IOUtils.fileExists(
-                Environment.getExternalStoragePublicDirectory(
+        if (downloadAgain || !File(
+                "${Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DOWNLOADS
-                ).toString() + "/" + fileName
-            )
+                )}/$fileName"
+            ).exists()
         ) {
             // Check if the user has clicked on "download anyway" on the dialog that showed, or
             // check if the user is using a cellular network and has disabled downloading updates over cellular
