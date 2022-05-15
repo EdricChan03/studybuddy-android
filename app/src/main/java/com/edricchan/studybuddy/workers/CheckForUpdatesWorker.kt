@@ -10,13 +10,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
-import com.edricchan.studybuddy.extensions.workmanager.dataOf
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -43,7 +43,7 @@ class CheckForUpdatesWorker(
         override fun onFailed(error: AppUpdaterError?) {
             // Note: AppUpdaterError is an enum object
             val errorName = error?.name
-            result = Result.failure(dataOf("errorType" to errorName))
+            result = Result.failure(workDataOf("errorType" to errorName))
         }
 
     }
