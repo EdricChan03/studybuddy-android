@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.extensions.markwon
 
 import android.content.Context
 import android.text.Spanned

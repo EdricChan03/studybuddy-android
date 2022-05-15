@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.extensions.markwon
 
 import android.content.Context
 import android.widget.TextView.BufferType
-import com.edricchan.studybuddy.extensions.markwon
 import io.noties.markwon.Markwon.TextSetter
 import io.noties.markwon.MarkwonPlugin
 

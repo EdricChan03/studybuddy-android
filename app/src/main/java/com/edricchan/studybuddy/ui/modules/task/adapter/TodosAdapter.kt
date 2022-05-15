@@ -9,7 +9,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.TodosAdapterItemRowBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.markwon.*
-import com.edricchan.studybuddy.extensions.setMarkdown
+import com.edricchan.studybuddy.extensions.markwon.setMarkdown
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TodoItemDetails
 
