@@ -1,7 +1,7 @@
 [versions]
 android-gradle = "7.4.0-alpha02"
 deep-link-dispatch = "6.1.0"
-firebase = "30.0.1"
+firebase = "30.1.0"
 kotlin = "1.6.21"
 kotlinx-coroutines = "1.6.1"
 markwon = "4.6.2"
@@ -11,7 +11,7 @@ moshi = "1.13.0"
 # AndroidX dependencies
 androidx-appcompat = "androidx.appcompat:appcompat:1.4.0"
 androidx-browser = "androidx.browser:browser:1.4.0"
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha01"
 androidx-core-ktx = "androidx.core:core-ktx:1.8.0-alpha07"
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.0"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.3.0-alpha02"
@@ -21,7 +21,7 @@ androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-alpha02"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.7.0-alpha01"
+materialComponents = "com.google.android.material:material:1.7.0-alpha02"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -62,7 +62,7 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # I/O Dependencies
 
 # Coil
-coil = "io.coil-kt:coil:2.0.0"
+coil = "io.coil-kt:coil:2.1.0"
 
 # Moshi
 moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
@@ -108,7 +108,7 @@ android-gradle-application = { id = "com.android.application", version.ref = "an
 android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
 buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-firebase-crashlytics = "com.google.firebase.crashlytics:2.8.1"
+firebase-crashlytics = "com.google.firebase.crashlytics:2.9.0"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.1"
 googleServices = "com.google.gms.google-services:4.3.10"
 gradleVersions = "com.github.ben-manes.versions:0.42.0"
