@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -16,6 +15,7 @@ import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
+import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
@@ -29,17 +29,14 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.NotificationUtils
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils
 import com.edricchan.studybuddy.utils.firebase.FirebaseCrashlyticsUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
-import java.util.*
 
 @WebDeepLink(["/"])
 @AppDeepLink(["/"])
@@ -194,9 +191,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
-        fragment.enterTransition = MaterialFadeThrough()
-        fragment.exitTransition = MaterialFadeThrough()
-        SharedUtils.replaceFragment(this, fragment, R.id.frameLayoutMain, addToBackStack)
+        replaceFragment(R.id.frameLayoutMain, fragment, addToBackStack)
     }
 
     companion object {

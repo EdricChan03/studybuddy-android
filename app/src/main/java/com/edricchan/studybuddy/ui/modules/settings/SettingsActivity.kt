@@ -12,11 +12,11 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.help.HelpActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.WebUtils
 
 @WebDeepLink(["/settings"])
@@ -98,7 +98,8 @@ class SettingsActivity : BaseActivity(),
     }
 
     private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
-        SharedUtils.replaceFragment(this, fragment, android.R.id.content, addToBackStack)
+        // FIXME: Animations are disabled here for now as the fade through behaviour looks a bit odd
+        replaceFragment(android.R.id.content, fragment, addToBackStack, hasAnimations = false)
     }
 
     companion object {

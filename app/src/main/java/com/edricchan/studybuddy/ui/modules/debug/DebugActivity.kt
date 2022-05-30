@@ -2,12 +2,9 @@ package com.edricchan.studybuddy.ui.modules.debug
 
 import android.os.Bundle
 import android.view.MenuItem
-
-import androidx.appcompat.app.AppCompatActivity
+import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
-
 import com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment
-import com.edricchan.studybuddy.utils.SharedUtils
 
 /**
  * Created by edricchan on 14/3/18.
@@ -17,7 +14,7 @@ class DebugActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        SharedUtils.replaceFragment(this, DebugSettingsFragment(), android.R.id.content, false)
+        replaceFragment(android.R.id.content, DebugSettingsFragment(), false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

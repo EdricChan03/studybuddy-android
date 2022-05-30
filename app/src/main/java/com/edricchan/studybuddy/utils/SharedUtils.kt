@@ -5,13 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.util.Log
-import androidx.annotation.IdRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.preference.PreferenceManagerFix
 import androidx.work.*
@@ -34,48 +31,6 @@ import java.util.concurrent.TimeUnit
  * Shared utility methods
  */
 object SharedUtils {
-    /**
-     * Replaces a view with an initialised fragment.
-     * Note: This method checks if there's already a fragment in the view.
-     *
-     * @param activity The activity.
-     * @param fragment The fragment to replace the view with. (Needs to be initialised with a `new` constructor).
-     * @param viewId The ID of the view.
-     * @param addToBackStack Whether to add the fragment to the back stack.
-     * @param hasAnimations Whether there should be custom animations.
-     * @return True if the fragment was replaced, false if there's already an existing fragment.
-     */
-    fun replaceFragment(
-        activity: AppCompatActivity,
-        fragment: Fragment, @IdRes viewId: Int,
-        addToBackStack: Boolean,
-        hasAnimations: Boolean = true
-    ): Boolean {
-        if (activity.supportFragmentManager.findFragmentById(viewId) !== fragment) {
-            val transaction = activity.supportFragmentManager.beginTransaction()
-            if (hasAnimations) {
-                transaction.setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
-            }
-            transaction.replace(
-                viewId,
-                fragment
-            )
-            if (addToBackStack) {
-                transaction.addToBackStack(null)
-            }
-            transaction.commit()
-            // Indicate that the fragment replacement has been done.
-            return true
-        }
-        // Return false if there's already an existing fragment.
-        return false
-    }
-
     /**
      * Checks whether the network is available
      *
