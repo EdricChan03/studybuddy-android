@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--
-    Workaround for an issue with ConstraintLayout.
-    See https://issuetracker.google.com/issues/136103084 for more info
-    -->
-    <eat-comment />
-
     <declare-styleable name="ChipsTextInputLayout">
         <attr name="textInputLayoutHint" format="string" />
         <attr name="textInputLayoutHelperText" format="string" />
