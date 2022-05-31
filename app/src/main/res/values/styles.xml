@@ -13,6 +13,7 @@
         <!-- The edit text style -->
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
+        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
         <!-- The font family of the app -->
         <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
@@ -23,6 +24,9 @@
         </item>
         <item name="editTextPreferenceStyle">
             @style/Preference.DialogPreference.EditTextPreference.App
+        </item>
+        <item name="switchPreferenceCompatStyle">
+            @style/Preference.SwitchPreferenceCompat.Material.App
         </item>
     </style>
     <!-- Base application theme. -->
@@ -39,6 +43,7 @@
         <!-- The edit text style -->
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
+        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
         <!-- The font family of the app -->
         <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
@@ -49,6 +54,9 @@
         </item>
         <item name="editTextPreferenceStyle">
             @style/Preference.DialogPreference.EditTextPreference.App
+        </item>
+        <item name="switchPreferenceCompatStyle">
+            @style/Preference.SwitchPreferenceCompat.Material.App
         </item>
     </style>
     <!-- ImageButton theme that more closely matches the Material specs. -->
@@ -90,5 +98,9 @@
 
     <style name="Preference.DialogPreference.EditTextPreference.App" parent="Preference.DialogPreference.EditTextPreference.Material">
         <item name="dialogLayout">@layout/preference_dialog_edittext_material</item>
+    </style>
+
+    <style name="Preference.SwitchPreferenceCompat.Material.App" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:widgetLayout">@layout/pref_widget_m3_switch</item>
     </style>
 </resources>
