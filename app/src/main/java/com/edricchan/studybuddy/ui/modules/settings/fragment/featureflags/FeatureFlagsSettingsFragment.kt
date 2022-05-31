@@ -17,7 +17,7 @@ class FeatureFlagsSettingsFragment : MaterialPreferenceFragment() {
         featureFlagsUtils = FeatureFlagsUtils(requireContext())
     }
 
-    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = FeatureFlagsPrefConstants.FILE_FEATURE_FLAGS
         setPreferencesFromResource(R.xml.pref_feature_flags, rootKey)
         findPreference<Preference>(Constants.featureFlagsReset)?.setOnPreferenceClickListener {

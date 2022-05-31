@@ -5,8 +5,8 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.MultiSelectListPreferenceDialogFragmentCompat
+import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.takisoft.preferencex.PreferenceFragmentCompat
 
 // Code from https://stackoverflow.com/a/61424867
 class MaterialMultiSelectListPreferenceDialogFragment :

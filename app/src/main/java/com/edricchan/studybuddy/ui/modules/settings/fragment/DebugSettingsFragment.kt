@@ -74,7 +74,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             super.onSaveInstanceState(outState)
         }
 
-        override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.pref_debug_update_info, rootKey)
             activity?.let {
                 updateInfoPreferences = it.getSharedPreferences(
@@ -186,7 +186,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         themeUtil = requireContext().themeUtils
     }
 
-    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_debug, rootKey)
         devModeOpts = requireContext().getSharedPreferences(
             DevModePrefConstants.FILE_DEV_MODE,

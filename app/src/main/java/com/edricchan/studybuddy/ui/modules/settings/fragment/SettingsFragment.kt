@@ -23,7 +23,7 @@ class SettingsFragment : MaterialPreferenceFragment() {
     private lateinit var devModeOpts: SharedPreferences
     private lateinit var featureFlagsUtils: FeatureFlagsUtils
 
-    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_headers, rootKey)
         preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         devModeOpts =

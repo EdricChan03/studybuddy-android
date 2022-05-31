@@ -19,7 +19,7 @@ class GeneralSettingsFragment : MaterialPreferenceFragment() {
         themeUtils = requireContext().themeUtils
     }
 
-    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_general, rootKey)
 
         findPreference<SwitchPreferenceCompat>(ThemeUtils.PREF_DYNAMIC_THEME)?.apply {

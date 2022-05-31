@@ -35,7 +35,7 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
     // Max number of clicks to unlock
     private val tapsToDev: Int = 7
 
-    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_about, rootKey)
         preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         devModeOptions =

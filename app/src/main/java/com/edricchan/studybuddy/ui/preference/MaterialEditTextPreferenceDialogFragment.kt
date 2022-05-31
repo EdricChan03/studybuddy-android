@@ -3,10 +3,10 @@ package com.edricchan.studybuddy.ui.preference
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import androidx.preference.EditTextPreference
 import androidx.preference.EditTextPreferenceDialogFragmentCompat
+import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.takisoft.preferencex.EditTextPreference
-import com.takisoft.preferencex.PreferenceFragmentCompat
 
 // Code from https://stackoverflow.com/a/61424867
 class MaterialEditTextPreferenceDialogFragment : EditTextPreferenceDialogFragmentCompat() {

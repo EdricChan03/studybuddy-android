@@ -47,7 +47,7 @@ class UpdateSettingsFragment : MaterialPreferenceFragment(),
         super.onSaveInstanceState(outState)
     }
 
-    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_updates, rootKey)
 
         updateInfoPreferences = requireContext().getSharedPreferences(
