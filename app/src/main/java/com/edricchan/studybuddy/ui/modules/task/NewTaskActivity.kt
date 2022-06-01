@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityNewTaskBinding
 import com.edricchan.studybuddy.extensions.*

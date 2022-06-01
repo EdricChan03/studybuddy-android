@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.extensions.TAG

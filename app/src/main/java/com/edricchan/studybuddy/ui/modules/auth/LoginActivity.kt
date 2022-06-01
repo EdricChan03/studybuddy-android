@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink

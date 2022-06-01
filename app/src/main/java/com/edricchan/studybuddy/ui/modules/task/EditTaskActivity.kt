@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
 import com.edricchan.studybuddy.extensions.*
@@ -31,7 +30,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.util.*
-import kotlin.collections.HashMap
 
 class EditTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
