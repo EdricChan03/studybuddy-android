@@ -1,9 +1,9 @@
 [versions]
-android-gradle = "7.4.0-alpha02"
+android-gradle = "7.4.0-alpha04"
 deep-link-dispatch = "6.1.0"
 firebase = "30.1.0"
-kotlin = "1.6.21"
-kotlinx-coroutines = "1.6.1"
+kotlin = "1.7.0"
+kotlinx-coroutines = "1.6.2"
 markwon = "4.6.2"
 moshi = "1.13.0"
 
@@ -11,7 +11,7 @@ moshi = "1.13.0"
 # AndroidX dependencies
 androidx-appcompat = "androidx.appcompat:appcompat:1.4.0"
 androidx-browser = "androidx.browser:browser:1.4.0"
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha01"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha02"
 androidx-core-ktx = "androidx.core:core-ktx:1.8.0-alpha07"
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.0"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.3.0-alpha02"
@@ -80,12 +80,12 @@ takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
 gradleVersions-gradle = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 
 # Testing dependencies
-androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-alpha06"
-androidx-test-core = "androidx.test:core:1.4.1-alpha06"
-androidx-test-runner = "androidx.test:runner:1.5.0-alpha03"
-androidx-test-rules = "androidx.test:rules:1.4.1-alpha06"
+androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-alpha07"
+androidx-test-core = "androidx.test:core:1.4.1-alpha07"
+androidx-test-runner = "androidx.test:runner:1.5.0-alpha04"
+androidx-test-rules = "androidx.test:rules:1.4.1-alpha07"
 junit = "junit:junit:4.13.2"
-mockito-core = "org.mockito:mockito-core:4.5.1"
+mockito-core = "org.mockito:mockito-core:4.6.1"
 
 [bundles]
 androidx-test = [
