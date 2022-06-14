@@ -9,7 +9,6 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.TodosAdapterItemRowBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.markwon.*
-import com.edricchan.studybuddy.extensions.markwon.setMarkdown
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TodoItemDetails
 
@@ -43,14 +42,14 @@ class TodosAdapter(
                 if (!item.title.isNullOrEmpty()) itemTitle.text = item.title
                 else itemTitle.setText(R.string.task_adapter_empty_title)
                 if (!item.content.isNullOrEmpty()) {
-                    itemContent.setMarkdown(context.markwon {
+                    itemContent.setMarkdown(item.content) {
                         usePlugins(
                             context.coilImagesPlugin,
                             linkifyPlugin,
                             context.taskListPlugin,
                             strikethroughPlugin
                         )
-                    }, item.content)
+                    }
                 } else itemContent.setText(R.string.task_adapter_empty_content)
 
                 itemMarkAsDone.setOnClickListener {

@@ -1,7 +1,9 @@
 package com.edricchan.studybuddy.extensions.markwon
 
 import android.content.Context
+import android.widget.TextView
 import android.widget.TextView.BufferType
+import io.noties.markwon.Markwon
 import io.noties.markwon.Markwon.TextSetter
 import io.noties.markwon.MarkwonPlugin
 
@@ -54,3 +56,17 @@ class MarkwonBuilderDSL(private val context: Context) {
  */
 fun Context.markwon(block: MarkwonBuilderDSL.() -> Unit) =
     MarkwonBuilderDSL(this).apply(block).build()
+
+/**
+ * Sets the text of the [TextView] to the markdown-formatted text.
+ * @param markdown The markdown-formatted text.
+ * @param context The context to use.
+ * @param init Configuration to pass to [Context.markwon].
+ */
+fun TextView.setMarkdown(
+    markdown: String,
+    context: Context = this.context,
+    init: MarkwonBuilderDSL.() -> Unit
+) {
+    context.markwon(init).setMarkdown(this, markdown)
+}
