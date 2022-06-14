@@ -181,6 +181,13 @@ object SharedUtils {
                             )
                                 .setContentText(context.getString(R.string.notification_updates_error_not_found_text))
                                 .setSmallIcon(R.drawable.ic_file_not_found_24dp)
+                            else -> notifyBuilder.setContentTitle(
+                                context.getString(R.string.notification_updates_error_unknown_title)
+                            )
+                                .setContentText(
+                                    context.getString(R.string.notification_updates_error_unknown_text)
+                                )
+                                .setSmallIcon(R.drawable.ic_warning_24dp)
                         }
                         val intentAction =
                             Intent(context, NotificationActionReceiver::class.java)
