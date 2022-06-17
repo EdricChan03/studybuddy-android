@@ -5,7 +5,7 @@ import android.content.DialogInterface
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceDialogFragmentCompat
-import com.edricchan.studybuddy.extensions.dialog.createMaterialAlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 internal fun PreferenceDialogFragmentCompat.createDialogBuilder(
     listener: DialogInterface.OnClickListener,
@@ -13,7 +13,7 @@ internal fun PreferenceDialogFragmentCompat.createDialogBuilder(
     onBindDialogView: (View) -> Unit,
     onPrepareDialogBuilder: (AlertDialog.Builder) -> Unit
 ) =
-    requireContext().createMaterialAlertDialog {
+    MaterialAlertDialogBuilder(requireContext()).apply {
         setTitle(preference.dialogTitle)
         setIcon(preference.dialogIcon)
         setPositiveButton(preference.positiveButtonText, listener)
@@ -26,4 +26,4 @@ internal fun PreferenceDialogFragmentCompat.createDialogBuilder(
             setMessage(preference.dialogMessage)
         }
         onPrepareDialogBuilder(this)
-    }
+    }.create()

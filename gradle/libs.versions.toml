@@ -82,6 +82,7 @@ gradleVersions-gradle = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 # Testing dependencies
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-alpha07"
 androidx-test-core = "androidx.test:core:1.4.1-alpha07"
+androidx-test-ext = "androidx.test.ext:junit:1.1.4-alpha07"
 androidx-test-runner = "androidx.test:runner:1.5.0-alpha04"
 androidx-test-rules = "androidx.test:rules:1.4.1-alpha07"
 junit = "junit:junit:4.13.2"
