@@ -24,7 +24,6 @@ plugins {
     // https://docs.gradle.com/enterprise/gradle-plugin/
     id("com.gradle.enterprise") version("3.8.1")
 }
-include(":app")
 
 // Configure the Gradle Enterprise Plugin
 gradleEnterprise {
@@ -39,3 +38,7 @@ gradleEnterprise {
         }
     }
 }
+
+include(":ui:preference")
+
+include(":app")
