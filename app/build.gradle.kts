@@ -178,6 +178,8 @@ android {
             applicationIdSuffix = ".nightly"
             versionNameSuffix = "-NIGHTLY-$buildTimeString"
             extra["currentVariant"] = "nightly"
+
+            matchingFallbacks += listOf("release", "debug")
         }
     }
 
