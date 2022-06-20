@@ -10,7 +10,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
-import androidx.preference.PreferenceManagerFix
 import androidx.work.*
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
@@ -256,7 +255,7 @@ object SharedUtils {
      * @return The results of the enqueued worker request
      */
     fun enqueueCheckForUpdatesWorker(context: Context): Operation? {
-        val sharedPreferences = PreferenceManagerFix.getDefaultSharedPreferences(context)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val defaultInterval =
             context.resources.getInteger(R.integer.pref_check_for_updates_frequency_default_value)
         val repeatInterval = sharedPreferences.getString(
