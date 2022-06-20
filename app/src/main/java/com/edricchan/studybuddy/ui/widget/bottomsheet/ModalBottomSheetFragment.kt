@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.databinding.FragModalBottomSheetBinding
 import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.ModalBottomSheetDSL
@@ -25,48 +26,34 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragModalBottomSheetBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         return FragModalBottomSheetBinding.inflate(
-            layoutInflater,
-            container,
-            false
+            layoutInflater, container, false
         ).also { binding = it }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState != null) {
-            headerTitle = savedInstanceState.getString(HEADER_TITLE_TAG)
+        savedInstanceState?.run {
+            headerTitle = getString(HEADER_TITLE_TAG)
         }
 
-        if (headerTitle != null) {
-            setHeaderViewVisibility(View.VISIBLE)
-            setHeaderViewTitle(headerTitle)
-        } else {
-            setHeaderViewVisibility(View.GONE)
-            setHeaderViewTitle(null)
-        }
+        binding.apply {
+            bottomSheetHeader.isVisible = headerTitle != null
+            bottomSheetHeaderTitleTextView.text = headerTitle
 
-        binding.bottomSheetRecyclerView.apply {
-            adapter = ModalBottomSheetAdapter(requireContext(), items)
-            layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(true)
+            bottomSheetRecyclerView.apply {
+                adapter = ModalBottomSheetAdapter(requireContext(), items)
+                layoutManager = LinearLayoutManager(requireContext())
+                setHasFixedSize(true)
+            }
         }
     }
 
-    private fun setHeaderViewVisibility(visibility: Int) {
-        binding.bottomSheetHeader.apply {
-            setVisibility(visibility)
-        }
-    }
-
-    private fun setHeaderViewTitle(headerTitle: String?) {
-        binding.bottomSheetHeaderTitleTextView.apply {
-            text = headerTitle
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(HEADER_TITLE_TAG, headerTitle)
+        super.onSaveInstanceState(outState)
     }
 
     /**
