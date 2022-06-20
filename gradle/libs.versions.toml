@@ -73,7 +73,6 @@ moshi-kotlinCodegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", vers
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
 appUpdater = "com.github.javiersantos:AppUpdater:2.7"
 imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta5"
-takisoftPreferencex = "com.takisoft.preferencex:preferencex:1.1.0"
 
 # Gradle Versions (declared here as a library and not as a plugin
 # such that it can be used in a custom reporter)

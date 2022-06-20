@@ -265,7 +265,6 @@ dependencies {
     implementation(libs.appUpdater)
     implementation(libs.imagePicker)
     implementation(libs.playServices.ossLicenses.core)
-    implementation(libs.takisoftPreferencex)
 
     // DeepLinkDispatch dependencies
     implementation(libs.deepLinkDispatch.core)

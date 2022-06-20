@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.MainSwitchText" parent="@style/TextAppearance.Material3.ActionBar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>

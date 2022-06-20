@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MainSwitchBar">
+        <!-- The title to use. -->
+        <attr name="title" format="string" />
+        <!-- The title to use. -->
+        <attr name="android:title" format="string" />
+    </declare-styleable>
+</resources>

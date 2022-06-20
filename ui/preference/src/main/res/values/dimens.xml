@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Size of title margin -->
+    <dimen name="m3_switch_title_margin">24dp</dimen>
+
+    <!-- Size of layout margin -->
+    <dimen name="m3_switchbar_margin">16dp</dimen>
+
+    <!-- Size of layout margin left -->
+    <dimen name="m3_switchbar_padding_left">20dp</dimen>
+
+    <!-- Size of layout margin right -->
+    <dimen name="m3_switchbar_padding_right">20dp</dimen>
+
+    <!-- Minimum width of switch -->
+    <dimen name="m3_min_switch_width">52dp</dimen>
+
+    <!-- Minimum width of switch bar -->
+    <dimen name="m3_min_switch_bar_height">72dp</dimen>
+
+    <!-- Radius of switch bar -->
+    <dimen name="m3_switch_bar_radius">28dp</dimen>
+</resources>
