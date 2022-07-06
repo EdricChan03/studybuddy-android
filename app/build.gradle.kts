@@ -127,10 +127,11 @@ fun generateVersionName(): String {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
     defaultConfig {
         applicationId = "com.edricchan.studybuddy"
         minSdk = 21
+        // TODO: Bump targetSdk
         targetSdk = 30
         // versionCode 9
         versionCode = generateVersionCode()
