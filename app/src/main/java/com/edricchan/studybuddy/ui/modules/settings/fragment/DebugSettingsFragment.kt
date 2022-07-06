@@ -247,11 +247,11 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                         Metadata:
                         - Creation timestamp: ${
                             user?.metadata?.creationTimestamp
-                                .toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
+                                ?.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
                         }
                         - Last sign in timestamp: ${
                             user?.metadata?.lastSignInTimestamp
-                                .toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
+                                ?.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
                         }
                         Phone number: ${user?.phoneNumber ?: "<not set>"}
                         Photo URL: ${user?.photoUrl ?: "<not set>"}
