@@ -5,16 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.util.Log
+import androidx.annotation.Discouraged
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import androidx.preference.PreferenceManager
 import androidx.work.*
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
@@ -24,7 +23,6 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
-import java.util.concurrent.TimeUnit
 
 /**
  * Shared utility methods
@@ -78,6 +76,7 @@ object SharedUtils {
      *
      * @param context The context.
      */
+    @Discouraged(message = "Consider using the `CheckForUpdatesWorker` worker instead")
     fun checkForUpdates(context: Context) {
         val notificationManager = NotificationManagerCompat.from(context)
         val notifyBuilder = NotificationCompat.Builder(
@@ -233,47 +232,30 @@ object SharedUtils {
      * @param forceDebugUrl Whether to return the debug URL even if [SharedUtils.isDevMode] is [true]
      * @return The JSON update URL as a [String]
      */
-    fun getUpdateJsonUrl(context: Context, forceDebugUrl: Boolean = false): String? {
-        return if (isDevMode(context) || forceDebugUrl) {
-            val mPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-            if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
-                mPrefs.getString(
-                    Constants.debugSetCustomJsonUrl,
-                    context.getString(R.string.update_json_testing_url)
-                )
-            } else {
-                context.getString(R.string.update_json_release_url)
-            }
-        } else {
-            context.getString(R.string.update_json_release_url)
-        }
-    }
+    @Deprecated(
+        "Use Context#getUpdateJsonUrl instead",
+        ReplaceWith(
+            "context.getUpdateJsonUrl",
+            "com.edricchan.studybuddy.utils.getUpdateJsonUrl"
+        )
+    )
+    fun getUpdateJsonUrl(context: Context, forceDebugUrl: Boolean = false) =
+        context.getUpdateJsonUrl(forceDebugUrl)
 
     /**
      * Enqueues the [CheckForUpdatesWorker] request
      * @param context The context
      * @return The results of the enqueued worker request
      */
-    fun enqueueCheckForUpdatesWorker(context: Context): Operation? {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val defaultInterval =
-            context.resources.getInteger(R.integer.pref_check_for_updates_frequency_default_value)
-        val repeatInterval = sharedPreferences.getString(
-            Constants.prefUpdatesFrequency,
-            defaultInterval.toString()
-        )!!.toLong()
-        val isMetered =
-            sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOverMetered, false)
-        val requiresCharging =
-            sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOnlyWhenCharging, false)
-
-        return enqueueCheckForUpdatesWorker(
-            context,
-            repeatInterval,
-            isMetered,
-            requiresCharging
+    @Deprecated(
+        "Use Context#enqueueUniqueCheckForUpdatesWorker instead",
+        ReplaceWith(
+            "context.enqueueUniqueCheckForUpdatesWorker",
+            "com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker"
         )
-    }
+    )
+    fun enqueueCheckForUpdatesWorker(context: Context) =
+        context.enqueueUniqueCheckForUpdatesWorker()
 
     /**
      * Enqueues the [CheckForUpdatesWorker] request
@@ -283,45 +265,26 @@ object SharedUtils {
      * @param requiresCharging Whether the worker is allowed to execute if the device is charging
      * @return The results of the enqueued worker request
      */
+    @Deprecated(
+        "Use Context#enqueueUniqueCheckForUpdatesWorker instead",
+        ReplaceWith(
+            "context.enqueueUniqueCheckForUpdatesWorker(repeatInterval, " +
+                "UPDATE_FREQ_DEFAULT_UNIT, isMetered, requiresCharging)",
+            "com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker",
+            "com.edricchan.studybuddy.utils.UPDATE_FREQ_DEFAULT_UNIT"
+        )
+    )
     fun enqueueCheckForUpdatesWorker(
         context: Context,
         repeatInterval: Long,
         isMetered: Boolean,
         requiresCharging: Boolean
-    ): Operation? {
-        var result: Operation? = null
-
-        if (repeatInterval > 0) {
-            // Check for updates frequency is not set to manual/never
-            Log.d(
-                TAG,
-                "Check for updates frequency is not set to manual/never. Creating worker request..."
-            )
-
-            val networkType = if (isMetered) NetworkType.METERED else NetworkType.UNMETERED
-
-            val constraints = Constraints(
-                requiredNetworkType = networkType,
-                requiresCharging = requiresCharging
-            )
-
-            val checkForUpdatesWorkerRequest =
-                PeriodicWorkRequestBuilder<CheckForUpdatesWorker>(
-                    repeatInterval,
-                    TimeUnit.HOURS
-                ).apply {
-                    setConstraints(constraints)
-                }.build()
-
-            result = WorkManager.getInstance(context).enqueue(checkForUpdatesWorkerRequest)
-        } else {
-            Log.d(
-                TAG,
-                "Check for updates frequency is set to manual/never. Skipping worker request..."
-            )
-        }
-        return result
-    }
+    ) = context.enqueueUniqueCheckForUpdatesWorker(
+        repeatInterval,
+        UPDATE_FREQ_DEFAULT_UNIT,
+        isMetered,
+        requiresCharging
+    )
 
     /**
      * Whether the app is in developer mode.
@@ -329,18 +292,13 @@ object SharedUtils {
      * @param useSharedPrefsOnly Whether to only check from shared preferences
      * @return `true` if the app is in developer mode, `false` otherwise.
      */
-    fun isDevMode(context: Context, useSharedPrefsOnly: Boolean = false): Boolean {
-        val devModeOpts = context.getSharedPreferences(
-            DevModePrefConstants.FILE_DEV_MODE,
-            Context.MODE_PRIVATE
+    @Deprecated(
+        "Use Context#isDevMode instead",
+        ReplaceWith(
+            "context.isDevMode(useSharedPrefsOnly)",
+            "com.edricchan.studybuddy.utils.isDevMode"
         )
-        return if (useSharedPrefsOnly) {
-            devModeOpts.getBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)
-        } else {
-            devModeOpts.getBoolean(
-                DevModePrefConstants.DEV_MODE_ENABLED,
-                false
-            ) || BuildConfig.DEBUG
-        }
-    }
+    )
+    fun isDevMode(context: Context, useSharedPrefsOnly: Boolean = false) =
+        context.isDevMode(useSharedPrefsOnly)
 }
