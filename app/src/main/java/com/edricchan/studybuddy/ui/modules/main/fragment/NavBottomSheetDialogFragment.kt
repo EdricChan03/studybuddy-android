@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.os.bundleOf
 import coil.load
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
+import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,68 +18,76 @@ import com.google.android.material.navigation.NavigationView
 
 class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
     /** Listener for the [NavigationView] */
-    var navigationViewListener: (menuItem: MenuItem) -> Boolean = {false}
+    var navigationViewListener: (MenuItem) -> Boolean = { false }
+
     /** Whether there is a logged in user */
     var isLoggedIn: Boolean = false
     var displayName: String? = null
     var email: String? = null
     var photoUrl: Uri? = null
     var navigationViewCheckedItemId: Int? = null
-    private lateinit var navigationView: NavigationView
+
+    private var _binding: FragBottomappbarBottomsheetBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.frag_bottomappbar_bottomsheet, container, false)
-    }
+    ) = FragBottomappbarBottomsheetBinding.inflate(inflater, container, false).also {
+        _binding = it
+    }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        navigationView = view.findViewById(R.id.navigationView)
-        navigationView.setNavigationItemSelectedListener(navigationViewListener)
-        if (navigationViewCheckedItemId != null) {
-            navigationView.setCheckedItem(navigationViewCheckedItemId!!)
+        binding.navigationView.apply {
+            setNavigationItemSelectedListener(navigationViewListener)
+            if (navigationViewCheckedItemId != null) {
+                setCheckedItem(navigationViewCheckedItemId!!)
+            }
         }
 
-        if (savedInstanceState != null) {
-            isLoggedIn = savedInstanceState.getBoolean(IS_LOGGED_IN_TAG)
-            displayName = savedInstanceState.getString(USER_NAME_TAG)
-            email = savedInstanceState.getString(USER_EMAIL_TAG)
-            photoUrl = savedInstanceState.getParcelable(USER_PHOTO_URL_TAG)
+        savedInstanceState?.apply {
+            isLoggedIn = getBoolean(IS_LOGGED_IN_TAG)
+            displayName = getString(USER_NAME_TAG)
+            email = getString(USER_EMAIL_TAG)
+            photoUrl = getParcelable(USER_PHOTO_URL_TAG)
         }
 
-        val headerView = navigationView.getHeaderView(0)
+        val headerView = binding.navigationView.getHeaderView(0)
+        val headerBinding = FragBottomappbarBottomsheetHeaderBinding.bind(headerView)
 
-        headerView.apply {
-            setOnClickListener {
+        headerBinding.apply {
+            root.setOnClickListener {
                 startActivity<AccountActivity>()
             }
 
             if (isLoggedIn) {
-                if (displayName != null) findViewById<TextView>(R.id.userName).text = displayName
-                if (email != null) findViewById<TextView>(R.id.userEmail).text = email
-                if (photoUrl != null) findViewById<ImageView>(R.id.userAvatar).load(photoUrl)
+                if (displayName != null) userName.text = displayName
+                if (email != null) userEmail.text = email
+                if (photoUrl != null) userAvatar.load(photoUrl)
             } else {
-                findViewById<TextView>(R.id.userName).text = getString(
-                    R.string.account_user_name_default
-                )
-                findViewById<TextView>(R.id.userEmail).text = getString(
-                    R.string.account_user_email_default
-                )
+                userName.setText(R.string.account_user_name_default)
+                userEmail.setText(R.string.account_user_email_default)
             }
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putAll(bundleOf(
-            IS_LOGGED_IN_TAG to isLoggedIn,
-            USER_NAME_TAG to displayName,
-            USER_EMAIL_TAG to email,
-            USER_PHOTO_URL_TAG to photoUrl
-        ))
+        outState.putAll(
+            bundleOf(
+                IS_LOGGED_IN_TAG to isLoggedIn,
+                USER_NAME_TAG to displayName,
+                USER_EMAIL_TAG to email,
+                USER_PHOTO_URL_TAG to photoUrl
+            )
+        )
         super.onSaveInstanceState(outState)
     }
 
