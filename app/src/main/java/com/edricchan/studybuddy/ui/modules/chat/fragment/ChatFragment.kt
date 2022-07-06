@@ -87,7 +87,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                             })
                         recyclerView.adapter = adapter
                         recyclerView.setHasFixedSize(false)
-                        recyclerView.layoutManager = LinearLayoutManager(context)
+                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
                         selectionTracker = SelectionTracker.Builder(
                             "chat-selection",
