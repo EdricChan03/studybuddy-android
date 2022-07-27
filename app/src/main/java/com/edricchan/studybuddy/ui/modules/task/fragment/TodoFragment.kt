@@ -31,9 +31,8 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
-import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.ui.widget.bottomsheet.showModalBottomSheet
 import com.edricchan.studybuddy.utils.SharedPrefUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.UiUtils
@@ -72,36 +71,40 @@ class TodoFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_show_more_options -> {
-                val modalBottomSheet = ModalBottomSheetFragment()
-                val items = arrayOf(
-                    ModalBottomSheetItem(title = getString(R.string.menu_frag_task_refresh_todos_title),
-                        icon = R.drawable.ic_refresh_24dp,
-                        onItemClickListener = {
-                            loadTasksListHandler()
-                            modalBottomSheet.dismiss()
-                        }),
-                    ModalBottomSheetItem(title = getString(R.string.menu_frag_task_sort_by_title),
-                        icon = R.drawable.ic_sort_24dp,
-                        onItemClickListener = {
-                            showSortByOptions()
-                            modalBottomSheet.dismiss()
-                        }),
-                    ModalBottomSheetItem(title = getString(R.string.menu_settings_title),
-                        icon = R.drawable.ic_settings_outline_24dp,
-                        onItemClickListener = {
-                            startActivity<SettingsActivity>()
-                            modalBottomSheet.dismiss()
-                        }),
-                    ModalBottomSheetItem(title = getString(R.string.menu_debug_title),
-                        icon = R.drawable.ic_bug_report_outline_24dp,
-                        visible = SharedUtils.isDevMode(requireContext()),
-                        onItemClickListener = {
-                            startActivity<DebugActivity>()
-                            modalBottomSheet.dismiss()
-                        })
-                )
-                modalBottomSheet.setItems(items)
-                modalBottomSheet.show(parentFragmentManager, modalBottomSheet.tag)
+                val context = requireContext()
+                showModalBottomSheet {
+                    setItems {
+                        item(context.getString(R.string.menu_frag_task_refresh_todos_title)) {
+                            setIcon(R.drawable.ic_refresh_24dp)
+                            setItemClickListener {
+                                loadTasksListHandler()
+                                dismiss()
+                            }
+                        }
+                        item(context.getString(R.string.menu_frag_task_sort_by_title)) {
+                            setIcon(R.drawable.ic_sort_24dp)
+                            setItemClickListener {
+                                showSortByOptions()
+                                dismiss()
+                            }
+                        }
+                        item(context.getString(R.string.menu_settings_title)) {
+                            setIcon(R.drawable.ic_settings_outline_24dp)
+                            setItemClickListener {
+                                startActivity<SettingsActivity>()
+                                dismiss()
+                            }
+                        }
+                        item(context.getString(R.string.menu_debug_title)) {
+                            setIcon(R.drawable.ic_bug_report_outline_24dp)
+                            visible = SharedUtils.isDevMode(context)
+                            setItemClickListener {
+                                startActivity<DebugActivity>()
+                                dismiss()
+                            }
+                        }
+                    }
+                }
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -109,9 +112,7 @@ class TodoFragment : Fragment() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        if (!BuildConfig.DEBUG) {
-            menu.removeItem(R.id.action_debug)
-        }
+        if (!BuildConfig.DEBUG) menu.removeItem(R.id.action_debug)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -279,85 +280,50 @@ class TodoFragment : Fragment() {
         val itemTitleDescId = 3
         val itemDueDateNewestId = 4
         val itemDueDateOldestId = 5
-        val group = ModalBottomSheetGroup(id = 100,
-            checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE,
-            onItemCheckedChangeListener = { item ->
-                when (item.id) {
-                    itemNoneId -> {
-                        taskOptionsPrefs.edit {
-                            putString(
-                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                TodoOptionsPrefConstants.TodoSortValues.NONE
-                            )
-                        }
-                    }
-                    itemTitleDescId -> {
-                        taskOptionsPrefs.edit {
-                            putString(
-                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                TodoOptionsPrefConstants.TodoSortValues.TITLE_DESC
-                            )
-                        }
-                    }
-                    itemTitleAscId -> {
-                        taskOptionsPrefs.edit {
-                            putString(
-                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                TodoOptionsPrefConstants.TodoSortValues.TITLE_ASC
-                            )
-                        }
-                    }
-                    itemDueDateNewestId -> {
-                        taskOptionsPrefs.edit {
-                            putString(
-                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_NEW_TO_OLD
-                            )
-                        }
-                    }
-                    itemDueDateOldestId -> {
-                        taskOptionsPrefs.edit {
-                            putString(
-                                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                                TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_OLD_TO_NEW
-                            )
-                        }
-                    }
-                }
-                loadTasksListHandler()
-            })
-        val items = arrayOf(
-            ModalBottomSheetItem(
-                id = itemNoneId, title = getString(R.string.sort_by_bottomsheet_none_title),
-                icon = R.drawable.ic_close_24dp, group = group
-            ),
-            ModalBottomSheetItem(
-                id = itemTitleAscId,
-                title = getString(R.string.sort_by_bottomsheet_title_asc_title),
-                icon = R.drawable.ic_sort_ascending_24dp,
-                group = group
-            ),
-            ModalBottomSheetItem(
-                id = itemTitleDescId,
-                title = getString(R.string.sort_by_bottomsheet_title_desc_title),
-                icon = R.drawable.ic_sort_descending_24dp,
-                group = group
-            ),
-            ModalBottomSheetItem(
-                id = itemDueDateNewestId,
-                title = getString(R.string.sort_by_bottomsheet_due_date_newest_title),
-                icon = R.drawable.ic_sort_descending_24dp, group = group
-            ),
-            ModalBottomSheetItem(
-                id = itemDueDateOldestId,
-                title = getString(R.string.sort_by_bottomsheet_due_date_oldest_title),
-                icon = R.drawable.ic_sort_ascending_24dp, group = group
-            )
+        val itemOptions = mapOf(
+            itemNoneId to TodoSortValues.NONE,
+            itemTitleAscId to TodoSortValues.TITLE_ASC,
+            itemTitleDescId to TodoSortValues.TITLE_DESC,
+            itemDueDateNewestId to TodoSortValues.DUE_DATE_NEW_TO_OLD,
+            itemDueDateOldestId to TodoSortValues.DUE_DATE_OLD_TO_NEW
         )
-        val modalBottomSheet = ModalBottomSheetFragment()
-        modalBottomSheet.setItems(items)
-        modalBottomSheet.headerTitle = "Sort tasks by..."
-        modalBottomSheet.show(parentFragmentManager, modalBottomSheet.tag)
+
+        showModalBottomSheet("Sort tasks by...") {
+            val context = this@TodoFragment.requireContext()
+            group(100, {
+                checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
+                setItemCheckedChangeListener {
+                    taskOptionsPrefs.edit {
+                        putString(
+                            TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+                            itemOptions[it.id] ?: TodoSortValues.NONE
+                        )
+                    }
+                    loadTasksListHandler()
+                }
+            }) {
+                item(context.getString(R.string.sort_by_bottomsheet_none_title)) {
+                    id = itemNoneId
+                    setIcon(R.drawable.ic_close_24dp)
+                }
+                item(context.getString(R.string.sort_by_bottomsheet_title_asc_title)) {
+                    id = itemTitleAscId
+                    setIcon(R.drawable.ic_sort_ascending_24dp)
+                }
+                item(context.getString(R.string.sort_by_bottomsheet_title_desc_title)) {
+                    id = itemTitleDescId
+                    setIcon(R.drawable.ic_sort_descending_24dp)
+                }
+                item(context.getString(R.string.sort_by_bottomsheet_due_date_newest_title)) {
+                    id = itemDueDateNewestId
+                    setIcon(R.drawable.ic_sort_descending_24dp)
+                }
+                item(context.getString(R.string.sort_by_bottomsheet_due_date_oldest_title)) {
+                    id = itemDueDateOldestId
+                    setIcon(R.drawable.ic_sort_ascending_24dp)
+                }
+            }
+        }
     }
 
     private fun newTaskActivity() {
