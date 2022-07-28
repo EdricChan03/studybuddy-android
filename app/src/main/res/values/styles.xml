@@ -13,7 +13,6 @@
         <!-- The edit text style -->
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
-        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
         <!-- The font family of the app -->
         <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
@@ -43,7 +42,6 @@
         <!-- The edit text style -->
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
-        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
         <!-- The font family of the app -->
         <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent

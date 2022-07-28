@@ -1,8 +1,8 @@
 [versions]
 android-gradle = "7.4.0-alpha08"
-dagger = "2.42"
+dagger = "2.43"
 deep-link-dispatch = "6.1.0"
-firebase = "30.2.0"
+firebase = "30.3.1"
 kotlin = "1.7.10"
 kotlinx-coroutines = "1.6.4"
 markwon = "4.6.2"
@@ -10,7 +10,8 @@ moshi = "1.13.0"
 
 [libraries]
 # AndroidX dependencies
-androidx-appcompat = "androidx.appcompat:appcompat:1.4.2"
+androidx-activity-ktx = "androidx.activity:activity-ktx:1.5.1"
+androidx-appcompat = "androidx.appcompat:appcompat:1.5.0-rc01"
 androidx-browser = "androidx.browser:browser:1.4.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha03"
 androidx-core-ktx = "androidx.core:core-ktx:1.8.0"
@@ -22,7 +23,7 @@ androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-alpha02"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.7.0-alpha02"
+materialComponents = "com.google.android.material:material:1.7.0-alpha03"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
