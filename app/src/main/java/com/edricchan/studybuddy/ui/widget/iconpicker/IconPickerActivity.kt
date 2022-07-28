@@ -89,7 +89,7 @@ class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
         tracker.onSaveInstanceState(outState)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_icon_picker, menu)
         return true
     }
@@ -114,13 +114,16 @@ class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (recyclerViewLayout == IconPickerAdapter.HolderLayout.LIST) {
-            menu?.findItem(R.id.action_switch_grid_view)?.isVisible = true
-            menu?.findItem(R.id.action_switch_list_view)?.isVisible = false
-        } else if (recyclerViewLayout == IconPickerAdapter.HolderLayout.GRID) {
-            menu?.findItem(R.id.action_switch_grid_view)?.isVisible = false
-            menu?.findItem(R.id.action_switch_list_view)?.isVisible = true
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        when (recyclerViewLayout) {
+            IconPickerAdapter.HolderLayout.LIST -> {
+                menu.findItem(R.id.action_switch_grid_view)?.isVisible = true
+                menu.findItem(R.id.action_switch_list_view)?.isVisible = false
+            }
+            IconPickerAdapter.HolderLayout.GRID -> {
+                menu.findItem(R.id.action_switch_grid_view)?.isVisible = false
+                menu.findItem(R.id.action_switch_list_view)?.isVisible = true
+            }
         }
         return true
     }

@@ -244,6 +244,10 @@ dependencies {
     // AndroidX dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity.ktx) {
+        because("See https://issuetracker.google.com/issues/238057118, which was resolved " +
+            "in AndroidX Activity 1.5.1")
+    }
     implementation(libs.androidx.browser)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.materialComponents)

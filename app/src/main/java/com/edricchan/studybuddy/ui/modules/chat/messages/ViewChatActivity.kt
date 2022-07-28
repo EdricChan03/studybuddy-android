@@ -26,7 +26,7 @@ class ViewChatActivity : BaseActivity(R.layout.activity_view_chat) {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_view_chat, menu)
         return true
     }
