@@ -10,6 +10,8 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.edit
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -21,6 +23,8 @@ import com.edricchan.studybuddy.constants.sharedprefs.TodoOptionsPrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.databinding.FragTodoBinding
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.interfaces.TodoItem
@@ -39,7 +43,6 @@ import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -56,7 +59,6 @@ import java.nio.file.StandardCopyOption
 class TodoFragment : Fragment() {
     private lateinit var adapter: TodosAdapter
     private var firestoreListener: ListenerRegistration? = null
-    private lateinit var fragmentView: View
     private lateinit var taskOptionsPrefs: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
@@ -196,8 +198,6 @@ class TodoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fragmentView = view
-
         uiUtils = UiUtils.getInstance(parentActivity)
 
         uiUtils.bottomAppBarFab?.setOnClickListener { newTaskActivity() }
@@ -238,9 +238,7 @@ class TodoFragment : Fragment() {
 
         _binding = null
 
-        if (firestoreListener != null) {
-            firestoreListener?.remove()
-        }
+        firestoreListener?.remove()
 
         uiUtils.bottomAppBarFab?.setOnClickListener(null)
     }
@@ -249,22 +247,21 @@ class TodoFragment : Fragment() {
         super.onStart()
         if (auth.currentUser == null) {
             Log.d(TAG, "Not logged in")
-            val signInDialogBuilder = MaterialAlertDialogBuilder(requireContext())
-            signInDialogBuilder.setTitle("Sign in")
-                .setMessage("To access the content, please login or register for an account.")
-                .setPositiveButton(R.string.dialog_action_login) { dialog, _ ->
+            requireContext().showMaterialAlertDialog {
+                setTitle("Sign in")
+                setMessage("To access the content, please login or register for an account.")
+                setPositiveButton(R.string.dialog_action_login) { dialog, _ ->
                     startActivity<LoginActivity>()
                     dialog.dismiss()
                 }
-                .setNeutralButton(R.string.dialog_action_sign_up) { dialog, _ ->
+                setNeutralButton(R.string.dialog_action_sign_up) { dialog, _ ->
                     startActivity<RegisterActivity>()
                     dialog.dismiss()
                 }
-                .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
                     dialog.cancel()
                 }
-                .show()
-
+            }
         } else {
             loadTasksList()
         }
@@ -352,50 +349,20 @@ class TodoFragment : Fragment() {
     }
 
     private fun loadTasksListHandler() {
-        @Suppress("MoveVariableDeclarationIntoWhen")
-        val sortPref = if (prefs.getString(Constants.prefTodoDefaultSort, null) == null) {
-            // TODO: Migrate old key's value to new key
-            if (taskOptionsPrefs.getString(
-                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
-                    null
-                ) == null
-            ) {
-                taskOptionsPrefs.getString(
-                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                    TodoOptionsPrefConstants.TodoSortValues.NONE
-                )
-            } else {
-                taskOptionsPrefs.getString(
-                    TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
-                    TodoOptionsPrefConstants.TodoSortValues.NONE
-                )
-            }
-        } else {
-            prefs.getString(
-                Constants.prefTodoDefaultSort,
-                TodoOptionsPrefConstants.TodoSortValues.NONE
-            )
-        }
-        when (sortPref) {
-            TodoOptionsPrefConstants.TodoSortValues.NONE -> loadTasksList()
-            TodoOptionsPrefConstants.TodoSortValues.TITLE_DESC -> loadTasksList(
-                "title",
-                Query.Direction.DESCENDING
-            )
-            TodoOptionsPrefConstants.TodoSortValues.TITLE_ASC -> loadTasksList(
-                "title",
-                Query.Direction.ASCENDING
-            )
-            TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_NEW_TO_OLD -> loadTasksList(
-                "dueDate",
-                Query.Direction.DESCENDING
-            )
-            TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_OLD_TO_NEW -> loadTasksList(
-                "dueDate",
-                Query.Direction.ASCENDING
-            )
-            else -> loadTasksList()
-        }
+        val sortPref = taskOptionsPrefs.getString(
+            TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
+            TodoSortValues.NONE
+        )
+
+        val sortMap = mapOf(
+            TodoSortValues.NONE to null,
+            TodoSortValues.TITLE_ASC to ("title" to Query.Direction.ASCENDING),
+            TodoSortValues.TITLE_DESC to ("title" to Query.Direction.DESCENDING),
+            TodoSortValues.DUE_DATE_NEW_TO_OLD to ("dueDate" to Query.Direction.DESCENDING),
+            TodoSortValues.DUE_DATE_OLD_TO_NEW to ("dueDate" to Query.Direction.ASCENDING)
+        )
+
+        loadTasksList(sortMap[sortPref]?.first, sortMap[sortPref]?.second)
     }
 
     /**
@@ -423,24 +390,22 @@ class TodoFragment : Fragment() {
                 }
 
                 override fun onDeleteButtonClick(item: TodoItem, position: Int) {
-                    val builder = MaterialAlertDialogBuilder(context!!)
-                    builder
-                        .setTitle(R.string.todo_frag_delete_task_dialog_title)
-                        .setMessage(R.string.todo_frag_delete_task_dialog_msg)
-                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+                    requireContext().showMaterialAlertDialog {
+                        setTitle(R.string.todo_frag_delete_task_dialog_title)
+                        setMessage(R.string.todo_frag_delete_task_dialog_msg)
+                        setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
                             dialog.dismiss()
                         }
-                        .setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
+                        setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
                             todoUtils.removeTask(item.id)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
-                                            Snackbar.make(
+                                            showSnackbar(
                                                 it,
                                                 "Successfully deleted todo!",
                                                 Snackbar.LENGTH_SHORT
                                             )
-                                                .show()
                                         }
                                         adapter.notifyItemRemoved(position)
                                         dialog.dismiss()
@@ -453,7 +418,7 @@ class TodoFragment : Fragment() {
                                     }
                                 }
                         }
-                        .show()
+                    }
                 }
 
                 override fun onMarkAsDoneButtonClick(item: TodoItem, position: Int) {
@@ -463,33 +428,29 @@ class TodoFragment : Fragment() {
                             val isDoneStr = if (item.done) "done" else "undone"
                             if (task.isSuccessful) {
                                 findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
-                                    Snackbar.make(
+                                    showSnackbar(
                                         it,
                                         "Successfully marked task as $isDoneStr!",
                                         Snackbar.LENGTH_SHORT
-                                    )
-                                        .setAnchorView(
+                                    ) {
+                                        anchorView =
                                             findParentActivityViewById<FloatingActionButton>(
                                                 R.id.fab
                                             )
-                                        )
-                                        .show()
+                                    }
                                 }
                                 adapter.notifyItemChanged(position)
                             } else {
-                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain).let {
-                                    if (it != null) {
-                                        Snackbar.make(
-                                            it,
-                                            "An error occurred while attempting to mark the todo as $isDoneStr",
-                                            Snackbar.LENGTH_LONG
-                                        )
-                                            .setAnchorView(
-                                                findParentActivityViewById<FloatingActionButton>(
-                                                    R.id.fab
-                                                )
+                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
+                                    showSnackbar(
+                                        it,
+                                        "An error occurred while attempting to mark the todo as $isDoneStr",
+                                        Snackbar.LENGTH_LONG
+                                    ) {
+                                        anchorView =
+                                            findParentActivityViewById<FloatingActionButton>(
+                                                R.id.fab
                                             )
-                                            .show()
                                     }
                                 }
                                 Log.e(
@@ -509,35 +470,21 @@ class TodoFragment : Fragment() {
                 swipeRefreshLayout.apply {
                     isRefreshing = false
                     if (snapshot != null) {
-                        if (snapshot.isEmpty) {
-                            Log.d(TAG, "Empty!")
-                            findViewById<View>(R.id.todoEmptyStateView)?.visibility = View.VISIBLE
-                            visibility = View.GONE
-                        } else {
-                            Log.d(TAG, "Not Empty!")
-                            findViewById<View>(R.id.todoEmptyStateView)?.visibility = View.GONE
-                            visibility = View.VISIBLE
-                        }
+                        isGone = snapshot.isEmpty
+                        todoEmptyStateView.isVisible = snapshot.isEmpty
                     }
                 }
             }
         }
         binding.swipeRefreshLayout.isRefreshing = true
-        val collectionRef = todoUtils.taskCollectionRef
-        firestoreListener = if (fieldPath != null && direction != null) {
-            collectionRef.orderBy(fieldPath, direction)
-                .addSnapshotListener(listener)
-        } else {
-            collectionRef.addSnapshotListener(listener)
+        firestoreListener = todoUtils.taskCollectionRef.run {
+            if (fieldPath != null && direction != null) orderBy(fieldPath, direction)
+            addSnapshotListener(listener)
         }
     }
 
     private fun <T : View> findParentActivityViewById(@IdRes idRes: Int): T? {
         return parentActivity.findViewById(idRes)
-    }
-
-    private fun <T : View> findViewById(@IdRes idRes: Int): T? {
-        return fragmentView.findViewById(idRes)
     }
 
     companion object {
