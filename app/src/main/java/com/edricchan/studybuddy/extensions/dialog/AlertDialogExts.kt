@@ -32,15 +32,15 @@ fun Context.createMaterialAlertDialog(init: MaterialAlertDialogBuilder.() -> Uni
  * [dialog builder configuration][builderInit], and [dialog configuration][dialogInit], if any.
  * Optionally, additional [dialog configuration][postDialogInit] can be set after the dialog is
  * shown.
- * @param builderInit Configuration to be passed to [MaterialAlertDialogBuilder].
  * @param dialogInit Configuration to be passed to [AlertDialog] before it is shown.
  * @param postDialogInit Configuration to be passed to [AlertDialog] after it is shown, if any.
+ * @param builderInit Configuration to be passed to [MaterialAlertDialogBuilder].
  * @return The shown [AlertDialog].
  * @see MaterialAlertDialogBuilder
  */
 fun Context.showMaterialAlertDialog(
-    builderInit: MaterialAlertDialogBuilder.() -> Unit,
     dialogInit: AlertDialog.() -> Unit = {},
-    postDialogInit: AlertDialog.() -> Unit = {}
+    postDialogInit: AlertDialog.() -> Unit = {},
+    builderInit: MaterialAlertDialogBuilder.() -> Unit
 ) =
     createMaterialAlertDialog(builderInit).apply(dialogInit).apply { show() }.apply(postDialogInit)
