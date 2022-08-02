@@ -234,8 +234,8 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
-    implementation(project(":ui:preference"))
-    implementation(project(":ui:widgets"))
+    implementation(projects.ui.preference)
+    implementation(projects.ui.widgets)
 
     // Test dependencies
     androidTestImplementation(libs.bundles.androidx.test)

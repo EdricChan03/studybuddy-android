@@ -39,6 +39,10 @@ gradleEnterprise {
     }
 }
 
-include(":ui:preference")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include(":app")
+include(
+    ":ui:preference",
+    ":ui:widgets",
+    ":app"
+)
