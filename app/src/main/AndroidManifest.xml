@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.edricchan.studybuddy">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Required for downloading new updates -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -47,8 +46,8 @@
 
         <activity
             android:name=".ui.modules.main.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.App.NoActionBar">
+            android:theme="@style/Theme.App.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,7 +60,8 @@
         </activity>
         <activity
             android:name=".ui.modules.settings.SettingsActivity"
-            android:label="@string/title_activity_settings">
+            android:label="@string/title_activity_settings"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
 
@@ -95,7 +95,8 @@
             android:label="@string/title_activity_edit_task" />
         <activity
             android:name=".ui.modules.debug.DebugActivity"
-            android:label="@string/title_activity_debug">
+            android:label="@string/title_activity_debug"
+            android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.DEVELOPMENT_PREFERENCE" />
             </intent-filter>
@@ -117,7 +118,8 @@
             android:name=".ui.modules.deeplink.DeepLinkActivity"
             android:launchMode="singleInstance"
             android:noHistory="true"
-            android:theme="@android:style/Theme.NoDisplay">
+            android:theme="@android:style/Theme.NoDisplay"
+            android:exported="true">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -175,7 +177,8 @@
         </provider>
 
         <!-- Services -->
-        <service android:name=".providers.fcm.StudyBuddyMessagingService">
+        <service android:name=".providers.fcm.StudyBuddyMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -183,7 +186,8 @@
 
         <!-- Receivers -->
         <receiver android:name=".receivers.NotificationActionReceiver" />
-        <receiver android:name=".receivers.StartupReceiver">
+        <receiver android:name=".receivers.StartupReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

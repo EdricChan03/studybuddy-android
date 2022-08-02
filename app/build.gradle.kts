@@ -128,7 +128,9 @@ fun generateVersionName(): String {
 }
 
 android {
+    namespace = "com.edricchan.studybuddy"
     compileSdk = 32
+
     defaultConfig {
         applicationId = "com.edricchan.studybuddy"
         minSdk = 21
