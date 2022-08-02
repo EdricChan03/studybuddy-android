@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default padding for content -->
+    <dimen name="content_padding_normal">8dp</dimen>
+
+    <!-- TODO: Move to dedicated module -->
+    <!-- ======================================== -->
+    <!-- Dimensions for one-line lists/list items -->
+    <!-- ======================================== -->
+    <eat-comment />
+
+    <!-- The top and bottom padding of a one-line list (taken from the Material specs). -->
+    <dimen name="one_line_list_padding_top_bottom">8dp</dimen>
+
+    <!-- The height of a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_height">48dp</dimen>
+    <!-- The left padding of a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_padding_left">16dp</dimen>
+
+    <!-- The height of a one-line list item with a trailing icon (taken from the Material specs). -->
+    <dimen name="one_line_list_item_height_with_icon">56dp</dimen>
+    <!-- The height of the trailing icon in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_icon_height">24dp</dimen>
+    <!-- The width of the trailing icon in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_icon_width">24dp</dimen>
+    <!-- The top and bottom padding of the trailing icon in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_icon_padding_top_bottom">16dp</dimen>
+    <!-- The left padding of text to the trailing icon in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_text_padding_left_icon">32dp</dimen>
+
+    <!-- The height of a one-list item with a trailing avatar (taken from the Material specs). -->
+    <dimen name="one_line_list_item_height_with_avatar">56dp</dimen>
+    <!-- The height of the trailing avatar in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_avatar_height">40dp</dimen>
+    <!-- The width of the trailing avatar in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_avatar_width">40dp</dimen>
+    <!-- The left padding of text to the trailing avatar in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_text_padding_left_avatar">16dp</dimen>
+
+    <!-- The height of a one-line list item with a trailing square image (taken from the Material specs). -->
+    <dimen name="one_line_list_item_height_with_square_image">72dp</dimen>
+    <!-- The height of the trailing square image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_square_image_height">56dp</dimen>
+    <!-- The width of the trailing square image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_square_image_width">56dp</dimen>
+    <!-- The left padding of text to the trailing square image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_text_padding_left_square_image">16dp</dimen>
+
+    <!-- The height of a one-line list item with a trailing 100x56 image (taken from the Material specs). -->
+    <dimen name="one_line_list_item_height_with_100x56_image">72dp</dimen>
+    <!-- The height of the trailing 100x56 image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_100x56_image_height">56dp</dimen>
+    <!-- The width of the trailing 100x56 image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_100x56_image_width">100dp</dimen>
+    <!-- The left padding of text to the trailing 100x56 image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_text_padding_left_100x56_image">16dp</dimen>
+
+    <!-- The height of the metadata image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_meta_image_height">24dp</dimen>
+    <!-- The width of the metadata image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_meta_image_width">24dp</dimen>
+
+    <!-- The left and right padding of the metadata image in a one-line list item (taken from the Material specs). -->
+    <dimen name="one_line_list_item_meta_image_padding_left_right">16dp</dimen>
+    <!-- The top and bottom padding of the metadata image in a one-line list item (taken from the Material specs).
+    -->
+    <dimen name="one_line_list_item_meta_image_padding_top_bottom">12dp</dimen>
+    <!-- The top and bottom padding of the metadata image in a one-line list item with a trailing icon (taken from the
+    Material specs). -->
+    <dimen name="one_line_list_item_meta_image_padding_top_bottom_icon">16dp</dimen>
+    <!-- The top and bottom padding of the metadata image in a one-line list item with a trailing avatar (taken from the
+    Material specs). -->
+    <dimen name="one_line_list_item_meta_image_padding_top_bottom_avatar">16dp</dimen>
+    <!-- The top and bottom padding of the metadata image in a one-line list item with a trailing square image (taken from
+    the Material specs). -->
+    <dimen name="one_line_list_item_meta_image_padding_top_bottom_square_image">24dp</dimen>
+    <!-- The top and bottom padding of the metadata image in a one-line list item with a 100x56 image (taken from the
+    Material specs). -->
+    <dimen name="one_line_list_item_meta_image_padding_top_bottom_100x56_image">24dp</dimen>
+
+    <!-- ================================== -->
+    <!-- Dimensions for modal bottom sheets -->
+    <!-- ================================== -->
+    <eat-comment />
+
+    <!-- The height of a list item in a modal bottom sheet (taken from the Material specs). -->
+    <dimen name="modal_bottom_sheet_list_item_height">56dp</dimen>
+    <!-- The left padding of a list item to its contents in a modal bottom sheet (taken from the Material specs). -->
+    <dimen name="modal_bottom_sheet_list_item_padding_left">16dp</dimen>
+    <!-- The left padding of text to the icon in a list item in a modal bottom sheet (taken from the Material specs). -->
+    <dimen name="modal_bottom_sheet_list_item_text_padding_left_icon">32dp</dimen>
+    <!-- The icon's height in a list item in a modal bottom sheet (taken from the Material specs). -->
+    <dimen name="modal_bottom_sheet_list_item_icon_height">24dp</dimen>
+    <!-- The icon's width in a list item in a modal bottom sheet (taken from the Material specs). -->
+    <dimen name="modal_bottom_sheet_list_item_icon_width">24dp</dimen>
+</resources>

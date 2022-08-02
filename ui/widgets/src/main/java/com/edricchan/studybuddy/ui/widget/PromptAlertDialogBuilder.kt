@@ -10,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.ListAdapter
 import androidx.annotation.*
 import androidx.appcompat.app.AlertDialog
-import com.edricchan.studybuddy.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 
