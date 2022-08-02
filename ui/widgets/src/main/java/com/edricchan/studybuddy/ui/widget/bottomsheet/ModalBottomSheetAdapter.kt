@@ -9,8 +9,7 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.extensions.isNotNull
+import com.edricchan.studybuddy.ui.widget.R
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
 
@@ -51,7 +50,7 @@ class ModalBottomSheetAdapter(
     override fun getItemViewType(position: Int): Int {
         val item = items[position]
         return if (item.iconDrawable != null || item.icon != null) {
-            if (item.group.isNotNull() && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
+            if (item.group != null && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
                 when (item.group?.checkableBehavior) {
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_ICON_CHECKBOX
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_ICON_RADIO_BUTTON
@@ -61,7 +60,7 @@ class ModalBottomSheetAdapter(
                 LIST_ITEM_ICON
             }
         } else {
-            if (item.group.isNotNull() && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
+            if (item.group != null && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
                 when (item.group?.checkableBehavior) {
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_NO_ICON_CHECKBOX
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_NO_ICON_RADIO_BUTTON

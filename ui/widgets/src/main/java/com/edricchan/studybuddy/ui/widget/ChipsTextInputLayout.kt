@@ -10,8 +10,7 @@ import androidx.core.view.children
 import androidx.core.view.minusAssign
 import androidx.core.view.plusAssign
 import androidx.core.widget.doAfterTextChanged
-import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.databinding.ViewChipsTextInputLayoutBinding
+import com.edricchan.studybuddy.ui.widget.databinding.ViewChipsTextInputLayoutBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout

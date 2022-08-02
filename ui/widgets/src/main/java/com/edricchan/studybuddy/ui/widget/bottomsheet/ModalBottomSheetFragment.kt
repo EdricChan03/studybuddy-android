@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.edricchan.studybuddy.databinding.FragModalBottomSheetBinding
 import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.ModalBottomSheetDSL
 import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.items
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.ui.widget.databinding.FragModalBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
