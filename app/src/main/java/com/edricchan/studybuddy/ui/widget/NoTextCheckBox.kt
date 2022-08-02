@@ -1,9 +1,6 @@
 package com.edricchan.studybuddy.ui.widget
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatCheckBox
 
@@ -12,23 +9,8 @@ import androidx.appcompat.widget.AppCompatCheckBox
  *
  * See: [StackOverflow answer](https://stackoverflow.com/a/20374661/6782707)
  */
-class NoTextCheckBox : AppCompatCheckBox {
-    private var checkBoxButtonDrawable: Drawable? = null
-
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-    @SuppressLint("ObsoleteSdkInt")
-    override fun getSuggestedMinimumWidth(): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            compoundPaddingLeft + compoundPaddingRight
-        } else {
-            checkBoxButtonDrawable?.intrinsicWidth ?: 0
-        }
-    }
-
-    override fun setButtonDrawable(drawable: Drawable?) {
-        super.setButtonDrawable(drawable)
-        checkBoxButtonDrawable = drawable
-    }
+class NoTextCheckBox @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.checkboxStyle
+) : AppCompatCheckBox(context, attrs, defStyleAttr) {
+    override fun getSuggestedMinimumWidth() = compoundPaddingLeft + compoundPaddingRight
 }
