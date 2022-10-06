@@ -3,38 +3,55 @@ package com.edricchan.studybuddy.ui.modules.settings.fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
-import com.edricchan.studybuddy.extensions.toDate
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
-import java.util.*
+import java.time.Instant
 
 class UpdateSettingsFragment : MaterialPreferenceFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var updateInfoPreferences: SharedPreferences
-    private lateinit var lastUpdatedDate: Date
-    private lateinit var lastCheckedForUpdatesDate: Date
+    private var lastUpdatedInstant: Instant? = null
+    private var lastCheckedForUpdatesInstant: Instant? = null
+
+    private fun setLastCheckedForUpdates(lastCheckedForUpdatesMs: Long) {
+        lastCheckedForUpdatesInstant =
+            lastCheckedForUpdatesMs.takeIf { it <= DEFAULT_INSTANT }
+                ?.let { Instant.ofEpochMilli(it) }
+    }
+
+    private fun setLastUpdated(lastUpdatedMs: Long) {
+        lastUpdatedInstant =
+            lastUpdatedMs.takeIf { it <= DEFAULT_INSTANT }
+                ?.let { Instant.ofEpochMilli(it) }
+    }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         if (key == UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE || key == UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE) {
             when (key) {
                 UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> {
-                    lastUpdatedDate = updateInfoPreferences.getLong(
-                        UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
-                        0L
-                    ).toDate()
+                    setLastCheckedForUpdates(
+                        updateInfoPreferences.getLong(
+                            UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
+                            DEFAULT_INSTANT
+                        )
+                    )
                 }
+
                 UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE -> {
-                    lastCheckedForUpdatesDate = updateInfoPreferences.getLong(
-                        UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
-                        0L
-                    ).toDate()
+                    setLastUpdated(
+                        updateInfoPreferences.getLong(
+                            UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
+                            DEFAULT_INSTANT
+                        )
+                    )
                 }
             }
             updateUpdatesPreferenceSummary()
@@ -42,8 +59,11 @@ class UpdateSettingsFragment : MaterialPreferenceFragment(),
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putLong(LAST_UPDATED_DATE_TAG, lastUpdatedDate.time)
-        outState.putLong(LAST_CHECK_FOR_UPDATES_DATE_TAG, lastCheckedForUpdatesDate.time)
+        outState.putSerializable(
+            LAST_CHECK_FOR_UPDATES_DATE_TAG,
+            lastCheckedForUpdatesInstant
+        )
+        outState.putSerializable(LAST_UPDATED_DATE_TAG, lastUpdatedInstant)
         super.onSaveInstanceState(outState)
     }
 
@@ -57,18 +77,37 @@ class UpdateSettingsFragment : MaterialPreferenceFragment(),
             registerOnSharedPreferenceChangeListener(this@UpdateSettingsFragment)
         }
 
-        lastUpdatedDate = savedInstanceState?.getLong(LAST_UPDATED_DATE_TAG)?.toDate()
-            ?: updateInfoPreferences.getLong(
-                UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
-                0L
-            ).toDate()
-        lastCheckedForUpdatesDate =
-            savedInstanceState?.getLong(LAST_CHECK_FOR_UPDATES_DATE_TAG)?.toDate()
-                ?: updateInfoPreferences.getLong(
-                    UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
-                    0L
-                ).toDate()
-
+        if (savedInstanceState != null) {
+            lastCheckedForUpdatesInstant =
+                (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                    savedInstanceState.getSerializable(
+                        LAST_CHECK_FOR_UPDATES_DATE_TAG,
+                        Instant::class.java
+                    )
+                else savedInstanceState.getSerializable(LAST_CHECK_FOR_UPDATES_DATE_TAG) as? Instant)
+            lastUpdatedInstant =
+                (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                    savedInstanceState.getSerializable(
+                        LAST_UPDATED_DATE_TAG,
+                        Instant::class.java
+                    )
+                else savedInstanceState.getSerializable(LAST_UPDATED_DATE_TAG) as? Instant)
+        } else {
+            setLastCheckedForUpdates(
+                updateInfoPreferences
+                    .getLong(
+                        UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
+                        DEFAULT_INSTANT
+                    )
+            )
+            setLastUpdated(
+                updateInfoPreferences
+                    .getLong(
+                        UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
+                        DEFAULT_INSTANT
+                    )
+            )
+        }
         findPreference<Preference>(Constants.prefUpdates)?.intent =
             Intent(context, UpdatesActivity::class.java)
 
@@ -87,24 +126,19 @@ class UpdateSettingsFragment : MaterialPreferenceFragment(),
 
     private fun updateUpdatesPreferenceSummary() {
         findPreference<Preference>(Constants.prefUpdates)?.apply {
-            val lastCheckedForUpdates = if (lastCheckedForUpdatesDate.time != 0L) {
-                getRelativeDateTimeString(lastCheckedForUpdatesDate)
-            } else {
-                getString(R.string.pref_updates_summary_never)
-            }
-            val lastUpdated = if (lastUpdatedDate.time != 0L) {
-                getRelativeDateTimeString(lastUpdatedDate)
-            } else {
-                getString(R.string.pref_updates_summary_never)
-            }
+            val lastCheckedForUpdates =
+                lastCheckedForUpdatesInstant?.let { getRelativeDateTimeString(it) }
+                    ?: getString(R.string.pref_updates_summary_never)
+            val lastUpdated = lastUpdatedInstant?.let { getRelativeDateTimeString(it) }
+                ?: getString(R.string.pref_updates_summary_never)
             summary = getString(R.string.pref_updates_summary, lastCheckedForUpdates, lastUpdated)
         }
     }
 
-    private fun getRelativeDateTimeString(date: Date): CharSequence =
+    private fun getRelativeDateTimeString(instant: Instant): CharSequence =
         DateUtils.getRelativeDateTimeString(
             context,
-            date.time,
+            instant.toEpochMilli(),
             DateUtils.MINUTE_IN_MILLIS,
             DateUtils.WEEK_IN_MILLIS,
             0
@@ -113,8 +147,11 @@ class UpdateSettingsFragment : MaterialPreferenceFragment(),
     companion object {
         // Indicates when the app was last updated
         private const val LAST_UPDATED_DATE_TAG = "lastUpdatedDate"
+
         // Indicates when the app last checked for updates
         private const val LAST_CHECK_FOR_UPDATES_DATE_TAG = "lastCheckForUpdatesDate"
+
+        private const val DEFAULT_INSTANT = -1L
     }
 
 }
