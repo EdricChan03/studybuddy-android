@@ -12,7 +12,7 @@ val isDynamicColorAvailable get() = DynamicColors.isDynamicColorAvailable()
 
 /** Theming-related utilities. */
 class ThemeUtils(private val context: Context) {
-    private var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     /**
      * Whether the app should use Android 12's dynamic theming system.
