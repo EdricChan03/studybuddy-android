@@ -2,6 +2,10 @@ package com.edricchan.studybuddy.extensions
 
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalUnit
 import java.util.*
 
 /**
@@ -20,3 +24,12 @@ fun Date.toTimestamp() = Timestamp(this)
 fun Date.toDateFormat(format: String, locale: Locale = Locale.getDefault()): String =
     SimpleDateFormat(format, locale)
         .format(this)
+
+/** Converts the [Long] to a [Duration] with the specified [unit]. */
+fun Long.toDuration(unit: TemporalUnit) = Duration.of(this, unit)
+
+/** Formats the temporal object using the given [formatter]. */
+fun TemporalAccessor.format(formatter: DateTimeFormatter) = formatter.format(this)
+
+/** Formats the temporal object using the given [pattern]. */
+fun TemporalAccessor.format(pattern: String) = format(DateTimeFormatter.ofPattern(pattern))

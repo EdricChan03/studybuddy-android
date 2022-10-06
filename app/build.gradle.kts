@@ -192,6 +192,8 @@ android {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility(JavaVersion.VERSION_11)
         targetCompatibility(JavaVersion.VERSION_11)
     }
@@ -243,6 +245,8 @@ dependencies {
     androidTestImplementation(libs.bundles.androidx.test)
     testImplementation(libs.mockito.core)
     testImplementation(libs.junit)
+
+    coreLibraryDesugaring(libs.android.desugar)
 
     // AndroidX dependencies
     implementation(libs.androidx.core.ktx)

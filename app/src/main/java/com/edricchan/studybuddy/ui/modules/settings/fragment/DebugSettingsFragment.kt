@@ -28,7 +28,13 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.DebugSendFcmNotificationDialogBinding
-import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.firebase.auth.creationInstant
+import com.edricchan.studybuddy.extensions.firebase.auth.lastSignInInstant
+import com.edricchan.studybuddy.extensions.format
+import com.edricchan.studybuddy.extensions.isNotNull
+import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
@@ -47,7 +53,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
-import java.util.*
+import java.time.Instant
 
 class DebugSettingsFragment : MaterialPreferenceFragment() {
 
@@ -56,21 +62,36 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         SharedPreferences.OnSharedPreferenceChangeListener {
 
         private lateinit var updateInfoPreferences: SharedPreferences
-        private lateinit var lastCheckedForUpdatesDate: Date
-        private lateinit var lastUpdatedDate: Date
+        private var lastCheckedForUpdatesInstant: Instant? = null
+        private var lastUpdatedInstant: Instant? = null
+
+        private fun setLastCheckedForUpdates(lastCheckedForUpdatesMs: Long) {
+            lastCheckedForUpdatesInstant =
+                lastCheckedForUpdatesMs.takeIf { it <= DEFAULT_INSTANT }
+                    ?.let { Instant.ofEpochMilli(it) }
+        }
+
+        private fun setLastUpdated(lastUpdatedMs: Long) {
+            lastUpdatedInstant =
+                lastUpdatedMs.takeIf { it <= DEFAULT_INSTANT }?.let { Instant.ofEpochMilli(it) }
+        }
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
             when (key) {
                 UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE ->
-                    lastCheckedForUpdatesDate = sharedPreferences.getLong(key, 0L).toDate()
-                UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE -> lastUpdatedDate =
-                    sharedPreferences.getLong(key, 0L).toDate()
+                    setLastCheckedForUpdates(sharedPreferences.getLong(key, DEFAULT_INSTANT))
+
+                UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE ->
+                    setLastUpdated(sharedPreferences.getLong(key, DEFAULT_INSTANT))
             }
         }
 
         override fun onSaveInstanceState(outState: Bundle) {
-            outState.putLong(LAST_CHECKED_FOR_UPDATES_DATE_TAG, lastCheckedForUpdatesDate.time)
-            outState.putLong(LAST_UPDATED_DATE_TAG, lastUpdatedDate.time)
+            outState.putSerializable(
+                LAST_CHECKED_FOR_UPDATES_DATE_TAG,
+                lastCheckedForUpdatesInstant
+            )
+            outState.putSerializable(LAST_UPDATED_DATE_TAG, lastUpdatedInstant)
             super.onSaveInstanceState(outState)
         }
 
@@ -87,31 +108,37 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             }
 
             if (savedInstanceState != null) {
-                lastCheckedForUpdatesDate =
-                    savedInstanceState.getLong(LAST_CHECKED_FOR_UPDATES_DATE_TAG).toDate()
-                lastUpdatedDate = savedInstanceState.getLong(LAST_UPDATED_DATE_TAG).toDate()
+                lastCheckedForUpdatesInstant =
+                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                        savedInstanceState.getSerializable(
+                            LAST_CHECKED_FOR_UPDATES_DATE_TAG,
+                            Instant::class.java
+                        )
+                    else savedInstanceState.getSerializable(LAST_CHECKED_FOR_UPDATES_DATE_TAG) as? Instant)
+                lastUpdatedInstant =
+                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                        savedInstanceState.getSerializable(
+                            LAST_UPDATED_DATE_TAG,
+                            Instant::class.java
+                        )
+                    else savedInstanceState.getSerializable(LAST_UPDATED_DATE_TAG) as? Instant)
             } else {
-                lastCheckedForUpdatesDate = updateInfoPreferences
-                    .getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L)
-                    .toDate()
-                lastUpdatedDate = updateInfoPreferences.getLong(
-                    UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
-                    0L
-                ).toDate()
+                setLastCheckedForUpdates(
+                    updateInfoPreferences
+                        .getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L)
+                )
+                setLastUpdated(
+                    updateInfoPreferences
+                        .getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, 0L)
+                )
             }
 
             findPreference<Preference>(Constants.debugUpdatesLastCheckedForUpdatesDate)?.apply {
-                if (lastCheckedForUpdatesDate.time != 0L) {
-                    if (!isEnabled) {
-                        isEnabled = true
-                    }
-                    summary = lastCheckedForUpdatesDate.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-                } else {
-                    // Disable preference as the app hasn't checked for updates yet
-                    isEnabled = false
-                    summary =
-                        getString(R.string.debug_activity_updates_last_checked_for_updates_date_summary_default)
-                }
+                isEnabled = lastCheckedForUpdatesInstant != null
+                summary =
+                    lastCheckedForUpdatesInstant?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: getString(
+                        R.string.debug_activity_updates_last_checked_for_updates_date_summary_default
+                    )
             }
             findPreference<Preference>(Constants.debugUpdatesClearLastCheckedForUpdatesDate)?.apply {
                 setOnPreferenceClickListener {
@@ -130,17 +157,9 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             }
 
             findPreference<Preference>(Constants.debugUpdatesLastUpdatedDate)?.apply {
-                if (lastUpdatedDate.time != 0L) {
-                    if (!isEnabled) {
-                        isEnabled = true
-                    }
-                    summary = lastUpdatedDate.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-                } else {
-                    // Disable preference as the app hasn't been updated yet
-                    isEnabled = false
-                    summary =
-                        getString(R.string.debug_activity_updates_last_updated_date_summary_default)
-                }
+                isEnabled = lastUpdatedInstant != null
+                summary = lastUpdatedInstant?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                    ?: getString(R.string.debug_activity_updates_last_updated_date_summary_default)
             }
             findPreference<Preference>(Constants.debugUpdatesClearLastUpdatedDate)?.apply {
                 setOnPreferenceClickListener {
@@ -165,6 +184,8 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
 
             // Used for saving the last updated date
             private const val LAST_UPDATED_DATE_TAG = "lastUpdatedDate"
+
+            private const val DEFAULT_INSTANT = -1L
         }
     }
 
@@ -246,12 +267,12 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                         Email: ${user?.email ?: "<not set>"}
                         Metadata:
                         - Creation timestamp: ${
-                            user?.metadata?.creationTimestamp
-                                ?.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
+                            user?.metadata?.creationInstant
+                                ?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
                         }
                         - Last sign in timestamp: ${
-                            user?.metadata?.lastSignInTimestamp
-                                ?.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
+                            user?.metadata?.lastSignInInstant
+                                ?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
                         }
                         Phone number: ${user?.phoneNumber ?: "<not set>"}
                         Photo URL: ${user?.photoUrl ?: "<not set>"}
@@ -308,6 +329,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                                     Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
                                     priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
                                 }
+
                                 R.id.priorityHighRadioButton -> {
                                     Log.d(TAG, "Value of priorityRadioGroup: \"high\"")
                                     priority = NotificationRequest.NOTIFICATION_PRIORITY_HIGH

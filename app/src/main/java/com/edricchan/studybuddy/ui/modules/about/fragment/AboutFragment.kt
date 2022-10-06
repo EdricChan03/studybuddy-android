@@ -21,29 +21,39 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.format
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.extensions.toDateFormat
 import com.edricchan.studybuddy.utils.WebUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.time.Instant
 import kotlin.properties.Delegates
 
 class AboutFragment : MaterialAboutFragment() {
     private lateinit var devModeOptions: SharedPreferences
+
     // Number of times the version code has been clicked
     private var devHitCountdown by Delegates.notNull<Int>()
+
     // Max number of clicks to unlock
     private val tapsToDev: Int = 7
 
     override fun getMaterialAboutList(context: Context?): MaterialAboutList {
         initFragment()
+        val buildTime =
+            Instant.ofEpochMilli(BuildConfig.BUILD_TIME).format("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+
         val appInfoCard = MaterialAboutCard.Builder()
             .addItem(ConvenienceBuilder.createAppTitleItem(context))
             .addItem(MaterialAboutActionItem.Builder()
                 .text(R.string.about_frag_app_info_card_version_title)
-                .subText("${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n" +
-                        "Build type: ${BuildConfig.BUILD_TYPE}\n" +
-                        "Build time: ${BuildConfig.BUILD_TIME.toDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")}")
+                .subText(
+                    """
+                    ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})
+                    Build type: ${BuildConfig.BUILD_TYPE}
+                    Build time: $buildTime
+                """.trimIndent()
+                )
                 .icon(R.drawable.ic_info_outline_24dp)
                 .setOnClickAction {
                     if (!devModeOptions.getBoolean(
@@ -162,7 +172,7 @@ class AboutFragment : MaterialAboutFragment() {
         @StringRes subTextRes: Int? = null,
         @DrawableRes iconRes: Int = R.drawable.ic_open_in_new_24dp
     ):
-            MaterialAboutActionItem {
+        MaterialAboutActionItem {
         return MaterialAboutActionItem.Builder()
             .icon(iconRes)
             .text(textRes)
