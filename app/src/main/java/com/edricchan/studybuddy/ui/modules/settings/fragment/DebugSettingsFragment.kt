@@ -125,11 +125,14 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             } else {
                 setLastCheckedForUpdates(
                     updateInfoPreferences
-                        .getLong(UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE, 0L)
+                        .getLong(
+                            UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
+                            DEFAULT_INSTANT
+                        )
                 )
                 setLastUpdated(
                     updateInfoPreferences
-                        .getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, 0L)
+                        .getLong(UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE, DEFAULT_INSTANT)
                 )
             }
 
