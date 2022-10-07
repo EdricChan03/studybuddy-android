@@ -10,7 +10,7 @@ import androidx.annotation.StringRes
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.firebase.toDateFormat
+import com.edricchan.studybuddy.extensions.firebase.format
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TodoItem
@@ -322,7 +322,7 @@ class ViewTaskActivity : BaseActivity() {
             toggleViewVisibility(binding.taskContent, View.VISIBLE, View.GONE)
         }
         if (item?.dueDate != null) {
-            binding.taskDate.text = item.dueDate.toDateFormat(getString(R.string.date_format_pattern))
+            binding.taskDate.text = item.dueDate.format(getString(R.string.date_format_pattern))
             toggleViewVisibility(binding.taskDate, View.GONE, View.VISIBLE)
         } else {
             toggleViewVisibility(binding.taskDate, View.VISIBLE, View.GONE)

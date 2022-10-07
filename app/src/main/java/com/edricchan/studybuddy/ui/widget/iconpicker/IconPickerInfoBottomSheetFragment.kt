@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.firebase.toDateFormat
-import com.edricchan.studybuddy.extensions.toDateFormat
+import com.edricchan.studybuddy.extensions.firebase.format
+import com.edricchan.studybuddy.extensions.format
 import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Timestamp
@@ -18,7 +18,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.*
+import java.time.Instant
 
 class IconPickerInfoBottomSheetFragment : BottomSheetDialogFragment() {
     /**
@@ -123,19 +123,19 @@ class IconPickerInfoBottomSheetFragment : BottomSheetDialogFragment() {
             is Timestamp -> {
                 updateTextViewText(
                     view, R.id.iconDateCreatedAtValue,
-                    tempCreatedAt.toDateFormat(getString(R.string.date_format_pattern))
+                    tempCreatedAt.format(getString(R.string.date_format_pattern))
                 )
             }
-            is Date -> {
+            is Instant -> {
                 updateTextViewText(
                     view, R.id.iconDateCreatedAtValue,
-                    tempCreatedAt.toDateFormat(getString(R.string.date_format_pattern))
+                    tempCreatedAt.format(getString(R.string.date_format_pattern))
                 )
             }
             is Long -> {
                 updateTextViewText(
                     view, R.id.iconDateCreatedAtValue,
-                    tempCreatedAt.toDateFormat(getString(R.string.date_format_pattern))
+                    Instant.ofEpochMilli(tempCreatedAt).format(getString(R.string.date_format_pattern))
                 )
             }
             is String -> {
@@ -150,19 +150,19 @@ class IconPickerInfoBottomSheetFragment : BottomSheetDialogFragment() {
             is Timestamp -> {
                 updateTextViewText(
                     view, R.id.iconDateLastModifiedValue,
-                    tempLastModified.toDateFormat(getString(R.string.date_format_pattern))
+                    tempLastModified.format(getString(R.string.date_format_pattern))
                 )
             }
-            is Date -> {
+            is Instant -> {
                 updateTextViewText(
                     view, R.id.iconDateLastModifiedValue,
-                    tempLastModified.toDateFormat(getString(R.string.date_format_pattern))
+                    tempLastModified.format(getString(R.string.date_format_pattern))
                 )
             }
             is Long -> {
                 updateTextViewText(
                     view, R.id.iconDateLastModifiedValue,
-                    tempLastModified.toDateFormat(getString(R.string.date_format_pattern))
+                    Instant.ofEpochMilli(tempLastModified).format(getString(R.string.date_format_pattern))
                 )
             }
             is String -> {

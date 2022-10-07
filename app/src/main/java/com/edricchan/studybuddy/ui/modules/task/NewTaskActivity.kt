@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityNewTaskBinding
 import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.firebase.toTimestamp
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.time.Instant
 import java.util.*
 
 /**
@@ -41,7 +43,7 @@ class NewTaskActivity : BaseActivity() {
     private lateinit var firestore: FirebaseFirestore
     private var allowAccess: Boolean = false
     private var currentUser: FirebaseUser? = null
-    private var taskDate: Date? = null
+    private var taskInstant: Instant? = null
     private var tempTaskProject: String? = null
     private var todoProjectDropdownAdapter: TodoProjectDropdownAdapter? = null
 
@@ -74,26 +76,25 @@ class NewTaskActivity : BaseActivity() {
                     .build()
                 val picker = MaterialDatePicker.Builder.datePicker().apply {
                     setCalendarConstraints(constraints)
-                    if (taskDate != null) {
+                    taskInstant?.let {
                         // Set the initial selection
-                        setSelection(taskDate?.time)
+                        setSelection(it.toEpochMilli())
                     }
                 }.build()
                 picker.addOnPositiveButtonClickListener { selection ->
-                    if (selection != null) {
-                        taskDate = Date(selection)
-                        // Produces <day name>, <month> <day>
-                        taskDueDateChip.text =
-                            selection.toDateFormat(getString(R.string.date_format_pattern))
-                        // Allow due date to be reset
-                        taskDueDateChip.isCloseIconVisible = true
+                    Instant.ofEpochMilli(selection).let {
+                        taskInstant = it
+                        // Produces <day name>, <month> <year>
+                        taskDueDateChip.text = it.format(getString(R.string.date_format_pattern))
                     }
+                    // Allow due date to be reset
+                    taskDueDateChip.isCloseIconVisible = true
                 }
                 picker.show(supportFragmentManager, "taskDueDatePicker")
             }
             taskDueDateChip.setOnCloseIconClickListener {
                 // Reset due date
-                taskDate = null
+                taskInstant = null
 
                 // Reset chip's state
                 taskDueDateChip.isCloseIconVisible = false
@@ -240,9 +241,7 @@ class NewTaskActivity : BaseActivity() {
                                     tags = taskTagsTextInputLayout.editTextStrValue.split(",")
                                         .map { it.trim() }.toMutableList()
                                 }
-                                if (taskDate != null) {
-                                    dueDate = Timestamp(taskDate!!)
-                                }
+                                taskInstant?.toTimestamp()?.let { dueDate = it }
                                 if (tempTaskProject != null) {
                                     project =
                                         firestore.document("users/${currentUser?.uid}/todoProjects/$tempTaskProject")

@@ -92,6 +92,8 @@ mockito-core = "org.mockito:mockito-core:4.8.0"
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 
+android-desugar = "com.android.tools:desugar_jdk_libs:2.0.0"
+
 [bundles]
 androidx-test = [
   "androidx-test-espresso-core", "androidx-test-core",

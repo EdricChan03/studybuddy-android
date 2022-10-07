@@ -11,6 +11,8 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
 import com.edricchan.studybuddy.extensions.*
 import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
+import com.edricchan.studybuddy.extensions.firebase.toInstant
+import com.edricchan.studybuddy.extensions.firebase.toTimestamp
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.time.Instant
 import java.util.*
 
 class EditTaskActivity : BaseActivity() {
@@ -40,7 +43,7 @@ class EditTaskActivity : BaseActivity() {
     private lateinit var todoProjectDropdownAdapter: TodoProjectDropdownAdapter
     private lateinit var todoUtils: TodoUtils
     private var currentUser: FirebaseUser? = null
-    private var taskDate: Date? = null
+    private var taskInstant: Instant? = null
     private var todoItem: TodoItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,16 +79,15 @@ class EditTaskActivity : BaseActivity() {
                         .build()
                     val picker = MaterialDatePicker.Builder.datePicker().apply {
                         setCalendarConstraints(constraints)
-                        if (taskDate != null) {
-                            // Set the initial selection
-                            setSelection(taskDate?.time)
-                        }
+                        // Set the initial selection
+                        taskInstant?.let { setSelection(it.toEpochMilli()) }
                     }.build()
                     picker.addOnPositiveButtonClickListener { selection ->
-                        taskDate = Date(selection)
-                        // Produces <day name>, <month> <year>
-                        taskDueDateChip.text =
-                            selection.toDateFormat(getString(R.string.date_format_pattern))
+                        Instant.ofEpochMilli(selection).let {
+                            taskInstant = it
+                            // Produces <day name>, <month> <year>
+                            taskDueDateChip.text = it.format(getString(R.string.date_format_pattern))
+                        }
                         // Allow due date to be reset
                         taskDueDateChip.isCloseIconVisible = true
                     }
@@ -93,7 +95,7 @@ class EditTaskActivity : BaseActivity() {
                 }
                 taskDueDateChip.setOnCloseIconClickListener {
                     // Reset due date
-                    taskDate = null
+                    taskInstant = null
 
                     // Reset chip's state
                     taskDueDateChip.isCloseIconVisible = false
@@ -230,10 +232,10 @@ class EditTaskActivity : BaseActivity() {
                                 } else {
                                     checkboxMarkAsDone.isChecked = false
                                 }
-                                if (todoItem?.dueDate != null) {
-                                    val date = Date(todoItem!!.dueDate!!.toDate().time)
+                                todoItem?.dueDate?.let {
+                                    val instant = it.toInstant()
                                     taskDueDateChip.text =
-                                        date.toDateFormat(getString(R.string.date_format_pattern))
+                                        instant.format(getString(R.string.date_format_pattern))
                                     // Allow due date to be reset
                                     taskDueDateChip.isCloseIconVisible = true
                                 }
@@ -290,8 +292,10 @@ class EditTaskActivity : BaseActivity() {
                             Log.d(TAG, "Selected item: ${spinnerProject.selectedItem}")
                         }
                     }
-                    if (taskDate != null && todoItem!!.dueDate!! != taskDate!!.toTimestamp()) {
-                        taskItemUpdates["dueDate"] = taskDate!!.toTimestamp()
+                    taskInstant?.let {
+                        if (todoItem!!.dueDate!!.toInstant() != it) {
+                            taskItemUpdates["dueDate"] = it.toTimestamp()
+                        }
                     }
                     taskDocument
                         .update(taskItemUpdates)
