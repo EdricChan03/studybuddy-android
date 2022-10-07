@@ -19,13 +19,14 @@ fun Timestamp.toDateFormat(format: String, locale: Locale = Locale.getDefault())
         .format(this.toDate())
 
 /** Converts a [Timestamp] to a [LocalDateTime]. */
-fun Timestamp.toLocalDateTime() = LocalDateTime.ofEpochSecond(seconds, nanoseconds, ZoneOffset.UTC)
+fun Timestamp.toLocalDateTime(): LocalDateTime =
+    LocalDateTime.ofEpochSecond(seconds, nanoseconds, ZoneOffset.UTC)
 
 /** Converts a [LocalDateTime] to a [Timestamp]. */
 fun LocalDateTime.toTimestamp() = Timestamp(second.toLong(), nano)
 
 /** Converts a [Timestamp] to an [Instant]. */
-fun Timestamp.toInstant() = Instant.ofEpochSecond(seconds, nanoseconds.toLong())
+fun Timestamp.toInstant(): Instant = Instant.ofEpochSecond(seconds, nanoseconds.toLong())
 
 /** Converts an [Instant] to a [Timestamp]. */
 fun Instant.toTimestamp() = Timestamp(epochSecond, nano)
