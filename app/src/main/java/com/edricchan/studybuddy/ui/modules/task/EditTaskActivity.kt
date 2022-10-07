@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
 import com.edricchan.studybuddy.extensions.*
-import com.edricchan.studybuddy.extensions.firebase.firestore.toObjectWithId
 import com.edricchan.studybuddy.extensions.firebase.toInstant
 import com.edricchan.studybuddy.extensions.firebase.toTimestamp
 import com.edricchan.studybuddy.interfaces.TodoItem
@@ -30,6 +29,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import java.time.Instant
 import java.util.*
@@ -86,7 +86,8 @@ class EditTaskActivity : BaseActivity() {
                         Instant.ofEpochMilli(selection).let {
                             taskInstant = it
                             // Produces <day name>, <month> <year>
-                            taskDueDateChip.text = it.format(getString(R.string.date_format_pattern))
+                            taskDueDateChip.text =
+                                it.format(getString(R.string.date_format_pattern))
                         }
                         // Allow due date to be reset
                         taskDueDateChip.isCloseIconVisible = true
@@ -129,7 +130,8 @@ class EditTaskActivity : BaseActivity() {
                             id = PROJECT_CHOOSE_ID
                             name = getString(R.string.task_project_prompt)
                         })
-                        documentSnapshots?.mapTo(projectArrayList) { it.toObjectWithId() }
+                        documentSnapshots?.toObjects<TodoProject>()
+                            ?.let { projectArrayList.addAll(it) }
                         todoProjectDropdownAdapter.notifyDataSetChanged()
                     }
                 spinnerProject.setSelection(todoProjectDropdownAdapter.count)
@@ -179,7 +181,7 @@ class EditTaskActivity : BaseActivity() {
                                                     } else {
                                                         showToast(
                                                             "An error occurred while attempting to create the project." +
-                                                                    "Try again later.",
+                                                                "Try again later.",
                                                             Toast.LENGTH_LONG
                                                         )
                                                         Log.e(
@@ -193,12 +195,15 @@ class EditTaskActivity : BaseActivity() {
                                         .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
                                         .show()
                                 }
+
                                 PROJECT_NONE_ID -> {
                                     Log.d(TAG, "Selected no project!")
                                 }
+
                                 PROJECT_CHOOSE_ID -> {
                                     Log.d(TAG, "Selected choose project!")
                                 }
+
                                 else -> {
                                     val (_, id1) = spinnerProject.getItemAtPosition(spinnerProject.selectedItemPosition) as TodoProject
                                     tempTaskProject = id1
@@ -277,6 +282,7 @@ class EditTaskActivity : BaseActivity() {
                 onBackPressed()
                 true
             }
+
             R.id.action_save -> {
                 val taskItemUpdates = HashMap<String, Any>()
                 if (todoItem != null) {
@@ -321,6 +327,7 @@ class EditTaskActivity : BaseActivity() {
                 }
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -329,6 +336,7 @@ class EditTaskActivity : BaseActivity() {
         private const val PROJECT_CHOOSE_ID = "CHOOSE"
         private const val PROJECT_CREATE_ID = "PLUS"
         private const val PROJECT_NONE_ID = "NONE"
+
         /** The extra tag for the task's ID. */
         const val EXTRA_TASK_ID = "taskId"
     }
