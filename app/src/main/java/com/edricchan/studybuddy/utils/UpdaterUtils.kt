@@ -7,15 +7,11 @@ import androidx.work.Operation
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.periodicWorkRequest
+import com.edricchan.studybuddy.extensions.toDuration
 import com.edricchan.studybuddy.extensions.workManager
 import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
-import java.util.concurrent.TimeUnit
-
-/** Constant used to denote a manual update frequency. */
-const val UPDATE_FREQ_MANUAL = 0
-
-/** The default update frequency unit to use. */
-val UPDATE_FREQ_DEFAULT_UNIT = TimeUnit.HOURS
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 
 /** Constant used to uniquely identify the [update worker][CheckForUpdatesWorker]. */
 const val UPDATE_WORK_NAME = "workUpdater"
@@ -62,8 +58,7 @@ fun Context.enqueueUniqueCheckForUpdatesWorker(): Operation? {
         sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOnlyWhenCharging, false)
 
     return enqueueUniqueCheckForUpdatesWorker(
-        repeatInterval,
-        UPDATE_FREQ_DEFAULT_UNIT,
+        repeatInterval.toDuration(ChronoUnit.HOURS),
         isMetered,
         requiresCharging
     )
@@ -72,19 +67,17 @@ fun Context.enqueueUniqueCheckForUpdatesWorker(): Operation? {
 /**
  * Enqueues a unique worker that [checks for updates][CheckForUpdatesWorker].
  * @param repeatInterval The repeat interval to use.
- * @param repeatIntervalTimeUnit The time unit to use for [repeatInterval].
  * @param isMetered Whether to check for updates on a metered connection.
  * @param requiresCharging Whether the device must be charging.
  * @return Information on the enqueued worker.
  */
 fun Context.enqueueUniqueCheckForUpdatesWorker(
-    repeatInterval: Long,
-    repeatIntervalTimeUnit: TimeUnit,
+    repeatInterval: Duration = Duration.ZERO,
     isMetered: Boolean,
     requiresCharging: Boolean
 ): Operation? {
     // Check if the update frequency is set to manual/never
-    if (repeatInterval <= UPDATE_FREQ_MANUAL) return null
+    if (repeatInterval <= Duration.ZERO) return null
 
     val networkType =
         if (isMetered) androidx.work.NetworkType.METERED else androidx.work.NetworkType.UNMETERED
@@ -95,8 +88,7 @@ fun Context.enqueueUniqueCheckForUpdatesWorker(
     )
 
     val checkForUpdatesWorkerRequest = periodicWorkRequest<CheckForUpdatesWorker>(
-        repeatInterval,
-        repeatIntervalTimeUnit
+        repeatInterval
     ) {
         setConstraints(constraints)
     }

@@ -23,6 +23,7 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
+import java.time.Duration
 
 /**
  * Shared utility methods
@@ -276,12 +277,11 @@ object SharedUtils {
     )
     fun enqueueCheckForUpdatesWorker(
         context: Context,
-        repeatInterval: Long,
+        repeatInterval: Duration,
         isMetered: Boolean,
         requiresCharging: Boolean
     ) = context.enqueueUniqueCheckForUpdatesWorker(
         repeatInterval,
-        UPDATE_FREQ_DEFAULT_UNIT,
         isMetered,
         requiresCharging
     )
