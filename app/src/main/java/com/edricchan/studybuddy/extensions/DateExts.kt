@@ -29,7 +29,7 @@ fun Date.toDateFormat(format: String, locale: Locale = Locale.getDefault()): Str
 fun Long.toDuration(unit: TemporalUnit) = Duration.of(this, unit)
 
 /** Formats the temporal object using the given [formatter]. */
-fun TemporalAccessor.format(formatter: DateTimeFormatter) = formatter.format(this)
+fun TemporalAccessor.format(formatter: DateTimeFormatter): String = formatter.format(this)
 
 /** Formats the temporal object using the given [pattern]. */
 fun TemporalAccessor.format(pattern: String) = format(DateTimeFormatter.ofPattern(pattern))
