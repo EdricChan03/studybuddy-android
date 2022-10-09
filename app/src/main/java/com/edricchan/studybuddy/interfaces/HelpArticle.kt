@@ -23,15 +23,6 @@ data class HelpArticle(
     val isDisabled: Boolean = false,
     val isHidden: Boolean = false
 ) {
-    private constructor(builder: Builder) : this(
-        builder.articleDesc,
-        builder.articleIcon,
-        builder.articleTitle,
-        builder.articleUri,
-        builder.isDisabled,
-        builder.isHidden
-    )
-
     @StringDef(
         ICON_CONTACT,
         ICON_DOCUMENT,
@@ -43,12 +34,6 @@ data class HelpArticle(
     annotation class ArticleIcon
 
     companion object {
-        /**
-         * Creates a [HelpArticle] using a [Builder] (with support for inlined setting of variables)
-         * @return The created [HelpArticle]
-         */
-        inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
-
         /**
          * Specifies that this help article's icon should use a contact icon
          */
@@ -79,39 +64,5 @@ data class HelpArticle(
          * Specifies that this help article's icon should use a send feedback icon
          */
         const val ICON_SEND_FEEDBACK = "com.edricchan.studybuddy.article.icon.SEND_FEEDBACK"
-    }
-
-    class Builder {
-        /**
-         * The help article's title
-         */
-        var articleTitle: String? = null
-        /**
-         * The help article's description
-         */
-        var articleDesc: String? = null
-        /**
-         * The help article's URI
-         */
-        var articleUri: Uri? = null
-        /**
-         * The help article's icon
-         */
-        @ArticleIcon
-        var articleIcon: String? = null
-        /**
-         * Whether the help article is marked as disabled
-         */
-        var isDisabled: Boolean = false
-        /**
-         * Whether the help article is marked as hidden
-         */
-        var isHidden: Boolean = false
-
-        /**
-         * Returns the created instance of [HelpArticle]
-         * @return The created [HelpArticle]
-         */
-        fun build() = HelpArticle(this)
     }
 }
