@@ -7,6 +7,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    kotlin("plugin.serialization")
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.googleServices)
@@ -266,8 +267,7 @@ dependencies {
 
     // IO/Network dependencies
     implementation(libs.coil)
-    implementation(libs.moshi.core)
-    kapt(libs.moshi.kotlinCodegen)
+    implementation(libs.kotlinx.serialization.json)
 
     // Other dependencies
     implementation(libs.materialAbout)

@@ -26,13 +26,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapter
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
     private val notificationUtils = NotificationUtils.getInstance()
 
-    @OptIn(ExperimentalStdlibApi::class)
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
@@ -118,12 +117,8 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
             var notificationActions: List<NotificationAction> = listOf()
 
             try {
-                val moshi = Moshi.Builder()
-                    .build()
                 notificationActions = remoteMessage.data["notificationActions"]?.let {
-                    moshi.adapter<List<NotificationAction>>().fromJson(
-                        it
-                    )
+                    Json.decodeFromString(it)
                 } ?: listOf()
             } catch (e: Exception) {
                 Log.e(TAG, "Could not parse notification actions:", e)
@@ -158,6 +153,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                             PendingIntent.FLAG_ONE_SHOT
                         )
                     }
+
                     else -> Log.w(
                         TAG,
                         "Unknown action type ${notificationAction.type} specified for $notificationAction."

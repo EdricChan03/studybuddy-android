@@ -26,11 +26,10 @@ import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils
-import com.edricchan.studybuddy.utils.moshi.adapters.UriJsonAdapter
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapter
-import java.io.InputStreamReader
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import java.lang.ref.WeakReference
 import java.net.URL
 
@@ -68,27 +67,33 @@ class HelpActivity : BaseActivity() {
                 onBackPressed()
                 return true
             }
+
             R.id.action_refresh -> {
                 binding.swipeRefreshLayout.isRefreshing = true
                 loadFeaturedList()
                 return true
             }
+
             R.id.action_send_feedback -> {
                 webUtils.launchUri(Constants.uriSendFeedback)
                 return true
             }
+
             R.id.action_version -> {
                 UiUtils.getInstance(this).showVersionDialog()
                 return true
             }
+
             R.id.action_licenses -> {
                 startActivity<OssLicensesMenuActivity>()
                 return true
             }
+
             R.id.action_source_code -> {
                 webUtils.launchUri(Constants.uriSrcCode)
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -126,31 +131,17 @@ class HelpActivity : BaseActivity() {
 
     }
 
-    private class GetHelpArticlesAsyncTask internal constructor(activity: HelpActivity) :
+    // TODO: Switch to Kotlin Coroutines
+    private class GetHelpArticlesAsyncTask(activity: HelpActivity) :
         AsyncTask<URL, Void, List<HelpArticle>>() {
 
         // Weak reference to the current activity
         // See this great post on StackOverflow for more info (to prevent memory leaks): https://stackoverflow.com/a/46166223
         private val activityRef: WeakReference<HelpActivity> = WeakReference(activity)
 
-        @OptIn(ExperimentalStdlibApi::class)
+        @OptIn(ExperimentalSerializationApi::class)
         override fun doInBackground(vararg urls: URL): List<HelpArticle>? {
-            var reader: InputStreamReader? = null
-            try {
-                reader = InputStreamReader(urls[0].openStream())
-            } catch (e: Exception) {
-                Log.e(TAG, "An error occurred while attempting to parse the JSON file:", e)
-            }
-
-            reader?.use {
-                return Moshi.Builder()
-                    .add(UriJsonAdapter)
-                    .build()
-                    .adapter<HelpArticles>()
-                    .fromJson(it.readText())
-                    ?.articles
-            }
-            return null
+            return Json.decodeFromStream<HelpArticles>(urls[0].openStream()).articles
         }
 
         override fun onPostExecute(helpArticles: List<HelpArticle>?) {

@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.interfaces
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A Kotlin class representation of the JSON schema
@@ -9,9 +9,9 @@ import com.squareup.moshi.JsonClass
  * @property articles The list of help articles
  * @property jsonSchema The schema's URL
  */
-@JsonClass(generateAdapter = true)
+@Serializable
 data class HelpArticles(
     val articles: List<HelpArticle>? = null,
     val version: Int? = 0,
-    @Json(name = "\$schema") val jsonSchema: String? = null
+    @SerialName("\$schema") val jsonSchema: String? = null
 )

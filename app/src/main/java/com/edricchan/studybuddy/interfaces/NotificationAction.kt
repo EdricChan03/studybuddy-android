@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.interfaces
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Specifies a notification request's action
@@ -9,11 +9,11 @@ import com.squareup.moshi.JsonClass
  * @property title The action's title
  * @property type The action's type
  */
-@JsonClass(generateAdapter = true)
+@Serializable
 data class NotificationAction(
-    @Json(name = "actionTitle") val title: String? = null,
-    @Json(name = "actionIcon") val icon: String? = null,
-    @Json(name = "actionType") val type: String? = null
+    @SerialName("actionTitle") val title: String? = null,
+    @SerialName("actionIcon") val icon: String? = null,
+    @SerialName("actionType") val type: String? = null
 ) {
     private constructor(builder: Builder) : this(
         builder.title,
@@ -38,10 +38,12 @@ data class NotificationAction(
          * The notification action's title
          */
         var title: String? = null
+
         /**
          * The notification action's icon
          */
         var icon: String? = null
+
         /**
          * The notification action's intent type
          */

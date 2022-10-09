@@ -18,6 +18,7 @@ plugins {
     alias(libs.plugins.android.gradle.application) apply false
     alias(libs.plugins.android.gradle.library) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.plugin.serialization) apply false
     alias(libs.plugins.dagger.hilt) apply false
     id(libs.plugins.gradleVersions.asProvider().get().pluginId)
 }
