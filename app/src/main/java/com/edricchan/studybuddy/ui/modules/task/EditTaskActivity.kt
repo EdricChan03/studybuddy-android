@@ -72,10 +72,9 @@ class EditTaskActivity : BaseActivity() {
             binding.apply {
                 // TODO: Migrate logic to separate component
                 taskDueDateChip.setOnClickListener {
-                    val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
                     val constraints = CalendarConstraints.Builder()
                         .setValidator(DateValidatorPointForward.now())
-                        .setStart(calendar.timeInMillis)
+                        .setStart(Instant.now().toEpochMilli())
                         .build()
                     val picker = MaterialDatePicker.Builder.datePicker().apply {
                         setCalendarConstraints(constraints)

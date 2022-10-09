@@ -23,7 +23,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -69,10 +68,9 @@ class NewTaskActivity : BaseActivity() {
 
             // TODO: Migrate logic to separate component
             taskDueDateChip.setOnClickListener {
-                val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
                 val constraints = CalendarConstraints.Builder()
                     .setValidator(DateValidatorPointForward.now())
-                    .setStart(calendar.timeInMillis)
+                    .setStart(Instant.now().toEpochMilli())
                     .build()
                 val picker = MaterialDatePicker.Builder.datePicker().apply {
                     setCalendarConstraints(constraints)
