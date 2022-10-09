@@ -8,6 +8,8 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.ui.widget.R
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
@@ -79,7 +81,7 @@ class ModalBottomSheetAdapter(
         val itemGroup = item.group
         holder.itemView.isEnabled = item.enabled
         if (!item.visible) {
-            holder.itemView.visibility = View.GONE
+            holder.itemView.isGone = true
             holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
         }
         when (holder.itemViewType) {
@@ -278,7 +280,7 @@ class ModalBottomSheetAdapter(
         internal var checkBox: CheckBox = itemView.findViewById(R.id.itemCheckBox)
 
         init {
-            checkBox.visibility = View.VISIBLE
+            checkBox.isVisible = true
         }
     }
 
@@ -286,7 +288,7 @@ class ModalBottomSheetAdapter(
         internal var checkBox: CheckBox = itemView.findViewById(R.id.itemCheckBox)
 
         init {
-            checkBox.visibility = View.VISIBLE
+            checkBox.isVisible = true
         }
     }
 
@@ -294,7 +296,7 @@ class ModalBottomSheetAdapter(
         internal var radioButton: RadioButton = itemView.findViewById(R.id.itemRadioButton)
 
         init {
-            radioButton.visibility = View.VISIBLE
+            radioButton.isVisible = true
         }
     }
 
@@ -303,7 +305,7 @@ class ModalBottomSheetAdapter(
         internal var radioButton: RadioButton = itemView.findViewById(R.id.itemRadioButton)
 
         init {
-            radioButton.visibility = View.VISIBLE
+            radioButton.isVisible = true
         }
     }
 

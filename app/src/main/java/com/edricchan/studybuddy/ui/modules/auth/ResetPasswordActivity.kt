@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.ui.modules.auth
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
+import androidx.core.view.isVisible
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityResetPasswordBinding
@@ -46,7 +46,7 @@ class ResetPasswordActivity : BaseActivity() {
                     return@setOnClickListener
                 }
 
-                progressBar.visibility = View.VISIBLE
+                progressBar.isVisible = true
                 auth.sendPasswordResetEmail(email)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -68,7 +68,7 @@ class ResetPasswordActivity : BaseActivity() {
                             )
                         }
 
-                        progressBar.visibility = View.GONE
+                        progressBar.isVisible = false
                     }
             }
         }
@@ -80,6 +80,7 @@ class ResetPasswordActivity : BaseActivity() {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

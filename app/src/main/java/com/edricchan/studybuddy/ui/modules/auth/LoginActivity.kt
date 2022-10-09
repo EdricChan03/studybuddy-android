@@ -4,13 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityLoginBinding
-import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
@@ -83,14 +87,14 @@ class LoginActivity : BaseActivity() {
                     }
                     return@setOnClickListener
                 }
-                progressBar.visibility = View.VISIBLE
+                progressBar.isVisible = true
                 // Authenticate the user
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this@LoginActivity) { task ->
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
-                        progressBar.visibility = View.GONE
+                        progressBar.isVisible = false
                         if (!task.isSuccessful) {
                             Log.e(
                                 TAG,
@@ -101,7 +105,8 @@ class LoginActivity : BaseActivity() {
                             if (password.length < 6) {
                                 passwordLogin.error = getString(R.string.minimum_password)
                             } else {
-                                showSnackbar(binding.coordinatorLayoutLogin,
+                                showSnackbar(
+                                    binding.coordinatorLayoutLogin,
                                     "An error occurred while attempting to login. Please try again later",
                                     Snackbar.LENGTH_LONG
                                 )
@@ -142,6 +147,7 @@ class LoginActivity : BaseActivity() {
             onBackPressed()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 

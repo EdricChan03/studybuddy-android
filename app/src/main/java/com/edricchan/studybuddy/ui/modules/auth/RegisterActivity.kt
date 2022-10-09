@@ -3,12 +3,16 @@ package com.edricchan.studybuddy.ui.modules.auth
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
+import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityRegisterBinding
-import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.isInvalidEmail
+import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
@@ -95,19 +99,21 @@ class RegisterActivity : BaseActivity() {
                     return@setOnClickListener
                 }
 
-                progressBar.visibility = View.VISIBLE
+                progressBar.isVisible = true
                 // Assume that email and password are non-null
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this@RegisterActivity) { task ->
-                        progressBar.visibility = View.GONE
+                        progressBar.isVisible = false
                         if (task.isSuccessful) {
                             startActivity<MainActivity>()
                             finish()
                         } else {
                             // TODO: i18n message
-                            showSnackbar(coordinatorLayoutRegister,
+                            showSnackbar(
+                                coordinatorLayoutRegister,
                                 "An error occurred while authenticating. Please try again later.",
-                                Snackbar.LENGTH_LONG)
+                                Snackbar.LENGTH_LONG
+                            )
                             Log.e(TAG, "An error occurred while authenticating.", task.exception)
                         }
                     }
@@ -119,7 +125,7 @@ class RegisterActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.progressBar.visibility = View.GONE
+        binding.progressBar.isVisible = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -128,6 +134,7 @@ class RegisterActivity : BaseActivity() {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -138,9 +145,11 @@ class RegisterActivity : BaseActivity() {
         } else {
             setViewsEnabled(false)
             // TODO: i18n message
-            showSnackbar(binding.coordinatorLayoutRegister,
+            showSnackbar(
+                binding.coordinatorLayoutRegister,
                 "No internet connection available. Some actions are disabled",
-                Snackbar.LENGTH_INDEFINITE) {
+                Snackbar.LENGTH_INDEFINITE
+            ) {
                 behavior = NoSwipeBehavior()
                 setAction(R.string.dialog_action_retry) { checkNetwork() }
             }

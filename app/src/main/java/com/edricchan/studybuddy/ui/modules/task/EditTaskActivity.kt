@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
 import com.edricchan.studybuddy.extensions.*
@@ -214,16 +215,16 @@ class EditTaskActivity : BaseActivity() {
                             tempTaskProject = null
                         }
                     }
-                progressBar.visibility = View.VISIBLE
-                scrollView.visibility = View.GONE
+                progressBar.isVisible = true
+                scrollView.isVisible = false
                 taskDocument
                     .get()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val document = task.result
                             if (document != null && document.exists()) {
-                                progressBar.visibility = View.GONE
-                                scrollView.visibility = View.VISIBLE
+                                progressBar.isVisible = false
+                                scrollView.isVisible = true
                                 todoItem = document.toObject<TodoItem>()
                                 if (todoItem?.title != null) {
                                     textInputTitle.editText?.setText(todoItem!!.title)

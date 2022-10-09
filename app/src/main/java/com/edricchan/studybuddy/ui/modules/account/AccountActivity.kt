@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import coil.load
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.edricchan.studybuddy.BuildConfig
@@ -13,7 +13,11 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityAccountBinding
-import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.editTextStrValue
+import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
@@ -21,7 +25,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -98,14 +107,17 @@ class AccountActivity : BaseActivity(),
                 onBackPressed()
                 true
             }
+
             R.id.action_debug -> {
                 startActivity<DebugActivity>()
                 true
             }
+
             R.id.action_refresh_credentials -> {
                 refreshCredentials()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -165,6 +177,7 @@ class AccountActivity : BaseActivity(),
                                             }
                                         }
                                 }
+
                                 is FirebaseAuthInvalidUserException -> {
                                     showToast(
                                         R.string.account_delete_account_invalid_msg,
@@ -181,18 +194,18 @@ class AccountActivity : BaseActivity(),
         val isSignedIn = user != null
         // TODO: Show different UI if user isn't signed in
         binding.apply {
-            accountActionsButton.visibility = if (isSignedIn) View.VISIBLE else View.GONE
-            accountActionSignInButton.visibility = if (isSignedIn) View.GONE else View.VISIBLE
+            accountActionsButton.isVisible = isSignedIn
+            accountActionSignInButton.isVisible = !isSignedIn
             accountNameTextView.apply {
                 text = user?.displayName
-                visibility = if (isSignedIn) View.VISIBLE else View.GONE
+                isVisible = isSignedIn
             }
             accountEmailTextView.apply {
                 text = user?.email
-                visibility = if (isSignedIn) View.VISIBLE else View.GONE
+                isVisible = isSignedIn
             }
             accountAvatarImageView.apply {
-                visibility = if (isSignedIn) View.VISIBLE else View.GONE
+                isVisible = isSignedIn
                 if (isSignedIn && user?.photoUrl != null) load(user?.photoUrl)
             }
         }

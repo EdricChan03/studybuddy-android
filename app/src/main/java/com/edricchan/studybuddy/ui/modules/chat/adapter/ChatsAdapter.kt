@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isInvisible
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -45,13 +46,13 @@ class ChatsAdapter(
         val itemDescTextView = holder.itemDescTextView
         val itemSelectionCheckBox = holder.itemSelectionCheckbox
 
-        if (item.name != null && item.name.isNotEmpty()) {
+        if (!item.name.isNullOrEmpty()) {
             itemNameTextView.text = item.name
         } else {
             itemNameTextView.setText(R.string.frag_chat_default_group_name)
         }
 
-        if (item.description != null && item.description.isNotEmpty()) {
+        if (!item.description.isNullOrEmpty()) {
             itemDescTextView.text = item.description
         } else {
             itemDescTextView.setText(R.string.frag_chat_default_group_desc)
@@ -86,12 +87,12 @@ class ChatsAdapter(
         }
 
         if (selectionTracker != null && selectionTracker?.hasSelection() == true) {
-            itemSelectionCheckBox.visibility = View.VISIBLE
-            itemIconImageView.visibility = View.INVISIBLE
+            itemSelectionCheckBox.isInvisible = false
+            itemIconImageView.isInvisible = true
             holder.itemView.isActivated = selectionTracker!!.isSelected(item.id)
         } else {
-            itemSelectionCheckBox.visibility = View.INVISIBLE
-            itemIconImageView.visibility = View.VISIBLE
+            itemSelectionCheckBox.isInvisible = true
+            itemIconImageView.isInvisible = false
         }
     }
 
