@@ -2,8 +2,9 @@ package com.edricchan.studybuddy.interfaces
 
 import android.net.Uri
 import androidx.annotation.StringDef
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.edricchan.studybuddy.data.serializers.UriSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An interface for [com.edricchan.studybuddy.ui.modules.help.HelpActivity]
@@ -14,12 +15,12 @@ import com.squareup.moshi.JsonClass
  * @property isDisabled Whether this help article is clickable
  * @property isHidden Whether this help article should be hidden
  */
-@JsonClass(generateAdapter = true)
+@Serializable
 data class HelpArticle(
-    @Json(name = "articleDesc") val description: String? = null,
-    @Json(name = "articleIcon") @ArticleIcon val icon: String? = null,
-    @Json(name = "articleTitle") val title: String? = null,
-    @Json(name = "articleUri") val uri: Uri? = null,
+    @SerialName("articleDesc") val description: String? = null,
+    @SerialName("articleIcon") @ArticleIcon val icon: String? = null,
+    @SerialName("articleTitle") val title: String? = null,
+    @Serializable(with = UriSerializer::class) @SerialName("articleUri") val uri: Uri? = null,
     val isDisabled: Boolean = false,
     val isHidden: Boolean = false
 ) {

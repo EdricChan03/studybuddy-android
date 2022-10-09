@@ -6,7 +6,6 @@ firebase = "30.5.0"
 kotlin = "1.7.20"
 kotlinx-coroutines = "1.6.4"
 markwon = "4.6.2"
-moshi = "1.14.0"
 
 [libraries]
 # AndroidX dependencies
@@ -65,9 +64,8 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # Coil
 coil = "io.coil-kt:coil:2.2.2"
 
-# Moshi
-moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
-moshi-kotlinCodegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+# kotlinx-serialization
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
 
 # Miscellaneous
 
@@ -115,6 +113,7 @@ android-gradle-application = { id = "com.android.application", version.ref = "an
 android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
 buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.2"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.1"
 googleServices = "com.google.gms.google-services:4.3.14"
