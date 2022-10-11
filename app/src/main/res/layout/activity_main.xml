@@ -42,11 +42,4 @@
             android:src="@drawable/ic_plus_24dp"
             app:layout_anchor="@id/bottomAppBar" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--android:id="@+id/bottom_navigation_view"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--app:menu="@menu/bottom_nav" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

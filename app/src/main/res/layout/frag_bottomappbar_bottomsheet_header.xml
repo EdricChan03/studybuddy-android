@@ -63,15 +63,4 @@
         app:layout_constraintTop_toBottomOf="@id/userName"
         tools:text="john.appleseed@gmail.com"
         tools:visibility="visible" />
-
-    <!-- No longer needed as the main header is now clickable. -->
-    <!--<ImageButton
-            android:id="@+id/userAccountSettings"
-            style="@style/Theme.App.ImageButton"
-            android:contentDescription="Account settings"
-            android:src="@drawable/ic_account_circle_outline_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/headerGuideline"
-            app:layout_constraintEnd_toStartOf="@+id/headerMetaGuideline"
-            app:layout_constraintTop_toTopOf="parent" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
