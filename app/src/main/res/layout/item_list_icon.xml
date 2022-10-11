@@ -49,7 +49,7 @@
 
     <ImageButton
         android:id="@+id/infoImageButton"
-        style="@style/Theme.App.ImageButton"
+        style="?attr/materialIconButtonStyle"
         android:layout_width="@dimen/two_line_list_item_meta_image_width"
         android:layout_height="@dimen/two_line_list_item_meta_image_height"
         android:contentDescription="Icon info"
