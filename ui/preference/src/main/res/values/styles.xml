@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Preference.DialogPreference.EditTextPreference.App" parent="Preference.DialogPreference.EditTextPreference.Material">
+        <item name="dialogLayout">@layout/preference_dialog_edittext_material</item>
+    </style>
+
+    <style name="Preference.SwitchPreferenceCompat.Material.App" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:widgetLayout">@layout/pref_widget_m3_switch</item>
+    </style>
+
     <style name="TextAppearance.MainSwitchText" parent="@style/TextAppearance.Material3.ActionBar.Title">
         <item name="android:textSize">20sp</item>
     </style>

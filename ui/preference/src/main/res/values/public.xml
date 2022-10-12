@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <public name="Preference.DialogPreference.EditTextPreference.App" type="style" />
+    <public name="Preference.SwitchPreferenceCompat.Material.App" type="style" />
     <public name="TextAppearance.MainSwitchText" type="style" />
 </resources>
