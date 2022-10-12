@@ -19,6 +19,7 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.ui.widget.bottomsheet.modalBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 
@@ -86,6 +87,12 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                 this,
                 "Modal bottom sheet with DSL syntax",
                 buildOnClickListener(modalBottomSheetDSL())
+            )
+
+            addModalBottomSheetLauncher(
+                this,
+                "Modal bottom sheet without draggable handle",
+                buildOnClickListener(modalBottomSheetNoDraggable())
             )
         }
     }
@@ -347,4 +354,16 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                 }
             }
         }
+
+    private fun modalBottomSheetNoDraggable() = modalBottomSheet {
+        hideDragHandle = true
+        setItems {
+            for (item in 1..5) {
+                item("Item $item") {
+                    id = item
+                    onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
+                }
+            }
+        }
+    }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.ModalBottomSheetDSL
@@ -22,6 +23,9 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 
     /** The bottom sheet's title to be shown on top of the list of items */
     var headerTitle: String? = null
+
+    /** Whether the draggable handle should be hidden. */
+    var hideDragHandle: Boolean = false
 
     private lateinit var binding: FragModalBottomSheetBinding
 
@@ -42,6 +46,8 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
         binding.apply {
             bottomSheetHeader.isVisible = headerTitle != null
             bottomSheetHeaderTitleTextView.text = headerTitle
+
+            bottomSheetDragHandle.isGone = hideDragHandle
 
             bottomSheetRecyclerView.apply {
                 adapter = ModalBottomSheetAdapter(requireContext(), items)
