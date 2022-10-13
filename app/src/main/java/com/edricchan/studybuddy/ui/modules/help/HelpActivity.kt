@@ -27,6 +27,8 @@ import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -49,7 +51,7 @@ class HelpActivity : BaseActivity() {
 
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener { loadFeaturedList() }
-            swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+            swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(this, R.attr.colorPrimary))
         }
         initRecyclerView()
         loadFeaturedList()
@@ -107,10 +109,12 @@ class HelpActivity : BaseActivity() {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(this@HelpActivity)
             addItemDecoration(
-                DividerItemDecoration(
+                MaterialDividerItemDecoration(
                     this@HelpActivity,
-                    DividerItemDecoration.VERTICAL
-                )
+                    MaterialDividerItemDecoration.VERTICAL
+                ).apply {
+                    isLastItemDecorated = false
+                }
             )
         }
     }
