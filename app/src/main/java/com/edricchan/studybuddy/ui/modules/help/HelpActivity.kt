@@ -162,7 +162,7 @@ class HelpActivity : BaseActivity() {
                 // Update the adapter
                 val adapter = HelpArticleAdapter(helpArticles)
                 adapter.setOnItemClickListener { article, _ ->
-                    article.uri?.let { webUtils.launchUri(it) }
+                    article.uri?.let { activity.webUtils.launchUri(it) }
                 }
                 activity.binding.apply {
                     helpFeaturedRecyclerView.adapter = adapter
