@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
@@ -49,9 +48,9 @@ class HelpActivity : BaseActivity() {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-        binding.apply {
-            swipeRefreshLayout.setOnRefreshListener { loadFeaturedList() }
-            swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(this, R.attr.colorPrimary))
+        binding.swipeRefreshLayout.apply {
+            setOnRefreshListener { loadFeaturedList() }
+            setColorSchemeColors(MaterialColors.getColor(this, R.attr.colorPrimary))
         }
         initRecyclerView()
         loadFeaturedList()
