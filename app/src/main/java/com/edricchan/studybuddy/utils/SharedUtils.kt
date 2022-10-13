@@ -23,6 +23,7 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
+import com.google.android.material.color.MaterialColors
 import java.time.Duration
 
 /**
@@ -89,7 +90,13 @@ object SharedUtils {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_STATUS)
             .setProgress(100, 0, true)
-            .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            .setColor(
+                MaterialColors.getColor(
+                    context,
+                    R.attr.colorPrimary,
+                    ContextCompat.getColor(context, R.color.colorPrimary)
+                )
+            )
             .setOngoing(true)
             .setOnlyAlertOnce(true)
         notificationManager.notify(
@@ -173,6 +180,7 @@ object SharedUtils {
                             )
                                 .setContentText(context.getString(R.string.notification_updates_error_no_internet_text))
                                 .setSmallIcon(R.drawable.ic_wifi_strength_4_alert_24dp)
+
                             AppUpdaterError.JSON_ERROR -> notifyBuilder.setContentTitle(
                                 context.getString(
                                     R.string.notification_updates_error_not_found_title
@@ -180,6 +188,7 @@ object SharedUtils {
                             )
                                 .setContentText(context.getString(R.string.notification_updates_error_not_found_text))
                                 .setSmallIcon(R.drawable.ic_file_not_found_24dp)
+
                             else -> notifyBuilder.setContentTitle(
                                 context.getString(R.string.notification_updates_error_unknown_title)
                             )
@@ -209,7 +218,13 @@ object SharedUtils {
                                 .setCategory(NotificationCompat.CATEGORY_ERROR)
                                 .setOngoing(false)
                                 .setChannelId(context.getString(R.string.notification_channel_update_error_id))
-                                .setColor(ContextCompat.getColor(context, R.color.colorWarn))
+                                .setColor(
+                                    MaterialColors.getColor(
+                                        context,
+                                        R.attr.colorError,
+                                        ContextCompat.getColor(context, R.color.colorWarn)
+                                    )
+                                )
                                 .addAction(
                                     NotificationCompat.Action(
                                         R.drawable.ic_refresh_24dp,

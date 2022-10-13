@@ -24,6 +24,7 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
+import com.google.android.material.color.MaterialColors
 
 class CheckForUpdatesWorker(
     private val appContext: Context,
@@ -89,7 +90,11 @@ class CheckForUpdatesWorker(
             setCategory(NotificationCompat.CATEGORY_PROGRESS)
             priority = NotificationCompat.PRIORITY_DEFAULT
             setProgress(100, 0, true)
-            color = ContextCompat.getColor(appContext, R.color.colorPrimary)
+            color = MaterialColors.getColor(
+                appContext,
+                R.attr.colorPrimary,
+                ContextCompat.getColor(appContext, R.color.colorPrimary)
+            )
             setOngoing(true)
         }
         notificationBuilder?.build()

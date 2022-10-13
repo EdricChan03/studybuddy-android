@@ -20,6 +20,7 @@ import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.utils.NotificationUtils
+import com.google.android.material.color.MaterialColors
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.ktx.firestore
@@ -75,7 +76,11 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                 builder.color = Color.parseColor(remoteMessage.notification?.color)
             } else {
                 // Use the default color
-                builder.color = ContextCompat.getColor(this, R.color.colorPrimary)
+                builder.color = MaterialColors.getColor(
+                    this,
+                    R.attr.colorPrimary,
+                    ContextCompat.getColor(this, R.color.colorPrimary)
+                )
             }
 
             // Image support was added in FCM 20.0.0
