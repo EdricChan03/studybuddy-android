@@ -17,6 +17,7 @@ import com.edricchan.studybuddy.extensions.firebase.toLocalDateTime
 import com.edricchan.studybuddy.extensions.firebase.toTimestamp
 import com.edricchan.studybuddy.extensions.format
 import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.extensions.toLocalDateTime
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
@@ -89,8 +90,11 @@ class EditTaskActivity : BaseActivity() {
                         Instant.ofEpochMilli(selection).let {
                             taskInstant = it
                             // Produces <day name>, <month> <year>
+                            // We need to convert it to a LocalDateTime as Instants don't support
+                            // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                            // for more info
                             taskDueDateChip.text =
-                                it.format(getString(R.string.date_format_pattern))
+                                it.toLocalDateTime().format(getString(R.string.date_format_pattern))
                         }
                         // Allow due date to be reset
                         taskDueDateChip.isCloseIconVisible = true
