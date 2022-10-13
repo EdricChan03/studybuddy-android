@@ -262,7 +262,7 @@ class EditTaskActivity : BaseActivity() {
                                 }
                                 if (todoItem?.tags != null) {
                                     textInputTags.editText?.setText(
-                                        todoItem!!.tags!!.toMutableList().joinToString(
+                                        todoItem!!.tags!!.joinToString(
                                             ","
                                         )
                                     )
