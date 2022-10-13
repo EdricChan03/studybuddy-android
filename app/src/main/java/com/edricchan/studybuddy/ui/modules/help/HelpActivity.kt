@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,7 @@ import java.net.URL
 class HelpActivity : BaseActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var binding: ActivityHelpBinding
+    private lateinit var webUtils: WebUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,9 @@ class HelpActivity : BaseActivity() {
             setOnRefreshListener { loadFeaturedList() }
             setColorSchemeColors(MaterialColors.getColor(this, R.attr.colorPrimary))
         }
+
+        webUtils = WebUtils.getInstance(this)
+
         initRecyclerView()
         loadFeaturedList()
     }
@@ -63,39 +68,39 @@ class HelpActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val webUtils = WebUtils.getInstance(this)
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             }
 
             R.id.action_refresh -> {
                 binding.swipeRefreshLayout.isRefreshing = true
                 loadFeaturedList()
-                return true
+                true
             }
 
             R.id.action_send_feedback -> {
                 webUtils.launchUri(Constants.uriSendFeedback)
-                return true
+                true
             }
 
             R.id.action_version -> {
                 UiUtils.getInstance(this).showVersionDialog()
-                return true
+                true
             }
 
             R.id.action_licenses -> {
                 startActivity<OssLicensesMenuActivity>()
-                return true
+                true
             }
 
             R.id.action_source_code -> {
                 webUtils.launchUri(Constants.uriSrcCode)
-                return true
+                true
             }
 
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -124,8 +129,8 @@ class HelpActivity : BaseActivity() {
     private fun loadFeaturedList() {
         try {
             binding.apply {
-                progressBarLinearLayout.visibility = View.VISIBLE
-                helpFeaturedRecyclerView.visibility = View.GONE
+                progressBarLinearLayout.isVisible = true
+                helpFeaturedRecyclerView.isVisible = false
             }
             GetHelpArticlesAsyncTask(this).execute(URL(Constants.urlHelpFeatured))
         } catch (e: Exception) {
@@ -157,14 +162,14 @@ class HelpActivity : BaseActivity() {
                 // Update the adapter
                 val adapter = HelpArticleAdapter(helpArticles)
                 adapter.setOnItemClickListener { article, _ ->
-                    article.uri?.let { WebUtils.getInstance(activity).launchUri(it) }
+                    article.uri?.let { webUtils.launchUri(it) }
                 }
                 activity.binding.apply {
                     helpFeaturedRecyclerView.adapter = adapter
-                    helpFeaturedRecyclerView.visibility = View.VISIBLE
+                    helpFeaturedRecyclerView.isVisible = true
                     swipeRefreshLayout.isRefreshing = false
                     TransitionManager.beginDelayedTransition(constraintLayout, Fade(Fade.IN))
-                    progressBarLinearLayout.visibility = View.GONE
+                    progressBarLinearLayout.isVisible = false
                 }
             }
         }
