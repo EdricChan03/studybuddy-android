@@ -12,6 +12,7 @@ import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.google.android.material.color.MaterialColors
 
 /**
  * Utility class for web-related functionality.
@@ -59,17 +60,22 @@ class WebUtils(val context: Context) {
                     when (AppCompatDelegate.getDefaultNightMode()) {
                         AppCompatDelegate.MODE_NIGHT_NO -> colorScheme =
                             CustomTabsIntent.COLOR_SCHEME_LIGHT
+
                         AppCompatDelegate.MODE_NIGHT_YES -> colorScheme =
                             CustomTabsIntent.COLOR_SCHEME_DARK
                     }
                     setColorScheme(colorScheme)
                 }
                 setDefaultColorSchemeParams(CustomTabColorSchemeParams.Builder().apply {
-                    setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                    setSecondaryToolbarColor(
-                        ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                    val color = MaterialColors.getColor(
+                        context,
+                        R.attr.colorPrimary,
+                        ContextCompat.getColor(context, R.color.colorPrimary)
                     )
-                    setNavigationBarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+
+                    setToolbarColor(color)
+                    setSecondaryToolbarColor(color)
+                    setNavigationBarColor(color)
                 }.build())
 
                 setShareState(CustomTabsIntent.SHARE_STATE_ON)
