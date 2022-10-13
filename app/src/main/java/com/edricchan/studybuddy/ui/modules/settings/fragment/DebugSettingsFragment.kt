@@ -54,6 +54,9 @@ import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
 import java.time.Instant
+import java.time.format.DateTimeFormatter
+
+private fun Instant.formatISO() = format(DateTimeFormatter.ISO_INSTANT)
 
 class DebugSettingsFragment : MaterialPreferenceFragment() {
 
@@ -139,7 +142,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             findPreference<Preference>(Constants.debugUpdatesLastCheckedForUpdatesDate)?.apply {
                 isEnabled = lastCheckedForUpdatesInstant != null
                 summary =
-                    lastCheckedForUpdatesInstant?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: getString(
+                    lastCheckedForUpdatesInstant?.formatISO() ?: getString(
                         R.string.debug_activity_updates_last_checked_for_updates_date_summary_default
                     )
             }
@@ -161,7 +164,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
 
             findPreference<Preference>(Constants.debugUpdatesLastUpdatedDate)?.apply {
                 isEnabled = lastUpdatedInstant != null
-                summary = lastUpdatedInstant?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                summary = lastUpdatedInstant?.formatISO()
                     ?: getString(R.string.debug_activity_updates_last_updated_date_summary_default)
             }
             findPreference<Preference>(Constants.debugUpdatesClearLastUpdatedDate)?.apply {
@@ -271,11 +274,11 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                         Metadata:
                         - Creation timestamp: ${
                             user?.metadata?.creationInstant
-                                ?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
+                                ?.formatISO() ?: "<not set>"
                         }
                         - Last sign in timestamp: ${
                             user?.metadata?.lastSignInInstant
-                                ?.format("yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?: "<not set>"
+                                ?.formatISO() ?: "<not set>"
                         }
                         Phone number: ${user?.phoneNumber ?: "<not set>"}
                         Photo URL: ${user?.photoUrl ?: "<not set>"}
