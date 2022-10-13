@@ -10,9 +10,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
-import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.toInstant
+import com.edricchan.studybuddy.extensions.firebase.toLocalDateTime
 import com.edricchan.studybuddy.extensions.firebase.toTimestamp
+import com.edricchan.studybuddy.extensions.format
+import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.base.BaseActivity
@@ -33,7 +37,6 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import java.time.Instant
-import java.util.*
 
 class EditTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
@@ -238,9 +241,11 @@ class EditTaskActivity : BaseActivity() {
                                     checkboxMarkAsDone.isChecked = false
                                 }
                                 todoItem?.dueDate?.let {
-                                    val instant = it.toInstant()
-                                    taskDueDateChip.text =
-                                        instant.format(getString(R.string.date_format_pattern))
+                                    // We need to convert it to a LocalDateTime as Instants don't support
+                                    // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                                    // for more info
+                                    taskDueDateChip.text = it.toLocalDateTime()
+                                        .format(getString(R.string.date_format_pattern))
                                     // Allow due date to be reset
                                     taskDueDateChip.isCloseIconVisible = true
                                 }

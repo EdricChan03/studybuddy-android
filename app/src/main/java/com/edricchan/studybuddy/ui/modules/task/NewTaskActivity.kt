@@ -9,8 +9,14 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityNewTaskBinding
-import com.edricchan.studybuddy.extensions.*
+import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.toTimestamp
+import com.edricchan.studybuddy.extensions.format
+import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.toLocalDateTime
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
@@ -31,7 +37,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.time.Instant
-import java.util.*
+import java.util.Objects
 
 /**
  * Created by edricchan on 8/3/18.
@@ -83,7 +89,11 @@ class NewTaskActivity : BaseActivity() {
                     Instant.ofEpochMilli(selection).let {
                         taskInstant = it
                         // Produces <day name>, <month> <year>
-                        taskDueDateChip.text = it.format(getString(R.string.date_format_pattern))
+                        // We need to convert it to a LocalDateTime as Instants don't support
+                        // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                        // for more info
+                        taskDueDateChip.text = it.toLocalDateTime()
+                            .format(getString(R.string.date_format_pattern))
                     }
                     // Allow due date to be reset
                     taskDueDateChip.isCloseIconVisible = true
@@ -101,7 +111,11 @@ class NewTaskActivity : BaseActivity() {
 
             val projectArrayList = ArrayList<TodoProject>()
             todoProjectDropdownAdapter =
-                TodoProjectDropdownAdapter(this@NewTaskActivity, R.layout.dropdown_menu_popup_item, projectArrayList)
+                TodoProjectDropdownAdapter(
+                    this@NewTaskActivity,
+                    R.layout.dropdown_menu_popup_item,
+                    projectArrayList
+                )
             taskProjectAutocompleteTextView.setAdapter(todoProjectDropdownAdapter)
             if (currentUser != null) {
                 firestore.collection("users/" + currentUser!!.uid + "/todoProjects")
@@ -193,12 +207,15 @@ class NewTaskActivity : BaseActivity() {
                                         .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
                                         .show()
                                 }
+
                                 PROJECT_NONE_ID -> {
                                     Log.d(TAG, "Selected no project!")
                                 }
+
                                 PROJECT_CHOOSE_ID -> {
                                     Log.d(TAG, "Selected choose project!")
                                 }
+
                                 else -> {
                                     tempTaskProject = projectArrayList[position].id
                                 }
@@ -224,6 +241,7 @@ class NewTaskActivity : BaseActivity() {
                 onBackPressed()
                 return true
             }
+
             R.id.action_submit -> {
                 if (allowAccess) {
                     binding.apply {
@@ -278,6 +296,7 @@ class NewTaskActivity : BaseActivity() {
                 }
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }

@@ -10,7 +10,8 @@ import androidx.annotation.StringRes
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.firebase.format
+import com.edricchan.studybuddy.extensions.firebase.toLocalDateTime
+import com.edricchan.studybuddy.extensions.format
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TodoItem
@@ -64,7 +65,7 @@ class ViewTaskActivity : BaseActivity() {
             // TODO: i18n code
             showToast(
                 "An unknown error occurred while attempting to retrieve the" +
-                        "task. Try again later.", Toast.LENGTH_LONG
+                    "task. Try again later.", Toast.LENGTH_LONG
             )
             finish()
         } else {
@@ -86,6 +87,7 @@ class ViewTaskActivity : BaseActivity() {
                         onBackPressed()
                         true
                     }
+
                     R.id.action_delete -> {
                         val builder = MaterialAlertDialogBuilder(this@ViewTaskActivity)
                         // TODO: i18n code
@@ -116,12 +118,14 @@ class ViewTaskActivity : BaseActivity() {
                             .show()
                         true
                     }
+
                     R.id.action_edit -> {
                         startActivity<EditTaskActivity> {
                             putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
                         }
                         true
                     }
+
                     R.id.action_mark_as_done -> {
                         taskDocument
                             .update("done", !todoItem?.done!!)
@@ -129,7 +133,7 @@ class ViewTaskActivity : BaseActivity() {
                                 if (task.isSuccessful) {
                                     showSnackbar(
                                         "Successfully marked task as " +
-                                                if (!todoItem!!.done!!) "done" else "undone",
+                                            if (!todoItem!!.done!!) "done" else "undone",
                                         Snackbar.LENGTH_SHORT
                                     )
                                     Log.d(
@@ -139,19 +143,20 @@ class ViewTaskActivity : BaseActivity() {
                                 } else {
                                     showSnackbar(
                                         "An error occurred while marking the todo as " +
-                                                if (!todoItem!!.done!!) "done" else "undone",
+                                            if (!todoItem!!.done!!) "done" else "undone",
                                         Snackbar.LENGTH_LONG
                                     )
                                     Log.e(
                                         TAG,
                                         "An error occurred while marking the todo as " +
-                                                if (!todoItem!!.done!!) "done" else "undone",
+                                            if (!todoItem!!.done!!) "done" else "undone",
                                         task.exception
                                     )
                                 }
                             }
                         true
                     }
+
                     R.id.action_archive -> {
                         // Variable to indicate whether task was already archived
                         val hasArchived = todoItem?.archived ?: false
@@ -160,7 +165,10 @@ class ViewTaskActivity : BaseActivity() {
                             .update("archived", !hasArchived)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    showSnackbar("Successfully archived task!", Snackbar.LENGTH_SHORT)
+                                    showSnackbar(
+                                        "Successfully archived task!",
+                                        Snackbar.LENGTH_SHORT
+                                    )
                                     Log.d(TAG, "Successfully archived task!")
                                 } else {
                                     showToast(
@@ -178,6 +186,7 @@ class ViewTaskActivity : BaseActivity() {
                         menu.findItem(R.id.action_archive).isVisible = false
                         true
                     }
+
                     R.id.action_unarchive -> {
                         // Variable to indicate whether task was already archived
                         val hasArchived = todoItem?.archived ?: true
@@ -186,7 +195,10 @@ class ViewTaskActivity : BaseActivity() {
                             .update("archived", !hasArchived)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    showSnackbar("Successfully unarchived task!", Snackbar.LENGTH_SHORT)
+                                    showSnackbar(
+                                        "Successfully unarchived task!",
+                                        Snackbar.LENGTH_SHORT
+                                    )
                                     Log.d(TAG, "Successfully unarchived task!")
                                 } else {
                                     showToast(
@@ -204,6 +216,7 @@ class ViewTaskActivity : BaseActivity() {
                         menu.findItem(R.id.action_unarchive).isVisible = false
                         true
                     }
+
                     else -> super.onOptionsItemSelected(it)
                 }
             }
@@ -248,6 +261,7 @@ class ViewTaskActivity : BaseActivity() {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -322,7 +336,7 @@ class ViewTaskActivity : BaseActivity() {
             toggleViewVisibility(binding.taskContent, View.VISIBLE, View.GONE)
         }
         if (item?.dueDate != null) {
-            binding.taskDate.text = item.dueDate.format(getString(R.string.date_format_pattern))
+            binding.taskDate.text = item.dueDate.toLocalDateTime().format(getString(R.string.date_format_pattern))
             toggleViewVisibility(binding.taskDate, View.GONE, View.VISIBLE)
         } else {
             toggleViewVisibility(binding.taskDate, View.VISIBLE, View.GONE)
@@ -384,6 +398,7 @@ class ViewTaskActivity : BaseActivity() {
     companion object {
         // Tag to be used for saving the task item's title
         private const val TASK_TITLE_TAG = "taskTitle"
+
         /** The extra tag for the task's ID. */
         const val EXTRA_TASK_ID = "taskId"
     }
