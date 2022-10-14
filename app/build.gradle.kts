@@ -267,6 +267,7 @@ dependencies {
 
     // IO/Network dependencies
     implementation(libs.coil)
+    implementation(libs.bundles.ktor)
     implementation(libs.kotlinx.serialization.json)
 
     // Other dependencies

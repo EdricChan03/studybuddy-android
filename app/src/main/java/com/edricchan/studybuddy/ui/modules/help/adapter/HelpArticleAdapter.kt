@@ -3,14 +3,17 @@ package com.edricchan.studybuddy.ui.modules.help.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.databinding.HelparticleadapterItemRowBinding
 import com.edricchan.studybuddy.interfaces.HelpArticle
 import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter.OnItemClickListener
+import com.edricchan.studybuddy.utils.recyclerview.diffCallback
 
-class HelpArticleAdapter(
-    private val helpArticlesList: List<HelpArticle>
-) : RecyclerView.Adapter<HelpArticleAdapter.Holder>() {
+class HelpArticleAdapter : ListAdapter<HelpArticle, HelpArticleAdapter.Holder>(diffCallback(
+    areContentsTheSame = { old, new -> old == new },
+    areItemsTheSame = { old, new -> old.uri == new.uri }
+)) {
     private var listener: OnItemClickListener? = null
 
     var onItemClickListener by ::listener
@@ -29,10 +32,8 @@ class HelpArticleAdapter(
     )
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(helpArticlesList[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount() = helpArticlesList.size
 
     inner class Holder(private val binding: HelparticleadapterItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {

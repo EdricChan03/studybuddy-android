@@ -5,6 +5,7 @@ deep-link-dispatch = "6.1.0"
 firebase = "30.5.0"
 kotlin = "1.7.20"
 kotlinx-coroutines = "1.6.4"
+ktor = "2.1.2"
 markwon = "4.6.2"
 
 [libraries]
@@ -64,6 +65,12 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # Coil
 coil = "io.coil-kt:coil:2.2.2"
 
+# Ktor
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
 # kotlinx-serialization
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
 
@@ -101,6 +108,10 @@ firebase = [
   "firebase-analytics-ktx", "firebase-auth-ktx", "playServices-auth",
   "firebase-crashlytics-ktx", "firebase-dynamicLinks-ktx", "firebase-firestore-ktx",
   "firebase-installations-ktx", "firebase-messaging-ktx", "firebase-perf-ktx"
+]
+ktor = [
+  "ktor-client-core", "ktor-client-content-negotiation", "ktor-client-okhttp",
+  "ktor-serialization-kotlinx-json"
 ]
 markwon = [
   "markwon-core", "markwon-editor", "markwon-html",
