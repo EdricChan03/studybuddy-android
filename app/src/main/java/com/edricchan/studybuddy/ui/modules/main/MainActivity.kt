@@ -29,7 +29,6 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.NotificationUtils
-import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils
 import com.edricchan.studybuddy.utils.firebase.FirebaseCrashlyticsUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -42,7 +41,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 @AppDeepLink(["/"])
 class MainActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var uiUtils: UiUtils
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +49,6 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
 
         auth = Firebase.auth
-        uiUtils = UiUtils.getInstance(this)
-        uiUtils.setAppTheme()
 
         setSupportActionBar(binding.bottomAppBar)
 
@@ -77,11 +73,11 @@ class MainActivity : BaseActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             val crashlyticsTrackingEnabled = PreferenceManager.getDefaultSharedPreferences(this)
-                    .getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&
-                    !BuildConfig.DEBUG
+                .getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&
+                !BuildConfig.DEBUG
             FirebaseCrashlyticsUtils.setCrashlyticsUserTracking(
-                    currentUser,
-                    crashlyticsTrackingEnabled
+                currentUser,
+                crashlyticsTrackingEnabled
             )
             // User specific topic
             FirebaseMessaging.getInstance().subscribeToTopic("user_${currentUser.uid}")
@@ -118,49 +114,55 @@ class MainActivity : BaseActivity() {
                         setCurrentFragment(CalendarFragment())
                         true
                     }
+
                     R.id.navigation_chat -> {
                         setCurrentFragment(ChatFragment())
                         true
                     }
+
                     R.id.navigation_todos -> {
                         setCurrentFragment(TodoFragment())
                         true
                     }
+
                     R.id.navigation_tips -> {
                         setCurrentFragment(TipsFragment())
                         true
                     }
+
                     else -> false
                 }
             }
             if (auth.currentUser != null) {
                 navBottomSheet.isLoggedIn = true
                 if (auth.currentUser?.displayName != null) navBottomSheet.displayName =
-                        auth.currentUser?.displayName
+                    auth.currentUser?.displayName
                 if (auth.currentUser?.email != null) navBottomSheet.email =
-                        auth.currentUser?.email
+                    auth.currentUser?.email
                 if (auth.currentUser?.photoUrl != null) navBottomSheet.photoUrl =
-                        auth.currentUser?.photoUrl
+                    auth.currentUser?.photoUrl
             }
             navBottomSheet.show(supportFragmentManager, navBottomSheet.tag)
             val selectedMenuItem =
-                    when (supportFragmentManager.findFragmentById(R.id.frameLayoutMain)) {
-                        is CalendarFragment -> R.id.navigation_calendar
-                        is ChatFragment -> R.id.navigation_chat
-                        is TodoFragment -> R.id.navigation_todos
-                        is TipsFragment -> R.id.navigation_tips
-                        else -> ResourcesCompat.ID_NULL
-                    }
+                when (supportFragmentManager.findFragmentById(R.id.frameLayoutMain)) {
+                    is CalendarFragment -> R.id.navigation_calendar
+                    is ChatFragment -> R.id.navigation_chat
+                    is TodoFragment -> R.id.navigation_todos
+                    is TipsFragment -> R.id.navigation_tips
+                    else -> ResourcesCompat.ID_NULL
+                }
             navBottomSheet.navigationViewCheckedItemId = selectedMenuItem
             true
         }
+
         R.id.action_settings -> {
             startActivity<SettingsActivity>()
             true
         }
+
         R.id.action_about -> {
             val aboutDialogText =
-                    String.format(getString(R.string.about_dialog_msg), BuildConfig.VERSION_NAME)
+                String.format(getString(R.string.about_dialog_msg), BuildConfig.VERSION_NAME)
             MaterialAlertDialogBuilder(this).apply {
                 setTitle("About this app")
                 setMessage(aboutDialogText)
@@ -171,22 +173,27 @@ class MainActivity : BaseActivity() {
             }.show()
             true
         }
+
         R.id.action_share -> {
             share()
             true
         }
+
         R.id.action_help -> {
             startActivity<HelpActivity>()
             true
         }
+
         R.id.action_debug -> {
             startActivity<DebugActivity>()
             true
         }
+
         R.id.action_account -> {
             startActivity<AccountActivity>()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 

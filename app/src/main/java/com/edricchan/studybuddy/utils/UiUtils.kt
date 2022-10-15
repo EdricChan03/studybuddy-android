@@ -40,29 +40,6 @@ class UiUtils(val context: Context) {
     }
 
     /**
-     * Utility method to set the app's theme.
-     *
-     * Note that the activity should be recreated after this function is called in order for the
-     * theme to be applied.
-     * @param themeValue The current theme value.
-     */
-    @Deprecated(
-        "Use the top-level extension function instead",
-        ReplaceWith(
-            "context.applyDarkTheme(DarkThemeValue.fromValue(themeValue))",
-            "com.edricchan.studybuddy.utils.applyDarkTheme",
-            "com.edricchan.studybuddy.utils.DarkThemeValue"
-        )
-    )
-    fun setAppTheme(
-        themeValue: String? = PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(
-                Constants.prefDarkTheme,
-                Constants.prefDarkThemeAutoBatterySaver
-            )
-    ) = context.applyDarkTheme(DarkThemeValue.fromValue(themeValue))
-
-    /**
      * Shows a version dialog.
      */
     fun showVersionDialog() {
