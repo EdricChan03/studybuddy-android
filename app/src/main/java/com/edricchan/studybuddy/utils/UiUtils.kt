@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
@@ -47,40 +46,21 @@ class UiUtils(val context: Context) {
      * theme to be applied.
      * @param themeValue The current theme value.
      */
+    @Deprecated(
+        "Use the top-level extension function instead",
+        ReplaceWith(
+            "context.applyDarkTheme(DarkThemeValue.fromValue(themeValue))",
+            "com.edricchan.studybuddy.utils.applyDarkTheme",
+            "com.edricchan.studybuddy.utils.DarkThemeValue"
+        )
+    )
     fun setAppTheme(
         themeValue: String? = PreferenceManager.getDefaultSharedPreferences(context)
             .getString(
                 Constants.prefDarkTheme,
                 Constants.prefDarkThemeAutoBatterySaver
             )
-    ) {
-        when (themeValue) {
-            // Note: The old values of the preference will still be supported
-            // TODO: Completely remove support for old values
-            "1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            // Note: Support for setting night mode based on time is deprecated
-            "2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME)
-            "3" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            // New values
-            Constants.prefDarkThemeAlways -> AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            // No longer supported
-            /* Constants.prefDarkThemeAuto, Constants.prefDarkThemeAutoTime -> AppCompatDelegate
-                    .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME) */
-            Constants.prefDarkThemeAutoBatterySaver -> AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
-            Constants.prefDarkThemeFollowSystem -> AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            Constants.prefDarkThemeNever -> AppCompatDelegate
-                .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            else -> Log.w(
-                TAG, "A valid string integer (1, 2, or 3), or a valid option" +
-                        " (\"always\", \"automatic_battery_saver\"," +
-                        "\"follow_system\" or \"never\") was not used."
-            )
-        }
-    }
-
+    ) = context.applyDarkTheme(DarkThemeValue.fromValue(themeValue))
 
     /**
      * Shows a version dialog.
