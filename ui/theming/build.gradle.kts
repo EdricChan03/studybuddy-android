@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.preference.ktx)
     implementation(libs.materialComponents)
 
     testImplementation(libs.junit)
