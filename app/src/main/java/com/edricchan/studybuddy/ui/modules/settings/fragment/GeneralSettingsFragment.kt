@@ -6,8 +6,8 @@ import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
-import com.edricchan.studybuddy.utils.PREF_DYNAMIC_THEME
-import com.edricchan.studybuddy.utils.applyDynamicTheme
+import com.edricchan.studybuddy.ui.theming.PREF_DYNAMIC_THEME
+import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
 import com.google.android.material.color.DynamicColors
 
 class GeneralSettingsFragment : MaterialPreferenceFragment() {

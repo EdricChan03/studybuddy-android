@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy
 
 import android.app.Application
-import com.edricchan.studybuddy.utils.prefDynamicTheme
+import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.DynamicColorsOptions
 import dagger.hilt.android.HiltAndroidApp

@@ -239,6 +239,9 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
+
+    // Project dependencies
+    implementation(projects.ui.theming)
     implementation(projects.ui.preference)
     implementation(projects.ui.widgets)
 

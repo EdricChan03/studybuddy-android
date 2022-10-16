@@ -1,10 +1,12 @@
-package com.edricchan.studybuddy.utils
+package com.edricchan.studybuddy.ui.theming
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import com.edricchan.studybuddy.constants.Constants
 import androidx.appcompat.app.AppCompatDelegate.NightMode as NightModeAnnotation
+
+/** Preference key used for the dark theme preference. */
+const val PREF_DARK_THEME = "pref_dark_theme"
 
 enum class NightMode(@NightModeAnnotation val modeId: Int) {
     Yes(AppCompatDelegate.MODE_NIGHT_YES),
@@ -84,13 +86,13 @@ var defaultNightMode: NightMode
 var Context.prefDarkTheme: DarkThemeValue
     get() = DarkThemeValue.fromValue(
         defaultSharedPreferences.getString(
-            Constants.prefDarkTheme,
+            PREF_DARK_THEME,
             DarkThemeValue.VALUE_V2_AUTO_BATTERY
         )
     )
     set(theme) {
         defaultSharedPreferences.edit {
-            putString(Constants.prefDarkTheme, theme.value)
+            putString(PREF_DARK_THEME, theme.value)
         }
     }
 

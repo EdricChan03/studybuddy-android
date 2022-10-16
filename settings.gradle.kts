@@ -43,6 +43,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":ui:preference",
+    ":ui:theming",
     ":ui:widgets",
     ":app"
 )

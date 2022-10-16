@@ -40,11 +40,11 @@ import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
+import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
+import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
+import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
 import com.edricchan.studybuddy.utils.SharedUtils
-import com.edricchan.studybuddy.utils.applyDynamicTheme
 import com.edricchan.studybuddy.utils.firebase.FirebaseMessagingUtils
-import com.edricchan.studybuddy.utils.isDynamicColorAvailable
-import com.edricchan.studybuddy.utils.prefDynamicTheme
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth

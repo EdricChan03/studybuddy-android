@@ -3,9 +3,9 @@ package com.edricchan.studybuddy.ui.modules.base
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import com.edricchan.studybuddy.utils.applyDarkTheme
-import com.edricchan.studybuddy.utils.applyDynamicTheme
-import com.edricchan.studybuddy.utils.prefDynamicTheme
+import com.edricchan.studybuddy.ui.theming.applyDarkTheme
+import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
+import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
 
 /**
  * Base activity that all activities should implement to handle theming behaviour.
