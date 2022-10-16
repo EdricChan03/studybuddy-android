@@ -7,6 +7,7 @@ kotlin = "1.7.20"
 kotlinx-coroutines = "1.6.4"
 ktor = "2.1.2"
 markwon = "4.6.2"
+mockk = "1.13.2"
 
 [libraries]
 # AndroidX dependencies
@@ -91,7 +92,9 @@ androidx-test-ext = "androidx.test.ext:junit:1.1.4-beta01"
 androidx-test-runner = "androidx.test:runner:1.5.0-beta01"
 androidx-test-rules = "androidx.test:rules:1.4.1-beta01"
 junit = "junit:junit:4.13.2"
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 mockito-core = "org.mockito:mockito-core:4.8.0"
+mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # DI dependencies
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
