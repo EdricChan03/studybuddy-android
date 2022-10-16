@@ -673,7 +673,7 @@
     <string name="task_project">Task Project</string>
     <string name="task_project_create">Create a project…</string>
     <string name="task_project_none">No project</string>
-    <string name="task_project_prompt">Choose a project…</string>
+    <string name="task_project_choose_prompt_text">Choose a project…</string>
     <string name="task_tags">Task Tags</string>
     <string name="task_title">Task Title</string>
 

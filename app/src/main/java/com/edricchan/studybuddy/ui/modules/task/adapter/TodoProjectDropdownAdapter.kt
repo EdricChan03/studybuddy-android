@@ -63,7 +63,7 @@ class TodoProjectDropdownAdapter(
         val label = super.getView(position, convertView, parent) as TextView
         if (position == count) {
             label.text = ""
-            label.setHint(R.string.task_project_prompt)
+            label.setHint(R.string.task_project_choose_prompt_text)
         } else {
             label.text = projects[position].name
         }
