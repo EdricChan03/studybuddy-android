@@ -22,7 +22,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.databinding.ActivityHelpBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.WebUtils

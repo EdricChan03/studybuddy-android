@@ -19,8 +19,8 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.interfaces.Visibility
 import com.edricchan.studybuddy.interfaces.chat.Chat
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.IconPickerActivity
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.ImagePickerMode
@@ -89,6 +89,7 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
                             // TODO: Add activity for this functionality
                             startActivityForResult<IconPickerActivity>(ICON_PICKER_RESULT)
                         }
+
                         1 -> {
                             // Upload
                             imagePickerLauncher.launch(ImagePickerConfig {
@@ -97,6 +98,7 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
                                 isFolderMode = true
                             })
                         }
+
                         2 -> {
                             // Default
                             // TODO: Add functionality
@@ -120,6 +122,7 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
                 onBackPressed()
                 true
             }
+
             R.id.action_submit -> {
                 // NOTE: TIL means TextInputLayout here
                 val chatNameTIL = findViewById<TextInputLayout>(R.id.chatNameTextInputLayout)
@@ -129,6 +132,7 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
 
                 val chatName = chatNameTIL.editTextStrValue
                 val chatDescription = chatDescTIL.editTextStrValue
+
                 @SuppressLint("DefaultLocale")
                 val chatVisibility =
                     chatVisibilityAutoCompleteTextView.text.toString().decapitalize()
@@ -197,6 +201,7 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
                 }
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -207,6 +212,4 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-
 }

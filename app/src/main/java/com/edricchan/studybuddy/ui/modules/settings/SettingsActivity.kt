@@ -14,7 +14,7 @@ import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.help.HelpActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.utils.WebUtils
@@ -52,14 +52,17 @@ class SettingsActivity : BaseActivity(),
                 onBackPressed()
                 true
             }
+
             R.id.action_send_feedback -> {
                 WebUtils.getInstance(this).launchUri(Constants.uriSendFeedback)
                 true
             }
+
             R.id.action_help -> {
                 startActivity<HelpActivity>()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -84,9 +87,9 @@ class SettingsActivity : BaseActivity(),
         // Instantiate the new Fragment
         val args = pref.extras
         val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                pref.fragment!!
-            )
+            classLoader,
+            pref.fragment!!
+        )
             .apply {
                 arguments = args
                 setTargetFragment(caller, 0)

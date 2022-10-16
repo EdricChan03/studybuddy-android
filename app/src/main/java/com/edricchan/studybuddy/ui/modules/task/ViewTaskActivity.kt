@@ -15,9 +15,9 @@ import com.edricchan.studybuddy.extensions.format
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

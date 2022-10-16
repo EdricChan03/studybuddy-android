@@ -42,6 +42,7 @@ gradleEnterprise {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
+    ":ui:common",
     ":ui:preference",
     ":ui:theming",
     ":ui:widgets",

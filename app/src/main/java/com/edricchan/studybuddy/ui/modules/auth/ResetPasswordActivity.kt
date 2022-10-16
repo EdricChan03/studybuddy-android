@@ -9,7 +9,7 @@ import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityResetPasswordBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

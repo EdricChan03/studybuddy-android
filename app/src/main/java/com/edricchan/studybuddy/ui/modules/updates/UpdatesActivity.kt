@@ -2,7 +2,12 @@ package com.edricchan.studybuddy.ui.modules.updates
 
 import android.Manifest
 import android.app.DownloadManager
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,7 +30,7 @@ import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.ActivityUpdatesBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -71,6 +76,7 @@ class UpdatesActivity : BaseActivity() {
                 onBackPressed()
                 true
             }
+
             R.id.action_check_for_updates -> {
                 Log.d(TAG, "Check for updates clicked!")
                 showSnackbar(
@@ -82,6 +88,7 @@ class UpdatesActivity : BaseActivity() {
                 checkForUpdates()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -114,9 +121,11 @@ class UpdatesActivity : BaseActivity() {
 
         // Check if the user wants to redownload the APK file or if the user does not have the APK already downloaded
         if (downloadAgain || !File(
-                "${Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS
-                )}/$fileName"
+                "${
+                    Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS
+                    )
+                }/$fileName"
             ).exists()
         ) {
             // Check if the user has clicked on "download anyway" on the dialog that showed, or
@@ -182,7 +191,11 @@ class UpdatesActivity : BaseActivity() {
                     dialogInterface.dismiss()
                 }
                 setNegativeButton(R.string.update_activity_update_already_downloaded_dialog_negative_btn) { _, _ ->
-                    if (File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName).delete()) {
+                    if (File(
+                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                .toString() + "/" + fileName
+                        ).delete()
+                    ) {
                         Toast.makeText(
                             this@UpdatesActivity,
                             R.string.update_activity_delete_update_success_toast,
@@ -260,7 +273,10 @@ class UpdatesActivity : BaseActivity() {
                     FileProvider.getUriForFile(
                         applicationContext,
                         "${BuildConfig.APPLICATION_ID}.provider",
-                        File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName)
+                        File(
+                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                .toString() + "/" + fileName
+                        )
                     ), MimeTypeConstants.appPackageArchiveMime
                 )
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -360,12 +376,15 @@ class UpdatesActivity : BaseActivity() {
                         val snackbarMsgRes = when (appUpdaterError) {
                             AppUpdaterError.NETWORK_NOT_AVAILABLE ->
                                 R.string.update_snackbar_error_no_internet
+
                             AppUpdaterError.JSON_ERROR -> R.string.update_snackbar_error_malformed
                             else -> R.string.update_snackbar_error
                         }
 
-                        showSnackbar(binding.coordinatorLayoutUpdates, snackbarMsgRes,
-                            Snackbar.LENGTH_LONG) {
+                        showSnackbar(
+                            binding.coordinatorLayoutUpdates, snackbarMsgRes,
+                            Snackbar.LENGTH_LONG
+                        ) {
                             setAction(R.string.dialog_action_retry) { checkForUpdates() }
                         }
                     }

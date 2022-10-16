@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.ui.modules.debug
 import android.os.Bundle
 import android.view.MenuItem
 import com.edricchan.studybuddy.extensions.replaceFragment
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment
 
 /**
@@ -23,6 +23,7 @@ class DebugActivity : BaseActivity() {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -19,8 +19,8 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.toLocalDateTime
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.datepicker.CalendarConstraints
@@ -140,7 +140,7 @@ class NewTaskActivity : BaseActivity() {
 
                         projectArrayList.add(TodoProject.build {
                             id = PROJECT_CHOOSE_ID
-                            name = getString(R.string.task_project_prompt)
+                            name = getString(R.string.task_project_choose_prompt_text)
                         })
 
                         Log.d(TAG, "Array list: ${projectArrayList.joinToString()}")

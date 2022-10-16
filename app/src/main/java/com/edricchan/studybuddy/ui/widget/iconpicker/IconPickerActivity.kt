@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerAdapter
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerItemDetailsLookup
 import com.google.firebase.firestore.FirebaseFirestore
@@ -101,15 +101,18 @@ class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
                 invalidateOptionsMenu()
                 true
             }
+
             R.id.action_switch_grid_view -> {
                 updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.GRID)
                 invalidateOptionsMenu()
                 true
             }
+
             android.R.id.home -> {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -120,6 +123,7 @@ class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
                 menu.findItem(R.id.action_switch_grid_view)?.isVisible = true
                 menu.findItem(R.id.action_switch_list_view)?.isVisible = false
             }
+
             IconPickerAdapter.HolderLayout.GRID -> {
                 menu.findItem(R.id.action_switch_grid_view)?.isVisible = false
                 menu.findItem(R.id.action_switch_list_view)?.isVisible = true

@@ -15,7 +15,7 @@ import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils

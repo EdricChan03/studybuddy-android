@@ -14,7 +14,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityDebugModalBottomSheetBinding
 import com.edricchan.studybuddy.extensions.showToast
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
@@ -158,7 +158,10 @@ class DebugModalBottomSheetActivity : BaseActivity() {
     private fun modalBottomSheetWithTextAndHeader() =
         ModalBottomSheetFragment().apply {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_TEXT, this@DebugModalBottomSheetActivity.getString(R.string.share_content))
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    this@DebugModalBottomSheetActivity.getString(R.string.share_content)
+                )
                 type = MimeTypeConstants.textPlainMime
             }
             // See https://stackoverflow.com/a/9083910/6782707

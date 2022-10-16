@@ -18,8 +18,8 @@ import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.base.BaseActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

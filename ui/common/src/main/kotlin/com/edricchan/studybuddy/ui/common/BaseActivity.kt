@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.base
+package com.edricchan.studybuddy.ui.common
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
