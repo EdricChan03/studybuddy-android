@@ -85,6 +85,12 @@ imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta5"
 # such that it can be used in a custom reporter)
 gradleVersions-gradle = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 
+# AGP (as a library such that it can be used in precompiled scripts)
+android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
+
+# Kotlin Gradle plugin
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
 # Testing dependencies
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-beta01"
 androidx-test-core = "androidx.test:core:1.5.0-beta01"

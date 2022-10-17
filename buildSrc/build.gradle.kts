@@ -5,6 +5,7 @@ plugins {
 }
 
 repositories {
+    google()
     gradlePluginPortal()
     mavenCentral()
 }
@@ -12,6 +13,8 @@ repositories {
 dependencies {
     // Used for the custom reporter
     implementation(libs.gradleVersions.gradle)
+    implementation(libs.android.gradle)
+    implementation(libs.kotlin.gradle)
 }
 
 tasks.withType<KotlinCompile>().configureEach {

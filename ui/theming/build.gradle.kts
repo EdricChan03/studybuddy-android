@@ -1,17 +1,11 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    id("com.edricchan.studybuddy.library.android")
 }
 
 android {
     namespace = "com.edricchan.studybuddy.ui.theming"
-    compileSdk = 33
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -23,13 +17,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
     }
 }
 
