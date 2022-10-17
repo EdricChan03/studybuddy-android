@@ -86,7 +86,7 @@ imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta5"
 gradleVersions-gradle = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 
 # AGP (as a library such that it can be used in precompiled scripts)
-android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
+android-gradle-library = { module = "com.android.library:com.android.library.gradle.plugin", version.ref = "android-gradle" }
 
 # Kotlin Gradle plugin
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

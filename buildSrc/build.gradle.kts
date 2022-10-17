@@ -13,7 +13,7 @@ repositories {
 dependencies {
     // Used for the custom reporter
     implementation(libs.gradleVersions.gradle)
-    implementation(libs.android.gradle)
+    implementation(libs.android.gradle.library)
     implementation(libs.kotlin.gradle)
 }
 
