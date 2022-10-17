@@ -46,5 +46,6 @@ include(
     ":ui:preference",
     ":ui:theming",
     ":ui:widgets",
+    ":core:deeplink",
     ":app"
 )

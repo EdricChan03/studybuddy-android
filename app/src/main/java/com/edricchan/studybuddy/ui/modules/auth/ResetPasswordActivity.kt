@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.core.view.isVisible
-import com.edricchan.studybuddy.annotations.AppDeepLink
-import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.core.deeplink.AppDeepLink
+import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityResetPasswordBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar

@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.annotations
+package com.edricchan.studybuddy.core.deeplink
 
 import com.airbnb.deeplinkdispatch.DeepLinkSpec
 

@@ -245,6 +245,7 @@ dependencies {
     implementation(projects.ui.theming)
     implementation(projects.ui.preference)
     implementation(projects.ui.widgets)
+    implementation(projects.core.deeplink)
 
     // Test dependencies
     androidTestImplementation(libs.bundles.androidx.test)
@@ -306,8 +307,6 @@ kapt {
     arguments {
         // See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for
         // more info
-        arg("deepLink.incremental", deps.build.deepLink.incremental)
-        arg("deepLink.customAnnotations", deps.build.deepLink.customAnnotations)
         // Add support for documenting deep links
         // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for
         // more info

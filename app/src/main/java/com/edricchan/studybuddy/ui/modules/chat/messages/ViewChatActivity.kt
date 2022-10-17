@@ -6,8 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.annotations.AppDeepLink
-import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.core.deeplink.AppDeepLink
+import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.ui.common.BaseActivity
 

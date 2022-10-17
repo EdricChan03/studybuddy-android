@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.annotations.AppDeepLink
-import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
+import com.edricchan.studybuddy.core.deeplink.AppDeepLink
+import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity

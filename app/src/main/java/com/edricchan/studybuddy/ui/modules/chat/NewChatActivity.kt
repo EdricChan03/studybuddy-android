@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.annotations.AppDeepLink
-import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.core.deeplink.AppDeepLink
+import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument

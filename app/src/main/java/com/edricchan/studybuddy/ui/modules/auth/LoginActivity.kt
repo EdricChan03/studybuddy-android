@@ -7,8 +7,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.annotations.AppDeepLink
-import com.edricchan.studybuddy.annotations.WebDeepLink
+import com.edricchan.studybuddy.core.deeplink.AppDeepLink
+import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityLoginBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue

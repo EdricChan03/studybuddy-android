@@ -23,10 +23,10 @@ import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.annotations.AppDeepLink
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.databinding.ActivityUpdatesBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar

@@ -9,9 +9,9 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.annotations.AppDeepLink
-import com.edricchan.studybuddy.annotations.WebDeepLink
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.deeplink.AppDeepLink
+import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
