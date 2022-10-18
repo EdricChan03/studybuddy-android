@@ -247,6 +247,7 @@ dependencies {
     implementation(projects.ui.widgets)
     implementation(projects.core.deeplink)
     implementation(projects.data.serialization.android)
+    implementation(projects.utils.recyclerview)
 
     // Test dependencies
     androidTestImplementation(libs.bundles.androidx.test)

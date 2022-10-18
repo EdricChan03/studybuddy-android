@@ -48,5 +48,6 @@ include(
     ":ui:widgets",
     ":core:deeplink",
     ":data:serialization:android",
+    ":utils:recyclerview",
     ":app"
 )
