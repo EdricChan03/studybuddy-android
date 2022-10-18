@@ -47,5 +47,6 @@ include(
     ":ui:theming",
     ":ui:widgets",
     ":core:deeplink",
+    ":data:serialization:android",
     ":app"
 )

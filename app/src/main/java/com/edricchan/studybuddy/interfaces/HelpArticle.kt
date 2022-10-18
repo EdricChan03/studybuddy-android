@@ -2,7 +2,7 @@ package com.edricchan.studybuddy.interfaces
 
 import android.net.Uri
 import androidx.annotation.StringDef
-import com.edricchan.studybuddy.data.serializers.UriSerializer
+import com.edricchan.studybuddy.data.serialization.UriSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

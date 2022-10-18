@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.data.serializers
+package com.edricchan.studybuddy.data.serialization
 
 import android.net.Uri
 import androidx.core.net.toUri

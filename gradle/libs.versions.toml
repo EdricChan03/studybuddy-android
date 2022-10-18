@@ -5,6 +5,7 @@ deep-link-dispatch = "6.1.0"
 firebase = "31.0.0"
 kotlin = "1.7.20"
 kotlinx-coroutines = "1.6.4"
+kotlinx-serialization = "1.4.1"
 ktor = "2.1.2"
 markwon = "4.6.2"
 mockk = "1.13.2"
@@ -73,7 +74,8 @@ ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "kto
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # kotlinx-serialization
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 # Miscellaneous
 
