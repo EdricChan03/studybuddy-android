@@ -471,7 +471,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             requireContext().enqueueUniqueCheckForUpdatesWorker()?.state
                 ?.observe(viewLifecycleOwner) { state ->
                     @SuppressLint("RestrictedApi")
-                    if (state.isNotNull() && state == Operation.IN_PROGRESS || state == Operation.SUCCESS) {
+                    if (state.isNotNull() && state == Operation.State.IN_PROGRESS || state == Operation.State.SUCCESS) {
                         Log.d(TAG, "Successfully enqueued worker request with state $state")
                     }
                 }
