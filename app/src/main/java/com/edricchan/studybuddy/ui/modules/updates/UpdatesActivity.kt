@@ -33,6 +33,7 @@ import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.isDevMode
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
@@ -394,7 +395,7 @@ class UpdatesActivity : BaseActivity() {
     }
 
     private fun getUpdateJsonUrl(): String? {
-        return if (SharedUtils.isDevMode(this)) {
+        return if (isDevMode()) {
             val mPrefs = PreferenceManager.getDefaultSharedPreferences(this)
             if (mPrefs.getBoolean(Constants.debugUseTestingJsonUrl, true)) {
                 mPrefs.getString(

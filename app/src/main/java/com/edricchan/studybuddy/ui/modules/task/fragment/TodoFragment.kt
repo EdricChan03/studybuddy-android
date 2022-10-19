@@ -43,8 +43,8 @@ import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.showModalBottomSheet
 import com.edricchan.studybuddy.utils.SharedPrefUtils
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.UiUtils
+import com.edricchan.studybuddy.utils.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
 import com.google.android.material.color.MaterialColors
@@ -109,7 +109,7 @@ class TodoFragment : Fragment() {
                         }
                         item(context.getString(R.string.menu_debug_title)) {
                             setIcon(R.drawable.ic_bug_report_outline_24dp)
-                            visible = SharedUtils.isDevMode(context)
+                            visible = context.isDevMode()
                             setItemClickListener {
                                 startActivity<DebugActivity>()
                                 dismiss()

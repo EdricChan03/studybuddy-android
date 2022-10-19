@@ -19,7 +19,7 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.getUpdateJsonUrl
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
@@ -48,12 +48,10 @@ class CheckForUpdatesWorker(
         }
 
     }
-    private val appUpdaterUtils = SharedUtils.getUpdateJsonUrl(appContext)?.let { jsonUrl ->
-        AppUpdaterUtils(appContext).apply {
-            setUpdateFrom(UpdateFrom.JSON)
-            setUpdateJSON(jsonUrl)
-            withListener(appUpdateListener)
-        }
+    private val appUpdaterUtils = AppUpdaterUtils(appContext).apply {
+        setUpdateFrom(UpdateFrom.JSON)
+        setUpdateJSON(appContext.getUpdateJsonUrl())
+        withListener(appUpdateListener)
     }
 
     private val notificationManager = NotificationManagerCompat.from(appContext)
@@ -62,7 +60,7 @@ class CheckForUpdatesWorker(
     override fun doWork(): Result {
         updateLastCheckedStatus()
         showInProgressNotification()
-        appUpdaterUtils?.start()
+        appUpdaterUtils.start()
         return result
     }
 

@@ -17,7 +17,7 @@ import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.isDevMode
 
 class SettingsFragment : PreferenceHeaderFragmentCompat() {
     override fun onCreatePreferenceHeader() = SettingsHeader()
@@ -31,13 +31,15 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
             setPreferencesFromResource(R.xml.pref_headers, rootKey)
             preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
             devModeOpts =
-                requireContext().getSharedPreferences(DevModePrefConstants.FILE_DEV_MODE,
-                    Context.MODE_PRIVATE)
+                requireContext().getSharedPreferences(
+                    DevModePrefConstants.FILE_DEV_MODE,
+                    Context.MODE_PRIVATE
+                )
             featureFlagsUtils = FeatureFlagsUtils(requireContext())
             findPreference<Preference>(Constants.prefHeaderDebug)?.apply {
-                isVisible = SharedUtils.isDevMode(context)
-                if (SharedUtils.isDevMode(context, true)) {
-                    setTitle(R.string.pref_header_dev_mode_opts_title)
+                with(requireContext().isDevMode(useSharedPrefsOnly = true)) {
+                    isVisible = this
+                    if (this) setTitle(R.string.pref_header_dev_mode_opts_title)
                 }
             }
             findPreference<SwitchPreferenceCompat>(Constants.prefShowHeaderSummary)?.apply {
@@ -56,7 +58,7 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
                 }
             }
             initPreferences()
-            updateHeaderSummaries(preferences!!.getBoolean(Constants.prefShowHeaderSummary, false))
+            updateHeaderSummaries(preferences.getBoolean(Constants.prefShowHeaderSummary, false))
         }
 
         // Initialises the preferences as the app ID can't be hardcoded in the XML file due to the suffixes

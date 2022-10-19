@@ -43,7 +43,7 @@ import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
 import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
-import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker
 import com.edricchan.studybuddy.utils.firebase.FirebaseMessagingUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
@@ -468,7 +468,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         }
 
         findPreference<Preference>(Constants.debugUpdatesStartWorker)?.setOnPreferenceClickListener {
-            SharedUtils.enqueueCheckForUpdatesWorker(requireContext())?.state
+            requireContext().enqueueUniqueCheckForUpdatesWorker()?.state
                 ?.observe(viewLifecycleOwner) { state ->
                     @SuppressLint("RestrictedApi")
                     if (state.isNotNull() && state == Operation.IN_PROGRESS || state == Operation.SUCCESS) {
