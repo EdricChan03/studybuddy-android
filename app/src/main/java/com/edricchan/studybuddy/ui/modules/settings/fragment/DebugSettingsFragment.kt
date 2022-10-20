@@ -33,7 +33,6 @@ import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.creationInstant
 import com.edricchan.studybuddy.extensions.firebase.auth.lastSignInInstant
 import com.edricchan.studybuddy.extensions.format
-import com.edricchan.studybuddy.extensions.isNotNull
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
@@ -470,8 +469,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         findPreference<Preference>(Constants.debugUpdatesStartWorker)?.setOnPreferenceClickListener {
             requireContext().enqueueUniqueCheckForUpdatesWorker()?.state
                 ?.observe(viewLifecycleOwner) { state ->
-                    @SuppressLint("RestrictedApi")
-                    if (state.isNotNull() && state == Operation.IN_PROGRESS || state == Operation.SUCCESS) {
+                    if (state is Operation.State.IN_PROGRESS || state is Operation.State.SUCCESS) {
                         Log.d(TAG, "Successfully enqueued worker request with state $state")
                     }
                 }
