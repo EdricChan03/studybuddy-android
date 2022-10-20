@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.preference.PreferenceManager
 import java.io.File
+import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.io.path.moveTo
@@ -44,13 +45,13 @@ class SharedPrefUtils(
  *
  * ## Usage
  * The appropriate methods defined in this value class should be used to retrieve the value as
- * a [File] ([asFile]) or as a [java.nio.file.Path] ([asPath]).
+ * a [File] ([asFile]) or as a [Path] ([asPath]).
  *
  * * To check if the file exists, use the [exists] method, which uses the
- * [java.nio.file.Path.exists] extension method on Android Oreo and above, or the
+ * [Path.exists] extension method on Android Oreo and above, or the
  * [File.exists] method on older versions.
  * * To move the file to a new location, use the [moveTo] method, which uses the
- * [java.nio.file.Path.moveTo] extension method on Android Oreo and above, or the
+ * [Path.moveTo] extension method on Android Oreo and above, or the
  * [File.copyTo] extension method on older versions.
  * @property filePath The internal file path of the shared preference file.
  */
@@ -69,14 +70,18 @@ value class SharedPrefFile(private val filePath: String) {
         if (supportsPath()) asPath().exists()
         else asFile().exists()
 
+    private fun Path.toSharedPrefFile() = SharedPrefFile(toString())
+    private fun File.toSharedPrefFile() = SharedPrefFile(path)
+
     /**
      * Moves the shared preference file to the [target].
      * @param target The shared preference file to move to.
      * @param overwrite Whether to overwrite the [target] if it already exists.
+     * @return The moved shared preference file.
      */
     fun moveTo(target: SharedPrefFile, overwrite: Boolean = false) =
-        if (supportsPath()) asPath().moveTo(target.asPath(), overwrite)
-        else asFile().copyTo(target.asFile(), overwrite)
+        if (supportsPath()) asPath().moveTo(target.asPath(), overwrite).toSharedPrefFile()
+        else asFile().copyTo(target.asFile(), overwrite).toSharedPrefFile()
 }
 
 /** Creates an instance of [SharedPrefUtils] with the specified [Context]. */
