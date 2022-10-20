@@ -81,7 +81,11 @@ value class SharedPrefFile(private val filePath: String) {
      */
     fun moveTo(target: SharedPrefFile, overwrite: Boolean = false) =
         if (supportsPath()) asPath().moveTo(target.asPath(), overwrite).toSharedPrefFile()
-        else asFile().copyTo(target.asFile(), overwrite).toSharedPrefFile()
+        else asFile().run {
+            val targetFile = copyTo(target.asFile(), overwrite)
+            delete()
+            targetFile
+        }.toSharedPrefFile()
 }
 
 /** Creates an instance of [SharedPrefUtils] with the specified [Context]. */
