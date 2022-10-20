@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager
 import java.io.File
 import kotlin.io.path.Path
 import kotlin.io.path.exists
+import kotlin.io.path.moveTo
 
 @Deprecated("Use the appropriate extension functions instead")
 class SharedPrefUtils(
@@ -38,16 +39,25 @@ class SharedPrefUtils(
 /**
  * Class used to represent the return value of any of the [SharedPrefUtils] extension functions.
  *
+ * Internally, the methods on this class use the [java.nio] API on Android Oreo and higher, or
+ * the [java.io] API on older versions.
+ *
  * ## Usage
  * The appropriate methods defined in this value class should be used to retrieve the value as
  * a [File] ([asFile]) or as a [java.nio.file.Path] ([asPath]).
  *
- * To check if the file exists, use the [exists] method, which uses the [java.nio.file.Path.exists]
- * extension method on Android Oreo and above, or the [File.exists] method on older versions.
+ * * To check if the file exists, use the [exists] method, which uses the
+ * [java.nio.file.Path.exists] extension method on Android Oreo and above, or the
+ * [File.exists] method on older versions.
+ * * To move the file to a new location, use the [moveTo] method, which uses the
+ * [java.nio.file.Path.moveTo] extension method on Android Oreo and above, or the
+ * [File.copyTo] extension method on older versions.
  * @property filePath The internal file path of the shared preference file.
  */
 @JvmInline
 value class SharedPrefFile(private val filePath: String) {
+    private fun supportsPath() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+
     /** Retrieves the shared preference file as a [java.nio.file.Path]. */
     fun asPath() = Path(filePath)
 
@@ -56,8 +66,17 @@ value class SharedPrefFile(private val filePath: String) {
 
     /** Checks whether the shared preference file exists. */
     fun exists() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) asPath().exists()
+        if (supportsPath()) asPath().exists()
         else asFile().exists()
+
+    /**
+     * Moves the shared preference file to the [target].
+     * @param target The shared preference file to move to.
+     * @param overwrite Whether to overwrite the [target] if it already exists.
+     */
+    fun moveTo(target: SharedPrefFile, overwrite: Boolean = false) =
+        if (supportsPath()) asPath().moveTo(target.asPath(), overwrite)
+        else asFile().copyTo(target.asFile(), overwrite)
 }
 
 /** Creates an instance of [SharedPrefUtils] with the specified [Context]. */
