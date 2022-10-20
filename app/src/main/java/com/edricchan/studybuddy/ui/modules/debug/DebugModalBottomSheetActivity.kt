@@ -306,30 +306,27 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         ModalBottomSheetFragment().apply {
             setItems {
                 for (i in 1..10) {
-                    item {
+                    item(title = "Item $i") {
                         id = i
-                        title = "Item $i"
                         onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
                     }
                 }
                 // plusAssign test
-                this += item { title = "Item from plusAssign operator" }
+                this += item(title = "Item from plusAssign operator")
                 this += {
                     title = "Item from plusAssign with DSL"
                 }
 
                 // Group
-                group {
-                    id = 1
+                group(id = 1) {
                     onItemCheckedChangeListener =
                         this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
                     checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL
                 }.apply {
                     items(buildList {
-                        for (i in 1..5) {
-                            this += item {
-                                id = i + 10
-                                title = "Item ${i + 10}"
+                        for (i in 11..15) {
+                            this += item(title = "Item $i") {
+                                id = i
                                 onItemClickListener =
                                     this@DebugModalBottomSheetActivity.onItemClickListener
                             }
@@ -337,17 +334,16 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                     })
                 }
                 // Another group
-                group({
+                group(id = 2, {
                     id = 2
                     onItemCheckedChangeListener =
                         this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
                     checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
                 }) {
                     items(buildList {
-                        for (i in 1..5) {
-                            this += item {
-                                id = i + 20
-                                title = "Item ${i + 20}"
+                        for (i in 21..25) {
+                            this += item("Item $i") {
+                                id = i
                                 onItemClickListener =
                                     this@DebugModalBottomSheetActivity.onItemClickListener
                                 setIcon(R.drawable.ic_info_outline_24dp)

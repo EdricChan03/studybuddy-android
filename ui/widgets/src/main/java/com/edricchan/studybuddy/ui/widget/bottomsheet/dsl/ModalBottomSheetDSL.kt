@@ -16,12 +16,11 @@ class ModalBottomSheetDSL {
     fun item(item: ModalBottomSheetItem) = item.also { items += it }
 
     /** Adds a new item to the bottom sheet and returns the created item. */
-    @Deprecated("Use the overload that takes a title instead")
-    fun item(init: ModalBottomSheetItemDSL.() -> Unit) =
+    private fun item(init: ModalBottomSheetItemDSL.() -> Unit) =
         ModalBottomSheetItemDSL().apply(init).build().also { items += it }
 
     /** Adds a new item to the bottom sheet and returns the created item. */
-    fun item(title: String, init: ModalBottomSheetItemDSL.() -> Unit) = item {
+    fun item(title: String, init: ModalBottomSheetItemDSL.() -> Unit = {}) = item {
         this.title = title
         init()
     }
@@ -63,8 +62,7 @@ class ModalBottomSheetDSL {
             .build()
 
     /** Creates a new group. */
-    @Deprecated("Use the overload that takes an ID instead")
-    fun group(init: ModalBottomSheetGroupDSL.() -> Unit) =
+    private fun group(init: ModalBottomSheetGroupDSL.() -> Unit) =
         ModalBottomSheetGroupItemsDSL(ModalBottomSheetGroupDSL().apply(init).build())
             .also { groupItems += it }
 
@@ -75,8 +73,7 @@ class ModalBottomSheetDSL {
     }
 
     /** Creates a new group with the specified list of items and returns the created items. */
-    @Deprecated("Use the overload that takes an ID instead")
-    fun group(
+    private fun group(
         init: ModalBottomSheetGroupDSL.() -> Unit,
         groupItemsInit: ModalBottomSheetGroupItemsDSL.() -> Unit
     ) =
@@ -90,13 +87,10 @@ class ModalBottomSheetDSL {
         id: Int,
         init: ModalBottomSheetGroupDSL.() -> Unit,
         groupItemsInit: ModalBottomSheetGroupItemsDSL.() -> Unit
-    ) = ModalBottomSheetGroupItemsDSL(ModalBottomSheetGroupDSL().apply {
+    ) = group({
         this.id = id
         init()
-    }.build())
-        .apply(groupItemsInit)
-        .also { groupItems += it }
-        .build()
+    }, groupItemsInit)
 
     /** Gets the final list of items. */
     fun build() = items + groupItems.map { it.build() }.flatten()
@@ -132,8 +126,7 @@ class ModalBottomSheetGroupItemsDSL(val group: ModalBottomSheetGroup) {
     private var items = mutableListOf<ModalBottomSheetItem>()
 
     /** Adds the specified item to the group and returns the created item. */
-    @Deprecated("Use the overload that takes a required title")
-    fun item(init: ModalBottomSheetItemDSL.() -> Unit) =
+    private fun item(init: ModalBottomSheetItemDSL.() -> Unit) =
         ModalBottomSheetItemDSL().apply(init).build()
             .also { items += it }
 
