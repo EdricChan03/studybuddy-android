@@ -10,35 +10,9 @@ import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.io.path.moveTo
 
-@Deprecated("Use the appropriate extension functions instead")
-class SharedPrefUtils(
-    private val context: Context
-) {
-    /**
-     * Checks if the shared preferences [fileName] exists.
-     * @param fileName The name of the shared preference (without the file extension).
-     * @param packageName The package's name to retrieve the shared preference from. Defaults to the
-     * specified [context]'s package name (or [Context.getPackageName]).
-     * @return `true` if the specified shared preference exists, `false` otherwise.
-     */
-    @Deprecated("Use the extension function on Context instead")
-    fun sharedPrefFileExists(fileName: String, packageName: String = context.packageName) =
-        File("/data/data/$packageName/shared_prefs/$fileName.xml").exists()
-
-    /**
-     * Retrieve the shared preference file of the specified [fileName]
-     * @param fileName The file name of the shared preference (without the file extension)
-     * @param packageName The package's name to retrieve the shared preference from. Defaults to the
-     * specified [context]'s package name (or [Context.getPackageName]).
-     * @return A [File] instance
-     */
-    @Deprecated("Use the extension function on Context instead")
-    fun getSharedPrefsFile(fileName: String, packageName: String = context.packageName) =
-        File("/data/data/$packageName/shared_prefs/$fileName.xml")
-}
-
 /**
- * Class used to represent the return value of any of the [SharedPrefUtils] extension functions.
+ * Class used to represent the return value of [getSharedPreferencesFile] and
+ * [sharedPreferencesFileExists].
  *
  * Internally, the methods on this class use the [java.nio] API on Android Oreo and higher, or
  * the [java.io] API on older versions.
@@ -93,14 +67,6 @@ value class SharedPrefFile(private val filePath: String) {
             targetFile
         }.toSharedPrefFile()
 }
-
-/** Creates an instance of [SharedPrefUtils] with the specified [Context]. */
-@Deprecated(
-    "Use the appropriate extension functions on Context instead to retrieve a shared " +
-        "preference file, or to check if a shared preference file exists"
-)
-val Context.sharedPrefUtils
-    get() = SharedPrefUtils(this)
 
 /**
  * Checks if the shared preferences [fileName] exists.

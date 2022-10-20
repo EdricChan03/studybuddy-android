@@ -42,11 +42,12 @@ import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.showModalBottomSheet
-import com.edricchan.studybuddy.utils.SharedPrefUtils
 import com.edricchan.studybuddy.utils.UiUtils
+import com.edricchan.studybuddy.utils.getSharedPreferencesFile
 import com.edricchan.studybuddy.utils.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
+import com.edricchan.studybuddy.utils.sharedPreferencesFileExists
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -61,8 +62,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.StandardCopyOption
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
 class TodoFragment : Fragment() {
@@ -73,7 +72,6 @@ class TodoFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var parentActivity: AppCompatActivity
     private lateinit var prefs: SharedPreferences
-    private lateinit var sharedPrefUtils: SharedPrefUtils
     private lateinit var uiUtils: UiUtils
     private lateinit var todoUtils: TodoUtils
 
@@ -139,35 +137,19 @@ class TodoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        sharedPrefUtils = SharedPrefUtils(requireContext())
         // Checks if old preference file exists
         // TODO: Move to a separate class
-        if (sharedPrefUtils.sharedPrefFileExists(SHARED_PREFS_FILE)) {
+        if (requireContext().sharedPreferencesFileExists(SHARED_PREFS_FILE)) {
             Log.d(TAG, "Migrating shared preference file...")
             // Rename existing file to new file
+            val oldFile = requireContext().getSharedPreferencesFile(SHARED_PREFS_FILE)
+            val newFile =
+                requireContext().getSharedPreferencesFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 // Use better implementation of renaming file
                 try {
-                    Files.move(
-                        sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath(),
-                        sharedPrefUtils.getSharedPrefsFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS)
-                            .toPath(),
-                        StandardCopyOption.REPLACE_EXISTING
-                    )
-                    // Delete existing
-                    Log.d(TAG, "Deleting previous shared preference file...")
-                    val result =
-                        Files.deleteIfExists(
-                            sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE).toPath()
-                        )
-                    if (result) {
-                        Log.d(TAG, "Successfully deleted previous shared preference file!")
-                    } else {
-                        Log.e(
-                            TAG,
-                            "Something went wrong while attempting to delete the previous shared preference file."
-                        )
-                    }
+                    oldFile.moveTo(newFile, overwrite = true)
+                    Log.d(TAG, "Successfully migrated shared preference file!")
                 } catch (e: IOException) {
                     Log.e(
                         TAG,
@@ -176,15 +158,15 @@ class TodoFragment : Fragment() {
                     )
                 }
             } else {
-                val result = sharedPrefUtils.getSharedPrefsFile(SHARED_PREFS_FILE)
-                    .renameTo(sharedPrefUtils.getSharedPrefsFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS))
-                if (result) {
-                    Log.d(TAG, "Successfully migrated shared preference file!")
-                } else {
-                    Log.e(
-                        TAG,
-                        "Something went wrong while attempting to migrate the shared preference file."
-                    )
+                oldFile.moveTo(newFile) { isDeleted ->
+                    if (isDeleted) {
+                        Log.d(TAG, "Successfully migrated shared preference file!")
+                    } else {
+                        Log.e(
+                            TAG,
+                            "Something went wrong while attempting to migrate the shared preference file."
+                        )
+                    }
                 }
             }
         }
