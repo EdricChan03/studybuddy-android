@@ -77,13 +77,19 @@ value class SharedPrefFile(private val filePath: String) {
      * Moves the shared preference file to the [target].
      * @param target The shared preference file to move to.
      * @param overwrite Whether to overwrite the [target] if it already exists.
+     * @param onDelete Function to be invoked when the file is deleted. **Warning: This has no
+     * effect when used on Android Oreo and up.**
      * @return The moved shared preference file.
      */
-    fun moveTo(target: SharedPrefFile, overwrite: Boolean = false) =
+    fun moveTo(
+        target: SharedPrefFile,
+        overwrite: Boolean = false,
+        onDelete: (Boolean) -> Unit = {}
+    ) =
         if (supportsPath()) asPath().moveTo(target.asPath(), overwrite).toSharedPrefFile()
         else asFile().run {
             val targetFile = copyTo(target.asFile(), overwrite)
-            delete()
+            onDelete(delete())
             targetFile
         }.toSharedPrefFile()
 }
