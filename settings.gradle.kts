@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 plugins {
     // Used for Gradle's Build Scan feature - see
     // https://docs.gradle.com/enterprise/gradle-plugin/
-    id("com.gradle.enterprise") version("3.8.1")
+    id("com.gradle.enterprise") version ("3.8.1")
 }
 
 // Configure the Gradle Enterprise Plugin

@@ -20,7 +20,7 @@ class TodoProjectDropdownAdapter(
         return if (count > 0) count else count
     }*/
 
-    override fun getItem(position: Int): TodoProject? {
+    override fun getItem(position: Int): TodoProject {
         return projects[position]
     }
 
@@ -40,7 +40,7 @@ class TodoProjectDropdownAdapter(
      * @param position The position of the task project in the Spinner's view
      * @return The task project's ID
      */
-    fun getTaskProjectId(position: Int): String? {
+    fun getTaskProjectId(position: Int): String {
         return projects[position].id
     }
 

@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.ui.modules.chat.adapter
 
 import androidx.recyclerview.selection.ItemKeyProvider
 import com.edricchan.studybuddy.interfaces.chat.Chat
-import java.util.*
 
 class ChatItemKeyProvider(
     private val chatList: List<Chat>
@@ -19,7 +18,7 @@ class ChatItemKeyProvider(
 
     }
 
-    override fun getKey(position: Int): String? {
+    override fun getKey(position: Int): String {
         return chatList[position].id
     }
 

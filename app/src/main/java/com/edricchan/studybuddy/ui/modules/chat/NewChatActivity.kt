@@ -34,6 +34,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.Locale
 
 @WebDeepLink(["/chats/new"])
 @AppDeepLink(["/chats/new"])
@@ -64,7 +65,7 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
         @SuppressLint("DefaultLocale")
         val visibilityValues =
             listOf(Visibility.PUBLIC, Visibility.UNLISTED, Visibility.PRIVATE).map {
-                it.capitalize()
+                it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             }
 
         findViewById<AutoCompleteTextView>(R.id.chatVisibilityAutoCompleteTextView).apply {
@@ -135,7 +136,8 @@ class NewChatActivity : BaseActivity(R.layout.activity_new_chat) {
 
                 @SuppressLint("DefaultLocale")
                 val chatVisibility =
-                    chatVisibilityAutoCompleteTextView.text.toString().decapitalize()
+                    chatVisibilityAutoCompleteTextView.text.toString()
+                        .replaceFirstChar { it.lowercase(Locale.getDefault()) }
 
                 if (chatName.isEmpty() || chatName.length > 100 || chatDescription.length > 300) {
                     if ((chatName.isEmpty() || chatName.length > 100) && !chatNameTIL.isErrorEnabled) chatNameTIL.isErrorEnabled =

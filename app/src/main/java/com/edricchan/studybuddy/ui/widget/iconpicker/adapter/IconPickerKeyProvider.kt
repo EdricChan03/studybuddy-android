@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.ui.widget.iconpicker.adapter
 
 import androidx.recyclerview.selection.ItemKeyProvider
 import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
-import java.util.*
 
 class IconPickerKeyProvider(
     private val items: List<ChatIcon>
@@ -17,7 +16,7 @@ class IconPickerKeyProvider(
 
     }
 
-    override fun getKey(position: Int): String? {
+    override fun getKey(position: Int): String {
         return items[position].id
     }
 

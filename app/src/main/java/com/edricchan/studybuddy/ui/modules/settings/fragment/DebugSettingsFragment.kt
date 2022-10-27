@@ -298,9 +298,9 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                 setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
                 setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
                     with(dialogBinding) {
-                        if (userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty() &&
-                            titleTextInputLayout.editTextStrValue!!.isNotEmpty() &&
-                            bodyTextInputLayout.editTextStrValue!!.isNotEmpty()
+                        if (userOrTopicTextInputLayout.editTextStrValue.isNotEmpty() &&
+                            titleTextInputLayout.editTextStrValue.isNotEmpty() &&
+                            bodyTextInputLayout.editTextStrValue.isNotEmpty()
                         ) {
                             // TODO: Cleanup code
                             Log.d(
@@ -337,33 +337,33 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                                 }
                             }
                             val notificationRequest = NotificationRequest.build {
-                                if (bodyTextInputLayout.editTextStrValue != null && bodyTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-                                    notificationBody = bodyTextInputLayout.editTextStrValue!!
+                                if (bodyTextInputLayout.editTextStrValue != null && bodyTextInputLayout.editTextStrValue.isNotEmpty()) {
+                                    notificationBody = bodyTextInputLayout.editTextStrValue
                                 }
                                 if (channelIdTextInputLayout.editTextStrValue != null &&
-                                    channelIdTextInputLayout.editTextStrValue!!.isNotEmpty()
+                                    channelIdTextInputLayout.editTextStrValue.isNotEmpty()
                                 ) {
                                     notificationChannelId =
-                                        channelIdTextInputLayout.editTextStrValue!!
+                                        channelIdTextInputLayout.editTextStrValue
                                 }
-                                if (colorTextInputLayout.editTextStrValue != null && colorTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-                                    notificationColor = colorTextInputLayout.editTextStrValue!!
+                                if (colorTextInputLayout.editTextStrValue != null && colorTextInputLayout.editTextStrValue.isNotEmpty()) {
+                                    notificationColor = colorTextInputLayout.editTextStrValue
                                 }
                                 if (priority.isNotEmpty()) {
                                     notificationPriority = priority
                                 }
-                                if (titleTextInputLayout.editTextStrValue != null && titleTextInputLayout.editTextStrValue!!.isNotEmpty()) {
-                                    notificationTitle = titleTextInputLayout.editTextStrValue!!
+                                if (titleTextInputLayout.editTextStrValue != null && titleTextInputLayout.editTextStrValue.isNotEmpty()) {
+                                    notificationTitle = titleTextInputLayout.editTextStrValue
                                 }
                                 if (userOrTopicTextInputLayout.editTextStrValue != null &&
-                                    userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty()
+                                    userOrTopicTextInputLayout.editTextStrValue.isNotEmpty()
                                 ) {
-                                    userOrTopic = userOrTopicTextInputLayout.editTextStrValue!!
+                                    userOrTopic = userOrTopicTextInputLayout.editTextStrValue
                                 }
-                                if (ttlTextInputLayout.editTextStrValue != null && ttlTextInputLayout.editTextStrValue!!.isNotEmpty() &&
-                                    ttlTextInputLayout.editTextStrValue!!.isDigitsOnly()
+                                if (ttlTextInputLayout.editTextStrValue != null && ttlTextInputLayout.editTextStrValue.isNotEmpty() &&
+                                    ttlTextInputLayout.editTextStrValue.isDigitsOnly()
                                 ) {
-                                    notificationTtl = ttlTextInputLayout.editTextStrValue!!.toLong()
+                                    notificationTtl = ttlTextInputLayout.editTextStrValue.toLong()
                                 }
                                 val notificationSettingsAction = NotificationAction.build {
                                     title = "Configure Notifications"
@@ -418,9 +418,9 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                         if (e.isNullOrEmpty()) "This field is required" else null
                     // Update confirm button state
                     dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled =
-                        userOrTopicTextInputLayout.editTextStrValue!!.isNotEmpty() &&
-                            titleTextInputLayout.editTextStrValue!!.isNotEmpty() &&
-                            bodyTextInputLayout.editTextStrValue!!.isNotEmpty()
+                        userOrTopicTextInputLayout.editTextStrValue.isNotEmpty() &&
+                            titleTextInputLayout.editTextStrValue.isNotEmpty() &&
+                            bodyTextInputLayout.editTextStrValue.isNotEmpty()
                 }
 
                 // Add the watchers to the associated TextInputEditTexts

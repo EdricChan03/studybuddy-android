@@ -22,7 +22,7 @@ class IconPickerItemDetailsLookup(
         private val position: Int,
 //			private val selectionKey: String?
         private val selectionKey: Long?
-    ) : ItemDetailsLookup.ItemDetails<Long>() {
+    ) : ItemDetails<Long>() {
         override fun getPosition(): Int = position
 
         override fun getSelectionKey(): Long? = selectionKey

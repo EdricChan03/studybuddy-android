@@ -10,6 +10,7 @@ object TodoOptionsPrefConstants {
      * File to be used for storing the information about the task fragment's options
      */
     const val FILE_TODO_OPTIONS = "todo_options"
+
     /**
      * Indicates the default preference for how to sort tasks
      *
@@ -41,22 +42,27 @@ object TodoOptionsPrefConstants {
          * Indicates that tasks should be sorted based on the preference in Settings > Todos > Default sorting mode
          */
         const val UNSET = "unset"
+
         /**
          * Indicates that tasks should not be sorted
          */
         const val NONE = "none"
+
         /**
          * Indicates that tasks should be sorted by their titles descending
          */
         const val TITLE_DESC = "title_desc"
+
         /**
          * Indicates that tasks should be sorted by their titles ascending
          */
         const val TITLE_ASC = "title_asc"
+
         /**
          * Indicates that tasks should be sorted by their due dates from new to old
          */
         const val DUE_DATE_NEW_TO_OLD = "due_date_new_to_old"
+
         /**
          * Indicates that tasks should be sorted by their due dates from old to new
          */
@@ -67,10 +73,10 @@ object TodoOptionsPrefConstants {
      * Annotation for indicating the accepted values of the [PREF_DEFAULT_SORT] preference
      */
     @StringDef(
-        TodoOptionsPrefConstants.TodoSortValues.TITLE_DESC,
-        TodoOptionsPrefConstants.TodoSortValues.TITLE_ASC,
-        TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_NEW_TO_OLD,
-        TodoOptionsPrefConstants.TodoSortValues.DUE_DATE_OLD_TO_NEW
+        TodoSortValues.TITLE_DESC,
+        TodoSortValues.TITLE_ASC,
+        TodoSortValues.DUE_DATE_NEW_TO_OLD,
+        TodoSortValues.DUE_DATE_OLD_TO_NEW
     )
     annotation class TodoSort
 }

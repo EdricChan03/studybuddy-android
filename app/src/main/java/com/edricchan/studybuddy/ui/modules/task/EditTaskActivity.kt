@@ -254,7 +254,7 @@ class EditTaskActivity : BaseActivity() {
                                     taskDueDateChip.isCloseIconVisible = true
                                 }
                                 if (todoItem?.project != null) {
-                                    spinnerProject!!.setSelection(
+                                    spinnerProject.setSelection(
                                         todoProjectDropdownAdapter.getPosition(
                                             todoProjectDropdownAdapter.getTaskProjectById(todoItem!!.project!!.id)
                                         )

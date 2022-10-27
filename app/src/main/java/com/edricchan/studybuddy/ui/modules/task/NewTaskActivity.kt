@@ -180,7 +180,7 @@ class NewTaskActivity : BaseActivity() {
                                         .setView(editTextDialogView)
                                         .setPositiveButton(R.string.dialog_action_create) { dialog, which ->
                                             val project = TodoProject.build {
-                                                name = textInputLayout.editTextStrValue!!
+                                                name = textInputLayout.editTextStrValue
                                             }
                                             firestore.collection("users/" + currentUser!!.uid + "/todoProjects")
                                                 .add(project)

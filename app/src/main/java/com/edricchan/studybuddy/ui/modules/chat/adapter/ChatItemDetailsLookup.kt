@@ -21,7 +21,7 @@ class ChatItemDetailsLookup(
     class ChatItemDetails(
         private val position: Int,
         private val selectionKey: String?
-    ) : ItemDetailsLookup.ItemDetails<String>() {
+    ) : ItemDetails<String>() {
         override fun getPosition(): Int = position
 
         override fun getSelectionKey(): String? = selectionKey

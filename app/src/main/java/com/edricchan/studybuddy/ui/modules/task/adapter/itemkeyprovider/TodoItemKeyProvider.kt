@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.task.adapter.itemkeyprovider
 
-import android.os.Build
 import androidx.recyclerview.selection.ItemKeyProvider
 import com.edricchan.studybuddy.interfaces.TodoItem
 
@@ -11,20 +10,20 @@ import com.edricchan.studybuddy.interfaces.TodoItem
  */
 class TodoItemKeyProvider(
     private val mItemList: List<TodoItem>
-) : ItemKeyProvider<String>(ItemKeyProvider.SCOPE_CACHED) {
+) : ItemKeyProvider<String>(SCOPE_CACHED) {
     private val mKeyToPosition: MutableMap<String, Int>
 
     init {
         this.mKeyToPosition = HashMap(mItemList.size)
         var i = 0
         for ((id) in mItemList) {
-            mKeyToPosition[id!!] = i
+            mKeyToPosition[id] = i
             i++
         }
 
     }
 
-    override fun getKey(position: Int): String? {
+    override fun getKey(position: Int): String {
         return mItemList[position].id
     }
 

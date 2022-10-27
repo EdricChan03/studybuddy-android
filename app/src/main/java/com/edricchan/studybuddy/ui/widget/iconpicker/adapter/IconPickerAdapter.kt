@@ -35,6 +35,7 @@ class IconPickerAdapter(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_grid_icon, parent, false)
             )
+
             else -> ListHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_list_icon, parent, false)
@@ -99,6 +100,7 @@ class IconPickerAdapter(
          * Represents that a list layout should be used
          */
         LIST(HOLDER_LAYOUT_LIST_ITEM_TYPE),
+
         /**
          * Represents that a grid layout should be used
          */
@@ -120,12 +122,12 @@ class IconPickerAdapter(
         internal val infoImageButton: ImageButton = view.findViewById(R.id.infoImageButton)
     }
 
-    inner class GridHolder(view: View) : Holder(view) {
-    }
+    inner class GridHolder(view: View) : Holder(view)
 
     companion object {
         /** The numerical value of [HolderLayout.LIST.itemType]. */
         const val HOLDER_LAYOUT_LIST_ITEM_TYPE = 0
+
         /** The numerical value of [HolderLayout.GRID.itemType]. */
         const val HOLDER_LAYOUT_GRID_ITEM_TYPE = 1
     }

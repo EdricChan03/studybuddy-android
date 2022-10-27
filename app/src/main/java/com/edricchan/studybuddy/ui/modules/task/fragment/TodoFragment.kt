@@ -331,7 +331,7 @@ class TodoFragment : Fragment() {
             // Old SharedPreference key still exists
             val oldValue = taskOptionsPrefs.getString(
                 TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
-                TodoOptionsPrefConstants.TodoSortValues.NONE
+                TodoSortValues.NONE
             )
             taskOptionsPrefs.edit {
                 putString(TodoOptionsPrefConstants.PREF_DEFAULT_SORT, oldValue)
