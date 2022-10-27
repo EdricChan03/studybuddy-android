@@ -6,6 +6,7 @@ import com.github.benmanes.gradle.versions.reporter.result.DependencyOutdated
 import com.github.benmanes.gradle.versions.reporter.result.DependencyUnresolved
 import com.github.benmanes.gradle.versions.reporter.result.Result
 import java.io.PrintStream
+import kotlin.reflect.KClass
 
 @RequiresOptIn(
     message = "This API is meant to be used by the Markdown reporter"
@@ -35,7 +36,7 @@ private val String.code: String
 private val List<String>.unorderedList: String
     get() = joinToString("\n") { "* $it" }
 
-private val List<List<String>>.table: String
+private val List<List<String>>.tableString: String
     get() {
         // Table should at least have a heading row
         require(size > 1)
@@ -48,172 +49,157 @@ private val List<List<String>>.table: String
         }
     }
 
-@Suppress("RemoveExplicitTypeArguments")
+private val String?.formattedUrl
+    get() = if (this != null) "Link".link(this) else "(No URL specified)"
+
+private typealias TableRow = List<String>
+private typealias Table = List<TableRow>
+
+// Convert a dependency entry to a table row
+
+private fun DependencyLatest.toTableRow(useSimpleDependencyNotation: Boolean): TableRow {
+    // DependencyLatest contains the following:
+    // group, name, version, projectUrl, userReason, latest
+    return if (useSimpleDependencyNotation) listOf(
+        simple.code,
+        simpleLatest.code,
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    ) else listOf(
+        group?.code ?: "-",
+        name?.code ?: "-",
+        version?.code ?: "-",
+        latest,
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    )
+}
+
+private fun DependencyOutdated.toTableRow(useSimpleDependencyNotation: Boolean): TableRow {
+    // DependencyOutdated contains the following:
+    // group, name, version, projectUrl, userReason, available
+    return if (useSimpleDependencyNotation) listOf(
+        simple.code,
+        getSimpleLatest("release")?.code
+            ?: "(No release version available)",
+        getSimpleLatest("milestone")?.code
+            ?: "(No milestone version available)",
+        getSimpleLatest("integration")?.code
+            ?: "(No integration version available)",
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    ) else listOf(
+        group?.code ?: "-",
+        name?.code ?: "-",
+        version?.code ?: "-",
+        available.release?.code ?: "(No release version available)",
+        available.milestone?.code ?: "(No milestone version available)",
+        available.integration?.code
+            ?: "(No integration version available)",
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    )
+}
+
+private fun DependencyUnresolved.toTableRow(useSimpleDependencyNotation: Boolean): TableRow {
+    // DependencyUnresolved contains the following:
+    // group, name, version, projectUrl, userReason, reason
+    return if (useSimpleDependencyNotation) listOf(
+        simple.code,
+        reason,
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    ) else listOf(
+        group?.code ?: "-",
+        name?.code ?: "-",
+        version?.code ?: "-",
+        reason,
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    )
+}
+
+private fun Dependency.toTableRow(useSimpleDependencyNotation: Boolean): TableRow {
+    // Dependency contains the following:
+    // group, name, version, projectUrl, userReason
+    return if (useSimpleDependencyNotation) listOf(
+        simple.code,
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    ) else listOf(
+        group?.code ?: "-",
+        name?.code ?: "-",
+        version?.code ?: "-",
+        projectUrl.formattedUrl,
+        userReason ?: "(No reason specified)"
+    )
+}
+
+// Retrieve the table header given the dependency class
+private fun <T : Dependency> getTableHeader(
+    depClass: KClass<T>,
+    useSimpleDependencyNotation: Boolean
+): TableRow {
+    return when (depClass) {
+        DependencyLatest::class -> if (useSimpleDependencyNotation) listOf(
+            "Dependency (current)",
+            "Dependency (latest)",
+            "Project URL",
+            "User Reason"
+        ) else listOf("Group", "Name", "Version", "Latest", "Project URL", "User Reason")
+
+        DependencyOutdated::class -> if (useSimpleDependencyNotation) listOf(
+            "Dependency (current)",
+            "Dependency (release)",
+            "Dependency (milestone)",
+            "Dependency (integration)",
+            "Project URL",
+            "User Reason"
+        ) else listOf(
+            "Group",
+            "Name",
+            "Version",
+            "Available (release)",
+            "Available (milestone)",
+            "Available (integration)",
+            "Project URL",
+            "User Reason"
+        )
+
+        DependencyUnresolved::class -> if (useSimpleDependencyNotation) listOf(
+            "Group",
+            "Name",
+            "Version",
+            "Unresolved Reason",
+            "Project URL",
+            "User Reason"
+        ) else listOf("Dependency", "Unresolved Reason", "Project URL", "User Reason")
+
+        Dependency::class -> if (useSimpleDependencyNotation) listOf(
+            "Dependency",
+            "Project URL",
+            "User Reason"
+        )
+        else listOf("Group", "Name", "Version", "Project URL", "User Reason")
+
+        else -> error("Dependency class is not supported, received: $depClass")
+    }
+}
+
+
 @OptIn(ExperimentalStdlibApi::class)
-private fun Set<Dependency>.getTable(useSimpleDependencyNotation: Boolean) =
-    buildList<List<String>> {
-        val getProjectUrl =
-            { url: String? -> if (url != null) "Link".link(url) else "(No project URL specified)" }
+private inline fun <reified T : Dependency> Set<T>.toTable(
+    useSimpleDependencyNotation: Boolean,
+    showHeader: Boolean = true
+): Table = buildList<TableRow> {
+    if (showHeader) this += getTableHeader(T::class, useSimpleDependencyNotation)
+    this += this@toTable.map { it.toTableRow(useSimpleDependencyNotation) }
+}
 
-        if (this@getTable.all { it is DependencyLatest }) {
-            // DependencyLatest contains the following:
-            // group, name, version, projectUrl, userReason, latest
-            if (useSimpleDependencyNotation) {
-                this += listOf(
-                    "Dependency (current)",
-                    "Dependency (latest)",
-                    "Project URL",
-                    "User Reason"
-                )
-
-                this@getTable.forEach {
-                    this += listOf(
-                        it.simple.code,
-                        (it as DependencyLatest).simpleLatest.code,
-                        getProjectUrl(it.projectUrl),
-                        it.userReason ?: "(No reason specified)"
-                    )
-                }
-            } else {
-                this += listOf(
-                    "Group",
-                    "Name",
-                    "Version",
-                    "Latest",
-                    "Project URL",
-                    "User Reason"
-                )
-
-                this@getTable.forEach {
-                    this += listOf(
-                        it.group?.code ?: "-",
-                        it.name?.code ?: "-",
-                        it.version?.code ?: "-",
-                        (it as DependencyLatest).latest,
-                        getProjectUrl(it.projectUrl),
-                        it.userReason ?: "(No reason specified)"
-                    )
-                }
-            }
-        } else if (this@getTable.all { it is DependencyOutdated }) {
-            // DependencyOutdated contains the following:
-            // group, name, version, projectUrl, userReason, available
-            if (useSimpleDependencyNotation) {
-                this += listOf(
-                    "Dependency (current)",
-                    "Dependency (release)",
-                    "Dependency (milestone)",
-                    "Dependency (integration)",
-                    "Project URL",
-                    "User Reason"
-                )
-
-                this@getTable.forEach {
-                    val dep = it as DependencyOutdated
-                    this += listOf(
-                        dep.simple.code,
-                        dep.getSimpleLatest("release")?.code
-                            ?: "(No release version available)",
-                        dep.getSimpleLatest("milestone")?.code
-                            ?: "(No milestone version available)",
-                        dep.getSimpleLatest("integration")?.code
-                            ?: "(No integration version available)",
-                        getProjectUrl(dep.projectUrl),
-                        dep.userReason ?: "(No reason specified)"
-                    )
-                }
-            } else {
-                this += listOf(
-                    "Group",
-                    "Name",
-                    "Version",
-                    "Available (release)",
-                    "Available (milestone)",
-                    "Available (integration)",
-                    "Project URL",
-                    "User Reason"
-                )
-
-                this@getTable.forEach {
-                    val dep = it as DependencyOutdated
-                    this += listOf(
-                        dep.group?.code ?: "-",
-                        dep.name?.code ?: "-",
-                        dep.version?.code ?: "-",
-                        dep.available.release?.code ?: "(No release version available)",
-                        dep.available.milestone?.code ?: "(No milestone version available)",
-                        dep.available.integration?.code
-                            ?: "(No integration version available)",
-                        getProjectUrl(dep.projectUrl),
-                        dep.userReason ?: "(No reason specified)"
-                    )
-                }
-            }
-        } else if (this@getTable.all { it is DependencyUnresolved }) {
-            // DependencyUnresolved contains the following:
-            // group, name, version, projectUrl, userReason, reason
-            if (useSimpleDependencyNotation) {
-                this += listOf(
-                    "Group",
-                    "Name",
-                    "Version",
-                    "Unresolved Reason",
-                    "Project URL",
-                    "User Reason"
-                )
-
-                this@getTable.forEach {
-                    this += listOf(
-                        it.group?.code ?: "-",
-                        it.name?.code ?: "-",
-                        it.version?.code ?: "-",
-                        (it as DependencyUnresolved).reason,
-                        getProjectUrl(it.projectUrl),
-                        it.userReason ?: "(No reason specified)"
-                    )
-                }
-            } else {
-                this += listOf("Dependency", "Unresolved Reason", "Project URL", "User Reason")
-
-                this@getTable.forEach {
-                    this += listOf(
-                        it.simple.code,
-                        (it as DependencyUnresolved).reason,
-                        getProjectUrl(it.projectUrl),
-                        it.userReason ?: "(No reason specified)"
-                    )
-                }
-            }
-            // This should be last as this is the base class that all Dependency* classes
-            // extend from
-        } else {
-            // Dependency contains the following:
-            // group, name, version, projectUrl, userReason
-            if (useSimpleDependencyNotation) {
-                this += listOf("Dependency", "Project URL", "User Reason")
-
-                this@getTable.forEach {
-                    this += listOf(
-                        it.simple.code,
-                        getProjectUrl(it.projectUrl),
-                        it.userReason ?: "(No reason specified)"
-                    )
-                }
-            } else {
-                this += listOf("Group", "Name", "Version", "Project URL", "User Reason")
-
-                this@getTable.forEach {
-                    this += listOf(
-                        it.group?.code ?: "-",
-                        it.name?.code ?: "-",
-                        it.version?.code ?: "-",
-                        getProjectUrl(it.projectUrl),
-                        it.userReason ?: "(No reason specified)"
-                    )
-                }
-            }
-        }
-    }.table
+private inline fun <reified T : Dependency> Set<T>.toTableString(
+    useSimpleDependencyNotation: Boolean,
+    showHeader: Boolean = true
+) = toTable(useSimpleDependencyNotation, showHeader).tableString
 
 private fun String.link(link: String, title: String? = null) =
     "[$this]($link${if (title != null) " $title" else ""})"
@@ -221,7 +207,7 @@ private fun String.link(link: String, title: String? = null) =
 private val String.blockquote: String
     get() = "> $this"
 
-private val crossSymbol = "❌"
+private const val crossSymbol = "❌"
 
 private val Boolean?.verbose: String
     get() =
@@ -325,7 +311,7 @@ fun PrintStream.writeUpToDate(
     println("Up to date dependencies".header(2))
     if (versions.isNotEmpty()) {
         println("The following dependencies are using the latest $revision version:")
-        println(versions.getTable(useSimpleDependencyNotation))
+        println(versions.toTableString(useSimpleDependencyNotation))
     } else println("(No up to date dependencies were found)".italics)
     println()
 }
@@ -340,7 +326,7 @@ fun PrintStream.writeExceedLatestFound(
     println("Exceeded dependencies".header(2))
     if (versions.isNotEmpty()) {
         println("The following dependencies exceed the version found at the $revision revision level:")
-        println(versions.getTable(useSimpleDependencyNotation))
+        println(versions.toTableString(useSimpleDependencyNotation))
     } else println("(No dependencies were found that exceeded the latest version)".italics)
     println()
 }
@@ -355,7 +341,7 @@ fun PrintStream.writeOutdated(
     println("Outdated dependencies".header(2))
     if (versions.isNotEmpty()) {
         println("The following dependencies have later $revision versions:")
-        println(versions.getTable(useSimpleDependencyNotation))
+        println(versions.toTableString(useSimpleDependencyNotation))
     } else println("(No outdated dependencies were found)".italics)
     println()
 }
@@ -366,7 +352,7 @@ fun PrintStream.writeUndeclared(useSimpleDependencyNotation: Boolean, result: Re
     println("Undeclared dependencies".header(2))
     if (versions.isNotEmpty()) {
         println("The following dependencies could not be compared as they were declared without a version:")
-        println(versions.getTable(useSimpleDependencyNotation))
+        println(versions.toTableString(useSimpleDependencyNotation))
     } else println("(No undeclared dependencies were found)".italics)
     println()
 }
@@ -377,7 +363,7 @@ fun PrintStream.writeUnresolved(useSimpleDependencyNotation: Boolean, result: Re
     println("Unresolved dependencies".header(2))
     if (versions.isNotEmpty()) {
         println("The following dependencies could not be resolved:")
-        println(versions.getTable(useSimpleDependencyNotation))
+        println(versions.toTableString(useSimpleDependencyNotation))
     } else println("(No unresolved dependencies were found)".italics)
     println()
 }
