@@ -1,19 +1,13 @@
 package com.edricchan.studybuddy.utils
 
 import android.content.Context
-import android.content.pm.PackageManager
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.databinding.VersionDialogBinding
+import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -43,22 +37,21 @@ class UiUtils(val context: Context) {
      * Shows a version dialog.
      */
     fun showVersionDialog() {
-        val versionDialogView = LayoutInflater.from(context).inflate(R.layout.version_dialog, null)
-        val appIconImageView = versionDialogView.findViewById<ImageView>(R.id.appIconImageView)
-        val appNameTextView = versionDialogView.findViewById<TextView>(R.id.appNameTextView)
-        val appVersionTextView = versionDialogView.findViewById<TextView>(R.id.appVersionTextView)
-        try {
-            appIconImageView.setImageDrawable(context.packageManager.getApplicationIcon(BuildConfig.APPLICATION_ID))
-        } catch (e: PackageManager.NameNotFoundException) {
-            Log.e(TAG, "An error occurred while attempting to retrieve the app's icon:", e)
+        context.showMaterialAlertDialog {
+            setView(
+                VersionDialogBinding.inflate(LayoutInflater.from(context)).apply {
+                    with(context.applicationInfo) {
+                        appIconImageView.setImageDrawable(
+                            context.packageManager.getApplicationIcon(
+                                this
+                            )
+                        )
+                        appNameTextView.text = loadLabel(context.packageManager)
+                    }
+                    appVersionTextView.text = BuildConfig.VERSION_NAME
+                }.root
+            )
         }
-
-        appNameTextView.text = context.applicationInfo.loadLabel(context.packageManager)
-        appVersionTextView.text = BuildConfig.VERSION_NAME
-        val versionDialogBuilder = MaterialAlertDialogBuilder(context)
-        versionDialogBuilder
-            .setView(versionDialogView)
-            .show()
     }
 
     companion object {
