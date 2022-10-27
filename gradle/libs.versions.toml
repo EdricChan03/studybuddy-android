@@ -2,7 +2,7 @@
 android-gradle = "8.0.0-alpha04"
 dagger = "2.44"
 deep-link-dispatch = "6.1.0"
-firebase = "31.0.0"
+firebase = "31.0.1"
 gradle-versions = "0.43.0"
 kotlin = "1.7.20"
 kotlinx-coroutines = "1.6.4"
@@ -14,7 +14,7 @@ mockk = "1.13.2"
 [libraries]
 # AndroidX dependencies
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha01"
-androidx-browser = "androidx.browser:browser:1.4.0"
+androidx-browser = "androidx.browser:browser:1.5.0-alpha01"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha04"
 androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.0"
@@ -25,7 +25,7 @@ androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-beta01"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.8.0-alpha01"
+materialComponents = "com.google.android.material:material:1.8.0-alpha02"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -95,14 +95,14 @@ android-gradle-library = { module = "com.android.library:com.android.library.gra
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 # Testing dependencies
-androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-beta01"
-androidx-test-core = "androidx.test:core:1.5.0-beta01"
-androidx-test-ext = "androidx.test.ext:junit:1.1.4-beta01"
-androidx-test-runner = "androidx.test:runner:1.5.0-beta01"
-androidx-test-rules = "androidx.test:rules:1.4.1-beta01"
+androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-rc01"
+androidx-test-core = "androidx.test:core:1.5.0-rc01"
+androidx-test-ext = "androidx.test.ext:junit:1.1.4-rc01"
+androidx-test-runner = "androidx.test:runner:1.5.0-rc01"
+androidx-test-rules = "androidx.test:rules:1.5.0-rc01"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:4.8.0"
+mockito-core = "org.mockito:mockito-core:4.8.1"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # DI dependencies
