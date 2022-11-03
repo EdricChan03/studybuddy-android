@@ -30,7 +30,6 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.extensions.startActivityForResult
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
@@ -317,7 +316,7 @@ class TodoFragment : Fragment() {
     }
 
     private fun newTaskActivity() {
-        startActivityForResult<NewTaskActivity>(ACTION_NEW_TASK)
+        startActivity<NewTaskActivity>()
     }
 
     private fun migrateTaskOptsPrefs() {
