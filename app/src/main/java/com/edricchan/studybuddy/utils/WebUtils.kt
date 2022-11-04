@@ -18,7 +18,7 @@ import com.google.android.material.color.MaterialColors
  * Utility class for web-related functionality.
  * @param context The context to be used for Chrome Custom Tabs (CCT).
  */
-class WebUtils(val context: Context) {
+class WebUtils(private val context: Context) {
 
     /**
      * Launches a [uri] with the given [context]
