@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.google.android.material.color.MaterialColors
@@ -18,27 +18,35 @@ import com.google.android.material.color.MaterialColors
  * Utility class for web-related functionality.
  * @param context The context to be used for Chrome Custom Tabs (CCT).
  */
+@Deprecated("Use the top-level extension functions instead")
 class WebUtils(private val context: Context) {
 
     /**
      * Launches a [uri] with the given [context]
      * @param uri The URI to launch/open
      */
-    fun launchUri(uri: Uri) {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        launchUri(
-            uri, preferences.getBoolean(Constants.prefUseCustomTabs, true),
-            true
+    @Deprecated(
+        "Use the extension function instead",
+        ReplaceWith(
+            "context.launchUri(uri)",
+            "com.edricchan.studybuddy.utils.launchUri"
         )
-    }
+    )
+    fun launchUri(uri: Uri) = context.launchUri(uri)
 
     /**
      * Launches a [uri] with the given [context]
      * @param uri The URI to launch/open as a [String]
      */
-    fun launchUri(uri: String) {
-        launchUri(uri.toUri())
-    }
+    @Deprecated(
+        "Use the extension function instead",
+        ReplaceWith(
+            "context.launchUri(uri.toUri(), useCustomTabs, useAppColorScheme)",
+            "com.edricchan.studybuddy.utils.launchUri",
+            "androidx.core.next.toUri"
+        )
+    )
+    fun launchUri(uri: String) = launchUri(uri.toUri())
 
     /**
      * Launches a [uri] with the given [context]
@@ -46,44 +54,17 @@ class WebUtils(private val context: Context) {
      * @param useCustomTabs Whether to use Chrome Custom Tabs
      * @param useAppColorScheme Whether to respect the app's color/colour scheme
      */
+    @Deprecated(
+        "Use the extension function instead",
+        ReplaceWith(
+            "context.launchUri(uri, useCustomTabs, useAppColorScheme)",
+            "com.edricchan.studybuddy.utils.launchUri"
+        )
+    )
     fun launchUri(
         uri: Uri, useCustomTabs: Boolean = true,
         useAppColorScheme: Boolean = true
-    ) {
-        var customTabsIntent: CustomTabsIntent? = null
-        if (useCustomTabs) {
-            customTabsIntent = CustomTabsIntent.Builder().apply {
-                if (useAppColorScheme) {
-                    @CustomTabsIntent.ColorScheme var colorScheme =
-                        CustomTabsIntent.COLOR_SCHEME_SYSTEM
-                    @SuppressLint("SwitchIntDef")
-                    when (AppCompatDelegate.getDefaultNightMode()) {
-                        AppCompatDelegate.MODE_NIGHT_NO -> colorScheme =
-                            CustomTabsIntent.COLOR_SCHEME_LIGHT
-
-                        AppCompatDelegate.MODE_NIGHT_YES -> colorScheme =
-                            CustomTabsIntent.COLOR_SCHEME_DARK
-                    }
-                    setColorScheme(colorScheme)
-                }
-                setDefaultColorSchemeParams(CustomTabColorSchemeParams.Builder().apply {
-                    val color = MaterialColors.getColor(
-                        context,
-                        R.attr.colorPrimary,
-                        ContextCompat.getColor(context, R.color.colorPrimary)
-                    )
-
-                    setToolbarColor(color)
-                    setSecondaryToolbarColor(color)
-                    setNavigationBarColor(color)
-                }.build())
-
-                setShareState(CustomTabsIntent.SHARE_STATE_ON)
-                setShowTitle(true)
-            }.build()
-        }
-        launchUri(uri, customTabsIntent)
-    }
+    ) = context.launchUri(uri, useCustomTabs, useAppColorScheme)
 
     /**
      * Launches a [uri] with the given [context]
@@ -91,48 +72,18 @@ class WebUtils(private val context: Context) {
      * @param useCustomTabs Whether to use Chrome Custom Tabs
      * @param useAppColorScheme Whether to respect the app's color/colour scheme
      */
+    @Deprecated(
+        "Use the extension function instead",
+        ReplaceWith(
+            "context.launchUri(uri.toUri(), useCustomTabs, useAppColorScheme)",
+            "com.edricchan.studybuddy.utils.launchUri",
+            "androidx.core.net.toUri"
+        )
+    )
     fun launchUri(
         uri: String, useCustomTabs: Boolean = true,
         useAppColorScheme: Boolean = true
-    ) {
-        launchUri(uri.toUri(), useCustomTabs, useAppColorScheme)
-    }
-
-    /**
-     * Launches a [uri] with the given [context] and options for the [CustomTabsIntent.Builder]
-     * with the [customTabsIntentBuilderOptions] parameter.
-     * @param uri The URI to launch/open
-     * @param customTabsIntentBuilderOptions Options for the [CustomTabsIntent.Builder]
-     */
-    fun launchUri(
-        uri: Uri,
-        customTabsIntentBuilderOptions: CustomTabsIntent.Builder.() -> Unit
-    ) {
-        val customTabsIntent = CustomTabsIntent.Builder().apply(customTabsIntentBuilderOptions)
-            .build()
-        launchUri(uri, customTabsIntent)
-    }
-
-    /**
-     * Launches a [uri] with the given [context] and options for the [CustomTabsIntent.Builder]
-     * with the [customTabsIntentBuilderOptions] parameter.
-     * @param uri The URI to launch/open
-     * @param customTabsIntentBuilderOptions Options for the [CustomTabsIntent.Builder]
-     */
-    fun launchUri(
-        uri: String,
-        customTabsIntentBuilderOptions: CustomTabsIntent.Builder.() -> Unit
-    ) {
-        launchUri(uri.toUri(), customTabsIntentBuilderOptions)
-    }
-
-    private fun launchUri(uri: Uri, customTabsIntent: CustomTabsIntent?) {
-        if (customTabsIntent != null) {
-            customTabsIntent.launchUrl(context, uri)
-        } else {
-            context.startActivity(Intent(Intent.ACTION_VIEW, uri))
-        }
-    }
+    ) = launchUri(uri.toUri(), useCustomTabs, useAppColorScheme)
 
     companion object {
         /**
@@ -140,6 +91,79 @@ class WebUtils(private val context: Context) {
          * @param context The context to be used for the class.
          * @see WebUtils
          */
+        @Suppress("DeprecatedCallableAddReplaceWith") // WebUtils itself is deprecated
+        @Deprecated("Use the top-level extension functions instead")
         fun getInstance(context: Context) = WebUtils(context)
     }
+}
+
+internal fun buildCCTIntent(init: CustomTabsIntent.Builder.() -> Unit) =
+    CustomTabsIntent.Builder().apply(init).build()
+
+internal fun CustomTabsIntent.Builder.setDefaultColorSchemeParams(
+    init: CustomTabColorSchemeParams.Builder.() -> Unit
+) {
+    setDefaultColorSchemeParams(CustomTabColorSchemeParams.Builder().apply(init).build())
+}
+
+internal fun CustomTabsIntent.Builder.setDefaultColorSchemeParams(
+    @ColorInt toolbarColor: Int? = null,
+    @ColorInt secondaryToolbarColor: Int? = null,
+    @ColorInt navigationBarColor: Int? = null,
+    @ColorInt navigationBarDividerColor: Int? = null
+) = setDefaultColorSchemeParams {
+    toolbarColor?.let { setToolbarColor(it) }
+    secondaryToolbarColor?.let { setSecondaryToolbarColor(it) }
+    navigationBarColor?.let { setNavigationBarColor(it) }
+    navigationBarDividerColor?.let { setNavigationBarDividerColor(it) }
+}
+
+internal fun Context.launchUri(uri: Uri, customTabsIntent: CustomTabsIntent?) {
+    customTabsIntent?.launchUrl(this, uri) ?: startActivity(Intent(Intent.ACTION_VIEW, uri))
+}
+
+/**
+ * Launches a [uri] with the given [context]
+ * @param uri The URI to launch/open
+ * @param useCustomTabs Whether to use Chrome Custom Tabs
+ * @param useAppColorScheme Whether to respect the app's color/colour scheme
+ */
+fun Context.launchUri(
+    uri: Uri,
+    useCustomTabs: Boolean = defaultSharedPreferences.getBoolean(Constants.prefUseCustomTabs, true),
+    useAppColorScheme: Boolean = true
+) {
+    var customTabsIntent: CustomTabsIntent? = null
+    if (useCustomTabs) {
+        customTabsIntent = buildCCTIntent {
+            if (useAppColorScheme) {
+                @CustomTabsIntent.ColorScheme var colorScheme =
+                    CustomTabsIntent.COLOR_SCHEME_SYSTEM
+                @SuppressLint("SwitchIntDef")
+                when (AppCompatDelegate.getDefaultNightMode()) {
+                    AppCompatDelegate.MODE_NIGHT_NO -> colorScheme =
+                        CustomTabsIntent.COLOR_SCHEME_LIGHT
+
+                    AppCompatDelegate.MODE_NIGHT_YES -> colorScheme =
+                        CustomTabsIntent.COLOR_SCHEME_DARK
+                }
+                setColorScheme(colorScheme)
+            }
+
+            val color = MaterialColors.getColor(
+                this@launchUri,
+                R.attr.colorPrimary,
+                ContextCompat.getColor(this@launchUri, R.color.colorPrimary)
+            )
+            setDefaultColorSchemeParams(
+                toolbarColor = color,
+                secondaryToolbarColor = color,
+                navigationBarColor = color
+            )
+
+            setShareState(CustomTabsIntent.SHARE_STATE_ON)
+            setShowTitle(true)
+        }
+    }
+    launchUri(uri, customTabsIntent)
 }
