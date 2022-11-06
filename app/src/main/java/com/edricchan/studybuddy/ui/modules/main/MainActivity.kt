@@ -17,6 +17,7 @@ import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.extensions.startChooser
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
@@ -87,12 +88,11 @@ class MainActivity : BaseActivity() {
     }
 
     private fun share() {
-        val shareIntent = Intent().apply {
+        startChooser(getString(R.string.share_intent_value)) {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, getString(R.string.share_content))
             type = MimeTypeConstants.textPlainMime
         }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_intent_value)))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
