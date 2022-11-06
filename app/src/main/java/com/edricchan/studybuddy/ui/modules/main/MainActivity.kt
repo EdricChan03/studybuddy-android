@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -15,6 +14,7 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
+import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startChooser
@@ -30,13 +30,13 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.NotificationUtils
-import com.edricchan.studybuddy.utils.WebUtils
-import com.edricchan.studybuddy.utils.firebase.FirebaseCrashlyticsUtils
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.edricchan.studybuddy.utils.defaultSharedPreferences
+import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
+import com.edricchan.studybuddy.utils.launchUri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 
 @WebDeepLink(["/"])
 @AppDeepLink(["/"])
@@ -72,19 +72,19 @@ class MainActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
+        val messaging = Firebase.messaging
         if (currentUser != null) {
-            val crashlyticsTrackingEnabled = PreferenceManager.getDefaultSharedPreferences(this)
+            val crashlyticsTrackingEnabled = defaultSharedPreferences
                 .getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&
                 !BuildConfig.DEBUG
-            FirebaseCrashlyticsUtils.setCrashlyticsUserTracking(
-                currentUser,
-                crashlyticsTrackingEnabled
+            currentUser.setCrashlyticsTracking(
+                enabled = crashlyticsTrackingEnabled
             )
-            // User specific topic
-            FirebaseMessaging.getInstance().subscribeToTopic("user_${currentUser.uid}")
+            // User-specific topic
+            messaging.subscribeToTopic("user_${currentUser.uid}")
         }
         // By default, subscribe to the "topic_all" topic
-        FirebaseMessaging.getInstance().subscribeToTopic("all")
+        messaging.subscribeToTopic("all")
     }
 
     private fun share() {
@@ -159,16 +159,15 @@ class MainActivity : BaseActivity() {
         }
 
         R.id.action_about -> {
-            val aboutDialogText =
-                String.format(getString(R.string.about_dialog_msg), BuildConfig.VERSION_NAME)
-            MaterialAlertDialogBuilder(this).apply {
+            showMaterialAlertDialog {
+                // TODO: i18n
                 setTitle("About this app")
-                setMessage(aboutDialogText)
+                setMessage(getString(R.string.about_dialog_msg, BuildConfig.VERSION_NAME))
                 setPositiveButton(R.string.dialog_action_close) { dialog, _ -> dialog.dismiss() }
                 setNeutralButton(R.string.dialog_action_view_source_code) { _, _ ->
-                    WebUtils.getInstance(this@MainActivity).launchUri(Constants.uriSrcCode)
+                    launchUri(Constants.uriSrcCode)
                 }
-            }.show()
+            }
             true
         }
 
