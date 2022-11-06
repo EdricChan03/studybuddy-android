@@ -24,7 +24,7 @@ import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.chat.fragment.ChatFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.help.HelpActivity
-import com.edricchan.studybuddy.ui.modules.main.fragment.NavBottomSheetDialogFragment
+import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
@@ -107,51 +107,49 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
-            val navBottomSheet = NavBottomSheetDialogFragment()
-            navBottomSheet.navigationViewListener = {
-                when (it.itemId) {
-                    R.id.navigation_calendar -> {
-                        setCurrentFragment(CalendarFragment())
-                        true
-                    }
+            showNavBottomSheet {
+                navigationViewListener = {
+                    when (it.itemId) {
+                        R.id.navigation_calendar -> {
+                            setCurrentFragment(CalendarFragment())
+                            true
+                        }
 
-                    R.id.navigation_chat -> {
-                        setCurrentFragment(ChatFragment())
-                        true
-                    }
+                        R.id.navigation_chat -> {
+                            setCurrentFragment(ChatFragment())
+                            true
+                        }
 
-                    R.id.navigation_todos -> {
-                        setCurrentFragment(TodoFragment())
-                        true
-                    }
+                        R.id.navigation_todos -> {
+                            setCurrentFragment(TodoFragment())
+                            true
+                        }
 
-                    R.id.navigation_tips -> {
-                        setCurrentFragment(TipsFragment())
-                        true
-                    }
+                        R.id.navigation_tips -> {
+                            setCurrentFragment(TipsFragment())
+                            true
+                        }
 
-                    else -> false
+                        else -> false
+                    }
                 }
-            }
-            if (auth.currentUser != null) {
-                navBottomSheet.isLoggedIn = true
-                if (auth.currentUser?.displayName != null) navBottomSheet.displayName =
-                    auth.currentUser?.displayName
-                if (auth.currentUser?.email != null) navBottomSheet.email =
-                    auth.currentUser?.email
-                if (auth.currentUser?.photoUrl != null) navBottomSheet.photoUrl =
-                    auth.currentUser?.photoUrl
-            }
-            navBottomSheet.show(supportFragmentManager, navBottomSheet.tag)
-            val selectedMenuItem =
-                when (supportFragmentManager.findFragmentById(R.id.frameLayoutMain)) {
-                    is CalendarFragment -> R.id.navigation_calendar
-                    is ChatFragment -> R.id.navigation_chat
-                    is TodoFragment -> R.id.navigation_todos
-                    is TipsFragment -> R.id.navigation_tips
-                    else -> ResourcesCompat.ID_NULL
+
+                auth.currentUser?.let {
+                    isLoggedIn = true
+                    displayName = it.displayName
+                    email = it.email
+                    photoUrl = it.photoUrl
                 }
-            navBottomSheet.navigationViewCheckedItemId = selectedMenuItem
+
+                navigationViewCheckedItemId =
+                    when (supportFragmentManager.findFragmentById(R.id.frameLayoutMain)) {
+                        is CalendarFragment -> R.id.navigation_calendar
+                        is ChatFragment -> R.id.navigation_chat
+                        is TodoFragment -> R.id.navigation_todos
+                        is TipsFragment -> R.id.navigation_tips
+                        else -> ResourcesCompat.ID_NULL
+                    }
+            }
             true
         }
 

@@ -7,6 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import coil.load
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
@@ -98,3 +101,27 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
         private const val USER_PHOTO_URL_TAG = "userPhotoUrl"
     }
 }
+
+/**
+ * Shows a [navigation bottom sheet dialog][NavBottomSheetDialogFragment].
+ * @param tag The tag for the fragment.
+ * @param init Options to be passed to the dialog fragment.
+ * @return The created fragment.
+ */
+inline fun FragmentActivity.showNavBottomSheet(
+    tag: String? = null,
+    init: NavBottomSheetDialogFragment.() -> Unit
+) = NavBottomSheetDialogFragment().apply(init).apply { show(supportFragmentManager, tag) }
+
+/**
+ * Shows a [navigation bottom sheet dialog][NavBottomSheetDialogFragment].
+ * @param fragmentManager The [fragment manager][FragmentManager] to use.
+ * @param tag The tag for the fragment.
+ * @param init Options to be passed to the dialog fragment.
+ * @return The created fragment.
+ */
+inline fun Fragment.showNavBottomSheet(
+    fragmentManager: FragmentManager = parentFragmentManager,
+    tag: String? = null,
+    init: NavBottomSheetDialogFragment.() -> Unit
+) = NavBottomSheetDialogFragment().apply(init).apply { show(fragmentManager, tag) }
