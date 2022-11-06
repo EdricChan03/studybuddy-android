@@ -6,36 +6,33 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.databinding.FragTipsBinding
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.utils.WebUtils
+import com.edricchan.studybuddy.utils.defaultSharedPreferences
+import com.edricchan.studybuddy.utils.launchUri
 
-class TipsFragment : Fragment(R.layout.frag_tips) {
-    private var mFragmentView: View? = null
-    private val mTabsIntent: CustomTabsIntent? = null
+class TipsFragment : Fragment() {
     private var preferences: SharedPreferences? = null
-
+    private var _binding: FragTipsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
+        preferences = requireContext().defaultSharedPreferences
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mFragmentView = view
-        view.findViewById<View>(R.id.tips_empty_state_cta)
-            .setOnClickListener {
-                WebUtils.getInstance(requireContext()).launchUri(Constants.uriSubmitTip)
-            }
+        binding.tipsEmptyStateCta.setOnClickListener {
+            requireContext().launchUri(Constants.uriSubmitTip)
+        }
     }
 
 
@@ -62,11 +59,19 @@ class TipsFragment : Fragment(R.layout.frag_tips) {
                 startActivity<DebugActivity>()
                 true
             }
+
             R.id.action_settings -> {
                 startActivity<SettingsActivity>()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 }
