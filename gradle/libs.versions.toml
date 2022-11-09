@@ -1,10 +1,10 @@
 [versions]
-android-gradle = "8.0.0-alpha07"
+android-gradle = "8.0.0-alpha08"
 dagger = "2.44"
 deep-link-dispatch = "6.1.0"
 firebase = "31.0.2"
 gradle-versions = "0.43.0"
-kotlin = "1.7.20"
+kotlin = "1.7.21"
 kotlinx-coroutines = "1.6.4"
 kotlinx-serialization = "1.4.1"
 ktor = "2.1.3"
@@ -95,11 +95,11 @@ android-gradle-library = { module = "com.android.library:com.android.library.gra
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 # Testing dependencies
-androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0-rc01"
-androidx-test-core = "androidx.test:core:1.5.0-rc01"
-androidx-test-ext = "androidx.test.ext:junit:1.1.4-rc01"
-androidx-test-runner = "androidx.test:runner:1.5.0-rc01"
-androidx-test-rules = "androidx.test:rules:1.5.0-rc01"
+androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0"
+androidx-test-core = "androidx.test:core:1.5.0"
+androidx-test-ext = "androidx.test.ext:junit:1.1.4"
+androidx-test-runner = "androidx.test:runner:1.5.0"
+androidx-test-rules = "androidx.test:rules:1.5.0"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 mockito-core = "org.mockito:mockito-core:4.8.1"
