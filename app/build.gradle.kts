@@ -195,8 +195,8 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
 
-        sourceCompatibility(JavaVersion.VERSION_11)
-        targetCompatibility(JavaVersion.VERSION_11)
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     testOptions {
@@ -212,13 +212,11 @@ android {
     // for more info.
     val isRunningOnActions = envProperties["GITHUB_ACTIONS"]?.boolean ?: false
 
-    // TODO: Revert back to "lint" once https://issuetracker.google.com/issues/196209595 is resolved
-    @kotlin.Suppress("DEPRECATION")
-    lintOptions {
+    lint {
         textReport = isRunningOnActions
-        textOutput("stdout")
-        isAbortOnError = false
-        baseline(file("lint-baseline.xml"))
+        sarifReport = isRunningOnActions
+        abortOnError = false
+        baseline = file("lint-baseline.xml")
     }
 
     signingConfigs["release"].apply {

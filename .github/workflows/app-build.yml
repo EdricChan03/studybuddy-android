@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        app-build-types: [debug, nightly, release]
+        app-build-types: [ debug, nightly, release ]
 
     name: Build app (${{ matrix.app-build-types }})
 
@@ -76,3 +76,28 @@ jobs:
           output: |
             {"summary": "${{ steps.parse_dep_updates.outputs.summary }}"}
           output_text_description_file: build/dependencyUpdates/report.md
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run lint task
+        uses: ./.github/actions/build-gradle
+        with:
+          gradle-arguments: :app:lint
+          upload-name: lint-output
+          # See https://googlesamples.github.io/android-custom-lint-rules/usage/agp-dsl.md.html
+          # on where lint reports are outputted
+          upload-path: app/build/reports/
+          transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
+          transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
+          app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+          app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
+          app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
+      - name: Upload lint report
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: app/build/reports/lint-results-debug.sarif
