@@ -17,7 +17,7 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.help.HelpActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
-import com.edricchan.studybuddy.utils.WebUtils
+import com.edricchan.studybuddy.utils.launchUri
 
 @WebDeepLink(["/settings"])
 @AppDeepLink(["/settings"])
@@ -54,7 +54,7 @@ class SettingsActivity : BaseActivity(),
             }
 
             R.id.action_send_feedback -> {
-                WebUtils.getInstance(this).launchUri(Constants.uriSendFeedback)
+                launchUri(Constants.uriSendFeedback)
                 true
             }
 

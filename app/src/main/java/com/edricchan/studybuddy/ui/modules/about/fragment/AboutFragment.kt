@@ -23,7 +23,7 @@ import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.formatISO
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.utils.WebUtils
+import com.edricchan.studybuddy.utils.launchUri
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.time.Instant
@@ -177,7 +177,7 @@ class AboutFragment : MaterialAboutFragment() {
             .text(textRes)
             .subText(subTextRes ?: 0)
             .setOnClickAction {
-                WebUtils.getInstance(requireContext()).launchUri(websiteUri)
+                requireContext().launchUri(websiteUri)
             }
             .build()
     }

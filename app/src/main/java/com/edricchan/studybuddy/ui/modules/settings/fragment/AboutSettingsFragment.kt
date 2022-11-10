@@ -18,7 +18,7 @@ import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
-import com.edricchan.studybuddy.utils.WebUtils
+import com.edricchan.studybuddy.utils.launchUri
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
@@ -27,7 +27,6 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var devModeOptions: SharedPreferences
-    private lateinit var webUtils: WebUtils
 
     // Number of times the version code has been clicked
     private var devHitCountdown by Delegates.notNull<Int>()
@@ -43,7 +42,6 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
                 DevModePrefConstants.FILE_DEV_MODE,
                 Context.MODE_PRIVATE
             )
-        webUtils = WebUtils.getInstance(requireContext())
 
         devHitCountdown = if (devModeOptions
                 .getBoolean(DevModePrefConstants.DEV_MODE_ENABLED, false)
@@ -111,11 +109,11 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
         findPreference<Preference>(Constants.prefAboutAppBuildVariant)?.summary =
             BuildConfig.BUILD_TYPE
         findPreference<Preference>(Constants.prefAboutSourceCode)?.setOnPreferenceClickListener {
-            webUtils.launchUri(Constants.uriSrcCode)
+            requireContext().launchUri(Constants.uriSrcCode)
             true
         }
         findPreference<Preference>(Constants.prefAboutAppAuthor)?.setOnPreferenceClickListener {
-            webUtils.launchUri(Constants.uriAuthorWebsite)
+            requireContext().launchUri(Constants.uriAuthorWebsite)
             true
         }
         findPreference<Preference>(Constants.prefAboutAppInfo)?.intent =
