@@ -20,3 +20,6 @@ fun TemporalAccessor.format(formatter: DateTimeFormatter): String = formatter.fo
 
 /** Formats the temporal object using the given [pattern]. */
 fun TemporalAccessor.format(pattern: String) = format(DateTimeFormatter.ofPattern(pattern))
+
+/** Formats the [Instant] to an ISO8601 date-time value. */
+fun Instant.formatISO() = format(DateTimeFormatter.ISO_INSTANT)

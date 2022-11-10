@@ -21,7 +21,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.format
+import com.edricchan.studybuddy.extensions.formatISO
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.utils.WebUtils
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -40,8 +40,7 @@ class AboutFragment : MaterialAboutFragment() {
 
     override fun getMaterialAboutList(context: Context?): MaterialAboutList {
         initFragment()
-        val buildTime =
-            Instant.ofEpochMilli(BuildConfig.BUILD_TIME).format("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val buildTime = Instant.ofEpochMilli(BuildConfig.BUILD_TIME).formatISO()
 
         val appInfoCard = MaterialAboutCard.Builder()
             .addItem(ConvenienceBuilder.createAppTitleItem(context))

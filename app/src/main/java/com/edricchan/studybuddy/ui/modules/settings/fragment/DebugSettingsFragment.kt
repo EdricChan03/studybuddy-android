@@ -32,7 +32,7 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.creationInstant
 import com.edricchan.studybuddy.extensions.firebase.auth.lastSignInInstant
-import com.edricchan.studybuddy.extensions.format
+import com.edricchan.studybuddy.extensions.formatISO
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
@@ -53,9 +53,7 @@ import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
 import java.time.Instant
-import java.time.format.DateTimeFormatter
 
-private fun Instant.formatISO() = format(DateTimeFormatter.ISO_INSTANT)
 
 class DebugSettingsFragment : MaterialPreferenceFragment() {
 
