@@ -51,10 +51,6 @@ class TipsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            /*R.id.action_submit_tip -> {
-                WebUtils.getInstance(requireContext).launchUri(Constants.uriSubmitTip)
-                true
-            }*/
             R.id.action_debug -> {
                 startActivity<DebugActivity>()
                 true
