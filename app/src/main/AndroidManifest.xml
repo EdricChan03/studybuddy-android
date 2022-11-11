@@ -20,13 +20,13 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+        android:name=".StudyBuddyApplication"
         android:allowBackup="true"
         android:appCategory="productivity"
         android:description="@string/app_desc"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".StudyBuddyApplication"
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
         tools:ignore="GoogleAppIndexingWarning"
@@ -46,8 +46,8 @@
 
         <activity
             android:name=".ui.modules.main.MainActivity"
-            android:theme="@style/Theme.App.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.App.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,8 +60,8 @@
         </activity>
         <activity
             android:name=".ui.modules.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/title_activity_settings">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
 
@@ -95,8 +95,8 @@
             android:label="@string/title_activity_edit_task" />
         <activity
             android:name=".ui.modules.debug.DebugActivity"
-            android:label="@string/title_activity_debug"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/title_activity_debug">
             <intent-filter>
                 <category android:name="android.intent.category.DEVELOPMENT_PREFERENCE" />
             </intent-filter>
@@ -116,10 +116,10 @@
         <!-- Handler for Firebase Deep Links -->
         <activity
             android:name=".ui.modules.deeplink.DeepLinkActivity"
+            android:exported="true"
             android:launchMode="singleInstance"
             android:noHistory="true"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:exported="true">
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -177,7 +177,8 @@
         </provider>
 
         <!-- Services -->
-        <service android:name=".providers.fcm.StudyBuddyMessagingService"
+        <service
+            android:name=".providers.fcm.StudyBuddyMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -186,7 +187,8 @@
 
         <!-- Receivers -->
         <receiver android:name=".receivers.NotificationActionReceiver" />
-        <receiver android:name=".receivers.StartupReceiver"
+        <receiver
+            android:name=".receivers.StartupReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
