@@ -13,11 +13,18 @@ internal val Context.appIcon
 internal val Context.appLabel
     get() = packageManager.getApplicationLabel(applicationInfo)
 
+internal val Context.packageInfo
+    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0)) else
+        packageManager.getPackageInfo(packageName, 0)
+
 // BuildConfig.VERSION_NAME can't be used in library modules
 internal val Context.versionName
-    get() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-        packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0)) else
-        packageManager.getPackageInfo(packageName, 0)).versionName
+    get() = packageInfo.versionName
+
+internal val Context.versionCode
+    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+        packageInfo.longVersionCode else packageInfo.versionCode.toLong()
 
 /**
  * Shows a version dialog.
@@ -27,7 +34,8 @@ fun Context.showVersionDialog() = showMaterialAlertDialog {
         VersionDialogBinding.inflate(LayoutInflater.from(context)).apply {
             appIconImageView.setImageDrawable(appIcon)
             appNameTextView.text = appLabel
-            appVersionTextView.text = versionName
+            appVersionTextView.text =
+                getString(R.string.version_dialog_version_formatted, versionName, versionCode)
         }.root
     )
 }

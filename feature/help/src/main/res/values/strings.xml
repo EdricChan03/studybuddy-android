@@ -22,4 +22,12 @@
 
     <!-- The text to show when the help articles are loading. -->
     <string name="help_articles_empty_state_loading">Loading help articles&#8230;</string>
+
+    <!-- Version dialog strings -->
+    <eat-comment />
+
+    <!-- The text to show for the version dialog's version. -->
+    <string name="version_dialog_version_formatted">Version %1$s (%2$d)</string>
+    <!-- The content description for the version dialog's app icon. -->
+    <string name="version_dialog_app_icon_content_desc">App icon</string>
 </resources>
