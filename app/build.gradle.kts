@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.utils.addToStdlib.cast
+import com.novoda.buildproperties.Entry
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,109 +24,23 @@ buildProperties {
         if (rootProject.file("secret_keys.properties").exists()) {
             using(rootProject.file("secret_keys.properties"))
         } else {
-            println("Secret keys properties file does not exist. Setting `secrets`" +
-                    "build property as empty.")
+            println(
+                "Secret keys properties file does not exist. Setting `secrets`" +
+                    "build property as empty."
+            )
             using(mapOf())
         }
     }
-    // Version metadata
-    create("versions") {
-        using(rootProject.file("versions.properties"))
-    }
 }
 
-val envProperties = buildProperties["env"].asMap()
-val versionsProperties = buildProperties["versions"].asMap()
-val secretsProperties = buildProperties["secrets"].asMap()
-
-extra.apply {
-    // See the Semver guide for more info
-    // Adapted from https://medium.com/@maxirosson/versioning-android-apps-d6ec171cfd82
-    // Allows the user to specify the versionMajor via the command-line (See below for an example)
-    set(
-        "versionMajor", project.properties["versionMajor"] as Int? ?:
-            versionsProperties["version_major"]?.int
-    )
-    // Allows the user to specify the versionMinor via the command-line (See below for an example)
-    set(
-        "versionMinor", project.properties["versionMinor"] as Int? ?:
-            versionsProperties["version_minor"]?.int
-    )
-    // Allows the user to specify the versionPatch via the command-line (See below for an example)
-    set(
-        "versionPatch", project.properties["versionPatch"] as Int? ?:
-            versionsProperties["version_patch"]?.int
-    )
-    // Allows the user to specify the versionClassifier via the command-line
-    // Example: ./gradlew <task> -PversionClassifier=nightly
-    set("versionClassifier", project.properties["versionClassifier"])
-    // Allows the user to specify the currentVariant via the command-line  (See below for an example)
-    set("currentVariant", project.properties["currentVariant"])
-}
+val envProperties: Map<String, Entry> = buildProperties["env"].asMap()
+val secretsProperties: Map<String, Entry> = buildProperties["secrets"].asMap()
 
 val buildTimeString: String
     get() {
         val format = SimpleDateFormat("yyyy-MM-dd-HHmmss")
         return format.format(Date())
     }
-
-fun generateVersionCodeBuildVariant(): Int {
-    // Default is 1 to represent release variant
-    // 0: Debug variant
-    // 1: Release variant
-    // 10: Nightly variant
-    var result = 1
-    when (extra["currentVariant"]) {
-        "debug" -> {
-            result = 0
-        }
-        "nightly" -> {
-            result = 10
-        }
-    }
-    println("Generated version code (build variant): $result")
-    return result
-}
-
-fun generateVersionCodeClassifier(): Int {
-    // Default is 0 to represent no version classifier
-    var result = 0
-    when (extra["versionClassifier"]) {
-        "alpha" -> {
-            result = 1
-        }
-        "beta" -> {
-            result = 2
-        }
-        "rc" -> {
-            result = 3
-        }
-        "nightly" -> {
-            result = 10
-        }
-    }
-    println("Generated version code (version classifier): $result")
-    return result
-}
-
-fun generateVersionCode(): Int {
-    /*
-     * Returns <build-variant type as number>-<version classifier>-<major>-<minor>-<patch>
-     * E.g. 01-10-01-01-00, with the following config:
-     * - release build variant
-     * - nightly classifier
-     * - version major: 1
-     * - version minor: 1
-     * - version patch: 0
-     */
-    return (generateVersionCodeBuildVariant() * 100000000 + generateVersionCodeClassifier() * 1000000
-            + extra["versionMajor"].cast<Int>() * 10000 + extra["versionMinor"].cast<Int>() * 100
-            + extra["versionPatch"].cast<Int>())
-}
-
-fun generateVersionName(): String {
-    return "${extra["versionMajor"]}.${extra["versionMinor"]}.${extra["versionPatch"]}"
-}
 
 android {
     namespace = "com.edricchan.studybuddy"
@@ -137,11 +51,8 @@ android {
         minSdk = 21
         // TODO: Bump targetSdk
         targetSdk = 30
-        // versionCode 9
-        versionCode = generateVersionCode()
-        println("Generated version code: ${generateVersionCode()}")
-        versionName = generateVersionName()
-        println("Generated version name: ${generateVersionName()}")
+        versionCode = 10
+        versionName = "1.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations += "en" // TODO: Don't restrict to just en
         multiDexEnabled = true
@@ -163,7 +74,6 @@ android {
             // Reduce amount of time needed to compile app in debug mode
             // Can be accessed with BuildConfig.BUILD_TIME
             buildConfigField("Long", "BUILD_TIME", "0L")
-            extra["currentVariant"] = "debug"
         }
 
         release {
@@ -171,9 +81,9 @@ android {
             isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs["release"]
+
             // Can be accessed with BuildConfig.BUILD_TIME
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
-            extra["currentVariant"] = "release"
         }
 
         create("nightly").apply {
@@ -182,7 +92,6 @@ android {
 
             applicationIdSuffix = ".nightly"
             versionNameSuffix = "-NIGHTLY-$buildTimeString"
-            extra["currentVariant"] = "nightly"
 
             matchingFallbacks += listOf("release", "debug")
         }
