@@ -47,7 +47,12 @@ include(
     ":ui:theming",
     ":ui:widgets",
     ":core:deeplink",
+    ":core:di",
     ":data:serialization:android",
     ":utils:recyclerview",
+    ":utils:web",
+    ":exts:common",
+    ":exts:material",
+    ":feature:help",
     ":app"
 )

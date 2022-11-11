@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The help activity's label. -->
+    <string name="title_activity_help">Help</string>
+
+    <!-- Menu strings -->
+    <eat-comment />
+
+    <!-- The title of the refresh articles menu item in the help activity's menu. -->
+    <string name="menu_refresh_articles_title">Refresh articles</string>
+    <!-- The title of the send feedback menu item in the help and settings activities' menus. -->
+    <string name="menu_send_feedback_title">Send feedback</string>
+    <!-- The title of the view version menu item in the help activity's menu. -->
+    <string name="menu_view_version_title">View version</string>
+    <!-- The title of the view licenses menu item in the help activity's menu. -->
+    <string name="menu_view_licenses_title">View licenses</string>
+    <!-- The title of the view source code menu item in the help activity's menu. -->
+    <string name="menu_view_source_title">View source code</string>
+
+    <!-- Layout strings -->
+    <eat-comment />
+
+    <!-- The text to show when the help articles are loading. -->
+    <string name="help_articles_empty_state_loading">Loading help articles&#8230;</string>
+</resources>
