@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The height of a two-line list item (taken from the Material specs). -->
+    <dimen name="two_line_list_item_height">64dp</dimen>
+</resources>

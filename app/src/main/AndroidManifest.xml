@@ -79,9 +79,6 @@
             android:name=".ui.modules.auth.ResetPasswordActivity"
             android:label="@string/title_activity_reset_password" />
         <activity
-            android:name=".ui.modules.help.HelpActivity"
-            android:label="@string/title_activity_help" />
-        <activity
             android:name=".ui.modules.chat.NewChatActivity"
             android:label="@string/title_activity_new_chat" />
         <activity
