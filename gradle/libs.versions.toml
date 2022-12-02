@@ -1,5 +1,5 @@
 [versions]
-android-gradle = "8.0.0-alpha08"
+android-gradle = "8.0.0-alpha09"
 dagger = "2.44.2"
 deep-link-dispatch = "6.1.0"
 firebase = "31.1.0"
