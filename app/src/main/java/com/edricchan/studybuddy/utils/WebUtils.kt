@@ -9,93 +9,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.google.android.material.color.MaterialColors
-
-/**
- * Utility class for web-related functionality.
- * @param context The context to be used for Chrome Custom Tabs (CCT).
- */
-@Deprecated("Use the top-level extension functions instead")
-class WebUtils(private val context: Context) {
-
-    /**
-     * Launches a [uri] with the given [context]
-     * @param uri The URI to launch/open
-     */
-    @Deprecated(
-        "Use the extension function instead",
-        ReplaceWith(
-            "context.launchUri(uri)",
-            "com.edricchan.studybuddy.utils.launchUri"
-        )
-    )
-    fun launchUri(uri: Uri) = context.launchUri(uri)
-
-    /**
-     * Launches a [uri] with the given [context]
-     * @param uri The URI to launch/open as a [String]
-     */
-    @Deprecated(
-        "Use the extension function instead",
-        ReplaceWith(
-            "context.launchUri(uri.toUri(), useCustomTabs, useAppColorScheme)",
-            "com.edricchan.studybuddy.utils.launchUri",
-            "androidx.core.next.toUri"
-        )
-    )
-    fun launchUri(uri: String) = launchUri(uri.toUri())
-
-    /**
-     * Launches a [uri] with the given [context]
-     * @param uri The URI to launch/open
-     * @param useCustomTabs Whether to use Chrome Custom Tabs
-     * @param useAppColorScheme Whether to respect the app's color/colour scheme
-     */
-    @Deprecated(
-        "Use the extension function instead",
-        ReplaceWith(
-            "context.launchUri(uri, useCustomTabs, useAppColorScheme)",
-            "com.edricchan.studybuddy.utils.launchUri"
-        )
-    )
-    fun launchUri(
-        uri: Uri, useCustomTabs: Boolean = true,
-        useAppColorScheme: Boolean = true
-    ) = context.launchUri(uri, useCustomTabs, useAppColorScheme)
-
-    /**
-     * Launches a [uri] with the given [context]
-     * @param uri The URI to launch/open as a [String]
-     * @param useCustomTabs Whether to use Chrome Custom Tabs
-     * @param useAppColorScheme Whether to respect the app's color/colour scheme
-     */
-    @Deprecated(
-        "Use the extension function instead",
-        ReplaceWith(
-            "context.launchUri(uri.toUri(), useCustomTabs, useAppColorScheme)",
-            "com.edricchan.studybuddy.utils.launchUri",
-            "androidx.core.net.toUri"
-        )
-    )
-    fun launchUri(
-        uri: String, useCustomTabs: Boolean = true,
-        useAppColorScheme: Boolean = true
-    ) = launchUri(uri.toUri(), useCustomTabs, useAppColorScheme)
-
-    companion object {
-        /**
-         * Creates an instance of the utility class.
-         * @param context The context to be used for the class.
-         * @see WebUtils
-         */
-        @Suppress("DeprecatedCallableAddReplaceWith") // WebUtils itself is deprecated
-        @Deprecated("Use the top-level extension functions instead")
-        fun getInstance(context: Context) = WebUtils(context)
-    }
-}
 
 internal fun buildCCTIntent(init: CustomTabsIntent.Builder.() -> Unit) =
     CustomTabsIntent.Builder().apply(init).build()
