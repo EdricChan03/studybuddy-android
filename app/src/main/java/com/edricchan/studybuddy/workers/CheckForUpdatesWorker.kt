@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.workers
 
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -8,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.core.os.bundleOf
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
@@ -54,8 +56,13 @@ class CheckForUpdatesWorker(
         withListener(appUpdateListener)
     }
 
-    private val notificationManager = NotificationManagerCompat.from(appContext)
-    private var notificationBuilder: NotificationCompat.Builder? = null
+    private val notificationManager =
+        NotificationManagerCompat.from(appContext)
+    private val notificationBuilder =
+        NotificationCompat.Builder(
+            appContext,
+            appContext.getString(R.string.notification_channel_update_status_id)
+        )
 
     override fun doWork(): Result {
         updateLastCheckedStatus()
@@ -78,11 +85,16 @@ class CheckForUpdatesWorker(
             }
     }
 
+    private fun showUpdateNotification(notification: Notification) {
+        notificationManager.notify(Constants.notificationCheckForUpdatesId, notification)
+    }
+
+    private fun showUpdateNotification(builderBlock: NotificationCompat.Builder.() -> Unit) {
+        showUpdateNotification(notificationBuilder.apply(builderBlock).build())
+    }
+
     private fun showInProgressNotification() {
-        notificationBuilder = NotificationCompat.Builder(
-            appContext,
-            appContext.getString(R.string.notification_channel_update_status_id)
-        ).apply {
+        showUpdateNotification {
             setSmallIcon(R.drawable.ic_notification_system_update_24dp)
             setContentTitle(appContext.getString(R.string.notification_check_update))
             setCategory(NotificationCompat.CATEGORY_PROGRESS)
@@ -95,28 +107,29 @@ class CheckForUpdatesWorker(
             )
             setOngoing(true)
         }
-        notificationBuilder?.build()
-            ?.let { notificationManager.notify(Constants.notificationCheckForUpdatesId, it) }
     }
 
     private fun showNoUpdatesNotification() {
-        notificationBuilder?.apply {
+        showUpdateNotification {
             setContentTitle(appContext.getString(R.string.notification_no_updates))
             setCategory(null)
             setProgress(0, 0, false)
             setOngoing(false)
         }
-        notificationBuilder?.build()
-            ?.let { notificationManager.notify(Constants.notificationCheckForUpdatesId, it) }
     }
 
     private fun showUpdateAvailableNotification(update: Update?) {
         // New update
-        val intentAction = Intent(appContext, NotificationActionReceiver::class.java)
+        val intentAction = buildIntent<NotificationActionReceiver>(appContext) {
+            putExtras(
+                bundleOf(
+                    "action" to Constants.actionNotificationsStartDownloadReceiver,
+                    "downloadUrl" to update?.urlToDownload?.toString(),
+                    "version" to update?.latestVersion
+                )
+            )
+        }
 
-        intentAction.putExtra("action", Constants.actionNotificationsStartDownloadReceiver)
-        intentAction.putExtra("downloadUrl", update?.urlToDownload.toString())
-        intentAction.putExtra("version", update?.latestVersion)
         val pIntentDownload = PendingIntent.getBroadcast(
             appContext,
             1,
@@ -129,7 +142,7 @@ class CheckForUpdatesWorker(
         }
         val pContentIntent = PendingIntent.getActivity(appContext, 0, contentIntent, 0)
 
-        notificationBuilder?.apply {
+        showUpdateNotification {
             setContentTitle(appContext.getString(R.string.notification_new_update_title))
             setContentText(
                 appContext.getString(
@@ -150,9 +163,5 @@ class CheckForUpdatesWorker(
                 )
             )
         }
-        notificationBuilder?.build()
-            ?.let { notificationManager.notify(Constants.notificationCheckForUpdatesId, it) }
     }
-
-
 }
