@@ -8,16 +8,21 @@ import com.airbnb.deeplinkdispatch.DeepLink
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
+import com.edricchan.studybuddy.databinding.ActivityViewChatBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.ui.common.BaseActivity
 
 @WebDeepLink(["/chat/{id}", "/chats/view/{id}"])
 @AppDeepLink(["/chat/{id}", "/chats/view/{id}"])
-class ViewChatActivity : BaseActivity(R.layout.activity_view_chat) {
+class ViewChatActivity : BaseActivity() {
+    private lateinit var binding: ActivityViewChatBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding = ActivityViewChatBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
             Log.d(TAG, "Chat ID (deep link): ${intent.extras?.getString("id")}")
