@@ -144,7 +144,7 @@ class LoginActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             true
         }
 

@@ -34,7 +34,7 @@ class ViewChatActivity : BaseActivity(R.layout.activity_view_chat) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
                 true
             }
 

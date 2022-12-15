@@ -109,7 +109,7 @@ class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
             }
 
             android.R.id.home -> {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
                 true
             }
 

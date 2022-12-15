@@ -99,7 +99,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             true
         } else super.onOptionsItemSelected(item)
     }
