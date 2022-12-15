@@ -1,11 +1,9 @@
 package com.edricchan.studybuddy.ui.modules.about.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.DrawableRes
@@ -23,6 +21,7 @@ import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.formatISO
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.utils.appDetailsIntent
 import com.edricchan.studybuddy.utils.launchUri
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -116,10 +115,7 @@ class AboutFragment : MaterialAboutFragment() {
                 .subText(R.string.about_frag_app_info_card_open_app_info_subtitle)
                 .icon(R.drawable.ic_info_outline_24dp)
                 .setOnClickAction {
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                        data = Uri.parse("package:${BuildConfig.APPLICATION_ID}")
-                    }
-                    startActivity(intent)
+                    startActivity(appDetailsIntent())
                 }
                 .build())
             .addItem(

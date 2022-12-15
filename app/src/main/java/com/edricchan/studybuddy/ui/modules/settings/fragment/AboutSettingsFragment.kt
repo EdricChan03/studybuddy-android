@@ -1,11 +1,8 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.edit
@@ -18,8 +15,9 @@ import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
+import com.edricchan.studybuddy.utils.appDetailsIntent
 import com.edricchan.studybuddy.utils.launchUri
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.edricchan.studybuddy.utils.licenseIntent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 
@@ -116,9 +114,8 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
             requireContext().launchUri(Constants.uriAuthorWebsite)
             true
         }
-        findPreference<Preference>(Constants.prefAboutAppInfo)?.intent =
-            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:${BuildConfig.APPLICATION_ID}"))
+        findPreference<Preference>(Constants.prefAboutAppInfo)?.intent = appDetailsIntent()
         findPreference<Preference>(Constants.prefAboutLicenses)?.intent =
-            Intent(activity, OssLicensesMenuActivity::class.java)
+            requireContext().licenseIntent
     }
 }

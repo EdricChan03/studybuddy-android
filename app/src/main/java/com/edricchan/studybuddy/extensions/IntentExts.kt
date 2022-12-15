@@ -41,5 +41,5 @@ inline fun Context.startChooser(
  */
 inline fun <reified T> buildIntent(
     context: Context?,
-    builderAction: Intent.() -> Unit
+    builderAction: Intent.() -> Unit = {}
 ) = Intent(context, T::class.java).apply(builderAction)
