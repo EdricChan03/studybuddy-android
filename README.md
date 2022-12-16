@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![GitHub Actions Status](https://img.shields.io/github/workflow/status/EdricChan03/StudyBuddy-android/CI?label=CI&logo=github&style=flat-square)](https://github.com/EdricChan03/StudyBuddy-android/actions?query=workflow%3ACI)
+[![GitHub Actions Status](https://img.shields.io/github/actions/workflow/status/EdricChan03/studybuddy-android/app-build.yml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/EdricChan03/studybuddy-android/actions/workflows/app-build.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/edricchan03/studybuddy-android/badge?style=flat-square)](https://www.codefactor.io/repository/github/edricchan03/studybuddy-android)
 [![App license](https://img.shields.io/github/license/EdricChan03/StudyBuddy-android?style=flat-square)](https://github.com/EdricChan03/StudyBuddy-android/blob/main/LICENSE)
 
@@ -17,7 +17,8 @@
 ## About the app
 
 The purpose of this app is to help teens, especially students, with their studies.
-It contains features that most of the other related apps include but are created from the perspective of a teenager.
+It contains features that most of the other related apps include but are created from the
+perspective of a teenager.
 
 The app was created in 2017 and has since been worked on.
 
@@ -31,15 +32,22 @@ Firebase (Analytics, Authentication, Crashlytics, Cloud Messaging, Firestore) | 
 
 ## Libraries used
 
-For more info about the list of libraries used, check out the `build.gradle.kts` files ([root `build.gradle.kts`](build.gradle.kts), [app `build.gradle.kts`](app/build.gradle.kts)) and the [Version Catalog](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml) file ([`gradle/libs.versions.toml`](gradle/libs.versions.toml).
+For more info about the list of libraries used, check out the `build.gradle.kts`
+files ([root `build.gradle.kts`](build.gradle.kts), [app `build.gradle.kts`](app/build.gradle.kts))
+and
+the [Version Catalog](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml)
+file ([`gradle/libs.versions.toml`](gradle/libs.versions.toml).
 
 ---
 
 ## Downloads
 
-Download the latest build [here](https://github.com/EdricChan03/StudyBuddy-builds/blob/master/release/com.edricchan.studybuddy-v1.0.0-rc.503.apk).
+Download the latest
+build [here](https://github.com/EdricChan03/StudyBuddy-builds/blob/master/release/com.edricchan.studybuddy-v1.0.0-rc.503.apk)
+.
 
-Older versions can be accessed [here](https://github.com/EdricChan03/StudyBuddy-builds/blob/master/release).
+Older versions can be
+accessed [here](https://github.com/EdricChan03/StudyBuddy-builds/blob/master/release).
 
 The changelog for each version can also be viewed in [CHANGELOG.md](/CHANGELOG.md).
 
@@ -50,13 +58,15 @@ _COMING SOON! (Screenshots will be moved to a separate file)_
 ## Building the source code
 
 If you would like to build the source code, follow these steps:
-1. Clone the project locally by either clicking the `Clone or download` > `Download ZIP` or by running the following commands:
+
+1. Clone the project locally by either clicking the `Clone or download` > `Download ZIP` or by
+   running the following commands:
    ```bash
    cd path/to/your/desired-location
    git clone https://github.com/EdricChan03/StudyBuddy-android.git
    ```
 2. Run the following in your terminal:
-   
+
    macOS/Linux:
    ```bash
    ./gradlew assembleDebug
@@ -65,7 +75,9 @@ If you would like to build the source code, follow these steps:
    ```shell
    gradlew.bat assembleDebug
    ```
-3. The APK should be signed with the debug key and will be available at `app/build/outputs/apk`. See [Build a debug APK](https://developer.android.com/studio/build/building-cmdline.html#DebugMode) for more info.
+3. The APK should be signed with the debug key and will be available at `app/build/outputs/apk`.
+   See [Build a debug APK](https://developer.android.com/studio/build/building-cmdline.html#DebugMode)
+   for more info.
 
 ## Contributing
 
