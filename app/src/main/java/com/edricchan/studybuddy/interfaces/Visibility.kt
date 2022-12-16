@@ -20,4 +20,7 @@ object Visibility {
      * Enum to indicate that an object should not be visible to the public unless explicitly accessed
      */
     const val UNLISTED = "unlisted"
+
+    /** The values of this enum. */
+    val values = listOf(PRIVATE, PUBLIC, UNLISTED)
 }
