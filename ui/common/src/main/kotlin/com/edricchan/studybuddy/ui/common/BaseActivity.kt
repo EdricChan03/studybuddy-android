@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.ui.common
 
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.ui.theming.applyDarkTheme
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
@@ -12,9 +11,6 @@ import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
  */
 abstract class BaseActivity : AppCompatActivity {
     constructor() : super()
-
-    @Deprecated("View Binding should be used where preferable")
-    constructor(@LayoutRes resId: Int) : super(resId)
 
     private var themeIsUsingDynamicColor = false
 

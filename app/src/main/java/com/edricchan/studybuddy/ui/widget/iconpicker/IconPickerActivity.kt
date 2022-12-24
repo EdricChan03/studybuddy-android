@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.databinding.ActivityIconPickerBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerAdapter
@@ -22,10 +23,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 
-class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
-    private lateinit var adapter: IconPickerAdapter
+class IconPickerActivity : BaseActivity() {
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var adapter: IconPickerAdapter
     private lateinit var recyclerView: RecyclerView
+
+    private lateinit var binding: ActivityIconPickerBinding
     private var recyclerViewLayout: IconPickerAdapter.HolderLayout =
         IconPickerAdapter.HolderLayout.LIST
     private lateinit var tracker: SelectionTracker<Long>
@@ -37,7 +40,10 @@ class IconPickerActivity : BaseActivity(R.layout.activity_icon_picker) {
         }
         firestore = Firebase.firestore
 
-        recyclerView = findViewById(R.id.recyclerView)
+        binding = ActivityIconPickerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        recyclerView = binding.recyclerView
         updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
         recyclerView.setHasFixedSize(false)
 
