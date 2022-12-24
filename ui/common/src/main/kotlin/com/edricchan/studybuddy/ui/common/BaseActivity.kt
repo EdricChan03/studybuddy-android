@@ -9,8 +9,7 @@ import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
 /**
  * Base activity that all activities should implement to handle theming behaviour.
  */
-abstract class BaseActivity : AppCompatActivity {
-    constructor() : super()
+abstract class BaseActivity : AppCompatActivity() {
 
     private var themeIsUsingDynamicColor = false
 
