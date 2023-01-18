@@ -1,5 +1,5 @@
 [versions]
-android-gradle = "8.0.0-alpha10"
+android-gradle = "8.0.0-alpha11"
 dagger = "2.44.2"
 deep-link-dispatch = "6.1.0"
 firebase = "31.1.1"
@@ -7,26 +7,26 @@ gradle-versions = "0.44.0"
 kotlin = "1.8.0"
 kotlinx-coroutines = "1.6.4"
 kotlinx-serialization = "1.4.1"
-ktor = "2.2.1"
+ktor = "2.2.2"
 markwon = "4.6.2"
 mockk = "1.13.3"
 
 [libraries]
 # AndroidX dependencies
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha01"
-androidx-browser = "androidx.browser:browser:1.5.0-alpha02"
+androidx-browser = "androidx.browser:browser:1.5.0-beta01"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha05"
 androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
-androidx-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha03"
+androidx-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha04"
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.0"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.3.0-rc01"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-beta02"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-rc01"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.8.0-alpha03"
+materialComponents = "com.google.android.material:material:1.8.0-rc01"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -50,7 +50,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 # Google Play Services OSS Licenses
 playServices-ossLicenses-core = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 # (The following line is still needed as there is no plugin marker available as of yet)
-playServices-ossLicenses-gradle = "com.google.android.gms:oss-licenses-plugin:0.10.5"
+playServices-ossLicenses-gradle = "com.google.android.gms:oss-licenses-plugin:0.10.6"
 
 # Markwon
 markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
@@ -95,14 +95,14 @@ android-gradle-library = { module = "com.android.library:com.android.library.gra
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 # Testing dependencies
-androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.0"
+androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"
 androidx-test-core = "androidx.test:core:1.5.0"
-androidx-test-ext = "androidx.test.ext:junit:1.1.4"
-androidx-test-runner = "androidx.test:runner:1.5.1"
+androidx-test-ext = "androidx.test.ext:junit:1.1.5"
+androidx-test-runner = "androidx.test:runner:1.5.2"
 androidx-test-rules = "androidx.test:rules:1.5.0"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:4.11.0"
+mockito-core = "org.mockito:mockito-core:5.0.0"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # DI dependencies
