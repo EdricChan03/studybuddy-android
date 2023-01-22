@@ -1,11 +1,5 @@
 plugins {
-    `java-library`
-    kotlin("jvm")
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    id("com.edricchan.studybuddy.library.kotlin")
 }
 
 dependencies {
