@@ -42,6 +42,12 @@ val buildTimeString: String
         return format.format(Date())
     }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
 android {
     namespace = "com.edricchan.studybuddy"
     compileSdk = 33

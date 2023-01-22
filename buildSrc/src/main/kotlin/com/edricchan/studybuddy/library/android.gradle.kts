@@ -1,11 +1,13 @@
-/**
- * Convention plugin for Android libraries.
- */
+/** Convention plugin for Android libraries. */
 package com.edricchan.studybuddy.library
 
 plugins {
     id("com.android.library")
     kotlin("android")
+}
+
+kotlin {
+    jvmToolchain(11)
 }
 
 android {
