@@ -37,6 +37,40 @@ gradleEnterprise {
             publishAlways()
             tag("CI")
         }
+
+        // GitHub Actions-specific config
+        if (!System.getenv("GITHUB_ACTIONS").isNullOrEmpty()) {
+            tag("GitHub Actions")
+            tag("${System.getenv("RUNNER_OS")}-${System.getenv("RUNNER_ARCH")}")
+
+            value("Workflow run ref name", System.getenv("GITHUB_REF_NAME"))
+            value("Workflow run ref type", System.getenv("GITHUB_REF_TYPE"))
+
+            val repoUrl =
+                "${System.getenv("GITHUB_SERVER_URL")}/${System.getenv("GITHUB_REPOSITORY")}"
+
+            val commitSha = System.getenv("GITHUB_SHA")
+            link("View commit", "$repoUrl/commit/$commitSha")
+            link("View source at commit", "$repoUrl/tree/$commitSha")
+            value("Git commit SHA", commitSha)
+
+            val actionRunRef = System.getenv("GITHUB_REF")
+            if (actionRunRef.isNotEmpty()) {
+                val prNumber = Regex("""refs/pull/(\d+)/merge""")
+                    .find(actionRunRef)?.groupValues?.first()
+                if (prNumber != null) {
+                    tag("Pull Request")
+                    link("View pull request", "$repoUrl/pull/$prNumber")
+                    value("GitHub pull request number", prNumber)
+                }
+            }
+
+            val actionRunId = System.getenv("GITHUB_RUN_ID")
+            link("View workflow run", "$repoUrl/actions/runs/$actionRunId")
+            value("Workflow run attempts", System.getenv("GITHUB_RUN_ATTEMPT"))
+            value("Workflow run ID", actionRunId)
+            value("Workflow run number", System.getenv("GITHUB_RUN_NUMBER"))
+        }
     }
 }
 
