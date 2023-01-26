@@ -9,7 +9,8 @@ import java.io.PrintStream
 import kotlin.reflect.KClass
 
 @RequiresOptIn(
-    message = "This API is meant to be used by the Markdown reporter"
+    message = "This API is intended to be used by the Markdown reporter and " +
+        "is not suited for outside use."
 )
 annotation class InternalMarkdownApi
 
@@ -20,7 +21,9 @@ private fun String.header(
     newNextLine: Boolean = true,
     newPrevLine: Boolean = false
 ): String {
-    require(level in (1..6)) { "Markdown only supports heading levels 1 - 6, but $level was specified" }
+    require(level in (1..6)) {
+        "Markdown only supports heading levels 1 - 6, but $level was specified"
+    }
     return "${if (newPrevLine) "\n" else ""}${"#".repeat(level)} $this${if (newNextLine) "\n" else ""}"
 }
 
@@ -187,7 +190,6 @@ private fun <T : Dependency> getTableHeader(
 }
 
 
-@OptIn(ExperimentalStdlibApi::class)
 private inline fun <reified T : Dependency> Set<T>.toTable(
     useSimpleDependencyNotation: Boolean,
     showHeader: Boolean = true
@@ -249,20 +251,21 @@ fun PrintStream.writeHeader(name: String) {
     println("$name Dependency Updates".header(1))
 }
 
-@OptIn(ExperimentalStdlibApi::class)
 @InternalMarkdownApi
 fun PrintStream.writeGradleUpdates(releaseChannel: String, result: Result) {
     if (!result.gradle.enabled) return
 
     println("Gradle $releaseChannel updates".header(2))
     with(result.gradle) {
-        val list = mutableListOf("Current version of Gradle used: ${running.version}")
-        if (current.isFailure) list += "$crossSymbol Could not retrieve Gradle update: ${current.reason}".bold
-        if (current.isUpdateAvailable && current > running) list += "An update is available! ${current.version}"
-        println(list.unorderedList)
+        val gradleList = buildList {
+            this += "Current version of Gradle used: ${running.version}"
+            if (current.isFailure) this += "$crossSymbol Could not retrieve Gradle update: ${current.reason}".bold
+            if (current.isUpdateAvailable && current > running) this += "An update is available! ${current.version}"
+        }
+        println(gradleList.unorderedList)
 
         println("Available Gradle versions".header(3, newPrevLine = true))
-        val gradleVersionsTable = kotlin.collections.buildMap {
+        val gradleVersionsTable = buildMap {
             this += "Current" to current
             this += "Nightly" to nightly
             this += "Release candidate" to releaseCandidate
