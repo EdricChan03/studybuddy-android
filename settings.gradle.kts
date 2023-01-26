@@ -43,7 +43,8 @@ gradleEnterprise {
             tag("GitHub Actions")
             tag("${System.getenv("RUNNER_OS")}-${System.getenv("RUNNER_ARCH")}")
 
-            value("Workflow run ref name", System.getenv("GITHUB_REF_NAME"))
+            val actionRunRefName = System.getenv("GITHUB_REF_NAME")
+            value("Workflow run ref name", actionRunRefName)
             value("Workflow run ref type", System.getenv("GITHUB_REF_TYPE"))
 
             val repoUrl =
@@ -52,17 +53,22 @@ gradleEnterprise {
             val commitSha = System.getenv("GITHUB_SHA")
             link("View commit", "$repoUrl/commit/$commitSha")
             link("View source at commit", "$repoUrl/tree/$commitSha")
+            link("View source at branch/tag", "$repoUrl/tree/$actionRunRefName")
             value("Git commit SHA", commitSha)
 
             val actionRunRef = System.getenv("GITHUB_REF")
-            if (actionRunRef.isNotEmpty()) {
-                val prNumber = Regex("""refs/pull/(\d+)/merge""")
-                    .find(actionRunRef)?.groupValues?.first()
-                if (prNumber != null) {
-                    tag("Pull Request")
-                    link("View pull request", "$repoUrl/pull/$prNumber")
-                    value("GitHub pull request number", prNumber)
-                }
+            val prNumber = Regex("""refs/pull/(\d+)/merge""")
+                .find(actionRunRef)?.groupValues?.first()
+            if (prNumber != null) {
+                tag("Pull Request")
+                link("View pull request", "$repoUrl/pull/$prNumber")
+                value("GitHub pull request number", prNumber)
+            }
+            val tagName = Regex("""refs/tags/(.+)""")
+                .find(actionRunRef)?.groupValues?.first()
+            if (tagName != null) {
+                tag("Release")
+                link("View tag", "$repoUrl/releases/tag/$tagName")
             }
 
             val actionRunId = System.getenv("GITHUB_RUN_ID")
