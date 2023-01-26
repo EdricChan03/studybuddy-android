@@ -14,15 +14,16 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://jitpack.io")
-        // (AppUpdater is only published on JCenter)
-        jcenter()
     }
 }
 
 plugins {
     // Used for Gradle's Build Scan feature - see
     // https://docs.gradle.com/enterprise/gradle-plugin/
-    id("com.gradle.enterprise") version ("3.8.1")
+    id("com.gradle.enterprise") version "3.12.2"
+    // Gradle JVM Toolchains repository - see
+    // https://docs.gradle.org/8.0-rc-2/userguide/toolchains.html#sub:download_repositories
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
 }
 
 // Configure the Gradle Enterprise Plugin
