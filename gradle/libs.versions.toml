@@ -2,31 +2,31 @@
 android-gradle = "8.1.0-alpha03"
 dagger = "2.44.2"
 deep-link-dispatch = "6.1.0"
-firebase = "31.1.1"
-gradle-versions = "0.44.0"
-kotlin = "1.8.0"
+firebase = "31.2.0"
+gradle-versions = "0.45.0"
+kotlin = "1.8.10"
 kotlinx-coroutines = "1.6.4"
-kotlinx-serialization = "1.4.1"
-ktor = "2.2.2"
+kotlinx-serialization = "1.5.0-RC"
+ktor = "2.2.3"
 markwon = "4.6.2"
-mockk = "1.13.3"
+mockk = "1.13.4"
 
 [libraries]
 # AndroidX dependencies
-androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha01"
-androidx-browser = "androidx.browser:browser:1.5.0-beta01"
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha05"
+androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha02"
+androidx-browser = "androidx.browser:browser:1.5.0"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha07"
 androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
-androidx-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha04"
+androidx-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-beta01"
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.0"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.3.0-rc01"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0-rc01"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.8.0"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.8.0-rc01"
+materialComponents = "com.google.android.material:material:1.9.0-alpha01"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -36,7 +36,7 @@ deepLinkDispatch-processor = { module = "com.airbnb:deeplinkdispatch-processor",
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
-playServices-auth = "com.google.android.gms:play-services-auth:20.4.0"
+playServices-auth = "com.google.android.gms:play-services-auth:20.4.1"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links-ktx" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
@@ -82,7 +82,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
 appUpdater = "com.github.javiersantos:AppUpdater:2.7"
-imagePicker = "com.github.esafirm:android-image-picker:3.0.0-beta5"
+imagePicker = "com.github.esafirm:android-image-picker:3.0.0"
 
 # Gradle Versions (declared here as a library and not as a plugin
 # such that it can be used in a custom reporter)
@@ -102,14 +102,14 @@ androidx-test-runner = "androidx.test:runner:1.5.2"
 androidx-test-rules = "androidx.test:rules:1.5.0"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:5.0.0"
+mockito-core = "org.mockito:mockito-core:5.1.1"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # DI dependencies
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 
-android-desugar = "com.android.tools:desugar_jdk_libs:2.0.0"
+android-desugar = "com.android.tools:desugar_jdk_libs:2.0.2"
 
 [bundles]
 androidx-test = [
@@ -139,7 +139,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.2"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
-googleServices = "com.google.gms.google-services:4.3.14"
+googleServices = "com.google.gms.google-services:4.3.15"
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 gradleVersions-catalog = "nl.littlerobots.version-catalog-update:0.3.1"
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
