@@ -46,6 +46,7 @@ class MaterialMultiSelectListPreferenceDialogFragment :
     }
 }
 
+@Suppress("DEPRECATION") // See https://issuetracker.google.com/issues/212905758
 fun PreferenceFragmentCompat.showMultiSelectListPreferenceDialog(
     preference: MultiSelectListPreference
 ) {

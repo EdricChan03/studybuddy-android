@@ -45,6 +45,7 @@ class MaterialEditTextPreferenceDialogFragment : EditTextPreferenceDialogFragmen
     }
 }
 
+@Suppress("DEPRECATION") // See https://issuetracker.google.com/issues/212905758
 fun PreferenceFragmentCompat.showEditTextPreferenceDialog(preference: EditTextPreference) {
     val dialogFragment = MaterialEditTextPreferenceDialogFragment().apply {
         arguments = bundleOf("key" to preference.key)

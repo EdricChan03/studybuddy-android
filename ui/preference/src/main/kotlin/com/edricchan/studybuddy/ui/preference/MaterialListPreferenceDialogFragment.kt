@@ -13,8 +13,7 @@ class MaterialListPreferenceDialogFragment : ListPreferenceDialogFragmentCompat(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         mWhichButtonClicked = DialogInterface.BUTTON_NEGATIVE
         return createDialogBuilder(
-            this,
-            this::onCreateDialogView, this::onBindDialogView, this::onPrepareDialogBuilder
+            this, this::onCreateDialogView, this::onBindDialogView, this::onPrepareDialogBuilder
         )
     }
 
@@ -45,6 +44,7 @@ class MaterialListPreferenceDialogFragment : ListPreferenceDialogFragmentCompat(
     }
 }
 
+@Suppress("DEPRECATION") // See https://issuetracker.google.com/issues/212905758
 fun PreferenceFragmentCompat.showListPreferenceDialog(preference: ListPreference) {
     val dialogFragment = MaterialListPreferenceDialogFragment().apply {
         arguments = bundleOf("key" to preference.key)
