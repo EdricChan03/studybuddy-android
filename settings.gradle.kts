@@ -89,6 +89,7 @@ include(
     ":ui:widgets",
     ":core:deeplink",
     ":core:di",
+    ":core:resources",
     ":data:serialization:android",
     ":utils:recyclerview",
     ":utils:web",

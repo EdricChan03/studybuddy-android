@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This file contains strings that can be reused across all modules. -->
+<resources>
+    <!-- The application's name. -->
+    <string name="app_name">StudyBuddy</string>
+
+    <!-- Dialog strings -->
+    <eat-comment />
+
+    <!-- Text for a cancel button in a dialog. -->
+    <string name="dialog_action_cancel">Cancel</string>
+
+    <!-- Text for a done button in a dialog. -->
+    <string name="dialog_action_done">Done</string>
+</resources>

@@ -30,6 +30,7 @@ dependencies {
     implementation(projects.ui.common)
     implementation(projects.core.deeplink)
     implementation(projects.core.di)
+    implementation(projects.core.resources)
     implementation(projects.data.serialization.android)
     implementation(projects.exts.common)
     implementation(projects.exts.material)
