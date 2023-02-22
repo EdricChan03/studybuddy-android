@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.widget.iconpicker.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,7 @@ import coil.load
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 
-class IconPickerAdapter(
-    val context: Context
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class IconPickerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * The info button's on click listener
      */
@@ -51,35 +48,39 @@ class IconPickerAdapter(
         val item = items[position]
         when (getItemViewType(position)) {
             HolderLayout.LIST.itemType -> {
-                val tempHolder = holder as ListHolder
-                if (tracker != null) {
-                    tempHolder.itemView.isActivated = tracker?.isSelected(getItemId(position))
-                        ?: false
-                }
-                if (item.assets != null && item.assets.isNotEmpty() && tracker?.isSelected(
-                        getItemId(
-                            position
-                        )
-                    ) == false
-                ) {
-                    // See https://stackoverflow.com/a/35306315/6782707 for more info
-                    val circularProgressDrawable = CircularProgressDrawable(context)
-                    circularProgressDrawable.strokeWidth = 2f
-                    circularProgressDrawable.centerRadius = 12f
-                    circularProgressDrawable.start()
-                    tempHolder.iconImageView.load(item.assets[0].src) {
-                        placeholder(circularProgressDrawable)
+                (holder as ListHolder).apply {
+                    if (tracker != null) {
+                        itemView.isActivated = tracker?.isSelected(getItemId(position))
+                            ?: false
                     }
-                } else if (tracker?.isSelected(getItemId(position)) == true) {
-                    tempHolder.iconImageView.setImageResource(R.drawable.ic_check_24dp)
-                } else {
-                    tempHolder.iconImageView.setImageResource(R.drawable.ic_forum_outline_24dp)
-                }
-                tempHolder.nameTextView.text = item.name
-                tempHolder.descTextView.text = item.description
-                if (infoButtonOnClickListener != null) {
-                    tempHolder.infoImageButton.setOnClickListener {
-                        infoButtonOnClickListener?.invoke(item)
+
+                    iconImageView.apply {
+                        if (!item.assets.isNullOrEmpty() && tracker?.isSelected(
+                                getItemId(position)
+                            ) == false
+                        ) {
+                            // See https://stackoverflow.com/a/35306315/6782707 for more info
+                            load(item.assets[0].src) {
+                                placeholder(CircularProgressDrawable(context).apply {
+                                    strokeWidth = 2f
+                                    centerRadius = 12f
+                                    start()
+                                })
+                            }
+                        } else if (tracker?.isSelected(getItemId(position)) == true) {
+                            setImageResource(R.drawable.ic_check_24dp)
+                        } else {
+                            setImageResource(R.drawable.ic_forum_outline_24dp)
+                        }
+                    }
+
+                    nameTextView.text = item.name
+                    descTextView.text = item.description
+
+                    if (infoButtonOnClickListener != null) {
+                        infoImageButton.setOnClickListener {
+                            infoButtonOnClickListener?.invoke(item)
+                        }
                     }
                 }
             }
@@ -107,22 +108,22 @@ class IconPickerAdapter(
         GRID(HOLDER_LAYOUT_GRID_ITEM_TYPE)
     }
 
-    open inner class Holder(view: View) : RecyclerView.ViewHolder(view) {
+    open class Holder(view: View) : RecyclerView.ViewHolder(view) {
         internal val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
         internal val nameTextView: TextView = view.findViewById(R.id.nameTextView)
         internal val descTextView: TextView = view.findViewById(R.id.descTextView)
 
         val itemDetails = IconPickerItemDetailsLookup.IconPickerItemDetails(
-            adapterPosition,
+            bindingAdapterPosition,
             itemId
         )
     }
 
-    inner class ListHolder(view: View) : Holder(view) {
+    class ListHolder(view: View) : Holder(view) {
         internal val infoImageButton: ImageButton = view.findViewById(R.id.infoImageButton)
     }
 
-    inner class GridHolder(view: View) : Holder(view)
+    class GridHolder(view: View) : Holder(view)
 
     companion object {
         /** The numerical value of [HolderLayout.LIST.itemType]. */

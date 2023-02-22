@@ -47,7 +47,7 @@ class IconPickerActivity : BaseActivity() {
         updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
         recyclerView.setHasFixedSize(false)
 
-        adapter = IconPickerAdapter(this)
+        adapter = IconPickerAdapter()
         recyclerView.adapter = adapter
 
         tracker = SelectionTracker.Builder(
