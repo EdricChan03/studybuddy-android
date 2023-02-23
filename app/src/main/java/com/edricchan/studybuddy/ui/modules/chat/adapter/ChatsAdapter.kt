@@ -1,18 +1,14 @@
 package com.edricchan.studybuddy.ui.modules.chat.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.databinding.ItemChatBinding
 import com.edricchan.studybuddy.interfaces.chat.Chat
 
 /**
@@ -22,90 +18,84 @@ import com.edricchan.studybuddy.interfaces.chat.Chat
  * @property onItemLongClickListener An optional listener which is invoked when the item is long clicked on
  */
 class ChatsAdapter(
-    private val context: Context,
     private val chatList: List<Chat>,
     private val onItemClickListener: ((item: Chat) -> Unit)? = null,
     private val onItemLongClickListener: ((item: Chat) -> Boolean)? = null
 ) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
     var selectionTracker: SelectionTracker<String>? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val context = parent.context
-        val inflater = LayoutInflater.from(context)
-        val itemView = inflater.inflate(R.layout.item_chat, parent, false)
-        return ViewHolder(itemView)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ItemChatBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+    )
 
     override fun getItemCount(): Int = chatList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = chatList[position]
-
-        val itemIconImageView = holder.itemIconImageView
-        val itemNameTextView = holder.itemNameTextView
-        val itemDescTextView = holder.itemDescTextView
-        val itemSelectionCheckBox = holder.itemSelectionCheckbox
-
-        if (!item.name.isNullOrEmpty()) {
-            itemNameTextView.text = item.name
-        } else {
-            itemNameTextView.setText(R.string.frag_chat_default_group_name)
-        }
-
-        if (!item.description.isNullOrEmpty()) {
-            itemDescTextView.text = item.description
-        } else {
-            itemDescTextView.setText(R.string.frag_chat_default_group_desc)
-        }
-
-        if (item.icon != null) {
-            // Reset to group pic style
-            itemIconImageView.apply {
-                setImageDrawable(null)
-
-                load(item.icon) {
-                    transformations(CircleCropTransformation())
-                    fallback(R.drawable.ic_forum_outline_24dp)
-                }
-            }
-        } else {
-            // Reset to no group pic style
-            itemIconImageView.setImageResource(R.drawable.ic_forum_outline_24dp)
-        }
-
-        holder.itemView.setOnClickListener {
-            if (selectionTracker?.hasSelection() == false) {
-                onItemClickListener?.invoke(item)
-            }
-        }
-        holder.itemView.setOnLongClickListener {
-            if (selectionTracker?.hasSelection() == false) {
-                onItemLongClickListener?.invoke(item) ?: false
-            } else {
-                false
-            }
-        }
-
-        if (selectionTracker != null && selectionTracker?.hasSelection() == true) {
-            itemSelectionCheckBox.isInvisible = false
-            itemIconImageView.isInvisible = true
-            holder.itemView.isActivated = selectionTracker!!.isSelected(item.id)
-        } else {
-            itemSelectionCheckBox.isInvisible = true
-            itemIconImageView.isInvisible = false
-        }
+        holder.bind(chatList[position])
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        internal val itemIconImageView: ImageView = view.findViewById(R.id.iconImageView)
-        internal val itemNameTextView: TextView = view.findViewById(R.id.nameTextView)
-        internal val itemDescTextView: TextView = view.findViewById(R.id.descTextView)
-        internal val itemSelectionCheckbox: CheckBox = view.findViewById(R.id.selectionCheckBox)
+    inner class ViewHolder(private val binding: ItemChatBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Chat) {
+            binding.apply {
+                if (!item.name.isNullOrEmpty()) {
+                    nameTextView.text = item.name
+                } else {
+                    nameTextView.setText(R.string.frag_chat_default_group_name)
+                }
 
-        fun getItemDetails(): ChatItemDetailsLookup.ChatItemDetails =
-            ChatItemDetailsLookup.ChatItemDetails(
-                adapterPosition,
-                chatList[adapterPosition].id
-            )
+                if (!item.description.isNullOrEmpty()) {
+                    descTextView.text = item.description
+                } else {
+                    descTextView.setText(R.string.frag_chat_default_group_desc)
+                }
+
+                if (item.icon != null) {
+                    // Reset to group pic style
+                    iconImageView.apply {
+                        setImageDrawable(null)
+
+                        load(item.icon) {
+                            transformations(CircleCropTransformation())
+                            fallback(R.drawable.ic_forum_outline_24dp)
+                        }
+                    }
+                } else {
+                    // Reset to no group pic style
+                    iconImageView.setImageResource(R.drawable.ic_forum_outline_24dp)
+                }
+
+                itemView.setOnClickListener {
+                    if (selectionTracker?.hasSelection() == false) {
+                        onItemClickListener?.invoke(item)
+                    }
+                }
+                itemView.setOnLongClickListener {
+                    if (selectionTracker?.hasSelection() == false) {
+                        onItemLongClickListener?.invoke(item) ?: false
+                    } else {
+                        false
+                    }
+                }
+
+                if (selectionTracker != null && selectionTracker?.hasSelection() == true) {
+                    selectionCheckBox.isInvisible = false
+                    iconImageView.isInvisible = true
+                    itemView.isActivated = selectionTracker!!.isSelected(item.id)
+                } else {
+                    selectionCheckBox.isInvisible = true
+                    iconImageView.isInvisible = false
+                }
+            }
+        }
+
+        fun getItemDetails() = ChatItemDetailsLookup.ChatItemDetails(
+            bindingAdapterPosition,
+            chatList[bindingAdapterPosition].id
+        )
     }
 }

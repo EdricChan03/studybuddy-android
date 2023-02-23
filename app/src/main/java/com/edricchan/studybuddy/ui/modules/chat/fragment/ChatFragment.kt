@@ -69,7 +69,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                         val chatList = docSnapshot.toObjects<Chat>()
 
                         val adapter =
-                            ChatsAdapter(requireContext(), chatList, onItemClickListener = { chat ->
+                            ChatsAdapter(chatList, onItemClickListener = { chat ->
                                 Log.d(TAG, "Chat ${chat.id} clicked!")
                                 Toast.makeText(
                                     context,
@@ -204,7 +204,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                         Toast.makeText(
                                                                             context,
                                                                             "An error occurred while attempting to archive the selected chats. Try " +
-                                                                                    "again later.",
+                                                                                "again later.",
                                                                             Toast.LENGTH_LONG
                                                                         ).show()
                                                                     }
@@ -219,9 +219,9 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                         val reason =
                                                             getString(R.string.chat_frag_archive_selected_chats_denied_dialog_reason_not_admin,
                                                                 "- " +
-                                                                        selectedChatsWithNoAdminPerm.joinToString(
-                                                                            "\n- "
-                                                                        ) { it.name.toString() })
+                                                                    selectedChatsWithNoAdminPerm.joinToString(
+                                                                        "\n- "
+                                                                    ) { it.name.toString() })
                                                         MaterialAlertDialogBuilder(requireContext()).apply {
                                                             setTitle(R.string.chat_frag_archive_selected_chats_denied_dialog_title)
                                                             setMessage(
@@ -236,6 +236,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                     }
                                                     isCallbackHandled = true
                                                 }
+
                                                 R.id.cab_action_leave_selected_chats -> {
                                                     if (selectedChatsIsOwner.size == 0) {
                                                         MaterialAlertDialogBuilder(requireContext()).apply {
@@ -295,13 +296,13 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                         Log.e(
                                                                             TAG,
                                                                             "An error occurred while attempting to leave selected chats (" +
-                                                                                    "${selectedChats.joinToString { it.id.toString() }}):",
+                                                                                "${selectedChats.joinToString { it.id.toString() }}):",
                                                                             task.exception
                                                                         )
                                                                         Toast.makeText(
                                                                             context,
                                                                             "An error occurred while attempting to leave selected chats. Try again " +
-                                                                                    "later.",
+                                                                                "later.",
                                                                             Toast.LENGTH_LONG
                                                                         ).show()
                                                                     }
@@ -316,9 +317,9 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                         val reason =
                                                             getString(R.string.chat_frag_leave_selected_chats_denied_reason_is_owner,
                                                                 "-" +
-                                                                        selectedChatsIsOwner.joinToString(
-                                                                            "\n- "
-                                                                        ) { it.name.toString() })
+                                                                    selectedChatsIsOwner.joinToString(
+                                                                        "\n- "
+                                                                    ) { it.name.toString() })
                                                         MaterialAlertDialogBuilder(requireContext()).apply {
                                                             setTitle(R.string.chat_frag_leave_selected_chats_denied_dialog_title)
                                                             setMessage(
@@ -337,15 +338,16 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
 
                                                     isCallbackHandled = true
                                                 }
+
                                                 R.id.cab_action_delete_selected_chats -> {
                                                     MaterialAlertDialogBuilder(requireContext()).apply {
                                                         setTitle(R.string.chat_frag_delete_selected_chats_confirm_dialog_title)
                                                         setMessage(
                                                             getString(R.string.chat_frag_delete_selected_chats_confirm_dialog_msg,
                                                                 "-" +
-                                                                        selectedChatsWithAdminPerm.joinToString(
-                                                                            "\n- "
-                                                                        ) { it.name.toString() })
+                                                                    selectedChatsWithAdminPerm.joinToString(
+                                                                        "\n- "
+                                                                    ) { it.name.toString() })
                                                         )
                                                         setPositiveButton(R.string.chat_frag_delete_selected_chats_confirm_dialog_positive_btn_text) { dialog, _
                                                             ->
@@ -364,7 +366,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                         Log.d(
                                                                             TAG,
                                                                             "Successfully deleted selected chats (" +
-                                                                                    "${selectedChatsWithAdminPerm.joinToString { it.id.toString() }})!"
+                                                                                "${selectedChatsWithAdminPerm.joinToString { it.id.toString() }})!"
                                                                         )
                                                                         Toast.makeText(
                                                                             context,
@@ -375,13 +377,13 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                                         Log.e(
                                                                             TAG,
                                                                             "An error occurred while attempting to delete the selected chats (" +
-                                                                                    "${selectedChatsWithAdminPerm.joinToString { it.id.toString() }}):",
+                                                                                "${selectedChatsWithAdminPerm.joinToString { it.id.toString() }}):",
                                                                             task.exception
                                                                         )
                                                                         Toast.makeText(
                                                                             context,
                                                                             "An error occurred while attempting to delete the selected chats. Try again " +
-                                                                                    "later.",
+                                                                                "later.",
                                                                             Toast.LENGTH_LONG
                                                                         ).show()
                                                                     }
@@ -395,6 +397,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                     }.show()
                                                     isCallbackHandled = true
                                                 }
+
                                                 R.id.cab_action_select_all_chats -> {
                                                     selectionTracker?.setItemsSelected(
                                                         chatList.map { it.id },
@@ -404,6 +407,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
                                                     isCallbackHandled = true
                                                     isActionModeFinished = true
                                                 }
+
                                                 else -> isCallbackHandled = false
                                             }
                                             if (isActionModeFinished) {
