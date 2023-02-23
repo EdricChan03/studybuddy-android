@@ -11,6 +11,13 @@ const val PREF_DARK_THEME = "pref_dark_theme"
 enum class NightMode(@NightModeAnnotation val modeId: Int) {
     Yes(AppCompatDelegate.MODE_NIGHT_YES),
     No(AppCompatDelegate.MODE_NIGHT_NO),
+
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Automatic switching of dark/light based on the current time is deprecated. " +
+            "Considering using an explicit setting, or AutoBattery.",
+        ReplaceWith("AutoBattery", "com.edricchan.studybuddy.ui.theming.NightMode.AutoTime")
+    )
     AutoTime(AppCompatDelegate.MODE_NIGHT_AUTO_TIME),
     AutoBattery(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY),
     FollowSystem(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
@@ -29,6 +36,16 @@ enum class NightMode(@NightModeAnnotation val modeId: Int) {
 /** An enum-like class used to represent a theme setting value and its corresponding night mode value. */
 sealed class DarkThemeValue(val value: String?, val mode: NightMode) {
     object V1Always : DarkThemeValue(VALUE_V1_ALWAYS, NightMode.Yes)
+
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Automatic switching of dark/light based on the current time is deprecated. " +
+            "Considering using an explicit setting, or AutoBattery.",
+        ReplaceWith(
+            "V2AutoBatterySaver",
+            "com.edricchan.studybuddy.ui.theming.DarkThemeValue.V2AutoBatterySaver"
+        )
+    )
     object V1AutoTime : DarkThemeValue(VALUE_V1_AUTO_TIME, NightMode.AutoTime)
     object V1Never : DarkThemeValue(VALUE_V1_NEVER, NightMode.No)
 
@@ -54,6 +71,7 @@ sealed class DarkThemeValue(val value: String?, val mode: NightMode) {
         const val VALUE_V2_NEVER = "never"
 
         /** Retrieves the [DarkThemeValue] given the [value], or [Default] if invalid. */
+        @Suppress("DEPRECATION")
         fun fromValue(value: String?) = when (value) {
             VALUE_V1_ALWAYS -> V1Always
             VALUE_V1_AUTO_TIME -> V1AutoTime
@@ -66,6 +84,7 @@ sealed class DarkThemeValue(val value: String?, val mode: NightMode) {
         }
 
         /** Retrieves the [DarkThemeValue] given the [mode], or [Default] if invalid. */
+        @Suppress("DEPRECATION")
         fun fromMode(mode: NightMode) = when (mode) {
             NightMode.AutoTime -> V1AutoTime
             NightMode.Yes -> V2Always

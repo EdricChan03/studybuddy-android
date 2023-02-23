@@ -24,6 +24,7 @@ data class HelpArticle(
     val isDisabled: Boolean = false,
     val isHidden: Boolean = false
 ) {
+    @Suppress("DEPRECATION")
     @StringDef(
         ICON_CONTACT,
         ICON_DOCUMENT,
