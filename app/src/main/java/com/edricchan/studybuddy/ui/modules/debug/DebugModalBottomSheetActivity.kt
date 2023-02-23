@@ -2,7 +2,9 @@ package com.edricchan.studybuddy.ui.modules.debug
 
 import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -165,31 +167,34 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                 type = MimeTypeConstants.textPlainMime
             }
             // See https://stackoverflow.com/a/9083910/6782707
-            val shareIntentLaunchables = packageManager.queryIntentActivities(shareIntent, 0)
-            shareIntentLaunchables.sortWith(ResolveInfo.DisplayNameComparator(packageManager))
+            @Suppress("DEPRECATION") val launchables =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) packageManager.queryIntentActivities(
+                    shareIntent,
+                    PackageManager.ResolveInfoFlags.of(0)
+                ) else packageManager.queryIntentActivities(shareIntent, 0)
+            items += launchables.sortedWith(ResolveInfo.DisplayNameComparator(packageManager))
+                .map { resolveInfo ->
+                    ModalBottomSheetItem(
+                        title = resolveInfo.loadLabel(packageManager).toString(),
+                        iconDrawable = resolveInfo.loadIcon(packageManager),
+                        onItemClickListener = {
+                            showToast(it)
+                            // Code adapted from
+                            // https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
+                            val activity = resolveInfo.activityInfo
+                            // Passing an intent to the `Intent` constructor will create a copy of
+                            // that intent.
+                            val intent = Intent(shareIntent).apply {
+                                component = ComponentName(activity.packageName, activity.name)
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                            startActivity(intent)
 
-            shareIntentLaunchables.forEach { resolveInfo ->
-                addItem(ModalBottomSheetItem(
-                    title = resolveInfo.loadLabel(packageManager).toString(),
-                    iconDrawable = resolveInfo.loadIcon(packageManager),
-                    onItemClickListener = {
-                        showToast(it)
-                        // Code adapted from
-                        // https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
-                        val activity = resolveInfo.activityInfo
-                        // Passing an intent to the `Intent` constructor will create a copy of that
-                        // intent.
-                        val intent = Intent(shareIntent).apply {
-                            component = ComponentName(activity.packageName, activity.name)
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            // Dismiss the bottom sheet
+                            dismiss()
                         }
-                        startActivity(intent)
-
-                        // Dismiss the bottom sheet
-                        dismiss()
-                    }
-                ))
-            }
+                    )
+                }
             headerTitle = this@DebugModalBottomSheetActivity.getString(R.string.share_intent_value)
         }
 
