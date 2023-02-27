@@ -11,10 +11,10 @@ plugins {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
 tasks.withType<KotlinJvmCompile>().configureEach {
-    compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
 }

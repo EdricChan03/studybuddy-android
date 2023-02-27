@@ -44,7 +44,7 @@ val buildTimeString: String
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -120,7 +120,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     // GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
