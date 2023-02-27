@@ -18,8 +18,20 @@ fun Instant.toLocalDateTime(zoneId: ZoneId = ZoneId.systemDefault()): LocalDateT
 /** Formats the temporal object using the given [formatter]. */
 fun TemporalAccessor.format(formatter: DateTimeFormatter): String = formatter.format(this)
 
-/** Formats the temporal object using the given [pattern]. */
-fun TemporalAccessor.format(pattern: String) = format(DateTimeFormatter.ofPattern(pattern))
+/**
+ * Formats the temporal object using the given [pattern] and configures
+ * the formatter with [formatterInit].
+ */
+fun TemporalAccessor.format(
+    pattern: String, formatterInit: DateTimeFormatter.() -> Unit = {}
+): String = DateTimeFormatter.ofPattern(pattern).apply(formatterInit).format(this)
+
+/**
+ * Creates a [DateTimeFormatter] from the given pattern string and configures the
+ * formatter with [formatterInit].
+ */
+fun String.toDateTimeFormatter(formatterInit: DateTimeFormatter.() -> Unit = {}) =
+    DateTimeFormatter.ofPattern(this).apply(formatterInit)
 
 /** Formats the [Instant] to an ISO8601 date-time value. */
 fun Instant.formatISO() = format(DateTimeFormatter.ISO_INSTANT)

@@ -10,8 +10,13 @@ import java.time.format.DateTimeFormatter
 /** Formats the [Timestamp] using the given [formatter]. */
 fun Timestamp.format(formatter: DateTimeFormatter) = toInstant().format(formatter)
 
-/** Formats the [Timestamp] using the given [pattern]. */
-fun Timestamp.format(pattern: String) = toInstant().format(pattern)
+/**
+ * Formats the [Timestamp] using the given [pattern] and configures
+ * the formatter with [formatterInit].
+ */
+fun Timestamp.format(
+    pattern: String, formatterInit: DateTimeFormatter.() -> Unit = {}
+) = toInstant().format(pattern, formatterInit)
 
 /** Converts a [Timestamp] to a [LocalDateTime]. */
 fun Timestamp.toLocalDateTime(): LocalDateTime =
