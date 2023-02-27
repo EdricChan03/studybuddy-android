@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityIconPickerBinding
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerAdapter
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerItemDetailsLookup
@@ -57,22 +58,20 @@ class IconPickerActivity : BaseActivity() {
             IconPickerItemDetailsLookup(recyclerView),
             StorageStrategy.createLongStorage()
         ).withSelectionPredicate(SelectionPredicates.createSelectSingleAnything())
-            .withOnItemActivatedListener { item, e ->
-                Toast.makeText(
-                    this@IconPickerActivity,
+            .withOnItemActivatedListener { item, _ ->
+                showToast(
                     "Position ${item.position} has been activated.",
                     Toast.LENGTH_SHORT
                 )
-                    .show()
                 true
             }
             .build()
 
         adapter.tracker = tracker
         adapter.infoButtonOnClickListener = { chatIcon ->
-            val infoBottomSheetFragment = IconPickerInfoBottomSheetFragment()
-            infoBottomSheetFragment.icon = chatIcon
-            infoBottomSheetFragment.show(supportFragmentManager, "iconInfo")
+            IconPickerInfoBottomSheetFragment().apply {
+                icon = chatIcon
+            }.show(supportFragmentManager, "iconInfo")
         }
 
         firestore.collection("chatIconLibrary")
@@ -124,17 +123,9 @@ class IconPickerActivity : BaseActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        when (recyclerViewLayout) {
-            IconPickerAdapter.HolderLayout.LIST -> {
-                menu.findItem(R.id.action_switch_grid_view)?.isVisible = true
-                menu.findItem(R.id.action_switch_list_view)?.isVisible = false
-            }
-
-            IconPickerAdapter.HolderLayout.GRID -> {
-                menu.findItem(R.id.action_switch_grid_view)?.isVisible = false
-                menu.findItem(R.id.action_switch_list_view)?.isVisible = true
-            }
-        }
+        val isList = recyclerViewLayout == IconPickerAdapter.HolderLayout.LIST
+        menu.findItem(R.id.action_switch_grid_view)?.isVisible = isList
+        menu.findItem(R.id.action_switch_list_view)?.isVisible = !isList
         return true
     }
 
