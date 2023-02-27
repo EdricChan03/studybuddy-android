@@ -19,8 +19,8 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.text.isDigitsOnly
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 import androidx.work.Operation
 import com.edricchan.studybuddy.R
@@ -29,6 +29,8 @@ import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.DebugSendFcmNotificationDialogBinding
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.dialog.materialAlertDialogBuilder
+import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.creationInstant
 import com.edricchan.studybuddy.extensions.firebase.auth.lastSignInInstant
@@ -42,16 +44,21 @@ import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
 import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
+import com.edricchan.studybuddy.utils.defaultSharedPreferences
 import com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker
-import com.edricchan.studybuddy.utils.firebase.FirebaseMessagingUtils
+import com.edricchan.studybuddy.utils.firebase.sendToFirestoreAsync
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.installations.ktx.installations
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.time.Instant
 
 
@@ -195,15 +202,17 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
 
     private var user: FirebaseUser? = null
     private var connectivityManager: ConnectivityManager? = null
-    private lateinit var installations: FirebaseInstallations
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var installations: FirebaseInstallations
     private lateinit var devModeOpts: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installations = Firebase.installations
         auth = Firebase.auth
         user = auth.currentUser
+        firestore = Firebase.firestore
+        installations = Firebase.installations
         connectivityManager = requireContext().getSystemService()
     }
 
@@ -217,7 +226,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             ?.setOnPreferenceChangeListener { _, newValue ->
                 var returnResult = true
                 if (newValue == false) {
-                    MaterialAlertDialogBuilder(requireContext()).apply {
+                    requireContext().showMaterialAlertDialog {
                         setTitle(R.string.dev_mode_confirm_disable_dialog_title)
                         setMessage(R.string.dev_mode_confirm_disable_dialog_msg)
                         setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
@@ -233,7 +242,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                             }
                             dialog.dismiss()
                         }
-                    }.show()
+                    }
                 } else if (newValue == true) {
                     devModeOpts.edit {
                         putBoolean(DevModePrefConstants.DEV_MODE_ENABLED, true)
@@ -258,210 +267,17 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         }
 
         findPreference<Preference>(Constants.debugAccountInfo)?.setOnPreferenceClickListener {
-            MaterialAlertDialogBuilder(requireContext()).apply {
-                setTitle(R.string.debug_activity_account_info_title)
-                if (user != null)
-                    setMessage(
-                        """
-                        Display name: ${user?.displayName ?: "<not set>"}
-                        Email: ${user?.email ?: "<not set>"}
-                        Metadata:
-                        - Creation timestamp: ${
-                            user?.metadata?.creationInstant
-                                ?.formatISO() ?: "<not set>"
-                        }
-                        - Last sign in timestamp: ${
-                            user?.metadata?.lastSignInInstant
-                                ?.formatISO() ?: "<not set>"
-                        }
-                        Phone number: ${user?.phoneNumber ?: "<not set>"}
-                        Photo URL: ${user?.photoUrl ?: "<not set>"}
-                        UID: ${user?.uid ?: "<not set>"}
-                        Is anonymous: ${user?.isAnonymous}
-                    """.trimIndent()
-                    )
-                else setMessage("No current signed-in Firebase user exists!")
-                setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
-            }.show()
+            showAcctInfoDialog()
             true
         }
 
         findPreference<Preference>(Constants.debugSendNotification)?.setOnPreferenceClickListener {
-            val dialogBinding =
-                DebugSendFcmNotificationDialogBinding.inflate(layoutInflater, null, false)
-
-            val builder = MaterialAlertDialogBuilder(requireContext()).apply {
-                setTitle(R.string.debug_activity_send_notification_title)
-                setView(dialogBinding.root)
-                setIcon(R.drawable.ic_send_outline_24dp)
-                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-                setPositiveButton(R.string.dialog_action_send) { dialog, _ ->
-                    with(dialogBinding) {
-                        if (userOrTopicTextInputLayout.editTextStrValue.isNotEmpty() &&
-                            titleTextInputLayout.editTextStrValue.isNotEmpty() &&
-                            bodyTextInputLayout.editTextStrValue.isNotEmpty()
-                        ) {
-                            // TODO: Cleanup code
-                            Log.d(
-                                TAG,
-                                "Value of bodyTextInputEditText: ${bodyTextInputLayout.editTextStrValue}"
-                            )
-                            Log.d(
-                                TAG,
-                                "Value of channelIdTextInputEditText: ${channelIdTextInputLayout.editTextStrValue}"
-                            )
-                            Log.d(
-                                TAG,
-                                "Value of colorTextInputLayout: ${colorTextInputLayout.editTextStrValue}"
-                            )
-                            Log.d(
-                                TAG,
-                                "Value of userOrTopicTextInputEditText: ${userOrTopicTextInputLayout.editTextStrValue}"
-                            )
-                            Log.d(
-                                TAG,
-                                "Value of titleTextInputEditText: ${titleTextInputLayout.editTextStrValue}"
-                            )
-                            @NotificationRequest.NotificationPriority var priority =
-                                NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
-                            when (priorityRadioGroup.checkedRadioButtonId) {
-                                R.id.priorityNormalRadioButton -> {
-                                    Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
-                                    priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
-                                }
-
-                                R.id.priorityHighRadioButton -> {
-                                    Log.d(TAG, "Value of priorityRadioGroup: \"high\"")
-                                    priority = NotificationRequest.NOTIFICATION_PRIORITY_HIGH
-                                }
-                            }
-                            val notificationRequest = NotificationRequest.build {
-                                if (bodyTextInputLayout.editTextStrValue != null && bodyTextInputLayout.editTextStrValue.isNotEmpty()) {
-                                    notificationBody = bodyTextInputLayout.editTextStrValue
-                                }
-                                if (channelIdTextInputLayout.editTextStrValue != null &&
-                                    channelIdTextInputLayout.editTextStrValue.isNotEmpty()
-                                ) {
-                                    notificationChannelId =
-                                        channelIdTextInputLayout.editTextStrValue
-                                }
-                                if (colorTextInputLayout.editTextStrValue != null && colorTextInputLayout.editTextStrValue.isNotEmpty()) {
-                                    notificationColor = colorTextInputLayout.editTextStrValue
-                                }
-                                if (priority.isNotEmpty()) {
-                                    notificationPriority = priority
-                                }
-                                if (titleTextInputLayout.editTextStrValue != null && titleTextInputLayout.editTextStrValue.isNotEmpty()) {
-                                    notificationTitle = titleTextInputLayout.editTextStrValue
-                                }
-                                if (userOrTopicTextInputLayout.editTextStrValue != null &&
-                                    userOrTopicTextInputLayout.editTextStrValue.isNotEmpty()
-                                ) {
-                                    userOrTopic = userOrTopicTextInputLayout.editTextStrValue
-                                }
-                                if (ttlTextInputLayout.editTextStrValue != null && ttlTextInputLayout.editTextStrValue.isNotEmpty() &&
-                                    ttlTextInputLayout.editTextStrValue.isDigitsOnly()
-                                ) {
-                                    notificationTtl = ttlTextInputLayout.editTextStrValue.toLong()
-                                }
-                                val notificationSettingsAction = NotificationAction.build {
-                                    title = "Configure Notifications"
-                                    icon = "ic_settings_24dp"
-                                    type = Constants.actionNotificationsSettingsIntent
-                                }
-                                notificationActions?.add(notificationSettingsAction)
-                            }
-                            FirebaseMessagingUtils.sendNotificationRequest(notificationRequest)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        Log.d(
-                                            TAG,
-                                            "Successfully sent notification request to Cloud Firestore!"
-                                        )
-                                        this@DebugSettingsFragment.showToast(
-                                            "Successfully sent notification request to Cloud Firestore!",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                    } else {
-                                        this@DebugSettingsFragment.showToast(
-                                            "An error occurred while attempting to send the notification request" +
-                                                " to Cloud Firestore. Check the logcat for more details.",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                        Log.e(
-                                            TAG,
-                                            "An error occurred while attempting to send the notification request to Cloud Firestore:",
-                                            task.exception
-                                        )
-                                    }
-                                    dialog.dismiss()
-                                }
-                        } else {
-                            this@DebugSettingsFragment.showToast(
-                                "Please fill in the form!",
-                                Toast.LENGTH_SHORT
-                            )
-                        }
-                    }
-                }
-            }
-
-            val dialog = builder.create()
-            // First, show the dialog
-            dialog.show()
-            // Initially disable the button
-            dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = false
-            with(dialogBinding) {
-                fun textWatcher(textInputLayout: TextInputLayout) = { e: Editable? ->
-                    textInputLayout.error =
-                        if (e.isNullOrEmpty()) "This field is required" else null
-                    // Update confirm button state
-                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled =
-                        userOrTopicTextInputLayout.editTextStrValue.isNotEmpty() &&
-                            titleTextInputLayout.editTextStrValue.isNotEmpty() &&
-                            bodyTextInputLayout.editTextStrValue.isNotEmpty()
-                }
-
-                // Add the watchers to the associated TextInputEditTexts
-                userOrTopicTextInputLayout.editText?.doAfterTextChanged(
-                    textWatcher(
-                        userOrTopicTextInputLayout
-                    )
-                )
-                titleTextInputLayout.editText?.doAfterTextChanged(textWatcher(titleTextInputLayout))
-                bodyTextInputLayout.editText?.doAfterTextChanged(textWatcher(bodyTextInputLayout))
-            }
+            showNotifRequestDialog()
             true
         }
 
         findPreference<Preference>(Constants.debugResetInstanceId)?.setOnPreferenceClickListener {
-            MaterialAlertDialogBuilder(requireContext()).apply {
-                setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
-                setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
-                setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
-                    installations.delete().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            this@DebugSettingsFragment.showToast(
-                                "Successfully deleted instance ID!",
-                                Toast.LENGTH_LONG
-                            )
-                        } else {
-                            this@DebugSettingsFragment.showToast(
-                                "An error occurred while deleting the device's instance ID." +
-                                    " Please consult the logcat for the stacktrace of the exception.",
-                                Toast.LENGTH_LONG
-                            )
-                            Log.e(
-                                TAG,
-                                "An error occurred while deleting the device's instance ID: ",
-                                task.exception
-                            )
-                        }
-                    }
-                    dialog.dismiss()
-                }
-                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-            }.show()
+            showResetInstanceIdDialog()
             true
         }
 
@@ -476,60 +292,273 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         }
 
         findPreference<Preference>(Constants.debugOtherClearAppSettings)?.setOnPreferenceClickListener {
-            MaterialAlertDialogBuilder(requireContext()).apply {
-                setTitle(R.string.debug_activity_confirm_clear_app_settings_dialog_title)
-                setMessage(R.string.debug_activity_confirm_clear_app_settings_dialog_msg)
-                setPositiveButton(R.string.dialog_action_clear) { dialog, _ ->
-                    val sharedPreferences =
-                        PreferenceManager.getDefaultSharedPreferences(requireContext())
-                    sharedPreferences.edit {
-                        clear()
-                    }
-
-                    this@DebugSettingsFragment.showToast(
-                        "Successfully cleared app settings!",
-                        Toast.LENGTH_SHORT
-                    )
-                    dialog.dismiss()
-                }
-                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-            }.show()
+            showClearAppSettingsDialog()
             true
         }
     }
 
-    private fun createSdkInfoDialog() = MaterialAlertDialogBuilder(requireContext()).apply {
+    private fun showAcctInfoDialog() {
+        requireContext().showMaterialAlertDialog {
+            setTitle(R.string.debug_activity_account_info_title)
+            if (user != null)
+                setMessage(
+                    """
+                        Display name: ${user?.displayName ?: "<not set>"}
+                        Email: ${user?.email ?: "<not set>"}
+                        Metadata:
+                        - Creation timestamp: ${
+                        user?.metadata?.creationInstant
+                            ?.formatISO() ?: "<not set>"
+                    }
+                        - Last sign in timestamp: ${
+                        user?.metadata?.lastSignInInstant
+                            ?.formatISO() ?: "<not set>"
+                    }
+                        Phone number: ${user?.phoneNumber ?: "<not set>"}
+                        Photo URL: ${user?.photoUrl ?: "<not set>"}
+                        UID: ${user?.uid ?: "<not set>"}
+                        Is anonymous: ${user?.isAnonymous}
+                    """.trimIndent()
+                )
+            else setMessage("No current signed-in Firebase user exists!")
+            setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
+        }
+    }
+
+    private fun showNotifRequestDialog() {
+        val dialogBinding =
+            DebugSendFcmNotificationDialogBinding.inflate(layoutInflater, null, false)
+
+        val dialog = requireContext().showMaterialAlertDialog {
+            setTitle(R.string.debug_activity_send_notification_title)
+            setView(dialogBinding.root)
+            setIcon(R.drawable.ic_send_outline_24dp)
+            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+            setPositiveButton(R.string.dialog_action_send) { _, _ ->
+                with(dialogBinding) {
+                    if (userOrTopicTextInputLayout.editTextStrValue.isNotEmpty() &&
+                        titleTextInputLayout.editTextStrValue.isNotEmpty() &&
+                        bodyTextInputLayout.editTextStrValue.isNotEmpty()
+                    ) {
+                        // TODO: Cleanup code
+                        Log.d(
+                            TAG,
+                            "Value of bodyTextInputEditText: ${bodyTextInputLayout.editTextStrValue}"
+                        )
+                        Log.d(
+                            TAG,
+                            "Value of channelIdTextInputEditText: ${channelIdTextInputLayout.editTextStrValue}"
+                        )
+                        Log.d(
+                            TAG,
+                            "Value of colorTextInputLayout: ${colorTextInputLayout.editTextStrValue}"
+                        )
+                        Log.d(
+                            TAG,
+                            "Value of userOrTopicTextInputEditText: ${userOrTopicTextInputLayout.editTextStrValue}"
+                        )
+                        Log.d(
+                            TAG,
+                            "Value of titleTextInputEditText: ${titleTextInputLayout.editTextStrValue}"
+                        )
+                        @NotificationRequest.NotificationPriority var priority =
+                            NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
+                        when (priorityRadioGroup.checkedRadioButtonId) {
+                            R.id.priorityNormalRadioButton -> {
+                                Log.d(TAG, "Value of priorityRadioGroup: \"normal\"")
+                                priority = NotificationRequest.NOTIFICATION_PRIORITY_NORMAL
+                            }
+
+                            R.id.priorityHighRadioButton -> {
+                                Log.d(TAG, "Value of priorityRadioGroup: \"high\"")
+                                priority = NotificationRequest.NOTIFICATION_PRIORITY_HIGH
+                            }
+                        }
+                        val notificationRequest = NotificationRequest.build {
+                            if (bodyTextInputLayout.editTextStrValue.isNotEmpty()) {
+                                notificationBody = bodyTextInputLayout.editTextStrValue
+                            }
+                            if (channelIdTextInputLayout.editTextStrValue.isNotEmpty()
+                            ) {
+                                notificationChannelId =
+                                    channelIdTextInputLayout.editTextStrValue
+                            }
+                            if (colorTextInputLayout.editTextStrValue.isNotEmpty()) {
+                                notificationColor = colorTextInputLayout.editTextStrValue
+                            }
+                            if (priority.isNotEmpty()) {
+                                notificationPriority = priority
+                            }
+                            if (titleTextInputLayout.editTextStrValue.isNotEmpty()) {
+                                notificationTitle = titleTextInputLayout.editTextStrValue
+                            }
+                            if (userOrTopicTextInputLayout.editTextStrValue.isNotEmpty()
+                            ) {
+                                userOrTopic = userOrTopicTextInputLayout.editTextStrValue
+                            }
+                            if (ttlTextInputLayout.editTextStrValue.isNotEmpty() && ttlTextInputLayout.editTextStrValue.isDigitsOnly()
+                            ) {
+                                notificationTtl = ttlTextInputLayout.editTextStrValue.toLong()
+                            }
+                            val notificationSettingsAction = NotificationAction.build {
+                                title = "Configure Notifications"
+                                icon = "ic_settings_24dp"
+                                type = Constants.actionNotificationsSettingsIntent
+                            }
+                            notificationActions?.add(notificationSettingsAction)
+                        }
+                        sendNotificationRequest(notificationRequest)
+                    } else {
+                        this@DebugSettingsFragment.showToast(
+                            "Please fill in the form!",
+                            Toast.LENGTH_SHORT
+                        )
+                    }
+                }
+            }
+        }
+
+        // Initially disable the button
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = false
+        with(dialogBinding) {
+            fun textWatcher(textInputLayout: TextInputLayout) = { e: Editable? ->
+                textInputLayout.error =
+                    if (e.isNullOrEmpty()) "This field is required" else null
+                // Update confirm button state
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled =
+                    userOrTopicTextInputLayout.editTextStrValue.isNotEmpty() &&
+                        titleTextInputLayout.editTextStrValue.isNotEmpty() &&
+                        bodyTextInputLayout.editTextStrValue.isNotEmpty()
+            }
+
+            // Add the watchers to the associated TextInputEditTexts
+            userOrTopicTextInputLayout.editText?.doAfterTextChanged(
+                textWatcher(
+                    userOrTopicTextInputLayout
+                )
+            )
+            titleTextInputLayout.editText?.doAfterTextChanged(textWatcher(titleTextInputLayout))
+            bodyTextInputLayout.editText?.doAfterTextChanged(textWatcher(bodyTextInputLayout))
+        }
+    }
+
+    private fun sendNotificationRequest(request: NotificationRequest) {
+        try {
+            lifecycleScope.launch {
+                request.sendToFirestoreAsync(firestore)
+            }
+            Log.d(
+                TAG,
+                "Successfully sent notification request to Cloud Firestore!"
+            )
+            this@DebugSettingsFragment.showToast(
+                "Successfully sent notification request to Cloud Firestore!",
+                Toast.LENGTH_SHORT
+            )
+        } catch (e: Exception) {
+            this@DebugSettingsFragment.showToast(
+                "An error occurred while attempting to send the notification request" +
+                    " to Cloud Firestore. Check the logcat for more details.",
+                Toast.LENGTH_SHORT
+            )
+            Log.e(
+                TAG,
+                "An error occurred while attempting to send the notification request to Cloud Firestore:",
+                e
+            )
+        }
+    }
+
+    private fun showResetInstanceIdDialog() {
+        requireContext().showMaterialAlertDialog {
+            setTitle(R.string.debug_activity_confirm_reset_instance_id_dialog_title)
+            setMessage(R.string.debug_activity_confirm_reset_instance_id_dialog_msg)
+            setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
+                deleteInstanceId()
+                dialog.dismiss()
+            }
+            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+        }.show()
+    }
+
+    private fun deleteInstanceId() {
+        lifecycleScope.launch {
+            try {
+                installations.delete().await()
+                this@DebugSettingsFragment.showToast(
+                    "Successfully deleted instance ID!",
+                    Toast.LENGTH_LONG
+                )
+            } catch (e: Exception) {
+                this@DebugSettingsFragment.showToast(
+                    "An error occurred while deleting the device's instance ID." +
+                        " Please consult the logcat for the stacktrace of the exception.",
+                    Toast.LENGTH_LONG
+                )
+                Log.e(
+                    TAG,
+                    "An error occurred while deleting the device's instance ID: ",
+                    e
+                )
+
+            }
+        }
+    }
+
+    private fun showClearAppSettingsDialog() {
+        requireContext().showMaterialAlertDialog {
+            setTitle(R.string.debug_activity_confirm_clear_app_settings_dialog_title)
+            setMessage(R.string.debug_activity_confirm_clear_app_settings_dialog_msg)
+            setPositiveButton(R.string.dialog_action_clear) { dialog, _ ->
+                val sharedPreferences = requireContext().defaultSharedPreferences
+                sharedPreferences.edit {
+                    clear()
+                }
+
+                this@DebugSettingsFragment.showToast(
+                    "Successfully cleared app settings!",
+                    Toast.LENGTH_SHORT
+                )
+                dialog.dismiss()
+            }
+            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+        }
+    }
+
+    private val String.orUnset get() = ifEmpty { "<Unset>" }
+
+    private fun createSdkInfoDialog() = requireContext().materialAlertDialogBuilder {
         setTitle(R.string.debug_activity_device_sdk_info_dialog_title)
         setMessage(
             """
             Device SDK: ${Build.VERSION.SDK_INT} (${Build.VERSION.RELEASE_OR_CODENAME})
             Preview SDK: ${Build.VERSION.PREVIEW_SDK_INT}
-            Build fingerprint: ${Build.FINGERPRINT.ifEmpty { "<Unset>" }}
-            Model: ${Build.MODEL.ifEmpty { "<Unset>" }}
-            Board: ${Build.BOARD.ifEmpty { "<Unset>" }}
-            Bootloader version: ${Build.BOOTLOADER.ifEmpty { "<Unset>" }}
-            Brand: ${Build.BRAND.ifEmpty { "<Unset>" }}
-            Device: ${Build.DEVICE.ifEmpty { "<Unset>" }}
-            Display: ${Build.DISPLAY.ifEmpty { "<Unset>" }}
-            Fingerprint: ${Build.FINGERPRINT.ifEmpty { "<Unset>" }}
-            Hardware: ${Build.HARDWARE.ifEmpty { "<Unset>" }}
-            Host: ${Build.HOST.ifEmpty { "<Unset>" }}
-            Id: ${Build.ID.ifEmpty { "<Unset>" }}
-            Manufacturer: ${Build.MANUFACTURER.ifEmpty { "<Unset>" }}
-            Product: ${Build.PRODUCT.ifEmpty { "<Unset>" }}
+            Build fingerprint: ${Build.FINGERPRINT.orUnset}
+            Model: ${Build.MODEL.orUnset}
+            Board: ${Build.BOARD.orUnset}
+            Bootloader version: ${Build.BOOTLOADER.orUnset}
+            Brand: ${Build.BRAND.orUnset}
+            Device: ${Build.DEVICE.orUnset}
+            Display: ${Build.DISPLAY.orUnset}
+            Fingerprint: ${Build.FINGERPRINT.orUnset}
+            Hardware: ${Build.HARDWARE.orUnset}
+            Host: ${Build.HOST.orUnset}
+            Id: ${Build.ID.orUnset}
+            Manufacturer: ${Build.MANUFACTURER.orUnset}
+            Product: ${Build.PRODUCT.orUnset}
             Supported ABIs: ${Build.SUPPORTED_ABIS.joinToString()}
-            Tags: ${Build.TAGS.ifEmpty { "<Unset>" }}
+            Tags: ${Build.TAGS.orUnset}
             Time: ${Build.TIME}
-            Type: ${Build.TYPE.ifEmpty { "<Unset>" }}
+            Type: ${Build.TYPE.orUnset}
             User: ${Build.USER}
-            Radio firmware version: ${Build.getRadioVersion().ifEmpty { "<Unset>" }}
+            Radio firmware version: ${Build.getRadioVersion().orUnset}
             """.trimIndent()
         )
         setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
     }
 
     @SuppressLint("SwitchIntDef")
-    private fun createNightModeInfoDialog() = MaterialAlertDialogBuilder(requireContext()).apply {
+    private fun createNightModeInfoDialog() = requireContext().materialAlertDialogBuilder {
         setTitle(R.string.debug_activity_night_mode_info_dialog_title)
 
         val defaultNightMode = AppCompatDelegate.getDefaultNightMode()
@@ -558,7 +587,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
     }
 
     private fun createDynamicThemeInfoDialog() =
-        MaterialAlertDialogBuilder(requireContext()).apply {
+        requireContext().materialAlertDialogBuilder {
             val fragContext = this@DebugSettingsFragment.requireContext()
 
             setTitle(R.string.debug_activity_dynamic_theme_info_dialog_title)
@@ -581,7 +610,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         }
 
     private fun createConnectivityInfoDialog() =
-        MaterialAlertDialogBuilder(requireContext()).apply {
+        requireContext().materialAlertDialogBuilder {
             setTitle(R.string.debug_activity_connectivity_info_dialog_title)
             val isNetworkMetered = connectivityManager!!.isActiveNetworkMetered
             val isNetworkActive = connectivityManager!!.isDefaultNetworkActive
