@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.TodosAdapterItemRowBinding
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.markwon.*
+import com.edricchan.studybuddy.extensions.markwon.coilImagesPlugin
+import com.edricchan.studybuddy.extensions.markwon.linkifyPlugin
+import com.edricchan.studybuddy.extensions.markwon.setMarkdown
+import com.edricchan.studybuddy.extensions.markwon.strikethroughPlugin
+import com.edricchan.studybuddy.extensions.markwon.taskListPlugin
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TodoItemDetails
 
@@ -65,10 +69,11 @@ class TodosAdapter(
         }
 
         fun getItemDetails(): TodoItemDetails {
-            Log.d(TAG, "Adapter position: $adapterPosition")
-            val id = todoItemList[adapterPosition].id
-            Log.d(TAG, "ID at adapter position $adapterPosition: $id")
-            return TodoItemDetails(adapterPosition, id)
+            val position = bindingAdapterPosition
+            Log.d(TAG, "Adapter position: $position")
+            val id = todoItemList[position].id
+            Log.d(TAG, "ID at adapter position $position: $id")
+            return TodoItemDetails(position, id)
         }
     }
 
