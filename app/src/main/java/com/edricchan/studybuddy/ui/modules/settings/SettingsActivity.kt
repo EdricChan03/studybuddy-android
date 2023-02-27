@@ -92,6 +92,7 @@ class SettingsActivity : BaseActivity(),
         )
             .apply {
                 arguments = args
+                @Suppress("DEPRECATION") // See https://issuetracker.google.com/issues/212905758
                 setTargetFragment(caller, 0)
             }
         title = pref.title

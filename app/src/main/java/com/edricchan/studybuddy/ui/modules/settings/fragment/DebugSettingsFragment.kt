@@ -107,6 +107,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                     }
             }
 
+            @Suppress("DEPRECATION")
             if (savedInstanceState != null) {
                 lastCheckedForUpdatesInstant =
                     (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
