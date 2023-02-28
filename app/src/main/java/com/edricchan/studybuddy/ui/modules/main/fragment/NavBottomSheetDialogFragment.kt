@@ -14,6 +14,7 @@ import coil.load
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
+import com.edricchan.studybuddy.extensions.getParcelableCompat
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -55,7 +56,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
             isLoggedIn = getBoolean(IS_LOGGED_IN_TAG)
             displayName = getString(USER_NAME_TAG)
             email = getString(USER_EMAIL_TAG)
-            photoUrl = getParcelable(USER_PHOTO_URL_TAG)
+            photoUrl = getParcelableCompat(USER_PHOTO_URL_TAG)
         }
 
         val headerView = binding.navigationView.getHeaderView(0)

@@ -3,13 +3,13 @@ package com.edricchan.studybuddy.ui.modules.settings.fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.extensions.getSerializableCompat
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import java.time.Instant
@@ -77,22 +77,14 @@ class UpdateSettingsFragment : MaterialPreferenceFragment(),
             registerOnSharedPreferenceChangeListener(this@UpdateSettingsFragment)
         }
 
-        if (savedInstanceState != null) {
-            lastCheckedForUpdatesInstant =
-                (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                    savedInstanceState.getSerializable(
-                        LAST_CHECK_FOR_UPDATES_DATE_TAG,
-                        Instant::class.java
-                    )
-                else savedInstanceState.getSerializable(LAST_CHECK_FOR_UPDATES_DATE_TAG) as? Instant)
-            lastUpdatedInstant =
-                (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                    savedInstanceState.getSerializable(
-                        LAST_UPDATED_DATE_TAG,
-                        Instant::class.java
-                    )
-                else savedInstanceState.getSerializable(LAST_UPDATED_DATE_TAG) as? Instant)
-        } else {
+        savedInstanceState?.run {
+            lastCheckedForUpdatesInstant = getSerializableCompat(
+                LAST_CHECK_FOR_UPDATES_DATE_TAG
+            )
+            lastUpdatedInstant = getSerializableCompat(
+                LAST_UPDATED_DATE_TAG
+            )
+        } ?: run {
             setLastCheckedForUpdates(
                 updateInfoPreferences
                     .getLong(
@@ -108,6 +100,7 @@ class UpdateSettingsFragment : MaterialPreferenceFragment(),
                     )
             )
         }
+
         findPreference<Preference>(Constants.prefUpdates)?.intent =
             Intent(context, UpdatesActivity::class.java)
 

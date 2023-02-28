@@ -35,6 +35,7 @@ import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.creationInstant
 import com.edricchan.studybuddy.extensions.firebase.auth.lastSignInInstant
 import com.edricchan.studybuddy.extensions.formatISO
+import com.edricchan.studybuddy.extensions.getSerializableCompat
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
@@ -114,23 +115,14 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                     }
             }
 
-            @Suppress("DEPRECATION")
-            if (savedInstanceState != null) {
-                lastCheckedForUpdatesInstant =
-                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                        savedInstanceState.getSerializable(
-                            LAST_CHECKED_FOR_UPDATES_DATE_TAG,
-                            Instant::class.java
-                        )
-                    else savedInstanceState.getSerializable(LAST_CHECKED_FOR_UPDATES_DATE_TAG) as? Instant)
-                lastUpdatedInstant =
-                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                        savedInstanceState.getSerializable(
-                            LAST_UPDATED_DATE_TAG,
-                            Instant::class.java
-                        )
-                    else savedInstanceState.getSerializable(LAST_UPDATED_DATE_TAG) as? Instant)
-            } else {
+            savedInstanceState?.run {
+                lastCheckedForUpdatesInstant = savedInstanceState.getSerializableCompat(
+                    LAST_CHECKED_FOR_UPDATES_DATE_TAG
+                )
+                lastUpdatedInstant = savedInstanceState.getSerializableCompat(
+                    LAST_UPDATED_DATE_TAG
+                )
+            } ?: run {
                 setLastCheckedForUpdates(
                     updateInfoPreferences
                         .getLong(
