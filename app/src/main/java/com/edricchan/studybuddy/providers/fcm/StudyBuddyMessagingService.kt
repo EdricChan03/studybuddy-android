@@ -94,7 +94,6 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                         builder.setStyle(
                             NotificationCompat.BigPictureStyle()
                                 .bigPicture(bitmap)
-                                .bigLargeIcon(null)
                         )
                     }
                     .build()
