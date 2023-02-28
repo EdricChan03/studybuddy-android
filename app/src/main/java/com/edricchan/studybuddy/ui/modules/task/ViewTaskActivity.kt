@@ -3,15 +3,21 @@ package com.edricchan.studybuddy.ui.modules.task
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.view.isVisible
+import androidx.core.view.plusAssign
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.firebase.toLocalDateTime
 import com.edricchan.studybuddy.extensions.format
+import com.edricchan.studybuddy.extensions.markwon.coilImagesPlugin
+import com.edricchan.studybuddy.extensions.markwon.linkifyPlugin
+import com.edricchan.studybuddy.extensions.markwon.setMarkdown
+import com.edricchan.studybuddy.extensions.markwon.strikethroughPlugin
+import com.edricchan.studybuddy.extensions.markwon.taskListPlugin
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TodoItem
@@ -31,11 +37,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import io.noties.markwon.Markwon
-import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
-import io.noties.markwon.ext.tasklist.TaskListPlugin
-import io.noties.markwon.image.coil.CoilImagesPlugin
-import io.noties.markwon.linkify.LinkifyPlugin
 
 class ViewTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
@@ -305,84 +306,73 @@ class ViewTaskActivity : BaseActivity() {
     }
 
     /**
-     * Toggles the visiblity of a view to `visibility`
-     *
-     * @param view              The view to toggle the visibility of
-     * @param initialVisibility The visibility to check against the view. Can be [View.GONE], [View.INVISIBLE] or [View.VISIBLE]
-     * @param visibility        The visibility to toggle the view to. Can be [View.GONE], [View.INVISIBLE] or [View.VISIBLE]
-     */
-    private fun toggleViewVisibility(view: View, initialVisibility: Int, visibility: Int) {
-        if (view.visibility == initialVisibility) {
-            view.visibility = visibility
-        }
-    }
-
-    /**
      * Sets all of the [TextView] and [com.google.android.material.chip.ChipGroup] values
      *
      * @param item The task item
      */
     private fun setViews(item: TodoItem?) {
-        if (item?.content != null) {
-            Markwon.builder(this)
-                .usePlugin(CoilImagesPlugin.create(this))
-                .usePlugin(LinkifyPlugin.create())
-                .usePlugin(StrikethroughPlugin.create())
-                .usePlugin(TaskListPlugin.create(this))
-                .build()
-                .setMarkdown(binding.taskContent, item.content)
-            toggleViewVisibility(binding.taskContent, View.GONE, View.VISIBLE)
-        } else {
-            toggleViewVisibility(binding.taskContent, View.VISIBLE, View.GONE)
-        }
-        if (item?.dueDate != null) {
-            binding.taskDate.text = item.dueDate.toLocalDateTime().format(getString(R.string.date_format_pattern))
-            toggleViewVisibility(binding.taskDate, View.GONE, View.VISIBLE)
-        } else {
-            toggleViewVisibility(binding.taskDate, View.VISIBLE, View.GONE)
-        }
-        if (item?.project != null) {
-            item.project
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful && task.result != null && task.result!!.exists()) {
-                        binding.taskProject.text = task.result!!.getString("name")
-                    } else {
-                        showToast(
-                            "An error occurred while attempting to retrieve the project. Please try again later.",
-                            Toast.LENGTH_SHORT
-                        )
-                        Log.e(
-                            TAG,
-                            "An error occurred while attempting to retrieve the project:",
-                            task.exception
+        binding.apply {
+            taskContent.apply {
+                item?.content.also {
+                    isVisible = it != null
+                }?.let {
+                    setMarkdown(it) {
+                        usePlugins(
+                            this@ViewTaskActivity.coilImagesPlugin,
+                            linkifyPlugin,
+                            strikethroughPlugin,
+                            this@ViewTaskActivity.taskListPlugin
                         )
                     }
                 }
-            toggleViewVisibility(binding.taskProject, View.GONE, View.VISIBLE)
-        } else {
-            toggleViewVisibility(binding.taskProject, View.VISIBLE, View.GONE)
-        }
-        /*if (item?.title != null) {
-            taskTitle.text = item.title
-            toggleViewVisibility(taskTitle, View.GONE, View.VISIBLE)
-        } else {
-            toggleViewVisibility(taskTitle!!, View.VISIBLE, View.GONE)
-        }*/
-        if (item?.tags != null && item.tags.isNotEmpty()) {
-            // Remove all chips or this will cause duplicate tags
-            binding.taskTags.removeAllViews()
-            for (tag in item.tags) {
-                val tempChip = Chip(this)
-                tempChip.text = tag
-                binding.taskTags.addView(tempChip)
             }
-            toggleViewVisibility(binding.taskTagsParentView, View.GONE, View.VISIBLE)
-        } else {
-            toggleViewVisibility(binding.taskTagsParentView, View.VISIBLE, View.GONE)
+            taskDate.apply {
+                item?.dueDate.also {
+                    isVisible = it != null
+                }?.let {
+                    // We need to convert it to a LocalDateTime as Instants don't support
+                    // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                    // for more info
+                    text = it.toLocalDateTime().format(getString(R.string.date_format_pattern))
+                }
+            }
+            taskProject.apply {
+                item?.project.also {
+                    isVisible = it != null
+                }?.let {
+                    it.get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful && task.result != null && task.result!!.exists()) {
+                                text = task.result!!.getString("name")
+                            } else {
+                                showToast(
+                                    "An error occurred while attempting to retrieve the project. Please try again later.",
+                                    Toast.LENGTH_SHORT
+                                )
+                                Log.e(
+                                    TAG,
+                                    "An error occurred while attempting to retrieve the project:",
+                                    task.exception
+                                )
+                            }
+                        }
+                }
+            }
+            taskTags.apply {
+                item?.tags.also {
+                    taskTagsParentView.isVisible = !it.isNullOrEmpty()
+                }?.let {
+                    Log.d(TAG, "Tags: $it")
+                    // Remove all chips or this will cause duplicate tags
+                    removeAllViews()
+                    it.forEach { tag ->
+                        this += Chip(this@ViewTaskActivity).apply { text = tag }
+                    }
+                }
+            }
+            progressBar.isVisible = false
+            scrollTaskView.isVisible = true
         }
-        toggleViewVisibility(binding.progressBar, View.VISIBLE, View.GONE)
-        toggleViewVisibility(binding.scrollTaskView, View.GONE, View.VISIBLE)
     }
 
     private fun showSnackbar(text: String, @Duration duration: Int) {

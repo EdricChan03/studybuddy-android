@@ -160,7 +160,7 @@ class NewTaskActivity : BaseActivity() {
                                 TAG,
                                 "Task project ID: " + todoProjectDropdownAdapter!!.getTaskProjectId(
                                     position
-                                )!!
+                                )
                             )
                             Log.d(
                                 TAG,
@@ -178,7 +178,7 @@ class NewTaskActivity : BaseActivity() {
                                     val builder = MaterialAlertDialogBuilder(this@NewTaskActivity)
                                     builder.setTitle("New project")
                                         .setView(editTextDialogView)
-                                        .setPositiveButton(R.string.dialog_action_create) { dialog, which ->
+                                        .setPositiveButton(R.string.dialog_action_create) { dialog, _ ->
                                             val project = TodoProject.build {
                                                 name = textInputLayout.editTextStrValue
                                             }
@@ -204,7 +204,7 @@ class NewTaskActivity : BaseActivity() {
                                                     }
                                                 }
                                         }
-                                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, which -> dialog.dismiss() }
+                                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
                                         .show()
                                 }
 
