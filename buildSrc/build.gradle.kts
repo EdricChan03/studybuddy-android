@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     `kotlin-dsl`
 }
@@ -19,12 +17,4 @@ dependencies {
         because("AGP DataBinding uses an older version of Javapoet which breaks Hilt")
     }
     implementation(libs.kotlin.gradle)
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions {
-        freeCompilerArgs += listOf(
-            "-opt-in=kotlin.RequiresOptIn"
-        )
-    }
 }
