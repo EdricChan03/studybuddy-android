@@ -142,5 +142,5 @@ firebase-crashlytics = "com.google.firebase.crashlytics:2.9.4"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
 googleServices = "com.google.gms.google-services:4.3.15"
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
-gradleVersions-catalog = "nl.littlerobots.version-catalog-update:0.3.1"
+gradleVersions-catalog = "nl.littlerobots.version-catalog-update:0.7.0"
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
