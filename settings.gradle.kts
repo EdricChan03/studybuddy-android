@@ -86,6 +86,7 @@ include(
     ":ui:common",
     ":ui:preference",
     ":ui:theming",
+    ":ui:theming:compose",
     ":ui:widgets",
     ":core:deeplink",
     ":core:di",
