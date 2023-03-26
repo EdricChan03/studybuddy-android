@@ -66,7 +66,7 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # I/O Dependencies
 
 # Coil
-coil = "io.coil-kt:coil:2.2.2"
+coil = "io.coil-kt:coil:2.3.0"
 
 # Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
