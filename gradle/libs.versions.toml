@@ -103,7 +103,7 @@ androidx-test-runner = "androidx.test:runner:1.5.2"
 androidx-test-rules = "androidx.test:rules:1.5.0"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:5.2.0"
+mockito-core = "org.mockito:mockito-core:5.3.0"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # DI dependencies
