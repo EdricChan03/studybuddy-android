@@ -14,7 +14,7 @@ class GitHubHelpApiImpl @Inject constructor(
     private val http: HttpClient
 ) : HelpApi {
     override suspend fun fetchHelpArticles(): List<HelpArticle> {
-        return http.use { it.get(urlHelpFeatured).body<HelpArticles>().articles }
+        return http.get(urlHelpFeatured).body<HelpArticles>().articles
             ?: listOf()
     }
 }
