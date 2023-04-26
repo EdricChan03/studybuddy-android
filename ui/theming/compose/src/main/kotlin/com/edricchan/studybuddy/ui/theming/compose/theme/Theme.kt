@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.theming.compose.theme
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -13,14 +14,24 @@ import androidx.compose.ui.platform.LocalContext
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
 val supportsDynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
+/**
+ * Sets the [MaterialTheme] for all of the Composables in [content].
+ *
+ * On Android 12+, the system-wide dynamic colours will be used.
+ * @param context The [Context] to be used to retrieve the dynamic colour (Android 12+).
+ * @param enableDarkTheme Whether dark theme should be enabled.
+ */
 @Composable
-fun StudyBuddyTheme(content: @Composable () -> Unit) {
+fun StudyBuddyTheme(
+    context: Context = LocalContext.current,
+    enableDarkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
     // Dynamic color is available on Android 12+
-    val darkTheme = isSystemInDarkTheme()
     val colors = when {
-        supportsDynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
-        supportsDynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
-        darkTheme -> StudyBuddyDarkColors
+        supportsDynamicColor && enableDarkTheme -> dynamicDarkColorScheme(context)
+        supportsDynamicColor && !enableDarkTheme -> dynamicLightColorScheme(context)
+        enableDarkTheme -> StudyBuddyDarkColors
         else -> StudyBuddyLightColors
     }
 
