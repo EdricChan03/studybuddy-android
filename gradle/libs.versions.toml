@@ -1,6 +1,6 @@
 [versions]
 android-gradle = "8.1.0-alpha09"
-dagger = "2.45"
+dagger = "2.46"
 deep-link-dispatch = "6.1.0"
 firebase = "31.2.3"
 gradle-versions = "0.46.0"
