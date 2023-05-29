@@ -85,7 +85,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
     ":ui:common",
     ":ui:preference",
-    ":ui:theming",
+    ":ui:theming:views",
     ":ui:theming:compose",
     ":ui:widgets",
     ":core:deeplink",

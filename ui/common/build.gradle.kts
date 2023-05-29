@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.theming)
+    implementation(projects.ui.theming.views)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

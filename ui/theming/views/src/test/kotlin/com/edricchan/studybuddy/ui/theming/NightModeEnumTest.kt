@@ -18,6 +18,7 @@ class NightModeEnumTest(
     }
 
     companion object {
+        @Suppress("DEPRECATION")
         @Parameters(name = "{index}: fromMode({0})={1}")
         @JvmStatic
         fun data() = listOf(

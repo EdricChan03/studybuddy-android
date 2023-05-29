@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
+
     <style name="Theme.App.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- The default primary colour -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -28,6 +29,13 @@
             @style/Preference.SwitchPreferenceCompat.Material.App
         </item>
     </style>
+    <!-- Theme to be used for applying custom insets. -->
+    <style name="Theme.App.NoActionBar.Insets" parent="Theme.App.NoActionBar">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Theme.App" parent="Theme.Material3.DayNight">
         <!-- The default primary colour -->
