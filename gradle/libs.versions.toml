@@ -37,6 +37,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 
 # Accompanist
 accompanist-material3-themeAdapter = { module = "com.google.accompanist:accompanist-themeadapter-material3", version.ref = "accompanist" }
+accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
 # Other dependencies
 

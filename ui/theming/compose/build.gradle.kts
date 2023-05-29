@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.accompanist.material3.themeAdapter)
+    api(libs.accompanist.systemUiController)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
