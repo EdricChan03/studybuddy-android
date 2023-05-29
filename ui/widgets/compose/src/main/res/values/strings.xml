@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The tooltip text for the back icon button. -->
+    <string name="back_btn_tooltip_text">@string/abc_action_bar_up_description</string>
+
+    <!-- The tooltip text for the more actions icon button. -->
+    <string name="more_actions_btn_tooltip_text">@string/abc_action_menu_overflow_description</string>
+</resources>
