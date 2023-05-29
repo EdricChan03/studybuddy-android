@@ -21,7 +21,8 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
  * @param context The [Context] to be used to retrieve the dynamic colour (Android 12+).
  * @param enableDarkTheme Whether dark theme should be enabled.
  * @param useM3Colors Whether the M3 colours ([StudyBuddyM3LightColors],
- * [StudyBuddyM3DarkColors]) should be used.
+ * [StudyBuddyM3DarkColors]) should be used instead of [StudyBuddyCompatLightColors] and
+ * [StudyBuddyCompatDarkColors] when [dynamic theming][useDynamicTheme] is disabled.
  * @param useDynamicTheme Whether the system's wallpaper colour should be used. This defaults to
  * `true` for supported devices (Android 12+), or `false` otherwise.
  */
