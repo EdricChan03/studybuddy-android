@@ -29,6 +29,7 @@ dependencies {
     api(libs.accompanist.systemUiController)
 
     testImplementation(libs.junit)
+    testImplementation(kotlin("test"))
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }
