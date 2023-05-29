@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.theming.compose.theme
+package com.edricchan.studybuddy.ui.theming.compose.theme.compat
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme

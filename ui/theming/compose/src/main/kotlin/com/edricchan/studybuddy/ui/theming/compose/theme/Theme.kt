@@ -9,6 +9,8 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.edricchan.studybuddy.ui.theming.compose.theme.compat.StudyBuddyDarkColors
+import com.edricchan.studybuddy.ui.theming.compose.theme.compat.StudyBuddyLightColors
 
 /** Whether dynamic colour theming is supported. */
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
