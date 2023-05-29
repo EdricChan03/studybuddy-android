@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.theming)
+    implementation(projects.ui.theming.views)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)
 
