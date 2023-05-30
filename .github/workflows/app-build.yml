@@ -111,7 +111,7 @@ jobs:
       - name: Run buildHealth task
         uses: ./.github/actions/build-gradle
         with:
-          gradle-arguments: :app:lint
+          gradle-arguments: :buildHealth
           upload-name: build-health
           # See https://googlesamples.github.io/android-custom-lint-rules/usage/agp-dsl.md.html
           # on where lint reports are outputted
