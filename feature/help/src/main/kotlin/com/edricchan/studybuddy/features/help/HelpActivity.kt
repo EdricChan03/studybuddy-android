@@ -124,7 +124,7 @@ class HelpActivity : BaseActivity() {
     private fun initAdapter() {
         adapter = HelpArticleAdapter().apply {
             setOnItemClickListener { article, _ ->
-                article.uri?.let { launchUri(it) }
+                launchUri(article.uri)
             }
         }.also { binding.helpFeaturedRecyclerView.adapter = it }
 

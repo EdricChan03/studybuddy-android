@@ -19,8 +19,8 @@ import kotlinx.serialization.Serializable
 data class HelpArticle(
     @SerialName("articleDesc") val description: String? = null,
     @SerialName("articleIcon") @ArticleIcon val icon: String? = null,
-    @SerialName("articleTitle") val title: String? = null,
-    @Serializable(with = UriSerializer::class) @SerialName("articleUri") val uri: Uri? = null,
+    @SerialName("articleTitle") val title: String,
+    @Serializable(with = UriSerializer::class) @SerialName("articleUri") val uri: Uri,
     val isDisabled: Boolean = false,
     val isHidden: Boolean = false
 ) {
