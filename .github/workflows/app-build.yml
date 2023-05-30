@@ -101,3 +101,27 @@ jobs:
         if: always()
         with:
           sarif_file: app/build/reports/lint-results-debug.sarif
+  health:
+    name: Build Health
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Run buildHealth task
+        uses: ./.github/actions/build-gradle
+        with:
+          gradle-arguments: :app:lint
+          upload-name: build-health
+          # See https://googlesamples.github.io/android-custom-lint-rules/usage/agp-dsl.md.html
+          # on where lint reports are outputted
+          upload-path: build/reports/dependency-analysis
+          transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
+          transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
+          app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+          app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
+          app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
+      - name: Add job summary
+        run: |
+          echo "# Build health report" >> $GITHUB_STEP_SUMMARY
+          cat build/reports/dependency-analysis/build-health-report.txt >> $GITHUB_STEP_SUMMARY
