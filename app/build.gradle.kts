@@ -2,7 +2,6 @@ import com.novoda.buildproperties.Entry
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("com.android.application")
     kotlin("android")

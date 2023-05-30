@@ -13,7 +13,6 @@ buildscript {
     }
 }
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.plugin.serialization) apply false
     alias(libs.plugins.dagger.hilt) apply false
