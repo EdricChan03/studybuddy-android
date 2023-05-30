@@ -153,12 +153,18 @@ markwon = [
 [plugins]
 android-gradle-application = { id = "com.android.application", version.ref = "android-gradle" }
 android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
+
 buildProperties = "com.novoda.build-properties:0.4.1"
+
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.4"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
 googleServices = "com.google.gms.google-services:4.3.15"
+
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
-gradleVersions-catalog = "nl.littlerobots.version-catalog-update:0.3.1"
+
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.20.0"

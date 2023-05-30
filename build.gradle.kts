@@ -17,7 +17,8 @@ buildscript {
 plugins {
     alias(libs.plugins.kotlin.plugin.serialization) apply false
     alias(libs.plugins.dagger.hilt) apply false
-    id(libs.plugins.gradleVersions.asProvider().get().pluginId)
+    alias(libs.plugins.dependencyAnalysis)
+    id(libs.plugins.gradleVersions.get().pluginId)
 }
 
 tasks {
@@ -27,3 +28,12 @@ tasks {
 }
 
 apply<com.edricchan.studybuddy.gradle.versions.DependencyUpdatesPlugin>()
+
+dependencyAnalysis {
+    // See https://github.com/autonomousapps/dependency-analysis-android-gradle-plugin/wiki/Customizing-plugin-behavior#ktx-dependencies
+    issues {
+        all {
+            ignoreKtx(true)
+        }
+    }
+}
