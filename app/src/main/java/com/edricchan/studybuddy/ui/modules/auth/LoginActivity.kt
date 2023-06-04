@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.result.launch
+import androidx.activity.result.registerForActivityResult
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
@@ -11,6 +13,7 @@ import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityLoginBinding
 import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.extensions.defaultSignInOptions
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.firebase.auth.signInWithEmailAndPasswordAsync
 import com.edricchan.studybuddy.extensions.firebase.auth.signInWithGoogleAsync
@@ -19,7 +22,6 @@ import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.contracts.GoogleAuth
-import com.edricchan.studybuddy.ui.modules.auth.contracts.defaultSignInOptions
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -38,7 +40,9 @@ class LoginActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
 
-    private val googleLogin = registerForActivityResult(GoogleAuth()) { acct ->
+    private val googleLogin = registerForActivityResult(
+        GoogleAuth(), defaultSignInOptions
+    ) { acct ->
         acct?.let {
             lifecycleScope.launch {
                 signInGoogle(it)
@@ -115,7 +119,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun signInWithGoogle() {
-        googleLogin.launch(defaultSignInOptions)
+        googleLogin.launch()
     }
 
     private fun checkNetwork(snackbar: Snackbar?) {

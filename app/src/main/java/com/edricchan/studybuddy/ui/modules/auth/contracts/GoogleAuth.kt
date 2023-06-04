@@ -5,18 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.extensions.TAG
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-
-val Context.defaultSignInOptions
-    get() = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(getString(R.string.default_web_client_id))
-        .requestEmail()
-        .build()
 
 class GoogleAuth :
     ActivityResultContract<GoogleSignInOptions, GoogleSignInAccount?>() {
