@@ -1,11 +1,7 @@
 package com.edricchan.studybuddy.utils
 
 import android.content.Context
-import android.view.LayoutInflater
-import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.databinding.VersionDialogBinding
-import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,27 +27,6 @@ class UiUtils(val context: Context) {
         context.findViewById(R.id.bottomAppBar)
     } else {
         null
-    }
-
-    /**
-     * Shows a version dialog.
-     */
-    fun showVersionDialog() {
-        context.showMaterialAlertDialog {
-            setView(
-                VersionDialogBinding.inflate(LayoutInflater.from(context)).apply {
-                    with(context.applicationInfo) {
-                        appIconImageView.setImageDrawable(
-                            context.packageManager.getApplicationIcon(
-                                this
-                            )
-                        )
-                        appNameTextView.text = loadLabel(context.packageManager)
-                    }
-                    appVersionTextView.text = BuildConfig.VERSION_NAME
-                }.root
-            )
-        }
     }
 
     companion object {
