@@ -15,6 +15,7 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.edit
+import androidx.core.view.MenuProvider
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -77,8 +78,18 @@ class TodoFragment : Fragment() {
     private var _binding: FragTodoBinding? = null
     private val binding get() = _binding!!
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+    private val menuProvider = object : MenuProvider {
+        override fun onPrepareMenu(menu: Menu) {
+            if (!BuildConfig.DEBUG) menu.removeItem(R.id.action_debug)
+        }
+
+        override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
+            // Clear the main activity's menu before inflating the fragment's menu
+            menu.clear()
+            inflater.inflate(R.menu.menu_frag_todo, menu)
+        }
+
+        override fun onMenuItemSelected(item: MenuItem) = when (item.itemId) {
             R.id.action_show_more_options -> {
                 val context = requireContext()
                 showModalBottomSheet {
@@ -114,27 +125,16 @@ class TodoFragment : Fragment() {
                         }
                     }
                 }
-                return true
+                true
             }
 
-            else -> return super.onOptionsItemSelected(item)
+            else -> false
         }
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        if (!BuildConfig.DEBUG) menu.removeItem(R.id.action_debug)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // Clear the main activity's menu before inflating the fragment's menu
-        menu.clear()
-        inflater.inflate(R.menu.menu_frag_todo, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        activity?.addMenuProvider(menuProvider)
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         // Checks if old preference file exists
         // TODO: Move to a separate class
