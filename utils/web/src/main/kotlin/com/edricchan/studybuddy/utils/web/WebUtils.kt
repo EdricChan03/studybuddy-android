@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.preference.PreferenceManager
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.google.android.material.color.MaterialColors
 
 internal fun buildCCTIntent(init: CustomTabsIntent.Builder.() -> Unit) =
@@ -36,9 +36,6 @@ internal fun CustomTabsIntent.Builder.setDefaultColorSchemeParams(
 internal fun Context.launchUri(uri: Uri, customTabsIntent: CustomTabsIntent?) {
     customTabsIntent?.launchUrl(this, uri) ?: startActivity(Intent(Intent.ACTION_VIEW, uri))
 }
-
-private val Context.defaultSharedPreferences
-    get() = PreferenceManager.getDefaultSharedPreferences(this)
 
 const val keyPrefUseCustomTabs = "pref_use_custom_tabs"
 

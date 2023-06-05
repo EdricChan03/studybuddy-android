@@ -11,13 +11,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.features.help.constants.uriSendFeedback
@@ -48,7 +48,7 @@ class HelpActivity : BaseActivity() {
 
         binding = ActivityHelpBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        preferences = defaultSharedPreferences
 
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener { loadFeaturedList() }

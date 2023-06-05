@@ -20,7 +20,6 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
-import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -30,6 +29,7 @@ import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.databinding.ActivityUpdatesBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
@@ -59,7 +59,7 @@ class UpdatesActivity : BaseActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        preferences = defaultSharedPreferences
         updateInfoPreferences =
             getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)
 

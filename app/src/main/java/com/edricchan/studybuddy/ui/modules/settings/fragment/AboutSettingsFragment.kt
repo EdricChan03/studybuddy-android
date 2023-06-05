@@ -7,13 +7,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.preference.Preference
-import androidx.preference.PreferenceManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.appDetailsIntent
 import com.edricchan.studybuddy.utils.launchUri
@@ -34,7 +34,7 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_about, rootKey)
-        preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        preferences = requireContext().defaultSharedPreferences
         devModeOptions =
             requireContext().getSharedPreferences(
                 DevModePrefConstants.FILE_DEV_MODE,

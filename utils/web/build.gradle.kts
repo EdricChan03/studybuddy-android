@@ -22,6 +22,7 @@ android {
 
 dependencies {
     implementation(projects.ui.theming.views)
+    implementation(projects.exts.androidx.preference)
 
     implementation(libs.androidx.browser)
     implementation(libs.androidx.appcompat)

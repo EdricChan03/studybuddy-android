@@ -32,6 +32,7 @@ dependencies {
     implementation(projects.core.di)
     implementation(projects.core.resources)
     implementation(projects.data.serialization.android)
+    implementation(projects.exts.androidx.preference)
     implementation(projects.exts.common)
     implementation(projects.exts.material)
     implementation(projects.utils.recyclerview)

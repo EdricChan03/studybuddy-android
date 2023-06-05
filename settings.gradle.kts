@@ -95,6 +95,7 @@ include(
     ":data:serialization:android",
     ":utils:recyclerview",
     ":utils:web",
+    ":exts:androidx:preference",
     ":exts:common",
     ":exts:material",
     ":feature:help",

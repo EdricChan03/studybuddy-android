@@ -161,6 +161,7 @@ dependencies {
     implementation(projects.core.deeplink)
     implementation(projects.data.serialization.android)
     implementation(projects.utils.recyclerview)
+    implementation(projects.exts.androidx.preference)
     implementation(projects.feature.help)
 
     // Test dependencies

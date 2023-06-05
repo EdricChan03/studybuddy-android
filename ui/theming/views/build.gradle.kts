@@ -22,6 +22,8 @@ android {
 
 dependencies {
     implementation(projects.ui.preference)
+    implementation(projects.exts.androidx.preference)
+
     implementation(libs.androidx.preference.ktx)
     implementation(libs.materialComponents)
 
