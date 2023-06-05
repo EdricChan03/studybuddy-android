@@ -13,7 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  * @return The created [MaterialAlertDialogBuilder].
  * @see MaterialAlertDialogBuilder
  */
-fun Context.materialAlertDialogBuilder(init: MaterialAlertDialogBuilder.() -> Unit) =
+inline fun Context.materialAlertDialogBuilder(init: MaterialAlertDialogBuilder.() -> Unit) =
     MaterialAlertDialogBuilder(this).apply(init)
 
 /**
@@ -24,7 +24,7 @@ fun Context.materialAlertDialogBuilder(init: MaterialAlertDialogBuilder.() -> Un
  * @return The created [AlertDialog].
  * @see MaterialAlertDialogBuilder
  */
-fun Context.createMaterialAlertDialog(init: MaterialAlertDialogBuilder.() -> Unit) =
+inline fun Context.createMaterialAlertDialog(init: MaterialAlertDialogBuilder.() -> Unit) =
     materialAlertDialogBuilder(init).create()
 
 /**
@@ -38,7 +38,7 @@ fun Context.createMaterialAlertDialog(init: MaterialAlertDialogBuilder.() -> Uni
  * @return The shown [AlertDialog].
  * @see MaterialAlertDialogBuilder
  */
-fun Context.showMaterialAlertDialog(
+inline fun Context.showMaterialAlertDialog(
     dialogInit: AlertDialog.() -> Unit = {},
     postDialogInit: AlertDialog.() -> Unit = {},
     builderInit: MaterialAlertDialogBuilder.() -> Unit
