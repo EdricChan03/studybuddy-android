@@ -8,31 +8,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListAdapter
-import androidx.annotation.*
+import androidx.annotation.ArrayRes
+import androidx.annotation.AttrRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.Px
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import com.edricchan.studybuddy.ui.widget.databinding.EditTextDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class PromptAlertDialogBuilder(context: Context) : MaterialAlertDialogBuilder(context) {
-    /**
-     * The internal dialog view
-     */
-    var promptDialogView: View =
-        LayoutInflater.from(context).inflate(R.layout.edit_text_dialog, null)
-        private set
-    /**
-     * The inner [TextInputLayout] used
-     */
-    var textInputLayout: TextInputLayout = promptDialogView.findViewById(R.id.textInputLayout)
-        private set
-    /**
-     * The inner [EditText]
-     */
-    var textInputEditText = textInputLayout.editText
-        private set
+    private val binding = EditTextDialogBinding.inflate(
+        LayoutInflater.from(context)
+    )
+
+    /** The dialog view. */
+    val promptDialogView = binding.root
+
+    /** The inner [TextInputLayout]. */
+    val textInputLayout = binding.textInputLayout
+
+    /** Configures the inner [TextInputLayout]. */
+    fun textInputLayout(init: TextInputLayout.() -> Unit) {
+        textInputLayout.apply(init)
+    }
+
+    /** The inner [TextInputEditText]. */
+    val textInputEditText = binding.textInputEditText
+
+    /** Configures the inner [TextInputEditText]. */
+    fun textInputEditText(init: TextInputEditText.() -> Unit) {
+        textInputEditText.apply(init)
+    }
 
     override fun create(): AlertDialog {
-        super.setView(promptDialogView)
+        super.setView(binding.root)
         return super.create()
     }
 
