@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.theming
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import androidx.appcompat.app.AppCompatDelegate.NightMode as NightModeAnnotation
 
 /** Preference key used for the dark theme preference. */
