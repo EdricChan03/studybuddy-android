@@ -70,6 +70,9 @@
     <string name="account_delete_account_dialog_title">Delete account?</string>
     <!-- The title of the EditText in the new email dialog in the account activity. -->
     <string name="account_new_email_dialog_edittext_title">New email address</string>
+    <!-- Error to be shown below the new email EditText if an invalid email was specified. -->
+    <string name="account_new_email_dialog_edittext_err_invalid_email">Please enter a valid email
+    </string>
     <!-- The title of the new email dialog in the account activity. -->
     <string name="account_new_email_dialog_title">Set new email address</string>
     <!-- The title of the EditText in the new name dialog in the account activity. -->
