@@ -33,6 +33,13 @@ dependencies {
     implementation(libs.accompanist.drawablePainter)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
+
+    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
+
+    // Compose rule support
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
