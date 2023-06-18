@@ -5,6 +5,9 @@
     <!-- The application's name. -->
     <string name="app_name">StudyBuddy</string>
 
+    <!-- Content description for the application's logo. -->
+    <string name="app_logo_content_desc">StudyBuddy icon</string>
+
     <!-- Dialog strings -->
     <eat-comment />
 

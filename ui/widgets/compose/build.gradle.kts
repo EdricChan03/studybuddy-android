@@ -30,7 +30,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
 
-    implementation(libs.accompanist.material3.themeAdapter)
+    implementation(libs.accompanist.drawablePainter)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
