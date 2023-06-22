@@ -2,8 +2,8 @@
 package com.edricchan.studybuddy.library
 
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    com.android.library
+    org.jetbrains.kotlin.android
 }
 
 kotlin {
@@ -16,13 +16,5 @@ android {
     defaultConfig {
         minSdk = 21
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
     }
 }
