@@ -85,7 +85,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                 lastUpdatedMs.takeIf { it <= DEFAULT_INSTANT }?.let { Instant.ofEpochMilli(it) }
         }
 
-        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
             when (key) {
                 UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE ->
                     setLastCheckedForUpdates(sharedPreferences.getLong(key, DEFAULT_INSTANT))
