@@ -1,5 +1,5 @@
 plugins {
-    id("com.edricchan.studybuddy.library.android-compose")
+    com.edricchan.studybuddy.library.`android-compose`
 }
 
 android {
@@ -17,6 +17,12 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    @Suppress("UnstableApiUsage")
+    testOptions {
+        // Use JUnit 5 for unit tests
+        unitTests.all { it.useJUnitPlatform() }
     }
 }
 
