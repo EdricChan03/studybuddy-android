@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.SettingsExtension
+
 // Repository settings
 // (See https://developer.android.com/studio/releases/gradle-plugin#settings-gradle)
 pluginManagement {
@@ -24,6 +26,8 @@ plugins {
     // Gradle JVM Toolchains repository - see
     // https://docs.gradle.org/8.0-rc-2/userguide/toolchains.html#sub:download_repositories
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
+
+    id("com.android.settings") version "8.2.0-alpha09"
 }
 
 // Configure the Gradle Enterprise Plugin
@@ -78,6 +82,14 @@ gradleEnterprise {
             value("Workflow run number", System.getenv("GITHUB_RUN_NUMBER"))
         }
     }
+}
+
+// TODO: configure<...> call is a workaround for https://github.com/gradle/gradle/issues/11210,
+//   remove call when issue is fixed
+configure<SettingsExtension> {
+    buildToolsVersion = "34.0.0"
+    compileSdk = 34
+    minSdk = 21
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

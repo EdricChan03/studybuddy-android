@@ -49,11 +49,9 @@ java {
 
 android {
     namespace = "com.edricchan.studybuddy"
-    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.edricchan.studybuddy"
-        minSdk = 21
         // TODO: Bump targetSdk
         targetSdk = 30
         versionCode = 10
