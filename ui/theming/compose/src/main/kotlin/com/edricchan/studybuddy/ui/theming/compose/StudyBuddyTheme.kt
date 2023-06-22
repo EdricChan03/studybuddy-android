@@ -15,6 +15,22 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3LightCol
 import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
 
 /**
+ * Retrieves the dark colour scheme to use.
+ * @param useM3Colors Whether the [M3 dark colours][StudyBuddyM3DarkColors] should
+ * be used instead of the [compat dark colours][StudyBuddyCompatDarkColors].
+ */
+fun darkColorScheme(useM3Colors: Boolean = true) =
+    if (useM3Colors) StudyBuddyM3DarkColors else StudyBuddyCompatDarkColors
+
+/**
+ * Retrieves the light colour scheme to use.
+ * @param useM3Colors Whether the [M3 light colours][StudyBuddyM3LightColors] should
+ * be used instead of the [compat light colours][StudyBuddyCompatLightColors].
+ */
+fun lightColorScheme(useM3Colors: Boolean = true) =
+    if (useM3Colors) StudyBuddyM3LightColors else StudyBuddyCompatLightColors
+
+/**
  * Sets the [MaterialTheme] for all of the Composables in [content].
  *
  * On Android 12+, the system-wide dynamic colours will be used.
@@ -35,8 +51,8 @@ fun StudyBuddyTheme(
     content: @Composable () -> Unit
 ) {
     // Dynamic color is available on Android 12+
-    val darkColor = if (useM3Colors) StudyBuddyM3DarkColors else StudyBuddyCompatDarkColors
-    val lightColor = if (useM3Colors) StudyBuddyM3LightColors else StudyBuddyCompatLightColors
+    val darkColor = darkColorScheme(useM3Colors)
+    val lightColor = lightColorScheme(useM3Colors)
     val colors = when {
         // useDynamicTheme doesn't imply that the Android device is actually running on
         // Android 12+, so an additional check is required
