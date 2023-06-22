@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
@@ -519,12 +520,22 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
 
     private val String.orUnset get() = ifEmpty { "<Unset>" }
 
+    @ChecksSdkIntAtLeast(parameter = 0, lambda = 1)
+    private inline fun fromApi(minVersion: Int, action: () -> Any) =
+        if (Build.VERSION.SDK_INT >= minVersion) action().toString() else "<Not available>"
+
     private fun createSdkInfoDialog() = requireContext().materialAlertDialogBuilder {
         setTitle(R.string.debug_activity_device_sdk_info_dialog_title)
         setMessage(
             """
-            Device SDK: ${Build.VERSION.SDK_INT} (${Build.VERSION.RELEASE_OR_CODENAME})
-            Preview SDK: ${Build.VERSION.PREVIEW_SDK_INT}
+            Device SDK: ${Build.VERSION.SDK_INT} (${
+                fromApi(Build.VERSION_CODES.R) { Build.VERSION.RELEASE_OR_CODENAME }
+            })
+            Preview SDK: ${
+                fromApi(Build.VERSION_CODES.M) {
+                    Build.VERSION.PREVIEW_SDK_INT
+                }
+            }
             Build fingerprint: ${Build.FINGERPRINT.orUnset}
             Model: ${Build.MODEL.orUnset}
             Board: ${Build.BOARD.orUnset}
