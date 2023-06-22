@@ -34,8 +34,10 @@ dependencies {
     implementation(libs.accompanist.material3.themeAdapter)
     api(libs.accompanist.systemUiController)
 
-    testImplementation(libs.junit)
     testImplementation(kotlin("test"))
+    testImplementation(libs.kotest.runner.junit5)
+    testImplementation(libs.kotest.assertion.core)
+    testImplementation(libs.kotest.property)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }

@@ -10,6 +10,7 @@ dagger = "2.46.1"
 deep-link-dispatch = "6.2.1"
 firebase = "32.1.0"
 gradle-versions = "0.47.0"
+kotest = "5.6.2"
 kotlin = "1.8.21"
 kotlinx-coroutines = "1.7.1"
 kotlinx-serialization = "1.5.1"
@@ -128,6 +129,10 @@ junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 mockito-core = "org.mockito:mockito-core:5.3.1"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+kotest-assertion-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 
 # DI dependencies
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
