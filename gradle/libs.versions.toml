@@ -5,7 +5,7 @@ accompanist = "0.30.1"
 #noinspection GradleDependency
 android-desugar = "2.0.2"
 android-gradle = "8.2.0-alpha09"
-compose = "2023.04.00-beta02"
+compose = "2023.06.00-alpha01"
 dagger = "2.46.1"
 deep-link-dispatch = "6.2.1"
 firebase = "32.1.0"
