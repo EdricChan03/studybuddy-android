@@ -24,11 +24,9 @@ dependencies {
     implementation(projects.ui.theming.compose)
     implementation(projects.core.resources)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
+    api(libs.bundles.androidx.compose)
 
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.bundles.androidx.compose.tooling)
 
     implementation(libs.accompanist.drawablePainter)
 
@@ -41,5 +39,4 @@ dependencies {
 
     // Compose rule support
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
