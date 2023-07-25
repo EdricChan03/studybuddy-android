@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.ui.modules.task.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +18,7 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.BuildConfig
@@ -31,8 +31,6 @@ import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
-import com.edricchan.studybuddy.exts.androidx.preference.getSharedPreferencesFile
-import com.edricchan.studybuddy.exts.androidx.preference.sharedPreferencesFileExists
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
@@ -41,6 +39,7 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
+import com.edricchan.studybuddy.ui.modules.task.migrations.TasksMigrator
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.showModalBottomSheet
@@ -61,7 +60,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
-import java.io.IOException
+import kotlinx.coroutines.launch
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
 class TodoFragment : Fragment() {
@@ -136,45 +135,16 @@ class TodoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         activity?.addMenuProvider(menuProvider)
         prefs = requireContext().defaultSharedPreferences
-        // Checks if old preference file exists
-        // TODO: Move to a separate class
-        if (requireContext().sharedPreferencesFileExists(SHARED_PREFS_FILE)) {
-            Log.d(TAG, "Migrating shared preference file...")
-            // Rename existing file to new file
-            val oldFile = requireContext().getSharedPreferencesFile(SHARED_PREFS_FILE)
-            val newFile =
-                requireContext().getSharedPreferencesFile(TodoOptionsPrefConstants.FILE_TODO_OPTIONS)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                // Use better implementation of renaming file
-                try {
-                    oldFile.moveTo(newFile, overwrite = true)
-                    Log.d(TAG, "Successfully migrated shared preference file!")
-                } catch (e: IOException) {
-                    Log.e(
-                        TAG,
-                        "An error occurred while attempting to migrate the shared preference file:",
-                        e
-                    )
-                }
-            } else {
-                oldFile.moveTo(newFile) { isDeleted ->
-                    if (isDeleted) {
-                        Log.d(TAG, "Successfully migrated shared preference file!")
-                    } else {
-                        Log.e(
-                            TAG,
-                            "Something went wrong while attempting to migrate the shared preference file."
-                        )
-                    }
-                }
-            }
+
+        // Perform migrations if necessary
+        lifecycleScope.launch {
+            TasksMigrator(requireContext()).migrate()
         }
-        // Migrate keys and their values
+
         taskOptionsPrefs = requireContext().getSharedPreferences(
             TodoOptionsPrefConstants.FILE_TODO_OPTIONS,
             Context.MODE_PRIVATE
         )
-        migrateTaskOptsPrefs()
         firestore = Firebase.firestore
         auth = Firebase.auth
         todoUtils = TodoUtils.getInstance(auth, firestore)
@@ -317,26 +287,6 @@ class TodoFragment : Fragment() {
 
     private fun newTaskActivity() {
         startActivity<NewTaskActivity>()
-    }
-
-    private fun migrateTaskOptsPrefs() {
-        Log.d(TAG, "Migrating task options shared preference keys...")
-        if (taskOptionsPrefs.getString(
-                TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
-                null
-            ) != null
-        ) {
-            Log.d(TAG, "Old task sorting tag still exists.")
-            // Old SharedPreference key still exists
-            val oldValue = taskOptionsPrefs.getString(
-                TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
-                TodoSortValues.NONE
-            )
-            taskOptionsPrefs.edit {
-                putString(TodoOptionsPrefConstants.PREF_DEFAULT_SORT, oldValue)
-                remove(TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD)
-            }
-        }
     }
 
     private fun loadTasksListHandler() {
