@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.widget.bottomsheet
 
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.ModalBottomSheetDSL
@@ -18,6 +19,19 @@ fun modalBottomSheet(
     items: ModalBottomSheetDSL.() -> Unit
 ) = modalBottomSheet {
     this.headerTitle = headerTitle
+    this.setItems(items)
+}
+
+/**
+ * Instantiates a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
+ * @param headerTitleRes The header title to use, as a string resource.
+ * @param items Items to be shown in the bottom sheet.
+ */
+fun modalBottomSheet(
+    @StringRes headerTitleRes: Int,
+    items: ModalBottomSheetDSL.() -> Unit
+) = modalBottomSheet {
+    this.headerTitle = getString(headerTitleRes)
     this.setItems(items)
 }
 
@@ -48,6 +62,21 @@ fun Fragment.showModalBottomSheet(
 }
 
 /**
+ * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
+ * @param headerTitleRes The header title to use, as a string resource.
+ * @param items Items to be shown in the bottom sheet.
+ */
+fun Fragment.showModalBottomSheet(
+    @StringRes headerTitleRes: Int,
+    items: ModalBottomSheetDSL.() -> Unit
+) {
+    showModalBottomSheet {
+        this.headerTitle = getString(headerTitleRes)
+        this.setItems(items)
+    }
+}
+
+/**
  * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified
  * options.
  */
@@ -69,6 +98,21 @@ fun FragmentActivity.showModalBottomSheet(
 ) {
     showModalBottomSheet {
         this.headerTitle = headerTitle
+        this.setItems(items)
+    }
+}
+
+/**
+ * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
+ * @param headerTitleRes The header title to use, as a string resource.
+ * @param items Items to be shown in the bottom sheet.
+ */
+fun FragmentActivity.showModalBottomSheet(
+    @StringRes headerTitleRes: Int,
+    items: ModalBottomSheetDSL.() -> Unit
+) {
+    showModalBottomSheet {
+        this.headerTitle = getString(headerTitleRes)
         this.setItems(items)
     }
 }
