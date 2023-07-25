@@ -31,6 +31,8 @@ import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import com.edricchan.studybuddy.exts.androidx.preference.getSharedPreferencesFile
+import com.edricchan.studybuddy.exts.androidx.preference.sharedPreferencesFileExists
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
@@ -43,11 +45,9 @@ import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.showModalBottomSheet
 import com.edricchan.studybuddy.utils.UiUtils
-import com.edricchan.studybuddy.utils.getSharedPreferencesFile
 import com.edricchan.studybuddy.utils.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
-import com.edricchan.studybuddy.utils.sharedPreferencesFileExists
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar

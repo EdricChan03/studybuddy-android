@@ -9,6 +9,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.periodicWorkRequest
 import com.edricchan.studybuddy.extensions.toDuration
 import com.edricchan.studybuddy.extensions.workManager
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
 import java.time.Duration
 import java.time.temporal.ChronoUnit

@@ -38,6 +38,7 @@ import com.edricchan.studybuddy.extensions.firebase.auth.lastSignInInstant
 import com.edricchan.studybuddy.extensions.formatISO
 import com.edricchan.studybuddy.extensions.getSerializableCompat
 import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
@@ -46,7 +47,6 @@ import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
 import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
-import com.edricchan.studybuddy.utils.defaultSharedPreferences
 import com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker
 import com.edricchan.studybuddy.utils.firebase.sendToFirestoreAsync
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

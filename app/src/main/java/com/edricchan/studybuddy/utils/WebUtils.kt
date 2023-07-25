@@ -11,6 +11,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.google.android.material.color.MaterialColors
 
 internal fun buildCCTIntent(init: CustomTabsIntent.Builder.() -> Unit) =

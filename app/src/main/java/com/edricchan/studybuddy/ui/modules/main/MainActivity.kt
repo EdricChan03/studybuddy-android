@@ -18,6 +18,7 @@ import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.startChooser
+import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
@@ -30,7 +31,6 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.NotificationUtils
-import com.edricchan.studybuddy.utils.defaultSharedPreferences
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
 import com.edricchan.studybuddy.utils.launchUri
 import com.google.firebase.auth.FirebaseAuth
