@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import io.github.edricchan03.androidx.browser.ktx.customTabsIntent
 
 internal fun Context.launchUri(uri: Uri, customTabsIntent: CustomTabsIntent?) {
     customTabsIntent?.launchUrl(this, uri) ?: startActivity(Intent(Intent.ACTION_VIEW, uri))
@@ -24,7 +25,7 @@ fun Context.launchUri(
     useAppColorScheme: Boolean = true
 ) {
     val customTabsIntent: CustomTabsIntent? = useCustomTabs.takeIf { it }?.let {
-        buildCCTIntent {
+        customTabsIntent {
             applyAppDefaults(this@launchUri, useAppColorScheme)
         }
     }

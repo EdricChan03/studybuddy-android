@@ -1,5 +1,5 @@
 plugins {
-    id("com.edricchan.studybuddy.library.android")
+    com.edricchan.studybuddy.library.android
 }
 
 android {
@@ -24,10 +24,13 @@ dependencies {
     implementation(projects.ui.theming.views)
     implementation(projects.exts.androidx.preference)
 
-    implementation(libs.androidx.browser)
+    api(libs.androidx.browser)
+    api(libs.androidx.annotation)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.materialComponents)
+
+    implementation(libs.androidxtra.browser.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)

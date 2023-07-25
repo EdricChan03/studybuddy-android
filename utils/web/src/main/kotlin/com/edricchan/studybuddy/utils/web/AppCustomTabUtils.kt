@@ -3,10 +3,14 @@ package com.edricchan.studybuddy.utils.web
 import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import com.google.android.material.color.MaterialColors
+import io.github.edricchan03.androidx.browser.ktx.enums.ColorScheme
+import io.github.edricchan03.androidx.browser.ktx.enums.ShareState
+import io.github.edricchan03.androidx.browser.ktx.setColorScheme
+import io.github.edricchan03.androidx.browser.ktx.setDefaultColorSchemeParams
+import io.github.edricchan03.androidx.browser.ktx.setShareState
 
 @get:ColorInt
 private val Context.dynamicColorPrimary
@@ -15,27 +19,6 @@ private val Context.dynamicColorPrimary
         R.attr.colorPrimary,
         ContextCompat.getColor(this, R.color.colorPrimary)
     )
-
-internal fun buildCCTIntent(init: CustomTabsIntent.Builder.() -> Unit) =
-    CustomTabsIntent.Builder().apply(init).build()
-
-internal fun CustomTabsIntent.Builder.setDefaultColorSchemeParams(
-    init: CustomTabColorSchemeParams.Builder.() -> Unit
-) {
-    setDefaultColorSchemeParams(CustomTabColorSchemeParams.Builder().apply(init).build())
-}
-
-internal fun CustomTabsIntent.Builder.setDefaultColorSchemeParams(
-    @ColorInt toolbarColor: Int? = null,
-    @ColorInt secondaryToolbarColor: Int? = null,
-    @ColorInt navigationBarColor: Int? = null,
-    @ColorInt navigationBarDividerColor: Int? = null
-) = setDefaultColorSchemeParams {
-    toolbarColor?.let { setToolbarColor(it) }
-    secondaryToolbarColor?.let { setSecondaryToolbarColor(it) }
-    navigationBarColor?.let { setNavigationBarColor(it) }
-    navigationBarDividerColor?.let { setNavigationBarDividerColor(it) }
-}
 
 /**
  * Applies StudyBuddy's colour schemes to the [CustomTabsIntent.Builder].
@@ -47,9 +30,9 @@ fun CustomTabsIntent.Builder.setAppColorScheme(
 ) = apply {
     setColorScheme(
         when (AppCompatDelegate.getDefaultNightMode()) {
-            AppCompatDelegate.MODE_NIGHT_NO -> CustomTabsIntent.COLOR_SCHEME_LIGHT
-            AppCompatDelegate.MODE_NIGHT_YES -> CustomTabsIntent.COLOR_SCHEME_DARK
-            else -> CustomTabsIntent.COLOR_SCHEME_SYSTEM
+            AppCompatDelegate.MODE_NIGHT_NO -> ColorScheme.Light
+            AppCompatDelegate.MODE_NIGHT_YES -> ColorScheme.Dark
+            else -> ColorScheme.System
         }
     )
 
@@ -82,6 +65,6 @@ fun CustomTabsIntent.Builder.applyAppDefaults(
         setAppColorScheme(context)
     }
 
-    setShareState(CustomTabsIntent.SHARE_STATE_ON)
+    setShareState(ShareState.On)
     setShowTitle(true)
 }
