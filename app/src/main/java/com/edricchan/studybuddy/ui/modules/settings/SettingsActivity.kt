@@ -17,7 +17,7 @@ import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreference
 import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
-import com.edricchan.studybuddy.utils.launchUri
+import com.edricchan.studybuddy.utils.web.launchUri
 
 @WebDeepLink(["/settings"])
 @AppDeepLink(["/settings"])

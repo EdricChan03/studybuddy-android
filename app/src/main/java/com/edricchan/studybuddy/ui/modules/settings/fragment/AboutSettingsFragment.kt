@@ -16,8 +16,8 @@ import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.appDetailsIntent
-import com.edricchan.studybuddy.utils.launchUri
 import com.edricchan.studybuddy.utils.licenseIntent
+import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 

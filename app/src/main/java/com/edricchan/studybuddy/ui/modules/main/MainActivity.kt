@@ -32,7 +32,7 @@ import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.NotificationUtils
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
-import com.edricchan.studybuddy.utils.launchUri
+import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

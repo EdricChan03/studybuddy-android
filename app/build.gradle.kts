@@ -159,6 +159,7 @@ dependencies {
     implementation(projects.core.deeplink)
     implementation(projects.data.serialization.android)
     implementation(projects.utils.recyclerview)
+    implementation(projects.utils.web)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.feature.help)

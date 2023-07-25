@@ -18,7 +18,7 @@ import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.utils.launchUri
+import com.edricchan.studybuddy.utils.web.launchUri
 
 class TipsFragment : Fragment() {
     private var preferences: SharedPreferences? = null
