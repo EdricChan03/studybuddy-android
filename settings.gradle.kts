@@ -108,6 +108,7 @@ include(
     ":utils:recyclerview",
     ":utils:web",
     ":exts:androidx:preference",
+    ":exts:androidx:preference-files",
     ":exts:common",
     ":exts:material",
     ":feature:help",

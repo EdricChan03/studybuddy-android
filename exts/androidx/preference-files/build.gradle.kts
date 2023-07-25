@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.exts.androidx.preference"
+    namespace = "com.edricchan.studybuddy.exts.androidx.preference.files"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -18,11 +18,15 @@ android {
             )
         }
     }
+
+    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
     api(libs.androidx.annotation)
     implementation(libs.androidx.preference.ktx)
+
+    coreLibraryDesugaring(libs.android.desugar.nio)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
