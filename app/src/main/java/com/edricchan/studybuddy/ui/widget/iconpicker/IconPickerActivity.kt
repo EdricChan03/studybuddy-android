@@ -69,9 +69,10 @@ class IconPickerActivity : BaseActivity() {
 
         adapter.tracker = tracker
         adapter.infoButtonOnClickListener = { chatIcon ->
-            IconPickerInfoBottomSheetFragment().apply {
-                icon = chatIcon
-            }.show(supportFragmentManager, "iconInfo")
+            IconPickerInfoBottomSheetFragment(icon = chatIcon).show(
+                supportFragmentManager,
+                "iconInfo"
+            )
         }
 
         firestore.collection("chatIconLibrary")
