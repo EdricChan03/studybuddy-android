@@ -23,6 +23,8 @@ android {
     }
 
     buildFeatures.viewBinding = true
+
+    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -37,6 +39,8 @@ dependencies {
     implementation(projects.exts.material)
     implementation(projects.utils.recyclerview)
     implementation(projects.utils.web)
+
+    coreLibraryDesugaring(libs.android.desugar)
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.preference.ktx)
