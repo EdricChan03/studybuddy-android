@@ -3,9 +3,11 @@ package com.edricchan.studybuddy.ui.modules.chat.fragment
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -14,8 +16,8 @@ import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.databinding.FragChatBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.extensions.startActivity
@@ -37,15 +39,25 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 
-class ChatFragment : Fragment(R.layout.frag_chat) {
+class ChatFragment : Fragment() {
     private var firestoreListener: ListenerRegistration? = null
     private var currentUser: FirebaseUser? = null
     private var selectionTracker: SelectionTracker<String>? = null
-    private lateinit var fragmentView: View
     private lateinit var parentActivity: AppCompatActivity
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var chatUtils: ChatUtils
+
+    private var _binding: FragChatBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = FragChatBinding.inflate(inflater, container, false).also {
+        _binding = it
+    }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,13 +65,11 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
             selectionTracker?.onRestoreInstanceState(savedInstanceState)
         }
 
-        fragmentView = view
-
         UiUtils(parentActivity).bottomAppBarFab?.setOnClickListener {
             startActivity<NewChatActivity>()
         }
 
-        val recyclerView = fragmentView.findViewById<RecyclerView>(R.id.chatListRecyclerView)
+        val recyclerView = binding.chatListRecyclerView
         firestoreListener = chatUtils.chatCollectionJoinedQuery
             .addSnapshotListener { docSnapshot, e ->
                 if (e != null) {
@@ -545,5 +555,7 @@ class ChatFragment : Fragment(R.layout.frag_chat) {
         if (firestoreListener != null) {
             firestoreListener?.remove()
         }
+
+        _binding = null
     }
 }
