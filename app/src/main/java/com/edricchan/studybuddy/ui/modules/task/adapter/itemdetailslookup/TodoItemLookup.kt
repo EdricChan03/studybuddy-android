@@ -15,7 +15,7 @@ class TodoItemLookup(
         if (view != null) {
             val viewHolder = recyclerView.getChildViewHolder(view)
             if (viewHolder is TodosAdapter.Holder) {
-                return viewHolder.getItemDetails()
+                return viewHolder.itemDetails
             }
         }
         return null

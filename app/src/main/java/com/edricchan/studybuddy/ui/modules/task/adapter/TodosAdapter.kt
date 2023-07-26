@@ -68,12 +68,8 @@ class TodosAdapter(
             }
         }
 
-        fun getItemDetails(): TodoItemDetails {
-            val position = bindingAdapterPosition
-            Log.d(TAG, "Adapter position: $position")
-            val id = todoItemList[position].id
-            Log.d(TAG, "ID at adapter position $position: $id")
-            return TodoItemDetails(position, id)
+        val itemDetails = bindingAdapterPosition.let { position ->
+            TodoItemDetails(position, todoItemList[position].id)
         }
     }
 
