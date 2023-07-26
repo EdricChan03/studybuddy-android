@@ -22,8 +22,7 @@ import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
+import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -234,23 +233,7 @@ class ViewTaskActivity : BaseActivity() {
         super.onStart()
         if (currentUser == null) {
             Log.d(TAG, "Not logged in")
-            val signInDialogBuilder = MaterialAlertDialogBuilder(this)
-            signInDialogBuilder
-                .setTitle("Sign in")
-                .setMessage("To access the content, please login or register for an account.")
-                .setCancelable(false)
-                .setPositiveButton(R.string.dialog_action_login) { dialogInterface, _ ->
-                    startActivity<LoginActivity>()
-                    dialogInterface.dismiss()
-                }
-                .setNeutralButton(R.string.dialog_action_sign_up) { dialogInterface, _ ->
-                    startActivity<RegisterActivity>()
-                    dialogInterface.dismiss()
-                }
-                .setNegativeButton(R.string.dialog_action_cancel) { dialogInterface, _ ->
-                    dialogInterface.cancel()
-                }
-                .show()
+            showAuthRequiredDialog()
         } else {
             loadTask()
         }

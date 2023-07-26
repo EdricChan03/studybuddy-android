@@ -805,4 +805,9 @@
     <string name="menu_view_chat_moderator_title">Moderator options</string>
     <string name="menu_view_chat_info_title">Chat info</string>
     <string name="menu_view_chat_create_shortcut_title">Create shortcut</string>
+
+    <!-- Title for the sign in dialog. -->
+    <string name="auth_required_dialog_title">Sign in to continue</string>
+    <!-- Message for the sign in dialog. -->
+    <string name="auth_required_dialog_msg">To access the content, please login or register for an account.</string>
 </resources>

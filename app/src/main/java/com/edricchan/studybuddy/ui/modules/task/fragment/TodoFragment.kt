@@ -32,8 +32,7 @@ import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.interfaces.TodoItem
-import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
+import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
@@ -208,21 +207,7 @@ class TodoFragment : Fragment() {
         super.onStart()
         if (auth.currentUser == null) {
             Log.d(TAG, "Not logged in")
-            requireContext().showMaterialAlertDialog {
-                setTitle("Sign in")
-                setMessage("To access the content, please login or register for an account.")
-                setPositiveButton(R.string.dialog_action_login) { dialog, _ ->
-                    startActivity<LoginActivity>()
-                    dialog.dismiss()
-                }
-                setNeutralButton(R.string.dialog_action_sign_up) { dialog, _ ->
-                    startActivity<RegisterActivity>()
-                    dialog.dismiss()
-                }
-                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
-                    dialog.cancel()
-                }
-            }
+            requireContext().showAuthRequiredDialog()
         } else {
             loadTasksList()
         }
