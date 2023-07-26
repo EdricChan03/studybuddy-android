@@ -43,6 +43,12 @@ class MaterialPromptDialogBuilder(context: Context) : MaterialAlertDialogBuilder
         textInputEditText.apply(init)
     }
 
+    /** Retrieves the [TextInputEditText]'s text. */
+    val promptText get() = textInputEditText.text
+
+    /** Retrieves the [TextInputEditText]'s text as a string. */
+    val promptTextStr get() = textInputEditText.text?.toString()
+
     override fun create(): AlertDialog {
         super.setView(binding.root)
         return super.create()
