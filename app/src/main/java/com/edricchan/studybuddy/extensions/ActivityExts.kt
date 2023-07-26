@@ -98,3 +98,30 @@ inline fun <reified T : Activity> Activity.startActivity(
     val intent = Intent(context, T::class.java).apply(intentOptions)
     startActivity(intent, options)
 }
+
+/**
+ * Starts the specified [activity][T] with the [Context] receiver, [options]
+ * to specify how the activity should be started, and additional [intentOptions]
+ * to be specified on the [Intent].
+ * @param T The activity to launch.
+ * @param options Options to specify how the activity should be started.
+ * @param intentOptions Options to be applied to the [Intent].
+ */
+inline fun <reified T : Activity> Context.startActivity(
+    options: Bundle? = null,
+    intentOptions: Intent.() -> Unit = {}
+) {
+    startActivity(Intent(this, T::class.java).apply(intentOptions), options)
+}
+
+/**
+ * Starts the specified intent with the [Context] receiver, [options]
+ * to specify how the activity should be started, and additional [intentOptions]
+ * to be specified on the [Intent].
+ * @param options Options to specify how the activity should be started.
+ * @param intentOptions Options to be applied to the [Intent].
+ */
+@JvmName("startActivityNotReified")
+inline fun Context.startActivity(options: Bundle? = null, intentOptions: Intent.() -> Unit) {
+    startActivity(Intent().apply(intentOptions), options)
+}
