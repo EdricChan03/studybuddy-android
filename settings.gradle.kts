@@ -27,7 +27,7 @@ plugins {
     // https://docs.gradle.org/8.0-rc-2/userguide/toolchains.html#sub:download_repositories
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.6.0"
 
-    id("com.android.settings") version "8.2.0-alpha13"
+    id("com.android.settings") version "8.2.0-alpha14"
 }
 
 // Configure the Gradle Enterprise Plugin
