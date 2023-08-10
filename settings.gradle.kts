@@ -22,12 +22,12 @@ dependencyResolutionManagement {
 plugins {
     // Used for Gradle's Build Scan feature - see
     // https://docs.gradle.com/enterprise/gradle-plugin/
-    `gradle-enterprise` version "3.13.4"
+    `gradle-enterprise` version "3.14.1"
     // Gradle JVM Toolchains repository - see
     // https://docs.gradle.org/8.0-rc-2/userguide/toolchains.html#sub:download_repositories
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.6.0"
 
-    id("com.android.settings") version "8.2.0-alpha14"
+    id("com.android.settings") version "8.2.0-alpha15"
 }
 
 // Configure the Gradle Enterprise Plugin
