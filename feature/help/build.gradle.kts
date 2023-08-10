@@ -30,6 +30,7 @@ android {
 dependencies {
     // Project dependencies
     implementation(projects.ui.common)
+    implementation(projects.ui.theming.views)
     implementation(projects.core.deeplink)
     implementation(projects.core.di)
     implementation(projects.core.resources)
