@@ -31,6 +31,7 @@ import androidx.core.view.isVisible
 import com.edricchan.studybuddy.ui.preference.R
 import com.edricchan.studybuddy.ui.preference.databinding.PrefM3MainSwitchBarBinding
 import kotlinx.parcelize.Parcelize
+import com.google.android.material.R as MaterialR
 
 /**
  * MainSwitchBar is a View with a customized Switch.
@@ -68,7 +69,7 @@ class MainSwitchBar @JvmOverloads constructor(
     init {
         binding = PrefM3MainSwitchBarBinding.inflate(LayoutInflater.from(context), this, true)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            context.withStyledAttributes(attrs = intArrayOf(R.attr.colorAccent)) {
+            context.withStyledAttributes(attrs = intArrayOf(MaterialR.attr.colorAccent)) {
                 mBackgroundActivatedColor = getColor(0, 0)
                 mBackgroundColor = ContextCompat.getColor(context, R.color.material_grey_600)
             }
@@ -181,7 +182,11 @@ class MainSwitchBar @JvmOverloads constructor(
     }
 
     @Parcelize
-    class SavedState(@Suppress("CanBeParameter") private val state: Parcelable, val isChecked: Boolean, val isVisible: Boolean) :
+    class SavedState(
+        @Suppress("CanBeParameter") private val state: Parcelable,
+        val isChecked: Boolean,
+        val isVisible: Boolean
+    ) :
         BaseSavedState(state)
 
     override fun onSaveInstanceState() =
