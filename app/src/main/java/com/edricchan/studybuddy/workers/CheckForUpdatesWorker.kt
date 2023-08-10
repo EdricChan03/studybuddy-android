@@ -7,7 +7,6 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.os.bundleOf
 import androidx.work.Worker
@@ -21,12 +20,12 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
+import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.utils.getUpdateJsonUrl
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
-import com.google.android.material.color.MaterialColors
 
 class CheckForUpdatesWorker(
     private val appContext: Context,
@@ -100,11 +99,7 @@ class CheckForUpdatesWorker(
             setCategory(NotificationCompat.CATEGORY_PROGRESS)
             priority = NotificationCompat.PRIORITY_DEFAULT
             setProgress(100, 0, true)
-            color = MaterialColors.getColor(
-                appContext,
-                R.attr.colorPrimary,
-                ContextCompat.getColor(appContext, R.color.colorPrimary)
-            )
+            color = appContext.dynamicColorPrimary
             setOngoing(true)
         }
     }

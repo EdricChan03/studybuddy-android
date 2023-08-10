@@ -40,13 +40,13 @@ import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
 import com.edricchan.studybuddy.ui.modules.task.migrations.TasksMigrator
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
+import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widget.bottomsheet.showModalBottomSheet
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -164,7 +164,7 @@ class TodoFragment : Fragment() {
 
         binding.apply {
             swipeRefreshLayout.apply {
-                setColorSchemeColors(MaterialColors.getColor(this, R.attr.colorPrimary))
+                setColorSchemeColors(requireContext().dynamicColorPrimary)
                 setOnRefreshListener {
                     adapter.notifyDataSetChanged()
                     loadTasksListHandler()

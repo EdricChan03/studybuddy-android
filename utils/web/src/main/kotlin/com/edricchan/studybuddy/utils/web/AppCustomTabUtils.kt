@@ -4,21 +4,12 @@ import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
-import com.google.android.material.color.MaterialColors
+import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import io.github.edricchan03.androidx.browser.ktx.enums.ColorScheme
 import io.github.edricchan03.androidx.browser.ktx.enums.ShareState
 import io.github.edricchan03.androidx.browser.ktx.setColorScheme
 import io.github.edricchan03.androidx.browser.ktx.setDefaultColorSchemeParams
 import io.github.edricchan03.androidx.browser.ktx.setShareState
-
-@get:ColorInt
-private val Context.dynamicColorPrimary
-    get() = MaterialColors.getColor(
-        this,
-        R.attr.colorPrimary,
-        ContextCompat.getColor(this, R.color.colorPrimary)
-    )
 
 /**
  * Applies StudyBuddy's colour schemes to the [CustomTabsIntent.Builder].

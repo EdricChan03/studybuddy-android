@@ -9,7 +9,6 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.edricchan.studybuddy.R
@@ -19,15 +18,14 @@ import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
+import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.utils.NotificationUtils
-import com.google.android.material.color.MaterialColors
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
@@ -72,15 +70,11 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                 builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
             }
 
-            if (remoteMessage.notification?.color != null) {
-                builder.color = Color.parseColor(remoteMessage.notification?.color)
+            builder.color = if (remoteMessage.notification?.color != null) {
+                Color.parseColor(remoteMessage.notification?.color)
             } else {
                 // Use the default color
-                builder.color = MaterialColors.getColor(
-                    this,
-                    R.attr.colorPrimary,
-                    ContextCompat.getColor(this, R.color.colorPrimary)
-                )
+                dynamicColorPrimary
             }
 
             // Image support was added in FCM 20.0.0
@@ -126,7 +120,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                 } ?: listOf()
             } catch (e: Exception) {
                 Log.e(TAG, "Could not parse notification actions:", e)
-                FirebaseCrashlytics.getInstance().recordException(e)
+                Firebase.crashlytics.recordException(e)
             }
 
             for (notificationAction in notificationActions) {

@@ -8,7 +8,6 @@ import android.util.Log
 import androidx.annotation.Discouraged
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
@@ -17,11 +16,11 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.buildIntent
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
+import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
-import com.google.android.material.color.MaterialColors
 
 /**
  * Shared utility methods
@@ -87,13 +86,7 @@ object SharedUtils {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_STATUS)
             .setProgress(100, 0, true)
-            .setColor(
-                MaterialColors.getColor(
-                    context,
-                    R.attr.colorPrimary,
-                    ContextCompat.getColor(context, R.color.colorPrimary)
-                )
-            )
+            .setColor(context.dynamicColorPrimary)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
         notificationManager.notify(
@@ -214,13 +207,7 @@ object SharedUtils {
                             .setCategory(NotificationCompat.CATEGORY_ERROR)
                             .setOngoing(false)
                             .setChannelId(context.getString(R.string.notification_channel_update_error_id))
-                            .setColor(
-                                MaterialColors.getColor(
-                                    context,
-                                    R.attr.colorError,
-                                    ContextCompat.getColor(context, R.color.colorWarn)
-                                )
-                            )
+                            .setColor(context.dynamicColorPrimary)
                             .addAction(
                                 NotificationCompat.Action(
                                     R.drawable.ic_refresh_24dp,
