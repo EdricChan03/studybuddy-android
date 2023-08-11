@@ -5,5 +5,5 @@ package com.edricchan.studybuddy.data.common
  * @property id The document ID of a data class
  */
 interface HasId {
-    var id: String
+    val id: String
 }

@@ -26,7 +26,7 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class Chat(
-    @DocumentId override var id: String = "",
+    @DocumentId override val id: String = "",
     val name: String? = "",
     val description: String? = null,
     val icon: ChatIcon? = null,
@@ -69,14 +69,17 @@ data class Chat(
          * The chat's name
          */
         var name: String? = null
+
         /**
          * The chat's description
          */
         var description: String? = null
+
         /**
          * The chat's icon
          */
         var icon: ChatIcon? = null
+
         /**
          * The chat's visibility
          * @see Visibility
@@ -84,26 +87,32 @@ data class Chat(
          */
         @VisibilityAnnotation
         var visibility: String? = null
+
         /**
          * Whether the chat has been marked as archived
          */
         var isArchived: Boolean? = false
+
         /**
          * The chat's pinned message
          */
         var pinnedMessage: DocumentReference? = null
+
         /**
          * The chat's owner
          */
         var owner: DocumentReference? = null
+
         /**
          * The chat's admins
          */
         var admins: MutableList<DocumentReference?>? = mutableListOf()
+
         /**
          * The chat's members
          */
         var members: MutableList<DocumentReference?>? = mutableListOf()
+
         /**
          * The timestamp that the chat was created at
          *
@@ -111,6 +120,7 @@ data class Chat(
          * @see ServerTimestamp
          */
         var createdAt: Timestamp? = null
+
         /**
          * The timestamp that the chat was last modified at
          *

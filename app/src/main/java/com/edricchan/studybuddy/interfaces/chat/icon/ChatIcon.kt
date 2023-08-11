@@ -17,7 +17,7 @@ import com.google.firebase.firestore.DocumentId
  * @property userSubmitted Whether the chat icon was submitted by a user
  */
 data class ChatIcon(
-    @DocumentId override var id: String = "",
+    @DocumentId override val id: String = "",
     val assets: List<ChatIconAsset>? = null,
     val name: String? = null,
     val description: String? = null,

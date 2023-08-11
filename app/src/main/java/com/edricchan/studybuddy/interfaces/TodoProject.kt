@@ -14,7 +14,7 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class TodoProject(
-    @DocumentId override var id: String = "",
+    @DocumentId override val id: String = "",
     var color: String? = null,
     var name: String? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
@@ -40,15 +40,18 @@ data class TodoProject(
          * The project's colour/color as a hexadecimal color
          */
         var color: String? = null
+
         /**
          * The project's ID
          */
         @Deprecated("This is kept for compatibility purposes and should not be used for future code.")
         var id: String? = null
+
         /**
          * The project's name
          */
         var name: String? = null
+
         /**
          * The timestamp the project was created at
          *
@@ -56,6 +59,7 @@ data class TodoProject(
          * @see ServerTimestamp
          */
         var createdAt: Timestamp? = null
+
         /**
          * The timestamp the project was last modified at
          *

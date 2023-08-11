@@ -15,7 +15,7 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class Message(
-    @DocumentId override var id: String = "",
+    @DocumentId override val id: String = "",
     val text: String? = "",
     val author: DocumentReference? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
@@ -42,10 +42,12 @@ data class Message(
          * The message's text
          */
         var text: String? = null
+
         /**
          * The message's author
          */
         var author: DocumentReference? = null
+
         /**
          * The timestamp that the message was created at
          *
@@ -53,6 +55,7 @@ data class Message(
          * @see ServerTimestamp
          */
         var createdAt: Timestamp? = null
+
         /**
          * The timestamp that the message was last modified at
          *

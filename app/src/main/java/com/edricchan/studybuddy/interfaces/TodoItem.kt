@@ -19,7 +19,7 @@ import com.google.firebase.firestore.ServerTimestamp
  */
 @IgnoreExtraProperties
 data class TodoItem(
-    @DocumentId override var id: String = "",
+    @DocumentId override val id: String = "",
     val content: String? = null,
     val dueDate: Timestamp? = null,
     // Note: Firestore converts isDone to done when added to the database
@@ -61,30 +61,37 @@ data class TodoItem(
          * The content of the task
          */
         var content: String? = null
+
         /**
          * The task's title
          */
         var title: String? = null
+
         /**
          * The task's due date
          */
         var dueDate: Timestamp? = null
+
         /**
          * The task's project
          */
         var project: DocumentReference? = null
+
         /**
          * The task's tags
          */
         var tags: List<String>? = null
+
         /**
          * Whether the task has been initially marked as done
          */
         var done: Boolean = false
+
         /**
          * Whether the task has been archived
          */
         var archived: Boolean = false
+
         /**
          * The timestamp the task was created at
          *
@@ -92,6 +99,7 @@ data class TodoItem(
          * @see ServerTimestamp
          */
         var createdAt: Timestamp? = null
+
         /**
          * The timestamp the task was last modified
          *
