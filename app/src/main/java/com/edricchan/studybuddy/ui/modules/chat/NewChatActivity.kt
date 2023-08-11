@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.Locale
+import com.edricchan.studybuddy.ui.theming.R as ThemingR
 
 @WebDeepLink(["/chats/new"])
 @AppDeepLink(["/chats/new"])
@@ -86,11 +87,12 @@ class NewChatActivity : BaseActivity() {
                 // TODO: Show a dialog with options to choose from library or upload
                 showMaterialAlertDialog {
                     setTitle(R.string.new_chat_activity_select_chat_icon_dialog_title)
-                    setItems(R.array.new_chat_activity_select_chat_icon_dialog_items) { dialog, i ->
+                    setItems(R.array.new_chat_activity_select_chat_icon_dialog_items) { _, i ->
                         when (i) {
                             0 -> {
                                 // Choose from library
                                 // TODO: Add activity for this functionality
+                                @Suppress("DEPRECATION")
                                 startActivityForResult(
                                     Intent(
                                         this@NewChatActivity,
@@ -102,7 +104,7 @@ class NewChatActivity : BaseActivity() {
                             1 -> {
                                 // Upload
                                 imagePickerLauncher.launch(ImagePickerConfig {
-                                    theme = R.style.Theme_App_ImagePicker
+                                    theme = ThemingR.style.Theme_App_ImagePicker
                                     mode = ImagePickerMode.SINGLE
                                     isFolderMode = true
                                 })
@@ -204,6 +206,8 @@ class NewChatActivity : BaseActivity() {
         }
     }
 
+    // TODO: Migrate to Activity Result API
+    @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == ICON_PICKER_RESULT) {
             Log.d(TAG, "Icon picker returned!")

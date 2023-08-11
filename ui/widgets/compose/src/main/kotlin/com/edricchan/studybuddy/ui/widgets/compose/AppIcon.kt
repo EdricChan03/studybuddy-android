@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.edricchan.studybuddy.core.resources.appIcon
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 /**
  * Composable that shows the current app's icon.
@@ -23,7 +24,7 @@ fun AppIcon(
     Image(
         modifier = modifier,
         painter = rememberDrawablePainter(drawable = iconDrawable),
-        contentDescription = stringResource(R.string.app_logo_content_desc)
+        contentDescription = stringResource(CoreResR.string.app_logo_content_desc)
     )
 }
 
