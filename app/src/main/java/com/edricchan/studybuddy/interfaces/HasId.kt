@@ -1,9 +1,10 @@
 package com.edricchan.studybuddy.interfaces
 
-/**
- * Indicates whether a data class has an ID property
- * @property id The document ID of a data class
- */
-interface HasId {
-    var id: String
-}
+@Deprecated(
+    "Use HasId from the :data:common module",
+    ReplaceWith(
+        "HasId",
+        "com.edricchan.studybuddy.data.common.HasId"
+    )
+)
+typealias HasId = com.edricchan.studybuddy.data.common.HasId

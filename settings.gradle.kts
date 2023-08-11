@@ -104,6 +104,7 @@ include(
     ":core:deeplink",
     ":core:di",
     ":core:resources",
+    ":data:common",
     ":data:serialization:android",
     ":utils:recyclerview",
     ":utils:web",
