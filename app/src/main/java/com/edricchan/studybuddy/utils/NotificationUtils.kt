@@ -1,14 +1,11 @@
 package com.edricchan.studybuddy.utils
 
-import android.app.NotificationChannel
-import android.app.NotificationChannelGroup
-import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import androidx.core.app.NotificationManagerCompat
 import com.edricchan.studybuddy.R
-import java.util.*
+import com.edricchan.studybuddy.extensions.notificationChannelCompat
+import com.edricchan.studybuddy.extensions.notificationChannelGroupCompat
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -16,9 +13,16 @@ import java.util.concurrent.atomic.AtomicInteger
  * @param initialId The initial ID (Default: `2`)
  */
 class NotificationUtils(
-    val context: Context? = null,
     private val initialId: Int = 2
 ) {
+    @Suppress("UNUSED_PARAMETER")
+    @Deprecated(
+        "Context is no longer used in this class, use the overload that specifies " +
+            "only the initialId instead",
+        ReplaceWith("NotificationUtils(initialId = initialId)")
+    )
+    constructor(context: Context? = null, initialId: Int = 2) : this(initialId = initialId)
+
     private val atomicInteger = AtomicInteger(initialId)
 
     /**
@@ -26,31 +30,12 @@ class NotificationUtils(
      */
     fun incrementAndGetId() = atomicInteger.incrementAndGet()
 
-    /**
-     * Retrieves the current ID.
-     */
-    fun getId() = atomicInteger.get()
-
-    /**
-     * Explicitly sets the current integer.
-     * @param id The ID to use.
-     */
-    fun setId(id: Int) {
-        atomicInteger.set(id)
-    }
-
-    /**
-     * Sets up the necessary notification channels.
-     * Note: The code doesn't include a check for the device's SDK version.
-     * @throws IllegalStateException When no [context] is specified.
-     */
-    fun createNotificationChannels() {
-        if (context != null) {
-            createNotificationChannels(context)
-        } else {
-            throw IllegalStateException("A context has to be specified!")
+    /** The current ID. */
+    var id: Int
+        get() = atomicInteger.get()
+        set(value) {
+            atomicInteger.set(value)
         }
-    }
 
     companion object {
         /**
@@ -69,6 +54,11 @@ class NotificationUtils(
          * @param context The context to be used.
          * @param initialId The initial ID to set.
          */
+        @Deprecated(
+            "Context is no longer used in this class, use the overload that specifies " +
+                "only the initialId instead",
+            ReplaceWith("NotificationUtils.getInstance(initialId = initialId)")
+        )
         fun getInstance(context: Context, initialId: Int) = NotificationUtils(
             context,
             initialId
@@ -76,165 +66,169 @@ class NotificationUtils(
 
         /**
          * Sets up the necessary notification channels.
-         * Note: The code doesn't include a check for the device's SDK version.
          * @param context The context
          */
+        @Deprecated(
+            "Use the createNotificationChannelsCompat extension function instead",
+            ReplaceWith(
+                "context.createNotificationChannelsCompat()",
+                "com.edricchan.studybuddy.utils.createNotificationChannelsCompat"
+            )
+        )
         fun createNotificationChannels(context: Context) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val notificationManager = NotificationManagerCompat.from(context)
-                val channels = ArrayList<NotificationChannel>()
-                // Create another list for channel groups
-                val channelGroups = ArrayList<NotificationChannelGroup>()
-
-                // Task updates notifications
-                val todoUpdatesChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_todo_updates_id),
-                    context.getString(R.string.notification_channel_todo_updates_title),
-                    NotificationManager.IMPORTANCE_HIGH
-                )
-                todoUpdatesChannel.description =
-                    context.getString(R.string.notification_channel_todo_updates_desc)
-                todoUpdatesChannel.group =
-                    context.getString(R.string.notification_channel_group_todos_id)
-                todoUpdatesChannel.enableLights(true)
-                todoUpdatesChannel.lightColor = Color.YELLOW
-                todoUpdatesChannel.enableVibration(true)
-                todoUpdatesChannel.setShowBadge(true)
-                channels.add(todoUpdatesChannel)
-
-                // Weekly summary notifications
-                val weeklySummaryChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_weekly_summary_id),
-                    context.getString(R.string.notification_channel_weekly_summary_title),
-                    NotificationManager.IMPORTANCE_LOW
-                )
-                weeklySummaryChannel.description =
-                    context.getString(R.string.notification_channel_weekly_summary_desc)
-                weeklySummaryChannel.group =
-                    context.getString(R.string.notification_channel_group_todos_id)
-                weeklySummaryChannel.setShowBadge(true)
-                channels.add(weeklySummaryChannel)
-
-                // Syncing notifications
-                val syncChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_sync_id),
-                    context.getString(R.string.notification_channel_sync_title),
-                    NotificationManager.IMPORTANCE_LOW
-                )
-                syncChannel.description = context.getString(R.string.notification_channel_sync_desc)
-                syncChannel.setShowBadge(false)
-                channels.add(syncChannel)
-
-                // Update error notifications
-                val updateErrorChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_update_error_id),
-                    context.getString(R.string.notification_channel_update_error_title),
-                    NotificationManager.IMPORTANCE_HIGH
-                )
-                updateErrorChannel.description =
-                    context.getString(R.string.notification_channel_update_error_desc)
-                updateErrorChannel.group =
-                    context.getString(R.string.notification_channel_group_updates_id)
-                updateErrorChannel.setShowBadge(false)
-                channels.add(updateErrorChannel)
-                // Update status notifications
-                val updateStatusChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_update_status_id),
-                    context.getString(R.string.notification_channel_update_status_title),
-                    NotificationManager.IMPORTANCE_LOW
-                )
-                updateStatusChannel.description =
-                    context.getString(R.string.notification_channel_update_status_desc)
-                updateStatusChannel.group =
-                    context.getString(R.string.notification_channel_group_updates_id)
-                updateStatusChannel.setShowBadge(false)
-                channels.add(updateStatusChannel)
-                // Update complete notifications
-                val updateCompleteChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_update_complete_id),
-                    context.getString(R.string.notification_channel_update_complete_title),
-                    NotificationManager.IMPORTANCE_LOW
-                )
-                updateCompleteChannel.description =
-                    context.getString(R.string.notification_channel_update_complete_desc)
-                updateCompleteChannel.group =
-                    context.getString(R.string.notification_channel_group_updates_id)
-                updateCompleteChannel.setShowBadge(false)
-                channels.add(updateCompleteChannel)
-                // Update not available notifications
-                val updateNotAvailableChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_update_not_available_id),
-                    context.getString(R.string.notification_channel_update_not_available_title),
-                    NotificationManager.IMPORTANCE_DEFAULT
-                )
-                updateNotAvailableChannel.description =
-                    context.getString(R.string.notification_channel_update_not_available_desc)
-                updateNotAvailableChannel.group =
-                    context.getString(R.string.notification_channel_group_updates_id)
-                updateNotAvailableChannel.setShowBadge(false)
-                channels.add(updateNotAvailableChannel)
-                // Update available notifications
-                val updateAvailableChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_update_available_id),
-                    context.getString(R.string.notification_channel_update_available_title),
-                    NotificationManager.IMPORTANCE_HIGH
-                )
-                updateAvailableChannel.description =
-                    context.getString(R.string.notification_channel_update_available_desc)
-                updateAvailableChannel.group =
-                    context.getString(R.string.notification_channel_group_updates_id)
-                updateAvailableChannel.setShowBadge(false)
-                channels.add(updateAvailableChannel)
-
-                // Media playback notifications
-                val playbackChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_playback_id),
-                    context.getString(R.string.notification_channel_playback_title),
-                    NotificationManager.IMPORTANCE_LOW
-                )
-                playbackChannel.description =
-                    context.getString(R.string.notification_channel_playback_desc)
-                // We don't want to consider a playback notification to show a badge
-                playbackChannel.setShowBadge(false)
-                channels.add(playbackChannel)
-
-                // New in-app features notifications
-                val newFeaturesChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_new_app_features_id),
-                    context.getString(R.string.notification_channel_new_app_features_title),
-                    NotificationManager.IMPORTANCE_LOW
-                )
-                newFeaturesChannel.setShowBadge(true)
-                channels.add(newFeaturesChannel)
-
-                // Uncategorised notifications
-                val uncategorisedChannel = NotificationChannel(
-                    context.getString(R.string.notification_channel_uncategorised_id),
-                    context.getString(R.string.notification_channel_uncategorised_title),
-                    NotificationManager.IMPORTANCE_DEFAULT
-                )
-                uncategorisedChannel.description =
-                    context.getString(R.string.notification_channel_uncategorised_desc)
-                uncategorisedChannel.setShowBadge(true)
-                channels.add(uncategorisedChannel)
-
-                // Notification channel groups
-                val todoChannelGroup = NotificationChannelGroup(
-                    context.getString(R.string.notification_channel_group_todos_id),
-                    context.getString(R.string.notification_channel_group_todos_title)
-                )
-                channelGroups.add(todoChannelGroup)
-                val updatesChannelGroup = NotificationChannelGroup(
-                    context.getString(R.string.notification_channel_group_updates_id),
-                    context.getString(R.string.notification_channel_group_updates_title)
-                )
-                channelGroups.add(updatesChannelGroup)
-                notificationManager.createNotificationChannelGroups(channelGroups)
-
-                // Pass list to method
-                notificationManager.createNotificationChannels(channels)
-
-            }
+            context.createNotificationChannelsCompat()
         }
+    }
+}
+
+fun Context.createNotificationChannelsCompat() {
+    val notificationManager = NotificationManagerCompat.from(this)
+
+    val channels = buildList {
+        // Task updates notifications
+        val todoUpdatesChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_todo_updates_id),
+            name = getString(R.string.notification_channel_todo_updates_title),
+            description = getString(R.string.notification_channel_todo_updates_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_HIGH
+        ) {
+            setGroup(getString(R.string.notification_channel_group_todos_id))
+            setLightsEnabled(true)
+            setLightColor(Color.YELLOW)
+            setVibrationEnabled(true)
+            setShowBadge(true)
+        }
+        this += todoUpdatesChannel
+
+        // Weekly summary notifications
+        val weeklySummaryChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_weekly_summary_id),
+            name = getString(R.string.notification_channel_weekly_summary_title),
+            description = getString(R.string.notification_channel_weekly_summary_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_LOW
+        ) {
+            setGroup(getString(R.string.notification_channel_group_todos_id))
+            setShowBadge(true)
+        }
+        this += weeklySummaryChannel
+
+        // Syncing notifications
+        val syncChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_sync_id),
+            name = getString(R.string.notification_channel_sync_title),
+            description = getString(R.string.notification_channel_sync_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_LOW
+        ) {
+            setShowBadge(false)
+        }
+        this += syncChannel
+
+        // Update error notifications
+        val updateErrorChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_update_error_id),
+            name = getString(R.string.notification_channel_update_error_title),
+            description = getString(R.string.notification_channel_update_error_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_HIGH
+        ) {
+            setGroup(getString(R.string.notification_channel_group_updates_id))
+            setShowBadge(false)
+        }
+        this += updateErrorChannel
+        // Update status notifications
+        val updateStatusChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_update_status_id),
+            name = getString(R.string.notification_channel_update_status_title),
+            description = getString(R.string.notification_channel_update_status_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_LOW
+        ) {
+            setGroup(getString(R.string.notification_channel_group_updates_id))
+            setShowBadge(false)
+        }
+        this += updateStatusChannel
+        // Update complete notifications
+        val updateCompleteChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_update_complete_id),
+            name = getString(R.string.notification_channel_update_complete_title),
+            description = getString(R.string.notification_channel_update_complete_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_LOW
+        ) {
+            setGroup(getString(R.string.notification_channel_group_updates_id))
+            setShowBadge(false)
+        }
+        this += updateCompleteChannel
+        // Update not available notifications
+        val updateNotAvailableChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_update_not_available_id),
+            name = getString(R.string.notification_channel_update_not_available_title),
+            description = getString(R.string.notification_channel_update_not_available_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_DEFAULT
+        ) {
+            setGroup(getString(R.string.notification_channel_group_updates_id))
+            setShowBadge(false)
+        }
+        this += updateNotAvailableChannel
+        // Update available notifications
+        val updateAvailableChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_update_available_id),
+            name = getString(R.string.notification_channel_update_available_title),
+            description = getString(R.string.notification_channel_update_available_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_HIGH
+        ) {
+            setGroup(getString(R.string.notification_channel_group_updates_id))
+            setShowBadge(false)
+        }
+        this += updateAvailableChannel
+
+        // Media playback notifications
+        val playbackChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_playback_id),
+            name = getString(R.string.notification_channel_playback_title),
+            description = getString(R.string.notification_channel_playback_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_LOW
+        ) {
+            // We don't want playback notifications to show a badge
+            setShowBadge(false)
+        }
+        this += playbackChannel
+
+        // New in-app features notifications
+        val newFeaturesChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_new_app_features_id),
+            name = getString(R.string.notification_channel_new_app_features_title),
+            description = getString(R.string.notification_channel_new_app_features_desc),
+            importance = NotificationManagerCompat.IMPORTANCE_LOW
+        ) {
+            setShowBadge(true)
+        }
+        this += newFeaturesChannel
+
+        // Uncategorised notifications
+        val uncategorisedChannel = notificationChannelCompat(
+            id = getString(R.string.notification_channel_uncategorised_id),
+            name = getString(R.string.notification_channel_uncategorised_title),
+            description = getString(R.string.notification_channel_uncategorised_desc),
+            NotificationManagerCompat.IMPORTANCE_DEFAULT
+        ) {
+            setShowBadge(true)
+        }
+        this += uncategorisedChannel
+    }
+
+    val channelGroups = buildList {
+        val todoChannelGroup = notificationChannelGroupCompat(
+            id = getString(R.string.notification_channel_group_todos_id),
+            name = getString(R.string.notification_channel_group_todos_title)
+        )
+        this += todoChannelGroup
+        val updatesChannelGroup = notificationChannelGroupCompat(
+            id = getString(R.string.notification_channel_group_updates_id),
+            name = getString(R.string.notification_channel_group_updates_title)
+        )
+        this += updatesChannelGroup
+    }
+
+    with(notificationManager) {
+        createNotificationChannelGroupsCompat(channelGroups)
+        createNotificationChannelsCompat(channels)
     }
 }
