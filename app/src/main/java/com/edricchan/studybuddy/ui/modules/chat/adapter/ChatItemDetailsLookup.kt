@@ -12,7 +12,7 @@ class ChatItemDetailsLookup(
         if (view != null) {
             val viewHolder = recyclerView.getChildViewHolder(view)
             if (viewHolder is ChatsAdapter.ViewHolder) {
-                return viewHolder.getItemDetails()
+                return viewHolder.itemDetails
             }
         }
         return null

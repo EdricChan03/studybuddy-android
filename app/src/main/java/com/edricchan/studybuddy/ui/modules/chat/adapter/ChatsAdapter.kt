@@ -93,7 +93,7 @@ class ChatsAdapter(
             }
         }
 
-        fun getItemDetails() = ChatItemDetailsLookup.ChatItemDetails(
+        val itemDetails = ChatItemDetailsLookup.ChatItemDetails(
             bindingAdapterPosition,
             chatList[bindingAdapterPosition].id
         )
