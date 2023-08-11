@@ -31,6 +31,7 @@ class ModalBottomSheetAdapter(
                     else -> NoIconWithTextHolder(itemView)
                 }
             }
+
             LIST_ITEM_ICON, LIST_ITEM_ICON_CHECKBOX, LIST_ITEM_ICON_RADIO_BUTTON -> {
                 val itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.modalbottomsheetadapter_item_row_with_icon, parent, false)
@@ -41,6 +42,7 @@ class ModalBottomSheetAdapter(
                     else -> IconWithTextHolder(itemView)
                 }
             }
+
             else -> {
                 val itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.modalbottomsheetadapter_item_row_no_icon, parent, false)
@@ -96,6 +98,7 @@ class ModalBottomSheetAdapter(
                     }
                 }
             }
+
             LIST_ITEM_NO_ICON_CHECKBOX -> {
                 val tempHolder = holder as NoIconWithTextWithCheckboxHolder
                 tempHolder.titleTextView.text = item.title
@@ -123,6 +126,7 @@ class ModalBottomSheetAdapter(
                 }
 
             }
+
             LIST_ITEM_NO_ICON_RADIO_BUTTON -> {
                 val tempHolder = holder as NoIconWithTextWithRadioButtonHolder
                 tempHolder.titleTextView.text = item.title
@@ -159,6 +163,7 @@ class ModalBottomSheetAdapter(
                     }
                 }
             }
+
             LIST_ITEM_ICON -> {
                 val tempHolder = holder as IconWithTextHolder
                 if (item.iconDrawable != null) {
@@ -179,6 +184,7 @@ class ModalBottomSheetAdapter(
                     }
                 }
             }
+
             LIST_ITEM_ICON_CHECKBOX -> {
                 val tempHolder = holder as IconWithTextWithCheckboxHolder
                 if (item.iconDrawable != null) {
@@ -214,6 +220,7 @@ class ModalBottomSheetAdapter(
                     }
                 }
             }
+
             LIST_ITEM_ICON_RADIO_BUTTON -> {
                 val tempHolder = holder as IconWithTextWithRadioButtonHolder
 
