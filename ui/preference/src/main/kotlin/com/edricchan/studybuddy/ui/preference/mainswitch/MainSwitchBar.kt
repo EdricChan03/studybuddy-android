@@ -31,6 +31,7 @@ import androidx.core.view.isVisible
 import com.edricchan.studybuddy.ui.preference.R
 import com.edricchan.studybuddy.ui.preference.databinding.PrefM3MainSwitchBarBinding
 import kotlinx.parcelize.Parcelize
+import androidx.appcompat.R as AppCompatR
 import com.google.android.material.R as MaterialR
 
 /**
@@ -71,7 +72,8 @@ class MainSwitchBar @JvmOverloads constructor(
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             context.withStyledAttributes(attrs = intArrayOf(MaterialR.attr.colorAccent)) {
                 mBackgroundActivatedColor = getColor(0, 0)
-                mBackgroundColor = ContextCompat.getColor(context, R.color.material_grey_600)
+                mBackgroundColor =
+                    ContextCompat.getColor(context, AppCompatR.color.material_grey_600)
             }
         }
         isFocusable = true
