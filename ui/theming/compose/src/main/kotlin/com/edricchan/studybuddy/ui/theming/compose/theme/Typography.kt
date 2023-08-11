@@ -4,13 +4,13 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import com.edricchan.studybuddy.ui.theming.compose.R
+import com.edricchan.studybuddy.ui.theming.R as ThemingR
 
 // FIXME: defaultFontFamily can't be used, see https://issuetracker.google.com/issues/236358112
 val baloo2Family = FontFamily(
-    Font(R.font.baloo2_bold, FontWeight.Bold),
-    Font(R.font.baloo2_medium, FontWeight.Medium),
-    Font(R.font.baloo2_regular, FontWeight.Normal)
+    Font(ThemingR.font.baloo2_bold, FontWeight.Bold),
+    Font(ThemingR.font.baloo2_medium, FontWeight.Medium),
+    Font(ThemingR.font.baloo2_regular, FontWeight.Normal)
 )
 
 private val defaultTypography = Typography()
