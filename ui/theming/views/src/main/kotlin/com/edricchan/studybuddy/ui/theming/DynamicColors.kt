@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.R as MaterialR
 
 /**
  * Retrieves the `colorPrimary` dynamic colour, or the default value if the
@@ -13,6 +14,6 @@ import com.google.android.material.color.MaterialColors
 val Context.dynamicColorPrimary
     get() = MaterialColors.getColor(
         this,
-        R.attr.colorPrimary,
+        MaterialR.attr.colorPrimary,
         ContextCompat.getColor(this, R.color.colorPrimary)
     )
