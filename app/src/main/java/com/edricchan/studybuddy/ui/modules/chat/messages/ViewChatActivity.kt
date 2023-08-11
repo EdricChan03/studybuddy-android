@@ -26,7 +26,7 @@ class ViewChatActivity : BaseActivity() {
 
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
             Log.d(TAG, "Chat ID (deep link): ${intent.extras?.getString("id")}")
-        } else if (intent != null && intent.extras != null && intent.extras?.containsKey(KEY_CHAT_ID) == true) {
+        } else if (intent.extras?.containsKey(KEY_CHAT_ID) == true) {
             Log.d(TAG, "Chat ID: ${intent.extras?.get(KEY_CHAT_ID)}")
         }
     }
