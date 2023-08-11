@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.R as MaterialR
 
 /** Preference key used for the dynamic theme preference. */
 const val PREF_DYNAMIC_THEME = "pref_dynamic_theme"
@@ -23,7 +24,7 @@ var Context.prefDynamicTheme
 /** Applies the dynamic theme based on whether [shouldApply] is `true`. */
 fun Context.applyDynamicTheme(shouldApply: Boolean = prefDynamicTheme) {
     theme.applyStyle(
-        if (shouldApply) R.style.ThemeOverlay_Material3_DynamicColors_DayNight
-        else R.style.ThemeOverlay_Material3, true
+        if (shouldApply) MaterialR.style.ThemeOverlay_Material3_DynamicColors_DayNight
+        else MaterialR.style.ThemeOverlay_Material3, true
     )
 }
