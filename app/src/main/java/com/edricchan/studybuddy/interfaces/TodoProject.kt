@@ -128,19 +128,11 @@ data class TodoProject(
          * @return The builder object to allow for chaining of methods
          */
         fun setColor(r: Int, g: Int, b: Int): Builder {
-            if (checkValidRGBCode(r)) {
-                if (checkValidRGBCode(g)) {
-                    if (checkValidRGBCode(b)) {
-                        this.color = this.convertRGBtoHex(r, g, b)
-                    } else {
-                        throw IllegalArgumentException("Please supply a valid RGB blue code!")
-                    }
-                } else {
-                    throw IllegalArgumentException("Please supply a valid RGB green code!")
-                }
-            } else {
-                throw IllegalArgumentException("Please supply a valid RGB red code!")
-            }
+            require(checkValidRGBCode(r)) { "Please supply a valid RGB red code!" }
+            require(checkValidRGBCode(g)) { "Please supply a valid RGB green code!" }
+            require(checkValidRGBCode(b)) { "Please supply a valid RGB blue code!" }
+
+            this.color = this.convertRGBtoHex(r, g, b)
             return this
         }
 
