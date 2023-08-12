@@ -27,6 +27,44 @@ data class ModalBottomSheetItem(
     var enabled: Boolean = true,
     var group: ModalBottomSheetGroup? = null
 ) {
+    constructor(
+        id: Int = ID_NONE,
+        title: String,
+        @DrawableRes icon: Int,
+        onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
+        visible: Boolean = true,
+        enabled: Boolean = true,
+        group: ModalBottomSheetGroup? = null
+    ) : this(
+        id = id,
+        title = title,
+        icon = icon,
+        iconDrawable = null,
+        onItemClickListener = onItemClickListener,
+        visible = visible,
+        enabled = enabled,
+        group = group
+    )
+
+    constructor(
+        id: Int = ID_NONE,
+        title: String,
+        icon: Drawable,
+        onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
+        visible: Boolean = true,
+        enabled: Boolean = true,
+        group: ModalBottomSheetGroup? = null
+    ) : this(
+        id = id,
+        title = title,
+        icon = null,
+        iconDrawable = icon,
+        onItemClickListener = onItemClickListener,
+        visible = visible,
+        enabled = enabled,
+        group = group
+    )
+
     companion object {
         /** Represents that the item should not have an ID */
         const val ID_NONE = 0

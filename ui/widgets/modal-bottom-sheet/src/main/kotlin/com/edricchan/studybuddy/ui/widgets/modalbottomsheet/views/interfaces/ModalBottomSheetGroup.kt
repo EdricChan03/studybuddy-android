@@ -23,14 +23,41 @@ class ModalBottomSheetGroup(
     var enabled: Boolean = true,
     var selected: MutableList<ModalBottomSheetItem> = mutableListOf()
 ) {
+    constructor(
+        id: Int,
+        checkableBehavior: CheckableBehavior,
+        onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
+        visible: Boolean = true,
+        enabled: Boolean = true,
+        selected: MutableList<ModalBottomSheetItem> = mutableListOf()
+    ) : this(
+        id = id,
+        checkableBehavior = checkableBehavior.value,
+        onItemCheckedChangeListener = onItemCheckedChangeListener,
+        visible = visible,
+        enabled = enabled,
+        selected = selected
+    )
+
     override fun toString(): String {
         return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled," +
             "selected=${selected.joinToString(prefix = "[", postfix = "]")}"
     }
 
+    enum class CheckableBehavior(@ModalBottomSheetCheckableBehavior internal val value: String) {
+        /** No items can be checked. */
+        None(value = CHECKABLE_BEHAVIOR_NONE),
+
+        /** All items can be checked. */
+        All(value = CHECKABLE_BEHAVIOR_ALL),
+
+        /** Only one item can be checked. */
+        Single(value = CHECKABLE_BEHAVIOR_SINGLE),
+    }
+
     companion object {
         /**
-         * Represents that only one item can be checked
+         * Represents that no items can be checked
          */
         const val CHECKABLE_BEHAVIOR_NONE = "none"
 
