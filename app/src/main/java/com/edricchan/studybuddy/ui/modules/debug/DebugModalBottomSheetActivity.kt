@@ -345,7 +345,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                         this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
                     checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
                 }) {
-                    items(buildList {
+                    items {
                         for (i in 21..25) {
                             this += item("Item $i") {
                                 id = i
@@ -354,7 +354,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                                 setIcon(R.drawable.ic_info_outline_24dp)
                             }
                         }
-                    })
+                    }
                 }
             }
         }
