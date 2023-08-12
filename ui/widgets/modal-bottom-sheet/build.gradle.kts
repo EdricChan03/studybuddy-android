@@ -23,6 +23,9 @@ android {
 }
 
 dependencies {
+    implementation(projects.ui.widgets.views) {
+        because("NoTextCheckBox, NoTextRadioButton")
+    }
     implementation(projects.core.resources)
 
     api(libs.androidx.fragment.ktx)
