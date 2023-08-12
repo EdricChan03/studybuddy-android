@@ -7,6 +7,7 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.annotations.Mo
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 
+@ModalBottomSheetDsl
 class ModalBottomSheetDSL {
     private var items = mutableListOf<ModalBottomSheetItem>()
 
@@ -96,7 +97,7 @@ class ModalBottomSheetDSL {
     fun build() = items + groupItems.map { it.build() }.flatten()
 }
 
-
+@ModalBottomSheetDsl
 class ModalBottomSheetGroupDSL(
     private val group: ModalBottomSheetGroup = ModalBottomSheetGroup(id = Integer.MIN_VALUE),
     groupOptions: ModalBottomSheetGroup.() -> Unit = {}
@@ -122,7 +123,8 @@ class ModalBottomSheetGroupDSL(
     fun build() = group
 }
 
-class ModalBottomSheetGroupItemsDSL(val group: ModalBottomSheetGroup) {
+@ModalBottomSheetDsl
+class ModalBottomSheetGroupItemsDSL(private val group: ModalBottomSheetGroup) {
     private var items = mutableListOf<ModalBottomSheetItem>()
 
     /** Adds the specified item to the group and returns the created item. */
@@ -156,6 +158,7 @@ class ModalBottomSheetGroupItemsDSL(val group: ModalBottomSheetGroup) {
     fun build() = items.map { it.apply { group = this@ModalBottomSheetGroupItemsDSL.group } }
 }
 
+@ModalBottomSheetDsl
 class ModalBottomSheetItemDSL(
     private val item: ModalBottomSheetItem = ModalBottomSheetItem(title = ""),
     itemOptions: ModalBottomSheetItem.() -> Unit = {}
@@ -192,11 +195,17 @@ class ModalBottomSheetItemDSL(
     fun build() = item
 }
 
+/** Creates a [ModalBottomSheetGroup] using DSL syntax. */
+@ModalBottomSheetDsl
 inline fun group(init: ModalBottomSheetGroupDSL.() -> Unit) =
     ModalBottomSheetGroupDSL().apply(init).build()
 
+/** Creates a [ModalBottomSheetItem] using DSL syntax. */
+@ModalBottomSheetDsl
 inline fun item(init: ModalBottomSheetItemDSL.() -> Unit) =
     ModalBottomSheetItemDSL().apply(init).build()
 
+/** Creates a list of [ModalBottomSheetItem]s using DSL syntax. */
+@ModalBottomSheetDsl
 inline fun items(init: ModalBottomSheetDSL.() -> Unit) =
     ModalBottomSheetDSL().apply(init).build()
