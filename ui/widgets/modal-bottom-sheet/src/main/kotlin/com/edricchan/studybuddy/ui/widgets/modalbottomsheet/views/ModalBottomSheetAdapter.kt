@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.widget.bottomsheet
+package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.edricchan.studybuddy.ui.widget.R
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.R
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 
 class ModalBottomSheetAdapter(
     private val context: Context,
@@ -116,7 +116,7 @@ class ModalBottomSheetAdapter(
 
                     // Handle on item checked listener in item's group
                     if (itemGroup?.onItemCheckedChangeListener != null) {
-                        itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
+                        itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
                     }
 
                     // Handle on click listener in item
@@ -170,9 +170,7 @@ class ModalBottomSheetAdapter(
                     tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
                 } else {
                     tempHolder.iconImageView.setImageDrawable(item.icon?.let {
-                        context.getDrawable(
-                            it
-                        )
+                        context.getDrawable(it)
                     })
                 }
                 tempHolder.titleTextView.text = item.title
@@ -211,7 +209,7 @@ class ModalBottomSheetAdapter(
 
                     // Handle on item checked listener in item's group
                     if (itemGroup?.onItemCheckedChangeListener != null) {
-                        itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
+                        itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
                     }
 
                     // Handle on click listener in item

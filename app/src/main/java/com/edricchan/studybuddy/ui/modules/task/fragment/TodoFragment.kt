@@ -41,8 +41,8 @@ import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
 import com.edricchan.studybuddy.ui.modules.task.migrations.TasksMigrator
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
-import com.edricchan.studybuddy.ui.widget.bottomsheet.showModalBottomSheet
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection

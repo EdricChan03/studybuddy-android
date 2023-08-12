@@ -1,8 +1,8 @@
-package com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces
+package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces
 
-import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
-import com.edricchan.studybuddy.ui.widget.bottomsheet.annotations.ModalBottomSheetCheckableBehavior
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup.Companion.CHECKABLE_BEHAVIOR_NONE
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.annotations.ModalBottomSheetCheckableBehavior
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup.Companion.CHECKABLE_BEHAVIOR_NONE
 
 /**
  * Represents a group of [ModalBottomSheetItem]s
@@ -25,7 +25,7 @@ class ModalBottomSheetGroup(
 ) {
     override fun toString(): String {
         return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled," +
-                "selected=${selected.joinToString(prefix = "[", postfix = "]")}"
+            "selected=${selected.joinToString(prefix = "[", postfix = "]")}"
     }
 
     companion object {
@@ -33,14 +33,17 @@ class ModalBottomSheetGroup(
          * Represents that only one item can be checked
          */
         const val CHECKABLE_BEHAVIOR_NONE = "none"
+
         /**
          * Represents that all items can be checked
          */
         const val CHECKABLE_BEHAVIOR_ALL = "all"
+
         /**
          * Represents that only one item can be checked
          */
         const val CHECKABLE_BEHAVIOR_SINGLE = "single"
+
         /**
          * Represents that the group should not have an ID
          */

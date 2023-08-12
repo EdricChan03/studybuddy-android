@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.widget.bottomsheet
+package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.ModalBottomSheetDSL
-import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.items
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
-import com.edricchan.studybuddy.ui.widget.databinding.FragModalBottomSheetBinding
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.FragModalBottomSheetBinding
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetDSL
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**

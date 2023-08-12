@@ -1,11 +1,11 @@
-package com.edricchan.studybuddy.ui.widget.bottomsheet.dsl
+package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
-import com.edricchan.studybuddy.ui.widget.bottomsheet.annotations.ModalBottomSheetCheckableBehavior
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.annotations.ModalBottomSheetCheckableBehavior
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 
 class ModalBottomSheetDSL {
     private var items = mutableListOf<ModalBottomSheetItem>()

@@ -1,8 +1,8 @@
-package com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces
+package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 
 /**
  * Represents an item in a modal bottom sheet
@@ -15,7 +15,7 @@ import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
  * @property enabled Whether the item is enabled
  * @property group A group reference
  * @see ModalBottomSheetGroup.id
- * @see com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
+ * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
  */
 data class ModalBottomSheetItem(
     var id: Int = ID_NONE,

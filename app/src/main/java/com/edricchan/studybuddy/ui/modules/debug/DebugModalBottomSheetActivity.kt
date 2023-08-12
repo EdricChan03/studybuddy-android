@@ -17,11 +17,11 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityDebugModalBottomSheetBinding
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetAdapter
-import com.edricchan.studybuddy.ui.widget.bottomsheet.ModalBottomSheetFragment
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetGroup
-import com.edricchan.studybuddy.ui.widget.bottomsheet.interfaces.ModalBottomSheetItem
-import com.edricchan.studybuddy.ui.widget.bottomsheet.modalBottomSheet
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.modalBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 

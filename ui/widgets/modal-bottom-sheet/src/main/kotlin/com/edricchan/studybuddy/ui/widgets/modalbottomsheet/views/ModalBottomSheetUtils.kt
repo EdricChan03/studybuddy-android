@@ -1,9 +1,9 @@
-package com.edricchan.studybuddy.ui.widget.bottomsheet
+package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views
 
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.edricchan.studybuddy.ui.widget.bottomsheet.dsl.ModalBottomSheetDSL
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetDSL
 
 /** Instantiates a [modal bottom sheet][ModalBottomSheetFragment] given the specified options. */
 inline fun modalBottomSheet(init: ModalBottomSheetFragment.() -> Unit) =
