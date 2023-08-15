@@ -200,4 +200,4 @@ gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-v
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.20.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.21.0"
