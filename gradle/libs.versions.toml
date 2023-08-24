@@ -46,7 +46,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 
-androidxtra-browser-ktx = "io.github.edricchan03.androidx.browser:browser-ktx:0.0.2"
+androidxtra-browser-ktx = "io.github.edricchan03.androidx.browser:browser-ktx:0.1.0"
 
 # Accompanist
 accompanist-material3-themeAdapter = { module = "com.google.accompanist:accompanist-themeadapter-material3", version.ref = "accompanist" }
