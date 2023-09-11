@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.ui.widgets.compose
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,7 +28,12 @@ fun BackIconButton(
     IconButtonWithTooltip(
         modifier = modifier,
         tooltip = { Text(text = stringResource(R.string.back_btn_tooltip_text)) },
-        icon = { Icon(Icons.Outlined.ArrowBack, contentDescription = null) },
+        icon = {
+            Icon(
+                Icons.AutoMirrored.Outlined.ArrowBack,
+                contentDescription = null
+            )
+        },
         enabled = enabled,
         onClick = onClick
     )
