@@ -173,7 +173,7 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.junit)
 
-    coreLibraryDesugaring(libs.android.desugar)
+    coreLibraryDesugaring(libs.android.desugar.nio)
 
     // AndroidX dependencies
     implementation(libs.androidx.core.ktx)
