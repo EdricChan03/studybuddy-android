@@ -15,7 +15,7 @@ import androidx.core.view.plusAssign
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityDebugModalBottomSheetBinding
-import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
