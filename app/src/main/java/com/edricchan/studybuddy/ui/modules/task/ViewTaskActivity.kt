@@ -11,8 +11,6 @@ import androidx.core.view.plusAssign
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.firebase.toLocalDateTime
-import com.edricchan.studybuddy.extensions.format
 import com.edricchan.studybuddy.extensions.markwon.coilImagesPlugin
 import com.edricchan.studybuddy.extensions.markwon.linkifyPlugin
 import com.edricchan.studybuddy.extensions.markwon.setMarkdown
@@ -20,6 +18,8 @@ import com.edricchan.studybuddy.extensions.markwon.strikethroughPlugin
 import com.edricchan.studybuddy.extensions.markwon.taskListPlugin
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.datetime.format
+import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog

@@ -11,12 +11,12 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityNewTaskBinding
 import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
-import com.edricchan.studybuddy.extensions.firebase.toTimestamp
-import com.edricchan.studybuddy.extensions.format
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.extensions.toLocalDateTime
+import com.edricchan.studybuddy.exts.datetime.format
+import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
+import com.edricchan.studybuddy.exts.firebase.toTimestamp
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.common.BaseActivity

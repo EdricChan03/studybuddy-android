@@ -112,6 +112,7 @@ include(
     ":exts:androidx:preference",
     ":exts:androidx:preference-files",
     ":exts:common",
+    ":exts:datetime",
     ":exts:firebase",
     ":exts:material",
     ":feature:help",

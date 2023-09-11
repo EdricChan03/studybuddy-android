@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragIconInfoBottomSheetBinding
-import com.edricchan.studybuddy.extensions.firebase.format
+import com.edricchan.studybuddy.exts.firebase.format
 import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

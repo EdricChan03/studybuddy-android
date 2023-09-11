@@ -1,6 +1,6 @@
-package com.edricchan.studybuddy.extensions.firebase
+package com.edricchan.studybuddy.exts.firebase
 
-import com.edricchan.studybuddy.extensions.format
+import com.edricchan.studybuddy.exts.datetime.format
 import com.google.firebase.Timestamp
 import java.time.Instant
 import java.time.LocalDateTime

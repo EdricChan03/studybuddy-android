@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.exts.datetime
 
 import java.time.Duration
 import java.time.Instant
