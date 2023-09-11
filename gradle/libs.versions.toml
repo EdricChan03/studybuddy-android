@@ -75,6 +75,7 @@ firebase-perf-ktx = { module = "com.google.firebase:firebase-perf-ktx" }
 
 # Kotlin
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
 
 # Google Play Services OSS Licenses
 playServices-ossLicenses-core = "com.google.android.gms:play-services-oss-licenses:17.0.1"
