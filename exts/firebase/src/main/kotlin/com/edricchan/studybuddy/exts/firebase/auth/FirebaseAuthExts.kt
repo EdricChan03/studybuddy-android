@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions.firebase.auth
+package com.edricchan.studybuddy.exts.firebase.auth
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.AuthResult

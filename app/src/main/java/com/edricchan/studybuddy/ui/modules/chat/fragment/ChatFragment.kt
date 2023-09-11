@@ -19,8 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragChatBinding
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.edricchan.studybuddy.ui.modules.chat.NewChatActivity
 import com.edricchan.studybuddy.ui.modules.chat.adapter.ChatItemDetailsLookup

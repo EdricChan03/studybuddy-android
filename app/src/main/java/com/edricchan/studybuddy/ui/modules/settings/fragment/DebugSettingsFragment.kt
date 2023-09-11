@@ -33,12 +33,12 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.dialog.materialAlertDialogBuilder
 import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.editTextStrValue
-import com.edricchan.studybuddy.extensions.firebase.auth.creationInstant
-import com.edricchan.studybuddy.extensions.firebase.auth.lastSignInInstant
 import com.edricchan.studybuddy.extensions.formatISO
 import com.edricchan.studybuddy.extensions.getSerializableCompat
 import com.edricchan.studybuddy.extensions.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import com.edricchan.studybuddy.exts.firebase.auth.creationInstant
+import com.edricchan.studybuddy.exts.firebase.auth.lastSignInInstant
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity

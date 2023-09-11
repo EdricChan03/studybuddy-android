@@ -1,6 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.chat.utils
 
-import com.edricchan.studybuddy.extensions.firebase.auth.getUserDocument
+import com.edricchan.studybuddy.exts.firebase.auth.getUserDocument
 import com.edricchan.studybuddy.interfaces.chat.Chat
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
