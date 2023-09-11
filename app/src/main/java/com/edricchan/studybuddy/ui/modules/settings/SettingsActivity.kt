@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.extensions.replaceFragment
-import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity

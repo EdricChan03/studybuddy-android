@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.exts.android
 
 import android.app.Activity
 import android.content.Context

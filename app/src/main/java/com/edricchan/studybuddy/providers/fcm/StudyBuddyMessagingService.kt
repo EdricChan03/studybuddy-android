@@ -14,7 +14,7 @@ import coil.request.ImageRequest
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.buildIntent
+import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
@@ -141,9 +141,10 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                 when (notificationAction.type) {
                     // TODO: Don't hardcode action types
                     Constants.actionNotificationsSettingsIntent -> {
-                        intent = buildIntent<SettingsActivity>(this) {
-                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        }
+                        intent =
+                            buildIntent<SettingsActivity>(this) {
+                                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            }
                         notificationPendingIntent = PendingIntent.getActivity(
                             this,
                             0,

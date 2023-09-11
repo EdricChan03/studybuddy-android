@@ -34,7 +34,7 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.context.startActivity
 import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.showSnackbar
-import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.utils.SharedUtils

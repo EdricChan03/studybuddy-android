@@ -17,7 +17,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.buildIntent
+import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary

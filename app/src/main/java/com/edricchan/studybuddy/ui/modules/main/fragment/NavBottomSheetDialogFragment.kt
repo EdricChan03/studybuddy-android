@@ -14,8 +14,8 @@ import coil.load
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
-import com.edricchan.studybuddy.extensions.getParcelableCompat
 import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.android.getParcelableCompat
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView

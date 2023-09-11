@@ -109,6 +109,7 @@ include(
     ":data:serialization:android",
     ":utils:recyclerview",
     ":utils:web",
+    ":exts:android",
     ":exts:androidx:preference",
     ":exts:androidx:preference-files",
     ":exts:common",

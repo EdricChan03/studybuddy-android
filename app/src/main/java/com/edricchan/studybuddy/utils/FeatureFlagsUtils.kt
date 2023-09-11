@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.content.edit
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
-import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.exts.android.showToast
 
 /**
  * Initialises an instance of the utilities

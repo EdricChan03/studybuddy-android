@@ -4,7 +4,7 @@ import android.content.Context
 import android.provider.Settings
 import androidx.core.net.toUri
 import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.extensions.buildIntent
+import com.edricchan.studybuddy.exts.android.buildIntent
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 /** Creates an [android.content.Intent] that opens the given [packageName]'s app details. */

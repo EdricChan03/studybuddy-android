@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.ui.dialogs
 import android.content.Context
 import android.content.DialogInterface
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity

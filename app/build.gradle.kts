@@ -162,6 +162,7 @@ dependencies {
     implementation(projects.data.serialization.android)
     implementation(projects.utils.recyclerview)
     implementation(projects.utils.web)
+    implementation(projects.exts.android)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)

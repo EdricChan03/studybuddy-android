@@ -16,8 +16,8 @@ import com.edricchan.studybuddy.extensions.markwon.linkifyPlugin
 import com.edricchan.studybuddy.extensions.markwon.setMarkdown
 import com.edricchan.studybuddy.extensions.markwon.strikethroughPlugin
 import com.edricchan.studybuddy.extensions.markwon.taskListPlugin
-import com.edricchan.studybuddy.extensions.showToast
-import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.android.showToast
+import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.interfaces.TodoItem

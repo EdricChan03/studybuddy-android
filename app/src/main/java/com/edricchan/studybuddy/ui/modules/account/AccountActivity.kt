@@ -20,9 +20,9 @@ import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.extensions.showSnackbar
-import com.edricchan.studybuddy.extensions.showToast
-import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.extensions.strValue
+import com.edricchan.studybuddy.exts.android.showToast
+import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reauthenticateAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reloadAsync

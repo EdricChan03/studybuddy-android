@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.extensions.showSnackbar
-import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior

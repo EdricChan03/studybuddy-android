@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityIconPickerBinding
 import com.edricchan.studybuddy.extensions.TAG
-import com.edricchan.studybuddy.extensions.showToast
+import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerAdapter
 import com.edricchan.studybuddy.ui.widget.iconpicker.adapter.IconPickerItemDetailsLookup
