@@ -5,14 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
-import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.exts.common.TAG
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 
-class GoogleAuth :
-    ActivityResultContract<GoogleSignInOptions, GoogleSignInAccount?>() {
+class GoogleAuth : ActivityResultContract<GoogleSignInOptions, GoogleSignInAccount?>() {
     override fun createIntent(context: Context, input: GoogleSignInOptions): Intent {
         val gso = GoogleSignIn.getClient(context, input)
         return gso.signInIntent

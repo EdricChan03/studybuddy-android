@@ -7,8 +7,8 @@ import androidx.core.view.isVisible
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityResetPasswordBinding
-import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.showSnackbar
+import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth

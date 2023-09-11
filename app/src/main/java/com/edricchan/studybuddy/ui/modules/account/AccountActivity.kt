@@ -15,7 +15,6 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityAccountBinding
-import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.isInvalidEmail
@@ -23,6 +22,7 @@ import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.extensions.strValue
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
+import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reauthenticateAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reloadAsync

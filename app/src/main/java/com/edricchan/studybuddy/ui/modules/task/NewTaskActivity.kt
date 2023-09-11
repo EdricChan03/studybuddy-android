@@ -9,11 +9,11 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityNewTaskBinding
-import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
+import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toTimestamp

@@ -13,8 +13,8 @@ import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
-import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.exts.android.buildIntent
+import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
 

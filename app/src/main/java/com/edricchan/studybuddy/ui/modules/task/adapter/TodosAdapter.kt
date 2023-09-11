@@ -1,13 +1,11 @@
 package com.edricchan.studybuddy.ui.modules.task.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.TodosAdapterItemRowBinding
-import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.extensions.markwon.coilImagesPlugin
 import com.edricchan.studybuddy.extensions.markwon.linkifyPlugin
 import com.edricchan.studybuddy.extensions.markwon.setMarkdown

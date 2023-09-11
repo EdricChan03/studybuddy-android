@@ -12,8 +12,8 @@ import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.extensions.TAG
 import com.edricchan.studybuddy.exts.android.buildIntent
+import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary

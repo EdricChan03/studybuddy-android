@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker
 
 class StartupReceiver : BroadcastReceiver() {

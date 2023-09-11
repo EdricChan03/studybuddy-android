@@ -9,7 +9,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityViewChatBinding
-import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.ui.common.BaseActivity
 
 @WebDeepLink(["/chat/{id}", "/chats/view/{id}"])

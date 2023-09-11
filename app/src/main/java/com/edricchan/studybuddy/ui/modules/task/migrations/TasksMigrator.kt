@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.ui.modules.task.migrations
 import android.content.Context
 import android.util.Log
 import com.boswelja.migration.Migrator
-import com.edricchan.studybuddy.extensions.TAG
+import com.edricchan.studybuddy.exts.common.TAG
 
 // TODO: Add versioning logic
 class TasksMigrator(
