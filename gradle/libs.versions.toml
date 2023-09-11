@@ -22,18 +22,18 @@ mockk = "1.13.7"
 
 [libraries]
 # AndroidX dependencies
-androidx-annotation = "androidx.annotation:annotation:1.6.0"
+androidx-annotation = "androidx.annotation:annotation:1.7.0"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha03"
 androidx-browser = "androidx.browser:browser:1.6.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha12"
-androidx-core-ktx = "androidx.core:core-ktx:1.10.1"
+androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.1"
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.3.1"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.9.0-alpha02"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.9.0-beta01"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
@@ -65,7 +65,7 @@ deepLinkDispatch-processor = { module = "com.airbnb:deeplinkdispatch-processor",
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
-playServices-auth = "com.google.android.gms:play-services-auth:20.6.0"
+playServices-auth = "com.google.android.gms:play-services-auth:20.7.0"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links-ktx" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
