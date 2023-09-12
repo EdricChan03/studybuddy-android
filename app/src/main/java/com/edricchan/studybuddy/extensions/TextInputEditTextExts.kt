@@ -9,7 +9,7 @@ import com.google.android.material.textfield.TextInputEditText
  * Returns/requires a [String]
  */
 var TextInputEditText.strValue: String?
-    get() = this.text.toString()
+    get() = this.text?.toString()
     set(value) {
         this.text = SpannableStringBuilder(value)
     }
