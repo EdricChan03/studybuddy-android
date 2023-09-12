@@ -29,7 +29,6 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.DebugSendFcmNotificationDialogBinding
-import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.exts.android.getSerializableCompat
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
@@ -39,6 +38,7 @@ import com.edricchan.studybuddy.exts.firebase.auth.creationInstant
 import com.edricchan.studybuddy.exts.firebase.auth.lastSignInInstant
 import com.edricchan.studybuddy.exts.material.dialog.materialAlertDialogBuilder
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.interfaces.NotificationRequest
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity

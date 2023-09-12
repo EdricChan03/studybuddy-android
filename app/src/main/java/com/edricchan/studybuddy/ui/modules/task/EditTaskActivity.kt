@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
-import com.edricchan.studybuddy.extensions.editTextStrValue
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
@@ -18,6 +17,7 @@ import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toInstant
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
+import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.interfaces.TodoItem
 import com.edricchan.studybuddy.interfaces.TodoProject
 import com.edricchan.studybuddy.ui.common.BaseActivity

@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.exts.material.textfield
 
 import android.text.Editable
 import android.text.SpannableStringBuilder
