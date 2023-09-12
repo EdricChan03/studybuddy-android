@@ -14,12 +14,12 @@ import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityLoginBinding
 import com.edricchan.studybuddy.extensions.defaultSignInOptions
 import com.edricchan.studybuddy.extensions.editTextStrValue
-import com.edricchan.studybuddy.extensions.showSnackbar
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.signInWithEmailAndPasswordAsync
 import com.edricchan.studybuddy.exts.firebase.auth.signInWithGoogleAsync
+import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.contracts.GoogleAuth
 import com.edricchan.studybuddy.ui.modules.main.MainActivity

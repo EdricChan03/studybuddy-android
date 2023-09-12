@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.exts.material.snackbar
 
 import android.view.View
 import androidx.annotation.StringRes
