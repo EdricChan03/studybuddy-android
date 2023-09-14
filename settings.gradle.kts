@@ -116,6 +116,6 @@ include(
     ":exts:datetime",
     ":exts:firebase",
     ":exts:material",
-    ":feature:help",
+    ":features:help",
     ":app"
 )

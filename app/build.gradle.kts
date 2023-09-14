@@ -169,7 +169,7 @@ dependencies {
     implementation(projects.exts.datetime)
     implementation(projects.exts.firebase)
     implementation(projects.exts.material)
-    implementation(projects.feature.help)
+    implementation(projects.features.help)
 
     // Test dependencies
     androidTestImplementation(libs.bundles.androidx.test)
