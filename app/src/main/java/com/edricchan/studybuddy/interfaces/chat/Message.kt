@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.interfaces.chat
 
-import com.edricchan.studybuddy.interfaces.HasId
-import com.edricchan.studybuddy.interfaces.HasTimestampMetadata
+import com.edricchan.studybuddy.data.common.HasId
+import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference

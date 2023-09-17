@@ -1,8 +1,8 @@
 package com.edricchan.studybuddy.interfaces.chat
 
 import com.edricchan.studybuddy.annotations.VisibilityAnnotation
-import com.edricchan.studybuddy.interfaces.HasId
-import com.edricchan.studybuddy.interfaces.HasTimestampMetadata
+import com.edricchan.studybuddy.data.common.HasId
+import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.edricchan.studybuddy.interfaces.Visibility
 import com.edricchan.studybuddy.interfaces.chat.icon.ChatIcon
 import com.google.firebase.Timestamp

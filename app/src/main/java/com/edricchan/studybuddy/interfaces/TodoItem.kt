@@ -1,5 +1,7 @@
 package com.edricchan.studybuddy.interfaces
 
+import com.edricchan.studybuddy.data.common.HasId
+import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
