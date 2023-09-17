@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.result.launch
-import androidx.activity.result.registerForActivityResult
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
@@ -41,7 +39,7 @@ class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private val googleLogin = registerForActivityResult(
-        GoogleAuth(), defaultSignInOptions
+        GoogleAuth()
     ) { acct ->
         acct?.let {
             lifecycleScope.launch {
@@ -119,7 +117,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun signInWithGoogle() {
-        googleLogin.launch()
+        googleLogin.launch(defaultSignInOptions)
     }
 
     private fun checkNetwork(snackbar: Snackbar?) {
