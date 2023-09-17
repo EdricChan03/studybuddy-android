@@ -132,7 +132,7 @@ class TodoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.addMenuProvider(menuProvider)
+        activity?.addMenuProvider(menuProvider, viewLifecycleOwner)
         prefs = requireContext().defaultSharedPreferences
 
         // Perform migrations if necessary
