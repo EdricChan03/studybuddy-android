@@ -30,7 +30,7 @@ enum class NightMode(@NightModeAnnotation val modeId: Int) {
          * or `null` if no such representation exists.
          */
         fun fromMode(@NightModeAnnotation modeId: Int) =
-            NightMode.values().find { it.modeId == modeId }
+            NightMode.entries.find { it.modeId == modeId }
     }
 }
 
