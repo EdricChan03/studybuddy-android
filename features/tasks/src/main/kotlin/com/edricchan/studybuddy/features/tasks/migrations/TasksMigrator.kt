@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.migrations
+package com.edricchan.studybuddy.features.tasks.migrations
 
 import android.content.Context
 import android.util.Log
