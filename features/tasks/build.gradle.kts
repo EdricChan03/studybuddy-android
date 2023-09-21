@@ -27,6 +27,9 @@ dependencies {
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)
 
+    // AndroidX
+    implementation(libs.androidx.core.ktx)
+
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
