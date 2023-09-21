@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.constants.sharedprefs
+package com.edricchan.studybuddy.features.tasks.constants.sharedprefs
 
 import androidx.annotation.StringDef
 
@@ -37,7 +37,7 @@ object TodoOptionsPrefConstants {
             "PREF_DEFAULT_SORT should be used where preferable",
         ReplaceWith(
             "TodoOptionsPrefConstants.PREF_DEFAULT_SORT",
-            "com.edricchan.studybuddy.constants.sharedprefs.TodoOptionsPrefConstants"
+            "com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants"
         )
     )
     const val PREF_DEFAULT_SORT_OLD = "sortTasksBy"

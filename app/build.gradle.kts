@@ -170,6 +170,7 @@ dependencies {
     implementation(projects.exts.firebase)
     implementation(projects.exts.material)
     implementation(projects.features.help)
+    implementation(projects.features.tasks)
 
     // Test dependencies
     androidTestImplementation(libs.bundles.androidx.test)

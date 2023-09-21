@@ -117,5 +117,6 @@ include(
     ":exts:firebase",
     ":exts:material",
     ":features:help",
+    ":features:tasks",
     ":app"
 )
