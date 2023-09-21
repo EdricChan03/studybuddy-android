@@ -24,7 +24,7 @@ object TodoOptionsPrefConstants {
     /**
      * The former version of [PREF_DEFAULT_SORT]
      *
-     * THis key is stored as a [String] representation of one of the values of [TodoSortValues]
+     * This key is stored as a [String] representation of one of the values of [TodoSortValues]
      *
      * NOTE: This key is kept for compatibility purposes and may be removed in a future release
      *
@@ -32,6 +32,14 @@ object TodoOptionsPrefConstants {
      * @see TodoSortValues
      * @see TodoSort
      */
+    @Deprecated(
+        "This key is kept for compatibility purposes. " +
+            "PREF_DEFAULT_SORT should be used where preferable",
+        ReplaceWith(
+            "TodoOptionsPrefConstants.PREF_DEFAULT_SORT",
+            "com.edricchan.studybuddy.constants.sharedprefs.TodoOptionsPrefConstants"
+        )
+    )
     const val PREF_DEFAULT_SORT_OLD = "sortTasksBy"
 
     /**
