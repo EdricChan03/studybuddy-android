@@ -6,17 +6,17 @@ accompanist = "0.33.1-alpha"
 android-desugar = "2.0.2"
 android-gradle = "8.3.0-alpha05"
 androidx-lifecycle = "2.7.0-alpha02"
-compose = "1.6.0-alpha05"
-compose-material3 = "1.2.0-alpha07"
+compose = "1.6.0-alpha06"
+compose-material3 = "1.2.0-alpha08"
 dagger = "2.48"
 deep-link-dispatch = "6.2.2"
-firebase-bom = "32.2.3"
-gradle-versions = "0.47.0"
-kotest = "5.6.2"
+firebase-bom = "32.3.1"
+gradle-versions = "0.48.0"
+kotest = "5.7.2"
 kotlin = "1.9.10"
 kotlinx-coroutines = "1.7.3"
 kotlinx-serialization = "1.6.0"
-ktor = "2.3.3"
+ktor = "2.3.4"
 markwon = "4.6.2"
 mockk = "1.13.7"
 
@@ -113,7 +113,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
 # TODO: Switch to an in-house updater
 appUpdater = "com.github.AleP04:AppUpdater:2.7.2"
-imagePicker = "com.github.esafirm:android-image-picker:3.0.0"
+imagePicker = "com.github.esafirm:android-image-picker:3.1.0"
 migration = "io.github.boswelja.migration:migration-core:2.1.4"
 
 # Gradle Versions (declared here as a library and not as a plugin
@@ -195,10 +195,10 @@ kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.9"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
-googleServices = "com.google.gms.google-services:4.3.15"
+googleServices = "com.google.gms.google-services:4.4.0"
 
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.21.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.22.0"
