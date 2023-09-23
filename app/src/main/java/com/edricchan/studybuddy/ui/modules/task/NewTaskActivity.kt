@@ -23,12 +23,11 @@ import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
+import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -170,19 +169,14 @@ class NewTaskActivity : BaseActivity() {
                             )
                             when (todoProjectDropdownAdapter!!.getTaskProjectId(position)) {
                                 PROJECT_CREATE_ID -> {
-                                    val editTextDialogView =
-                                        layoutInflater.inflate(R.layout.edit_text_dialog, null)
-                                    val textInputLayout =
-                                        editTextDialogView.findViewById<TextInputLayout>(R.id.textInputLayout)
-                                    textInputLayout.editText?.hint = "Project name"
-                                    val builder = MaterialAlertDialogBuilder(this@NewTaskActivity)
-                                    builder.setTitle("New project")
-                                        .setView(editTextDialogView)
-                                        .setPositiveButton(R.string.dialog_action_create) { dialog, _ ->
+                                    showMaterialPromptDialog {
+                                        textInputEditText.hint = "Project name"
+                                        setTitle("New project")
+                                        setPositiveButton(R.string.dialog_action_create) { dialog, _ ->
                                             val project = TodoProject.build {
-                                                name = textInputLayout.editTextStrValue
+                                                name = promptTextStr
                                             }
-                                            firestore.collection("users/" + currentUser!!.uid + "/todoProjects")
+                                            firestore.collection("users/${currentUser!!.uid}/todoProjects")
                                                 .add(project)
                                                 .addOnCompleteListener { task ->
                                                     if (task.isSuccessful) {
@@ -204,8 +198,8 @@ class NewTaskActivity : BaseActivity() {
                                                     }
                                                 }
                                         }
-                                        .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-                                        .show()
+                                        setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+                                    }
                                 }
 
                                 PROJECT_NONE_ID -> {
