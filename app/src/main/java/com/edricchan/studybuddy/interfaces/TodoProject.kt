@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.interfaces
 
 import android.graphics.Color
-import androidx.annotation.ColorRes
+import androidx.annotation.ColorInt
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.google.firebase.Timestamp
@@ -81,12 +81,12 @@ data class TodoProject(
         }
 
         /**
-         * Converts a color from a resource to a hexdecimal color
+         * Converts a color from its integer representation to a hexadecimal color
          *
          * @param color The color to convert
          * @return The color in hexadecimal form
          */
-        private fun convertColorToHex(@ColorRes color: Int): String {
+        private fun convertColorToHex(@ColorInt color: Int): String {
             return String.format("#%06X", 0xFFFFFF and color)
         }
 
@@ -139,12 +139,12 @@ data class TodoProject(
         }
 
         /**
-         * Sets the color of this project
+         * Sets the colour of this project.
          *
-         * @param color A color resource
+         * @param color A color integer.
          * @return The builder object to allow for chaining of methods
          */
-        fun setColor(@ColorRes color: Int): Builder {
+        fun setColor(@ColorInt color: Int): Builder {
             this.color = this.convertColorToHex(color)
             return this
         }
