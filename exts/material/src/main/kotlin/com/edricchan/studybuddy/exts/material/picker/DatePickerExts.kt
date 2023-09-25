@@ -180,8 +180,8 @@ fun MaterialDateRangePickerBuilder.setSelection(selection: Pair<Long, Long>) =
     setSelection(selection.toAndroidXPair())
 
 /** Sets the selection for this date-range picker using named arguments. */
-fun MaterialDateRangePickerBuilder.setSelection(start: Long, end: Long) =
-    setSelection(start to end)
+fun MaterialDateRangePickerBuilder.setSelection(startMs: Long, endMs: Long) =
+    setSelection(startMs to endMs)
 
 /**
  * Sets the selection to the given [instant]. Its [Instant.toEpochMilli] value
