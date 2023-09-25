@@ -30,8 +30,8 @@ class IconPickerActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var binding: ActivityIconPickerBinding
-    private var recyclerViewLayout: IconPickerAdapter.HolderLayout =
-        IconPickerAdapter.HolderLayout.LIST
+
+    private var recyclerViewLayout = IconPickerAdapter.HolderLayout.LIST
     private lateinit var tracker: SelectionTracker<Long>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +45,11 @@ class IconPickerActivity : BaseActivity() {
         setContentView(binding.root)
 
         recyclerView = binding.recyclerView
-        updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
         recyclerView.setHasFixedSize(false)
 
         adapter = IconPickerAdapter()
         recyclerView.adapter = adapter
+        updateRecyclerViewLayout(IconPickerAdapter.HolderLayout.LIST)
 
         tracker = SelectionTracker.Builder(
             "icon-picker-selection",
