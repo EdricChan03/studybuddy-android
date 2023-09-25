@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import java.time.DayOfWeek
 import java.time.Instant
 import kotlin.Pair
 import androidx.core.util.Pair as AndroidXPair
@@ -210,6 +211,40 @@ fun MaterialDateRangePickerBuilder.setSelection(range: ClosedRange<Instant>) =
 fun <S> MaterialDatePicker.Builder<S>.setCalendarConstraints(
     init: CalendarConstraints.Builder.() -> Unit
 ) = setCalendarConstraints(calendarConstraints(init))
+
+/**
+ * Sets the calendar constraints using named arguments syntax.
+ * @param start See [setStart].
+ * @param end See [setEnd].
+ * @param openAt See [setOpenAt].
+ * @param firstDayOfWeek See [setFirstDayOfWeek].
+ * @param validator See [CalendarConstraints.Builder.setValidator].
+ * @see MaterialDatePicker.Builder.setCalendarConstraints
+ * @see calendarConstraints
+ */
+fun <S> MaterialDatePicker.Builder<S>.setCalendarConstraints(
+    start: Instant? = null,
+    end: Instant? = null,
+    openAt: Instant? = null,
+    firstDayOfWeek: DayOfWeek? = null,
+    validator: CalendarConstraints.DateValidator? = null
+) = setCalendarConstraints(calendarConstraints(start, end, openAt, firstDayOfWeek, validator))
+
+/**
+ * Sets the calendar constraints using named arguments syntax.
+ * @param range See [setRange].
+ * @param openAt See [setOpenAt].
+ * @param firstDayOfWeek See [setFirstDayOfWeek].
+ * @param validator See [CalendarConstraints.Builder.setValidator].
+ * @see MaterialDatePicker.Builder.setCalendarConstraints
+ * @see calendarConstraints
+ */
+fun <S> MaterialDatePicker.Builder<S>.setCalendarConstraints(
+    range: ClosedRange<Instant>? = null,
+    openAt: Instant? = null,
+    firstDayOfWeek: DayOfWeek? = null,
+    validator: CalendarConstraints.DateValidator? = null
+) = setCalendarConstraints(calendarConstraints(range, openAt, firstDayOfWeek, validator))
 //#endregion
 
 /**

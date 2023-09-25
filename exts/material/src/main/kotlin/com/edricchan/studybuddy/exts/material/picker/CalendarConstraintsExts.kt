@@ -38,6 +38,31 @@ fun calendarConstraints(
 }
 
 /**
+ * Creates a [CalendarConstraints] using named arguments syntax.
+ * @param range See [setRange].
+ * @param openAt See [setOpenAt].
+ * @param firstDayOfWeek See [setFirstDayOfWeek].
+ * @param validator See [CalendarConstraints.Builder.setValidator].
+ * @see calendarConstraints
+ * @see setStart
+ * @see setEnd
+ * @see setOpenAt
+ * @see setFirstDayOfWeek
+ * @see CalendarConstraints.Builder.setValidator
+ */
+fun calendarConstraints(
+    range: ClosedRange<Instant>? = null,
+    openAt: Instant? = null,
+    firstDayOfWeek: DayOfWeek? = null,
+    validator: DateValidator? = null
+) = calendarConstraints {
+    range?.let { setRange(it) }
+    openAt?.let { setOpenAt(it) }
+    firstDayOfWeek?.let { setFirstDayOfWeek(it) }
+    validator?.let { setValidator(it) }
+}
+
+/**
  * A UTC timeInMilliseconds contained within the earliest month the calendar will page to.
  * Defaults January, 1900.
  *
