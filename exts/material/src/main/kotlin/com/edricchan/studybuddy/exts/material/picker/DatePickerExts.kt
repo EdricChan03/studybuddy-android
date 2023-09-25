@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.core.util.toAndroidXPair
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.time.Instant
@@ -31,12 +33,37 @@ private fun <S, T> Pair<S, S>.map(
 //#region Single-date picker builder functions
 
 /**
- * Shows a date-picker with the specified options using
- * DSL syntax.
+ * Creates a date-picker with the specified options using DSL syntax.
  * @see MaterialDatePicker.Builder.datePicker
  */
-fun showMaterialDatePicker(init: MaterialSingleDatePickerBuilder.() -> Unit) =
-    MaterialDatePicker.Builder.datePicker().apply(init)
+fun materialDatePicker(init: MaterialSingleDatePickerBuilder.() -> Unit) =
+    MaterialDatePicker.Builder.datePicker().apply(init).build()
+
+/**
+ * Shows a date-picker with the specified options using DSL syntax.
+ *
+ * This is the equivalent of calling [androidx.fragment.app.DialogFragment.show]
+ * with the values [FragmentActivity.getSupportFragmentManager] and the specified [tag].
+ * @param tag The tag to be passed to [androidx.fragment.app.DialogFragment.show].
+ * @see materialDatePicker
+ */
+fun FragmentActivity.showMaterialDatePicker(
+    tag: String?,
+    init: MaterialSingleDatePickerBuilder.() -> Unit
+) = materialDatePicker(init).show(supportFragmentManager, tag)
+
+/**
+ * Shows a date-picker with the specified options using DSL syntax.
+ *
+ * This is the equivalent of calling [androidx.fragment.app.DialogFragment.show]
+ * with the values [Fragment.getParentFragmentManager] and the specified [tag].
+ * @param tag The tag to be passed to [androidx.fragment.app.DialogFragment.show].
+ * @see materialDatePicker
+ */
+fun Fragment.showMaterialDatePicker(
+    tag: String?,
+    init: MaterialSingleDatePickerBuilder.() -> Unit
+) = materialDatePicker(init).show(parentFragmentManager, tag)
 
 /**
  * Sets the selection to the given [instant]. Its [Instant.toEpochMilli] value
@@ -52,14 +79,39 @@ fun MaterialSingleDatePickerBuilder.setSelection(instant: Instant) =
 //#region Range picker builder functions
 
 /**
- * Shows a date-range picker with the specified options using
- * DSL syntax.
+ * Creates a date-range picker with the specified options using DSL syntax.
  * @see MaterialDatePicker.Builder.dateRangePicker
  */
-fun showMaterialDateRangePicker(
+fun materialDateRangePicker(
     init: MaterialDateRangePickerBuilder.() -> Unit
 ) =
-    MaterialDatePicker.Builder.dateRangePicker().apply(init)
+    MaterialDatePicker.Builder.dateRangePicker().apply(init).build()
+
+/**
+ * Shows a date-range picker with the specified options using DSL syntax.
+ *
+ * This is the equivalent of calling [androidx.fragment.app.DialogFragment.show]
+ * with the values [FragmentActivity.getSupportFragmentManager] and the specified [tag].
+ * @param tag The tag to be passed to [androidx.fragment.app.DialogFragment.show].
+ * @see materialDateRangePicker
+ */
+fun FragmentActivity.showMaterialDateRangePicker(
+    tag: String?,
+    init: MaterialDateRangePickerBuilder.() -> Unit
+) = materialDateRangePicker(init).show(supportFragmentManager, tag)
+
+/**
+ * Shows a date-range picker with the specified options using DSL syntax.
+ *
+ * This is the equivalent of calling [androidx.fragment.app.DialogFragment.show]
+ * with the values [Fragment.getParentFragmentManager] and the specified [tag].
+ * @param tag The tag to be passed to [androidx.fragment.app.DialogFragment.show].
+ * @see materialDateRangePicker
+ */
+fun Fragment.showMaterialDateRangePicker(
+    tag: String?,
+    init: MaterialDateRangePickerBuilder.() -> Unit
+) = materialDateRangePicker(init).show(parentFragmentManager, tag)
 
 /** Sets the selection for this date-range picker using a Kotlin [Pair]. */
 fun MaterialDateRangePickerBuilder.setSelection(selection: Pair<Long, Long>) =
