@@ -10,15 +10,15 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
 
 /**
- * A task project
- * @property color The color/colour of this project as a hexadecimal value
- * @property name The name of this project
+ * A task project.
+ * @property color The colour of this project as a hexadecimal value.
+ * @property name The name of this project.
  */
 @IgnoreExtraProperties
 data class TodoProject(
     @DocumentId override val id: String = "",
-    var color: String? = null,
-    var name: String? = null,
+    val color: String? = null,
+    val name: String? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
     @ServerTimestamp override val lastModified: Timestamp? = null
 ) : HasId, HasTimestampMetadata {
@@ -91,7 +91,7 @@ data class TodoProject(
         }
 
         /**
-         * Converts a RGB color to a hexdecimal color
+         * Converts a RGB color to a hexadecimal color
          *
          * @param r The red value
          * @param g The green value
