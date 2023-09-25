@@ -1,7 +1,5 @@
 package com.edricchan.studybuddy.exts.material.picker
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.CalendarConstraints.DateValidator
 import java.time.DayOfWeek
@@ -25,7 +23,6 @@ fun calendarConstraints(init: CalendarConstraints.Builder.() -> Unit) =
  * @see setFirstDayOfWeek
  * @see CalendarConstraints.Builder.setValidator
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun calendarConstraints(
     start: Instant? = null,
     end: Instant? = null,
@@ -47,7 +44,6 @@ fun calendarConstraints(
  * This variant allows for an [Instant] to be used.
  * @see CalendarConstraints.Builder.setStart
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun CalendarConstraints.Builder.setStart(instant: Instant) =
     setStart(instant.toEpochMilli())
 
@@ -58,7 +54,6 @@ fun CalendarConstraints.Builder.setStart(instant: Instant) =
  * This variant allows for an [Instant] to be used.
  * @see CalendarConstraints.Builder.setEnd
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun CalendarConstraints.Builder.setEnd(instant: Instant) =
     setEnd(instant.toEpochMilli())
 
@@ -71,9 +66,7 @@ fun CalendarConstraints.Builder.setEnd(instant: Instant) =
  * @see setEnd
  * @see CalendarConstraints.Builder.setEnd
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun CalendarConstraints.Builder.setRange(start: Instant, end: Instant) = apply {
-    val data = start..end
     setStart(start)
     setEnd(end)
 }
@@ -91,7 +84,6 @@ fun CalendarConstraints.Builder.setRange(start: Instant, end: Instant) = apply {
  * @see setEnd
  * @see CalendarConstraints.Builder.setEnd
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun CalendarConstraints.Builder.setRange(range: ClosedRange<Instant>) = apply {
     setStart(range.start)
     setEnd(range.endInclusive)
@@ -105,7 +97,6 @@ fun CalendarConstraints.Builder.setRange(range: ClosedRange<Instant>) = apply {
  * This variant allows for an [Instant] to be used.
  * @see CalendarConstraints.Builder.setOpenAt
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun CalendarConstraints.Builder.setOpenAt(instant: Instant) =
     setOpenAt(instant.toEpochMilli())
 
@@ -116,6 +107,5 @@ fun CalendarConstraints.Builder.setOpenAt(instant: Instant) =
  * This variant allows for a [DayOfWeek] to be used.
  * @see CalendarConstraints.Builder.setFirstDayOfWeek
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun CalendarConstraints.Builder.setFirstDayOfWeek(firstDayOfWeek: DayOfWeek) =
     setFirstDayOfWeek(firstDayOfWeek.value)

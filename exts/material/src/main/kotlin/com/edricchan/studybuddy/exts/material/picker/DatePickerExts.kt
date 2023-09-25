@@ -1,7 +1,5 @@
 package com.edricchan.studybuddy.exts.material.picker
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.core.util.toAndroidXPair
@@ -114,7 +112,6 @@ fun Fragment.showMaterialDatePicker(
  * will be used.
  * @see MaterialDatePicker.Builder.setSelection
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun MaterialSingleDatePickerBuilder.setSelection(instant: Instant) =
     setSelection(instant.toEpochMilli())
 
@@ -184,17 +181,15 @@ fun MaterialDateRangePickerBuilder.setSelection(startMs: Long, endMs: Long) =
     setSelection(startMs to endMs)
 
 /**
- * Sets the selection to the given [instant]. Its [Instant.toEpochMilli] value
+ * Sets the selection to the given pair of [Instant]s. Its [Instant.toEpochMilli] value
  * will be used.
  * @see MaterialDatePicker.Builder.setSelection
  */
-@RequiresApi(Build.VERSION_CODES.O)
 @JvmName("setSelectionInstants")
 fun MaterialDateRangePickerBuilder.setSelection(selection: Pair<Instant, Instant>) =
     setSelection(selection.map { it.toEpochMilli() })
 
 /** Sets the selection for this date-range picker using named arguments. */
-@RequiresApi(Build.VERSION_CODES.O)
 fun MaterialDateRangePickerBuilder.setSelection(start: Instant, end: Instant) =
     setSelection(start to end)
 
@@ -204,7 +199,6 @@ fun MaterialDateRangePickerBuilder.setSelection(start: Instant, end: Instant) =
  * Note that only its [ClosedRange.start] and [ClosedRange.endInclusive] values will
  * be used for `start` and `end` respectively - its contents are **not** used.
  */
-@RequiresApi(Build.VERSION_CODES.O)
 fun MaterialDateRangePickerBuilder.setSelection(range: ClosedRange<Instant>) =
     setSelection(range.start to range.endInclusive)
 
@@ -222,7 +216,6 @@ fun <S> MaterialDatePicker.Builder<S>.setCalendarConstraints(
  * Retrieves the selection as an [Instant].
  * @see MaterialDatePicker.getSelection
  */
-@get:RequiresApi(Build.VERSION_CODES.O)
 val MaterialSingleDatePicker.selectionAsInstant
     get() = selection?.let { Instant.ofEpochMilli(it) }
 
@@ -230,7 +223,6 @@ val MaterialSingleDatePicker.selectionAsInstant
  * Retrieves the start and end selections as a pair of [Instant]s.
  * @see MaterialDatePicker.getSelection
  */
-@get:RequiresApi(Build.VERSION_CODES.O)
 val MaterialDateRangePicker.selectionAsInstants
     get() = selection?.let { (start, end) ->
         Instant.ofEpochMilli(start) to Instant.ofEpochMilli(
@@ -242,7 +234,6 @@ val MaterialDateRangePicker.selectionAsInstants
  * Retrieves the start selection as an [Instant].
  * @see MaterialDatePicker.getSelection
  */
-@get:RequiresApi(Build.VERSION_CODES.O)
 val MaterialDateRangePicker.selectionStartAsInstant
     get() = selection?.let { (before, _) ->
         Instant.ofEpochMilli(before)
@@ -252,7 +243,6 @@ val MaterialDateRangePicker.selectionStartAsInstant
  * Retrieves the end selection as an [Instant].
  * @see MaterialDatePicker.getSelection
  */
-@get:RequiresApi(Build.VERSION_CODES.O)
 val MaterialDateRangePicker.selectionEndAsInstant
     get() = selection?.let { (_, after) ->
         Instant.ofEpochMilli(after)
