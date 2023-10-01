@@ -139,6 +139,14 @@ data class TodoProject(
         }
 
         /**
+         * Sets the colour of this project
+         *
+         * @param rgb The red, green and blue values as a [Triple]
+         * @return The builder object to allow for chaining of methods
+         */
+        fun setColor(rgb: Triple<Int, Int, Int>) = setColor(rgb.first, rgb.second, rgb.third)
+
+        /**
          * Sets the colour of this project.
          *
          * @param color A color integer.
