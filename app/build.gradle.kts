@@ -68,7 +68,7 @@ android {
     }
 
     buildTypes {
-        debug {
+        val debug by existing {
             isDebuggable = true // Allow app to be debuggable
             applicationIdSuffix = ".debug"
 
@@ -77,7 +77,7 @@ android {
             buildConfigField("Long", "BUILD_TIME", "0L")
         }
 
-        release {
+        val release by existing {
             isMinifyEnabled = true // Enable minification
             isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
@@ -87,14 +87,14 @@ android {
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
         }
 
-        create("nightly").apply {
+        val nightly by registering {
             // Nightly releases
-            initWith(getByName("release"))
+            initWith(release.get())
 
             applicationIdSuffix = ".nightly"
             versionNameSuffix = "-NIGHTLY-$buildTimeString"
 
-            matchingFallbacks += listOf("release", "debug")
+            matchingFallbacks += listOf(release.name, debug.name)
         }
     }
 
@@ -122,7 +122,7 @@ android {
         baseline = file("lint-baseline.xml")
     }
 
-    signingConfigs["release"].apply {
+    signingConfigs.getByName("release") {
         if (isRunningOnActions && envProperties.isNotEmpty()) {
             // Configure keystore
             storePassword = envProperties["APP_KEYSTORE_PASSWORD"]?.string
@@ -139,7 +139,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
+    implementation(fileTree("include" to listOf("*.jar"), "dir" to "libs"))
 
     // Project dependencies
     implementation(projects.ui.common)
