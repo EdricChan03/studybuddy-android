@@ -1,6 +1,6 @@
 import com.novoda.buildproperties.Entry
-import java.text.SimpleDateFormat
-import java.util.*
+import java.time.Instant
+import java.time.format.DateTimeFormatter
 
 plugins {
     id("com.android.application")
@@ -37,8 +37,8 @@ val secretsProperties: Map<String, Entry> = buildProperties["secrets"].asMap()
 
 val buildTimeString: String
     get() {
-        val format = SimpleDateFormat("yyyy-MM-dd-HHmmss")
-        return format.format(Date())
+        val formatter = DateTimeFormatter.ISO_INSTANT
+        return formatter.format(Instant.now())
     }
 
 kotlin {
