@@ -41,10 +41,8 @@ val buildTimeString: String
         return format.format(Date())
     }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+kotlin {
+    jvmToolchain(17)
 }
 
 android {
@@ -105,19 +103,11 @@ android {
         buildConfig = true
     }
 
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
 
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+    compileOptions.isCoreLibraryDesugaringEnabled = true
 
     testOptions {
         unitTests.isIncludeAndroidResources = true
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
     }
 
     // GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
