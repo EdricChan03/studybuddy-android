@@ -20,12 +20,12 @@ import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
+import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.chip.Chip
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar.Duration
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -89,10 +89,10 @@ class ViewTaskActivity : BaseActivity() {
                     }
 
                     R.id.action_delete -> {
-                        val builder = MaterialAlertDialogBuilder(this@ViewTaskActivity)
-                        // TODO: i18n code
-                        builder.setTitle("Delete todo?")
-                            .setPositiveButton(R.string.dialog_action_ok) { _, _ ->
+                        showMaterialAlertDialog {
+                            // TODO: i18n code
+                            setTitle("Delete todo?")
+                            setPositiveButton(R.string.dialog_action_ok) { _, _ ->
                                 todoUtils.removeTask(taskId)
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
@@ -114,8 +114,8 @@ class ViewTaskActivity : BaseActivity() {
                                         }
                                     }
                             }
-                            .setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-                            .show()
+                            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+                        }
                         true
                     }
 
