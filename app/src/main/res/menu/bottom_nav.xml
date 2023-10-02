@@ -12,10 +12,6 @@
             android:icon="@drawable/ic_event_outline_24dp"
             android:title="@string/bottom_nav_calendar" />
         <item
-            android:id="@+id/navigation_chat"
-            android:icon="@drawable/ic_forum_outline_24dp"
-            android:title="@string/bottom_nav_chat" />
-        <item
             android:id="@+id/navigation_tips"
             android:icon="@drawable/ic_lightbulb_outline_24dp"
             android:title="@string/bottom_nav_tips" />

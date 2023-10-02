@@ -23,7 +23,6 @@ import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
-import com.edricchan.studybuddy.ui.modules.chat.fragment.ChatFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
@@ -115,11 +114,6 @@ class MainActivity : BaseActivity() {
                             true
                         }
 
-                        R.id.navigation_chat -> {
-                            setCurrentFragment(ChatFragment())
-                            true
-                        }
-
                         R.id.navigation_todos -> {
                             setCurrentFragment(TodoFragment())
                             true
@@ -144,7 +138,6 @@ class MainActivity : BaseActivity() {
                 navigationViewCheckedItemId =
                     when (supportFragmentManager.findFragmentById(R.id.frameLayoutMain)) {
                         is CalendarFragment -> R.id.navigation_calendar
-                        is ChatFragment -> R.id.navigation_chat
                         is TodoFragment -> R.id.navigation_todos
                         is TipsFragment -> R.id.navigation_tips
                         else -> ResourcesCompat.ID_NULL
