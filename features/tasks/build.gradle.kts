@@ -24,11 +24,17 @@ android {
 
 
 dependencies {
+    implementation(projects.data.common)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)
 
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
