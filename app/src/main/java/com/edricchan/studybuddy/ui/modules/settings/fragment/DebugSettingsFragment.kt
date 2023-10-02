@@ -49,7 +49,6 @@ import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
 import com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker
 import com.edricchan.studybuddy.utils.firebase.sendToFirestoreAsync
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -146,7 +145,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             }
             findPreference<Preference>(Constants.debugUpdatesClearLastCheckedForUpdatesDate)?.apply {
                 setOnPreferenceClickListener {
-                    MaterialAlertDialogBuilder(context).apply {
+                    requireContext().showMaterialAlertDialog {
                         setTitle(R.string.debug_activity_updates_clear_last_checked_for_updates_date_confirm_dialog_title)
                         setNegativeButton(R.string.dialog_action_cancel, null)
                         setPositiveButton(R.string.dialog_action_clear) { dialogInterface, _ ->
@@ -155,7 +154,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                             }
                             dialogInterface.dismiss()
                         }
-                    }.show()
+                    }
                     true
                 }
             }
@@ -167,7 +166,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
             }
             findPreference<Preference>(Constants.debugUpdatesClearLastUpdatedDate)?.apply {
                 setOnPreferenceClickListener {
-                    MaterialAlertDialogBuilder(context).apply {
+                    requireContext().showMaterialAlertDialog {
                         setTitle(R.string.debug_activity_updates_clear_last_updated_date_confirm_dialog_title)
                         setNegativeButton(R.string.dialog_action_cancel, null)
                         setPositiveButton(R.string.dialog_action_clear) { dialogInterface, _ ->
@@ -176,7 +175,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                             }
                             dialogInterface.dismiss()
                         }
-                    }.show()
+                    }
                     return@setOnPreferenceClickListener true
                 }
             }
@@ -633,7 +632,7 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
         }
 
     private fun showDeviceInfoDialog() {
-        MaterialAlertDialogBuilder(requireContext()).apply {
+        requireContext().showMaterialAlertDialog {
             setTitle(R.string.debug_activity_device_info_title)
             setItems(R.array.debug_activity_device_info_array) { dialog, which ->
                 when (which) {
@@ -646,6 +645,6 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                 dialog.dismiss()
             }
             setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ -> dialog.dismiss() }
-        }.show()
+        }
     }
 }
