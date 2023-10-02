@@ -1,6 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.task.utils
 
-import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.modules.task.data.TaskRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth

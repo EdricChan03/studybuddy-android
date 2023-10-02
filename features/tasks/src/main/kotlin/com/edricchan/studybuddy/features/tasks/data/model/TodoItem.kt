@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.interfaces
+package com.edricchan.studybuddy.features.tasks.data.model
 
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata

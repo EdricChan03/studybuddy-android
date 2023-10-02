@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.interfaces
+package com.edricchan.studybuddy.features.tasks.data.model
 
 import android.graphics.Color
 import androidx.annotation.ColorInt

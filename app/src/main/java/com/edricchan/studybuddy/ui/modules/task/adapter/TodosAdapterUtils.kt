@@ -1,6 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.task.adapter
 
-import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 
 /**
  * Creates an [TodosAdapter.OnItemClickListener] with the given arguments.

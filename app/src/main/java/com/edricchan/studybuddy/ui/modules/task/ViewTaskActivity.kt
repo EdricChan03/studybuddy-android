@@ -20,7 +20,7 @@ import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
-import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils

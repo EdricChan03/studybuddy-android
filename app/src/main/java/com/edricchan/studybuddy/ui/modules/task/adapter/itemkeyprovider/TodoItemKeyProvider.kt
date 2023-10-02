@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.ui.modules.task.adapter.itemkeyprovider
 
 import androidx.recyclerview.selection.ItemKeyProvider
-import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 
 /**
  * Creates a new provider.

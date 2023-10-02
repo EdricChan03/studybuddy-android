@@ -1,6 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.task.data
 
-import com.edricchan.studybuddy.interfaces.TodoItem
+import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.utils.firebase.QueryMapper
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
