@@ -5,9 +5,9 @@ import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
+import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class FeatureFlagsSettingsFragment : MaterialPreferenceFragment() {
     private lateinit var featureFlagsUtils: FeatureFlagsUtils
@@ -22,7 +22,7 @@ class FeatureFlagsSettingsFragment : MaterialPreferenceFragment() {
         setPreferencesFromResource(R.xml.pref_feature_flags, rootKey)
         findPreference<Preference>(Constants.featureFlagsReset)?.setOnPreferenceClickListener {
             // Show a confirmation dialog to reset
-            MaterialAlertDialogBuilder(requireContext()).apply {
+            requireContext().showMaterialAlertDialog {
                 setTitle(R.string.feature_flags_confirm_reset_dialog_title)
                 setMessage(R.string.feature_flags_confirm_reset_dialog_msg)
                 setNegativeButton(R.string.dialog_action_cancel, null)
@@ -32,7 +32,7 @@ class FeatureFlagsSettingsFragment : MaterialPreferenceFragment() {
                     )
                     dialog.dismiss()
                 }
-            }.show()
+            }
             true
         }
     }
