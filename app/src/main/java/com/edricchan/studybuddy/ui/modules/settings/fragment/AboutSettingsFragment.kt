@@ -14,11 +14,11 @@ import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.common.TAG
+import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.appDetailsIntent
 import com.edricchan.studybuddy.utils.licenseIntent
 import com.edricchan.studybuddy.utils.web.launchUri
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 
 class AboutSettingsFragment : MaterialPreferenceFragment() {
@@ -63,7 +63,7 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
                     if (devHitCountdown == 0) {
                         // Add 1 count back
                         devHitCountdown++
-                        MaterialAlertDialogBuilder(context).apply {
+                        requireContext().showMaterialAlertDialog {
                             setTitle(R.string.dev_mode_confirm_enable_dialog_title)
                             setMessage(R.string.dev_mode_confirm_enable_dialog_msg)
                             setNeutralButton(R.string.dialog_action_cancel, null)
@@ -87,7 +87,7 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
                                 }
                                 dialog.dismiss()
                             }
-                        }.show()
+                        }
                     } else if (devHitCountdown > 0 && devHitCountdown < (tapsToDev - 2)) {
                         showToast(
                             context.resources.getQuantityString(
