@@ -348,10 +348,11 @@ class TodoFragment : Fragment() {
                 }
 
                 override fun onMarkAsDoneButtonClick(item: TodoItem, position: Int) {
+                    val updatedDone = !(item.done ?: false)
                     todoUtils.getTask(item.id)
-                        .update("done", !item.done!!)
+                        .update("done", updatedDone)
                         .addOnCompleteListener { task ->
-                            val isDoneStr = if (item.done) "done" else "undone"
+                            val isDoneStr = if (updatedDone) "done" else "undone"
                             if (task.isSuccessful) {
                                 findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
                                     showSnackbar(
