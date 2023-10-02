@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.interfaces.TodoProject
+import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 
 class TodoProjectDropdownAdapter(
     context: Context,
