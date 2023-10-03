@@ -50,14 +50,7 @@ class TodoProjectDropdownAdapter(
      * @param id The ID to search for
      * @return The task project
      */
-    fun getTaskProjectById(id: String): TodoProject? {
-        for (project in projects) {
-            if (project.id == id) {
-                return project
-            }
-        }
-        return null
-    }
+    fun getTaskProjectById(id: String) = projects.find { it.id == id }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val label = super.getView(position, convertView, parent) as TextView
