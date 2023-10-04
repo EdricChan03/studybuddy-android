@@ -6,9 +6,9 @@ accompanist = "0.33.1-alpha"
 android-desugar = "2.0.2"
 android-gradle = "8.3.0-alpha06"
 androidx-lifecycle = "2.7.0-alpha02"
-compose = "1.6.0-alpha06"
-compose-material3 = "1.2.0-alpha08"
-dagger = "2.48"
+compose = "1.6.0-alpha07"
+compose-material3 = "1.2.0-alpha09"
+dagger = "2.48.1"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "32.3.1"
 gradle-versions = "0.48.0"
@@ -18,14 +18,14 @@ kotlinx-coroutines = "1.7.3"
 kotlinx-serialization = "1.6.0"
 ktor = "2.3.4"
 markwon = "4.6.2"
-mockk = "1.13.7"
+mockk = "1.13.8"
 
 [libraries]
 # AndroidX dependencies
 androidx-annotation = "androidx.annotation:annotation:1.7.0"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha03"
 androidx-browser = "androidx.browser:browser:1.6.0"
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha12"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha13"
 androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.1"
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
@@ -195,10 +195,10 @@ kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.9"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
-googleServices = "com.google.gms.google-services:4.4.0"
+googleServices = "com.google.gms.google-services:4.3.15"
 
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.22.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.24.0"
