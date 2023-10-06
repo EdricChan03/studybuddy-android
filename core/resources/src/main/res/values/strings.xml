@@ -16,4 +16,10 @@
 
     <!-- Text for a done button in a dialog. -->
     <string name="dialog_action_done">Done</string>
+
+    <!-- Formatting strings -->
+    <eat-comment />
+
+    <!-- Denotes the default java.time pattern format. -->
+    <string name="java_time_format_pattern">EEE, MMM d yyyy</string>
 </resources>
