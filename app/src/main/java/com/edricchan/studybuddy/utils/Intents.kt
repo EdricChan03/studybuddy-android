@@ -23,4 +23,5 @@ val String.appDetailsIntent get() = appDetailsIntent(this)
  * Creates an [android.content.Intent] that opens the
  * [licenses activity][OssLicensesMenuActivity].
  */
-val Context.licenseIntent get() = buildIntent<OssLicensesMenuActivity>(this)
+val Context.licenseIntent
+    get() = buildIntent<OssLicensesMenuActivity>(this)
