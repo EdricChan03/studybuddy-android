@@ -23,7 +23,7 @@ inline val Context.packageInfo: PackageInfo
 
 // BuildConfig.VERSION_NAME can't be used in library modules
 /** Retrieves the application's version name. */
-inline val Context.versionName
+inline val Context.versionName: String?
     get() = packageInfo.versionName
 
 /** Retrieves the application's version code. */
