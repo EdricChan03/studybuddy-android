@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
@@ -19,11 +17,8 @@ import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
-import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -34,7 +29,6 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import java.time.Instant
 
@@ -44,7 +38,6 @@ class EditTaskActivity : BaseActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var taskDocument: DocumentReference
     private lateinit var taskId: String
-    private lateinit var todoProjectDropdownAdapter: TodoProjectDropdownAdapter
     private lateinit var todoUtils: TodoUtils
     private var currentUser: FirebaseUser? = null
     private var taskInstant: Instant? = null
@@ -108,117 +101,6 @@ class EditTaskActivity : BaseActivity() {
                     taskDueDateChip.isCloseIconVisible = false
                     taskDueDateChip.setText(R.string.select_date_chip_default_text)
                 }
-                var tempTaskProject: String? = null
-                val projectArrayList = ArrayList<TodoProject>()
-                todoProjectDropdownAdapter = TodoProjectDropdownAdapter(
-                    this@EditTaskActivity,
-                    android.R.layout.simple_spinner_item,
-                    projectArrayList
-                )
-                todoProjectDropdownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerProject.adapter = todoProjectDropdownAdapter
-                firestore.collection("users/${currentUser?.uid}/todoProjects")
-                    .addSnapshotListener { documentSnapshots, e ->
-                        if (e != null) {
-                            Log.e(TAG, "An error occurred while listening to changes:", e)
-                            return@addSnapshotListener
-                        }
-                        projectArrayList.clear()
-                        projectArrayList.add(TodoProject.build {
-                            id = PROJECT_NONE_ID
-                            name = getString(R.string.task_project_none)
-                        })
-                        projectArrayList.add(TodoProject.build {
-                            id = PROJECT_CREATE_ID
-                            name = getString(R.string.task_project_create)
-                        })
-                        projectArrayList.add(TodoProject.build {
-                            id = PROJECT_CHOOSE_ID
-                            name = getString(R.string.task_project_choose_prompt_text)
-                        })
-                        documentSnapshots?.toObjects<TodoProject>()
-                            ?.let { projectArrayList.addAll(it) }
-                        todoProjectDropdownAdapter.notifyDataSetChanged()
-                    }
-                spinnerProject.setSelection(todoProjectDropdownAdapter.count)
-                spinnerProject.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View,
-                            position: Int,
-                            id: Long
-                        ) {
-                            if (todoProjectDropdownAdapter.getTaskProjectId(position) != null) {
-                                Log.d(
-                                    TAG,
-                                    "Task project ID: " + todoProjectDropdownAdapter.getTaskProjectId(
-                                        position
-                                    )
-                                )
-                            }
-                            Log.d(
-                                TAG,
-                                "Task project name: " + todoProjectDropdownAdapter.getItem(position)?.name
-                            )
-                            when (todoProjectDropdownAdapter.getTaskProjectId(position)) {
-                                PROJECT_CREATE_ID -> {
-                                    showMaterialPromptDialog {
-                                        textInputEditText {
-                                            hint = "Project name"
-                                        }
-
-                                        setTitle("New project")
-                                        setPositiveButton(R.string.dialog_action_create) { dialog, _ ->
-                                            val project = TodoProject.build {
-                                                name = promptTextStr
-                                            }
-                                            firestore.collection("users/${currentUser?.uid}/todoProjects")
-                                                .add(project)
-                                                .addOnCompleteListener { task ->
-                                                    if (task.isSuccessful) {
-                                                        showToast(
-                                                            "Successfully created project!",
-                                                            Toast.LENGTH_SHORT
-                                                        )
-                                                        dialog.dismiss()
-                                                    } else {
-                                                        showToast(
-                                                            "An error occurred while attempting to create the project." +
-                                                                "Try again later.",
-                                                            Toast.LENGTH_LONG
-                                                        )
-                                                        Log.e(
-                                                            TAG,
-                                                            "An error occurred while attempting to create the project:",
-                                                            task.exception
-                                                        )
-                                                    }
-                                                }
-                                        }
-                                        setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-                                    }
-                                }
-
-                                PROJECT_NONE_ID -> {
-                                    Log.d(TAG, "Selected no project!")
-                                }
-
-                                PROJECT_CHOOSE_ID -> {
-                                    Log.d(TAG, "Selected choose project!")
-                                }
-
-                                else -> {
-                                    val (_, id1) = spinnerProject.getItemAtPosition(spinnerProject.selectedItemPosition) as TodoProject
-                                    tempTaskProject = id1
-                                }
-                            }
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-                            tempTaskProject = null
-                        }
-                    }
                 progressBar.isVisible = true
                 scrollView.isVisible = false
                 taskDocument
@@ -249,13 +131,6 @@ class EditTaskActivity : BaseActivity() {
                                         .format(getString(R.string.date_format_pattern))
                                     // Allow due date to be reset
                                     taskDueDateChip.isCloseIconVisible = true
-                                }
-                                if (todoItem?.project != null) {
-                                    spinnerProject.setSelection(
-                                        todoProjectDropdownAdapter.getPosition(
-                                            todoProjectDropdownAdapter.getTaskProjectById(todoItem!!.project!!.id)
-                                        )
-                                    )
                                 }
                                 if (todoItem?.tags != null) {
                                     textInputTags.editText?.setText(
@@ -299,10 +174,6 @@ class EditTaskActivity : BaseActivity() {
                         if (textInputContent.editTextStrValue != todoItem?.content) {
                             taskItemUpdates["content"] = textInputContent.editTextStrValue
                         }
-                        if (spinnerProject.selectedItem != null) {
-                            // taskItemUpdates["project"] = mFirestore.document("users/${mCurrentUser?.uid}/todoProjects/${spinnerProject.selectedItem}")
-                            Log.d(TAG, "Selected item: ${spinnerProject.selectedItem}")
-                        }
                     }
                     taskInstant?.let {
                         if (todoItem!!.dueDate!!.toInstant() != it) {
@@ -339,10 +210,6 @@ class EditTaskActivity : BaseActivity() {
     }
 
     companion object {
-        private const val PROJECT_CHOOSE_ID = "CHOOSE"
-        private const val PROJECT_CREATE_ID = "PLUS"
-        private const val PROJECT_NONE_ID = "NONE"
-
         /** The extra tag for the task's ID. */
         const val EXTRA_TASK_ID = "taskId"
     }
