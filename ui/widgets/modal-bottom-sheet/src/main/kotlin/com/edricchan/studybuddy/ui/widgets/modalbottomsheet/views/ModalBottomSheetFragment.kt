@@ -8,7 +8,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.FragModalBottomSheetBinding
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetDSL
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetBuilder
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -124,7 +124,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
      * ```
      * @param init The new list of items.
      */
-    fun setItems(init: ModalBottomSheetDSL.() -> Unit) {
+    fun setItems(init: ModalBottomSheetBuilder.() -> Unit) {
         this.items = items(init).toMutableList()
     }
 

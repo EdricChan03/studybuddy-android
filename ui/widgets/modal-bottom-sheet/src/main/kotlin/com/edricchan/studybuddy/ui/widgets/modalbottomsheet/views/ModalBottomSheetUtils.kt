@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetDSL
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetBuilder
 
 /** Instantiates a [modal bottom sheet][ModalBottomSheetFragment] given the specified options. */
 inline fun modalBottomSheet(init: ModalBottomSheetFragment.() -> Unit) =
@@ -16,7 +16,7 @@ inline fun modalBottomSheet(init: ModalBottomSheetFragment.() -> Unit) =
  */
 fun modalBottomSheet(
     headerTitle: String,
-    items: ModalBottomSheetDSL.() -> Unit
+    items: ModalBottomSheetBuilder.() -> Unit
 ) = modalBottomSheet {
     this.headerTitle = headerTitle
     this.setItems(items)
@@ -29,7 +29,7 @@ fun modalBottomSheet(
  */
 fun modalBottomSheet(
     @StringRes headerTitleRes: Int,
-    items: ModalBottomSheetDSL.() -> Unit
+    items: ModalBottomSheetBuilder.() -> Unit
 ) = modalBottomSheet {
     this.headerTitle = getString(headerTitleRes)
     this.setItems(items)
@@ -53,7 +53,7 @@ inline fun Fragment.showModalBottomSheet(
  */
 fun Fragment.showModalBottomSheet(
     headerTitle: String,
-    items: ModalBottomSheetDSL.() -> Unit
+    items: ModalBottomSheetBuilder.() -> Unit
 ) {
     showModalBottomSheet {
         this.headerTitle = headerTitle
@@ -68,7 +68,7 @@ fun Fragment.showModalBottomSheet(
  */
 fun Fragment.showModalBottomSheet(
     @StringRes headerTitleRes: Int,
-    items: ModalBottomSheetDSL.() -> Unit
+    items: ModalBottomSheetBuilder.() -> Unit
 ) {
     showModalBottomSheet {
         this.headerTitle = getString(headerTitleRes)
@@ -94,7 +94,7 @@ inline fun FragmentActivity.showModalBottomSheet(
  */
 fun FragmentActivity.showModalBottomSheet(
     headerTitle: String,
-    items: ModalBottomSheetDSL.() -> Unit
+    items: ModalBottomSheetBuilder.() -> Unit
 ) {
     showModalBottomSheet {
         this.headerTitle = headerTitle
@@ -109,7 +109,7 @@ fun FragmentActivity.showModalBottomSheet(
  */
 fun FragmentActivity.showModalBottomSheet(
     @StringRes headerTitleRes: Int,
-    items: ModalBottomSheetDSL.() -> Unit
+    items: ModalBottomSheetBuilder.() -> Unit
 ) {
     showModalBottomSheet {
         this.headerTitle = getString(headerTitleRes)
