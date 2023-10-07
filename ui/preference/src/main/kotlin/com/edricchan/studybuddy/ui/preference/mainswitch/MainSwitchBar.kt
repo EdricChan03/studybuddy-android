@@ -140,7 +140,7 @@ class MainSwitchBar @JvmOverloads constructor(
      * Adds a listener for switch changes
      */
     fun addOnSwitchChangeListener(listener: OnMainSwitchChangeListener) {
-        if (!mSwitchChangeListeners.contains(listener)) {
+        if (listener !in mSwitchChangeListeners) {
             mSwitchChangeListeners.add(listener)
         }
     }
@@ -169,9 +169,8 @@ class MainSwitchBar @JvmOverloads constructor(
 
     private fun propagateChecked(isChecked: Boolean) {
         setBackground(isChecked)
-        val count = mSwitchChangeListeners.size
-        for (n in 0 until count) {
-            mSwitchChangeListeners[n].onSwitchChanged(binding.switchWidget, isChecked)
+        mSwitchChangeListeners.forEach { listener ->
+            listener.onSwitchChanged(binding.switchWidget, isChecked)
         }
     }
 
