@@ -7,6 +7,10 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.annotations.Mo
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 
+/** DSL marker for the [ModalBottomSheetBuilder]. */
+@DslMarker
+annotation class ModalBottomSheetDsl
+
 @ModalBottomSheetDsl
 class ModalBottomSheetDSL {
     private var items = mutableListOf<ModalBottomSheetItem>()
