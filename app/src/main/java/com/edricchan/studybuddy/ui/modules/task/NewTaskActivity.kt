@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityNewTaskBinding
 import com.edricchan.studybuddy.exts.android.showToast
@@ -15,28 +14,26 @@ import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
+import com.edricchan.studybuddy.exts.material.picker.setCalendarConstraints
+import com.edricchan.studybuddy.exts.material.picker.setSelection
+import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.task.adapter.TodoProjectDropdownAdapter
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
-import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
-import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.time.Instant
-import java.util.Objects
 
 /**
  * Created by edricchan on 8/3/18.
@@ -45,11 +42,8 @@ class NewTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityNewTaskBinding
     private lateinit var firestore: FirebaseFirestore
-    private var allowAccess: Boolean = false
-    private var currentUser: FirebaseUser? = null
+    private lateinit var currentUser: FirebaseUser
     private var taskInstant: Instant? = null
-    private var tempTaskProject: String? = null
-    private var todoProjectDropdownAdapter: TodoProjectDropdownAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,167 +53,56 @@ class NewTaskActivity : BaseActivity() {
 
         auth = Firebase.auth
         firestore = Firebase.firestore
-        currentUser = auth.currentUser
-        allowAccess = if (auth.currentUser == null) {
-            showToast("Please sign in before continuing", Toast.LENGTH_SHORT)
-            finish()
-            startActivity<LoginActivity>()
-            false
-        } else {
-            true
+        auth.currentUser.let {
+            if (it == null) {
+                showToast("Please sign in before continuing", Toast.LENGTH_SHORT)
+                finish()
+                startActivity<LoginActivity>()
+                return
+            }
+            currentUser = it
         }
 
         binding.apply {
-
             // TODO: Migrate logic to separate component
-            taskDueDateChip.setOnClickListener {
-                val constraints = CalendarConstraints.Builder()
-                    .setValidator(DateValidatorPointForward.now())
-                    .setStart(Instant.now().toEpochMilli())
-                    .build()
-                val picker = MaterialDatePicker.Builder.datePicker().apply {
-                    setCalendarConstraints(constraints)
-                    taskInstant?.let {
-                        // Set the initial selection
-                        setSelection(it.toEpochMilli())
-                    }
-                }.build()
-                picker.addOnPositiveButtonClickListener { selection ->
-                    Instant.ofEpochMilli(selection).let {
-                        taskInstant = it
-                        // Produces <day name>, <month> <year>
-                        // We need to convert it to a LocalDateTime as Instants don't support
-                        // temporal units bigger than days - see the `Instant#isSupported` Javadocs
-                        // for more info
-                        taskDueDateChip.text = it.toLocalDateTime()
-                            .format(getString(R.string.date_format_pattern))
-                    }
-                    // Allow due date to be reset
-                    taskDueDateChip.isCloseIconVisible = true
-                }
-                picker.show(supportFragmentManager, "taskDueDatePicker")
-            }
-            taskDueDateChip.setOnCloseIconClickListener {
-                // Reset due date
-                taskInstant = null
-
-                // Reset chip's state
-                taskDueDateChip.isCloseIconVisible = false
-                taskDueDateChip.setText(R.string.select_date_chip_default_text)
-            }
-
-            val projectArrayList = ArrayList<TodoProject>()
-            todoProjectDropdownAdapter =
-                TodoProjectDropdownAdapter(
-                    this@NewTaskActivity,
-                    R.layout.dropdown_menu_popup_item,
-                    projectArrayList
-                )
-            taskProjectAutocompleteTextView.setAdapter(todoProjectDropdownAdapter)
-            if (currentUser != null) {
-                firestore.collection("users/" + currentUser!!.uid + "/todoProjects")
-                    .addSnapshotListener { documentSnapshots, e ->
-                        if (e != null) {
-                            Log.e(TAG, "An error occurred while listening to changes:", e)
-                            return@addSnapshotListener
-                        }
-
-                        projectArrayList.clear()
-                        projectArrayList.add(TodoProject.build {
-                            id = PROJECT_NONE_ID
-                            name = getString(R.string.task_project_none)
-                        })
-
-                        projectArrayList.add(TodoProject.build {
-                            id = PROJECT_CREATE_ID
-                            name = getString(R.string.task_project_create)
-                        })
-
-                        documentSnapshots?.mapTo(projectArrayList) { it.toObject() }
-
-                        projectArrayList.add(TodoProject.build {
-                            id = PROJECT_CHOOSE_ID
-                            name = getString(R.string.task_project_choose_prompt_text)
-                        })
-
-                        Log.d(TAG, "Array list: ${projectArrayList.joinToString()}")
-
-                        todoProjectDropdownAdapter?.notifyDataSetChanged()
-                    }
-                taskProjectAutocompleteTextView.setSelection(todoProjectDropdownAdapter!!.count)
-                taskProjectAutocompleteTextView.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View,
-                            position: Int,
-                            id: Long
-                        ) {
-                            Log.d(
-                                TAG,
-                                "Task project ID: " + todoProjectDropdownAdapter!!.getTaskProjectId(
-                                    position
-                                )
+            taskDueDateChip.apply {
+                setOnClickListener {
+                    showMaterialDatePicker(
+                        "taskDueDatePicker",
+                        builderInit = {
+                            setCalendarConstraints(
+                                start = Instant.now(),
+                                validator = DateValidatorPointForward.now()
                             )
-                            Log.d(
-                                TAG,
-                                "Task project name: " + Objects.requireNonNull<TodoProject>(
-                                    todoProjectDropdownAdapter!!.getItem(position)
-                                ).name!!
-                            )
-                            when (todoProjectDropdownAdapter!!.getTaskProjectId(position)) {
-                                PROJECT_CREATE_ID -> {
-                                    showMaterialPromptDialog {
-                                        textInputEditText.hint = "Project name"
-                                        setTitle("New project")
-                                        setPositiveButton(R.string.dialog_action_create) { dialog, _ ->
-                                            val project = TodoProject.build {
-                                                name = promptTextStr
-                                            }
-                                            firestore.collection("users/${currentUser!!.uid}/todoProjects")
-                                                .add(project)
-                                                .addOnCompleteListener { task ->
-                                                    if (task.isSuccessful) {
-                                                        showToast(
-                                                            "Successfully created project!",
-                                                            Toast.LENGTH_SHORT
-                                                        )
-                                                        dialog.dismiss()
-                                                    } else {
-                                                        showToast(
-                                                            "An error occurred while attempting to create the project. Try again later.",
-                                                            Toast.LENGTH_LONG
-                                                        )
-                                                        Log.e(
-                                                            TAG,
-                                                            "An error occurred while attempting to create the project:",
-                                                            task.exception
-                                                        )
-                                                    }
-                                                }
-                                        }
-                                        setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-                                    }
-                                }
-
-                                PROJECT_NONE_ID -> {
-                                    Log.d(TAG, "Selected no project!")
-                                }
-
-                                PROJECT_CHOOSE_ID -> {
-                                    Log.d(TAG, "Selected choose project!")
-                                }
-
-                                else -> {
-                                    tempTaskProject = projectArrayList[position].id
-                                }
+                            taskInstant?.let {
+                                // Set the initial selection
+                                setSelection(it)
                             }
-                        }
+                        },
+                        pickerInit = {
+                            addOnPositiveButtonClickListener { selection ->
+                                Instant.ofEpochMilli(selection).let {
+                                    taskInstant = it
+                                    // Produces <day name>, <month> <year>
+                                    // We need to convert it to a LocalDateTime as Instants don't support
+                                    // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                                    // for more info
+                                    text = it.toLocalDateTime()
+                                        .format(getString(R.string.date_format_pattern))
+                                }
+                                // Allow due date to be reset
+                                isCloseIconVisible = true
+                            }
+                        })
+                }
+                setOnCloseIconClickListener {
+                    // Reset due date
+                    taskInstant = null
 
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-                            tempTaskProject = null
-                        }
-                    }
+                    // Reset chip's state
+                    isCloseIconVisible = false
+                    setText(R.string.select_date_chip_default_text)
+                }
             }
         }
     }
@@ -237,55 +120,49 @@ class NewTaskActivity : BaseActivity() {
             }
 
             R.id.action_submit -> {
-                if (allowAccess) {
-                    binding.apply {
-                        if (taskTitleTextInputLayout.editText!!.length() != 0) {
-                            taskTitleTextInputLayout.isErrorEnabled = false
-                            val taskItem = TodoItem.build {
-                                title = taskTitleTextInputLayout.editTextStrValue
-                                if (taskContentTextInputLayout.editTextStrValue.isNotEmpty()) {
-                                    content = taskContentTextInputLayout.editTextStrValue
-                                }
-                                if (taskTagsTextInputLayout.editTextStrValue.isNotEmpty()
-                                ) {
-                                    tags = taskTagsTextInputLayout.editTextStrValue.split(",")
-                                        .map { it.trim() }.toMutableList()
-                                }
-                                taskInstant?.toTimestamp()?.let { dueDate = it }
-                                if (tempTaskProject != null) {
-                                    project =
-                                        firestore.document("users/${currentUser?.uid}/todoProjects/$tempTaskProject")
-                                }
-                                done = taskIsDoneCheckbox.isChecked
+                binding.apply {
+                    if (taskTitleTextInputLayout.editTextStrValue.isNotBlank()) {
+                        taskTitleTextInputLayout.isErrorEnabled = false
+                        val taskItem = TodoItem.build {
+                            title = taskTitleTextInputLayout.editTextStrValue
+                            if (taskContentTextInputLayout.editTextStrValue.isNotBlank()) {
+                                content = taskContentTextInputLayout.editTextStrValue
                             }
-                            TodoUtils.getInstance(auth, firestore).addTask(taskItem)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        showToast(
-                                            "Successfully added task!",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                        finish()
-                                    } else {
-                                        Log.e(
-                                            TAG,
-                                            "An error occurred while adding the task:",
-                                            task.exception
-                                        )
-                                        showToast(
-                                            "An error occurred while adding the task. Try again later.",
-                                            Toast.LENGTH_LONG
-                                        )
-                                    }
-                                }
-                        } else {
-                            taskTitleTextInputLayout.error = "Please enter something."
-                            showSnackbar(
-                                coordinatorLayoutNewTask,
-                                "Some errors occurred while attempting to submit the form.",
-                                Snackbar.LENGTH_LONG
-                            )
+                            if (taskTagsTextInputLayout.editTextStrValue.isNotBlank()) {
+                                tags = taskTagsTextInputLayout.editTextStrValue.split(",")
+                                    .map { it.trim() }
+                            }
+                            taskInstant?.toTimestamp()?.let { dueDate = it }
+                            done = taskIsDoneCheckbox.isChecked
                         }
+                        lifecycleScope.launch {
+                            try {
+                                TodoUtils.getInstance(auth, firestore).addTask(taskItem)
+                                    .await()
+                                showToast(
+                                    "Successfully added task!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                finish()
+                            } catch (e: Exception) {
+                                Log.e(
+                                    TAG,
+                                    "An error occurred while adding the task:",
+                                    e
+                                )
+                                showToast(
+                                    "An error occurred while adding the task. Try again later.",
+                                    Toast.LENGTH_LONG
+                                )
+                            }
+                        }
+                    } else {
+                        taskTitleTextInputLayout.error = "Please enter something."
+                        showSnackbar(
+                            coordinatorLayoutNewTask,
+                            "Some errors occurred while attempting to submit the form.",
+                            Snackbar.LENGTH_LONG
+                        )
                     }
                 }
                 return true
@@ -293,11 +170,5 @@ class NewTaskActivity : BaseActivity() {
 
             else -> return super.onOptionsItemSelected(item)
         }
-    }
-
-    companion object {
-        private const val PROJECT_CHOOSE_ID = "CHOOSE"
-        private const val PROJECT_CREATE_ID = "PLUS"
-        private const val PROJECT_NONE_ID = "NONE"
     }
 }
