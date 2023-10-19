@@ -10,7 +10,7 @@ compose = "1.6.0-alpha07"
 compose-material3 = "1.2.0-alpha09"
 dagger = "2.48.1"
 deep-link-dispatch = "6.2.2"
-firebase-bom = "32.3.1"
+firebase-bom = "32.4.0"
 gradle-versions = "0.48.0"
 kotest = "5.7.2"
 kotlin = "1.9.10"
@@ -63,15 +63,16 @@ deepLinkDispatch-processor = { module = "com.airbnb:deeplinkdispatch-processor",
 
 # Firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+# KTX artifacts have been merged into the main artifacts from Firebase BoM 32.4.0+
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics" }
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth" }
 playServices-auth = "com.google.android.gms:play-services-auth:20.7.0"
-firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links-ktx" }
-firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
-firebase-installations-ktx = { module = "com.google.firebase:firebase-installations-ktx" }
-firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx" }
-firebase-perf-ktx = { module = "com.google.firebase:firebase-perf-ktx" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links" }
+firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore" }
+firebase-installations-ktx = { module = "com.google.firebase:firebase-installations" }
+firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging" }
+firebase-perf-ktx = { module = "com.google.firebase:firebase-perf" }
 
 # Kotlin
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
