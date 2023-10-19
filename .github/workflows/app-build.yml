@@ -41,7 +41,9 @@ jobs:
       - name: Run dependencyUpdates task
         uses: ./.github/actions/build-gradle
         with:
-          gradle-arguments: dependencyUpdates --info --stacktrace
+          gradle-arguments: |
+            buildEnvironment
+            dependencyUpdates --info --stacktrace
           upload-name: dependency-updates
           # Dependency update info is available at build/dependencyUpdates/report.<filetype>
           upload-path: build/dependencyUpdates/
