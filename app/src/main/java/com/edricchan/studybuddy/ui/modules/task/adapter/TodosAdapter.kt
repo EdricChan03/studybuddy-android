@@ -67,9 +67,10 @@ class TodosAdapter(
             }
         }
 
-        val itemDetails = bindingAdapterPosition.let { position ->
-            TodoItemDetails(position, todoItemList[position].id)
-        }
+        val itemDetails
+            get() = bindingAdapterPosition.let { position ->
+                TodoItemDetails(position, todoItemList[position].id)
+            }
     }
 
     interface OnItemClickListener {
