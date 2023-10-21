@@ -414,12 +414,4 @@ class TodoFragment : Fragment() {
         return parentActivity.findViewById(idRes)
     }
 
-    companion object {
-        /**
-         * Request code for new task activity
-         */
-        private const val ACTION_NEW_TASK = 1
-
-        private const val SHARED_PREFS_FILE = "TodoFragPrefs"
-    }
 }
