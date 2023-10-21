@@ -102,68 +102,69 @@ class EditTaskActivity : BaseActivity() {
 
             todoItem = taskData.toObject()
                 ?: return@launch // null is returned if the doc doesn't exist
-        }
 
-        binding.apply {
-            // TODO: Migrate logic to separate component
-            taskDueDateChip.apply {
-                setOnClickListener {
-                    showMaterialDatePicker(
-                        "taskDueDatePicker",
-                        builderInit = {
-                            setCalendarConstraints {
-                                setValidator(DateValidatorPointForward.now())
-                                setStart(Instant.now())
-                            }
-                            // Set the initial selection
-                            taskInstant?.let { setSelection(it) }
-                        },
-                        pickerInit = {
-                            addOnPositiveButtonClickListener { selection ->
-                                Instant.ofEpochMilli(selection).let {
-                                    taskInstant = it
-                                    // Produces <day name>, <month> <year>
-                                    // We need to convert it to a LocalDateTime as Instants
-                                    // don't support temporal units bigger than days - see
-                                    // the `Instant#isSupported` Javadocs for more info
-                                    text = it.toLocalDateTime()
-                                        .format(getString(R.string.date_format_pattern))
+            binding.apply {
+                // TODO: Migrate logic to separate component
+                taskDueDateChip.apply {
+                    setOnClickListener {
+                        showMaterialDatePicker(
+                            "taskDueDatePicker",
+                            builderInit = {
+                                setCalendarConstraints {
+                                    setValidator(DateValidatorPointForward.now())
+                                    setStart(Instant.now())
                                 }
-                                // Allow due date to be reset
-                                isCloseIconVisible = true
-                            }
-                        })
-                }
-                setOnCloseIconClickListener {
-                    // Reset due date
-                    taskInstant = null
+                                // Set the initial selection
+                                taskInstant?.let { setSelection(it) }
+                            },
+                            pickerInit = {
+                                addOnPositiveButtonClickListener { selection ->
+                                    Instant.ofEpochMilli(selection).let {
+                                        taskInstant = it
+                                        // Produces <day name>, <month> <year>
+                                        // We need to convert it to a LocalDateTime as Instants
+                                        // don't support temporal units bigger than days - see
+                                        // the `Instant#isSupported` Javadocs for more info
+                                        text = it.toLocalDateTime()
+                                            .format(getString(R.string.date_format_pattern))
+                                    }
+                                    // Allow due date to be reset
+                                    isCloseIconVisible = true
+                                }
+                            })
+                    }
+                    setOnCloseIconClickListener {
+                        // Reset due date
+                        taskInstant = null
 
-                    // Reset chip's state
-                    isCloseIconVisible = false
-                    setText(R.string.select_date_chip_default_text)
+                        // Reset chip's state
+                        isCloseIconVisible = false
+                        setText(R.string.select_date_chip_default_text)
+                    }
                 }
-            }
 
-            progressBar.isVisible = true
-            scrollView.isVisible = false
-            with(todoItem) {
-                title?.let { textInputTitle.editText?.setText(it) }
-                content?.let { textInputContent.editText?.setText(it) }
-                done?.let { checkboxMarkAsDone.isChecked = it }
-                dueDate?.let {
-                    // We need to convert it to a LocalDateTime as Instants don't support
-                    // temporal units bigger than days - see the `Instant#isSupported` Javadocs
-                    // for more info
-                    taskDueDateChip.text = it.toLocalDateTime()
-                        .format(getString(R.string.date_format_pattern))
-                    // Allow due date to be reset
-                    taskDueDateChip.isCloseIconVisible = true
-                }
-                tags?.let {
-                    textInputTags.editText?.setText(it.joinToString(","))
+                progressBar.isVisible = false
+                scrollView.isVisible = true
+                with(todoItem) {
+                    title?.let { textInputTitle.editText?.setText(it) }
+                    content?.let { textInputContent.editText?.setText(it) }
+                    done?.let { checkboxMarkAsDone.isChecked = it }
+                    dueDate?.let {
+                        // We need to convert it to a LocalDateTime as Instants don't support
+                        // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                        // for more info
+                        taskDueDateChip.text = it.toLocalDateTime()
+                            .format(getString(R.string.date_format_pattern))
+                        // Allow due date to be reset
+                        taskDueDateChip.isCloseIconVisible = true
+                    }
+                    tags?.let {
+                        textInputTags.editText?.setText(it.joinToString(","))
+                    }
                 }
             }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
