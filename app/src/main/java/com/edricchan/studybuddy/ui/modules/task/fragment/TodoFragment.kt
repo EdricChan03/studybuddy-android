@@ -183,7 +183,7 @@ class TodoFragment : Fragment() {
                     ),
                     onSwiped = { viewHolder, _ ->
                         todoUtils.removeTask(
-                            this@TodoFragment.adapter.getItem(viewHolder.bindingAdapterPosition).id
+                            this@TodoFragment.adapter.currentList[viewHolder.bindingAdapterPosition].id
                         )
                     }
                 )
