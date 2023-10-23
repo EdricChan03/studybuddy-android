@@ -17,7 +17,7 @@ jobs:
     name: Build app (${{ matrix.app-build-types }})
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Capitalise build type
         id: capitalise-build-type
         # See https://linuxhint.com/bash_lowercase_uppercase_strings/
