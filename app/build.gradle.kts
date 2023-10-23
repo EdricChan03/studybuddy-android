@@ -5,13 +5,16 @@ import java.time.format.DateTimeFormatter
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt")
     kotlin("plugin.serialization")
+
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.googleServices)
     id("com.google.android.gms.oss-licenses-plugin")
+
     alias(libs.plugins.buildProperties)
+
+    id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 }
 
@@ -199,11 +202,11 @@ dependencies {
 
     // Dagger dependencies
     implementation(libs.dagger.hilt.android)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 
     // DeepLinkDispatch dependencies
     implementation(libs.deepLinkDispatch.core)
-    kapt(libs.deepLinkDispatch.processor)
+    ksp(libs.deepLinkDispatch.processor)
 
     // Markwon dependencies
     // See https://noties.io/Markwon for more info
@@ -217,19 +220,11 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 }
 
-kapt {
-    correctErrorTypes = true
-    arguments {
-        // See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for
-        // more info
-        // Add support for documenting deep links
-        // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for
-        // more info
-        arg("deepLinkDoc.output", deps.build.deepLink.getDocOutput(rootDir))
-    }
-    javacOptions {
-        // Increase the max count of errors from annotation processors.
-        // Default is 100.
-        option("-Xmaxerrs", 500)
-    }
+ksp {
+    // See https://github.com/airbnb/DeepLinkDispatch#incremental-annotation-processing for
+    // more info
+    // Add support for documenting deep links
+    // See https://github.com/airbnb/DeepLinkDispatch#generated-deep-links-documentation for
+    // more info
+    arg("deepLinkDoc.output", deps.build.deepLink.getDocOutput(rootDir))
 }

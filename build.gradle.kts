@@ -15,6 +15,7 @@ buildscript {
 
 plugins {
     alias(libs.plugins.kotlin.plugin.serialization) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.dependencyAnalysis)
     id(libs.plugins.gradleVersions.get().pluginId)

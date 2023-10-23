@@ -1,6 +1,7 @@
 plugins {
-    id("com.edricchan.studybuddy.library.android")
-    kotlin("kapt")
+    com.edricchan.studybuddy.library.android
+
+    id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 }
 
@@ -26,7 +27,7 @@ dependencies {
     implementation(libs.bundles.ktor)
 
     implementation(libs.dagger.hilt.android)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
