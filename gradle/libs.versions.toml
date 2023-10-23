@@ -5,6 +5,7 @@ accompanist = "0.33.2-alpha"
 #noinspection GradleDependency
 android-desugar = "2.0.2"
 android-gradle = "8.3.0-alpha09"
+androidx-activity = "1.8.0"
 androidx-lifecycle = "2.7.0-alpha03"
 compose = "1.6.0-alpha08"
 compose-material3 = "1.2.0-alpha10"
@@ -22,6 +23,7 @@ mockk = "1.13.8"
 
 [libraries]
 # AndroidX dependencies
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-annotation = "androidx.annotation:annotation:1.7.0"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha03"
 androidx-browser = "androidx.browser:browser:1.6.0"
