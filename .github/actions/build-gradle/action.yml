@@ -9,6 +9,12 @@ inputs:
   gradle-arguments:
     description: "Arguments to be passed to ./gradlew for building."
     required: true
+  gradle-dependency-graph:
+    description: "Specifies if a GitHub dependency snapshot should be
+    generated for each Gradle build, and if so, how. Valid values are
+    'disabled' (default), 'generate', 'generate-and-submit' and 'download-and-submit'."
+    default: "generate-and-submit"
+    required: false
   skip-upload:
     description: "Whether to skip uploading."
     default: "false"
@@ -67,6 +73,7 @@ runs:
       with:
         cache-read-only: ${{ inputs.gradle-cache-read-only }}
         gradle-home-cache-strict-match: true
+        dependency-graph: ${{ inputs.gradle-dependency-graph }}
     - name: Setup Android problem matchers
       uses: jonasb/android-problem-matchers-action@v1
     - name: Build Android

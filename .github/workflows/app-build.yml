@@ -2,6 +2,10 @@ name: App build
 
 on: [ push ]
 
+permissions:
+  # For writing to the GitHub Dependency Graph API
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
