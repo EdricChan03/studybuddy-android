@@ -6,8 +6,6 @@ buildscript {
     }
 
     dependencies {
-        // (Plugin marker for OSS Licenses doesn't exist yet)
-        classpath(libs.playServices.ossLicenses.gradle)
         // Declared here such that a custom reporter can be used
         classpath(libs.gradleVersions.gradle)
     }
@@ -20,6 +18,7 @@ plugins {
     alias(libs.plugins.dependencyAnalysis)
     id(libs.plugins.gradleVersions.get().pluginId)
     alias(libs.plugins.testAggregation.results)
+    alias(libs.plugins.aboutLibraries) apply false
 }
 
 tasks {

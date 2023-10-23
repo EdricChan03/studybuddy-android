@@ -10,9 +10,10 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.googleServices)
-    id("com.google.android.gms.oss-licenses-plugin")
 
     alias(libs.plugins.buildProperties)
+
+    id("com.mikepenz.aboutlibraries.plugin")
 
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")

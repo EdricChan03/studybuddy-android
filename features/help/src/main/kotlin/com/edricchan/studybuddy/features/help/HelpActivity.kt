@@ -24,9 +24,9 @@ import com.edricchan.studybuddy.features.help.constants.uriSendFeedback
 import com.edricchan.studybuddy.features.help.constants.uriSrcCode
 import com.edricchan.studybuddy.features.help.databinding.ActivityHelpBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
+import com.edricchan.studybuddy.ui.common.licenses.OssLicensesCompatActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.utils.web.launchUri
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
@@ -89,7 +89,7 @@ class HelpActivity : BaseActivity() {
             }
 
             R.id.action_licenses -> {
-                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+                startActivity(Intent(this, OssLicensesCompatActivity::class.java))
                 true
             }
 

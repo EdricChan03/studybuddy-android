@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.ui.common"
+    namespace = "io.github.edricchan03.aboutlibraries"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -21,20 +21,18 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.theming.compose)
-    implementation(projects.ui.theming.views)
-    implementation(projects.ui.widgets.compose)
-    implementation(projects.ui.widgets.compose.aboutLibraries)
+    api(libs.aboutLibraries)
+    api(libs.bundles.androidx.compose)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.materialComponents)
-
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.compose.material3)
+    debugImplementation(libs.bundles.androidx.compose.tooling)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
+
+    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
+
+    // Compose rule support
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 }

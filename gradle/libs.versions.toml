@@ -1,4 +1,5 @@
 [versions]
+aboutLibraries = "10.9.1"
 accompanist = "0.33.2-alpha"
 # 2.0.3 requires Android U APIs - see
 # https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md#version-203-2023-03-29
@@ -47,6 +48,7 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 
 androidxtra-browser-ktx = "io.github.edricchan03.androidx.browser:browser-ktx:0.1.0"
 
@@ -114,6 +116,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 # Miscellaneous
 
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
+aboutLibraries = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
 # TODO: Switch to an in-house updater
 appUpdater = "com.github.AleP04:AppUpdater:2.7.2"
 imagePicker = "com.github.esafirm:android-image-picker:3.1.0"
@@ -206,6 +209,7 @@ gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-v
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
+aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.25.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.1.1"

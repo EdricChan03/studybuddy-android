@@ -101,6 +101,7 @@ include(
     ":ui:theming:views",
     ":ui:widgets:compose",
     ":ui:widgets:views",
+    ":ui:widgets:compose:about-libraries",
     ":ui:widgets:modal-bottom-sheet",
     ":core:deeplink",
     ":core:di",
