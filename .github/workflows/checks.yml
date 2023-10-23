@@ -3,17 +3,34 @@ name: Checks
 on: push
 
 jobs:
-  check:
+  unit-tests:
     runs-on: ubuntu-latest
 
-    name: Run checks
+    name: Unit tests
 
     steps:
       - uses: actions/checkout@v3
-      - name: Run checks
+      - name: Run unit tests
         uses: ./.github/actions/build-gradle
         with:
-          gradle-arguments: check
+          gradle-arguments: test
+          transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
+          transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
+          app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
+          app-keystore-alias: ${{ secrets.APP_KEYSTORE_ALIAS }}
+          app-keystore-alias-password: ${{ secrets.APP_KEYSTORE_ALIAS_PASSWORD }}
+
+  instrumentation-tests:
+    runs-on: ubuntu-latest
+
+    name: Instrumentation tests
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run instrumentation tests
+        uses: ./.github/actions/build-gradle
+        with:
+          gradle-arguments: connectedAndroidTest
           transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
           transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
           app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
