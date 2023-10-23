@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.dependencyAnalysis)
     id(libs.plugins.gradleVersions.get().pluginId)
+    alias(libs.plugins.testAggregation.results)
 }
 
 tasks {
