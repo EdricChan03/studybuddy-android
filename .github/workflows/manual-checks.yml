@@ -1,0 +1,78 @@
+name: Manual Checks
+
+on: workflow_dispatch
+
+
+jobs:
+  instrumentation-tests:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [ 21, 23, 29, 33, 34 ]
+
+    name: Instrumentation tests
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: adopt
+      # See https://github.com/actions/runner-images/issues/6283
+      - name: Add Homebrew to PATH
+        run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+        shell: bash
+      - name: Install Homebrew dependencies
+        run: brew bundle
+        shell: bash
+      - name: Decrypt keystore
+        run: |
+          source ~/.profile
+          echo "Current version of transcrypt:"
+          transcrypt -v
+          transcrypt -c ${{ secrets.TRANSCRYPT_CIPHER }} -p ${{ secrets.TRANSCRYPT_PASSWORD }} -y
+        shell: bash
+        env:
+          SECRETS_GPG_COMMAND: gpg2
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-home-cache-strict-match: true
+
+      - name: Cache AVDs
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: Create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: Run instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew connectedCheck
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Instrumentation test results
+          path: ./**/build/reports/androidTests/connected/
+          if-no-files-found: ignore
