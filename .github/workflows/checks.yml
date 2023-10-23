@@ -9,7 +9,7 @@ jobs:
     name: Unit tests
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run unit tests
         uses: ./.github/actions/build-gradle
         with:
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run dependencyUpdates task
         uses: ./.github/actions/build-gradle
         with:
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run lint task
         uses: ./.github/actions/build-gradle
         with:
@@ -97,7 +97,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run buildHealth task
         uses: ./.github/actions/build-gradle
         with:
