@@ -19,7 +19,7 @@ jobs:
         # See https://linuxhint.com/bash_lowercase_uppercase_strings/
         run: |
           build_type="${{ matrix.app-build-types }}"
-          echo "::set-output name=build-type::${build_type^}"
+          echo "build-type=${build_type^}" >> $GITHUB_OUTPUT
       - name: Build app
         uses: ./.github/actions/build-gradle
         with:

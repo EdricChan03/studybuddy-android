@@ -50,7 +50,7 @@ jobs:
           do
             dep_update_summary+="\n- $(jq -r --arg dep "$dep" '.[$dep].count' $report_file) $dep dependencies"
           done
-          echo "::set-output name=summary::$dep_update_summary"
+          echo "summary=$dep_update_summary" >> $GITHUB_OUTPUT
       - name: Add job summary
         run: |
           printf "# Summary\n" >> $GITHUB_STEP_SUMMARY
