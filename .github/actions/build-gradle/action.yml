@@ -84,3 +84,4 @@ runs:
       with:
         name: ${{ inputs.upload-name }}
         path: ${{ inputs.upload-path }}
+        if-no-files-found: ignore
