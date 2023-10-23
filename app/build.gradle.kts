@@ -198,7 +198,6 @@ dependencies {
     implementation(libs.materialAbout)
     implementation(libs.appUpdater)
     implementation(libs.imagePicker)
-    implementation(libs.playServices.ossLicenses.core)
     implementation(libs.migration)
 
     // Dagger dependencies

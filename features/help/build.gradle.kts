@@ -51,7 +51,6 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.materialComponents)
-    implementation(libs.playServices.ossLicenses.core)
 
     implementation(libs.bundles.ktor)
     implementation(libs.kotlinx.serialization.json)

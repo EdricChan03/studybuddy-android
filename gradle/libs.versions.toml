@@ -82,11 +82,6 @@ firebase-perf-ktx = { module = "com.google.firebase:firebase-perf" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
 
-# Google Play Services OSS Licenses
-playServices-ossLicenses-core = "com.google.android.gms:play-services-oss-licenses:17.0.1"
-# (The following line is still needed as there is no plugin marker available as of yet)
-playServices-ossLicenses-gradle = "com.google.android.gms:oss-licenses-plugin:0.10.6"
-
 # Markwon
 markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-editor = { module = "io.noties.markwon:editor", version.ref = "markwon" }
