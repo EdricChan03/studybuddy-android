@@ -24,6 +24,8 @@ dependencies {
     api(libs.aboutLibraries)
     api(libs.bundles.androidx.compose)
 
+    implementation(libs.androidx.core.ktx)
+
     debugImplementation(libs.bundles.androidx.compose.tooling)
 
     testImplementation(libs.junit)

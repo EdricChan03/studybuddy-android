@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
+import androidx.core.text.parseAsHtml
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.util.withContext
@@ -170,7 +171,7 @@ fun HtmlText(
         TextView(context).apply {
             setTextColor(color.toArgb())
         }
-    }, update = { it.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT) })
+    }, update = { it.text = html.parseAsHtml(HtmlCompat.FROM_HTML_MODE_COMPACT) })
 }
 
 @Preview("Library items (Default)")
