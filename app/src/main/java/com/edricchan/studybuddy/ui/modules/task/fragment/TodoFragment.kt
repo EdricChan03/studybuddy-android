@@ -29,6 +29,7 @@ import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreference
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
+import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
@@ -110,6 +111,13 @@ class TodoFragment : Fragment() {
                             setIcon(R.drawable.ic_settings_outline_24dp)
                             setItemClickListener {
                                 startActivity<SettingsActivity>()
+                                dismiss()
+                            }
+                        }
+                        item(context.getString(R.string.menu_help_title)) {
+                            setIcon(R.drawable.ic_help_outline_24dp)
+                            setItemClickListener {
+                                startActivity<HelpActivity>()
                                 dismiss()
                             }
                         }
