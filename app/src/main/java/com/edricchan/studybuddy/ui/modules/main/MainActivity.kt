@@ -29,7 +29,7 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
-import com.edricchan.studybuddy.utils.NotificationUtils
+import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
 import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.firebase.auth.FirebaseAuth
@@ -59,7 +59,7 @@ class MainActivity : BaseActivity() {
 
         // Create notification channels
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationUtils.createNotificationChannels(this@MainActivity)
+            createNotificationChannelsCompat()
         }
 
         // Initially set a fragment view

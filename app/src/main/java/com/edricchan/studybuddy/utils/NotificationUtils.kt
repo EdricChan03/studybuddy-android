@@ -63,21 +63,6 @@ class NotificationUtils(
             context,
             initialId
         )
-
-        /**
-         * Sets up the necessary notification channels.
-         * @param context The context
-         */
-        @Deprecated(
-            "Use the createNotificationChannelsCompat extension function instead",
-            ReplaceWith(
-                "context.createNotificationChannelsCompat()",
-                "com.edricchan.studybuddy.utils.createNotificationChannelsCompat"
-            )
-        )
-        fun createNotificationChannels(context: Context) {
-            context.createNotificationChannelsCompat()
-        }
     }
 }
 
