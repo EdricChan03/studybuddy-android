@@ -24,6 +24,11 @@ android {
 }
 
 dependencies {
+    implementation(projects.exts.firebase)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase)
+
     implementation(libs.bundles.ktor)
 
     implementation(libs.dagger.hilt.android)
