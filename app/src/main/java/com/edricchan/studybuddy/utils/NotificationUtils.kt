@@ -15,14 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger
 class NotificationUtils(
     private val initialId: Int = 2
 ) {
-    @Suppress("UNUSED_PARAMETER")
-    @Deprecated(
-        "Context is no longer used in this class, use the overload that specifies " +
-            "only the initialId instead",
-        ReplaceWith("NotificationUtils(initialId = initialId)")
-    )
-    constructor(context: Context? = null, initialId: Int = 2) : this(initialId = initialId)
-
     private val atomicInteger = AtomicInteger(initialId)
 
     /**
@@ -48,21 +40,6 @@ class NotificationUtils(
          * @param initialId The initial ID to set.
          */
         fun getInstance(initialId: Int) = NotificationUtils(initialId = initialId)
-
-        /**
-         * Creates a new instance of the utility class with a context and an initial ID.
-         * @param context The context to be used.
-         * @param initialId The initial ID to set.
-         */
-        @Deprecated(
-            "Context is no longer used in this class, use the overload that specifies " +
-                "only the initialId instead",
-            ReplaceWith("NotificationUtils.getInstance(initialId = initialId)")
-        )
-        fun getInstance(context: Context, initialId: Int) = NotificationUtils(
-            context,
-            initialId
-        )
     }
 }
 
