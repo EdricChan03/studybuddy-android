@@ -162,6 +162,7 @@ dependencies {
     implementation(projects.exts.common)
     implementation(projects.exts.datetime)
     implementation(projects.exts.firebase)
+    implementation(projects.exts.markwon)
     implementation(projects.exts.material)
     implementation(projects.features.help)
     implementation(projects.features.tasks)

@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.TodosAdapterItemRowBinding
-import com.edricchan.studybuddy.extensions.markwon.coilImagesPlugin
-import com.edricchan.studybuddy.extensions.markwon.linkifyPlugin
-import com.edricchan.studybuddy.extensions.markwon.setMarkdown
-import com.edricchan.studybuddy.extensions.markwon.strikethroughPlugin
-import com.edricchan.studybuddy.extensions.markwon.taskListPlugin
+import com.edricchan.studybuddy.exts.markwon.coilImagesPlugin
+import com.edricchan.studybuddy.exts.markwon.linkifyPlugin
+import com.edricchan.studybuddy.exts.markwon.setMarkdown
+import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
+import com.edricchan.studybuddy.exts.markwon.taskListPlugin
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TodoItemDetails
 import com.edricchan.studybuddy.utils.recyclerview.diffCallback

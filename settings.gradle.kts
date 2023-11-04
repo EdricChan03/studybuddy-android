@@ -116,6 +116,7 @@ include(
     ":exts:common",
     ":exts:datetime",
     ":exts:firebase",
+    ":exts:markwon",
     ":exts:material",
     ":features:help",
     ":features:tasks",
