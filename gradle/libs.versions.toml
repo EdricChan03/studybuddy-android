@@ -5,7 +5,7 @@ accompanist = "0.33.2-alpha"
 # https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md#version-203-2023-03-29
 #noinspection GradleDependency
 android-desugar = "2.0.2"
-android-gradle = "8.3.0-alpha11"
+android-gradle = "8.3.0-alpha12"
 androidx-activity = "1.8.0"
 androidx-lifecycle = "2.7.0-beta01"
 compose = "1.6.0-alpha08"
