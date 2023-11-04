@@ -70,7 +70,7 @@ class TodoFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var parentActivity: AppCompatActivity
-    private lateinit var prefs: SharedPreferences
+
     private lateinit var uiUtils: UiUtils
     private lateinit var todoUtils: TodoUtils
 
@@ -140,7 +140,6 @@ class TodoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        prefs = requireContext().defaultSharedPreferences
 
         // Perform migrations if necessary
         lifecycleScope.launch {
