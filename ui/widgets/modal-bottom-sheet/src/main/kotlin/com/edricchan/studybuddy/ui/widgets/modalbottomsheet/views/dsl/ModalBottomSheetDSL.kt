@@ -102,7 +102,7 @@ class ModalBottomSheetBuilder {
     }, groupItemsInit)
 
     /** Gets the final list of items. */
-    fun build() = items + groupItems.map { it.build() }.flatten()
+    fun build() = items + groupItems.flatMap { it.build() }
 }
 
 @ModalBottomSheetDsl
