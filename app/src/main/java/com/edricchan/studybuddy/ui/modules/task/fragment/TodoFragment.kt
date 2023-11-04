@@ -11,13 +11,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.edit
 import androidx.core.view.MenuProvider
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,24 +40,22 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
-import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
+import com.edricchan.studybuddy.ui.modules.task.adapter.itemListener
+import com.edricchan.studybuddy.ui.modules.task.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
 import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.toObjects
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -64,7 +63,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TodoFragment : Fragment() {
     private lateinit var adapter: TodosAdapter
-    private var firestoreListener: ListenerRegistration? = null
     private lateinit var taskOptionsPrefs: SharedPreferences
 
     @Inject
@@ -75,10 +73,34 @@ class TodoFragment : Fragment() {
     private lateinit var parentActivity: AppCompatActivity
 
     private lateinit var uiUtils: UiUtils
-    private lateinit var todoUtils: TodoUtils
 
     private var _binding: FragTodoBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModels<TasksListViewModel>()
+
+    private val itemListener = itemListener(
+        onItemClick = { item, _ ->
+            startActivity<ViewTaskActivity> {
+                putExtra(ViewTaskActivity.EXTRA_TASK_ID, item.id)
+            }
+        },
+        onDeleteButtonClick = { item, _ ->
+            requireContext().showMaterialAlertDialog {
+                setTitle(R.string.todo_frag_delete_task_dialog_title)
+                setMessage(R.string.todo_frag_delete_task_dialog_msg)
+                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
+                    onRemoveTask(item, onSuccess = { dialog.dismiss() })
+                }
+            }
+        },
+        onMarkAsDoneButtonClick = { item, _ ->
+            onToggleTaskDone(item)
+        }
+    )
 
     private val menuProvider = object : MenuProvider {
         override fun onPrepareMenu(menu: Menu) {
@@ -99,7 +121,11 @@ class TodoFragment : Fragment() {
                         item(context.getString(R.string.menu_frag_task_refresh_todos_title)) {
                             setIcon(R.drawable.ic_refresh_24dp)
                             setItemClickListener {
-                                loadTasksListHandler()
+                                binding.swipeRefreshLayout.isRefreshing = true
+                                lifecycleScope.launch {
+                                    viewModel.refresh()
+                                    binding.swipeRefreshLayout.isRefreshing = false
+                                }
                                 dismiss()
                             }
                         }
@@ -153,7 +179,6 @@ class TodoFragment : Fragment() {
             TodoOptionsPrefConstants.FILE_TODO_OPTIONS,
             Context.MODE_PRIVATE
         )
-        todoUtils = TodoUtils.getInstance(auth, firestore)
     }
 
     override fun onCreateView(
@@ -170,12 +195,20 @@ class TodoFragment : Fragment() {
 
         uiUtils.bottomAppBarFab?.setOnClickListener { newTaskActivity() }
 
+        adapter = TodosAdapter(context = requireContext(), itemListener = itemListener)
+
         binding.apply {
             swipeRefreshLayout.apply {
                 setColorSchemeColors(requireContext().dynamicColorPrimary)
                 setOnRefreshListener {
-                    adapter.notifyDataSetChanged()
-                    loadTasksListHandler()
+                    lifecycleScope.launch {
+                        viewModel.refresh()
+                        // Stop refreshing
+                        // Add a delay as Firestore retrieves its data really quickly
+                        // most of the time (so we don't get a jittery progress spinner)
+                        delay(500)
+                        isRefreshing = false
+                    }
                 }
             }
 
@@ -183,6 +216,7 @@ class TodoFragment : Fragment() {
                 setHasFixedSize(false)
                 layoutManager = LinearLayoutManager(context)
                 itemAnimator = DefaultItemAnimator()
+                adapter = this@TodoFragment.adapter
                 setItemTouchHelper(
                     listOf(ItemTouchDirection.None),
                     listOf(
@@ -190,23 +224,28 @@ class TodoFragment : Fragment() {
                         ItemTouchDirection.Right
                     ),
                     onSwiped = { viewHolder, _ ->
-                        todoUtils.removeTask(
-                            this@TodoFragment.adapter.currentList[viewHolder.bindingAdapterPosition].id
-                        )
+                        onRemoveTask(this@TodoFragment.adapter.currentList[viewHolder.bindingAdapterPosition])
                     }
                 )
             }
 
             actionNewTodo.setOnClickListener { newTaskActivity() }
+
+            lifecycleScope.launch {
+                viewModel.tasks.flowWithLifecycle(lifecycle).collect {
+                    todoEmptyStateView.isVisible = it.isEmpty()
+                    swipeRefreshLayout.isVisible = it.isNotEmpty()
+                    adapter.submitList(it)
+                }
+            }
         }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
         _binding = null
-
-        firestoreListener?.remove()
 
         uiUtils.bottomAppBarFab?.setOnClickListener(null)
     }
@@ -216,14 +255,60 @@ class TodoFragment : Fragment() {
         if (auth.currentUser == null) {
             Log.d(TAG, "Not logged in")
             requireContext().showAuthRequiredDialog()
-        } else {
-            loadTasksList()
         }
     }
 
     override fun onAttach(context: Context) {
         parentActivity = context as AppCompatActivity
         super.onAttach(context as Context)
+    }
+
+    private fun onRemoveTask(
+        item: TodoItem,
+        onSuccess: () -> Unit = {},
+        onFail: (e: Exception) -> Unit = {}
+    ) {
+        lifecycleScope.launch {
+            try {
+                viewModel.removeTask(item)
+                onSuccess()
+            } catch (e: Exception) {
+                showSnackbar(R.string.task_delete_fail_msg)
+                Log.e(
+                    TAG,
+                    "An error occurred while attempting to delete the todo:",
+                    e
+                )
+                onFail(e)
+            }
+        }
+    }
+
+    private fun onToggleTaskDone(
+        item: TodoItem,
+        onSuccess: () -> Unit = {},
+        onFail: (e: Exception) -> Unit = {}
+    ) {
+        lifecycleScope.launch {
+            // The pending updated isDone value to use. This is its flipped value
+            val updatedDone = item.done != true
+            val isDoneStr = if (updatedDone) "done" else "undone"
+            try {
+                viewModel.toggleTaskDone(item)
+                onSuccess()
+            } catch (e: Exception) {
+                showSnackbar(
+                    if (updatedDone) R.string.task_done_fail_msg else R.string.task_undone_fail_msg,
+                    Snackbar.LENGTH_LONG
+                )
+                Log.e(
+                    TAG,
+                    "An error occurred while attempting to mark the todo as $isDoneStr:",
+                    e
+                )
+                onFail(e)
+            }
+        }
     }
 
     private fun showSortByOptions() {
@@ -240,40 +325,52 @@ class TodoFragment : Fragment() {
             itemDueDateOldestId to TodoSortValues.DUE_DATE_OLD_TO_NEW
         )
 
+        // The DSL currently does not support selection via ID(s) within the group builder,
+        // so we have to do this manually for now
+        // FIXME: Remove workaround
+        val sheetItems = items {
+            val context = requireContext()
+
+            item(context.getString(R.string.sort_by_bottomsheet_none_title)) {
+                id = itemNoneId
+                setIcon(R.drawable.ic_close_24dp)
+            }
+            item(context.getString(R.string.sort_by_bottomsheet_title_asc_title)) {
+                id = itemTitleAscId
+                setIcon(R.drawable.ic_sort_ascending_24dp)
+            }
+            item(context.getString(R.string.sort_by_bottomsheet_title_desc_title)) {
+                id = itemTitleDescId
+                setIcon(R.drawable.ic_sort_descending_24dp)
+            }
+            item(context.getString(R.string.sort_by_bottomsheet_due_date_newest_title)) {
+                id = itemDueDateNewestId
+                setIcon(R.drawable.ic_sort_descending_24dp)
+            }
+            item(context.getString(R.string.sort_by_bottomsheet_due_date_oldest_title)) {
+                id = itemDueDateOldestId
+                setIcon(R.drawable.ic_sort_ascending_24dp)
+            }
+        }
+
         showModalBottomSheet("Sort tasks by...") {
-            val context = this@TodoFragment.requireContext()
             group(100, {
                 checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
                 setItemCheckedChangeListener {
-                    taskOptionsPrefs.edit {
-                        putString(
-                            TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                            itemOptions[it.id] ?: TodoSortValues.NONE
-                        )
+                    lifecycleScope.launch {
+                        val noneValue = TodoSortValues.NONE
+                        val newValue =
+                            if (it.group?.selected?.contains(it) == true) itemOptions[it.id]
+                                ?: noneValue else noneValue
+                        viewModel.updateSort(newValue)
                     }
-                    loadTasksListHandler()
                 }
+                // Set selection status
+                val selectedId =
+                    itemOptions.entries.first { viewModel.compatQuery.value == it.value }.key
+                selected += sheetItems.first { it.id == selectedId }
             }) {
-                item(context.getString(R.string.sort_by_bottomsheet_none_title)) {
-                    id = itemNoneId
-                    setIcon(R.drawable.ic_close_24dp)
-                }
-                item(context.getString(R.string.sort_by_bottomsheet_title_asc_title)) {
-                    id = itemTitleAscId
-                    setIcon(R.drawable.ic_sort_ascending_24dp)
-                }
-                item(context.getString(R.string.sort_by_bottomsheet_title_desc_title)) {
-                    id = itemTitleDescId
-                    setIcon(R.drawable.ic_sort_descending_24dp)
-                }
-                item(context.getString(R.string.sort_by_bottomsheet_due_date_newest_title)) {
-                    id = itemDueDateNewestId
-                    setIcon(R.drawable.ic_sort_descending_24dp)
-                }
-                item(context.getString(R.string.sort_by_bottomsheet_due_date_oldest_title)) {
-                    id = itemDueDateOldestId
-                    setIcon(R.drawable.ic_sort_ascending_24dp)
-                }
+                items(sheetItems)
             }
         }
     }
@@ -282,144 +379,18 @@ class TodoFragment : Fragment() {
         startActivity<NewTaskActivity>()
     }
 
-    private fun loadTasksListHandler() {
-        val sortPref = taskOptionsPrefs.getString(
-            TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-            TodoSortValues.NONE
-        )
-
-        val sortMap = mapOf(
-            TodoSortValues.NONE to null,
-            TodoSortValues.TITLE_ASC to ("title" to Query.Direction.ASCENDING),
-            TodoSortValues.TITLE_DESC to ("title" to Query.Direction.DESCENDING),
-            TodoSortValues.DUE_DATE_NEW_TO_OLD to ("dueDate" to Query.Direction.DESCENDING),
-            TodoSortValues.DUE_DATE_OLD_TO_NEW to ("dueDate" to Query.Direction.ASCENDING)
-        )
-
-        loadTasksList(sortMap[sortPref]?.first, sortMap[sortPref]?.second)
-    }
-
-    /**
-     * Loads the task list
-     *
-     * @param fieldPath The field path to sort the list by
-     * @param direction The direction to sort the list in
-     */
-    private fun loadTasksList(fieldPath: String? = null, direction: Query.Direction? = null) {
-        // Reduce the amount of duplicate code by placing the listener into a variable
-        val listener = EventListener<QuerySnapshot> { snapshot, e ->
-            if (e != null) {
-                Log.e(TAG, "Listen failed!", e)
-                return@EventListener
-            }
-            val taskItemList = snapshot?.toObjects<TodoItem>() ?: listOf()
-
-            val itemListener = object : TodosAdapter.OnItemClickListener {
-                override fun onItemClick(item: TodoItem, position: Int) {
-                    Log.d(TAG, "Task: $item")
-                    Log.d(TAG, "Task ID: ${item.id}")
-                    startActivity<ViewTaskActivity> {
-                        putExtra(ViewTaskActivity.EXTRA_TASK_ID, item.id)
-                    }
-                }
-
-                override fun onDeleteButtonClick(item: TodoItem, position: Int) {
-                    requireContext().showMaterialAlertDialog {
-                        setTitle(R.string.todo_frag_delete_task_dialog_title)
-                        setMessage(R.string.todo_frag_delete_task_dialog_msg)
-                        setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
-                            todoUtils.removeTask(item.id)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
-                                            showSnackbar(
-                                                it,
-                                                "Successfully deleted todo!",
-                                                Snackbar.LENGTH_SHORT
-                                            )
-                                        }
-                                        adapter.notifyItemRemoved(position)
-                                        dialog.dismiss()
-                                    } else {
-                                        Log.e(
-                                            TAG,
-                                            "An error occurred while attempting to delete the todo:",
-                                            task.exception
-                                        )
-                                    }
-                                }
-                        }
-                    }
-                }
-
-                override fun onMarkAsDoneButtonClick(item: TodoItem, position: Int) {
-                    val updatedDone = !(item.done ?: false)
-                    todoUtils.getTask(item.id)
-                        .update("done", updatedDone)
-                        .addOnCompleteListener { task ->
-                            val isDoneStr = if (updatedDone) "done" else "undone"
-                            if (task.isSuccessful) {
-                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
-                                    showSnackbar(
-                                        it,
-                                        "Successfully marked task as $isDoneStr!",
-                                        Snackbar.LENGTH_SHORT
-                                    ) {
-                                        anchorView =
-                                            findParentActivityViewById<FloatingActionButton>(
-                                                R.id.fab
-                                            )
-                                    }
-                                }
-                                adapter.notifyItemChanged(position)
-                            } else {
-                                findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
-                                    showSnackbar(
-                                        it,
-                                        "An error occurred while attempting to mark the todo as $isDoneStr",
-                                        Snackbar.LENGTH_LONG
-                                    ) {
-                                        anchorView =
-                                            findParentActivityViewById<FloatingActionButton>(
-                                                R.id.fab
-                                            )
-                                    }
-                                }
-                                Log.e(
-                                    TAG,
-                                    "An error occurred while attempting to mark the todo as $isDoneStr:",
-                                    task.exception
-                                )
-                            }
-                        }
-                }
-            }
-            adapter = TodosAdapter(requireContext(), taskItemList, itemListener)
-
-            binding.apply {
-                recyclerView.adapter = adapter
-
-                swipeRefreshLayout.apply {
-                    isRefreshing = false
-                    if (snapshot != null) {
-                        isGone = snapshot.isEmpty
-                        todoEmptyStateView.isVisible = snapshot.isEmpty
-                    }
-                }
-            }
-        }
-        binding.swipeRefreshLayout.isRefreshing = true
-        firestoreListener = todoUtils.taskCollectionRef.run {
-            if (fieldPath != null && direction != null) orderBy(fieldPath, direction)
-            addSnapshotListener(listener)
-        }
-    }
-
     private fun <T : View> findParentActivityViewById(@IdRes idRes: Int): T? {
         return parentActivity.findViewById(idRes)
     }
 
+    private fun showSnackbar(
+        @StringRes textRes: Int,
+        @BaseTransientBottomBar.Duration duration: Int = Snackbar.LENGTH_SHORT
+    ) {
+        findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
+            showSnackbar(it, textRes, duration) {
+                anchorView = findParentActivityViewById(R.id.bottomAppBar)
+            }
+        }
+    }
 }
