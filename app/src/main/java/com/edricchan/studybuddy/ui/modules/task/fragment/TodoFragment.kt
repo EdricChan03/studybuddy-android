@@ -25,7 +25,6 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragTodoBinding
 import com.edricchan.studybuddy.extensions.startActivity
-import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
@@ -51,24 +50,28 @@ import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
-import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
+@AndroidEntryPoint
 class TodoFragment : Fragment() {
     private lateinit var adapter: TodosAdapter
     private var firestoreListener: ListenerRegistration? = null
     private lateinit var taskOptionsPrefs: SharedPreferences
-    private lateinit var auth: FirebaseAuth
-    private lateinit var firestore: FirebaseFirestore
+
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var firestore: FirebaseFirestore
     private lateinit var parentActivity: AppCompatActivity
 
     private lateinit var uiUtils: UiUtils
@@ -150,8 +153,6 @@ class TodoFragment : Fragment() {
             TodoOptionsPrefConstants.FILE_TODO_OPTIONS,
             Context.MODE_PRIVATE
         )
-        firestore = Firebase.firestore
-        auth = Firebase.auth
         todoUtils = TodoUtils.getInstance(auth, firestore)
     }
 
