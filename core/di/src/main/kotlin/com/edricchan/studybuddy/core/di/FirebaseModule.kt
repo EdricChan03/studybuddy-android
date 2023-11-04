@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.core.di
 
-import androidx.annotation.Discouraged
 import com.edricchan.studybuddy.exts.firebase.auth.currentUserFlow
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -16,6 +16,10 @@ import kotlinx.coroutines.flow.Flow
 object FirebaseModule {
     @Provides
     fun provideFirebaseAuth() = Firebase.auth
+
+    @Provides
+    fun provideFirebaseUserFlow(): Flow<@JvmSuppressWildcards FirebaseUser?> =
+        provideFirebaseAuth().currentUserFlow
 
     @Provides
     fun provideFirebaseFirestore() = Firebase.firestore
