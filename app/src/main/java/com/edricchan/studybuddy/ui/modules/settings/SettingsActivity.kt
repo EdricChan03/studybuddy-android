@@ -11,6 +11,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
+import com.edricchan.studybuddy.databinding.ActivityFragHostBinding
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
@@ -24,11 +25,23 @@ import com.edricchan.studybuddy.utils.web.launchUri
 class SettingsActivity : BaseActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private lateinit var preferences: SharedPreferences
+    private lateinit var binding: ActivityFragHostBinding
+
+    override val isEdgeToEdgeEnabled = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityFragHostBinding.inflate(layoutInflater).apply {
+            setSupportActionBar(toolbar.apply {
+                setTitle(R.string.title_activity_settings)
+            })
+        }.also { setContentView(it.root) }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         preferences = defaultSharedPreferences
+
         if (savedInstanceState == null) {
             setCurrentFragment(SettingsFragment(), /* addToBackStack = */ false)
         } else {
@@ -103,7 +116,7 @@ class SettingsActivity : BaseActivity(),
 
     private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
         // FIXME: Animations are disabled here for now as the fade through behaviour looks a bit odd
-        replaceFragment(android.R.id.content, fragment, addToBackStack, hasAnimations = false)
+        replaceFragment(R.id.fragmentHostContainer, fragment, addToBackStack, hasAnimations = false)
     }
 
     companion object {
