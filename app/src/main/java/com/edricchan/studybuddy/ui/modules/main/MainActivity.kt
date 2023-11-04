@@ -33,22 +33,23 @@ import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
 import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @WebDeepLink(["/"])
 @AppDeepLink(["/"])
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = Firebase.auth
 
         setSupportActionBar(binding.bottomAppBar)
 
