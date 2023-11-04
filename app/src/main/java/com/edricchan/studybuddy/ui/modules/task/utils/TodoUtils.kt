@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * Utility class for the task module.
@@ -20,7 +21,7 @@ class TodoUtils(
     constructor(auth: FirebaseAuth, fs: FirebaseFirestore) : this(auth.currentUser, fs)
 
     private val repository =
-        TaskRepository(user = requireNotNull(user) { "Required user is null" }, firestore = fs)
+        TaskRepository(userFlow = flowOf(user), firestore = fs)
     private val taskCollectionPath = "users/${user?.uid}/todos"
 
     /**
@@ -70,7 +71,7 @@ class TodoUtils(
             "com.edricchan.studybuddy.ui.modules.task.data.TaskRepository"
         )
     )
-    fun getTask(docId: String) = repository.getTaskDocument(docId)
+    fun getTask(docId: String) = repository.getTaskDocumentCompat(docId)
 
     /**
      * Removes a task from the Firebase Firestore database
