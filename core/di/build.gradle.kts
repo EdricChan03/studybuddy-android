@@ -26,6 +26,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.exts.androidx.preference)
     implementation(projects.exts.firebase)
 
     implementation(platform(libs.firebase.bom))
