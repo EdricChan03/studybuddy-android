@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.ui.widgets.modalbottomsheet"
+    namespace = "com.edricchan.studybuddy.ui.insets"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -18,25 +18,13 @@ android {
             )
         }
     }
-
-    buildFeatures.viewBinding = true
 }
 
 dependencies {
-    implementation(projects.ui.insets)
-    implementation(projects.ui.widgets.views) {
-        because("NoTextCheckBox, NoTextRadioButton")
-    }
-    implementation(projects.core.resources)
-
-    api(libs.androidx.fragment.ktx)
-    api(libs.androidx.recyclerview.core)
-    api(libs.materialComponents)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.ktx)
 
     testImplementation(libs.junit)
-    testImplementation(libs.kotlin.test)
-
-    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }

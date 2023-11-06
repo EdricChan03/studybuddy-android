@@ -96,6 +96,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":ui:common",
+    ":ui:insets",
     ":ui:preference",
     ":ui:theming:compose",
     ":ui:theming:views",

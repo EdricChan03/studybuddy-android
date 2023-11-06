@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.FragModalBottomSheetBinding
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetBuilder
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
@@ -56,6 +57,11 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?) =
+        super.onCreateDialog(savedInstanceState).also { dialog ->
+            dialog.window?.enableEdgeToEdge()
+        }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(HEADER_TITLE_TAG, headerTitle)
