@@ -32,11 +32,9 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        return FragModalBottomSheetBinding.inflate(
-            layoutInflater, container, false
-        ).also { binding = it }.root
-    }
+    ) = FragModalBottomSheetBinding.inflate(
+        inflater, container, false
+    ).also { binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
