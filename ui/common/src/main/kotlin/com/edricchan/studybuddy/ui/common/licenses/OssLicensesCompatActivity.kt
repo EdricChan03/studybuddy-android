@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.common.licenses
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
@@ -12,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import com.edricchan.studybuddy.ui.common.R
-import com.edricchan.studybuddy.ui.theming.compose.SetSystemBarsColor
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.widgets.compose.BackIconButton
 import io.github.edricchan03.aboutlibraries.ui.compose.m3.LibrariesContainer
@@ -26,10 +26,10 @@ class OssLicensesCompatActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        enableEdgeToEdge()
+
         setContent {
             val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-            SetSystemBarsColor()
-
             StudyBuddyTheme {
                 Scaffold(
                     topBar = {
