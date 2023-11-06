@@ -46,6 +46,8 @@ class MainActivity : BaseActivity() {
     lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
