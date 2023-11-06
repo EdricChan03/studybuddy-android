@@ -353,7 +353,7 @@ class TodoFragment : Fragment() {
             }
         }
 
-        showModalBottomSheet("Sort tasks by...") {
+        showModalBottomSheet(R.string.task_sort_dialog_header_title) {
             group(100, {
                 checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
                 setItemCheckedChangeListener {
