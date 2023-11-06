@@ -367,7 +367,8 @@ class TodoFragment : Fragment() {
                 }
                 // Set selection status
                 val selectedId =
-                    itemOptions.entries.first { viewModel.compatQuery.value == it.value }.key
+                    itemOptions.entries.find { viewModel.compatQuery.value == it.value }?.key
+                        ?: itemNoneId
                 selected += sheetItems.first { it.id == selectedId }
             }) {
                 items(sheetItems)
