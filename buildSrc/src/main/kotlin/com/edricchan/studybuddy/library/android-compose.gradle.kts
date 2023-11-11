@@ -7,5 +7,5 @@ plugins {
 
 android {
     buildFeatures.compose = true
-    composeOptions.kotlinCompilerExtensionVersion = "1.5.3"
+    composeOptions.kotlinCompilerExtensionVersion = "1.5.4"
 }
