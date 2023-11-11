@@ -55,7 +55,6 @@ androidxtra-browser-ktx = "io.github.edricchan03.androidx.browser:browser-ktx:0.
 # Accompanist
 accompanist-material3-themeAdapter = { module = "com.google.accompanist:accompanist-themeadapter-material3", version.ref = "accompanist" }
 accompanist-drawablePainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
-accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
 # Other dependencies
 
