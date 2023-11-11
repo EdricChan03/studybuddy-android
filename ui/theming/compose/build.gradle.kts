@@ -29,9 +29,6 @@ android {
 dependencies {
     implementation(projects.ui.theming.views)
 
-    implementation(libs.androidx.activity.ktx) {
-        because("Edge-to-edge support")
-    }
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.accompanist.material3.themeAdapter)
