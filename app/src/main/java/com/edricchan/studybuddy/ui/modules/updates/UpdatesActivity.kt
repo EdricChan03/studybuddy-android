@@ -70,12 +70,16 @@ class UpdatesActivity : BaseActivity() {
         requestWriteExternalStoragePermissionLauncher.launch()
     }
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityUpdatesBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityUpdatesBinding.inflate(layoutInflater).apply {
+            setSupportActionBar(toolbar)
+        }.also { setContentView(binding.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         preferences = defaultSharedPreferences
         updateInfoPreferences =
             getSharedPreferences(UpdateInfoPrefConstants.FILE_UPDATE_INFO, Context.MODE_PRIVATE)

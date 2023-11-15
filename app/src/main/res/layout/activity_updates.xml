@@ -4,7 +4,21 @@
     android:id="@+id/coordinatorLayoutUpdates"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.modules.updates.UpdatesActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:id="@+id/emptyStateRelativeLayout"
@@ -30,8 +44,8 @@
             android:layout_below="@id/emptyStateHeadingTextView"
             android:layout_centerHorizontal="true"
             android:text="@string/update_activity_empty_state_subhead"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
 
         <TextView
             android:id="@+id/emptyStateHeadingTextView"
