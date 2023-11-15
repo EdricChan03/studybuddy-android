@@ -82,7 +82,8 @@
             android:label="@string/title_activity_reset_password" />
         <activity
             android:name=".ui.modules.task.NewTaskActivity"
-            android:label="@string/title_activity_new_task" />
+            android:label="@string/title_activity_new_task"
+            android:theme="@style/Theme.App.NoActionBar" />
         <activity
             android:name=".ui.modules.task.EditTaskActivity"
             android:label="@string/title_activity_edit_task"

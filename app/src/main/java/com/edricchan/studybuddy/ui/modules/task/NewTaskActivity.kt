@@ -45,11 +45,16 @@ class NewTaskActivity : BaseActivity() {
     private lateinit var currentUser: FirebaseUser
     private var taskInstant: Instant? = null
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityNewTaskBinding.inflate(layoutInflater).apply {
+            setSupportActionBar(toolbar)
+        }.also { setContentView(it.root) }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding = ActivityNewTaskBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         auth = Firebase.auth
         firestore = Firebase.firestore
