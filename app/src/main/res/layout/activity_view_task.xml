@@ -44,26 +44,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textIsSelectable="true"
                 tools:text="&lt;Content of task goes here&gt;" />
 
             <TextView
                 android:id="@+id/taskDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_calendar_check_outline_24dp"
                 android:drawablePadding="16dp"
                 android:padding="16dp"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textIsSelectable="true"
+                app:drawableStartCompat="@drawable/ic_calendar_check_outline_24dp"
                 tools:text="1 Jan 2100" />
 
             <TextView
                 android:id="@+id/taskProject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_format_list_checks_24dp"
                 android:drawablePadding="16dp"
                 android:padding="16dp"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textIsSelectable="true"
+                app:drawableStartCompat="@drawable/ic_format_list_checks_24dp"
                 tools:text="Project" />
 
             <LinearLayout
