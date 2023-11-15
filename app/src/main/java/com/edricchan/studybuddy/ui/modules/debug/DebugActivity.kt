@@ -2,6 +2,8 @@ package com.edricchan.studybuddy.ui.modules.debug
 
 import android.os.Bundle
 import android.view.MenuItem
+import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.databinding.ActivityFragHostBinding
 import com.edricchan.studybuddy.extensions.replaceFragment
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment
@@ -11,10 +13,20 @@ import com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragme
  */
 
 class DebugActivity : BaseActivity() {
+    private lateinit var binding: ActivityFragHostBinding
+
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityFragHostBinding.inflate(layoutInflater).apply {
+            setSupportActionBar(toolbar)
+        }.also { setContentView(it.root) }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        replaceFragment(android.R.id.content, DebugSettingsFragment(), false)
+
+        replaceFragment(R.id.fragmentHostContainer, DebugSettingsFragment(), false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

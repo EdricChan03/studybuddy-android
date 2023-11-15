@@ -91,7 +91,8 @@
         <activity
             android:name=".ui.modules.debug.DebugActivity"
             android:exported="true"
-            android:label="@string/title_activity_debug">
+            android:label="@string/title_activity_debug"
+            android:theme="@style/Theme.App.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.DEVELOPMENT_PREFERENCE" />
             </intent-filter>
