@@ -6,7 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:fitsSystemWindows="true"
     tools:context=".ui.modules.task.ViewTaskActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:liftOnScrollTargetViewId="@id/recycler_view">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollTaskView"
@@ -15,6 +30,7 @@
         android:layout_marginBottom="?attr/actionBarSize"
         android:fillViewport="true"
         android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:visibility="visible">
 
         <LinearLayout
@@ -100,7 +116,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:fabAlignmentMode="end" />
+        android:fitsSystemWindows="true"
+        app:fabAlignmentMode="end"
+        app:hideOnScroll="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/editTaskFab"
