@@ -100,7 +100,8 @@
         </activity>
         <activity
             android:name=".ui.modules.debug.DebugModalBottomSheetActivity"
-            android:label="@string/title_activity_debug_modal_bottom_sheet" />
+            android:label="@string/title_activity_debug_modal_bottom_sheet"
+            android:theme="@style/Theme.App.NoActionBar" />
         <activity
             android:name=".ui.modules.updates.UpdatesActivity"
             android:label="@string/title_activity_updates"

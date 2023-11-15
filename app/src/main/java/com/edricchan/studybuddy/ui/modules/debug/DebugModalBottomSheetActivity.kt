@@ -29,9 +29,12 @@ import com.google.android.material.button.MaterialButton
 class DebugModalBottomSheetActivity : BaseActivity() {
     private lateinit var binding: ActivityDebugModalBottomSheetBinding
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDebugModalBottomSheetBinding.inflate(layoutInflater)
+            .apply { setSupportActionBar(toolbar) }
             .also { setContentView(it.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
