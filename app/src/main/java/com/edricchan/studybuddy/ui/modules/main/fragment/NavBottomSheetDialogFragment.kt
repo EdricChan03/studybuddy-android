@@ -16,6 +16,7 @@ import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.android.getParcelableCompat
+import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
@@ -94,6 +95,11 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
         )
         super.onSaveInstanceState(outState)
     }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?) =
+        super.onCreateDialog(savedInstanceState).also { dialog ->
+            dialog.window?.enableEdgeToEdge()
+        }
 
     companion object {
         private const val IS_LOGGED_IN_TAG = "isLoggedIn"
