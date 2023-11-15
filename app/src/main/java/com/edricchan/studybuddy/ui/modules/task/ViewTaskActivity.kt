@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.core.view.plusAssign
@@ -48,13 +47,13 @@ class ViewTaskActivity : BaseActivity() {
     private var currentUser: FirebaseUser? = null
     private var todoItem: TodoItem? = null
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewTaskBinding.inflate(layoutInflater).apply {
             setSupportActionBar(toolbar)
         }.also { setContentView(it.root) }
-
-        enableEdgeToEdge()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
