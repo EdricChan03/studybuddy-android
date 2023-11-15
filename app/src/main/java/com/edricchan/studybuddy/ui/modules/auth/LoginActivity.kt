@@ -50,8 +50,9 @@ class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityLoginBinding.inflate(layoutInflater).apply {
+            setSupportActionBar(toolbar)
+        }.also { setContentView(binding.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
