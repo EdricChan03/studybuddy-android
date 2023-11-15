@@ -85,7 +85,8 @@
             android:label="@string/title_activity_new_task" />
         <activity
             android:name=".ui.modules.task.EditTaskActivity"
-            android:label="@string/title_activity_edit_task" />
+            android:label="@string/title_activity_edit_task"
+            android:theme="@style/Theme.App.NoActionBar" />
         <activity
             android:name=".ui.modules.debug.DebugActivity"
             android:exported="true"

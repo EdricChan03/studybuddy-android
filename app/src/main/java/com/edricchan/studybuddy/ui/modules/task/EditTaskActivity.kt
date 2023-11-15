@@ -52,11 +52,16 @@ class EditTaskActivity : BaseActivity() {
 
     private lateinit var binding: ActivityEditTaskBinding
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityEditTaskBinding.inflate(layoutInflater).apply {
+            setSupportActionBar(toolbar)
+        }.also { setContentView(it.root) }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding = ActivityEditTaskBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         firestore = Firebase.firestore
         auth = Firebase.auth
