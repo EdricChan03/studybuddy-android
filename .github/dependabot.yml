@@ -1,4 +1,9 @@
 version: 2
+registries:
+  # Workaround for https://github.com/dependabot/dependabot-core/issues/6888
+  maven-google:
+    type: maven-repository
+    url: "https://dl.google.com/dl/android/maven2/"
 updates:
 # Gradle updates
 - package-ecosystem: gradle
