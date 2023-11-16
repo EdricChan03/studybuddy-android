@@ -18,6 +18,11 @@ updates:
 # Gradle updates
 - package-ecosystem: gradle
   directory: "/"
+  registries:
+    - maven-google
+    - maven-gradle-plugin-portal
+    - maven-central
+    - maven-jitpack
   schedule:
     interval: daily
     time: "07:00"
@@ -29,11 +34,6 @@ updates:
 # GitHub Actions updates
 - package-ecosystem: github-actions
   directory: "/"
-  registries:
-    - maven-google
-    - maven-gradle-plugin-portal
-    - maven-central
-    - maven-jitpack
   schedule:
     interval: weekly
     day: monday
