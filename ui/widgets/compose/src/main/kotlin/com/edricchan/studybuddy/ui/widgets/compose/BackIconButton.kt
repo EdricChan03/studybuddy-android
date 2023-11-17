@@ -5,6 +5,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -19,25 +20,31 @@ import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
  * @param enabled Whether the icon button is enabled
  * @param onClick Function that is invoked when the icon button is clicked
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackIconButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onClick: () -> Unit
-) {
-    IconButtonWithTooltip(
-        modifier = modifier,
-        tooltip = { Text(text = stringResource(R.string.back_btn_tooltip_text)) },
-        icon = {
-            Icon(
-                Icons.AutoMirrored.Outlined.ArrowBack,
-                contentDescription = null
+) = IconButtonWithTooltip(
+    modifier = modifier,
+    tooltip = {
+        PlainTooltip {
+            Text(
+                modifier = tooltipTextModifier,
+                text = stringResource(R.string.back_btn_tooltip_text)
             )
-        },
-        enabled = enabled,
-        onClick = onClick
-    )
-}
+        }
+    },
+    icon = {
+        Icon(
+            Icons.AutoMirrored.Outlined.ArrowBack,
+            contentDescription = stringResource(R.string.back_btn_tooltip_text)
+        )
+    },
+    enabled = enabled,
+    onClick = onClick
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
