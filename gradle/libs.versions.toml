@@ -6,18 +6,18 @@ accompanist = "0.33.2-alpha"
 #noinspection GradleDependency
 android-desugar = "2.0.2"
 android-gradle = "8.3.0-alpha14"
-androidx-activity = "1.8.0"
-androidx-lifecycle = "2.7.0-beta01"
-compose = "1.6.0-alpha08"
-compose-material3 = "1.2.0-alpha10"
+androidx-activity = "1.8.1"
+androidx-lifecycle = "2.7.0-rc01"
+compose = "1.6.0-beta01"
+compose-material3 = "1.2.0-alpha11"
 dagger = "2.48.1"
 deep-link-dispatch = "6.2.2"
-firebase-bom = "32.5.0"
-gradle-versions = "0.49.0"
+firebase-bom = "32.6.0"
+gradle-versions = "0.50.0"
 kotest = "5.8.0"
 kotlin = "1.9.20"
 kotlinx-coroutines = "1.7.3"
-kotlinx-serialization = "1.6.0"
+kotlinx-serialization = "1.6.1"
 ktor = "2.3.6"
 markwon = "4.6.2"
 mockk = "1.13.8"
@@ -204,6 +204,6 @@ gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-v
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.25.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.26.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.2.0"
