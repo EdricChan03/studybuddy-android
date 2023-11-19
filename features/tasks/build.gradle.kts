@@ -43,7 +43,6 @@ dependencies {
 
     // Dagger
     implementation(libs.dagger.hilt.android)
-    implementation(libs.androidx.hilt.compose)
     ksp(libs.dagger.hilt.compiler)
 
     // Migration
