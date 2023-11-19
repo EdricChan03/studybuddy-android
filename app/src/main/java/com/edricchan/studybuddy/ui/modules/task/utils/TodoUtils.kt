@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.ui.modules.task.utils
 
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.ui.modules.task.data.TaskRepository
+import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -40,7 +40,7 @@ class TodoUtils(
         "Use TaskRepository#getTasksCompat instead",
         ReplaceWith(
             "TaskRepository(user, fs).getTasksCompat(item)",
-            "com.edricchan.studybuddy.ui.modules.task.data.TaskRepository"
+            "com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository"
         )
     )
     val taskCollectionQuerySnapshot = taskCollectionRef.get()
@@ -54,7 +54,7 @@ class TodoUtils(
         "Use TaskRepository#addTask instead",
         ReplaceWith(
             "TaskRepository(user, fs).addTaskCompat(item)",
-            "com.edricchan.studybuddy.ui.modules.task.data.TaskRepository"
+            "com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository"
         )
     )
     fun addTask(item: TodoItem) = repository.addTaskCompat(item)
@@ -68,7 +68,7 @@ class TodoUtils(
         "Use TaskRepository#getTaskDocument instead",
         ReplaceWith(
             "TaskRepository(user, fs).getTaskDocument(item)",
-            "com.edricchan.studybuddy.ui.modules.task.data.TaskRepository"
+            "com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository"
         )
     )
     fun getTask(docId: String) = repository.getTaskDocumentCompat(docId)
@@ -82,7 +82,7 @@ class TodoUtils(
         "Use TaskRepository#removeTask instead",
         ReplaceWith(
             "TaskRepository(user, fs).removeTaskCompat(item)",
-            "com.edricchan.studybuddy.ui.modules.task.data.TaskRepository"
+            "com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository"
         )
     )
     fun removeTask(docId: String) = repository.removeTaskCompat(docId)
