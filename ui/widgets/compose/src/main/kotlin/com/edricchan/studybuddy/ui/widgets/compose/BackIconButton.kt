@@ -17,6 +17,10 @@ import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 /**
  * An icon button with a back icon Composable that has a tooltip.
  * @param modifier Modifier to be passed to the [IconButton]
+ * @param tooltipModifier Modifier to be passed to the
+ * [androidx.compose.material3.TooltipBox] tooltip
+ * @param tooltipTextModifier Modifier to be passed to the [Text] composable
+ * representing the tooltip text
  * @param enabled Whether the icon button is enabled
  * @param onClick Function that is invoked when the icon button is clicked
  */
@@ -24,10 +28,13 @@ import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 @Composable
 fun BackIconButton(
     modifier: Modifier = Modifier,
+    tooltipModifier: Modifier = Modifier,
+    tooltipTextModifier: Modifier = Modifier,
     enabled: Boolean = true,
     onClick: () -> Unit
 ) = IconButtonWithTooltip(
     modifier = modifier,
+    tooltipModifier = tooltipModifier,
     tooltip = {
         PlainTooltip {
             Text(
