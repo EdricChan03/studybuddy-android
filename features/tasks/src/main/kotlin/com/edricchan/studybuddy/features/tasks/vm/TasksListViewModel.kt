@@ -1,6 +1,6 @@
 @file:SuppressLint("StaticFieldLeak")
 
-package com.edricchan.studybuddy.ui.modules.task.vm
+package com.edricchan.studybuddy.features.tasks.vm
 
 import android.annotation.SuppressLint
 import android.content.Context

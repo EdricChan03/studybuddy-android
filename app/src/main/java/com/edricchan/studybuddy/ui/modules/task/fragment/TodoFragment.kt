@@ -34,6 +34,7 @@ import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptions
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
+import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
@@ -41,7 +42,6 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
 import com.edricchan.studybuddy.ui.modules.task.adapter.itemListener
-import com.edricchan.studybuddy.ui.modules.task.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
