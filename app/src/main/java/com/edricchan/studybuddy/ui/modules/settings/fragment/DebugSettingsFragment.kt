@@ -26,7 +26,6 @@ import androidx.preference.SwitchPreferenceCompat
 import androidx.work.Operation
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.DebugSendFcmNotificationDialogBinding
 import com.edricchan.studybuddy.exts.android.getSerializableCompat
@@ -47,6 +46,7 @@ import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
 import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
+import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
 import com.edricchan.studybuddy.utils.enqueueUniqueCheckForUpdatesWorker
 import com.edricchan.studybuddy.utils.firebase.sendToFirestoreAsync
 import com.google.android.material.textfield.TextInputLayout

@@ -17,12 +17,12 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesCompatActivity
 import com.edricchan.studybuddy.utils.appDetailsIntent
+import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
 import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.time.Instant

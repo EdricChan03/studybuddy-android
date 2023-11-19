@@ -10,14 +10,14 @@ import androidx.preference.SwitchPreferenceCompat
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
-import com.edricchan.studybuddy.utils.isDevMode
+import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
+import com.edricchan.studybuddy.utils.dev.isDevMode
 
 class SettingsFragment : PreferenceHeaderFragmentCompat() {
     override fun onCreatePreferenceHeader() = SettingsHeader()

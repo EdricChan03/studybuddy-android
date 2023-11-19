@@ -110,6 +110,7 @@ include(
     ":core:resources",
     ":data:common",
     ":data:serialization:android",
+    ":utils:dev-mode",
     ":utils:recyclerview",
     ":utils:web",
     ":exts:android",

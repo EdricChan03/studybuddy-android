@@ -47,7 +47,7 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
 import com.edricchan.studybuddy.utils.UiUtils
-import com.edricchan.studybuddy.utils.isDevMode
+import com.edricchan.studybuddy.utils.dev.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
 import com.google.android.material.snackbar.BaseTransientBottomBar

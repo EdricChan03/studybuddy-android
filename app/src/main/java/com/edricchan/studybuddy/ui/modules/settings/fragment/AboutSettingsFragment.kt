@@ -10,13 +10,13 @@ import androidx.preference.Preference
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.appDetailsIntent
+import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
 import com.edricchan.studybuddy.utils.licenseIntent
 import com.edricchan.studybuddy.utils.web.launchUri
 import kotlin.properties.Delegates

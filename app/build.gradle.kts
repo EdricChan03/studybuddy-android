@@ -155,6 +155,7 @@ dependencies {
     implementation(projects.core.deeplink)
     implementation(projects.data.common)
     implementation(projects.data.serialization.android)
+    implementation(projects.utils.devMode)
     implementation(projects.utils.recyclerview)
     implementation(projects.utils.web)
     implementation(projects.exts.android)

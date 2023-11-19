@@ -1,8 +1,6 @@
-package com.edricchan.studybuddy.utils
+package com.edricchan.studybuddy.utils.dev
 
 import android.content.Context
-import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.constants.sharedprefs.DevModePrefConstants
 
 /**
  * Whether the app is in developer mode.
