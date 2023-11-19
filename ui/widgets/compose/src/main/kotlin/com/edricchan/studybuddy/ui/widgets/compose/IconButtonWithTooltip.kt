@@ -13,6 +13,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 /**
  * An icon button Composable that has a tooltip.
  * @param modifier Modifier to be passed to the [IconButton]
+ * @param tooltipModifier Modifier to be passed to the [TooltipBox] tooltip
  * @param tooltip Composable to be used for the tooltip's content. The tooltip should be
  * enclosed in a [androidx.compose.material3.PlainTooltip] or
  * [androidx.compose.material3.RichTooltip].
@@ -24,6 +25,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 @Composable
 fun IconButtonWithTooltip(
     modifier: Modifier = Modifier,
+    tooltipModifier: Modifier = Modifier,
     positionProvider: PopupPositionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
     state: TooltipState = rememberTooltipState(),
     tooltip: @Composable () -> Unit,
@@ -32,6 +34,7 @@ fun IconButtonWithTooltip(
     onClick: () -> Unit = {}
 ) {
     TooltipBox(
+        modifier = tooltipModifier,
         tooltip = tooltip,
         state = state,
         positionProvider = positionProvider
