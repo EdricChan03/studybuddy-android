@@ -32,6 +32,7 @@ dependencies {
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
