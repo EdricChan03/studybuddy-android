@@ -54,14 +54,12 @@ android {
 
     defaultConfig {
         applicationId = "com.edricchan.studybuddy"
-        // TODO: Bump targetSdk
-        targetSdk = 30
+        targetSdk = 34
         versionCode = 10
         versionName = "1.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations += "en" // TODO: Don't restrict to just en
-        multiDexEnabled = true
-        // Enable support library for vector drawables
+
         vectorDrawables.useSupportLibrary = true
     }
 
