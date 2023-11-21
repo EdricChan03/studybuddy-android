@@ -1,8 +1,10 @@
 package com.edricchan.studybuddy.ui.modules.auth
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
@@ -140,7 +142,8 @@ class RegisterActivity : BaseActivity() {
     }
 
     private fun checkNetwork() {
-        if (SharedUtils.isNetworkAvailable(this)) {
+        val connectivityManager = getSystemService<ConnectivityManager>()
+        if (connectivityManager?.activeNetworkInfo?.isConnected == true) {
             setViewsEnabled(true)
         } else {
             setViewsEnabled(false)

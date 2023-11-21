@@ -12,6 +12,7 @@ import com.google.accompanist.themeadapter.material3.Mdc3Theme
         "com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme"
     )
 )
+@Suppress("Deprecation")
 @Composable
 fun StudyBuddyCompatTheme(content: @Composable () -> Unit) =
     Mdc3Theme(content = content, setDefaultFontFamily = true)

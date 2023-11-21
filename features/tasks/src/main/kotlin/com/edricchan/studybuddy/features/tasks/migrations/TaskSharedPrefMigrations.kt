@@ -42,9 +42,11 @@ private val Context.taskOptionsPrefs
         Context.MODE_PRIVATE
     )
 
+@Suppress("Deprecation")
 fun Context.shouldMigrateTaskOptsPrefs() =
     TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD in taskOptionsPrefs
 
+@Suppress("Deprecation")
 suspend fun Context.migrateTaskOptsPrefs(): Boolean = withContext(Dispatchers.IO) {
     return@withContext try {
         Log.d(TAG, "Migrating task options shared preference keys...")

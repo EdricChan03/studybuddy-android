@@ -141,8 +141,6 @@ android {
 }
 
 dependencies {
-    implementation(fileTree("include" to listOf("*.jar"), "dir" to "libs"))
-
     // Project dependencies
     implementation(projects.ui.common)
     implementation(projects.ui.insets)

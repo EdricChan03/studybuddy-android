@@ -15,8 +15,8 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.common.TAG
-import com.edricchan.studybuddy.utils.PermissionUtils
 import com.edricchan.studybuddy.utils.SharedUtils
+import com.edricchan.studybuddy.utils.checkPermissionGranted
 
 class NotificationActionReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -31,10 +31,8 @@ class NotificationActionReceiver : BroadcastReceiver() {
 
     private fun checkPermission(context: Context, intent: Intent) {
         Log.d(TAG, "Checking for external storage permission...")
-        if (PermissionUtils.getInstance(context).checkPermissionGranted(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-        ) {
+
+        if (context.checkPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Log.d(TAG, "Permission granted. Downloading update...")
             downloadUpdate(context, intent)
         }
