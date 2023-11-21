@@ -86,33 +86,4 @@ class TodoUtils(
         )
     )
     fun removeTask(docId: String) = repository.removeTaskCompat(docId)
-
-    companion object {
-        /**
-         * Creates a new instance of the utility class.
-         * @param user The currently logged-in [user][FirebaseUser].
-         * @param fs An instance of [FirebaseFirestore].
-         */
-        @Deprecated(
-            "Use the TodoUtils constructor directly",
-            ReplaceWith(
-                "TodoUtils(user, fs)"
-            )
-        )
-        fun getInstance(user: FirebaseUser, fs: FirebaseFirestore) = TodoUtils(user, fs)
-
-        /**
-         * Creates a new instance of the utility class.
-         * @param auth An instance of [FirebaseAuth].
-         * @param fs An instance of [FirebaseFirestore].
-         */
-        @Deprecated(
-            "Use the TodoUtils constructor directly",
-            ReplaceWith(
-                "TodoUtils(auth.currentUser, fs)"
-            )
-        )
-        fun getInstance(auth: FirebaseAuth, fs: FirebaseFirestore) =
-            TodoUtils(auth, fs)
-    }
 }

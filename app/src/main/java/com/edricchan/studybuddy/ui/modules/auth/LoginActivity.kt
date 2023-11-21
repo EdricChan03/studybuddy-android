@@ -1,9 +1,11 @@
 package com.edricchan.studybuddy.ui.modules.auth
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
@@ -22,7 +24,6 @@ import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.auth.contracts.GoogleAuth
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.material.snackbar.Snackbar
@@ -122,8 +123,9 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun checkNetwork(snackbar: Snackbar?) {
-        Log.d(TAG, "isNetworkAvailable: " + SharedUtils.isNetworkAvailable(this))
-        if (SharedUtils.isNetworkAvailable(this)) {
+        val connectivityManager = getSystemService<ConnectivityManager>()
+        Log.d(TAG, "isNetworkAvailable: " + connectivityManager?.activeNetworkInfo?.isConnected)
+        if (connectivityManager?.activeNetworkInfo?.isConnected == true) {
             setViewsEnabled(true)
             snackbar?.dismiss()
         } else {

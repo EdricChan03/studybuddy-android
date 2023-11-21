@@ -142,7 +142,7 @@ class NewTaskActivity : BaseActivity() {
                         }
                         lifecycleScope.launch {
                             try {
-                                TodoUtils.getInstance(auth, firestore).addTask(taskItem)
+                                TodoUtils(auth, firestore).addTask(taskItem)
                                     .await()
                                 showToast(
                                     "Successfully added task!",

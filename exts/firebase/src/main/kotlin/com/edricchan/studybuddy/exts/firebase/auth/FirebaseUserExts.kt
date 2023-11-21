@@ -71,7 +71,7 @@ suspend inline fun FirebaseUser.reloadAsync() {
  * @see FirebaseUser.updateEmail
  */
 suspend inline fun FirebaseUser.updateEmailAsync(email: String) {
-    updateEmail(email).await()
+    verifyBeforeUpdateEmail(email).await()
 }
 
 /**

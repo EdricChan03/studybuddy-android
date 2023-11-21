@@ -8,7 +8,6 @@ import android.util.Log
 import androidx.annotation.Discouraged
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -26,18 +25,6 @@ import com.github.javiersantos.appupdater.objects.Update
  * Shared utility methods
  */
 object SharedUtils {
-    /**
-     * Checks whether the network is available
-     *
-     * @param context The context
-     * @return A boolean
-     */
-    @Deprecated("Use ConnectivityManager.getActiveNetworkInfo")
-    fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager = context.getSystemService<ConnectivityManager>()
-        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
-    }
 
     /**
      * Checks whether the network is cellular

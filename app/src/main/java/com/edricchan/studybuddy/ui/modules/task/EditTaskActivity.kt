@@ -79,7 +79,7 @@ class EditTaskActivity : BaseActivity() {
             return
         }
 
-        todoUtils = TodoUtils.getInstance(auth, firestore)
+        todoUtils = TodoUtils(auth, firestore)
 
         val taskIdExtra = intent.getStringExtra(EXTRA_TASK_ID)
         if (!intent.hasExtra(EXTRA_TASK_ID) || taskIdExtra.isNullOrBlank()) {

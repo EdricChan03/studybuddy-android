@@ -60,7 +60,7 @@ class ViewTaskActivity : BaseActivity() {
         firestore = Firebase.firestore
         auth = Firebase.auth
         currentUser = auth.currentUser
-        todoUtils = TodoUtils.getInstance(auth, firestore)
+        todoUtils = TodoUtils(auth, firestore)
 
         taskId = intent.getStringExtra(EXTRA_TASK_ID) ?: ""
         if (taskId.isEmpty()) {
