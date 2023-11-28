@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
@@ -13,16 +14,17 @@ import com.edricchan.studybuddy.databinding.ActivityRegisterBinding
 import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
+import com.edricchan.studybuddy.exts.firebase.auth.createUserWithEmailAndPasswordAsync
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 @WebDeepLink(["/register"])
 @AppDeepLink(["/register"])
@@ -49,80 +51,81 @@ class RegisterActivity : BaseActivity() {
                 val email = emailTextInputLayout.editTextStrValue
                 val password = passwordTextInputLayout.editTextStrValue
 
-                if (email.isBlank()) {
-                    if (
-                        emailTextInputLayout.error.isNullOrEmpty() ||
-                        emailTextInputLayout.error == getString(R.string.edittext_errors_invalid_email)
-                    ) {
-                        emailTextInputLayout.error = getString(R.string.edittext_errors_empty_email)
-                    }
-                } else if (email.isInvalidEmail()) {
-                    if (
-                        emailTextInputLayout.error.isNullOrEmpty() ||
-                        emailTextInputLayout.error == getString(R.string.edittext_errors_empty_email)
-                    ) {
-                        emailTextInputLayout.error =
-                            getString(R.string.edittext_errors_invalid_email)
-                    }
-                } else {
-                    if (emailTextInputLayout.error != null) {
-                        if (emailTextInputLayout.error!!.isNotEmpty()) {
-                            emailTextInputLayout.error = null
+                emailTextInputLayout.apply {
+                    if (email.isBlank()) {
+                        if (
+                            error.isNullOrEmpty() ||
+                            error == getString(R.string.edittext_errors_invalid_email)
+                        ) {
+                            error = getString(R.string.edittext_errors_empty_email)
+                        }
+                    } else if (email.isInvalidEmail()) {
+                        if (
+                            error.isNullOrEmpty() ||
+                            error == getString(R.string.edittext_errors_empty_email)
+                        ) {
+                            error =
+                                getString(R.string.edittext_errors_invalid_email)
+                        }
+                    } else {
+                        error?.let {
+                            if (it.isNotEmpty()) error = null
                         }
                     }
                 }
-                if (password.isEmpty()) {
-                    if (
-                        passwordTextInputLayout.error.isNullOrEmpty() ||
-                        passwordTextInputLayout.error == getString(R.string.edittext_errors_invalid_password)
-                    ) {
-                        passwordTextInputLayout.error =
-                            getString(R.string.edittext_errors_empty_password)
-                    }
-                } else if (password.length < 6) {
-                    if (
-                        passwordTextInputLayout.error.isNullOrEmpty() ||
-                        passwordTextInputLayout.error == getString(R.string.edittext_errors_empty_password)
-                    ) {
-                        passwordTextInputLayout.error =
-                            getString(R.string.edittext_errors_invalid_password)
-                    }
-                } else {
-                    if (passwordTextInputLayout.error != null) {
-                        if (passwordTextInputLayout.error!!.isNotEmpty()) {
-                            passwordTextInputLayout.error = null
+                passwordTextInputLayout.apply {
+                    if (password.isEmpty()) {
+                        if (
+                            error.isNullOrEmpty() ||
+                            error == getString(R.string.edittext_errors_invalid_password)
+                        ) {
+                            error =
+                                getString(R.string.edittext_errors_empty_password)
+                        }
+                    } else if (password.length < 6) {
+                        if (
+                            error.isNullOrEmpty() ||
+                            error == getString(R.string.edittext_errors_empty_password)
+                        ) {
+                            error =
+                                getString(R.string.edittext_errors_invalid_password)
+                        }
+                    } else {
+                        error?.let {
+                            if (it.isNotEmpty()) error = null
                         }
                     }
-                }
-                if (
-                    !passwordTextInputLayout.error.isNullOrEmpty() ||
-                    !emailTextInputLayout.error.isNullOrEmpty()
-                ) {
-                    return@setOnClickListener
+                    if (
+                        !passwordTextInputLayout.error.isNullOrEmpty() ||
+                        !emailTextInputLayout.error.isNullOrEmpty()
+                    ) {
+                        return@setOnClickListener
+                    }
                 }
 
                 progressBar.isVisible = true
                 // Assume that email and password are non-null
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this@RegisterActivity) { task ->
-                        progressBar.isVisible = false
-                        if (task.isSuccessful) {
-                            startActivity<MainActivity>()
-                            finish()
-                        } else {
-                            // TODO: i18n message
-                            showSnackbar(
-                                coordinatorLayoutRegister,
-                                "An error occurred while authenticating. Please try again later.",
-                                Snackbar.LENGTH_LONG
-                            )
-                            Log.e(TAG, "An error occurred while authenticating.", task.exception)
-                        }
-                    }
-
+                register(email, password)
             }
         }
         checkNetwork()
+    }
+
+    private fun register(email: String, password: String) = lifecycleScope.launch {
+        try {
+            auth.createUserWithEmailAndPasswordAsync(email, password)
+            binding.progressBar.isVisible = false
+            startActivity<MainActivity>()
+            finish()
+        } catch (e: Exception) {
+            // TODO: i18n message
+            showSnackbar(
+                binding.coordinatorLayoutRegister,
+                "An error occurred while authenticating. Please try again later.",
+                Snackbar.LENGTH_LONG
+            )
+            Log.e(TAG, "An error occurred while authenticating.", e)
+        }
     }
 
     override fun onResume() {
@@ -141,6 +144,7 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
+    // TODO: Use NetworkCallback
     private fun checkNetwork() {
         val connectivityManager = getSystemService<ConnectivityManager>()
         if (connectivityManager?.activeNetworkInfo?.isConnected == true) {

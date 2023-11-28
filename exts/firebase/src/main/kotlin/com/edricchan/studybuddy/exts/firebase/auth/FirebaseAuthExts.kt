@@ -28,9 +28,20 @@ val FirebaseUser?.userDocument: DocumentReference
     get() = this.getUserDocument(Firebase.firestore)
 
 /**
+ * Asynchronously creates a user using the email + password authentication method,
+ * with the given [email] and [password].
+ * @return The result of the user creation request.
+ * @see FirebaseAuth.createUserWithEmailAndPassword
+ */
+suspend fun FirebaseAuth.createUserWithEmailAndPasswordAsync(
+    email: String, password: String
+): AuthResult = createUserWithEmailAndPassword(email, password).await()
+
+/**
  * Asynchronously signs in via the email + password authentication method, using the given
  * [email] and [password].
  * @return The result of the sign in request.
+ * @see FirebaseAuth.signInWithEmailAndPassword
  */
 suspend fun FirebaseAuth.signInWithEmailAndPasswordAsync(
     email: String, password: String
@@ -39,6 +50,8 @@ suspend fun FirebaseAuth.signInWithEmailAndPasswordAsync(
 /**
  * Asynchronously signs in to Google using the given [account].
  * @return The result of the sign in request.
+ * @see FirebaseAuth.signInWithCredential
+ * @see GoogleAuthProvider
  */
 suspend fun FirebaseAuth.signInWithGoogleAsync(account: GoogleSignInAccount): AuthResult {
     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
