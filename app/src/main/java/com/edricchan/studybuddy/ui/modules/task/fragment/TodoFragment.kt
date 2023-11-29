@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.task.fragment
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,7 +29,6 @@ import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.features.help.HelpActivity
-import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
@@ -63,7 +61,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TodoFragment : Fragment() {
     private lateinit var adapter: TodosAdapter
-    private lateinit var taskOptionsPrefs: SharedPreferences
 
     @Inject
     lateinit var auth: FirebaseAuth
@@ -174,11 +171,6 @@ class TodoFragment : Fragment() {
         lifecycleScope.launch {
             TasksMigrator(requireContext()).migrate()
         }
-
-        taskOptionsPrefs = requireContext().getSharedPreferences(
-            TodoOptionsPrefConstants.FILE_TODO_OPTIONS,
-            Context.MODE_PRIVATE
-        )
     }
 
     override fun onCreateView(
