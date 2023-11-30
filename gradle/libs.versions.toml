@@ -1,14 +1,11 @@
 [versions]
 aboutLibraries = "10.9.2"
 accompanist = "0.33.2-alpha"
-# 2.0.3 requires Android U APIs - see
-# https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md#version-203-2023-03-29
-#noinspection GradleDependency
-android-desugar = "2.0.2"
+android-desugar = "2.0.4"
 android-gradle = "8.3.0-alpha15"
 androidx-activity = "1.8.1"
-androidx-compose = "1.6.0-beta01"
-androidx-compose-material3 = "1.2.0-alpha11"
+androidx-compose = "1.6.0-beta02"
+androidx-compose-material3 = "1.2.0-alpha12"
 androidx-lifecycle = "2.7.0-rc01"
 dagger = "2.48.1"
 deep-link-dispatch = "6.2.2"
@@ -27,7 +24,7 @@ mockk = "1.13.8"
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-annotation = "androidx.annotation:annotation:1.7.0"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha03"
-androidx-browser = "androidx.browser:browser:1.6.0"
+androidx-browser = "androidx.browser:browser:1.7.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha13"
 androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.2"
@@ -36,7 +33,7 @@ androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.3.2"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.9.0-rc01"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.9.0"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
