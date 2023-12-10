@@ -38,11 +38,15 @@ import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup.Che
 
 /**
  * List content for an [OptionsModalBottomSheet].
+ * @param onDismissBottomSheetRequest Lambda that is invoked to indicate a request to dismiss
+ * the parent [OptionsModalBottomSheet]. The [BottomSheetOption] that was clicked on is passed
+ * as the `item` parameter.
  * @param group The option group to display.
  */
 @Composable
 fun OptionsBottomSheetList(
     modifier: Modifier = Modifier,
+    onDismissBottomSheetRequest: (item: BottomSheetOption) -> Unit,
     group: BottomSheetOptionGroup
 ) {
     LazyColumn(modifier = modifier.selectableGroup()) {
@@ -51,7 +55,12 @@ fun OptionsBottomSheetList(
             contentType = { group.checkableBehavior }
         ) { (item, checked) ->
             when (group.checkableBehavior) {
-                CheckableBehavior.None -> OptionsBottomSheetItem(item = item)
+                CheckableBehavior.None -> OptionsBottomSheetItem(
+                    item = item,
+                    onDismissBottomSheetRequest = {
+                        onDismissBottomSheetRequest(item)
+                    }
+                )
 
                 CheckableBehavior.All -> OptionsBottomSheetCheckableItem(
                     item = item,
@@ -153,6 +162,31 @@ fun OptionsBottomSheetItem(
 ) = BaseOptionBottomSheetItem(
     modifier = modifier.clickable(enabled = item.enabled, onClick = item.onClick),
     item = item
+)
+
+/**
+ * Displays an item to be rendered in a [OptionsModalBottomSheet].
+ *
+ * This variant specifies a lambda, [onDismissBottomSheetRequest], which when invoked
+ * should dismiss the [OptionsModalBottomSheet].
+ *
+ * * To display a selectable item, use [OptionsBottomSheetSelectableItem].
+ * * To display a checkable item, use [OptionsBottomSheetCheckableItem].
+ * @param item The [BottomSheetOption] to render.
+ * @param onDismissBottomSheetRequest Lambda which when invoked should dismiss the
+ * [OptionsModalBottomSheet]. This lambda is invoked **after** [BottomSheetOption.onClick]
+ * is invoked.
+ */
+@Composable
+fun OptionsBottomSheetItem(
+    modifier: Modifier = Modifier,
+    onDismissBottomSheetRequest: () -> Unit,
+    item: BottomSheetOption
+) = OptionsBottomSheetItem(
+    modifier = modifier,
+    item = item.copy(onClick = {
+        item.onClick(); onDismissBottomSheetRequest()
+    })
 )
 
 private class BooleanPreviewParameterProvider : PreviewParameterProvider<Boolean> {

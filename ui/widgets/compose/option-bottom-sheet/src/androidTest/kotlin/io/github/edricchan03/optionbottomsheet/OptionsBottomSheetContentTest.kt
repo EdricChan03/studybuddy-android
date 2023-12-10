@@ -12,12 +12,15 @@ import androidx.compose.ui.test.assertIsSelectable
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOption
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup
 import org.junit.Ignore
 import org.junit.Rule
 import kotlin.test.Test
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class OptionsBottomSheetContentTest {
     @get:Rule
@@ -33,14 +36,16 @@ class OptionsBottomSheetContentTest {
     private val headerTag = "HeaderTitle"
     private val contentTag = "Content"
 
-
     @Test
     fun content() {
         val headerTitle = "Header title"
+        var called = false
+
         composeTestRule.apply {
             setContent {
                 StudyBuddyTheme {
                     OptionsBottomSheetContent(
+                        onDismissBottomSheetRequest = { called = true }, // No-op
                         group = BottomSheetOptionGroup(
                             title = headerTitle,
                             items = Item.entries.map {
@@ -65,6 +70,12 @@ class OptionsBottomSheetContentTest {
                     assertIsDisplayed()
                     assertHasClickAction()
                     assertIsEnabled()
+
+                    assertFalse(called)
+                    performClick()
+                    assertTrue(called)
+                    // Reset the state
+                    called = false
                 }
             }
         }
@@ -77,6 +88,7 @@ class OptionsBottomSheetContentTest {
                 StudyBuddyTheme {
                     OptionsBottomSheetContent(
                         headerModifier = Modifier.testTag(headerTag),
+                        onDismissBottomSheetRequest = {}, // No-op
                         group = BottomSheetOptionGroup(
                             title = null,
                             items = listOf()
@@ -100,6 +112,7 @@ class OptionsBottomSheetContentTest {
                 StudyBuddyTheme {
                     OptionsBottomSheetContent(
                         modifier = Modifier.testTag(contentTag),
+                        onDismissBottomSheetRequest = {}, // No-op
                         group = BottomSheetOptionGroup(
                             title = "Header title",
                             items = items,

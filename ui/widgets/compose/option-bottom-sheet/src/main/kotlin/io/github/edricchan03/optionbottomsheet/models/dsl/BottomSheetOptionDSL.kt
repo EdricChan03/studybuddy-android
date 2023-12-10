@@ -31,6 +31,13 @@ class BottomSheetOptionGroupItemBuilder(val id: Int) {
     /** @see BottomSheetOption.enabled */
     var enabled = true
 
+    /**
+     * Whether this option should send a request to dismiss the containing
+     * modal bottom sheet when clicked on.
+     * @see BottomSheetOption.requestDismissOnClick
+     */
+    var requestDismissOnClick = true
+
     /** Whether this option should be selected within the group. */
     var selected = false
 
@@ -41,7 +48,8 @@ class BottomSheetOptionGroupItemBuilder(val id: Int) {
         icon = icon,
         onClick = onClick,
         visible = visible,
-        enabled = enabled
+        enabled = enabled,
+        requestDismissOnClick = requestDismissOnClick
     )
 }
 

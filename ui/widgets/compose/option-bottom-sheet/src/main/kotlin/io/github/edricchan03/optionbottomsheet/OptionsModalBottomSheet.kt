@@ -18,6 +18,7 @@ fun OptionsModalBottomSheet(
     sheetModifier: Modifier = Modifier,
     group: BottomSheetOptionGroup,
     onDismissRequest: () -> Unit = {},
+    onOptionDismissRequest: (BottomSheetOption) -> Unit = { onDismissRequest() },
     state: SheetState = rememberModalBottomSheetState()
 ) = ModalBottomSheet(
     modifier = sheetModifier,
@@ -26,6 +27,7 @@ fun OptionsModalBottomSheet(
 ) {
     OptionsBottomSheetContent(
         modifier = modifier,
+        onDismissBottomSheetRequest = onOptionDismissRequest,
         group = group
     )
 }
@@ -38,6 +40,7 @@ fun OptionsModalBottomSheet(
     title: String? = null,
     items: List<BottomSheetOption>,
     onDismissRequest: () -> Unit = {},
+    onOptionDismissRequest: (BottomSheetOption) -> Unit = { onDismissRequest() },
     state: SheetState = rememberModalBottomSheetState()
 ) = ModalBottomSheet(
     modifier = sheetModifier,
@@ -46,6 +49,7 @@ fun OptionsModalBottomSheet(
 ) {
     OptionsBottomSheetContent(
         modifier = modifier,
+        onDismissBottomSheetRequest = onOptionDismissRequest,
         title = title,
         items = items
     )
@@ -57,6 +61,7 @@ fun OptionsModalBottomSheet(
     modifier: Modifier = Modifier,
     sheetModifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
+    onOptionDismissRequest: (BottomSheetOption) -> Unit = { onDismissRequest() },
     state: SheetState = rememberModalBottomSheetState(),
     group: @Composable BottomSheetOptionGroupBuilder.() -> Unit
 ) = OptionsModalBottomSheet(
@@ -64,5 +69,6 @@ fun OptionsModalBottomSheet(
     sheetModifier = sheetModifier,
     group = optionGroup(group),
     onDismissRequest = onDismissRequest,
+    onOptionDismissRequest = onOptionDismissRequest,
     state = state
 )
