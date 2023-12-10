@@ -96,7 +96,7 @@ private fun ListItemColors.withDisabledColors(enabled: Boolean) = ListItemColors
 private fun BaseOptionBottomSheetItem(
     modifier: Modifier,
     title: @Composable () -> Unit,
-    icon: @Composable (() -> Unit)? = null,
+    icon: @Composable (() -> Unit)?,
     trailingContent: @Composable (() -> Unit)? = null,
     visible: Boolean = true,
     enabled: Boolean = true
@@ -120,6 +120,7 @@ private fun BaseOptionBottomSheetItem(
 ) = BaseOptionBottomSheetItem(
     modifier = modifier,
     title = { Text(text = item.title) },
+    icon = item.icon,
     trailingContent = trailingContent,
     visible = item.visible,
     enabled = item.enabled
