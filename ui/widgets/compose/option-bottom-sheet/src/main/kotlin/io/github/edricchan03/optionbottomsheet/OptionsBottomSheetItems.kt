@@ -84,36 +84,76 @@ private fun ListItemColors.withDisabledColors(enabled: Boolean) = ListItemColors
 )
 
 @Composable
+private fun BaseOptionBottomSheetItem(
+    modifier: Modifier,
+    title: @Composable () -> Unit,
+    icon: @Composable (() -> Unit)? = null,
+    trailingContent: @Composable (() -> Unit)? = null,
+    visible: Boolean = true,
+    enabled: Boolean = true
+) {
+    if (visible) {
+        ListItem(
+            modifier = modifier,
+            headlineContent = title,
+            leadingContent = icon,
+            trailingContent = trailingContent,
+            colors = ListItemDefaults.colors().withDisabledColors(enabled)
+        )
+    }
+}
+
+@Composable
+private fun BaseOptionBottomSheetItem(
+    modifier: Modifier,
+    item: BottomSheetOption,
+    trailingContent: @Composable (() -> Unit)? = null,
+) = BaseOptionBottomSheetItem(
+    modifier = modifier,
+    title = { Text(text = item.title) },
+    trailingContent = trailingContent,
+    visible = item.visible,
+    enabled = item.enabled
+)
+
+/**
+ * Displays a clickable item to be rendered in a [OptionsModalBottomSheet].
+ *
+ * * To display a selectable item, use [OptionsBottomSheetSelectableItem].
+ * * To display a checkable item, use [OptionsBottomSheetCheckableItem].
+ * @param title The item's title.
+ * @param icon The item's icon.
+ * @param enabled Whether the item is clickable.
+ * @param onClick Lambda that is invoked when the item is clicked.
+ */
+@Composable
 fun OptionsBottomSheetItem(
     modifier: Modifier = Modifier,
     title: String,
     icon: (@Composable () -> Unit)? = null,
     enabled: Boolean = true,
     onClick: () -> Unit = {}
-) {
-    ListItem(
-        modifier = modifier.clickable(enabled = enabled, onClick = onClick),
-        headlineContent = { Text(text = title) },
-        leadingContent = icon,
-        colors = ListItemDefaults.colors().withDisabledColors(enabled)
-    )
-}
+) = BaseOptionBottomSheetItem(
+    modifier = modifier.clickable(enabled = enabled, onClick = onClick),
+    title = { Text(text = title) },
+    icon = icon
+)
 
+/**
+ * Displays an item to be rendered in a [OptionsModalBottomSheet].
+ *
+ * * To display a selectable item, use [OptionsBottomSheetSelectableItem].
+ * * To display a checkable item, use [OptionsBottomSheetCheckableItem].
+ * @param item The [BottomSheetOption] to render.
+ */
 @Composable
 fun OptionsBottomSheetItem(
     modifier: Modifier = Modifier,
     item: BottomSheetOption
-) {
-    if (item.visible) {
-        OptionsBottomSheetItem(
-            modifier = modifier,
-            title = item.title,
-            icon = item.icon,
-            enabled = item.enabled,
-            onClick = item.onClick
-        )
-    }
-}
+) = BaseOptionBottomSheetItem(
+    modifier = modifier.clickable(enabled = item.enabled, onClick = item.onClick),
+    item = item
+)
 
 private class BooleanPreviewParameterProvider : PreviewParameterProvider<Boolean> {
     override val values = sequenceOf(false, true)
@@ -133,6 +173,18 @@ private fun OptionsBottomSheetItemPreview(
     }
 }
 
+/**
+ * Displays a _checkable_ item to be rendered in a [OptionsModalBottomSheet].
+ *
+ * * To display a clickable item, use [OptionsBottomSheetItem].
+ * * To display a selectable item, use [OptionsBottomSheetSelectableItem].
+ * @param title The item's title.
+ * @param icon The item's icon.
+ * @param enabled Whether the item is checkable.
+ * @param checked Whether the item is checked.
+ * @param onCheckedChange Lambda that is invoked when the item's checked status has
+ * changed, with the new value passed as the argument.
+ */
 @Composable
 fun OptionsBottomSheetCheckableItem(
     modifier: Modifier = Modifier,
@@ -141,39 +193,44 @@ fun OptionsBottomSheetCheckableItem(
     enabled: Boolean = true,
     checked: Boolean = false,
     onCheckedChange: (Boolean) -> Unit = {}
-) {
-    ListItem(
-        modifier = modifier.toggleable(
-            enabled = enabled,
-            role = Role.Checkbox,
-            value = checked,
-            onValueChange = onCheckedChange
-        ),
-        headlineContent = { Text(text = title) },
-        leadingContent = icon,
-        trailingContent = {
-            Checkbox(enabled = enabled, checked = checked, onCheckedChange = null)
-        },
-        colors = ListItemDefaults.colors().withDisabledColors(enabled)
-    )
-}
+) = BaseOptionBottomSheetItem(
+    modifier = modifier.toggleable(
+        enabled = enabled,
+        role = Role.Checkbox,
+        value = checked,
+        onValueChange = onCheckedChange
+    ),
+    title = { Text(text = title) },
+    icon = icon,
+    trailingContent = {
+        Checkbox(enabled = enabled, checked = checked, onCheckedChange = null)
+    }
+)
 
+/**
+ * Displays a _checkable_ item to be rendered in a [OptionsModalBottomSheet].
+ *
+ * * To display a clickable item, use [OptionsBottomSheetItem].
+ * * To display a selectable item, use [OptionsBottomSheetSelectableItem].
+ * @param item The [BottomSheetOption] to render.
+ * @param checked Whether the item is checked.
+ * @param onCheckedChange Lambda that is invoked when the item's checked status has
+ * changed, with the new value passed as the argument.
+ */
 @Composable
 fun OptionsBottomSheetCheckableItem(
     modifier: Modifier = Modifier,
     item: BottomSheetOption,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit
-) {
-    OptionsBottomSheetCheckableItem(
-        modifier = modifier,
-        title = item.title,
-        icon = item.icon,
-        enabled = item.enabled,
-        checked = checked,
-        onCheckedChange = onCheckedChange
-    )
-}
+) = OptionsBottomSheetCheckableItem(
+    modifier = modifier,
+    title = item.title,
+    icon = item.icon,
+    enabled = item.enabled,
+    checked = checked,
+    onCheckedChange = onCheckedChange
+)
 
 @Preview
 @Composable
@@ -221,6 +278,17 @@ private fun OptionsBottomSheetCheckableItemGroupPreview(
     }
 }
 
+/**
+ * Displays a _selectable_ item to be rendered in a [OptionsModalBottomSheet].
+ *
+ * * To display a clickable item, use [OptionsBottomSheetItem].
+ * * To display a checkable item, use [OptionsBottomSheetCheckableItem].
+ * @param title The item's title.
+ * @param icon The item's icon.
+ * @param enabled Whether the item is checkable.
+ * @param selected Whether the item is selected.
+ * @param onClick Lambda that is invoked to select the item.
+ */
 @Composable
 fun OptionsBottomSheetSelectableItem(
     modifier: Modifier = Modifier,
@@ -229,41 +297,46 @@ fun OptionsBottomSheetSelectableItem(
     enabled: Boolean = true,
     selected: Boolean = false,
     onClick: () -> Unit
-) {
-    ListItem(
-        modifier = modifier.selectable(
-            enabled = enabled,
-            selected = selected,
-            role = Role.RadioButton,
-            onClick = onClick
-        ),
-        headlineContent = { Text(text = title) },
-        leadingContent = icon,
-        trailingContent = {
-            RadioButton(
-                enabled = enabled, selected = selected, onClick = null
-            )
-        },
-        colors = ListItemDefaults.colors().withDisabledColors(enabled)
-    )
-}
+) = BaseOptionBottomSheetItem(
+    modifier = modifier.selectable(
+        enabled = enabled,
+        selected = selected,
+        role = Role.RadioButton,
+        onClick = onClick
+    ),
+    title = { Text(text = title) },
+    icon = icon,
+    trailingContent = {
+        RadioButton(
+            enabled = enabled, selected = selected, onClick = null
+        )
+    }
+)
 
+/**
+ * Displays a _selectable_ item to be rendered in a [OptionsModalBottomSheet].
+ *
+ * * To display a clickable item, use [OptionsBottomSheetItem].
+ * * To display a checkable item, use [OptionsBottomSheetCheckableItem].
+ * @param item The item to render.
+ * @param selected Whether the item is selected.
+ * @param onSelectClick Lambda that is invoked to select the item. This lambda is
+ * invoked **after** [BottomSheetOption.onClick] is invoked.
+ */
 @Composable
 fun OptionsBottomSheetSelectableItem(
     modifier: Modifier = Modifier,
     item: BottomSheetOption,
     selected: Boolean = false,
     onSelectClick: () -> Unit
-) {
-    OptionsBottomSheetSelectableItem(
-        modifier = modifier,
-        title = item.title,
-        icon = item.icon,
-        enabled = item.enabled,
-        selected = selected,
-        onClick = { item.onClick(); onSelectClick() }
-    )
-}
+) = OptionsBottomSheetSelectableItem(
+    modifier = modifier,
+    title = item.title,
+    icon = item.icon,
+    enabled = item.enabled,
+    selected = selected,
+    onClick = { item.onClick(); onSelectClick() }
+)
 
 @Preview
 @Composable
