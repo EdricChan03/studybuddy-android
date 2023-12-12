@@ -186,7 +186,7 @@ fun OptionsBottomSheetItem(
 ) = OptionsBottomSheetItem(
     modifier = modifier,
     item = item.copy(onClick = {
-        item.onClick(); onDismissBottomSheetRequest()
+        item.onClick(); if (item.requestDismissOnClick) onDismissBottomSheetRequest()
     })
 )
 
