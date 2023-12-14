@@ -3,11 +3,11 @@ aboutLibraries = "10.9.2"
 accompanist = "0.33.2-alpha"
 android-desugar = "2.0.4"
 android-gradle = "8.3.0-alpha18"
-androidx-activity = "1.8.1"
-androidx-compose = "1.6.0-beta02"
+androidx-activity = "1.8.2"
+androidx-compose = "1.6.0-beta03"
 androidx-compose-compiler = "1.5.6"
-androidx-compose-material3 = "1.2.0-alpha12"
-androidx-lifecycle = "2.7.0-rc01"
+androidx-compose-material3 = "1.2.0-beta01"
+androidx-lifecycle = "2.7.0-rc02"
 dagger = "2.49"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "32.7.0"
@@ -23,7 +23,7 @@ mockk = "1.13.8"
 [libraries]
 # AndroidX dependencies
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
-androidx-annotation = "androidx.annotation:annotation:1.7.0"
+androidx-annotation = "androidx.annotation:annotation:1.7.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha03"
 androidx-browser = "androidx.browser:browser:1.7.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha13"
@@ -56,7 +56,7 @@ accompanist-drawablePainter = { module = "com.google.accompanist:accompanist-dra
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.10.0"
+materialComponents = "com.google.android.material:material:1.11.0"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -202,6 +202,6 @@ gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-v
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.27.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:1.28.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.2.0"
