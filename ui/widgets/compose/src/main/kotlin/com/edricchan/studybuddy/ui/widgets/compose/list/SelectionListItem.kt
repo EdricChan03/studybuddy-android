@@ -106,7 +106,8 @@ fun CheckboxListItem(
     modifier = modifier.toggleable(
         value = checked,
         onValueChange = { onCheckedChange(!checked) },
-        role = Role.Checkbox
+        role = Role.Checkbox,
+        enabled = enabled
     ),
     colors = colors,
     headlineContent = text,
