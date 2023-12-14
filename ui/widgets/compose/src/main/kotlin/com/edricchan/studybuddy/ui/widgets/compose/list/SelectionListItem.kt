@@ -15,19 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
-// TODO: Remove workaround for https://issuetracker.google.com/issues/280480132
-private fun ListItemColors.withDisabledColors(enabled: Boolean) = ListItemColors(
-    containerColor = containerColor,
-    headlineColor = if (enabled) headlineColor else disabledHeadlineColor,
-    leadingIconColor = if (enabled) leadingIconColor else disabledLeadingIconColor,
-    overlineColor = overlineColor,
-    supportingTextColor = supportingTextColor,
-    trailingIconColor = if (enabled) trailingIconColor else disabledTrailingIconColor,
-    disabledHeadlineColor = disabledHeadlineColor,
-    disabledLeadingIconColor = disabledLeadingIconColor,
-    disabledTrailingIconColor = disabledTrailingIconColor
-)
-
 @Composable
 fun RadioButtonRow(
     modifier: Modifier = Modifier,
