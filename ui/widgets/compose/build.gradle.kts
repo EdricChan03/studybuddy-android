@@ -1,5 +1,5 @@
 plugins {
-    id("com.edricchan.studybuddy.library.android-compose")
+    com.edricchan.studybuddy.library.`android-compose`
 }
 
 android {
@@ -18,6 +18,12 @@ android {
             )
         }
     }
+
+    @Suppress("UnstableApiUsage")
+    testOptions {
+        // Use JUnit 5 for unit tests
+        unitTests.all { it.useJUnitPlatform() }
+    }
 }
 
 dependencies {
@@ -30,8 +36,10 @@ dependencies {
 
     implementation(libs.accompanist.drawablePainter)
 
-    testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotest.runner.junit5)
+    testImplementation(libs.kotest.assertion.core)
+    testImplementation(libs.kotest.property)
 
     androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext)
