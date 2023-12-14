@@ -32,7 +32,7 @@ apply<com.edricchan.studybuddy.gradle.versions.DependencyUpdatesPlugin>()
 dependencyAnalysis {
     // See https://github.com/autonomousapps/dependency-analysis-android-gradle-plugin/wiki/Customizing-plugin-behavior#ktx-dependencies
     issues {
-        all {
+        structure {
             ignoreKtx(true)
         }
     }
