@@ -59,7 +59,9 @@ fun RadioButtonListItem(
     leadingContent = {
         RadioButton(
             modifier = radioButtonModifier,
-            selected = selected, onClick = null
+            selected = selected,
+            enabled = enabled,
+            onClick = null
         )
     },
     trailingContent = trailingContent
