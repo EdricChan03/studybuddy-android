@@ -4,7 +4,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.FirebaseUserMetadata
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.auth.userProfileChangeRequest
 import kotlinx.coroutines.tasks.await
 import java.time.Instant
 
@@ -12,10 +12,12 @@ import java.time.Instant
  * Returns the timestamp at which this account was created as dictated by the server clock
  * as an [Instant].
  */
-inline val FirebaseUserMetadata.creationInstant get() = Instant.ofEpochMilli(creationTimestamp)
+inline val FirebaseUserMetadata.creationInstant: Instant
+    get() = Instant.ofEpochMilli(creationTimestamp)
 
 /** Returns the last signin timestamp as dictated by the server clock as an [Instant]. */
-inline val FirebaseUserMetadata.lastSignInInstant get() = Instant.ofEpochMilli(lastSignInTimestamp)
+inline val FirebaseUserMetadata.lastSignInInstant: Instant
+    get() = Instant.ofEpochMilli(lastSignInTimestamp)
 
 /**
  * Deletes the user record from your Firebase project's database. If the operation is
