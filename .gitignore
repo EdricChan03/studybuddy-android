@@ -36,3 +36,7 @@ node_modules
 
 # Secret keys
 secret_keys.properties
+
+# Exclude outputted gradle-profiler contents
+gradle-user-home
+profile-out*
