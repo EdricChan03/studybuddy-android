@@ -1,5 +1,7 @@
 import com.android.build.api.dsl.SettingsExtension
 
+rootProject.name = "studybuddy-android"
+
 // Repository settings
 // (See https://developer.android.com/studio/releases/gradle-plugin#settings-gradle)
 pluginManagement {
