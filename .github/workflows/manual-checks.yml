@@ -71,7 +71,7 @@ jobs:
           script: ./gradlew connectedCheck
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Instrumentation test results
           path: ./**/build/reports/androidTests/connected/
