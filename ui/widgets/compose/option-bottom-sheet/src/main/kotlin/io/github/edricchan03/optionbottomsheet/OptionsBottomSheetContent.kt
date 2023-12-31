@@ -118,20 +118,3 @@ fun OptionsBottomSheetContent(
     header = header,
     onDismissBottomSheetRequest = onDismissBottomSheetRequest
 )
-
-@Deprecated(
-    "Replaced with OptionsBottomSheetDefaults.Header",
-    ReplaceWith(
-        "title?.let { OptionsBottomSheetDefaults.Header(modifier = modifier, title = it) }",
-        "io.github.edricchan03.optionbottomsheet.OptionsBottomSheetDefaults"
-    )
-)
-@Composable
-internal fun OptionsBottomSheetHeader(
-    modifier: Modifier = Modifier,
-    title: String?
-) {
-    if (title == null) return
-
-    OptionsBottomSheetDefaults.Header(modifier = modifier, title = title)
-}
