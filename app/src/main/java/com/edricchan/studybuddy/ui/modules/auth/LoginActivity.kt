@@ -53,7 +53,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater).apply {
             setSupportActionBar(toolbar)
-        }.also { setContentView(binding.root) }
+        }.also { setContentView(it.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
