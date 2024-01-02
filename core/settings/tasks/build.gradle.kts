@@ -21,6 +21,8 @@ android {
 }
 
 dependencies {
+    api(libs.androidx.annotation)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
