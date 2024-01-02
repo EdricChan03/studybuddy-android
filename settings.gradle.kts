@@ -110,6 +110,7 @@ include(
     ":core:deeplink",
     ":core:di",
     ":core:resources",
+    ":core:settings:tasks",
     ":data:common",
     ":data:serialization:android",
     ":utils:dev-mode",

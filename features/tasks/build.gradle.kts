@@ -24,8 +24,8 @@ android {
     compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
-
 dependencies {
+    implementation(projects.core.settings.tasks)
     implementation(projects.data.common)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)
