@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.ui.theming"
+    namespace = "com.edricchan.studybuddy.core.settings.appearance"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -21,15 +21,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.settings.appearance)
-    implementation(projects.exts.androidx.preference)
-
-    implementation(libs.androidx.preference.ktx)
-    implementation(libs.materialComponents)
-
     testImplementation(libs.junit)
-    testImplementation(libs.kotlin.test)
-    testImplementation(libs.mockk.core)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }
