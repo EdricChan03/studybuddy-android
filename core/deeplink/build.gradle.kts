@@ -21,6 +21,18 @@ android {
     }
 }
 
+dependencies {
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.dynamicLinks.ktx)
+
+    api(libs.deepLinkDispatch.core)
+    ksp(libs.deepLinkDispatch.processor)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+}
+
 ksp {
     arg("deepLink.incremental", "true")
     arg(
@@ -30,16 +42,4 @@ ksp {
             "com.edricchan.studybuddy.core.deeplink.WebDeepLink"
         ).joinToString("|")
     )
-}
-
-dependencies {
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.dynamicLinks.ktx)
-
-    implementation(libs.deepLinkDispatch.core)
-    ksp(libs.deepLinkDispatch.processor)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext)
-    androidTestImplementation(libs.androidx.test.espresso.core)
 }
