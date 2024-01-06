@@ -14,7 +14,7 @@ import java.io.PrintStream
 class DependencyUpdatesPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         // Add the Markdown reporter
-        target.tasks.withType<DependencyUpdatesTask> {
+        target.tasks.withType<DependencyUpdatesTask>().configureEach {
             outputFormatter {
                 // (Logic from https://github.com/ben-manes/gradle-versions-plugin/blob/fba92314f34b24bf93fc3fb4f2243e2e887ed12f/src/main/groovy/com/github/benmanes/gradle/versions/updates/DependencyUpdatesReporter.groovy#L114-L124)
 
