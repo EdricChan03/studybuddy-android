@@ -16,7 +16,8 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.dependencyAnalysis)
-    id(libs.plugins.gradleVersions.get().pluginId)
+    com.github.`ben-manes`.versions
+    com.edricchan.studybuddy.`dependency-updates`
     alias(libs.plugins.testAggregation.results)
     alias(libs.plugins.aboutLibraries) apply false
 }
@@ -26,8 +27,6 @@ tasks {
         delete(rootProject.layout.buildDirectory)
     }
 }
-
-apply<com.edricchan.studybuddy.gradle.versions.DependencyUpdatesPlugin>()
 
 dependencyAnalysis {
     // See https://github.com/autonomousapps/dependency-analysis-android-gradle-plugin/wiki/Customizing-plugin-behavior#ktx-dependencies

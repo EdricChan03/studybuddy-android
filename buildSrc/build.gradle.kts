@@ -1,5 +1,6 @@
 plugins {
     `kotlin-dsl`
+    `java-gradle-plugin`
 }
 
 
@@ -12,4 +13,16 @@ dependencies {
         because("AGP DataBinding uses an older version of Javapoet which breaks Hilt")
     }
     implementation(libs.kotlin.gradle)
+}
+
+gradlePlugin {
+    plugins {
+        val dependencyUpdatePlugin by creating {
+            id = "com.edricchan.studybuddy.dependency-updates"
+            implementationClass = "com.edricchan.studybuddy.gradle.versions.DependencyUpdatesPlugin"
+            displayName = "Dependency Updates plugin"
+            description =
+                "Adds additional support for reporting updated dependencies as a Markdown file"
+        }
+    }
 }
