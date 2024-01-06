@@ -2,11 +2,6 @@ plugins {
     `kotlin-dsl`
 }
 
-repositories {
-    google()
-    gradlePluginPortal()
-    mavenCentral()
-}
 
 dependencies {
     // Used for the custom reporter
