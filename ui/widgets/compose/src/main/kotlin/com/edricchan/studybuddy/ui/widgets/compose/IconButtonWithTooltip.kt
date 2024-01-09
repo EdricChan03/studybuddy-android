@@ -31,20 +31,18 @@ fun IconButtonWithTooltip(
     tooltip: @Composable () -> Unit,
     icon: @Composable () -> Unit,
     enabled: Boolean = true,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
+) = TooltipBox(
+    modifier = tooltipModifier,
+    tooltip = tooltip,
+    state = state,
+    positionProvider = positionProvider
 ) {
-    TooltipBox(
-        modifier = tooltipModifier,
-        tooltip = tooltip,
-        state = state,
-        positionProvider = positionProvider
+    IconButton(
+        modifier = modifier,
+        onClick = onClick,
+        enabled = enabled
     ) {
-        IconButton(
-            modifier = modifier,
-            onClick = onClick,
-            enabled = enabled
-        ) {
-            icon()
-        }
+        icon()
     }
 }
