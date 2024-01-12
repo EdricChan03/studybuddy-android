@@ -5,8 +5,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -19,8 +23,10 @@ import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.android.startChooser
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
+import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
@@ -36,6 +42,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @WebDeepLink(["/"])
@@ -45,6 +52,8 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
+
+    private val viewModel by viewModels<MainViewModel>()
 
     override val isEdgeToEdgeEnabled = true
 
@@ -69,6 +78,25 @@ class MainActivity : BaseActivity() {
         // Note: As there isn't any fragment before this, we don't want this fragment
         // to be added to the back stack.
         setCurrentFragment(TodoFragment(), /* addToBackStack = */ false)
+
+        // Subscribe to snack-bar data
+        lifecycleScope.launch {
+            viewModel.snackBarData
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    showSnackbar(
+                        binding.coordinatorLayoutMain,
+                        it.message,
+                        it.duration.value
+                    ) {
+                        setAnchorView(binding.fab)
+                    }
+                }
+        }
+        viewModel.init(
+            fab = binding.fab,
+            bottomAppBar = binding.bottomAppBar
+        )
     }
 
     override fun onStart() {

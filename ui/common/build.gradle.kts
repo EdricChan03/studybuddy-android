@@ -1,5 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.`android-compose`
+    com.edricchan.studybuddy.library.`android-hilt`
 }
 
 android {

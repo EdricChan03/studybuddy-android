@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.task.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,13 +8,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -27,12 +24,13 @@ import com.edricchan.studybuddy.databinding.FragTodoBinding
 import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
-import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
+import com.edricchan.studybuddy.ui.common.MainViewModel
+import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
@@ -44,12 +42,9 @@ import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
-import com.edricchan.studybuddy.utils.UiUtils
 import com.edricchan.studybuddy.utils.dev.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,14 +62,12 @@ class TodoFragment : Fragment() {
 
     @Inject
     lateinit var firestore: FirebaseFirestore
-    private lateinit var parentActivity: AppCompatActivity
-
-    private lateinit var uiUtils: UiUtils
 
     private var _binding: FragTodoBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TasksListViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     private val itemListener = itemListener(
         onItemClick = { item, _ ->
@@ -183,9 +176,7 @@ class TodoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(menuProvider, viewLifecycleOwner)
 
-        uiUtils = UiUtils.getInstance(parentActivity)
-
-        uiUtils.bottomAppBarFab?.setOnClickListener { newTaskActivity() }
+        mainViewModel.fab.setOnClickListener { newTaskActivity() }
 
         adapter = TodosAdapter(context = requireContext(), itemListener = itemListener)
 
@@ -239,7 +230,7 @@ class TodoFragment : Fragment() {
 
         _binding = null
 
-        uiUtils.bottomAppBarFab?.setOnClickListener(null)
+        mainViewModel.fab.setOnClickListener(null)
     }
 
     override fun onStart() {
@@ -248,11 +239,6 @@ class TodoFragment : Fragment() {
             Log.d(TAG, "Not logged in")
             requireContext().showAuthRequiredDialog()
         }
-    }
-
-    override fun onAttach(context: Context) {
-        parentActivity = context as AppCompatActivity
-        super.onAttach(context as Context)
     }
 
     private fun onRemoveTask(
@@ -291,7 +277,7 @@ class TodoFragment : Fragment() {
             } catch (e: Exception) {
                 showSnackbar(
                     if (updatedDone) R.string.task_done_fail_msg else R.string.task_undone_fail_msg,
-                    Snackbar.LENGTH_LONG
+                    SnackBarData.Duration.Long
                 )
                 Log.e(
                     TAG,
@@ -372,18 +358,15 @@ class TodoFragment : Fragment() {
         startActivity<NewTaskActivity>()
     }
 
-    private fun <T : View> findParentActivityViewById(@IdRes idRes: Int): T? {
-        return parentActivity.findViewById(idRes)
-    }
-
     private fun showSnackbar(
         @StringRes textRes: Int,
-        @BaseTransientBottomBar.Duration duration: Int = Snackbar.LENGTH_SHORT
+        duration: SnackBarData.Duration = SnackBarData.Duration.Short
     ) {
-        findParentActivityViewById<CoordinatorLayout>(R.id.coordinatorLayoutMain)?.let {
-            showSnackbar(it, textRes, duration) {
-                anchorView = findParentActivityViewById(R.id.bottomAppBar)
-            }
+        lifecycleScope.launch {
+            mainViewModel.showSnackBar(
+                messageRes = textRes,
+                duration = duration
+            )
         }
     }
 }
