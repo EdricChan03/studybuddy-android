@@ -1,8 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
-
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    com.edricchan.studybuddy.library.`android-hilt`
 
     kotlin("plugin.serialization")
 }
@@ -55,8 +53,6 @@ dependencies {
     implementation(libs.bundles.ktor)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.dagger.hilt.android)
-    ksp(libs.dagger.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)

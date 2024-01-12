@@ -1,7 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    com.edricchan.studybuddy.library.`android-hilt`
 }
 
 android {
@@ -43,8 +42,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     // Dagger
-    implementation(libs.dagger.hilt.android)
-    ksp(libs.dagger.hilt.compiler)
 
     // Migration
     implementation(libs.migration)

@@ -3,6 +3,8 @@ plugins {
     `java-gradle-plugin`
 }
 
+private fun Provider<PluginDependency>.text() =
+    map { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" }
 
 dependencies {
     // Used for the custom reporter
@@ -13,6 +15,8 @@ dependencies {
         because("AGP DataBinding uses an older version of Javapoet which breaks Hilt")
     }
     implementation(libs.kotlin.gradle)
+    implementation(libs.plugins.ksp.text())
+    implementation(libs.plugins.dagger.hilt.text())
 }
 
 gradlePlugin {
