@@ -39,8 +39,7 @@ import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
 import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -51,6 +50,10 @@ import javax.inject.Inject
 class MainActivity : BaseActivity() {
     @Inject
     lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var messaging: FirebaseMessaging
+
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel by viewModels<MainViewModel>()
@@ -102,7 +105,6 @@ class MainActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
-        val messaging = Firebase.messaging
         if (currentUser != null) {
             val crashlyticsTrackingEnabled = defaultSharedPreferences
                 .getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&
