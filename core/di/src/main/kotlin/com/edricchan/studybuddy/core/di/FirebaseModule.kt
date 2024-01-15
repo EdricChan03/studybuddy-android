@@ -5,6 +5,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.messaging.messaging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,4 +24,7 @@ object FirebaseModule {
 
     @Provides
     fun provideFirebaseFirestore() = Firebase.firestore
+
+    @Provides
+    fun provideFirebaseMessaging() = Firebase.messaging
 }
