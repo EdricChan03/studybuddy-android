@@ -27,7 +27,7 @@ plugins {
     `gradle-enterprise` version "3.14.1"
     // Gradle JVM Toolchains repository - see
     // https://docs.gradle.org/8.0-rc-2/userguide/toolchains.html#sub:download_repositories
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 
     id("com.android.settings") version "8.4.0-alpha04"
 }
