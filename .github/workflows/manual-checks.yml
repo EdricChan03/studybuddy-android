@@ -43,7 +43,7 @@ jobs:
           gradle-home-cache-strict-match: true
 
       - name: Cache AVDs
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: avd-cache
         with:
           path: |
