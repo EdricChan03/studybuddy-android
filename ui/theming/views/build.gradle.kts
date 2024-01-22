@@ -22,6 +22,7 @@ android {
 
 dependencies {
     implementation(projects.ui.preference)
+    api(projects.ui.theming.common)
 
     implementation(projects.core.settings.appearance)
     implementation(projects.exts.androidx.preference)

@@ -1,9 +1,9 @@
 plugins {
-    com.edricchan.studybuddy.library.`android-compose`
+    com.edricchan.studybuddy.library.android
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.ui.theming.compose"
+    namespace = "com.edricchan.studybuddy.ui.theming.common"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -18,26 +18,18 @@ android {
             )
         }
     }
-
-    @Suppress("UnstableApiUsage")
-    testOptions {
-        // Use JUnit 5 for unit tests
-        unitTests.all { it.useJUnitPlatform() }
-    }
 }
 
 dependencies {
-    api(projects.ui.theming.common)
-    implementation(projects.ui.theming.views)
+    implementation(libs.androidx.core.ktx)
 
-    implementation(libs.androidx.compose.material3)
-
-    implementation(libs.accompanist.material3.themeAdapter)
-
-    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlin.test)
     testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.kotest.assertion.core)
     testImplementation(libs.kotest.property)
+
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }

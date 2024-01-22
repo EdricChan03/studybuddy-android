@@ -100,6 +100,7 @@ include(
     ":ui:common",
     ":ui:insets",
     ":ui:preference",
+    ":ui:theming:common",
     ":ui:theming:compose",
     ":ui:theming:views",
     ":ui:widgets:compose",
