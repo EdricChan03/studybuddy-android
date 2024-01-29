@@ -106,6 +106,7 @@ include(
     ":ui:widgets:compose",
     ":ui:widgets:views",
     ":ui:widgets:compose:about-libraries",
+    ":ui:widgets:compose:navigation",
     ":ui:widgets:compose:option-bottom-sheet",
     ":ui:widgets:modal-bottom-sheet",
     ":core:deeplink",

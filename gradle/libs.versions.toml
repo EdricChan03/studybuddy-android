@@ -8,6 +8,7 @@ androidx-compose = "1.6.0-rc01"
 androidx-compose-compiler = "1.5.6"
 androidx-compose-material3 = "1.2.0-beta02"
 androidx-lifecycle = "2.7.0"
+androidx-navigation = "2.7.6"
 dagger = "2.50"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "32.7.0"
@@ -47,6 +48,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-compose" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-compose" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 
 androidxtra-browser-ktx = "io.github.edricchan03.androidx.browser:browser-ktx:0.1.0"
 
