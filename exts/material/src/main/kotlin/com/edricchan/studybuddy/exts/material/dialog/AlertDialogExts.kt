@@ -54,6 +54,8 @@ fun Context.showMaterialAlertDialog(
     postDialogInit: AlertDialog.() -> Unit = {},
     builderInit: MaterialAlertDialogBuilder.() -> Unit
 ) = createMaterialAlertDialog(themeResId, builderInit)
-    .apply(dialogInit)
-    .apply { show() }
-    .apply(postDialogInit)
+    .apply {
+        dialogInit()
+        show()
+        postDialogInit()
+    }
