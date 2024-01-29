@@ -45,5 +45,14 @@ interface CrudRepository<T, Id, Reference> {
     //#region Update operations
     /** Updates the given item represented by the [id] from the data source with the new [data]. */
     suspend fun update(id: Id, data: Map<String, Any?>)
+
+    /**
+     * Updates the given item represented by the [id] from the data source with the new [dataAction].
+     *
+     * This variant allows for DSL syntax for the data, similar to that of [buildMap].
+     */
+    suspend fun update(id: Id, dataAction: MutableMap<String, Any?>.() -> Unit) {
+        update(id, buildMap(dataAction))
+    }
     //#endregion
 }
