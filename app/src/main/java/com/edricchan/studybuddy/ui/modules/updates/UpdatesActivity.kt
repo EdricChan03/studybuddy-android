@@ -37,9 +37,9 @@ import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.utils.SharedUtils
 import com.edricchan.studybuddy.utils.checkPermissionGranted
 import com.edricchan.studybuddy.utils.getUpdateJsonUrl
+import com.edricchan.studybuddy.utils.network.isMeteredNetwork
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
@@ -142,7 +142,7 @@ class UpdatesActivity : BaseActivity() {
             // Check if the user has clicked on "download anyway" on the dialog that showed, or
             // check if the user is using a cellular network and has disabled downloading updates
             // over cellular
-            if (SharedUtils.isCellularNetworkAvailable(this) &&
+            if (isMeteredNetwork &&
                 (!ignoreMobileDataSetting && !preferences.getBoolean(
                     Constants.prefUpdatesDownloadOverMetered,
                     false

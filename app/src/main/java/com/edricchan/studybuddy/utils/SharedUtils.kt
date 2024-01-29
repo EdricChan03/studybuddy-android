@@ -3,8 +3,6 @@ package com.edricchan.studybuddy.utils
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.util.Log
 import androidx.annotation.Discouraged
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -12,7 +10,6 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.exts.android.buildIntent
-import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
@@ -25,37 +22,6 @@ import com.github.javiersantos.appupdater.objects.Update
  * Shared utility methods
  */
 object SharedUtils {
-
-    /**
-     * Checks whether the network is cellular
-     *
-     * @param context The context
-     * @return A boolean
-     * See https://stackoverflow.com/a/32771164
-     * TODO: Use other way of checking for mobile data
-     * TODO: Deprecate this method
-     */
-    fun isCellularNetworkAvailable(context: Context): Boolean {
-        try {
-            val cm =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val activeNetwork = cm.activeNetworkInfo
-            if (activeNetwork != null) {
-                // connected to the mobile provider's data plan
-                return activeNetwork.type == ConnectivityManager.TYPE_MOBILE
-            }
-        } catch (e: Exception) {
-            Log.w(
-                TAG,
-                "An error occurred while attempting to retrieve the cellular network: ",
-                e
-            )
-            return false
-        }
-
-        return false
-    }
-
     /**
      * An utility method to check for updates.
      *
