@@ -122,6 +122,7 @@ include(
     ":exts:androidx:compose",
     ":exts:androidx:preference",
     ":exts:androidx:preference-files",
+    ":exts:coil",
     ":exts:common",
     ":exts:datetime",
     ":exts:firebase",
