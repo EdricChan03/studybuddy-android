@@ -24,6 +24,9 @@ interface CrudRepository<T, Id, Reference> {
 
     /** Retrieves the given document's data given the [id] as a [Flow]. */
     operator fun get(id: Id): Flow<T?>
+
+    /** Retrieves the specified document [id]'s reference. */
+    suspend fun getRef(id: Id): Reference
     //#endregion
 
     //#region Create operations

@@ -36,6 +36,8 @@ open class FirestoreRepository<T : HasId>(
     override fun get(id: String) =
         document(id).snapshots().map { it.toObject(klass) }
 
+    override suspend fun getRef(id: String): DocumentReference = collectionRef.document(id)
+
     override suspend fun add(item: T): DocumentReference = collectionRef.add(item).await()
 
     override suspend fun remove(item: T) = removeById(item.id)

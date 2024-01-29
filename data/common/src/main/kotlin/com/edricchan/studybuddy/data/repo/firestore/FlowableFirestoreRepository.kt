@@ -36,12 +36,6 @@ open class FlowableFirestoreRepository<T : HasId>(
     private suspend fun getCollectionRef() = collectionRefFlow.first()
 
     /**
-     * Retrieves a document from the [collectionRefFlow].
-     * @see CollectionReference.document
-     */
-    suspend fun document(path: String) = getCollectionRef().document(path)
-
-    /**
      * Retrieves a document from the [collectionRefFlow] as a [Flow].
      * @see CollectionReference.document
      */
@@ -61,15 +55,17 @@ open class FlowableFirestoreRepository<T : HasId>(
     override fun get(id: String) =
         documentFlow(id).flatMapConcat { ref -> ref.snapshots().map { it.toObject(klass) } }
 
+    override suspend fun getRef(id: String): DocumentReference = getCollectionRef().document(id)
+
     override suspend fun add(item: T): DocumentReference = getCollectionRef().add(item).await()
 
     override suspend fun remove(item: T) = removeById(item.id)
 
     override suspend fun removeById(id: String) {
-        document(id).delete().await()
+        getRef(id).delete().await()
     }
 
     override suspend fun update(id: String, data: Map<String, Any?>) {
-        document(id).update(data).await()
+        getRef(id).update(data).await()
     }
 }
