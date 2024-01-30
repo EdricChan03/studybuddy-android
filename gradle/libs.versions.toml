@@ -1,6 +1,6 @@
 [versions]
 aboutLibraries = "10.10.0"
-accompanist = "0.33.2-alpha"
+accompanist = "0.34.0"
 android-desugar = "2.0.4"
 android-gradle = "8.4.0-alpha07"
 androidx-activity = "1.8.2"
