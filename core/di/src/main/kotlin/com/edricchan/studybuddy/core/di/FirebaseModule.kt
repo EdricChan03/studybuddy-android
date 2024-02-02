@@ -5,6 +5,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.crashlytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.google.firebase.messaging.FirebaseMessaging
@@ -29,6 +31,8 @@ object FirebaseModule {
     fun provideFirebaseFirestore(): FirebaseFirestore = Firebase.firestore
 
     @Provides
-    fun provideFirebaseMessaging() = Firebase.messaging
     fun provideFirebaseMessaging(): FirebaseMessaging = Firebase.messaging
+
+    @Provides
+    fun provideFirebaseCrashlytics(): FirebaseCrashlytics = Firebase.crashlytics
 }
