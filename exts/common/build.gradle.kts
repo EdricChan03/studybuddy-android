@@ -1,5 +1,5 @@
 plugins {
-    id("com.edricchan.studybuddy.library.kotlin")
+    com.edricchan.studybuddy.library.kotlin
 }
 
 dependencies {
