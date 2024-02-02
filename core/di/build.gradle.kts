@@ -30,11 +30,11 @@ dependencies {
     implementation(projects.exts.firebase)
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.bundles.firebase)
+    api(libs.bundles.firebase)
 
-    implementation(libs.bundles.ktor)
+    api(libs.bundles.ktor)
 
-    implementation(libs.dagger.hilt.android)
+    api(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
 
     testImplementation(libs.junit)
