@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.common
 
+import androidx.compose.material3.SnackbarDuration
 import com.edricchan.studybuddy.ui.common.SnackBarData.Action
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,6 +28,12 @@ data class SnackBarData(
     enum class Duration(val value: Int) {
         Short(Snackbar.LENGTH_SHORT),
         Long(Snackbar.LENGTH_LONG),
-        Indefinite(Snackbar.LENGTH_INDEFINITE)
+        Indefinite(Snackbar.LENGTH_INDEFINITE);
+
+        fun toComposeDuration() = when (this) {
+            Short -> SnackbarDuration.Short
+            Long -> SnackbarDuration.Long
+            Indefinite -> SnackbarDuration.Indefinite
+        }
     }
 }

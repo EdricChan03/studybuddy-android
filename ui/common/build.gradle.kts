@@ -32,7 +32,7 @@ dependencies {
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.compose.material3)
+    api(libs.androidx.compose.material3)
 
     implementation(libs.aboutLibraries)
     implementation(libs.aboutLibraries.compose.material3)
