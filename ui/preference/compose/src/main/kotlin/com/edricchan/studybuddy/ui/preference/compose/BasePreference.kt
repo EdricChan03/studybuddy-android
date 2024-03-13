@@ -29,6 +29,7 @@ const val ActionDividerTestTag = "Preference:ActionDivider"
  * Variants should be used where preferable:
  * * [MainSwitchBar] if a root switch preference bar should be used,
  * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
+ * * [PreferenceCategory] for grouping a list of [Preference]s.
  * @param enabled Whether this preference is enabled. If disabled, clickable behaviours
  * should not have any effect.
  * @param icon [Composable] to be displayed at the start. This should be an
@@ -41,6 +42,7 @@ const val ActionDividerTestTag = "Preference:ActionDivider"
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @see PreferenceCategory
  * @see MainSwitchBar
  */
 @Composable
@@ -96,6 +98,7 @@ fun Preference(
  * Variants should be used where preferable:
  * * [MainSwitchBar] if a root switch preference bar should be used,
  * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
+ * * [PreferenceCategory] for grouping a list of [Preference]s.
  * @param enabled Whether this preference is enabled. If disabled, [onClick] will
  * not be invoked if the preference is clicked on.
  * @param onClick Lambda that is invoked when this preference is clicked on.
@@ -109,6 +112,7 @@ fun Preference(
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @see PreferenceCategory
  * @see MainSwitchBar
  */
 @Composable
