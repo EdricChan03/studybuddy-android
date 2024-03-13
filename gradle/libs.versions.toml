@@ -70,7 +70,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 # KTX artifacts have been merged into the main artifacts from Firebase BoM 32.4.0+
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth" }
-playServices-auth = "com.google.android.gms:play-services-auth:20.7.0"
+playServices-auth = "com.google.android.gms:play-services-auth:21.0.0"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore" }
