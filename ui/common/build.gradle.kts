@@ -25,7 +25,6 @@ dependencies {
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.widgets.compose)
-    implementation(projects.ui.widgets.compose.aboutLibraries)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -34,6 +33,9 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.compose.material3)
+
+    implementation(libs.aboutLibraries)
+    implementation(libs.aboutLibraries.compose.material3)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext)

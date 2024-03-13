@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import com.edricchan.studybuddy.ui.common.R
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.widgets.compose.BackIconButton
-import io.github.edricchan03.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 
 @Deprecated(
     "For interop for existing views-based UIs; " +

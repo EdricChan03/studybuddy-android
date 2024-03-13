@@ -112,6 +112,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
 aboutLibraries = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
+aboutLibraries-compose-material3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 # TODO: Switch to an in-house updater
 appUpdater = "com.github.AleP04:AppUpdater:2.7.2"
 imagePicker = "com.github.esafirm:android-image-picker:3.1.0"
