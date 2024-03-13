@@ -1,3 +1,5 @@
+import com.android.build.gradle.tasks.factory.AndroidUnitTest
+
 plugins {
     com.edricchan.studybuddy.library.`android-compose`
 }
@@ -18,12 +20,10 @@ android {
             )
         }
     }
+}
 
-    @Suppress("UnstableApiUsage")
-    testOptions {
-        // Use JUnit 5 for unit tests
-        unitTests.all { it.useJUnitPlatform() }
-    }
+tasks.withType<AndroidUnitTest>().configureEach {
+    useJUnitPlatform()
 }
 
 dependencies {
