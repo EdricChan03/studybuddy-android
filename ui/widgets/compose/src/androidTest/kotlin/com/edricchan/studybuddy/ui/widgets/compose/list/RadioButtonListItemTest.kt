@@ -20,6 +20,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.widgets.compose.assertExistsAndIsDisplayed
 import org.junit.Rule
 import kotlin.test.Test
 import kotlin.test.assertTrue

@@ -7,13 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.SemanticsNodeInteraction
-import androidx.compose.ui.test.assertIsDisplayed
-
-internal fun SemanticsNodeInteraction.assertExistsAndIsDisplayed() {
-    assertExists()
-    assertIsDisplayed()
-}
 
 internal const val listItemTag = "Tag:ListItem"
 internal const val textTag = "Tag:Text"
