@@ -27,6 +27,10 @@ const val ActionDividerTestTag = "Preference:ActionDivider"
  * [AOSP's settings design guidelines](https://source.android.com/docs/core/settings/settings-guidelines).
  *
  * Variants should be used where preferable:
+ * * [CheckboxPreference] for displaying a preference with a
+ * [androidx.compose.material3.Checkbox], representing a checkable state.
+ * * [SwitchPreference] for displaying a preference with a
+ * [androidx.compose.material3.Switch], representing a checkable state.
  * * [MainSwitchBar] if a root switch preference bar should be used,
  * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
  * * [PreferenceCategory] for grouping a list of [Preference]s.
@@ -42,6 +46,8 @@ const val ActionDividerTestTag = "Preference:ActionDivider"
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @see CheckboxPreference
+ * @see SwitchPreference
  * @see PreferenceCategory
  * @see MainSwitchBar
  */
@@ -96,6 +102,10 @@ fun Preference(
  * [AOSP's settings design guidelines](https://source.android.com/docs/core/settings/settings-guidelines).
  *
  * Variants should be used where preferable:
+ * * [CheckboxPreference] for displaying a preference with a
+ * [androidx.compose.material3.Checkbox], representing a checkable state.
+ * * [SwitchPreference] for displaying a preference with a
+ * [androidx.compose.material3.Switch], representing a checkable state.
  * * [MainSwitchBar] if a root switch preference bar should be used,
  * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
  * * [PreferenceCategory] for grouping a list of [Preference]s.
@@ -112,6 +122,8 @@ fun Preference(
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @see CheckboxPreference
+ * @see SwitchPreference
  * @see PreferenceCategory
  * @see MainSwitchBar
  */
