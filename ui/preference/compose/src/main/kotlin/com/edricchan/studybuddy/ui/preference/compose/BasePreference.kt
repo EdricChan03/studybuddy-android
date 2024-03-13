@@ -33,9 +33,9 @@ import com.edricchan.studybuddy.ui.widgets.compose.list.withDisabledColors
  * title of the preference.
  * @param subtitle (Optional) [Composable] to be displayed before the [title].
  * This should contain additional information.
- * @param action (Optional) [Composable] to be displayed at the end. An [actionDivider]
+ * @param action (Optional) [Composable] to be displayed at the end. An [showActionDivider]
  * can be optionally shown between it and its contents.
- * @param actionDivider Whether a vertical divider should be shown between the [action]
+ * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
  * @see MainSwitchBar
  */
@@ -47,7 +47,7 @@ fun Preference(
     title: @Composable () -> Unit,
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
-    actionDivider: Boolean = false
+    showActionDivider: Boolean = false
 ) = ListItem(
     modifier = modifier,
     colors = ListItemDefaults.colors().withDisabledColors(enabled),
@@ -59,7 +59,7 @@ fun Preference(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (actionDivider) {
+                if (showActionDivider) {
                     val color = DividerDefaults.color.copy(
                         alpha = if (enabled) {
                             1f
@@ -100,9 +100,9 @@ fun Preference(
  * title of the preference.
  * @param subtitle (Optional) [Composable] to be displayed before the [title].
  * This should contain additional information.
- * @param action (Optional) [Composable] to be displayed at the end. An [actionDivider]
+ * @param action (Optional) [Composable] to be displayed at the end. An [showActionDivider]
  * can be optionally shown between it and its contents.
- * @param actionDivider Whether a vertical divider should be shown between the [action]
+ * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
  * @see MainSwitchBar
  */
@@ -115,7 +115,7 @@ fun Preference(
     title: @Composable () -> Unit,
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
-    actionDivider: Boolean = false
+    showActionDivider: Boolean = false
 ) = Preference(
     modifier = modifier.clickable(enabled = enabled, onClick = onClick),
     enabled = enabled,
@@ -123,5 +123,5 @@ fun Preference(
     title = title,
     subtitle = subtitle,
     action = action,
-    actionDivider = actionDivider
+    showActionDivider = showActionDivider
 )
