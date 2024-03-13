@@ -13,8 +13,12 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.ui.widgets.compose.list.withDisabledColors
+
+/** Test tag for the [Preference]'s `actionDivider` composable. */
+const val ActionDividerTestTag = "Preference:ActionDivider"
 
 /**
  * Simple UI composable to display a setting.
@@ -72,7 +76,8 @@ fun Preference(
                         modifier = Modifier
                             .padding(vertical = 4.dp)
                             .fillMaxHeight()
-                            .width(1.dp),
+                            .width(1.dp)
+                            .testTag(ActionDividerTestTag),
                     )
                     Spacer(modifier = Modifier.width(2.dp))
                 }

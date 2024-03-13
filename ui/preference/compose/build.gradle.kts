@@ -29,6 +29,8 @@ dependencies {
     debugImplementation(libs.bundles.androidx.compose.tooling)
 
     testImplementation(libs.junit)
+
+    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
 
