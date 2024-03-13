@@ -27,7 +27,7 @@ class BasePreferenceTest {
             setContent {
                 Preference(
                     modifier = Modifier.testTag(testTag),
-                    onClick = { /*TODO*/ },
+                    onClick = { /* No-op */ },
                     title = { Text(text = text) }
                 )
             }
@@ -49,7 +49,7 @@ class BasePreferenceTest {
                 Preference(
                     modifier = Modifier.testTag(testTag),
                     enabled = false,
-                    onClick = { /*TODO*/ },
+                    onClick = { /* No-op */ },
                     title = { Text(text = text) }
                 )
             }
