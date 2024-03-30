@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -16,7 +15,6 @@ import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
-import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
 import com.edricchan.studybuddy.utils.dev.isDevMode
 
 class SettingsFragment : PreferenceHeaderFragmentCompat() {
@@ -24,17 +22,12 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
 
     class SettingsHeader : MaterialPreferenceFragment() {
         private lateinit var preferences: SharedPreferences
-        private lateinit var devModeOpts: SharedPreferences
         private lateinit var featureFlagsUtils: FeatureFlagsUtils
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.pref_headers, rootKey)
             preferences = requireContext().defaultSharedPreferences
-            devModeOpts =
-                requireContext().getSharedPreferences(
-                    DevModePrefConstants.FILE_DEV_MODE,
-                    Context.MODE_PRIVATE
-                )
+
             featureFlagsUtils = FeatureFlagsUtils(requireContext())
             findPreference<Preference>(Constants.prefHeaderDebug)?.apply {
                 with(requireContext().isDevMode(useSharedPrefsOnly = true)) {
