@@ -115,7 +115,6 @@ aboutLibraries = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutL
 aboutLibraries-compose-material3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 # TODO: Switch to an in-house updater
 appUpdater = "com.github.AleP04:AppUpdater:2.7.2"
-imagePicker = "com.github.esafirm:android-image-picker:3.1.0"
 migration = "io.github.boswelja.migration:migration-core:2.1.4"
 
 # Gradle Versions (declared here as a library and not as a plugin

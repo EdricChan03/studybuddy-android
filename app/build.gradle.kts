@@ -197,7 +197,6 @@ dependencies {
     // Other dependencies
     implementation(libs.materialAbout)
     implementation(libs.appUpdater)
-    implementation(libs.imagePicker)
     implementation(libs.migration)
 
     // Dagger dependencies
