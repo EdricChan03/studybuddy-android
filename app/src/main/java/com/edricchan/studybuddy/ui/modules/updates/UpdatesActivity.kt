@@ -76,7 +76,7 @@ class UpdatesActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUpdatesBinding.inflate(layoutInflater).apply {
             setSupportActionBar(toolbar)
-        }.also { setContentView(binding.root) }
+        }.also { setContentView(it.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
