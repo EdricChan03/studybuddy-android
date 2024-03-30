@@ -55,7 +55,9 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
             updateHeaderSummaries(preferences.getBoolean(Constants.prefShowHeaderSummary, false))
         }
 
-        // Initialises the preferences as the app ID can't be hardcoded in the XML file due to the suffixes
+        // The FQN to the fragments can't be hardcoded in the XML file due to the
+        // dynamically set app suffix for the nightly and debug flavours, so we have to
+        // set it programmatically
         private fun initPreferences() {
             findPreference<Preference>(Constants.prefHeaderGeneral)?.setFragment<GeneralSettingsFragment>()
             findPreference<Preference>(Constants.prefHeaderTodo)?.setFragment<TodoSettingsFragment>()
