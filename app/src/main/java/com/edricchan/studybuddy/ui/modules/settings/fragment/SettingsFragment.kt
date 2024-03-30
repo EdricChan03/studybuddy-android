@@ -11,6 +11,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import com.edricchan.studybuddy.exts.androidx.preference.setFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
@@ -56,21 +57,17 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
 
         // Initialises the preferences as the app ID can't be hardcoded in the XML file due to the suffixes
         private fun initPreferences() {
-            findPreference<Preference>(Constants.prefHeaderGeneral)?.fragment =
-                GeneralSettingsFragment::class.java.name
-            findPreference<Preference>(Constants.prefHeaderTodo)?.fragment =
-                TodoSettingsFragment::class.java.name
-            findPreference<Preference>(Constants.prefHeaderDebug)?.fragment =
-                DebugSettingsFragment::class.java.name
-            findPreference<Preference>(Constants.prefHeaderUpdates)?.fragment =
-                UpdateSettingsFragment::class.java.name
-            findPreference<Preference>(Constants.prefHeaderAbout)?.apply {
-                fragment = if (featureFlagsUtils
+            findPreference<Preference>(Constants.prefHeaderGeneral)?.setFragment<GeneralSettingsFragment>()
+            findPreference<Preference>(Constants.prefHeaderTodo)?.setFragment<TodoSettingsFragment>()
+            findPreference<Preference>(Constants.prefHeaderDebug)?.setFragment<DebugSettingsFragment>()
+            findPreference<Preference>(Constants.prefHeaderUpdates)?.setFragment<UpdateSettingsFragment>()
+            findPreference<Preference>(Constants.prefHeaderAbout)?.setFragment {
+                if (featureFlagsUtils
                         .hasFeatureFlagEnabled(FeatureFlagsPrefConstants.FEATURE_FLAG_ABOUT_APP_V2_ENABLED)
                 ) {
-                    AboutFragment::class.java.name
+                    AboutFragment::class
                 } else {
-                    AboutSettingsFragment::class.java.name
+                    AboutSettingsFragment::class
                 }
             }
             findPreference<Preference>(Constants.prefHeaderAccount)?.intent =
