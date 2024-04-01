@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.features.tasks.data.model
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import androidx.annotation.Keep
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.google.firebase.Timestamp
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.ServerTimestamp
  * @property name The name of this project.
  */
 @IgnoreExtraProperties
+@Keep
 data class TodoProject(
     @DocumentId override val id: String = "",
     val color: String? = null,

@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.features.tasks.data.model
 
+import androidx.annotation.Keep
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.google.firebase.Timestamp
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.ServerTimestamp
  * @property title The title of this task
  */
 @IgnoreExtraProperties
+@Keep
 data class TodoItem(
     @DocumentId override val id: String = "",
     val content: String? = null,
