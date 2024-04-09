@@ -13,7 +13,7 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
     repositories {
         google()
         mavenCentral()
@@ -28,23 +28,24 @@ plugins {
     // "develocity" is the branding for Gradle's build tooling
     id("com.gradle.develocity") version "3.17.1"
     // Gradle JVM Toolchains repository - see
-    // https://docs.gradle.org/8.0-rc-2/userguide/toolchains.html#sub:download_repositories
+    // https://docs.gradle.org/8.7/userguide/toolchains.html#sub:download_repositories
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 
     id("com.android.settings") version "8.5.0-alpha04"
 }
+
+val isCi = !System.getenv("CI").isNullOrEmpty()
+val isGitHubActions = !System.getenv("GITHUB_ACTIONS").isNullOrEmpty()
 
 // Configure the Gradle Enterprise Plugin
 develocity.buildScan {
     termsOfUseUrl = "https://gradle.com/terms-of-service"
     termsOfUseAgree = "yes"
 
-    if (!System.getenv("CI").isNullOrEmpty()) {
-        tag("CI")
-    }
+    if (isCi) tag("CI")
 
     // GitHub Actions-specific config
-    if (!System.getenv("GITHUB_ACTIONS").isNullOrEmpty()) {
+    if (isGitHubActions) {
         tag("GitHub Actions")
         tag("${System.getenv("RUNNER_OS")}-${System.getenv("RUNNER_ARCH")}")
 
