@@ -15,6 +15,13 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
     repositories {
+        // For Compose Compiler dev versions
+        maven("https://androidx.dev/storage/compose-compiler/repository/") {
+            name = "Jetpack Compose Compiler Repository"
+            mavenContent {
+                includeVersionByRegex("^androidx.compose.compiler\$", ".*", ".+-dev-k.+")
+            }
+        }
         google()
         mavenCentral()
         maven("https://jitpack.io")
