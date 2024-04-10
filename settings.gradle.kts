@@ -138,6 +138,7 @@ include(
     ":exts:markwon",
     ":exts:material",
     ":features:help",
+    ":features:auth",
     ":features:tasks",
     ":app"
 )
