@@ -1,7 +1,6 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.core.auth.gms
 
 import android.content.Context
-import com.edricchan.studybuddy.R
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 /**

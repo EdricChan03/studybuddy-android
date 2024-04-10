@@ -148,6 +148,7 @@ dependencies {
     implementation(projects.ui.preference)
     implementation(projects.ui.widgets.views)
     implementation(projects.ui.widgets.modalBottomSheet)
+    implementation(projects.core.auth.gms)
     implementation(projects.core.deeplink)
     implementation(projects.data.common)
     implementation(projects.data.serialization.android)

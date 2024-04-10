@@ -9,10 +9,10 @@ import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.auth.gms.defaultSignInOptions
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityLoginBinding
-import com.edricchan.studybuddy.extensions.defaultSignInOptions
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
