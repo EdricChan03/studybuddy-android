@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Forgot password screen strings -->
+    <eat-comment />
+
+    <!-- Title for the forgot password screen. -->
+    <string name="title_activity_reset_password">Reset password</string>
+
+    <!-- Header text for the forgot password screen. -->
+    <string name="forgot_password_title">Forgot password?</string>
+
+    <!-- Body text for the forgot password screen. -->
+    <string name="forgot_password_msg">Enter your email address in the input below and click
+        the "Reset password" button to reset your password.\nYou\'ll be sent an email with a
+        link to reset your password.
+    </string>
+
+    <!-- Text for the (call-to-action) reset password button in the forgot password screen. -->
+    <string name="btn_reset_password">Reset password</string>
+
+    <!-- Text for the back button in the forgot password screen. -->
+    <string name="btn_back">&lt; Go back</string>
+
+</resources>

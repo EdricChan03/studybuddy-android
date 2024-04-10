@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Login screen strings -->
+    <eat-comment />
+
+    <!-- Title for the login screen. -->
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Header text for the sign-in providers section. -->
+    <string name="sign_in_providers_header">Sign in with the below providers:</string>
+
+    <string name="sign_in_providers_or">OR</string>
+
+    <!-- The text of the sign in button in the login activity. -->
+    <string name="login_sign_in_button_title">Login</string>
+
+    <!-- The text of the forgot password button in the login activity. -->
+    <string name="login_forgot_password_button_title">Forgot password</string>
+
+    <!-- The text of the register button in the login activity's menu. -->
+    <string name="login_register_button_title">Register for an account</string>
+
+    <!-- Action text for the no internet connection snackbar. -->
+    <string name="snackbar_internet_unavailable_action">Retry</string>
+    <!-- Text for the no internet connection snackbar. -->
+    <string name="snackbar_internet_unavailable_login">An internet connection is required to
+        login.</string>
+    <!-- Text for the logged-in snackbar. -->
+    <string name="snackbar_user_login">Signed in as %s</string>
+
+</resources>

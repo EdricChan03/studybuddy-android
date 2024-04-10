@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayoutRegister"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.modules.auth.RegisterActivity">
+    tools:context=".ui.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,12 +46,12 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="newPassword"
                     android:focusableInTouchMode="true"
                     android:hint="@string/password_hint"
                     android:imeActionId="1"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
-                    android:autofillHints="newPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
 

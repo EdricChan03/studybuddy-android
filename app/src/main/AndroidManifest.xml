@@ -72,16 +72,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.modules.auth.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.App.NoActionBar" />
-        <activity
-            android:name=".ui.modules.auth.RegisterActivity"
-            android:label="@string/title_activity_register" />
-        <activity
-            android:name=".ui.modules.auth.ResetPasswordActivity"
-            android:label="@string/title_activity_reset_password" />
-        <activity
             android:name=".ui.modules.task.NewTaskActivity"
             android:label="@string/title_activity_new_task"
             android:theme="@style/Theme.App.NoActionBar" />

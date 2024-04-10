@@ -19,9 +19,9 @@ import com.edricchan.studybuddy.exts.material.picker.setSelection
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.snackbar.Snackbar

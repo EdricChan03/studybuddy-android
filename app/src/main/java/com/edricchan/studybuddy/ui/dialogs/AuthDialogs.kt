@@ -5,8 +5,8 @@ import android.content.DialogInterface
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
-import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
-import com.edricchan.studybuddy.ui.modules.auth.RegisterActivity
+import com.edricchan.studybuddy.features.auth.ui.LoginActivity
+import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**

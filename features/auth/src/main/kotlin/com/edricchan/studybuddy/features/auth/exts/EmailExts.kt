@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.extensions
+package com.edricchan.studybuddy.features.auth.exts
 
 import androidx.core.util.PatternsCompat
 

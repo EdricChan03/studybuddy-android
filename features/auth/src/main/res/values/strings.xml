@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common auth strings -->
+    <eat-comment />
+
+    <!-- Hint text for the email text-field. -->
+    <string name="email_hint">Email</string>
+
+    <!-- Hint text for the password text-field. -->
+    <string name="password_hint">Password</string>
+
+    <!-- Error text to be shown for the password text-field when the minimum length criteria isn't met. -->
+    <string name="minimum_password">The password that you entered is too short, please enter a
+        minimum of 6 characters!
+    </string>
+
+</resources>

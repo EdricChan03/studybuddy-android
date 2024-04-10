@@ -15,7 +15,6 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityAccountBinding
-import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
@@ -29,8 +28,9 @@ import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.exts.material.textfield.strValue
+import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
+import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.auth.LoginActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn

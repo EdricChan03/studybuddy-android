@@ -1,30 +1,30 @@
-package com.edricchan.studybuddy.ui.modules.auth
+package com.edricchan.studybuddy.features.auth.ui
 
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
-import com.edricchan.studybuddy.databinding.ActivityRegisterBinding
-import com.edricchan.studybuddy.extensions.isInvalidEmail
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.createUserWithEmailAndPasswordAsync
+import com.edricchan.studybuddy.exts.material.snackbar.createSnackbar
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.features.auth.R
+import com.edricchan.studybuddy.features.auth.databinding.ActivityRegisterBinding
+import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
+import com.edricchan.studybuddy.utils.network.isNetworkConnected
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @WebDeepLink(["/register"])
 @AppDeepLink(["/register"])
@@ -115,7 +115,6 @@ class RegisterActivity : BaseActivity() {
         try {
             auth.createUserWithEmailAndPasswordAsync(email, password)
             binding.progressBar.isVisible = false
-            startActivity<MainActivity>()
             finish()
         } catch (e: Exception) {
             // TODO: i18n message
@@ -144,22 +143,26 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
+    private val noInternetSnackbar by lazy {
+        createSnackbar(
+            binding.coordinatorLayoutRegister,
+            // TODO: i18n message
+            "No internet connection available. Some actions are disabled",
+            Snackbar.LENGTH_INDEFINITE
+        ) {
+            behavior = NoSwipeBehavior()
+            setAction(CoreResR.string.dialog_action_retry) { checkNetwork() }
+        }
+    }
+
     // TODO: Use NetworkCallback
     private fun checkNetwork() {
-        val connectivityManager = getSystemService<ConnectivityManager>()
-        if (connectivityManager?.activeNetworkInfo?.isConnected == true) {
-            setViewsEnabled(true)
-        } else {
-            setViewsEnabled(false)
-            // TODO: i18n message
-            showSnackbar(
-                binding.coordinatorLayoutRegister,
-                "No internet connection available. Some actions are disabled",
-                Snackbar.LENGTH_INDEFINITE
-            ) {
-                behavior = NoSwipeBehavior()
-                setAction(R.string.dialog_action_retry) { checkNetwork() }
-            }
+        val isConnected = isNetworkConnected
+        setViewsEnabled(isConnected)
+
+        with(noInternetSnackbar) {
+            if (!isConnected) show()
+            else dismiss()
         }
     }
 

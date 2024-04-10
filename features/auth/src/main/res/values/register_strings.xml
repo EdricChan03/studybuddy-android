@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Register screen strings -->
+    <eat-comment />
+
+    <!-- Title for the register screen. -->
+    <string name="title_activity_register">Register</string>
+
+    <!-- Error text to be shown for the email text-field when no email is provided. -->
+    <string name="edittext_errors_empty_email">Please enter an email address</string>
+    <!-- Error text to be shown for the email text-field when an invalid email is provided. -->
+    <string name="edittext_errors_invalid_email">Please enter a valid email address</string>
+
+    <!-- Error text to be shown for the password text-field when no password is provided. -->
+    <string name="edittext_errors_empty_password">Please enter a password</string>
+    <!-- Error text to be shown for the password text-field when an invalid password is provided. -->
+    <string name="edittext_errors_invalid_password">Please enter a valid password</string>
+
+    <!-- The text of the sign up button in the register activity. -->
+    <string name="register_signup_button_title">Register</string>
+
+    <!-- The text of the login button in the register activity's menu. -->
+    <string name="register_login_button_title">I already have an account</string>
+</resources>

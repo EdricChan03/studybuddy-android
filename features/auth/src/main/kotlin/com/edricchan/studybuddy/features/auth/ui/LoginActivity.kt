@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.auth
+package com.edricchan.studybuddy.features.auth.ui
 
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -8,12 +8,10 @@ import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.auth.gms.contracts.GoogleAuth
 import com.edricchan.studybuddy.core.auth.gms.defaultSignInOptions
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
-import com.edricchan.studybuddy.databinding.ActivityLoginBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
@@ -21,8 +19,9 @@ import com.edricchan.studybuddy.exts.firebase.auth.signInWithEmailAndPasswordAsy
 import com.edricchan.studybuddy.exts.firebase.auth.signInWithGoogleAsync
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.features.auth.R
+import com.edricchan.studybuddy.features.auth.databinding.ActivityLoginBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
@@ -60,9 +59,6 @@ class LoginActivity : BaseActivity() {
         auth = Firebase.auth
         // Check if there's already an authenticated user
         if (auth.currentUser != null) {
-            // This activity (`LoginActivity`) shouldn't be shown to an already authenticated user
-            // Instead, redirect the user to the main activity and close this activity
-            startActivity<MainActivity>()
             finish()
         }
 
@@ -172,7 +168,6 @@ class LoginActivity : BaseActivity() {
                 getString(R.string.snackbar_user_login, result.user?.email),
                 Toast.LENGTH_LONG
             )
-            startActivity<MainActivity>()
             finish()
         } catch (e: Exception) {
             // If sign in fails, display a message to the user.
