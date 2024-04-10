@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.auth.contracts
+package com.edricchan.studybuddy.core.auth.gms.contracts
 
 import android.app.Activity
 import android.content.Context

@@ -21,5 +21,10 @@ android {
 }
 
 dependencies {
+    implementation(projects.exts.common)
+
     api(libs.playServices.auth)
+    api(libs.androidx.activity.ktx) {
+        because("Activity Result Contract API")
+    }
 }

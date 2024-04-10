@@ -9,6 +9,7 @@ import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.auth.gms.contracts.GoogleAuth
 import com.edricchan.studybuddy.core.auth.gms.defaultSignInOptions
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
@@ -21,7 +22,6 @@ import com.edricchan.studybuddy.exts.firebase.auth.signInWithGoogleAsync
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.auth.contracts.GoogleAuth
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
