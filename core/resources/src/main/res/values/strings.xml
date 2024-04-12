@@ -17,6 +17,9 @@
     <!-- Text for a done button in a dialog. -->
     <string name="dialog_action_done">Done</string>
 
+    <!-- Text for a retry button in a dialog. -->
+    <string name="dialog_action_retry">Retry</string>
+
     <!-- Formatting strings -->
     <eat-comment />
 
