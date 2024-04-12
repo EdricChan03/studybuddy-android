@@ -164,6 +164,7 @@ dependencies {
     implementation(projects.exts.firebase)
     implementation(projects.exts.markwon)
     implementation(projects.exts.material)
+    implementation(projects.features.auth)
     implementation(projects.features.help)
     implementation(projects.features.tasks)
 
