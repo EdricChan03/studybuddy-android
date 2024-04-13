@@ -15,6 +15,7 @@ dependencies {
         because("AGP DataBinding uses an older version of Javapoet which breaks Hilt")
     }
     implementation(libs.kotlin.gradle)
+    implementation(libs.kotlin.composeCompiler.gradle)
     implementation(libs.plugins.ksp.text())
     implementation(libs.plugins.dagger.hilt.text())
 }

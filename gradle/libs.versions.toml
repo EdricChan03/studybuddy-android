@@ -126,6 +126,7 @@ android-gradle-library = { module = "com.android.library:com.android.library.gra
 
 # Kotlin Gradle plugin
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-composeCompiler-gradle = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
 # Testing dependencies
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"

@@ -3,13 +3,15 @@ package com.edricchan.studybuddy.library
 
 plugins {
     id("com.edricchan.studybuddy.library.android")
+    org.jetbrains.kotlin.plugin.compose
 }
 
-val compilerVersion = versionCatalogs.named("libs").findVersion("androidx-compose-compiler")
-    .map { it.requiredVersion }
-    .orElse("1.5.6")
+android.buildFeatures.compose = true
 
-android {
-    buildFeatures.compose = true
-    composeOptions.kotlinCompilerExtensionVersion = compilerVersion
+composeCompiler {
+    enableIntrinsicRemember = true
+
+    // Access the metric/reports at "<project>/build/compose-compiler/"
+    metricsDestination = layout.buildDirectory.dir("compose-compiler/metrics")
+    reportsDestination = layout.buildDirectory.dir("compose-compiler/reports")
 }
