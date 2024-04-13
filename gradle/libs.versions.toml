@@ -15,7 +15,7 @@ deep-link-dispatch = "6.2.2"
 firebase-bom = "32.8.0"
 gradle-versions = "0.51.0"
 kotest = "5.8.1"
-kotlin = "2.0.0-Beta5"
+kotlin = "2.0.0-RC1"
 kotlinx-coroutines = "1.8.0"
 kotlinx-serialization = "1.6.3"
 ktor = "2.3.9"
@@ -194,7 +194,7 @@ buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-ksp = "com.google.devtools.ksp:2.0.0-Beta5-1.0.20"
+ksp = "com.google.devtools.ksp:2.0.0-RC1-1.0.20"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.9"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
