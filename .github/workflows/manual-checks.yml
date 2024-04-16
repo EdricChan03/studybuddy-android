@@ -2,7 +2,6 @@ name: Manual Checks
 
 on: workflow_dispatch
 
-
 jobs:
   instrumentation-tests:
     runs-on: macos-latest
@@ -31,9 +30,9 @@ jobs:
         env:
           SECRETS_GPG_COMMAND: gpg2
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v2
+        uses: gradle/actions/wrapper-validation@v3
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v3
         with:
           gradle-home-cache-strict-match: true
 
