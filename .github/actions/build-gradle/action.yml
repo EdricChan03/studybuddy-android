@@ -46,7 +46,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup Java 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: 17
         distribution: adopt
@@ -67,9 +67,9 @@ runs:
       env:
         SECRETS_GPG_COMMAND: gpg2
     - name: Validate Gradle wrapper
-      uses: gradle/wrapper-validation-action@v1
+      uses: gradle/actions/wrapper-validation@v3
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/actions/setup-gradle@v3
       with:
         cache-read-only: ${{ inputs.gradle-cache-read-only }}
         gradle-home-cache-strict-match: true
@@ -87,7 +87,7 @@ runs:
         APP_KEYSTORE_ALIAS_PASSWORD: ${{ inputs.app-keystore-alias-password }}
     - name: Upload artifacts
       if: ${{ !(inputs.skip-upload == 'true') }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.upload-name }}
         path: ${{ inputs.upload-path }}
