@@ -7,7 +7,7 @@ plugins {
     org.jetbrains.kotlin.plugin.compose
 }
 
-extensions.findByType<CommonExtension<*, *, *, *, *, *>>()?.apply {
+extensions.findByType(CommonExtension::class)?.apply {
     buildFeatures.compose = true
 }
 
