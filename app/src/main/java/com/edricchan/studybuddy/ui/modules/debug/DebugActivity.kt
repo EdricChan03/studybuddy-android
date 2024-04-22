@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityFragHostBinding
-import com.edricchan.studybuddy.extensions.replaceFragment
+import com.edricchan.studybuddy.exts.androidx.fragment.replaceFragment
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment
 

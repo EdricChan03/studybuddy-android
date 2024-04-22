@@ -17,8 +17,8 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.extensions.startActivity
 import com.edricchan.studybuddy.exts.android.showToast
+import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog

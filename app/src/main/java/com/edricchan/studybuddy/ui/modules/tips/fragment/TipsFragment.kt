@@ -14,7 +14,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.databinding.FragTipsBinding
-import com.edricchan.studybuddy.extensions.startActivity
+import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
