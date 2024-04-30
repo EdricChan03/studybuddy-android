@@ -11,17 +11,10 @@ extensions.findByType(CommonExtension::class)?.apply {
     buildFeatures.compose = true
 }
 
-private val kotlinVersion = versionCatalogs.named("libs")
-    .findVersion("kotlin").map { it.requiredVersion }
-    .orElse("2.0.0-RC1")
-
 composeCompiler {
     enableIntrinsicRemember = true
 
     // Access the metric/reports at "<project>/build/compose-compiler/"
     metricsDestination = layout.buildDirectory.dir("compose-compiler/metrics")
     reportsDestination = layout.buildDirectory.dir("compose-compiler/reports")
-
-    // TODO: Remove workaround for https://youtrack.jetbrains.com/issue/KT-67216
-    suppressKotlinVersionCompatibilityCheck = kotlinVersion
 }
