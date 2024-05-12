@@ -204,7 +204,7 @@ kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization"
 
 ksp = "com.google.devtools.ksp:2.0.0-RC2-1.0.20"
 
-firebase-crashlytics = "com.google.firebase.crashlytics:2.9.9"
+firebase-crashlytics = "com.google.firebase.crashlytics:3.0.0"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
 googleServices = "com.google.gms.google-services:4.3.15"
 
