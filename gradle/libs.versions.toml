@@ -9,6 +9,9 @@ androidx-compose-material3 = "1.3.0-alpha05"
 androidx-lifecycle = "2.8.0-beta01"
 androidx-navigation = "2.7.7"
 coil = "2.6.0"
+# Used when resolving Markwon's CommonMark dependencies
+commonmark = "0.21.0"
+compose-richtext = "0.20.0"
 dagger = "2.51.1"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "32.8.1"
@@ -56,6 +59,10 @@ androidxtra-browser-ktx = "io.github.edricchan03.androidx.browser:browser-ktx:0.
 # Accompanist
 accompanist-material3-themeAdapter = { module = "com.google.accompanist:accompanist-themeadapter-material3", version.ref = "accompanist" }
 accompanist-drawablePainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
+
+# Other Compose dependencies
+composeRichText-ui-material3 = { module = "com.halilibo.compose-richtext:richtext-ui-material3", version.ref = "compose-richtext" }
+composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-commonmark", version.ref = "compose-richtext" }
 
 # Other dependencies
 

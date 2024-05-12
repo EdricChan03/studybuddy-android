@@ -4,6 +4,7 @@ package com.edricchan.studybuddy.library
 plugins {
     com.android.library
     org.jetbrains.kotlin.android
+    id("com.edricchan.studybuddy.library.common")
 }
 
 kotlin {

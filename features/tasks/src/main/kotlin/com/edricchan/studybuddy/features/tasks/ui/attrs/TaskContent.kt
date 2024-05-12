@@ -5,6 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.halilibo.richtext.markdown.Markdown
+import com.halilibo.richtext.ui.RichTextStyle
+import com.halilibo.richtext.ui.material3.RichText
 
 /**
  * Composable to display a [TodoItem]'s content. The content is truncated to
@@ -25,3 +28,19 @@ fun TaskContentRawText(
     maxLines = 5,
     overflow = TextOverflow.Ellipsis
 )
+
+/**
+ * Composable to display a [TodoItem]'s content as [RichText]. The text
+ * is rendered using [Markdown].
+ * @param modifier [Modifier] to be passed to the [Text].
+ * @param text The task's content.
+ * @param richTextStyle [RichTextStyle] to use for the [RichText].
+ */
+@Composable
+fun TaskContentRichText(
+    modifier: Modifier = Modifier,
+    text: String,
+    richTextStyle: RichTextStyle? = null
+) = RichText(modifier = modifier, style = richTextStyle) {
+    Markdown(content = text)
+}
