@@ -28,10 +28,18 @@ dependencies {
     implementation(projects.data.common)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)
+    implementation(projects.ui.theming.compose)
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Compose
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.bundles.androidx.compose)
+
+    // Compose Tooling
+    debugImplementation(libs.bundles.androidx.compose.tooling)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
