@@ -49,7 +49,9 @@ dependencies {
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-    // Dagger
+    // Markdown support
+    implementation(libs.composeRichText.ui.material3)
+    implementation(libs.composeRichText.commonmark)
 
     // Migration
     implementation(libs.migration)
