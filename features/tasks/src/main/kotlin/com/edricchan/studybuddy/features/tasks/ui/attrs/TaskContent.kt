@@ -14,7 +14,8 @@ import com.halilibo.richtext.ui.material3.RichText
  * a maximum of 5 lines - text after this limit are truncated by
  * [ellipses][TextOverflow.Ellipsis].
  *
- * Note: This composable does **not** render the text as Markdown.
+ * Note: This composable does **not** render the text as Markdown. Use
+ * [TaskContentRichText] instead if this behaviour is desired.
  * @param modifier [Modifier] to be passed to the [Text].
  * @param text The task's content.
  */
@@ -32,6 +33,8 @@ fun TaskContentRawText(
 /**
  * Composable to display a [TodoItem]'s content as [RichText]. The text
  * is rendered using [Markdown].
+ *
+ * To display the [text] as-is, use [TaskContentRawText] instead.
  * @param modifier [Modifier] to be passed to the [Text].
  * @param text The task's content.
  * @param richTextStyle [RichTextStyle] to use for the [RichText].
