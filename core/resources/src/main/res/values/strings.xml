@@ -23,6 +23,6 @@
     <!-- Formatting strings -->
     <eat-comment />
 
-    <!-- Denotes the default java.time pattern format. -->
-    <string name="java_time_format_pattern">EEE, MMM d yyyy</string>
+    <!-- Denotes the application-default java.time pattern format. -->
+    <string name="java_time_format_pattern_default" formatted="false">EEE, MMM d yyyy</string>
 </resources>
