@@ -1,10 +1,13 @@
 package com.edricchan.studybuddy.features.tasks.ui.attrs
 
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichTextStyle
 import com.halilibo.richtext.ui.material3.RichText
@@ -46,4 +49,66 @@ fun TaskContentRichText(
     richTextStyle: RichTextStyle? = null
 ) = RichText(modifier = modifier, style = richTextStyle) {
     Markdown(content = text)
+}
+
+/**
+ * Composable which displays the [TodoItem]'s `content` field in a [ListItem].
+ * @param modifier [Modifier] to be passed to the [ListItem].
+ * @param textModifier [Modifier] to be passed to the [TaskContentRichText] or
+ * [TaskContentRawText].
+ * @param content The task's content.
+ * @param useRichText Whether the [TaskContentRichText] composable should be used
+ * to render the [content].
+ * @param richTextStyle [RichTextStyle] for the [TaskContentRichText].
+ */
+@Composable
+fun TaskContentListItem(
+    modifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier,
+    content: String,
+    useRichText: Boolean = true,
+    richTextStyle: RichTextStyle? = null
+) = ListItem(
+    modifier = modifier,
+    headlineContent = {
+        if (useRichText) {
+            TaskContentRichText(
+                modifier = textModifier,
+                text = content,
+                richTextStyle = richTextStyle
+            )
+        } else {
+            TaskContentRawText(modifier = textModifier, text = content)
+        }
+    }
+)
+
+@Preview(showBackground = true)
+@Composable
+private fun TaskContentListItemPreview() {
+    StudyBuddyTheme {
+        TaskContentListItem(
+            content = """
+                Finish the Compose rewrite for the tasks feature :tada:
+                ---
+                **Bold** *Italics* ~~Strike-through~~ `code`
+                > Quote
+                ```kotlin
+                val isKotlin = true
+                ```
+                ![Random picture](https://picsum.photos/200/300)
+
+                [Link](https://example.com)
+                * Bullet list
+                * Another list item
+
+                1. Item 1
+                2. Item 2
+                3. Item 3
+
+                * [ ] Check-list item 1
+                * [x] Checked item 2
+            """.trimIndent()
+        )
+    }
 }
