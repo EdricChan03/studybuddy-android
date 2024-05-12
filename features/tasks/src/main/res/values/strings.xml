@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- View task strings -->
+    <eat-comment />
+
+    <!-- Content description to indicate the task's created at timestamp. -->
+    <string name="view_task_created_at_content_desc">This task is created at:</string>
+</resources>
