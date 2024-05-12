@@ -120,6 +120,7 @@ include(
     ":core:deeplink",
     ":core:di",
     ":core:resources",
+    ":core:resources:temporal",
     ":core:settings:appearance",
     ":core:settings:tasks",
     ":data:common",
