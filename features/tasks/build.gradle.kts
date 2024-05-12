@@ -25,6 +25,7 @@ android {
 
 dependencies {
     api(projects.core.settings.tasks)
+    implementation(projects.core.resources.temporal)
     implementation(projects.data.common)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)
