@@ -1,11 +1,16 @@
 package com.edricchan.studybuddy.features.tasks.ui.attrs
 
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
+import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import java.time.Instant
 
@@ -41,4 +46,34 @@ fun TaskCreatedAtText(
     modifier = modifier,
     text = instant.appFormat(LocalContext.current),
     style = MaterialTheme.typography.labelSmall
+)
+
+/**
+ * Composable [ListItem] which displays a [TodoItem]'s [creation date][TodoItem.createdAt]
+ * using [TaskCreatedAtText].
+ * @param modifier [Modifier] to be used for the [ListItem].
+ * @param textModifier [Modifier] to be used for the [TaskCreatedAtText].
+ * @param createdAt The task's creation date as an [Instant].
+ */
+@Composable
+fun TaskCreatedAtListItem(
+    modifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier,
+    createdAt: Instant,
+    formatDate: @Composable (Instant) -> String = {
+        it.appFormat(LocalContext.current)
+    },
+) = ListItem(
+    modifier = modifier,
+    leadingContent = {
+        Icon(
+            painterResource(R.drawable.ic_access_time_outline_24dp),
+            contentDescription = stringResource(
+                R.string.view_task_created_at_content_desc
+            )
+        )
+    },
+    headlineContent = {
+        TaskCreatedAtText(modifier = textModifier, text = formatDate(createdAt))
+    }
 )
