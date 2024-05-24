@@ -31,7 +31,7 @@ androidx-annotation = "androidx.annotation:annotation:1.7.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0-alpha03"
 androidx-browser = "androidx.browser:browser:1.8.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha13"
-androidx-core-ktx = "androidx.core:core-ktx:1.13.0"
+androidx-core-ktx = "androidx.core:core-ktx:1.13.1"
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.2"
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "androidx-navigation" }
