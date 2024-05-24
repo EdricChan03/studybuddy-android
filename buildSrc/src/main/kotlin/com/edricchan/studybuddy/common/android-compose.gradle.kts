@@ -12,8 +12,6 @@ extensions.findByType(CommonExtension::class)?.apply {
 }
 
 composeCompiler {
-    enableIntrinsicRemember = true
-
     // Access the metric/reports at "<project>/build/compose-compiler/"
     metricsDestination = layout.buildDirectory.dir("compose-compiler/metrics")
     reportsDestination = layout.buildDirectory.dir("compose-compiler/reports")
