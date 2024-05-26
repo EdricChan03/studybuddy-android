@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Attribute strings -->
+    <eat-comment />
+
+    <!--
+    Default name to use if the task project does not have a name.
+    (TODO: Remove when the `name` field is required)
+    -->
+    <string name="task_attr_project_name_default">&lt;No project name&gt;</string>
+</resources>
