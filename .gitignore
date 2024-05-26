@@ -40,3 +40,6 @@ secret_keys.properties
 # Exclude outputted gradle-profiler contents
 gradle-user-home
 profile-out*
+
+# Generated Kotlin output (2.0.0+)
+.kotlin
