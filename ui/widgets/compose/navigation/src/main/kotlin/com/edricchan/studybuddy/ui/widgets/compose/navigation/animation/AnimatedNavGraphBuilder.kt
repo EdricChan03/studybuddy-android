@@ -35,7 +35,9 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import kotlin.reflect.KType
 
 /**
  * Defines a composable destination in the receiver, with default enter/exit
@@ -55,6 +57,31 @@ fun NavGraphBuilder.horizontalSlideComposable(
 ) = composable(
     route = route,
     arguments = arguments,
+    deepLinks = deepLinks,
+    enterTransition = HorizontalSlideAnimations.EnterTransition,
+    exitTransition = HorizontalSlideAnimations.ExitTransition,
+    popEnterTransition = HorizontalSlideAnimations.PopEnterTransition,
+    popExitTransition = HorizontalSlideAnimations.PopExitTransition,
+    content = content,
+)
+
+/**
+ * Defines a composable destination in the receiver, with default enter/exit
+ * sliding transitions as per the
+ * [Material Design guidelines](https://m3.material.io/styles/motion/transitions/transition-patterns#df9c7d76-1454-47f3-ad1c-268a31f58bad).
+ * @param T Route from a KClass for the destination
+ * @param typeMap Map of destination arguments' kotlin type [KType] to its respective
+ * custom [NavType]. May be empty if [T] does not use custom [NavType]s.
+ * @param deepLinks List of deep links to associate with the destinations
+ * @param content Composable for the destination
+ * @see composable
+ */
+inline fun <reified T : Any> NavGraphBuilder.horizontalSlideComposable(
+    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    noinline content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
+) = composable<T>(
+    typeMap = typeMap,
     deepLinks = deepLinks,
     enterTransition = HorizontalSlideAnimations.EnterTransition,
     exitTransition = HorizontalSlideAnimations.ExitTransition,
