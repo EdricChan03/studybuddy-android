@@ -20,23 +20,6 @@ class TodosAdapter(
     private val context: Context,
     private var itemListener: OnItemClickListener? = null
 ) : ListAdapter<TodoItem, TodosAdapter.Holder>(DIFF_CALLBACK) {
-    @Deprecated(
-        "This method is kept for backwards-compatibility - use the overload " +
-            "that takes 2 arguments.",
-        ReplaceWith(
-            "TodosAdapter(context = context, itemListener = itemListener)"
-        )
-    )
-    constructor(
-        context: Context,
-        todoItemList: List<TodoItem>,
-        itemListener: OnItemClickListener?
-    ) : this(
-        context, itemListener
-    ) {
-        submitList(todoItemList)
-    }
-
     companion object {
         val DIFF_CALLBACK = diffCallback<TodoItem>(
             areItemsTheSame = { old, new -> old.id == new.id },
