@@ -21,10 +21,10 @@ import com.edricchan.studybuddy.exts.markwon.setMarkdown
 import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
 import com.edricchan.studybuddy.exts.markwon.taskListPlugin
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.features.tasks.compat.utils.TodoUtils
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
-import com.edricchan.studybuddy.ui.modules.task.utils.TodoUtils
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.BaseTransientBottomBar.Duration
 import com.google.android.material.snackbar.Snackbar
