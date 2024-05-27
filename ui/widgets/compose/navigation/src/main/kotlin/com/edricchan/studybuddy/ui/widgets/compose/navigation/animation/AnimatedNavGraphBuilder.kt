@@ -20,7 +20,10 @@ package com.edricchan.studybuddy.ui.widgets.compose.navigation.animation
  */
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -35,7 +38,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
 /**
- * Defines a composable destination in the receiver, with default  enter/exit
+ * Defines a composable destination in the receiver, with default enter/exit
  * sliding transitions as per the
  * [Material Design guidelines](https://m3.material.io/styles/motion/transitions/transition-patterns#df9c7d76-1454-47f3-ad1c-268a31f58bad).
  * @param route Route for the destination
@@ -53,53 +56,66 @@ fun NavGraphBuilder.horizontalSlideComposable(
     route = route,
     arguments = arguments,
     deepLinks = deepLinks,
-    enterTransition = {
-        slideIntoContainer(
-            towards = SlideDirection.Start,
-            animationSpec = slideInEffect,
-            initialOffset = offsetFunc,
-        ) + fadeIn(animationSpec = fadeInEffect)
-    },
-    exitTransition = {
-        slideOutOfContainer(
-            towards = SlideDirection.Start,
-            animationSpec = slideOutEffect,
-            targetOffset = offsetFunc,
-        ) + fadeOut(animationSpec = fadeOutEffect)
-    },
-    popEnterTransition = {
-        slideIntoContainer(
-            towards = SlideDirection.End,
-            animationSpec = slideInEffect,
-            initialOffset = offsetFunc,
-        ) + fadeIn(animationSpec = fadeInEffect)
-    },
-    popExitTransition = {
-        slideOutOfContainer(
-            towards = SlideDirection.End,
-            animationSpec = slideOutEffect,
-            targetOffset = offsetFunc,
-        ) + fadeOut(animationSpec = fadeOutEffect)
-    },
+    enterTransition = HorizontalSlideAnimations.EnterTransition,
+    exitTransition = HorizontalSlideAnimations.ExitTransition,
+    popEnterTransition = HorizontalSlideAnimations.PopEnterTransition,
+    popExitTransition = HorizontalSlideAnimations.PopExitTransition,
     content = content,
 )
 
 private const val FADE_OUT_MILLIS = 75
 private const val FADE_IN_MILLIS = 300
 
-private val slideInEffect = tween<IntOffset>(
-    durationMillis = FADE_IN_MILLIS,
-    delayMillis = FADE_OUT_MILLIS,
-    easing = LinearOutSlowInEasing,
-)
-private val slideOutEffect = tween<IntOffset>(durationMillis = FADE_IN_MILLIS)
-private val fadeOutEffect = tween<Float>(
-    durationMillis = FADE_OUT_MILLIS,
-    easing = FastOutLinearInEasing,
-)
-private val fadeInEffect = tween<Float>(
-    durationMillis = FADE_IN_MILLIS,
-    delayMillis = FADE_OUT_MILLIS,
-    easing = LinearOutSlowInEasing,
-)
-private val offsetFunc: (offsetForFullSlide: Int) -> Int = { it / 5 }
+private typealias EnterTransitionFn = AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition
+private typealias ExitTransitionFn = AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition
+
+object HorizontalSlideAnimations {
+    val EnterTransition: EnterTransitionFn = {
+        slideIntoContainer(
+            towards = SlideDirection.Start,
+            animationSpec = SlideInSpec,
+            initialOffset = OffsetFn,
+        ) + fadeIn(animationSpec = FadeInSpec)
+    }
+
+    val ExitTransition: ExitTransitionFn = {
+        slideOutOfContainer(
+            towards = SlideDirection.Start,
+            animationSpec = SlideOutSpec,
+            targetOffset = OffsetFn,
+        ) + fadeOut(animationSpec = FadeOutSpec)
+    }
+
+    val PopEnterTransition: EnterTransitionFn = {
+        slideIntoContainer(
+            towards = SlideDirection.End,
+            animationSpec = SlideInSpec,
+            initialOffset = OffsetFn,
+        ) + fadeIn(animationSpec = FadeInSpec)
+    }
+
+    val PopExitTransition: ExitTransitionFn = {
+        slideOutOfContainer(
+            towards = SlideDirection.End,
+            animationSpec = SlideOutSpec,
+            targetOffset = OffsetFn,
+        ) + fadeOut(animationSpec = FadeOutSpec)
+    }
+
+    val SlideInSpec = tween<IntOffset>(
+        durationMillis = FADE_IN_MILLIS,
+        delayMillis = FADE_OUT_MILLIS,
+        easing = LinearOutSlowInEasing,
+    )
+    val SlideOutSpec = tween<IntOffset>(durationMillis = FADE_IN_MILLIS)
+    val FadeOutSpec = tween<Float>(
+        durationMillis = FADE_OUT_MILLIS,
+        easing = FastOutLinearInEasing,
+    )
+    val FadeInSpec = tween<Float>(
+        durationMillis = FADE_IN_MILLIS,
+        delayMillis = FADE_OUT_MILLIS,
+        easing = LinearOutSlowInEasing,
+    )
+    val OffsetFn: (offsetForFullSlide: Int) -> Int = { it / 5 }
+}
