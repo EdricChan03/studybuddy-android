@@ -78,7 +78,7 @@ fun CheckboxRow(
 ) = Row(
     modifier = modifier.toggleable(
         value = checked,
-        onValueChange = { onCheckedChange(!checked) },
+        onValueChange = onCheckedChange,
         role = Role.Checkbox
     ),
     verticalAlignment = Alignment.CenterVertically,
@@ -107,7 +107,7 @@ fun CheckboxListItem(
 ) = ListItem(
     modifier = modifier.toggleable(
         value = checked,
-        onValueChange = { onCheckedChange(!checked) },
+        onValueChange = onCheckedChange,
         role = Role.Checkbox,
         enabled = enabled
     ),
