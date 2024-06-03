@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.ui.attrs.date.TaskDateDefaults
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import java.time.Instant
 
@@ -27,9 +28,7 @@ import java.time.Instant
 fun TaskDueDateListItem(
     modifier: Modifier = Modifier,
     dueDate: Instant,
-    formatDate: @Composable (Instant) -> String = {
-        it.appFormat(LocalContext.current)
-    },
+    formatDate: (Instant) -> String = TaskDateDefaults.FormatInstantFn,
     colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
     modifier = modifier,
