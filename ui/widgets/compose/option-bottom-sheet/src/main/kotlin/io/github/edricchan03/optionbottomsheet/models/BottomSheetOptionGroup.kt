@@ -82,12 +82,12 @@ data class BottomSheetOptionGroup(
 
         /**
          * Checkbox selection controls should be shown - one or more of the items can be
-         * selectable.
+         * selected.
          */
         All,
 
         /**
-         * Radio selection controls should be shown - only one item can be selectable at
+         * Radio selection controls should be shown - only one item can be selected at
          * a time.
          */
         Single
