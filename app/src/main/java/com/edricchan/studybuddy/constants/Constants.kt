@@ -23,7 +23,7 @@ object Constants {
         "Use the top-level prefDarkTheme property",
         ReplaceWith(
             "prefDarkTheme",
-            "com.edricchan.studybuddy.core.settings.prefDarkTheme"
+            "com.edricchan.studybuddy.core.settings.appearance.prefDarkTheme"
         )
     )
     const val prefDarkTheme = "pref_dark_theme"
@@ -45,19 +45,12 @@ object Constants {
         "Use the top-level prefUseCustomTabs property",
         ReplaceWith(
             "prefUseCustomTabs",
-            "com.edricchan.studybuddy.core.settings.prefUseCustomTabs"
+            "com.edricchan.studybuddy.core.settings.appearance.prefUseCustomTabs"
         )
     )
     const val prefUseCustomTabs = "pref_use_custom_tabs"
     const val prefCustomTabsUseAppColorScheme = "pref_custom_tabs_use_app_color_scheme"
 
-    @Deprecated(
-        "Use the top-level prefEnableUserTracking property",
-        ReplaceWith(
-            "prefEnableUserTracking",
-            "com.edricchan.studybuddy.core.settings.prefEnableUserTracking"
-        )
-    )
     const val prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking"
 
     // Preferences > Todos
