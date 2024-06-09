@@ -115,7 +115,7 @@ include(
     ":ui:widgets:compose:navigation",
     ":ui:widgets:compose:option-bottom-sheet",
     ":ui:widgets:modal-bottom-sheet",
-    ":core:auth:compose",
+    ":core:auth:ui:compose",
     ":core:auth:gms",
     ":core:deeplink",
     ":core:di",
