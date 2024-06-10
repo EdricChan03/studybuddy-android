@@ -3,8 +3,8 @@ import java.time.Instant
 import java.time.format.DateTimeFormatter
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    com.android.application
+    org.jetbrains.kotlin.android
     kotlin("plugin.serialization")
 
     alias(libs.plugins.firebase.crashlytics)
@@ -15,8 +15,8 @@ plugins {
 
     id("com.mikepenz.aboutlibraries.plugin")
 
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    com.google.devtools.ksp
+    com.google.dagger.hilt.android
 
     com.edricchan.studybuddy.library.common
 }
