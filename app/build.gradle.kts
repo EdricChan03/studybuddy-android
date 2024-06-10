@@ -216,7 +216,7 @@ dependencies {
     // See https://noties.io/Markwon for more info
     implementation(libs.bundles.markwon)
     // See https://github.com/noties/Markwon/issues/148#issuecomment-508003794
-    configurations.all {
+    configurations.configureEach {
         exclude("org.jetbrains", "annotations-java5")
     }
 
