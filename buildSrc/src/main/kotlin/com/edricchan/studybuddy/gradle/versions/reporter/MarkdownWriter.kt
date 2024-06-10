@@ -27,19 +27,19 @@ private fun String.header(
     return "${if (newPrevLine) "\n" else ""}${"#".repeat(level)} $this${if (newNextLine) "\n" else ""}"
 }
 
-private val String.bold: String
+private inline val String.bold: String
     get() = "**$this**"
 
-private val String.italics: String
+private inline val String.italics: String
     get() = "*$this*"
 
-private val String.code: String
+private inline val String.code: String
     get() = "`$this`"
 
-private val List<String>.unorderedList: String
+private inline val List<String>.unorderedList: String
     get() = joinToString("\n") { "* $it" }
 
-private val List<List<String>>.tableString: String
+private inline val List<List<String>>.tableString: String
     get() {
         // Table should at least have a heading row
         require(size > 1)
@@ -52,7 +52,7 @@ private val List<List<String>>.tableString: String
         }
     }
 
-private val String?.formattedUrl
+private inline val String?.formattedUrl
     get() = if (this != null) "Link".link(this) else "(No URL specified)"
 
 private typealias TableRow = List<String>
@@ -217,10 +217,10 @@ private val Boolean?.verbose: String
             if (this) "yes" else "no"
         else "(unknown)"
 
-private val Dependency.simple: String
+private inline val Dependency.simple: String
     get() = "${this.name}:${this.group}:${this.version}"
 
-private val DependencyLatest.simpleLatest: String
+private inline val DependencyLatest.simpleLatest: String
     get() = "${this.name}:${this.group}:${this.latest}"
 
 private fun DependencyOutdated.getSimpleLatest(availableType: String): String? {
