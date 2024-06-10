@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.data.repo.crud
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Repository that has query operations.
@@ -15,5 +16,11 @@ import kotlinx.coroutines.flow.Flow
  */
 interface HasQueryOperations<T, Query> {
     /** Retrieves items of type [T] that match the given [query] criteria. */
-    fun find(query: Query): Flow<List<T>>
+    fun findAll(query: Query): Flow<List<T>>
+
+    /**
+     * Retrieves the first item of type [T] that matches the given [query] criteria,
+     * or `null` if no items were matched.
+     */
+    fun findFirst(query: Query): Flow<T?> = findAll(query).map { it.firstOrNull() }
 }
