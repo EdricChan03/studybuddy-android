@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.SettingsExtension
-
 rootProject.name = "studybuddy-android"
 
 // Repository settings
@@ -92,9 +90,7 @@ develocity.buildScan {
     }
 }
 
-// TODO: configure<...> call is a workaround for https://github.com/gradle/gradle/issues/11210,
-//   remove call when issue is fixed
-configure<SettingsExtension> {
+android {
     buildToolsVersion = "34.0.0"
     compileSdk = 34
     minSdk = 21
