@@ -9,4 +9,7 @@ android {
 dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore.ktx)
+
+    api(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.playServices)
 }
