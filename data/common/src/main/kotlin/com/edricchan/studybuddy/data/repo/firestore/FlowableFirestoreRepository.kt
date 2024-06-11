@@ -46,7 +46,7 @@ open class FlowableFirestoreRepository<T : HasId>(
         collectionRefFlow.flatMapLatest { ref -> ref.snapshots().map { it.toObjects(klass) } }
 
     @OptIn(FlowPreview::class)
-    override fun find(query: QueryMapper) =
+    override fun findAll(query: QueryMapper) =
         collectionRefFlow.flatMapConcat { ref ->
             query(ref).snapshots().map { it.toObjects(klass) }
         }

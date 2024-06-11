@@ -30,7 +30,7 @@ open class FirestoreRepository<T : HasId>(
 
     override val items = collectionRef.snapshots().map { it.toObjects(klass) }
 
-    override fun find(query: QueryMapper) =
+    override fun findAll(query: QueryMapper) =
         query(collectionRef).snapshots().map { it.toObjects(klass) }
 
     override fun get(id: String) =
