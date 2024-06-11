@@ -6,6 +6,8 @@ permissions:
   # For generating attestations
   id-token: write
   attestations: write
+  # For Code Scanning
+  security-events: write
 
 jobs:
   unit-tests:
@@ -30,7 +32,12 @@ jobs:
   dependencies:
     name: Check for dependency updates
     runs-on: ubuntu-latest
-
+    permissions:
+      # For generating attestations
+      id-token: write
+      attestations: write
+      # For generating checks
+      checks: write
     steps:
       - uses: actions/checkout@v4
       - name: Run dependencyUpdates task
