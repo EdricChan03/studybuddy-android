@@ -10,9 +10,10 @@ inputs:
     description: "Arguments to be passed to ./gradlew for building."
     required: true
   gradle-dependency-graph:
-    description: "Specifies if a GitHub dependency snapshot should be
-    generated for each Gradle build, and if so, how. Valid values are
-    'disabled' (default), 'generate', 'generate-and-submit' and 'download-and-submit'."
+    description: >
+      Specifies if a GitHub dependency snapshot should be
+      generated for each Gradle build, and if so, how. Valid values are
+      'disabled' (default), 'generate', 'generate-and-submit' and 'download-and-submit'."
     default: "generate-and-submit"
     required: false
   skip-upload:
@@ -41,7 +42,9 @@ inputs:
   app-keystore-alias-password:
     description: "The keystore alias password to use."
     required: true
-
+  skip-attestation:
+    description: "Whether to skip attesting the built artifacts."
+    default: "false"
 runs:
   using: "composite"
   steps:
@@ -85,6 +88,11 @@ runs:
         APP_KEYSTORE_PASSWORD: ${{ inputs.app-keystore-password }}
         APP_KEYSTORE_ALIAS: ${{ inputs.app-keystore-alias }}
         APP_KEYSTORE_ALIAS_PASSWORD: ${{ inputs.app-keystore-alias-password }}
+    - name: Attest artifacts
+      if: ${{ !(inputs.skip-attestation == 'true') }}
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-path: ${{ inputs.upload-path }}
     - name: Upload artifacts
       if: ${{ !(inputs.skip-upload == 'true') }}
       uses: actions/upload-artifact@v4

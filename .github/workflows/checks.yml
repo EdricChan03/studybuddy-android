@@ -2,6 +2,11 @@ name: Checks
 
 on: push
 
+permissions:
+  # For generating attestations
+  id-token: write
+  attestations: write
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest

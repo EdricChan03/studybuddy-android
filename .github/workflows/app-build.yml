@@ -5,6 +5,9 @@ on: [ push ]
 permissions:
   # For writing to the GitHub Dependency Graph API
   contents: write
+  # For generating attestations
+  id-token: write
+  attestations: write
 
 jobs:
   build:
