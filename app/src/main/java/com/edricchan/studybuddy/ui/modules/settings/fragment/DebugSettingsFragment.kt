@@ -31,6 +31,7 @@ import com.edricchan.studybuddy.databinding.DebugSendFcmNotificationDialogBindin
 import com.edricchan.studybuddy.exts.android.getSerializableCompat
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import com.edricchan.studybuddy.exts.androidx.preference.setFragment
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.exts.firebase.auth.creationInstant
@@ -247,10 +248,8 @@ class DebugSettingsFragment : MaterialPreferenceFragment() {
                 Log.d(TAG, "Current value of return result: $returnResult")
                 returnResult
             }
-        findPreference<Preference>(Constants.debugFeatureFlags)?.fragment =
-            FeatureFlagsSettingsFragment::class.java.name
-        findPreference<Preference>(Constants.debugUpdatesUpdateMetadata)?.fragment =
-            DebugUpdateInfoSettingsFragment::class.java.name
+        findPreference<Preference>(Constants.debugFeatureFlags)?.setFragment<FeatureFlagsSettingsFragment>()
+        findPreference<Preference>(Constants.debugUpdatesUpdateMetadata)?.setFragment<DebugUpdateInfoSettingsFragment>()
         findPreference<Preference>(Constants.debugOtherModalBottomSheetTesting)?.intent =
             Intent(context, DebugModalBottomSheetActivity::class.java)
         findPreference<Preference>(Constants.debugDeviceInfo)?.setOnPreferenceClickListener {
