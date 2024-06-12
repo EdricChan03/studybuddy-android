@@ -69,6 +69,9 @@ composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-
 
 materialComponents = "com.google.android.material:material:1.12.0"
 
+# Credential Manager
+google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.1.0"
+
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
 deepLinkDispatch-processor = { module = "com.airbnb:deeplinkdispatch-processor", version.ref = "deep-link-dispatch" }

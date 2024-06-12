@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.exts.firebase.auth
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -56,6 +57,18 @@ suspend fun FirebaseAuth.signInWithEmailAndPasswordAsync(
 suspend fun FirebaseAuth.signInWithGoogleAsync(account: GoogleSignInAccount): AuthResult {
     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
     return signInWithCredential(credential).await()
+}
+
+/**
+ * Asynchronously signs in to Google using the given [credential].
+ * @return The result of the sign in request.
+ * @see FirebaseAuth.signInWithCredential
+ * @see GoogleAuthProvider
+ * @see GoogleIdTokenCredential
+ */
+suspend fun FirebaseAuth.signInWithGoogleAsync(credential: GoogleIdTokenCredential): AuthResult {
+    val firCredential = GoogleAuthProvider.getCredential(credential.idToken, null)
+    return signInWithCredential(firCredential).await()
 }
 
 /**

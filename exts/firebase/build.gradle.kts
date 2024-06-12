@@ -15,6 +15,8 @@ dependencies {
     api(libs.firebase.auth.ktx)
     api(libs.firebase.firestore.ktx)
 
+    api(libs.google.identity.googleId)
+
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.playServices)
 
