@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.createGraph
+import androidx.navigation.fragment.NavHostFragment
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -18,23 +20,22 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
-import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.android.startChooser
-import com.edricchan.studybuddy.exts.androidx.fragment.replaceFragment
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
-import com.edricchan.studybuddy.features.help.HelpActivity
+import com.edricchan.studybuddy.navigation.compat.CompatDestination
+import com.edricchan.studybuddy.navigation.compat.auth.navigateToAccountInfo
+import com.edricchan.studybuddy.navigation.compat.compatGraphs
+import com.edricchan.studybuddy.navigation.compat.navigateToCalendar
+import com.edricchan.studybuddy.navigation.compat.navigateToDebug
+import com.edricchan.studybuddy.navigation.compat.navigateToHelp
+import com.edricchan.studybuddy.navigation.compat.navigateToSettings
+import com.edricchan.studybuddy.navigation.compat.navigateToTips
+import com.edricchan.studybuddy.navigation.compat.task.navigateToTasksList
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.MainViewModel
-import com.edricchan.studybuddy.ui.modules.account.AccountActivity
-import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
-import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
-import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
-import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
-import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
 import com.edricchan.studybuddy.utils.web.launchUri
@@ -56,31 +57,27 @@ class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var navController: NavController
+
     private val viewModel by viewModels<MainViewModel>()
 
     override val isEdgeToEdgeEnabled = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.bottomAppBar)
+        navController = binding.navHostMain.getFragment<NavHostFragment>().navController
+        navController.initNavGraph()
 
-        // Checks if the add new shortcut was tapped
-        if (ACTION_ADD_NEW_TODO == intent.action) {
-            startActivity<NewTaskActivity>()
-        }
+        setSupportActionBar(binding.bottomAppBar)
 
         // Create notification channels
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannelsCompat()
         }
-
-        // Initially set a fragment view
-        // Note: As there isn't any fragment before this, we don't want this fragment
-        // to be added to the back stack.
-        setCurrentFragment(TodoFragment(), /* addToBackStack = */ false)
 
         // Subscribe to snack-bar data
         lifecycleScope.launch {
@@ -136,6 +133,11 @@ class MainActivity : BaseActivity() {
         return true
     }
 
+    private val navViewIdsMap = mapOf(
+        CompatDestination.Calendar::class to R.id.navigation_calendar,
+        CompatDestination.Task.List::class to R.id.navigation_todos,
+        CompatDestination.Tips::class to R.id.navigation_tips
+    )
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
@@ -143,17 +145,17 @@ class MainActivity : BaseActivity() {
                 navigationViewListener = {
                     when (it.itemId) {
                         R.id.navigation_calendar -> {
-                            setCurrentFragment(CalendarFragment())
+                            navController.navigateToCalendar()
                             true
                         }
 
                         R.id.navigation_todos -> {
-                            setCurrentFragment(TodoFragment())
+                            navController.navigateToTasksList()
                             true
                         }
 
                         R.id.navigation_tips -> {
-                            setCurrentFragment(TipsFragment())
+                            navController.navigateToTips()
                             true
                         }
 
@@ -168,19 +170,15 @@ class MainActivity : BaseActivity() {
                     photoUrl = it.photoUrl
                 }
 
-                navigationViewCheckedItemId =
-                    when (supportFragmentManager.findFragmentById(R.id.frameLayoutMain)) {
-                        is CalendarFragment -> R.id.navigation_calendar
-                        is TodoFragment -> R.id.navigation_todos
-                        is TipsFragment -> R.id.navigation_tips
-                        else -> ResourcesCompat.ID_NULL
-                    }
+                navigationViewCheckedItemId = navViewIdsMap.entries
+                    .find { navController.currentDestination?.hasRoute(it.key) == true }
+                    ?.value
             }
             true
         }
 
         R.id.action_settings -> {
-            startActivity<SettingsActivity>()
+            navController.navigateToSettings()
             true
         }
 
@@ -203,31 +201,33 @@ class MainActivity : BaseActivity() {
         }
 
         R.id.action_help -> {
-            startActivity<HelpActivity>()
+            navController.navigateToHelp()
             true
         }
 
         R.id.action_debug -> {
-            startActivity<DebugActivity>()
+            navController.navigateToDebug()
             true
         }
 
         R.id.action_account -> {
-            startActivity<AccountActivity>()
+            navController.navigateToAccountInfo()
             true
         }
 
         else -> super.onOptionsItemSelected(item)
     }
 
-    private fun setCurrentFragment(fragment: Fragment, addToBackStack: Boolean = true) {
-        replaceFragment(R.id.frameLayoutMain, fragment, addToBackStack)
+    private fun NavController.initNavGraph() {
+        graph = createGraph(CompatDestination.Task.Root) {
+            compatGraphs()
+        }
     }
 
     companion object {
         /**
          * The constant for a new task shortcut
          */
-        private const val ACTION_ADD_NEW_TODO = "com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO"
+        const val ACTION_ADD_NEW_TODO = "com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO"
     }
 }

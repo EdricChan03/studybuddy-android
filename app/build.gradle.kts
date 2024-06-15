@@ -184,6 +184,7 @@ dependencies {
     implementation(libs.androidx.browser)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.materialComponents)
+    implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.recyclerview.core)
     implementation(libs.androidx.recyclerview.selection)
