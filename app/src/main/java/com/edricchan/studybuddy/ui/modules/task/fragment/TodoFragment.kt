@@ -16,26 +16,27 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragTodoBinding
-import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
-import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
+import com.edricchan.studybuddy.navigation.compat.navigateToDebug
+import com.edricchan.studybuddy.navigation.compat.navigateToHelp
+import com.edricchan.studybuddy.navigation.compat.navigateToSettings
+import com.edricchan.studybuddy.navigation.compat.task.navigateToCreateTask
+import com.edricchan.studybuddy.navigation.compat.task.navigateToTaskView
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
-import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
-import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
-import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
-import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
 import com.edricchan.studybuddy.ui.modules.task.adapter.itemListener
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
@@ -69,11 +70,11 @@ class TodoFragment : Fragment() {
     private val viewModel by viewModels<TasksListViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
+    private lateinit var navController: NavController
+
     private val itemListener = itemListener(
         onItemClick = { item, _ ->
-            startActivity<ViewTaskActivity> {
-                putExtra(ViewTaskActivity.EXTRA_TASK_ID, item.id)
-            }
+            navController.navigateToTaskView(item.id)
         },
         onDeleteButtonClick = { item, _ ->
             requireContext().showMaterialAlertDialog {
@@ -129,14 +130,14 @@ class TodoFragment : Fragment() {
                         item(context.getString(R.string.menu_settings_title)) {
                             setIcon(R.drawable.ic_settings_outline_24dp)
                             setItemClickListener {
-                                startActivity<SettingsActivity>()
+                                navController.navigateToSettings()
                                 dismiss()
                             }
                         }
                         item(context.getString(R.string.menu_help_title)) {
                             setIcon(R.drawable.ic_help_outline_24dp)
                             setItemClickListener {
-                                startActivity<HelpActivity>()
+                                navController.navigateToHelp()
                                 dismiss()
                             }
                         }
@@ -144,7 +145,7 @@ class TodoFragment : Fragment() {
                             setIcon(R.drawable.ic_bug_report_outline_24dp)
                             visible = context.isDevMode()
                             setItemClickListener {
-                                startActivity<DebugActivity>()
+                                navController.navigateToDebug()
                                 dismiss()
                             }
                         }
@@ -174,6 +175,9 @@ class TodoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
+
         activity?.addMenuProvider(menuProvider, viewLifecycleOwner)
 
         mainViewModel.fab.setOnClickListener { newTaskActivity() }
@@ -355,7 +359,7 @@ class TodoFragment : Fragment() {
     }
 
     private fun newTaskActivity() {
-        startActivity<NewTaskActivity>()
+        navController.navigateToCreateTask()
     }
 
     private fun showSnackbar(
