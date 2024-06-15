@@ -4,8 +4,8 @@ import android.provider.Settings
 import androidx.core.net.toUri
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.activity
-import androidx.navigation.compose.navigation
 import androidx.navigation.fragment.fragment
+import androidx.navigation.navigation
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.features.about.navigation.AboutDestination
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
