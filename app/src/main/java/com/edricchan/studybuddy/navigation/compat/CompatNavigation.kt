@@ -7,7 +7,6 @@ import androidx.navigation.activity
 import androidx.navigation.fragment.fragment
 import androidx.navigation.navigation
 import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.features.about.navigation.AboutDestination
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
 import com.edricchan.studybuddy.features.auth.ui.ResetPasswordActivity
@@ -70,6 +69,10 @@ sealed interface CompatDestination {
         @Serializable
         data object AppAbout : About
 
+        /** Typed destination for viewing the app's information in the device's settings. */
+        @Serializable
+        data object SystemAppInfo : About
+
         /** Typed destination for viewing the app's licenses. */
         @Serializable
         data object ViewLicenses : About
@@ -124,7 +127,7 @@ sealed interface CompatDestination {
 fun NavGraphBuilder.aboutGraph() {
     fragment<AboutFragment, CompatDestination.About.AppAbout>()
     fragment<OssLicensesFragment, CompatDestination.About.ViewLicenses>()
-    activity<AboutDestination.SystemAppInfo> {
+    activity<CompatDestination.About.SystemAppInfo> {
         action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         data = "package:${BuildConfig.APPLICATION_ID}".toUri()
     }
