@@ -11,6 +11,14 @@ import android.content.Intent
 inline fun buildIntent(builderAction: Intent.() -> Unit) = Intent().apply(builderAction)
 
 /**
+ * A builder to create an [Intent] with the specified [action] pre-filled.
+ * @param action The [action][Intent.setAction] to be set for the [Intent].
+ * @param builderAction Inline functions to be called within the created [Intent].
+ */
+inline fun buildIntent(action: String, builderAction: Intent.() -> Unit) =
+    Intent(action).apply(builderAction)
+
+/**
  * A builder to create a chooser [Intent].
  * @param title The title to be shown in the chooser.
  * @param builderAction Inline functions to be called within the created [Intent]
