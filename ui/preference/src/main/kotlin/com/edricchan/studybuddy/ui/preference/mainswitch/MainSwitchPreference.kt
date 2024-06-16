@@ -31,13 +31,13 @@ import com.edricchan.studybuddy.ui.preference.R
 class MainSwitchPreference @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) : TwoStatePreference(context, attrs, defStyleAttr, defStyleRes), OnMainSwitchChangeListener {
-    private lateinit var mainSwitchBar: MainSwitchBar
+    private lateinit var mainSwitchBar: MainSwitchBarCompat
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.isDividerAllowedAbove = false
         holder.isDividerAllowedBelow = false
-        mainSwitchBar = holder.findViewById(R.id.m3_main_switch_bar) as MainSwitchBar
+        mainSwitchBar = holder.findViewById(R.id.m3_main_switch_bar) as MainSwitchBarCompat
         updateStatus(isChecked)
         // Set title on the switch bar
         mainSwitchBar.title = title

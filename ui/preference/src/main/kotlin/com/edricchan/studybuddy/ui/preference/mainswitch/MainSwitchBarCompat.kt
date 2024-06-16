@@ -39,7 +39,7 @@ import com.google.android.material.R as MaterialR
  * This component is used as the main switch of the page
  * to enable or disable the preferences on the page.
  */
-class MainSwitchBar @JvmOverloads constructor(
+class MainSwitchBarCompat @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr, defStyleRes),
     CompoundButton.OnCheckedChangeListener {
