@@ -31,17 +31,17 @@ import com.edricchan.studybuddy.ui.preference.R
 class MainSwitchPreference @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) : TwoStatePreference(context, attrs, defStyleAttr, defStyleRes), OnMainSwitchChangeListener {
-    private lateinit var mainSwitchBar: MainSwitchBarCompat
+    private lateinit var mainSwitchBar: MainSwitchBarView
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.isDividerAllowedAbove = false
         holder.isDividerAllowedBelow = false
-        mainSwitchBar = holder.findViewById(R.id.m3_main_switch_bar) as MainSwitchBarCompat
+        mainSwitchBar = holder.findViewById(R.id.m3_main_switch_bar) as MainSwitchBarView
         updateStatus(isChecked)
         // Set title on the switch bar
-        mainSwitchBar.title = title
-        mainSwitchBar.addOnSwitchChangeListener(this)
+        mainSwitchBar.title = title?.toString().orEmpty()
+        mainSwitchBar.addOnCheckedChangeListener(this)
     }
 
     init {
@@ -68,7 +68,7 @@ class MainSwitchPreference @JvmOverloads constructor(
 
     override fun setTitle(title: CharSequence?) {
         super.setTitle(title)
-        if (::mainSwitchBar.isInitialized) mainSwitchBar.title = title
+        if (::mainSwitchBar.isInitialized) mainSwitchBar.title = title?.toString().orEmpty()
     }
 
     override fun onSwitchChanged(switchView: SwitchCompat?, isChecked: Boolean) {
@@ -80,20 +80,20 @@ class MainSwitchPreference @JvmOverloads constructor(
      */
     fun updateStatus(checked: Boolean) {
         isChecked = checked
-        mainSwitchBar.show()
+//        mainSwitchBar.show()
     }
 
     /**
      * Adds a listener for switch changes
      */
     fun addOnSwitchChangeListener(listener: OnMainSwitchChangeListener) {
-        mainSwitchBar.addOnSwitchChangeListener(listener)
+        mainSwitchBar.addOnCheckedChangeListener(listener)
     }
 
     /**
      * Remove a listener for switch changes
      */
     fun removeOnSwitchChangeListener(listener: OnMainSwitchChangeListener) {
-        mainSwitchBar.removeOnSwitchChangeListener(listener)
+        mainSwitchBar.removeOnCheckedChangeListener(listener)
     }
 }

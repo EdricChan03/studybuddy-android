@@ -16,7 +16,7 @@
     android:layout_height="wrap_content"
     android:importantForAccessibility="no">
 
-    <com.edricchan.studybuddy.ui.preference.mainswitch.MainSwitchBarCompat
+    <com.edricchan.studybuddy.ui.preference.mainswitch.MainSwitchBarView
         android:id="@+id/m3_main_switch_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

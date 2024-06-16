@@ -1,6 +1,6 @@
 plugins {
-    id("com.edricchan.studybuddy.library.android")
-    id("kotlin-parcelize")
+    com.edricchan.studybuddy.library.`android-compose`
+    `kotlin-parcelize`
 }
 
 android {
@@ -24,6 +24,9 @@ android {
 }
 
 dependencies {
+    api(projects.ui.preference.compose)
+    implementation(projects.ui.theming.compose)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.preference.ktx)
