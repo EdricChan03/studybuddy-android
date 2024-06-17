@@ -28,7 +28,6 @@ tasks.withType<AndroidUnitTest>().configureEach {
 
 dependencies {
     api(projects.ui.theming.common)
-    implementation(projects.ui.theming.views)
 
     implementation(libs.androidx.compose.material3)
 

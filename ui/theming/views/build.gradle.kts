@@ -22,6 +22,9 @@ android {
 
 dependencies {
     api(projects.ui.theming.common)
+    implementation(projects.ui.preference) {
+        because("Preference XML styling")
+    }
 
     implementation(projects.core.settings.appearance)
     implementation(projects.exts.androidx.preference)
