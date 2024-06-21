@@ -1,10 +1,9 @@
-package com.edricchan.studybuddy.ui.modules.task.adapter.itemdetailslookup
+package com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemdetails
 
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.TodosAdapter
-import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemdetails.TodoItemDetails
 
 class TodoItemLookup(
     private val recyclerView: RecyclerView
