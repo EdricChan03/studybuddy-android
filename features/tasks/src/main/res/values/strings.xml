@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Task actions -->
+    <eat-comment />
+
+    <!-- Text for the mark as done action. -->
+    <string name="action_mark_task_as_done">Mark as completed</string>
+    <!-- TODO: Remove -->
+    <string name="action_mark_as_done">@string/action_mark_task_as_done</string>
+    <!-- Text for the delete task action. -->
+    <string name="action_delete_task">Delete task</string>
+
+    <!-- Task adapter strings -->
+    <eat-comment />
+
+    <!-- Default text to show if the task has no content. -->
+    <string name="task_adapter_empty_content">&lt;No content&gt;</string>
+    <!-- Default text to show if the task has no title. -->
+    <string name="task_adapter_empty_title">&lt;No title&gt;</string>
+
     <!-- View task strings -->
     <eat-comment />
 

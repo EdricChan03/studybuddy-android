@@ -1,19 +1,19 @@
-package com.edricchan.studybuddy.ui.modules.task.adapter
+package com.edricchan.studybuddy.features.tasks.compat.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.databinding.TodosAdapterItemRowBinding
 import com.edricchan.studybuddy.exts.markwon.coilImagesPlugin
 import com.edricchan.studybuddy.exts.markwon.linkifyPlugin
 import com.edricchan.studybuddy.exts.markwon.setMarkdown
 import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
 import com.edricchan.studybuddy.exts.markwon.taskListPlugin
+import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemdetails.TodoItemDetails
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.databinding.TodosAdapterItemRowBinding
 import com.edricchan.studybuddy.utils.recyclerview.diffCallback
 
 class TodosAdapter(

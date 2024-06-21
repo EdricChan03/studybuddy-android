@@ -55,7 +55,7 @@
             android:minWidth="0dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="@string/action_mark_as_done"
+            android:text="@string/action_mark_task_as_done"
             app:icon="@drawable/ic_check_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/menu_view_task_delete_todo_title"
+            android:text="@string/action_delete_task"
             app:icon="@drawable/ic_delete_outline_24dp"
             app:layout_constraintStart_toEndOf="@id/itemMarkAsDone"
             app:layout_constraintTop_toTopOf="@id/itemMarkAsDone" />
