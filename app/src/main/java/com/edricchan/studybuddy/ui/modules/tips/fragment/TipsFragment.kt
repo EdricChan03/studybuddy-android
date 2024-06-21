@@ -16,14 +16,15 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.databinding.FragTipsBinding
 import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.utils.web.launchUri
 
 class TipsFragment : Fragment() {
     private var preferences: SharedPreferences? = null
-    private var _binding: FragTipsBinding? = null
-    private val binding get() = _binding!!
+
+    private val binding by viewInflateBinding(FragTipsBinding::inflate)
 
     private val menuProvider = object : MenuProvider {
         override fun onPrepareMenu(menu: Menu) {
@@ -65,18 +66,12 @@ class TipsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = FragTipsBinding
-        .inflate(inflater, container, false).also { _binding = it }.root
+        .inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tipsEmptyStateCta.setOnClickListener {
             requireContext().launchUri(Constants.uriSubmitTip)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        _binding = null
     }
 }
