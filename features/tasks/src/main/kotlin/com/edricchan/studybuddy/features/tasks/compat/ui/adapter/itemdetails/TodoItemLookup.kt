@@ -10,13 +10,11 @@ class TodoItemLookup(
 ) : ItemDetailsLookup<String>() {
 
     override fun getItemDetails(e: MotionEvent): TodoItemDetails? {
-        val view = recyclerView.findChildViewUnder(e.x, e.y)
-        if (view != null) {
-            val viewHolder = recyclerView.getChildViewHolder(view)
-            if (viewHolder is TodosAdapter.Holder) {
-                return viewHolder.itemDetails
-            }
-        }
+        val view = recyclerView.findChildViewUnder(e.x, e.y) ?: return null
+
+        val viewHolder = recyclerView.getChildViewHolder(view)
+        if (viewHolder is TodosAdapter.Holder) return viewHolder.itemDetails
+
         return null
     }
 }
