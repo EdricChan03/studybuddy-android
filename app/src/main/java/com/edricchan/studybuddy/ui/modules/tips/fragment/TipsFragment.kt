@@ -10,19 +10,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.databinding.FragTipsBinding
-import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
-import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
-import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
+import com.edricchan.studybuddy.navigation.compat.navigateToDebug
+import com.edricchan.studybuddy.navigation.compat.navigateToSettings
 import com.edricchan.studybuddy.utils.web.launchUri
 
 class TipsFragment : Fragment() {
     private var preferences: SharedPreferences? = null
+
+    private lateinit var navController: NavController
 
     private val binding by viewInflateBinding(FragTipsBinding::inflate)
 
@@ -41,12 +44,12 @@ class TipsFragment : Fragment() {
 
         override fun onMenuItemSelected(item: MenuItem) = when (item.itemId) {
             R.id.action_debug -> {
-                startActivity<DebugActivity>()
+                navController.navigateToDebug()
                 true
             }
 
             R.id.action_settings -> {
-                startActivity<SettingsActivity>()
+                navController.navigateToSettings()
                 true
             }
 
@@ -58,6 +61,8 @@ class TipsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferences = requireContext().defaultSharedPreferences
+
+        navController = findNavController()
         activity?.addMenuProvider(menuProvider)
     }
 
