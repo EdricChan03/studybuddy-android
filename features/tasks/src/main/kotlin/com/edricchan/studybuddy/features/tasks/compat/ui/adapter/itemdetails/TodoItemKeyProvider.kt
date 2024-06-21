@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.adapter.itemkeyprovider
+package com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemdetails
 
 import androidx.recyclerview.selection.ItemKeyProvider
 import androidx.recyclerview.widget.RecyclerView
