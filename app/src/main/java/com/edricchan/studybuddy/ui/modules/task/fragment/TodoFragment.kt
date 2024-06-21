@@ -26,6 +26,8 @@ import com.edricchan.studybuddy.databinding.FragTodoBinding
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.TodosAdapter
+import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemListener
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
@@ -38,8 +40,6 @@ import com.edricchan.studybuddy.navigation.compat.task.navigateToTaskView
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
-import com.edricchan.studybuddy.ui.modules.task.adapter.TodosAdapter
-import com.edricchan.studybuddy.ui.modules.task.adapter.itemListener
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
