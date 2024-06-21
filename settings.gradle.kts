@@ -130,6 +130,7 @@ include(
     ":exts:androidx:fragment",
     ":exts:androidx:preference",
     ":exts:androidx:preference-files",
+    ":exts:androidx:view-binding",
     ":exts:coil",
     ":exts:common",
     ":exts:datetime",
