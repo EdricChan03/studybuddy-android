@@ -16,6 +16,7 @@ import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
 import com.edricchan.studybuddy.exts.android.getParcelableCompat
 import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
+import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -32,16 +33,13 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
     var photoUrl: Uri? = null
     var navigationViewCheckedItemId: Int? = null
 
-    private var _binding: FragBottomappbarBottomsheetBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewInflateBinding(FragBottomappbarBottomsheetBinding::inflate)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = FragBottomappbarBottomsheetBinding.inflate(inflater, container, false).also {
-        _binding = it
-    }.root
+    ) = FragBottomappbarBottomsheetBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,11 +75,6 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 userEmail.setText(R.string.account_user_email_default)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
