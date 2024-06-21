@@ -12,8 +12,8 @@ import com.edricchan.studybuddy.exts.markwon.linkifyPlugin
 import com.edricchan.studybuddy.exts.markwon.setMarkdown
 import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
 import com.edricchan.studybuddy.exts.markwon.taskListPlugin
+import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemdetails.TodoItemDetails
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.ui.modules.task.adapter.itemdetails.TodoItemDetails
 import com.edricchan.studybuddy.utils.recyclerview.diffCallback
 
 class TodosAdapter(
