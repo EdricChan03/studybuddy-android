@@ -107,7 +107,6 @@ android {
         buildConfig = true
     }
 
-
     compileOptions.isCoreLibraryDesugaringEnabled = true
 
     testOptions {
@@ -162,6 +161,7 @@ dependencies {
     implementation(projects.exts.androidx.fragment)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.androidx.preferenceFiles)
+    implementation(projects.exts.androidx.viewBinding)
     implementation(projects.exts.common)
     implementation(projects.exts.datetime)
     implementation(projects.exts.firebase)

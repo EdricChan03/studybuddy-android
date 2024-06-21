@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.FragTodoBinding
+import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
@@ -64,8 +65,7 @@ class TodoFragment : Fragment() {
     @Inject
     lateinit var firestore: FirebaseFirestore
 
-    private var _binding: FragTodoBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewInflateBinding(FragTodoBinding::inflate)
 
     private val viewModel by viewModels<TasksListViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
@@ -171,7 +171,7 @@ class TodoFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = FragTodoBinding.inflate(inflater, container, false).also { _binding = it }.root
+    ) = FragTodoBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -231,8 +231,6 @@ class TodoFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
-        _binding = null
 
         mainViewModel.fab.setOnClickListener(null)
     }
