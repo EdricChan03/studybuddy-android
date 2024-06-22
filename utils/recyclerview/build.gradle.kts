@@ -7,5 +7,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.recyclerview.core)
+    api(libs.androidx.recyclerview.core)
 }
