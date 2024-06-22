@@ -7,7 +7,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.markwon)
+    api(libs.bundles.markwon)
 
     // See https://github.com/noties/Markwon/issues/148#issuecomment-508003794
     configurations.configureEach {
