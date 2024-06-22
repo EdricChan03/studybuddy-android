@@ -20,6 +20,8 @@ android {
         }
     }
 
+    buildFeatures.viewBinding = true
+
     compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
@@ -33,7 +35,11 @@ dependencies {
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.recyclerview.core)
+    implementation(libs.androidx.recyclerview.selection)
+    implementation(libs.materialComponents)
 
     // Compose
     implementation(libs.androidx.lifecycle.runtime.compose)
