@@ -46,9 +46,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         binding.navigationView.apply {
             setNavigationItemSelectedListener(navigationViewListener)
-            if (navigationViewCheckedItemId != null) {
-                setCheckedItem(navigationViewCheckedItemId!!)
-            }
+            navigationViewCheckedItemId?.let { setCheckedItem(it) }
         }
 
         savedInstanceState?.apply {
@@ -67,9 +65,9 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
             }
 
             if (isLoggedIn) {
-                if (displayName != null) userName.text = displayName
-                if (email != null) userEmail.text = email
-                if (photoUrl != null) userAvatar.load(photoUrl)
+                displayName?.let { userName.text = it }
+                email?.let { userEmail.text = it }
+                photoUrl?.let(userAvatar::load)
             } else {
                 userName.setText(R.string.account_user_name_default)
                 userEmail.setText(R.string.account_user_email_default)
