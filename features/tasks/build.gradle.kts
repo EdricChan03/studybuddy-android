@@ -31,6 +31,8 @@ dependencies {
     implementation(projects.data.common)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)
+    implementation(projects.exts.markwon)
+    implementation(projects.utils.recyclerview)
     implementation(projects.ui.theming.compose)
 
     // AndroidX
