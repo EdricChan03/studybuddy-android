@@ -3,10 +3,12 @@ package com.edricchan.studybuddy.exts.androidx.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
+import androidx.fragment.app.findFragment
 import com.google.android.material.transition.MaterialFadeThrough
 
 /**
@@ -56,6 +58,39 @@ fun FragmentActivity.replaceFragment(
             commit {
                 if (hasAnimations) fragment.enterTransition = MaterialFadeThrough()
                 replace(viewId, fragment)
+                if (addToBackStack) addToBackStack(null)
+            }
+        }
+        // Indicate that the fragment replacement has been done.
+        true
+    }
+    // Return false if there's already an existing fragment.
+    else false
+
+/**
+ * Replaces the current fragment associated with the [view] with the specified [fragment].
+ * Optionally, the ability to add the fragment to the back stack can be specified,
+ * as well as whether to have animations, if any.
+ * @param view The view to replace
+ * @param fragment The fragment to replace the view with
+ * @param addToBackStack Whether to add the fragment to the back stack
+ * @param hasAnimations Whether to have animations
+ * @return True if the fragment was replaced, false otherwise
+ */
+fun <F : Fragment> FragmentActivity.replaceFragment(
+    view: View, fragment: F,
+    addToBackStack: Boolean,
+    hasAnimations: Boolean = true
+) =
+    if (view.findFragment<F>() !== fragment) {
+        with(supportFragmentManager) {
+            // Set exit transition on the latest fragment
+            // (lastOrNull is used in the event that the list of fragments is empty, which can
+            // happen if there are no initial fragments)
+            if (hasAnimations) fragments.lastOrNull()?.exitTransition = MaterialFadeThrough()
+            commit {
+                if (hasAnimations) fragment.enterTransition = MaterialFadeThrough()
+                replace(view.id, fragment)
                 if (addToBackStack) addToBackStack(null)
             }
         }
