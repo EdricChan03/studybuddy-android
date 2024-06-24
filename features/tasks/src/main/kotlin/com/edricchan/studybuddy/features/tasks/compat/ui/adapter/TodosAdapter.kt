@@ -48,8 +48,7 @@ class TodosAdapter(
                 if (!item.title.isNullOrEmpty()) itemTitle.text = item.title
                 else itemTitle.setText(R.string.task_adapter_empty_title)
                 if (!item.content.isNullOrEmpty()) {
-                    // FIXME: Remove not-null assertion
-                    itemContent.setMarkdown(item.content!!) {
+                    itemContent.setMarkdown(item.content) {
                         usePlugins(
                             context.coilImagesPlugin,
                             linkifyPlugin,
