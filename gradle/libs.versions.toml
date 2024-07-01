@@ -146,7 +146,7 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 kotlin-composeCompiler-gradle = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
 # Testing dependencies
-androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"
+androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.6.1"
 androidx-test-core = "androidx.test:core:1.5.0"
 androidx-test-ext = "androidx.test.ext:junit:1.1.5"
 androidx-test-runner = "androidx.test:runner:1.5.2"
