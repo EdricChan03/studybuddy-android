@@ -17,6 +17,7 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 /**
  * Shared utility methods
@@ -32,7 +33,7 @@ object SharedUtils {
         val notificationManager = NotificationManagerCompat.from(context)
         val notifyBuilder = NotificationCompat.Builder(
             context,
-            context.getString(R.string.notification_channel_update_status_id)
+            context.getString(CoreResR.string.notification_channel_update_status_id)
         )
             .setSmallIcon(R.drawable.ic_notification_system_update_24dp)
             .setContentTitle(context.getString(R.string.notification_check_update))
@@ -98,7 +99,7 @@ object SharedUtils {
                             .setProgress(0, 0, false)
                             .setCategory(null)
                             .setOngoing(false)
-                            .setChannelId(context.getString(R.string.notification_channel_update_available_id))
+                            .setChannelId(context.getString(CoreResR.string.notification_channel_update_available_id))
                             .setContentIntent(pContentIntent)
                             .setAutoCancel(true)
                             .addAction(
@@ -159,7 +160,7 @@ object SharedUtils {
                             .setProgress(0, 0, false)
                             .setCategory(NotificationCompat.CATEGORY_ERROR)
                             .setOngoing(false)
-                            .setChannelId(context.getString(R.string.notification_channel_update_error_id))
+                            .setChannelId(context.getString(CoreResR.string.notification_channel_update_error_id))
                             .setColor(context.dynamicColorPrimary)
                             .addAction(
                                 NotificationCompat.Action(
