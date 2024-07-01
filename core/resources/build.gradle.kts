@@ -1,5 +1,5 @@
 plugins {
-    id("com.edricchan.studybuddy.library.android")
+    com.edricchan.studybuddy.library.android
 }
 
 android {
@@ -21,6 +21,7 @@ android {
 }
 
 dependencies {
+    api(libs.androidx.annotation)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.materialComponents)
