@@ -8,7 +8,7 @@ import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.ui.theming.PREF_DYNAMIC_THEME
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
-import com.google.android.material.color.DynamicColors
+import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
 
 class GeneralSettingsFragment : MaterialPreferenceFragment() {
     private val logTag = TAG
@@ -31,7 +31,7 @@ class GeneralSettingsFragment : MaterialPreferenceFragment() {
 
                 true
             }
-            isEnabled = DynamicColors.isDynamicColorAvailable()
+            isEnabled = isDynamicColorAvailable
         }
     }
 }
