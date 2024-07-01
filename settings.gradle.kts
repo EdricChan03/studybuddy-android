@@ -139,6 +139,7 @@ include(
     ":exts:material",
     ":features:help",
     ":features:auth",
+    ":features:settings",
     ":features:tasks",
     ":app"
 )
