@@ -169,6 +169,7 @@ dependencies {
     implementation(projects.exts.material)
     implementation(projects.features.auth)
     implementation(projects.features.help)
+    implementation(projects.features.settings)
     implementation(projects.features.tasks)
 
     // Test dependencies

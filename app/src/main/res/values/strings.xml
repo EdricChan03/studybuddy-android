@@ -433,24 +433,11 @@
     <string name="pref_about_source_code_summary">View the app\'s source code on Github</string>
     <string name="pref_about_source_code_title">Source code</string>
 
-    <string name="pref_category_theme">Theme</string>
-
     <string name="pref_category_todo_general">General</string>
 
     <string name="pref_category_weekly_summary">Weekly summary</string>
     <string name="pref_category_weekly_summary_prefs">Weekly summary preferences</string>
     <string name="pref_check_for_update_frequency_title">Checking frequency</string>
-    <string name="pref_dark_theme_title">Dark theme</string>
-    <string name="pref_dynamic_theme_title">Dynamic theme</string>
-    <string name="pref_dynamic_theme_summary">Whether to use your phone\'s theme. (Android 12+)
-    </string>
-
-    <string name="pref_enable_crashlytics_user_tracking_summary">Add your email address and your
-        name to future crash reports.\nThis data will only be used for crash reports and will be
-        applied once the app has restarted.
-    </string>
-
-    <string name="pref_enable_crashlytics_user_tracking_title">Crash report user tracking</string>
 
     <!-- Feature flags strings -->
     <eat-comment />
@@ -508,7 +495,6 @@
         app, about app author, licenses, view source code
     </string>
     <string name="pref_header_about_title">About</string>
-    <string name="pref_language_title">Language</string>
     <string name="pref_show_header_summary_title">Show header summaries</string>
 
     <string name="pref_todo_default_sort_title">Default sorting mode</string>
@@ -528,7 +514,6 @@
     <string name="pref_updates_summary">Last checked: %1$s\nLast updated: %2$s</string>
     <string name="pref_updates_summary_never">Never</string>
 
-    <string name="pref_use_custom_tabs_title">Open web links in-app</string>
     <string name="pref_weekly_summary_about_desc">A curated summary of the progress of your
         completion of your todos, sent as a notification
     </string>

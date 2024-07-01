@@ -12,6 +12,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.androidx.preference.setFragment
+import com.edricchan.studybuddy.features.settings.compat.ui.categories.GeneralSettingsFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment

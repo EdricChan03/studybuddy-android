@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_language_languages_array">
+        <item>(System Default)</item>
+    </string-array>
+    <string-array name="pref_language_languages_array_values" translatable="false">
+        <!-- Special value to denote the system default language -->
+        <item>1</item>
+        <!-- Valid values:
+        lang_countryCode
+        Example:
+        en_US represents English (United States)
+        -->
+    </string-array>
+
+    <string-array name="pref_dark_theme_options_array">
+        <item>Always</item>
+        <!-- No longer supported -->
+        <!-- <item>Automatic (at night)</item> -->
+        <item>Automatic (battery saver)</item>
+        <item>Follow system</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_dark_theme_options_array_values" translatable="false">
+        <item>always</item>
+        <!-- No longer supported -->
+        <!-- <item>automatic_time</item> -->
+        <item>automatic_battery_saver</item>
+        <item>follow_system</item>
+        <item>never</item>
+    </string-array>
+</resources>
