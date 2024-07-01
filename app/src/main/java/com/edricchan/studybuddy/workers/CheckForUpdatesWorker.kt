@@ -26,6 +26,7 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 class CheckForUpdatesWorker(
     private val appContext: Context,
@@ -60,7 +61,7 @@ class CheckForUpdatesWorker(
     private val notificationBuilder =
         NotificationCompat.Builder(
             appContext,
-            appContext.getString(R.string.notification_channel_update_status_id)
+            appContext.getString(CoreResR.string.notification_channel_update_status_id)
         )
 
     override fun doWork(): Result {
@@ -149,7 +150,7 @@ class CheckForUpdatesWorker(
             setProgress(0, 0, false)
             setCategory(null)
             setOngoing(false)
-            setChannelId(appContext.getString(R.string.notification_channel_update_available_id))
+            setChannelId(appContext.getString(CoreResR.string.notification_channel_update_available_id))
             addAction(
                 NotificationCompat.Action(
                     R.drawable.ic_download_24dp,

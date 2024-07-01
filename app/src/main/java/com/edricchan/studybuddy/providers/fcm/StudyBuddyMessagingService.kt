@@ -27,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.serialization.json.Json
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
     private val notificationUtils = NotificationUtils.getInstance()
@@ -37,7 +38,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
         val manager = NotificationManagerCompat.from(this)
         val builder = NotificationCompat.Builder(
             this,
-            getString(R.string.notification_channel_uncategorised_id)
+            getString(CoreResR.string.notification_channel_uncategorised_id)
         )
 
         if (remoteMessage.notification != null) {
@@ -102,7 +103,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                             "No such notification channel ${remoteMessage.notification?.channelId} exists." +
                                 "Assigning \"uncategorised\" channel."
                         )
-                        builder.setChannelId(getString(R.string.notification_channel_uncategorised_id))
+                        builder.setChannelId(getString(CoreResR.string.notification_channel_uncategorised_id))
                     } else {
                         builder.setChannelId(remoteMessage.notification?.channelId!!)
                     }

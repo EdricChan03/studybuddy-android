@@ -11,6 +11,7 @@ import com.edricchan.studybuddy.core.settings.tasks.summary.prefWeeklySummaryNot
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragmentMainSwitch
 import com.edricchan.studybuddy.ui.preference.mainswitch.MainSwitchPreference
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 class WeeklySummarySettingsFragment : MaterialPreferenceFragmentMainSwitch() {
     override fun createMainSwitch(context: Context) = MainSwitchPreference(context).apply {
@@ -28,7 +29,7 @@ class WeeklySummarySettingsFragment : MaterialPreferenceFragmentMainSwitch() {
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
                     putExtra(
                         Settings.EXTRA_CHANNEL_ID,
-                        getString(R.string.notification_channel_weekly_summary_id)
+                        getString(CoreResR.string.notification_channel_weekly_summary_id)
                     )
                 }
             } else {
