@@ -1,9 +1,8 @@
 package com.edricchan.studybuddy.utils
 
 import android.content.Context
-import android.graphics.Color
 import androidx.core.app.NotificationManagerCompat
-import com.edricchan.studybuddy.extensions.notificationChannelCompat
+import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.extensions.notificationChannelGroupCompat
 import java.util.concurrent.atomic.AtomicInteger
 import com.edricchan.studybuddy.core.resources.R as CoreResR
@@ -46,148 +45,47 @@ class NotificationUtils(
 fun Context.createNotificationChannelsCompat() {
     val notificationManager = NotificationManagerCompat.from(this)
 
-    val channels = buildList {
+    val channels = listOf(
         // Task updates notifications
-        val todoUpdatesChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_todo_updates_id),
-            name = getString(CoreResR.string.notification_channel_todo_updates_title),
-            description = getString(CoreResR.string.notification_channel_todo_updates_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_HIGH
-        ) {
-            setGroup(getString(CoreResR.string.notification_channel_group_todos_id))
-            setLightsEnabled(true)
-            setLightColor(Color.YELLOW)
-            setVibrationEnabled(true)
-            setShowBadge(true)
-        }
-        this += todoUpdatesChannel
+        AppNotificationChannel.TaskUpdates.asNotificationChannel(this),
 
         // Weekly summary notifications
-        val weeklySummaryChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_weekly_summary_id),
-            name = getString(CoreResR.string.notification_channel_weekly_summary_title),
-            description = getString(CoreResR.string.notification_channel_weekly_summary_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_LOW
-        ) {
-            setGroup(getString(CoreResR.string.notification_channel_group_todos_id))
-            setShowBadge(true)
-        }
-        this += weeklySummaryChannel
+        AppNotificationChannel.WeeklySummary.asNotificationChannel(this),
 
         // Syncing notifications
-        val syncChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_sync_id),
-            name = getString(CoreResR.string.notification_channel_sync_title),
-            description = getString(CoreResR.string.notification_channel_sync_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_LOW
-        ) {
-            setShowBadge(false)
-        }
-        this += syncChannel
+        AppNotificationChannel.Sync.asNotificationChannel(this),
 
         // Update error notifications
-        val updateErrorChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_update_error_id),
-            name = getString(CoreResR.string.notification_channel_update_error_title),
-            description = getString(CoreResR.string.notification_channel_update_error_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_HIGH
-        ) {
-            setGroup(getString(CoreResR.string.notification_channel_group_updates_id))
-            setShowBadge(false)
-        }
-        this += updateErrorChannel
+        AppNotificationChannel.UpdateError.asNotificationChannel(this),
         // Update status notifications
-        val updateStatusChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_update_status_id),
-            name = getString(CoreResR.string.notification_channel_update_status_title),
-            description = getString(CoreResR.string.notification_channel_update_status_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_LOW
-        ) {
-            setGroup(getString(CoreResR.string.notification_channel_group_updates_id))
-            setShowBadge(false)
-        }
-        this += updateStatusChannel
+        AppNotificationChannel.UpdateStatus.asNotificationChannel(this),
         // Update complete notifications
-        val updateCompleteChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_update_complete_id),
-            name = getString(CoreResR.string.notification_channel_update_complete_title),
-            description = getString(CoreResR.string.notification_channel_update_complete_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_LOW
-        ) {
-            setGroup(getString(CoreResR.string.notification_channel_group_updates_id))
-            setShowBadge(false)
-        }
-        this += updateCompleteChannel
+        AppNotificationChannel.UpdateComplete.asNotificationChannel(this),
         // Update not available notifications
-        val updateNotAvailableChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_update_not_available_id),
-            name = getString(CoreResR.string.notification_channel_update_not_available_title),
-            description = getString(CoreResR.string.notification_channel_update_not_available_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_DEFAULT
-        ) {
-            setGroup(getString(CoreResR.string.notification_channel_group_updates_id))
-            setShowBadge(false)
-        }
-        this += updateNotAvailableChannel
+        AppNotificationChannel.UpdateUnavailable.asNotificationChannel(this),
         // Update available notifications
-        val updateAvailableChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_update_available_id),
-            name = getString(CoreResR.string.notification_channel_update_available_title),
-            description = getString(CoreResR.string.notification_channel_update_available_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_HIGH
-        ) {
-            setGroup(getString(CoreResR.string.notification_channel_group_updates_id))
-            setShowBadge(false)
-        }
-        this += updateAvailableChannel
+        AppNotificationChannel.UpdateAvailable.asNotificationChannel(this),
 
         // Media playback notifications
-        val playbackChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_playback_id),
-            name = getString(CoreResR.string.notification_channel_playback_title),
-            description = getString(CoreResR.string.notification_channel_playback_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_LOW
-        ) {
-            // We don't want playback notifications to show a badge
-            setShowBadge(false)
-        }
-        this += playbackChannel
+        AppNotificationChannel.Playback.asNotificationChannel(this),
 
         // New in-app features notifications
-        val newFeaturesChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_new_app_features_id),
-            name = getString(CoreResR.string.notification_channel_new_app_features_title),
-            description = getString(CoreResR.string.notification_channel_new_app_features_desc),
-            importance = NotificationManagerCompat.IMPORTANCE_LOW
-        ) {
-            setShowBadge(true)
-        }
-        this += newFeaturesChannel
+        AppNotificationChannel.NewAppFeatures.asNotificationChannel(this),
 
         // Uncategorised notifications
-        val uncategorisedChannel = notificationChannelCompat(
-            id = getString(CoreResR.string.notification_channel_uncategorised_id),
-            name = getString(CoreResR.string.notification_channel_uncategorised_title),
-            description = getString(CoreResR.string.notification_channel_uncategorised_desc),
-            NotificationManagerCompat.IMPORTANCE_DEFAULT
-        ) {
-            setShowBadge(true)
-        }
-        this += uncategorisedChannel
-    }
+        AppNotificationChannel.Uncategorized.asNotificationChannel(this)
+    )
 
-    val channelGroups = buildList {
-        val todoChannelGroup = notificationChannelGroupCompat(
+    val channelGroups = listOf(
+        notificationChannelGroupCompat(
             id = getString(CoreResR.string.notification_channel_group_todos_id),
             name = getString(CoreResR.string.notification_channel_group_todos_title)
-        )
-        this += todoChannelGroup
-        val updatesChannelGroup = notificationChannelGroupCompat(
+        ),
+        notificationChannelGroupCompat(
             id = getString(CoreResR.string.notification_channel_group_updates_id),
             name = getString(CoreResR.string.notification_channel_group_updates_title)
         )
-        this += updatesChannelGroup
-    }
+    )
 
     with(notificationManager) {
         createNotificationChannelGroupsCompat(channelGroups)

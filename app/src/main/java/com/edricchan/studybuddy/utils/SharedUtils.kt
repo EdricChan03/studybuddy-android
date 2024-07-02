@@ -9,6 +9,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
@@ -17,7 +18,6 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
-import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 /**
  * Shared utility methods
@@ -33,7 +33,7 @@ object SharedUtils {
         val notificationManager = NotificationManagerCompat.from(context)
         val notifyBuilder = NotificationCompat.Builder(
             context,
-            context.getString(CoreResR.string.notification_channel_update_status_id)
+            AppNotificationChannel.UpdateStatus.channelId
         )
             .setSmallIcon(R.drawable.ic_notification_system_update_24dp)
             .setContentTitle(context.getString(R.string.notification_check_update))
@@ -99,7 +99,7 @@ object SharedUtils {
                             .setProgress(0, 0, false)
                             .setCategory(null)
                             .setOngoing(false)
-                            .setChannelId(context.getString(CoreResR.string.notification_channel_update_available_id))
+                            .setChannelId(AppNotificationChannel.UpdateAvailable.channelId)
                             .setContentIntent(pContentIntent)
                             .setAutoCancel(true)
                             .addAction(
@@ -160,7 +160,7 @@ object SharedUtils {
                             .setProgress(0, 0, false)
                             .setCategory(NotificationCompat.CATEGORY_ERROR)
                             .setOngoing(false)
-                            .setChannelId(context.getString(CoreResR.string.notification_channel_update_error_id))
+                            .setChannelId(AppNotificationChannel.UpdateError.channelId)
                             .setColor(context.dynamicColorPrimary)
                             .addAction(
                                 NotificationCompat.Action(

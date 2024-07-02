@@ -16,6 +16,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
@@ -26,7 +27,6 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
-import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 class CheckForUpdatesWorker(
     private val appContext: Context,
@@ -61,7 +61,7 @@ class CheckForUpdatesWorker(
     private val notificationBuilder =
         NotificationCompat.Builder(
             appContext,
-            appContext.getString(CoreResR.string.notification_channel_update_status_id)
+            AppNotificationChannel.UpdateStatus.channelId
         )
 
     override fun doWork(): Result {
@@ -150,7 +150,7 @@ class CheckForUpdatesWorker(
             setProgress(0, 0, false)
             setCategory(null)
             setOngoing(false)
-            setChannelId(appContext.getString(CoreResR.string.notification_channel_update_available_id))
+            setChannelId(AppNotificationChannel.UpdateAvailable.channelId)
             addAction(
                 NotificationCompat.Action(
                     R.drawable.ic_download_24dp,

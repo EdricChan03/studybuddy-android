@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.preference.Preference
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.core.settings.tasks.summary.prefWeeklySummaryEnabled
 import com.edricchan.studybuddy.core.settings.tasks.summary.prefWeeklySummaryNotificationOpts
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragmentMainSwitch
 import com.edricchan.studybuddy.ui.preference.mainswitch.MainSwitchPreference
-import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 class WeeklySummarySettingsFragment : MaterialPreferenceFragmentMainSwitch() {
     override fun createMainSwitch(context: Context) = MainSwitchPreference(context).apply {
@@ -29,7 +29,7 @@ class WeeklySummarySettingsFragment : MaterialPreferenceFragmentMainSwitch() {
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
                     putExtra(
                         Settings.EXTRA_CHANNEL_ID,
-                        getString(CoreResR.string.notification_channel_weekly_summary_id)
+                        AppNotificationChannel.WeeklySummary.channelId
                     )
                 }
             } else {

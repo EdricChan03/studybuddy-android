@@ -13,6 +13,7 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.interfaces.NotificationAction
@@ -27,7 +28,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.serialization.json.Json
-import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 class StudyBuddyMessagingService : FirebaseMessagingService() {
     private val notificationUtils = NotificationUtils.getInstance()
@@ -38,7 +38,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
         val manager = NotificationManagerCompat.from(this)
         val builder = NotificationCompat.Builder(
             this,
-            getString(CoreResR.string.notification_channel_uncategorised_id)
+            AppNotificationChannel.Uncategorized.channelId
         )
 
         if (remoteMessage.notification != null) {
@@ -103,7 +103,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                             "No such notification channel ${remoteMessage.notification?.channelId} exists." +
                                 "Assigning \"uncategorised\" channel."
                         )
-                        builder.setChannelId(getString(CoreResR.string.notification_channel_uncategorised_id))
+                        builder.setChannelId(AppNotificationChannel.Uncategorized.channelId)
                     } else {
                         builder.setChannelId(remoteMessage.notification?.channelId!!)
                     }
