@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.utils
+package com.edricchan.studybuddy.exts.android.perms
 
 import android.content.Context
 import android.content.pm.PackageManager
