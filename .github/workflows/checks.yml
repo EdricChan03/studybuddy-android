@@ -70,7 +70,7 @@ jobs:
           printf "\n---\n" >> $GITHUB_STEP_SUMMARY
           printf "$(cat build/dependencyUpdates/report.md)" >> $GITHUB_STEP_SUMMARY
       - name: Add GitHub check to commit
-        uses: LouisBrunner/checks-action@v1.6.2
+        uses: LouisBrunner/checks-action@v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Dependency updates report
