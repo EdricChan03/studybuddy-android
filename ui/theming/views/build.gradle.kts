@@ -29,8 +29,9 @@ dependencies {
     implementation(projects.core.settings.appearance)
     implementation(projects.exts.androidx.preference)
 
+    api(libs.androidx.annotation)
+    api(libs.materialComponents)
     implementation(libs.androidx.preference.ktx)
-    implementation(libs.materialComponents)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)
