@@ -25,7 +25,7 @@ import com.edricchan.studybuddy.features.help.constants.uriSrcCode
 import com.edricchan.studybuddy.features.help.databinding.ActivityHelpBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesCompatActivity
-import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
+import com.edricchan.studybuddy.ui.theming.setDynamicColors
 import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +52,7 @@ class HelpActivity : BaseActivity() {
 
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener { loadFeaturedList() }
-            setColorSchemeColors(dynamicColorPrimary)
+            setDynamicColors()
         }
 
         initRecyclerView()
