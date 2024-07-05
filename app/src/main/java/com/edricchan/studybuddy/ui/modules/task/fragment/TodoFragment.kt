@@ -40,7 +40,7 @@ import com.edricchan.studybuddy.navigation.compat.task.navigateToTaskView
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
-import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
+import com.edricchan.studybuddy.ui.theming.setDynamicColors
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
@@ -186,7 +186,7 @@ class TodoFragment : Fragment() {
 
         binding.apply {
             swipeRefreshLayout.apply {
-                setColorSchemeColors(requireContext().dynamicColorPrimary)
+                setDynamicColors()
                 setOnRefreshListener {
                     lifecycleScope.launch {
                         viewModel.refresh()
