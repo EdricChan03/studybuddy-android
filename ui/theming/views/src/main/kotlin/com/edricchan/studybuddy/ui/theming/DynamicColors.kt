@@ -5,6 +5,7 @@ import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.R as MaterialR
 
@@ -30,3 +31,16 @@ fun View.getThemedColor(@AttrRes colorAttrResId: Int): Int = MaterialColors.getC
     this,
     colorAttrResId
 )
+
+/**
+ * Sets dynamic theming colours on the receiver [SwipeRefreshLayout].
+ *
+ * * [`colorPrimary`][MaterialR.attr.colorPrimary] and [`colorSecondary`][MaterialR.attr.colorSecondary]
+ * are used for the progress animation's colour scheme, and
+ * * [`colorPrimaryContainer`][MaterialR.attr.colorPrimaryContainer] is used for the
+ * background colour scheme
+ */
+fun SwipeRefreshLayout.setDynamicColors() {
+    setColorSchemeColors(getThemedColor(MaterialR.attr.colorOnPrimaryContainer))
+    setProgressBackgroundColorSchemeColor(getThemedColor(MaterialR.attr.colorPrimaryContainer))
+}

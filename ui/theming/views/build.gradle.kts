@@ -30,6 +30,9 @@ dependencies {
     implementation(projects.exts.androidx.preference)
 
     api(libs.androidx.annotation)
+    api(libs.androidx.swiperefreshlayout) {
+        because("API for setting dynamic colours")
+    }
     api(libs.materialComponents)
     implementation(libs.androidx.preference.ktx)
 
