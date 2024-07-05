@@ -54,16 +54,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.playServices)
 
-    // Kotlin Serialization
-    implementation(libs.kotlinx.serialization.json)
-
-    // CoIL
-    implementation(libs.coil.compose)
-    //implementation(libs.coil.zoomable)
-
-    // Dagger
-    implementation(libs.androidx.hilt.navigation.compose)
-
     coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.junit)
