@@ -50,6 +50,6 @@ dependencies {
     testFixturesApi(libs.androidx.compose.ui)
     testFixturesApi(libs.androidx.compose.material3)
 
-    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }

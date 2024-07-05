@@ -42,7 +42,7 @@ dependencies {
     testImplementation(libs.kotest.property)
 
     androidTestImplementation(libs.kotlin.test)
-    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 
     // Compose rule support
