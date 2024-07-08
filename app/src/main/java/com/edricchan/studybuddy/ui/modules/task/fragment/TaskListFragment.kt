@@ -56,7 +56,7 @@ import javax.inject.Inject
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
 @AndroidEntryPoint
-class TodoFragment : Fragment() {
+class TaskListFragment : Fragment() {
     private lateinit var adapter: TodosAdapter
 
     @Inject
@@ -203,7 +203,7 @@ class TodoFragment : Fragment() {
                 setHasFixedSize(false)
                 layoutManager = LinearLayoutManager(context)
                 itemAnimator = DefaultItemAnimator()
-                adapter = this@TodoFragment.adapter
+                adapter = this@TaskListFragment.adapter
                 setItemTouchHelper(
                     listOf(ItemTouchDirection.None),
                     listOf(
@@ -211,7 +211,7 @@ class TodoFragment : Fragment() {
                         ItemTouchDirection.Right
                     ),
                     onSwiped = { viewHolder, _ ->
-                        onRemoveTask(this@TodoFragment.adapter.currentList[viewHolder.bindingAdapterPosition])
+                        onRemoveTask(this@TaskListFragment.adapter.currentList[viewHolder.bindingAdapterPosition])
                     }
                 )
             }

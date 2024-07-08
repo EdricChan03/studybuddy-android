@@ -22,7 +22,7 @@ import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.modules.task.EditTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
-import com.edricchan.studybuddy.ui.modules.task.fragment.TodoFragment
+import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import kotlinx.serialization.Serializable
@@ -110,7 +110,7 @@ sealed interface CompatDestination {
         @Serializable
         data object New : Task
 
-        /** Typed destination for the [TodoFragment] entry-point. */
+        /** Typed destination for the [TaskListFragment] entry-point. */
         @Serializable
         data object List : Task
 
@@ -169,7 +169,7 @@ fun NavGraphBuilder.taskGraph() = navigation<CompatDestination.Task.Root>(
         activityClass = ViewTaskActivity::class
     }
 
-    fragment<TodoFragment, CompatDestination.Task.List>()
+    fragment<TaskListFragment, CompatDestination.Task.List>()
 }
 
 /**
