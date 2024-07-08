@@ -66,7 +66,6 @@ import java.time.Instant
 
 class DebugSettingsFragment : MaterialPreferenceFragment() {
 
-    @Suppress("unused")
     class DebugUpdateInfoSettingsFragment : MaterialPreferenceFragment(),
         SharedPreferences.OnSharedPreferenceChangeListener {
 
