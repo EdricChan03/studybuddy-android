@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityEditTaskBinding
@@ -62,6 +65,17 @@ class EditTaskActivity : BaseActivity() {
         }.also { setContentView(it.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right
+            )
+
+            windowInsets
+        }
 
         firestore = Firebase.firestore
         auth = Firebase.auth
