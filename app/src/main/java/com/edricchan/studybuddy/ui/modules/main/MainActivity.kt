@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -73,6 +76,17 @@ class MainActivity : BaseActivity() {
         navController.initNavGraph()
 
         setSupportActionBar(binding.bottomAppBar)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right
+            )
+
+            windowInsets
+        }
 
         // Create notification channels
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
