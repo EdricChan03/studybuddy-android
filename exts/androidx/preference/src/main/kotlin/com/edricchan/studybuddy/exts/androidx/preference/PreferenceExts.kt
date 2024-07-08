@@ -11,7 +11,10 @@ import kotlin.reflect.KClass
  * @see Preference.setFragment
  */
 fun <F : Fragment> Preference.setFragment(fragmentClass: KClass<F>) {
-    fragment = fragmentClass.qualifiedName
+    // We use java.lang.Class.getName which correctly resolves nested classes
+    // For example: <...>.settings.fragment.ExampleSettingsFragment.ExampleSettingsDataFragment
+    // becomes <...>.settings.fragment.ExampleSettingsFragment$ExampleSettingsDataFragment
+    fragment = fragmentClass.java.name
 }
 
 /**
