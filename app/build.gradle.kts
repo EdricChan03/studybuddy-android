@@ -150,6 +150,7 @@ dependencies {
     implementation(projects.ui.widgets.views)
     implementation(projects.ui.widgets.modalBottomSheet)
     implementation(projects.core.auth.gms)
+    implementation(projects.core.compat.navigation)
     implementation(projects.core.deeplink)
     implementation(projects.core.resources)
     implementation(projects.core.settings.tasks)
