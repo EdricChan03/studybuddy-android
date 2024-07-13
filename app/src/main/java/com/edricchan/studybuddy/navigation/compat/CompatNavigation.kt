@@ -7,6 +7,7 @@ import androidx.navigation.activity
 import androidx.navigation.fragment.fragment
 import androidx.navigation.navigation
 import com.edricchan.studybuddy.BuildConfig
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
 import com.edricchan.studybuddy.features.auth.ui.ResetPasswordActivity
@@ -25,104 +26,6 @@ import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
-import kotlinx.serialization.Serializable
-
-/** Destinations that have yet to be migrated to Jetpack Compose. */
-// TODO: Remove
-sealed interface CompatDestination {
-    // Top-level destinations
-
-    /** Typed destination for the [DebugActivity] entry-point. */
-    @Serializable
-    data object Debug : CompatDestination
-
-    /** Typed destination for the [DebugModalBottomSheetActivity] entry-point. */
-    @Serializable
-    data object DebugModalBottomSheet : CompatDestination
-
-    /** Typed destination for the [UpdatesActivity] entry-point. */
-    @Serializable
-    data object Updates : CompatDestination
-
-    /** Typed destination for the [SettingsActivity] entry-point. */
-    @Serializable
-    data object Settings : CompatDestination
-
-    /** Typed destination for the [HelpActivity] entry-point. */
-    @Serializable
-    data object Help : CompatDestination
-
-    // Feature destinations
-
-    /** Typed destination for the [TipsFragment] entry-point. */
-    @Serializable
-    data object Tips : CompatDestination
-
-    /** Typed destination for the [CalendarFragment] entry-point. */
-    @Serializable
-    data object Calendar : CompatDestination
-
-    /** Destinations related to the about feature. */
-    @Serializable
-    sealed interface About : CompatDestination {
-        /** Typed destination for the [AboutFragment] entry-point. */
-        @Serializable
-        data object AppAbout : About
-
-        /** Typed destination for viewing the app's information in the device's settings. */
-        @Serializable
-        data object SystemAppInfo : About
-
-        /** Typed destination for viewing the app's licenses. */
-        @Serializable
-        data object ViewLicenses : About
-    }
-
-
-    /** Destinations related to the auth feature. */
-    @Serializable
-    sealed interface Auth : CompatDestination {
-        /** Typed destination for the [ResetPasswordActivity] entry-point. */
-        @Serializable
-        data object ResetPassword : Auth
-
-        /** Typed destination for the [AccountActivity] entry-point. */
-        @Serializable
-        data object Account : Auth
-
-        /** Typed destination for the [LoginActivity] entry-point. */
-        @Serializable
-        data object Login : Auth
-
-        /** Typed destination for the [RegisterActivity] entry-point. */
-        @Serializable
-        data object Register : Auth
-    }
-
-    /** Destinations related to the tasks feature. */
-    @Serializable
-    sealed interface Task : CompatDestination {
-        /** Top-level entry-point for the tasks feature. */
-        @Serializable
-        data object Root : Task
-
-        /** Typed destination for the [NewTaskActivity] entry-point. */
-        @Serializable
-        data object New : Task
-
-        /** Typed destination for the [TaskListFragment] entry-point. */
-        @Serializable
-        data object List : Task
-
-        /** Typed destination for the [EditTaskActivity] entry-point. */
-        @Serializable
-        data class Edit(val taskId: String) : Task
-
-        /** Typed destination for the [ViewTaskActivity] entry-point. */
-        @Serializable
-        data class View(val taskId: String) : Task
-    }
-}
 
 fun NavGraphBuilder.aboutGraph() {
     fragment<AboutFragment, CompatDestination.About.AppAbout>()

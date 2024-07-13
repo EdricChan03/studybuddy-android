@@ -20,6 +20,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
@@ -27,7 +28,6 @@ import com.edricchan.studybuddy.exts.android.startChooser
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
-import com.edricchan.studybuddy.navigation.compat.CompatDestination
 import com.edricchan.studybuddy.navigation.compat.auth.navigateToAccountInfo
 import com.edricchan.studybuddy.navigation.compat.compatGraphs
 import com.edricchan.studybuddy.navigation.compat.navigateToCalendar

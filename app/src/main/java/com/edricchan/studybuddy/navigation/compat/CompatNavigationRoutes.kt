@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.navigation.compat
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 
 val DefaultNavOptionsBuilder: NavOptionsBuilder.() -> Unit = {
     launchSingleTop = true
