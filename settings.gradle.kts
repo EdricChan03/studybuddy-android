@@ -113,6 +113,7 @@ include(
     ":ui:widgets:modal-bottom-sheet",
     ":core:auth:ui:compose",
     ":core:auth:gms",
+    ":core:compat:navigation",
     ":core:deeplink",
     ":core:di",
     ":core:resources",
