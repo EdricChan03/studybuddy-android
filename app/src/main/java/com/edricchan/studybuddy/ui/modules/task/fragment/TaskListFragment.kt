@@ -22,6 +22,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
+import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
+import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
+import com.edricchan.studybuddy.core.compat.navigation.task.navigateToCreateTask
+import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskView
 import com.edricchan.studybuddy.databinding.FragTodoBinding
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.exts.common.TAG
@@ -32,11 +37,6 @@ import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptions
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
-import com.edricchan.studybuddy.navigation.compat.navigateToDebug
-import com.edricchan.studybuddy.navigation.compat.navigateToHelp
-import com.edricchan.studybuddy.navigation.compat.navigateToSettings
-import com.edricchan.studybuddy.navigation.compat.task.navigateToCreateTask
-import com.edricchan.studybuddy.navigation.compat.task.navigateToTaskView
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog

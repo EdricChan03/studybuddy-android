@@ -15,11 +15,11 @@ import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
+import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
 import com.edricchan.studybuddy.databinding.FragTipsBinding
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
-import com.edricchan.studybuddy.navigation.compat.navigateToDebug
-import com.edricchan.studybuddy.navigation.compat.navigateToSettings
 import com.edricchan.studybuddy.utils.web.launchUri
 
 class TipsFragment : Fragment() {

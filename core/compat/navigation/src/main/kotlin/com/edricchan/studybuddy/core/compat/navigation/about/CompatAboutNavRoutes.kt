@@ -1,9 +1,9 @@
-package com.edricchan.studybuddy.navigation.compat.about
+package com.edricchan.studybuddy.core.compat.navigation.about
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
-import com.edricchan.studybuddy.navigation.compat.DefaultNavOptionsBuilder
+import com.edricchan.studybuddy.core.compat.navigation.DefaultNavOptionsBuilder
 
 /**
  * Navigates to the [CompatDestination.About.ViewLicenses] route.
