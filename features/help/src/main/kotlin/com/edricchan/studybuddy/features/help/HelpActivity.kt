@@ -6,7 +6,10 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -39,15 +42,39 @@ class HelpActivity : BaseActivity() {
 
     private val viewModel: HelpViewModel by viewModels()
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding = ActivityHelpBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        binding = ActivityHelpBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+            setSupportActionBar(it.toolbar)
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener { loadFeaturedList() }
             setDynamicColors()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right
+            )
+
+            val contentInsets = windowInsets.getInsets(
+                WindowInsetsCompat.Type.displayCutout()
+            )
+            binding.helpFeaturedRecyclerView.updatePadding(
+                left = contentInsets.left,
+                right = contentInsets.right
+            )
+
+            windowInsets
         }
 
         initRecyclerView()
