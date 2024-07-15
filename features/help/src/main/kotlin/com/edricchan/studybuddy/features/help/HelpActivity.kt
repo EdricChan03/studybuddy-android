@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.features.help
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,7 +16,6 @@ import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
-import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.features.help.constants.uriSendFeedback
@@ -36,7 +34,6 @@ import kotlinx.coroutines.launch
 @AppDeepLink(["/help"])
 @AndroidEntryPoint
 class HelpActivity : BaseActivity() {
-    private lateinit var preferences: SharedPreferences
     private lateinit var binding: ActivityHelpBinding
     private lateinit var adapter: HelpArticleAdapter
 
@@ -47,8 +44,6 @@ class HelpActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityHelpBinding.inflate(layoutInflater).also { setContentView(it.root) }
-
-        preferences = defaultSharedPreferences
 
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener { loadFeaturedList() }
