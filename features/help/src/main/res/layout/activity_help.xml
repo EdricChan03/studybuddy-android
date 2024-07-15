@@ -50,13 +50,14 @@
             android:orientation="vertical"
             tools:visibility="gone">
 
-            <ProgressBar
+            <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingBottom="4dp" />
+                android:indeterminate="true"
+                android:paddingBottom="4dp"
+                app:indicatorSize="76dp" />
 
             <TextView
                 android:id="@+id/tvEmptyStateLoading"
