@@ -22,6 +22,8 @@
 
     <!-- The text to show when the help articles are loading. -->
     <string name="help_articles_empty_state_loading">Loading help articles&#8230;</string>
+    <!-- The text to show when no help articles are available. -->
+    <string name="help_articles_empty_state">No help articles available</string>
 
     <!-- Version dialog strings -->
     <eat-comment />
