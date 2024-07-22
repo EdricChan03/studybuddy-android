@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -183,6 +186,14 @@ class TaskListFragment : Fragment() {
         mainViewModel.fab.setOnClickListener { newTaskActivity() }
 
         adapter = TodosAdapter(context = requireContext(), itemListener = itemListener)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerView) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+
+            v.updatePadding(bottom = insets.bottom)
+
+            windowInsets
+        }
 
         binding.apply {
             swipeRefreshLayout.apply {
