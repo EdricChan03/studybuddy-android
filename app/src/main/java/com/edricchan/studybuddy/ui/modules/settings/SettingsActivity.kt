@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.settings
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,7 +13,6 @@ import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.databinding.ActivityFragHostBinding
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.androidx.fragment.replaceFragment
-import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.features.help.HelpActivity
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
@@ -24,7 +22,6 @@ import com.edricchan.studybuddy.utils.web.launchUri
 @AppDeepLink(["/settings"])
 class SettingsActivity : BaseActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-    private lateinit var preferences: SharedPreferences
     private lateinit var binding: ActivityFragHostBinding
 
     override val isEdgeToEdgeEnabled = true
@@ -39,8 +36,6 @@ class SettingsActivity : BaseActivity(),
         }.also { setContentView(it.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        preferences = defaultSharedPreferences
 
         if (savedInstanceState == null) {
             setCurrentFragment(SettingsFragment(), /* addToBackStack = */ false)
