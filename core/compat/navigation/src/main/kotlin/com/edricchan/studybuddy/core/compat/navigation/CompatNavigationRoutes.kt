@@ -18,6 +18,16 @@ fun NavController.navigateToDebug(
 ) = navigate(CompatDestination.Debug, builder)
 
 /**
+ * Navigates to the [CompatDestination.DebugModalBottomSheet] route.
+ *
+ * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
+ * behaviour is undesired, [builder] should be specified.
+ */
+fun NavController.navigateToDebugModalBottomSheet(
+    builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
+) = navigate(CompatDestination.DebugModalBottomSheet, builder)
+
+/**
  * Navigates to the [CompatDestination.Updates] route.
  *
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
