@@ -10,19 +10,22 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToAccountInfo
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
 import com.edricchan.studybuddy.exts.android.getParcelableCompat
-import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
-import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 
 class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
+    private lateinit var navController: NavController
+
     /** Listener for the [NavigationView] */
     var navigationViewListener: (MenuItem) -> Boolean = { false }
 
@@ -44,6 +47,8 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = findNavController()
+
         binding.navigationView.apply {
             setNavigationItemSelectedListener(navigationViewListener)
             navigationViewCheckedItemId?.let { setCheckedItem(it) }
@@ -61,7 +66,7 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         headerBinding.apply {
             root.setOnClickListener {
-                startActivity<AccountActivity>()
+                navController.navigateToAccountInfo()
             }
 
             if (isLoggedIn) {
