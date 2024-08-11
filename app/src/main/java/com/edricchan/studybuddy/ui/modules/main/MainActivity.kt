@@ -115,17 +115,17 @@ class MainActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
+        auth.currentUser?.let { user ->
             val crashlyticsTrackingEnabled = defaultSharedPreferences
                 .getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&
                 !BuildConfig.DEBUG
-            currentUser.setCrashlyticsTracking(
+            user.setCrashlyticsTracking(
                 enabled = crashlyticsTrackingEnabled
             )
             // User-specific topic
-            messaging.subscribeToTopic("user_${currentUser.uid}")
+            messaging.subscribeToTopic("user_${user.uid}")
         }
+
         // By default, subscribe to the "topic_all" topic
         messaging.subscribeToTopic("all")
     }
