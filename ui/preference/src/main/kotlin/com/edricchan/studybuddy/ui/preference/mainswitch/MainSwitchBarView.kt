@@ -13,7 +13,12 @@ import androidx.compose.ui.platform.AbstractComposeView
 import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBar
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
-/** Wrapper [android.view.View] for the [MainSwitchBar] composable. */
+/**
+ * Wrapper [android.view.View] for the [MainSwitchBar] composable.
+ *
+ * Note: `null` is passed as the `switchView` argument for [OnMainSwitchChangeListener]s
+ * passed to [addOnCheckedChangeListener].
+ */
 @Deprecated("Use MainSwitchBar directly where possible")
 class MainSwitchBarView @JvmOverloads constructor(
     context: Context,
@@ -25,6 +30,9 @@ class MainSwitchBarView @JvmOverloads constructor(
     /**
      * Adds a [OnMainSwitchChangeListener] which will be invoked
      * when the switch bar's checked state is updated.
+     *
+     * **Note:** The `switchView` argument for [OnMainSwitchChangeListener.onSwitchChanged]
+     * will be `null` when invoked.
      */
     fun addOnCheckedChangeListener(listener: OnMainSwitchChangeListener) {
         checkedChangeListeners += listener
@@ -38,7 +46,6 @@ class MainSwitchBarView @JvmOverloads constructor(
         checkedChangeListeners -= listener
     }
 
-    /** Whether the switch is checked. */
     private var isCheckedState by mutableStateOf(false)
 
     override fun isChecked(): Boolean = isCheckedState
@@ -50,7 +57,6 @@ class MainSwitchBarView @JvmOverloads constructor(
         isCheckedState = !isCheckedState
     }
 
-    /** Whether the switch bar is enabled. */
     private var isEnabledState by mutableStateOf(true)
 
     override fun isEnabled(): Boolean = isEnabledState
