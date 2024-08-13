@@ -6,13 +6,13 @@ import android.util.AttributeSet
 import android.widget.Checkable
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.AbstractComposeView
 import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBar
+import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBarDefaults
 import com.edricchan.studybuddy.ui.preference.mainswitch.MainSwitchBarView.SavedState
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import kotlinx.parcelize.Parcelize
@@ -87,7 +87,7 @@ class MainSwitchBarView @JvmOverloads constructor(
             MainSwitchBar(
                 checked = isCheckedState,
                 onCheckedChange = ::onCheckedChange,
-                text = { Text(text = title) }
+                text = { MainSwitchBarDefaults.TitleText(text = title) }
             )
         }
     }
