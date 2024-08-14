@@ -1,5 +1,7 @@
 package com.edricchan.studybuddy.navigation.compat
 
+import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import androidx.core.net.toUri
 import androidx.navigation.NavGraphBuilder
@@ -19,7 +21,7 @@ import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity.Companion.ACTION_ADD_NEW_TODO
-import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
+import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.ui.modules.task.EditTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
@@ -93,10 +95,6 @@ fun NavGraphBuilder.compatGraphs() {
         activityClass = UpdatesActivity::class
     }
 
-    activity<CompatDestination.Settings> {
-        activityClass = SettingsActivity::class
-    }
-
     activity<CompatDestination.Help> {
         activityClass = HelpActivity::class
     }
@@ -107,4 +105,12 @@ fun NavGraphBuilder.compatGraphs() {
 
     fragment<CalendarFragment, CompatDestination.Calendar>()
     fragment<TipsFragment, CompatDestination.Tips>()
+
+    fragment<SettingsFragment, CompatDestination.Settings> {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            deepLink {
+                action = Intent.ACTION_APPLICATION_PREFERENCES
+            }
+        }
+    }
 }

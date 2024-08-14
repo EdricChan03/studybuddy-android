@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.main
 
+import android.app.Notification
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -111,6 +112,16 @@ class MainActivity : BaseActivity() {
             fab = binding.fab,
             bottomAppBar = binding.bottomAppBar
         )
+
+        // Handle system notification preference navigation
+        if (intent.categories.any {
+                it in listOf(
+                    Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES,
+                    Intent.CATEGORY_PREFERENCE
+                )
+            }) {
+            navController.navigateToSettings()
+        }
     }
 
     override fun onStart() {

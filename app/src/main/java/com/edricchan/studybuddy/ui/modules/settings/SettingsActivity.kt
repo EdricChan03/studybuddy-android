@@ -20,6 +20,7 @@ import com.edricchan.studybuddy.utils.web.launchUri
 
 @WebDeepLink(["/settings"])
 @AppDeepLink(["/settings"])
+@Deprecated("Use the SettingsFragment entry-point instead")
 class SettingsActivity : BaseActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private lateinit var binding: ActivityFragHostBinding
