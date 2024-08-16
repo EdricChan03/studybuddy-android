@@ -7,3 +7,7 @@ android {
 
     buildFeatures.buildConfig = true
 }
+
+dependencies {
+    implementation(libs.androidx.core.ktx)
+}
