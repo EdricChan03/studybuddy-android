@@ -7,6 +7,5 @@ import android.content.Context
  * @param useSharedPrefsOnly Whether to only check from shared preferences
  * @return `true` if the app is in developer mode, `false` otherwise.
  */
-fun Context.isDevMode(useSharedPrefsOnly: Boolean = false): Boolean = devModeOptions.getBoolean(
-    DevModePrefConstants.DEV_MODE_ENABLED, false
-) || (!useSharedPrefsOnly && BuildConfig.DEBUG)
+fun Context.isDevMode(useSharedPrefsOnly: Boolean = false): Boolean =
+    prefDevModeEnabled || (!useSharedPrefsOnly && BuildConfig.DEBUG)
