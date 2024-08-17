@@ -1,6 +1,12 @@
 name: App build
 
-on: [ push ]
+on:
+  push:
+    # Allow running these checks only on the developing branches
+    branches:
+      - main
+      - develop
+      - releases/*
 
 permissions:
   # For writing to the GitHub Dependency Graph API
@@ -15,7 +21,7 @@ jobs:
 
     strategy:
       matrix:
-        app-build-types: [ debug, nightly, release ]
+        app-build-types: [debug, nightly, release]
 
     name: Build app (${{ matrix.app-build-types }})
 

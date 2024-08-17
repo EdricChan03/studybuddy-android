@@ -1,0 +1,66 @@
+on: pull_request
+
+jobs:
+  build-debug:
+    runs-on: ubuntu-latest
+    name: Build app (debug)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build app
+        uses: ./.github/actions/build-gradle
+        with:
+          gradle-arguments: :app:assembleDebug
+          upload-name: app-debug.apk
+          upload-path: app/build/outputs/apk/debug/app-debug.apk
+          skip-signing: true
+          transcrypt-cipher: "" # TODO: Make optional
+          transcrypt-password: "" # TODO: Make optional
+          app-keystore-password: "" # TODO: Make optional
+          app-keystore-alias: "" # TODO: Make optional
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit tests
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run unit tests
+        uses: ./.github/actions/build-gradle
+        with:
+          gradle-arguments: test testAggregatedReport --continue
+          upload-name: unit-test-results
+          upload-path: ./**/build/reports/tests/
+          skip-signing: true
+          transcrypt-cipher: "" # TODO: Make optional
+          transcrypt-password: "" # TODO: Make optional
+          app-keystore-password: "" # TODO: Make optional
+          app-keystore-alias: "" # TODO: Make optional
+          app-keystore-alias-password: "" # TODO: Make optional         app-keystore-alias-password: "" # TODO: Make optional
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run lint task
+        uses: ./.github/actions/build-gradle
+        with:
+          gradle-arguments: :app:lint
+          upload-name: lint-output
+          # See https://googlesamples.github.io/android-custom-lint-rules/usage/agp-dsl.md.html
+          # on where lint reports are outputted
+          upload-path: app/build/reports/
+          skip-signing: true
+          transcrypt-cipher: "" # TODO: Make optional
+          transcrypt-password: "" # TODO: Make optional
+          app-keystore-password: "" # TODO: Make optional
+          app-keystore-alias: "" # TODO: Make optional
+          app-keystore-alias-password: "" # TODO: Make optional
+      - name: Upload lint report
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: app/build/reports/lint-results-debug.sarif

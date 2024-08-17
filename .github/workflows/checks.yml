@@ -1,6 +1,12 @@
 name: Checks
 
-on: push
+on:
+  push:
+    # Allow running these checks only on the developing branches
+    branches:
+      - main
+      - develop
+      - releases/*
 
 permissions:
   # For generating attestations
@@ -115,8 +121,6 @@ jobs:
         with:
           gradle-arguments: :buildHealth
           upload-name: build-health
-          # See https://googlesamples.github.io/android-custom-lint-rules/usage/agp-dsl.md.html
-          # on where lint reports are outputted
           upload-path: build/reports/dependency-analysis
           transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
           transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}

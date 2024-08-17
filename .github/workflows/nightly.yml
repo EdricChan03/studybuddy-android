@@ -12,6 +12,9 @@ permissions:
 jobs:
   build-nightly:
     runs-on: ubuntu-latest
+    # Only allow this job to be run from the original repo
+    # HACK: Is this really needed?
+    if: ${{ startsWith(github.repository, "EdricChan03/studybuddy-android") }}
 
     steps:
       - uses: actions/checkout@v4

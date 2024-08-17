@@ -27,6 +27,9 @@ inputs:
     description: "The path to the artifact to upload."
     required: true
   # Secrets
+  skip-signing:
+    description: "Whether to skip APK signing."
+    default: "false"
   transcrypt-cipher:
     description: "The cipher to use for Transcrypt."
     required: true
@@ -61,6 +64,7 @@ runs:
       run: brew bundle
       shell: bash
     - name: Decrypt keystore
+      if: ${{ !(inputs.skip-signing == 'true') }}
       run: |
         source ~/.profile
         echo "Current version of transcrypt:"
