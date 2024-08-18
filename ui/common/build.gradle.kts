@@ -22,6 +22,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.exts.androidx.viewBinding)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.widgets.compose)
