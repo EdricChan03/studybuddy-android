@@ -2,25 +2,18 @@ package com.edricchan.studybuddy.ui.modules.task.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.BuildConfig
@@ -31,7 +24,6 @@ import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToCreateTask
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskView
 import com.edricchan.studybuddy.databinding.FragTodoBinding
-import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.TodosAdapter
@@ -40,8 +32,8 @@ import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptions
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
-import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
+import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.theming.setDynamicColors
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
@@ -59,7 +51,7 @@ import javax.inject.Inject
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
 @AndroidEntryPoint
-class TaskListFragment : Fragment() {
+class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::inflate) {
     private lateinit var adapter: TodosAdapter
 
     @Inject
@@ -68,12 +60,7 @@ class TaskListFragment : Fragment() {
     @Inject
     lateinit var firestore: FirebaseFirestore
 
-    private val binding by viewInflateBinding(FragTodoBinding::inflate)
-
     private val viewModel by viewModels<TasksListViewModel>()
-    private val mainViewModel by activityViewModels<MainViewModel>()
-
-    private lateinit var navController: NavController
 
     private val itemListener = itemListener(
         onItemClick = { item, _ ->
@@ -96,7 +83,7 @@ class TaskListFragment : Fragment() {
         }
     )
 
-    private val menuProvider = object : MenuProvider {
+    override val menuProvider = object : MenuProvider {
         override fun onPrepareMenu(menu: Menu) {
             if (!BuildConfig.DEBUG) menu.removeItem(R.id.action_debug)
         }
@@ -170,18 +157,8 @@ class TaskListFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = binding.root
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        navController = findNavController()
-
-        activity?.addMenuProvider(menuProvider, viewLifecycleOwner)
 
         mainViewModel.fab.setOnClickListener { newTaskActivity() }
 
@@ -264,7 +241,7 @@ class TaskListFragment : Fragment() {
                 viewModel.removeTask(item)
                 onSuccess()
             } catch (e: Exception) {
-                showSnackbar(R.string.task_delete_fail_msg)
+                showSnackBar(R.string.task_delete_fail_msg)
                 Log.e(
                     TAG,
                     "An error occurred while attempting to delete the todo:",
@@ -288,7 +265,7 @@ class TaskListFragment : Fragment() {
                 viewModel.toggleTaskDone(item)
                 onSuccess()
             } catch (e: Exception) {
-                showSnackbar(
+                showSnackBar(
                     if (updatedDone) R.string.task_done_fail_msg else R.string.task_undone_fail_msg,
                     SnackBarData.Duration.Long
                 )
@@ -369,17 +346,5 @@ class TaskListFragment : Fragment() {
 
     private fun newTaskActivity() {
         navController.navigateToCreateTask()
-    }
-
-    private fun showSnackbar(
-        @StringRes textRes: Int,
-        duration: SnackBarData.Duration = SnackBarData.Duration.Short
-    ) {
-        lifecycleScope.launch {
-            mainViewModel.showSnackBar(
-                messageRes = textRes,
-                duration = duration
-            )
-        }
     }
 }
