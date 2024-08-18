@@ -28,8 +28,10 @@ dependencies {
 
     api(libs.androidx.fragment.ktx)
     api(libs.androidx.fragment.compose)
+    api(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.materialComponents)
 
     implementation(libs.androidx.activity.compose)
