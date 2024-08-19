@@ -1229,13 +1229,6 @@
         <location column="13" file="src/main/res/values/strings.xml" line="48" />
     </issue>
 
-    <issue
-        errorLine1="    &lt;string name=&quot;action_mark_as_undone&quot;>Mark as undone&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.action_mark_as_undone` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="125" />
-    </issue>
-
     <issue errorLine1="    &lt;string name=&quot;menu_frag_task_new_todo&quot;>New todo&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.menu_frag_task_new_todo` appears to be unused">

@@ -152,9 +152,6 @@
     <!-- The title of the licenses menu item in the help activity's menu. -->
     <string name="menu_help_licenses_title">Licenses</string>
 
-    <!-- The title of the mark as undone menu item in the view task activity's menu. -->
-    <string name="action_mark_as_undone">Mark as undone</string>
-
     <!-- The title of the new task menu item in the task fragment's menu. -->
     <string name="menu_frag_task_new_todo">New todo</string>
 
