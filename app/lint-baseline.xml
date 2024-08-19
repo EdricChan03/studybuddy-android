@@ -52,15 +52,6 @@
             line="27" />
     </issue>
 
-    <issue
-        errorLine1="        preferences = PreferenceManager.getDefaultSharedPreferences(context!!)"
-        errorLine2="                                                                    ~~~~~~~~~"
-        id="UseRequireInsteadOfGet" message="Use requireContext() instead of context!!">
-        <location column="69"
-            file="src/main/java/com/edricchan/studybuddy/ui/modules/settings/fragment/AboutSettingsFragment.kt"
-            line="38" />
-    </issue>
-
     <issue errorLine1="            val builder = MaterialAlertDialogBuilder(context!!)"
         errorLine2="                                                     ~~~~~~~~~"
         id="UseRequireInsteadOfGet" message="Use requireContext() instead of context!!">
