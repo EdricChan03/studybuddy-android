@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.compat.navigation.about.navigateToLicenses
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.common.TAG
@@ -17,7 +20,6 @@ import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.appDetailsIntent
 import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
-import com.edricchan.studybuddy.utils.licenseIntent
 import com.edricchan.studybuddy.utils.web.launchUri
 import kotlin.properties.Delegates
 
@@ -31,6 +33,8 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
 
     // Max number of clicks to unlock
     private val tapsToDev: Int = 7
+
+    private lateinit var navController: NavController
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_about, rootKey)
@@ -48,6 +52,9 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
         } else {
             tapsToDev
         }
+
+        navController = findNavController()
+
         findPreference<Preference>(Constants.prefAboutAppVersion)?.apply {
             summary = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
             setOnPreferenceClickListener {
@@ -115,7 +122,9 @@ class AboutSettingsFragment : MaterialPreferenceFragment() {
             true
         }
         findPreference<Preference>(Constants.prefAboutAppInfo)?.intent = appDetailsIntent()
-        findPreference<Preference>(Constants.prefAboutLicenses)?.intent =
-            requireContext().licenseIntent
+        findPreference<Preference>(Constants.prefAboutLicenses)?.setOnPreferenceClickListener {
+            navController.navigateToLicenses()
+            true
+        }
     }
 }
