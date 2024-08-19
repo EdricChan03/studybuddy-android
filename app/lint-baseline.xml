@@ -244,12 +244,6 @@
         <location column="5" file="build.gradle" line="244" />
     </issue>
 
-    <issue errorLine1="                        android:editable=&quot;false&quot; />"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~" id="Deprecated"
-        message="`android:editable` is deprecated: Use an `&lt;EditText>` to make it editable">
-        <location column="25" file="src/main/res/layout/activity_new_chat.xml" line="78" />
-    </issue>
-
     <issue errorLine1="                    android:editable=&quot;false&quot; />"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~" id="Deprecated"
         message="`android:editable` is deprecated: Use an `&lt;EditText>` to make it editable">
@@ -369,12 +363,6 @@
         message="Possible overdraw: Root element paints background `?attr/selectableItemBackground` with a theme that also paints a background (inferred theme is `@style/Theme.App`)">
         <location column="5" file="src/main/res/layout/frag_bottomappbar_bottomsheet_header.xml"
             line="7" />
-    </issue>
-
-    <issue errorLine1="    android:background=&quot;?attr/selectableItemBackground&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="Overdraw"
-        message="Possible overdraw: Root element paints background `?attr/selectableItemBackground` with a theme that also paints a background (inferred theme is `@style/Theme.App`)">
-        <location column="5" file="src/main/res/layout/item_chat.xml" line="7" />
     </issue>
 
     <issue id="UnusedResources" message="The resource `R.integer.build_time` appears to be unused">
@@ -1201,13 +1189,6 @@
     </issue>
 
     <issue
-        errorLine1="&lt;ScrollView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.layout.new_chat_dialog` appears to be unused">
-        <location column="1" file="src/main/res/layout/new_chat_dialog.xml" line="2" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;string name=&quot;pref_general_cct_color_scheme_title&quot;>Use app color scheme for in-app"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.pref_general_cct_color_scheme_title` appears to be unused">
@@ -1247,13 +1228,6 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.cab_action_edit_selected_tasks` appears to be unused">
         <location column="13" file="src/main/res/values/strings.xml" line="192" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;chat_frag_new_chat_dialog_title&quot;>New chat&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.chat_frag_new_chat_dialog_title` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="206" />
     </issue>
 
     <issue errorLine1="    &lt;string name=&quot;choose_a_date&quot;>Choose a date…&lt;/string>"
@@ -1323,13 +1297,6 @@
     </issue>
 
     <issue
-        errorLine1="    &lt;string name=&quot;frag_chat_coming_soon&quot;>Chat feature coming soon!&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.frag_chat_coming_soon` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="371" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;string name=&quot;notification_channel_new_app_features_desc&quot;>Notifications regarding any new recently"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         id="UnusedResources"
@@ -1377,13 +1344,6 @@
     </issue>
 
     <issue
-        errorLine1="    &lt;string name=&quot;title_activity_edit_chat&quot;>Edit chat info&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.title_activity_edit_chat` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="511" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;string name=&quot;todo_frag_delete_selected_tasks_dialog_msg&quot;>Note that the deletion process is irreversible and that it"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         id="UnusedResources"
@@ -1397,13 +1357,6 @@
         id="UnusedResources"
         message="The resource `R.string.todo_frag_delete_selected_tasks_dialog_title` appears to be unused">
         <location column="13" file="src/main/res/values/strings.xml" line="529" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;menu_view_chat_moderator_title&quot;>Moderator options&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.menu_view_chat_moderator_title` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="613" />
     </issue>
 
     <issue errorLine1="        &lt;LinearLayout" errorLine2="         ~~~~~~~~~~~~"
@@ -1420,22 +1373,10 @@
     </issue>
 
     <issue
-        errorLine1="                &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="ContentDescription" message="Missing `contentDescription` attribute on image">
-        <location column="18" file="src/main/res/layout/activity_new_chat.xml" line="24" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         id="ContentDescription" message="Missing `contentDescription` attribute on image">
         <location column="6" file="src/main/res/layout/activity_view_task.xml" line="130" />
-    </issue>
-
-    <issue errorLine1="    &lt;ImageView" errorLine2="     ~~~~~~~~~" id="ContentDescription"
-        message="Missing `contentDescription` attribute on image">
-        <location column="6" file="src/main/res/layout/item_chat.xml" line="11" />
     </issue>
 
     <issue errorLine1="    &lt;ImageView" errorLine2="     ~~~~~~~~~" id="ContentDescription"
@@ -1447,12 +1388,6 @@
         message="Missing `contentDescription` attribute on image">
         <location column="6"
             file="src/main/res/layout/modalbottomsheetadapter_item_row_with_icon.xml" line="10" />
-    </issue>
-
-    <issue errorLine1="                    &lt;AutoCompleteTextView"
-        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~" id="LabelFor"
-        message="Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`">
-        <location column="22" file="src/main/res/layout/activity_new_chat.xml" line="74" />
     </issue>
 
     <issue errorLine1="                &lt;AutoCompleteTextView"
