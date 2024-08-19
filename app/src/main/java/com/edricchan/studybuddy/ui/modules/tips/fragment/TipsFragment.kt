@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.tips.fragment
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,13 +17,10 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
 import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
 import com.edricchan.studybuddy.databinding.FragTipsBinding
-import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.utils.web.launchUri
 
 class TipsFragment : Fragment() {
-    private var preferences: SharedPreferences? = null
-
     private lateinit var navController: NavController
 
     private val binding by viewInflateBinding(FragTipsBinding::inflate)
@@ -58,14 +54,6 @@ class TipsFragment : Fragment() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        preferences = requireContext().defaultSharedPreferences
-
-        navController = findNavController()
-        activity?.addMenuProvider(menuProvider)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,6 +62,11 @@ class TipsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
+
+        activity?.addMenuProvider(menuProvider, viewLifecycleOwner)
+
         binding.tipsEmptyStateCta.setOnClickListener {
             requireContext().launchUri(Constants.uriSubmitTip)
         }
