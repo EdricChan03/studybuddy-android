@@ -1,11 +1,8 @@
 package com.edricchan.studybuddy.ui.common
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -40,24 +37,5 @@ class MainViewModel @Inject constructor(
                 action = action
             )
         )
-    }
-
-    // TODO: Remove logic when migrated to Compose
-    @Deprecated("Setting any values on this FAB has no effect")
-    @SuppressLint("StaticFieldLeak") // TODO: Fix Context leak
-    lateinit var fab: FloatingActionButton
-        private set
-
-    @Deprecated("Setting any values on this bottom app bar has no effect")
-    @SuppressLint("StaticFieldLeak") // TODO: Fix Context leak
-    lateinit var bottomAppBar: BottomAppBar
-        private set
-
-    fun init(
-        fab: FloatingActionButton,
-        bottomAppBar: BottomAppBar
-    ) {
-        this.fab = fab
-        this.bottomAppBar = bottomAppBar
     }
 }

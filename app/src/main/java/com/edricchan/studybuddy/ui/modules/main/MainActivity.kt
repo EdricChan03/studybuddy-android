@@ -111,10 +111,6 @@ class MainActivity : BaseActivity() {
                     }
                 }
         }
-        viewModel.init(
-            fab = binding.fab,
-            bottomAppBar = binding.bottomAppBar
-        )
 
         setupFabController(binding.fab, navHost)
 
