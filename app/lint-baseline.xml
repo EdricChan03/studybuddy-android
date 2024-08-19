@@ -1210,12 +1210,6 @@
         <location column="13" file="src/main/res/values/strings.xml" line="48" />
     </issue>
 
-    <issue errorLine1="    &lt;string name=&quot;menu_frag_task_new_todo&quot;>New todo&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.menu_frag_task_new_todo` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="128" />
-    </issue>
-
     <issue
         errorLine1="    &lt;string name=&quot;cab_action_delete_selected_tasks&quot;>Delete selected&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
