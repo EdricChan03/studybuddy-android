@@ -11,7 +11,7 @@
     <item
         android:id="@+id/action_mark_as_done"
         android:icon="@drawable/ic_check_24dp"
-        android:title="@string/action_mark_as_done"
+        android:title="@string/action_mark_task_as_done"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_delete"

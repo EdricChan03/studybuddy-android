@@ -80,7 +80,7 @@
                 android:id="@+id/taskIsDoneCheckbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_mark_as_done" />
+                android:text="@string/action_mark_task_as_done" />
 
             <!-- Use a chip to represent the selected due date, if any -->
             <com.google.android.material.chip.Chip

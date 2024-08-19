@@ -5,8 +5,6 @@
 
     <!-- Text for the mark as done action. -->
     <string name="action_mark_task_as_done">Mark as completed</string>
-    <!-- TODO: Remove -->
-    <string name="action_mark_as_done">@string/action_mark_task_as_done</string>
     <!-- Text for the delete task action. -->
     <string name="action_delete_task">Delete task</string>
 
