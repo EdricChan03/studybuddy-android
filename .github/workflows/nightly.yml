@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     # Only allow this job to be run from the original repo
     # HACK: Is this really needed?
-    if: ${{ startsWith(github.repository, "EdricChan03/studybuddy-android") }}
+    if: ${{ startsWith(github.repository, 'EdricChan03') }}
 
     steps:
       - uses: actions/checkout@v4
