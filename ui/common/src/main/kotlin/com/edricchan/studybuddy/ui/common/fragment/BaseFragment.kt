@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
+import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
  * such as:
  * * [adding a `MenuProvider`][menuProvider]
  * * [retrieving the `NavController`][navController]
+ * * [configuring the host activity's `FloatingActionButton`][fabConfig]
  * * [showing a snack-bar][showSnackBar]
  */
 abstract class BaseFragment : Fragment() {
@@ -38,6 +40,9 @@ abstract class BaseFragment : Fragment() {
 
         menuProvider?.let { activity?.addMenuProvider(it, viewLifecycleOwner) }
     }
+
+    /** The [FabConfig] to use for this fragment. If set to `null`, no FAB will be shown. */
+    open val fabConfig: FabConfig? = null
 
     /**
      * Shows a snack-bar in the host activity.

@@ -43,10 +43,12 @@ class MainViewModel @Inject constructor(
     }
 
     // TODO: Remove logic when migrated to Compose
+    @Deprecated("Setting any values on this FAB has no effect")
     @SuppressLint("StaticFieldLeak") // TODO: Fix Context leak
     lateinit var fab: FloatingActionButton
         private set
 
+    @Deprecated("Setting any values on this bottom app bar has no effect")
     @SuppressLint("StaticFieldLeak") // TODO: Fix Context leak
     lateinit var bottomAppBar: BottomAppBar
         private set

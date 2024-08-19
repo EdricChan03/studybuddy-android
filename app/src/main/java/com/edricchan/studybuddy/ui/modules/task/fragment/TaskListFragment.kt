@@ -33,6 +33,7 @@ import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
+import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.theming.setDynamicColors
@@ -48,6 +49,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.edricchan.studybuddy.features.tasks.R as TaskR
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
 @AndroidEntryPoint
@@ -160,8 +162,6 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.fab.setOnClickListener { newTaskActivity() }
-
         adapter = TodosAdapter(context = requireContext(), itemListener = itemListener)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerView) { v, windowInsets ->
@@ -217,11 +217,11 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        mainViewModel.fab.setOnClickListener(null)
-    }
+    override val fabConfig = FabConfig(
+        iconRes = R.drawable.ic_plus_24dp,
+        contentDescriptionRes = TaskR.string.action_create_task,
+        onClick = ::newTaskActivity
+    )
 
     override fun onStart() {
         super.onStart()

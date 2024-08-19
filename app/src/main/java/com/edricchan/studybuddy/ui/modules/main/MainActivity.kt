@@ -39,6 +39,7 @@ import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.navigation.compat.compatGraphs
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.MainViewModel
+import com.edricchan.studybuddy.ui.common.fab.setupFabController
 import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
@@ -62,6 +63,7 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
+    private lateinit var navHost: NavHostFragment
 
     private val viewModel by viewModels<MainViewModel>()
 
@@ -73,7 +75,8 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navController = binding.navHostMain.getFragment<NavHostFragment>().navController
+        navHost = binding.navHostMain.getFragment()
+        navController = navHost.navController
         navController.initNavGraph()
 
         setSupportActionBar(binding.bottomAppBar)
@@ -112,6 +115,8 @@ class MainActivity : BaseActivity() {
             fab = binding.fab,
             bottomAppBar = binding.bottomAppBar
         )
+
+        setupFabController(binding.fab, navHost)
 
         // Handle system notification preference navigation
         if (intent.categories.any {

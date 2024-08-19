@@ -8,6 +8,9 @@
     <!-- Text for the delete task action. -->
     <string name="action_delete_task">Delete task</string>
 
+    <!-- Text for the create task action. -->
+    <string name="action_create_task">Create task</string>
+
     <!-- Task adapter strings -->
     <eat-comment />
 
