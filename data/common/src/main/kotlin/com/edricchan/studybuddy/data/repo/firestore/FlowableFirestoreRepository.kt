@@ -8,7 +8,6 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.snapshots
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapConcat
@@ -45,13 +44,13 @@ open class FlowableFirestoreRepository<T : HasId>(
     override val items =
         collectionRefFlow.flatMapLatest { ref -> ref.snapshots().map { it.toObjects(klass) } }
 
-    @OptIn(FlowPreview::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun findAll(query: QueryMapper) =
         collectionRefFlow.flatMapConcat { ref ->
             query(ref).snapshots().map { it.toObjects(klass) }
         }
 
-    @OptIn(FlowPreview::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun get(id: String) =
         documentFlow(id).flatMapConcat { ref -> ref.snapshots().map { it.toObject(klass) } }
 
