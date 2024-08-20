@@ -7,6 +7,8 @@
     <string name="action_mark_task_as_done">Mark as completed</string>
     <!-- Text for the delete task action. -->
     <string name="action_delete_task">Delete task</string>
+    <!-- Text for the edit task action. -->
+    <string name="action_edit_task">Edit task</string>
 
     <!-- Text for the create task action. -->
     <string name="action_create_task">Create task</string>
