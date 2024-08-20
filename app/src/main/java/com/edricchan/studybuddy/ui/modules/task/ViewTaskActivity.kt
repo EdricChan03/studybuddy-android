@@ -196,7 +196,7 @@ class ViewTaskActivity : BaseActivity() {
     private fun onRemoveTask() {
         lifecycleScope.launch {
             try {
-                viewModel.delete(todoItem)
+                viewModel.deleteTask()
                 showToast(R.string.task_delete_success_msg, Toast.LENGTH_SHORT)
                 finish()
             } catch (e: Exception) {

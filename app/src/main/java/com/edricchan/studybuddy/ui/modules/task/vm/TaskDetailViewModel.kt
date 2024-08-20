@@ -15,9 +15,12 @@ import com.edricchan.studybuddy.features.tasks.data.repo.update
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,7 +34,10 @@ class TaskDetailViewModel @Inject constructor(
 
     val taskId: String = routeData.taskId
 
-    val taskFlow: Flow<TodoItem?> = repo.observeTask(taskId)
+    val taskFlow: StateFlow<TodoItem?> =
+        repo.observeTask(taskId).stateIn(viewModelScope, SharingStarted.Lazily, null)
+
+    val currentTask by taskFlow::value
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val taskProjectFlow: Flow<TodoProject?> = taskFlow
@@ -51,6 +57,10 @@ class TaskDetailViewModel @Inject constructor(
 
     suspend fun delete(item: TodoItem) {
         repo.removeTask(item)
+    }
+
+    suspend fun deleteTask() {
+        taskFlow.value?.let { repo.removeTask(it) }
     }
 
     suspend fun archive(isArchived: Boolean) {
