@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.ui.modules.task
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -12,11 +11,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.plusAssign
 import androidx.core.view.updatePadding
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
-import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.exts.markwon.coilImagesPlugin
@@ -25,8 +25,8 @@ import com.edricchan.studybuddy.exts.markwon.setMarkdown
 import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
 import com.edricchan.studybuddy.exts.markwon.taskListPlugin
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
-import com.edricchan.studybuddy.features.tasks.compat.utils.TodoUtils
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.modules.task.vm.TaskDetailViewModel
@@ -36,20 +36,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ViewTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var taskDocument: DocumentReference
-    private lateinit var todoUtils: TodoUtils
     private lateinit var binding: ActivityViewTaskBinding
     private var currentUser: FirebaseUser? = null
-    private var todoItem: TodoItem? = null
+    private lateinit var todoItem: TodoItem
 
     private val viewModel by viewModels<TaskDetailViewModel>()
 
@@ -74,31 +70,18 @@ class ViewTaskActivity : BaseActivity() {
             windowInsets
         }
 
-        firestore = Firebase.firestore
         auth = Firebase.auth
         currentUser = auth.currentUser
-        todoUtils = TodoUtils(auth, firestore)
 
         if (viewModel.taskId.isBlank()) {
             Log.e(TAG, "No task ID was specified!")
-            // TODO: i18n code
-            showToast(
-                "An unknown error occurred while attempting to retrieve the" +
-                    "task. Try again later.", Toast.LENGTH_LONG
-            )
+            showToast(R.string.task_fetch_fail_msg, Toast.LENGTH_LONG)
             finish()
-        } else {
-            taskDocument = todoUtils.getTask(viewModel.taskId)
         }
         Log.d(TAG, "Task ID: ${viewModel.taskId}")
 
         binding.bottomAppBar.apply {
             replaceMenu(R.menu.menu_view_task)
-            if (todoItem?.archived == true) {
-                // Task has already been archived - show the unarchive menu item instead
-                menu.findItem(R.id.action_unarchive).isVisible = true
-                menu.findItem(R.id.action_archive).isVisible = false
-            }
 
             setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -109,29 +92,9 @@ class ViewTaskActivity : BaseActivity() {
 
                     R.id.action_delete -> {
                         showMaterialAlertDialog {
-                            // TODO: i18n code
-                            setTitle("Delete todo?")
+                            setTitle(R.string.todo_frag_delete_task_dialog_title)
                             setPositiveButton(R.string.dialog_action_ok) { _, _ ->
-                                todoUtils.removeTask(viewModel.taskId)
-                                    .addOnCompleteListener { task ->
-                                        if (task.isSuccessful) {
-                                            showToast(
-                                                "Successfully deleted todo!",
-                                                Toast.LENGTH_SHORT
-                                            )
-                                            finish()
-                                        } else {
-                                            showToast(
-                                                "An error occurred while deleting the todo. Try again later.",
-                                                Toast.LENGTH_LONG
-                                            )
-                                            Log.e(
-                                                TAG,
-                                                "An error occurred while deleting the todo.",
-                                                task.exception
-                                            )
-                                        }
-                                    }
+                                onRemoveTask()
                             }
                             setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
                         }
@@ -139,98 +102,24 @@ class ViewTaskActivity : BaseActivity() {
                     }
 
                     R.id.action_edit -> {
-                        startActivity<EditTaskActivity> {
-                            putExtra(EditTaskActivity.EXTRA_TASK_ID, viewModel.taskId)
-                        }
+                        navigateToEditTask(viewModel.taskId)
                         true
                     }
 
                     R.id.action_mark_as_done -> {
-                        taskDocument
-                            .update("done", !todoItem?.done!!)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    showSnackbar(
-                                        "Successfully marked task as " +
-                                            if (!todoItem!!.done!!) "done" else "undone",
-                                        Snackbar.LENGTH_SHORT
-                                    )
-                                    Log.d(
-                                        TAG,
-                                        "Task marked as " + if (!todoItem!!.done!!) "done" else "undone"
-                                    )
-                                } else {
-                                    showSnackbar(
-                                        "An error occurred while marking the todo as " +
-                                            if (!todoItem!!.done!!) "done" else "undone",
-                                        Snackbar.LENGTH_LONG
-                                    )
-                                    Log.e(
-                                        TAG,
-                                        "An error occurred while marking the todo as " +
-                                            if (!todoItem!!.done!!) "done" else "undone",
-                                        task.exception
-                                    )
-                                }
-                            }
+                        onToggleComplete()
                         true
                     }
 
                     R.id.action_archive -> {
-                        // Variable to indicate whether task was already archived
-                        val hasArchived = todoItem?.archived ?: false
-                        Log.d(TAG, "Archived state: $hasArchived")
-                        taskDocument
-                            .update("archived", !hasArchived)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    showSnackbar(
-                                        "Successfully archived task!",
-                                        Snackbar.LENGTH_SHORT
-                                    )
-                                    Log.d(TAG, "Successfully archived task!")
-                                } else {
-                                    showToast(
-                                        "An error occurred while attempting to archive the task",
-                                        Toast.LENGTH_SHORT
-                                    )
-                                    Log.e(
-                                        TAG,
-                                        "An error occurred while attempting to archive the task:",
-                                        task.exception
-                                    )
-                                }
-                            }
+                        onToggleArchive()
                         menu.findItem(R.id.action_unarchive).isVisible = true
                         menu.findItem(R.id.action_archive).isVisible = false
                         true
                     }
 
                     R.id.action_unarchive -> {
-                        // Variable to indicate whether task was already archived
-                        val hasArchived = todoItem?.archived ?: true
-                        Log.d(TAG, "Archived state: $hasArchived")
-                        taskDocument
-                            .update("archived", !hasArchived)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    showSnackbar(
-                                        "Successfully unarchived task!",
-                                        Snackbar.LENGTH_SHORT
-                                    )
-                                    Log.d(TAG, "Successfully unarchived task!")
-                                } else {
-                                    showToast(
-                                        "An error occurred while attempting to unarchive the task",
-                                        Toast.LENGTH_SHORT
-                                    )
-                                    Log.e(
-                                        TAG,
-                                        "An error occurred while attempting to unarchive the task:",
-                                        task.exception
-                                    )
-                                }
-                            }
+                        onToggleArchive()
                         menu.findItem(R.id.action_archive).isVisible = true
                         menu.findItem(R.id.action_unarchive).isVisible = false
                         true
@@ -242,9 +131,7 @@ class ViewTaskActivity : BaseActivity() {
         }
 
         binding.editTaskFab.setOnClickListener {
-            startActivity<EditTaskActivity> {
-                putExtra(EditTaskActivity.EXTRA_TASK_ID, viewModel.taskId)
-            }
+            navigateToEditTask(viewModel.taskId)
         }
     }
 
@@ -255,6 +142,7 @@ class ViewTaskActivity : BaseActivity() {
             showAuthRequiredDialog()
         } else {
             loadTask()
+            loadTaskProject()
         }
     }
 
@@ -271,15 +159,75 @@ class ViewTaskActivity : BaseActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (todoItem != null && todoItem?.title != null) {
-            outState.putString(TASK_TITLE_TAG, todoItem?.title)
+        todoItem.title?.let {
+            outState.putString(TASK_TITLE_TAG, it)
         }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        if (savedInstanceState.getString(TASK_TITLE_TAG) != null) {
-            title = savedInstanceState.getString(TASK_TITLE_TAG)
+        savedInstanceState.getString(TASK_TITLE_TAG)?.let { title = it }
+    }
+
+    private fun navigateToEditTask(taskId: String) {
+        startActivity<EditTaskActivity> {
+            putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
+        }
+    }
+
+    private fun onRemoveTask() {
+        lifecycleScope.launch {
+            try {
+                viewModel.delete(todoItem)
+                showToast(R.string.task_delete_success_msg, Toast.LENGTH_SHORT)
+                finish()
+            } catch (e: Exception) {
+                showToast(R.string.task_delete_fail_msg, Toast.LENGTH_LONG)
+                Log.e(
+                    TAG,
+                    "An error occurred while deleting the task.",
+                    e
+                )
+            }
+        }
+    }
+
+    private fun onToggleArchive() {
+        lifecycleScope.launch {
+            try {
+                // Variable to indicate whether task was already archived
+                val hasArchived = todoItem.archived ?: false
+                Log.d(TAG, "Archived state: $hasArchived")
+
+                viewModel.archive(viewModel.taskId, !hasArchived)
+                Log.d(TAG, "Successfully toggled task archival state to ${!hasArchived}")
+            } catch (e: Exception) {
+                showToast(R.string.task_archive_fail_msg, Toast.LENGTH_SHORT)
+                Log.e(
+                    TAG,
+                    "An error occurred while attempting to archive the task:",
+                    e
+                )
+            }
+        }
+    }
+
+    private fun onToggleComplete() {
+        lifecycleScope.launch {
+            try {
+                viewModel.toggleCompleted(todoItem)
+            } catch (e: Exception) {
+                showSnackbar(
+                    if (todoItem.done != true) R.string.task_done_fail_msg else R.string.task_undone_fail_msg,
+                    Snackbar.LENGTH_LONG
+                )
+                Log.e(
+                    TAG,
+                    "An error occurred while marking the todo as " +
+                        if (todoItem.done != true) "done" else "undone",
+                    e
+                )
+            }
         }
     }
 
@@ -287,35 +235,63 @@ class ViewTaskActivity : BaseActivity() {
      * Loads the task that was supplied via `taskId`
      */
     private fun loadTask() {
-        taskDocument
-            .addSnapshotListener { documentSnapshot, e ->
-                if (e != null) {
-                    Log.e(TAG, "An error occurred while retrieving the task:", e)
-                    showSnackbar(
-                        R.string.view_task_unsuccessful_snackbar_text,
-                        Snackbar.LENGTH_LONG
-                    )
-                } else {
-                    if (documentSnapshot != null && documentSnapshot.exists()) {
-                        setViews(documentSnapshot.toObject<TodoItem>())
-                        todoItem = documentSnapshot.toObject<TodoItem>()
-                        Log.d(TAG, "Task item: $todoItem")
-                        Log.d(TAG, "Document snapshot data: ${documentSnapshot.data}")
-                        title = todoItem?.title
+        lifecycleScope.launch {
+            try {
+                viewModel.taskFlow.flowWithLifecycle(lifecycle)
+                    .collect { item ->
+                        if (item != null) {
+                            setViews(item)
+                            todoItem = item
+                            Log.d(TAG, "Task item: $todoItem")
+                            title = todoItem.title
+                        } else {
+                            Log.d(TAG, "Null task item returned")
+                            finish()
+                        }
                     }
-                }
+            } catch (e: Exception) {
+                Log.e(TAG, "An error occurred while retrieving the task:", e)
+                showSnackbar(
+                    R.string.view_task_unsuccessful_snackbar_text,
+                    Snackbar.LENGTH_LONG
+                )
             }
+        }
     }
 
-    /**
-     * Sets all of the [TextView] and [com.google.android.material.chip.ChipGroup] values
-     *
-     * @param item The task item
-     */
-    private fun setViews(item: TodoItem?) {
+    private fun loadTaskProject() {
+        lifecycleScope.launch {
+            try {
+                viewModel.taskProjectFlow
+                    .flowWithLifecycle(lifecycle)
+                    .collect { project ->
+                        setViews(project)
+                    }
+            } catch (e: Exception) {
+                showToast(R.string.task_project_fetch_fail_msg, Toast.LENGTH_SHORT)
+                Log.e(
+                    TAG,
+                    "An error occurred while attempting to retrieve the project:",
+                    e
+                )
+            }
+        }
+    }
+
+    private fun setViews(item: TodoItem) {
         binding.apply {
+            bottomAppBar.apply {
+                if (item.archived == true) {
+                    // Task has already been archived - show the unarchive menu item instead
+                    menu.findItem(R.id.action_unarchive).isVisible = true
+                    menu.findItem(R.id.action_archive).isVisible = false
+                }
+            }
+            toolbar.apply {
+                title = item.title
+            }
             taskContent.apply {
-                item?.content.also {
+                item.content.also {
                     isVisible = it != null
                 }?.let {
                     setMarkdown(it) {
@@ -329,39 +305,17 @@ class ViewTaskActivity : BaseActivity() {
                 }
             }
             taskDate.apply {
-                item?.dueDate.also {
+                item.dueDate.also {
                     isVisible = it != null
                 }?.let {
-                    // We need to convert it to a LocalDateTime as Instants don't support
-                    // temporal units bigger than days - see the `Instant#isSupported` Javadocs
-                    // for more info
+                    // This Timestamp needs to be converted to a LocalDateTime as
+                    // Instants don't support temporal units bigger than days - see
+                    // the `Instant#isSupported` Javadoc for more info
                     text = it.toLocalDateTime().format(getString(R.string.date_format_pattern))
                 }
             }
-            taskProject.apply {
-                item?.project.also {
-                    isVisible = it != null
-                }?.let {
-                    it.get()
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful && task.result != null && task.result!!.exists()) {
-                                text = task.result!!.getString("name")
-                            } else {
-                                showToast(
-                                    "An error occurred while attempting to retrieve the project. Please try again later.",
-                                    Toast.LENGTH_SHORT
-                                )
-                                Log.e(
-                                    TAG,
-                                    "An error occurred while attempting to retrieve the project:",
-                                    task.exception
-                                )
-                            }
-                        }
-                }
-            }
             taskTags.apply {
-                item?.tags.also {
+                item.tags.also {
                     taskTagsParentView.isVisible = !it.isNullOrEmpty()
                 }?.let {
                     Log.d(TAG, "Tags: $it")
@@ -374,6 +328,16 @@ class ViewTaskActivity : BaseActivity() {
             }
             progressBar.isVisible = false
             scrollTaskView.isVisible = true
+        }
+    }
+
+    private fun setViews(project: TodoProject?) {
+        binding.taskProject.apply {
+            project.also {
+                isVisible = it != null
+            }?.let {
+                text = it.name
+            }
         }
     }
 
@@ -390,5 +354,7 @@ class ViewTaskActivity : BaseActivity() {
     companion object {
         // Tag to be used for saving the task item's title
         private const val TASK_TITLE_TAG = "taskTitle"
+
+        private const val TAG = "ViewTaskActivity"
     }
 }

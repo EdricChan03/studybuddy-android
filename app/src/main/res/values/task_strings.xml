@@ -3,12 +3,26 @@
     <!-- Task-related strings -->
     <eat-comment />
 
+    <!-- Text to show if a task's data could not be fetched for any reason. -->
+    <string name="task_fetch_fail_msg">The task could not be retrieved. Try again later</string>
+
+    <!-- Text to show if a task's project data could not be fetched for any reason. -->
+    <string name="task_project_fetch_fail_msg">The task project could not be retrieved. Try again later</string>
+
+    <!-- Text to show when a task is successfully deleted. -->
+    <string name="task_delete_success_msg">Task deleted</string>
     <!-- Text to show if a task could not be deleted for any reason. -->
     <string name="task_delete_fail_msg">The task could not be deleted. Try again later</string>
+
     <!-- Text to show if a task could not be marked as done for any reason. -->
     <string name="task_done_fail_msg">The task could not be marked as done. Try again later</string>
     <!-- Text to show if a task could not be marked as undone for any reason. -->
     <string name="task_undone_fail_msg">The task could not be marked as undone. Try again later</string>
+
+    <!-- Text to show if a task could not be archived for any reason. -->
+    <string name="task_archive_fail_msg">The task could not be archived. Try again later</string>
+    <!-- Text to show if a task could not be unarchived for any reason. -->
+    <string name="task_unarchive_fail_msg">The task could not be unarchived. Try again later</string>
 
     <!-- Sort dialog strings -->
     <eat-comment />
