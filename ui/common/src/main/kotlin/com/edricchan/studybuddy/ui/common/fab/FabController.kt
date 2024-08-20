@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.ui.common.fab.FabController.FragmentEvent
 import com.edricchan.studybuddy.ui.common.fragment.BaseFragment
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,10 +21,12 @@ import kotlinx.coroutines.launch
  * or removed via the [onFragmentExit] method, triggering a [FragmentEvent.Exit].
  * @param scope [CoroutineScope] to set-up the binding logic.
  * @param fab The [FloatingActionButton] to be controlled.
+ * @param bottomAppBar The [BottomAppBar] that the [fab] is attached to.
  */
 class FabController(
     private val scope: CoroutineScope,
-    private val fab: FloatingActionButton
+    private val fab: FloatingActionButton,
+    private val bottomAppBar: BottomAppBar
 ) {
     private val fragmentEvents = MutableSharedFlow<FragmentEvent>()
 
@@ -45,6 +48,7 @@ class FabController(
                             show()
                             setImageResource(fabData.iconRes)
                             setOnClickListener { fabData.onClick() }
+                            bottomAppBar.fabAlignmentMode = fabData.alignment
                         } else {
                             hide()
                         }
@@ -116,15 +120,18 @@ class FabController(
 /**
  * Sets up the [FabController] for the receiver [ComponentActivity].
  * @param fab The [FloatingActionButton] to be controlled.
+ * @param bottomAppBar The [BottomAppBar] that the [fab] is attached to.
  * @param hostFragment The hosting [Fragment] to bind the lifecycle callbacks to.
  * @return The created [FabController].
  * @see FabController.bindToFragment
  */
 fun ComponentActivity.setupFabController(
     fab: FloatingActionButton,
+    bottomAppBar: BottomAppBar,
     hostFragment: Fragment
 ): FabController = FabController(
     fab = fab,
+    bottomAppBar = bottomAppBar,
     scope = lifecycleScope
 ).apply {
     bindToFragment(hostFragment)

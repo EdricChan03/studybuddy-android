@@ -112,7 +112,7 @@ class MainActivity : BaseActivity() {
                 }
         }
 
-        setupFabController(binding.fab, navHost)
+        setupFabController(binding.fab, binding.bottomAppBar, navHost)
 
         // Handle system notification preference navigation
         if (intent.categories.any {
