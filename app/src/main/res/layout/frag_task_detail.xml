@@ -1,37 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.modules.task.ViewTaskActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:liftOnScrollTargetViewId="@id/scrollTaskView">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+    android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollTaskView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
         android:fillViewport="true"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,12 +20,34 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/taskTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                android:textIsSelectable="true"
+                android:transitionName="task_detail_title"
+                tools:text="&lt;Title of task goes here&gt;" />
+
+            <TextView
                 android:id="@+id/taskContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
                 android:textIsSelectable="true"
+                android:transitionName="task_detail_content"
                 tools:text="&lt;Content of task goes here&gt;" />
+
+            <TextView
+                android:id="@+id/taskId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:fontFamily="monospace"
+                android:padding="16dp"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textIsSelectable="true"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_bug_report_outline_24dp" />
 
             <TextView
                 android:id="@+id/taskDate"
@@ -96,15 +98,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        tools:visibility="gone">
+        android:orientation="vertical">
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingBottom="4dp" />
+            android:indeterminate="true"
+            android:paddingBottom="4dp"
+            app:indicatorSize="80dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -114,19 +116,4 @@
             android:textAppearance="?attr/textAppearanceTitleLarge" />
     </LinearLayout>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:fitsSystemWindows="true"
-        app:fabAlignmentMode="end"
-        app:hideOnScroll="true" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editTaskFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@drawable/ic_edit_outline_24dp" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

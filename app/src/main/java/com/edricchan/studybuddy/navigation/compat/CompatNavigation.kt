@@ -24,7 +24,7 @@ import com.edricchan.studybuddy.ui.modules.main.MainActivity.Companion.ACTION_AD
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.ui.modules.task.EditTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
-import com.edricchan.studybuddy.ui.modules.task.ViewTaskActivity
+import com.edricchan.studybuddy.ui.modules.task.fragment.TaskDetailFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
@@ -70,9 +70,7 @@ fun NavGraphBuilder.taskGraph() = navigation<CompatDestination.Task.Root>(
         }
     }
 
-    activity<CompatDestination.Task.View> {
-        activityClass = ViewTaskActivity::class
-    }
+    fragment<TaskDetailFragment, CompatDestination.Task.View>()
 
     fragment<TaskListFragment, CompatDestination.Task.List>()
 }
