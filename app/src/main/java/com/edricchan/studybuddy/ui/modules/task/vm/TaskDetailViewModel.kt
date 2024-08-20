@@ -15,8 +15,9 @@ import com.edricchan.studybuddy.features.tasks.data.repo.update
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flattenConcat
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,8 +35,9 @@ class TaskDetailViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val taskProjectFlow: Flow<TodoProject?> = taskFlow
-        .mapNotNull { item -> item?.project?.id?.let { projectRepo[it] } }
-        .flattenConcat()
+        .map { item -> item?.project?.id }
+        // Return a flow with null if the ID is null
+        .flatMapConcat { id -> id?.let(projectRepo::get) ?: flowOf(null) }
 
     suspend fun toggleCompleted(item: TodoItem) {
         repo.toggleCompleted(item)
