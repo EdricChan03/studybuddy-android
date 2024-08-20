@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -28,6 +29,7 @@ import com.edricchan.studybuddy.features.tasks.compat.utils.TodoUtils
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
+import com.edricchan.studybuddy.ui.modules.task.vm.TaskDetailViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.BaseTransientBottomBar.Duration
 import com.google.android.material.snackbar.Snackbar
@@ -44,11 +46,12 @@ class ViewTaskActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var taskDocument: DocumentReference
-    private lateinit var taskId: String
     private lateinit var todoUtils: TodoUtils
     private lateinit var binding: ActivityViewTaskBinding
     private var currentUser: FirebaseUser? = null
     private var todoItem: TodoItem? = null
+
+    private val viewModel by viewModels<TaskDetailViewModel>()
 
     override val isEdgeToEdgeEnabled = true
 
@@ -76,8 +79,7 @@ class ViewTaskActivity : BaseActivity() {
         currentUser = auth.currentUser
         todoUtils = TodoUtils(auth, firestore)
 
-        taskId = intent.getStringExtra(EXTRA_TASK_ID) ?: ""
-        if (taskId.isEmpty()) {
+        if (viewModel.taskId.isBlank()) {
             Log.e(TAG, "No task ID was specified!")
             // TODO: i18n code
             showToast(
@@ -86,9 +88,9 @@ class ViewTaskActivity : BaseActivity() {
             )
             finish()
         } else {
-            taskDocument = todoUtils.getTask(taskId)
+            taskDocument = todoUtils.getTask(viewModel.taskId)
         }
-        Log.d(TAG, "Task ID: $taskId")
+        Log.d(TAG, "Task ID: ${viewModel.taskId}")
 
         binding.bottomAppBar.apply {
             replaceMenu(R.menu.menu_view_task)
@@ -110,7 +112,7 @@ class ViewTaskActivity : BaseActivity() {
                             // TODO: i18n code
                             setTitle("Delete todo?")
                             setPositiveButton(R.string.dialog_action_ok) { _, _ ->
-                                todoUtils.removeTask(taskId)
+                                todoUtils.removeTask(viewModel.taskId)
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
                                             showToast(
@@ -138,7 +140,7 @@ class ViewTaskActivity : BaseActivity() {
 
                     R.id.action_edit -> {
                         startActivity<EditTaskActivity> {
-                            putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
+                            putExtra(EditTaskActivity.EXTRA_TASK_ID, viewModel.taskId)
                         }
                         true
                     }
@@ -241,7 +243,7 @@ class ViewTaskActivity : BaseActivity() {
 
         binding.editTaskFab.setOnClickListener {
             startActivity<EditTaskActivity> {
-                putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId)
+                putExtra(EditTaskActivity.EXTRA_TASK_ID, viewModel.taskId)
             }
         }
     }
@@ -388,8 +390,5 @@ class ViewTaskActivity : BaseActivity() {
     companion object {
         // Tag to be used for saving the task item's title
         private const val TASK_TITLE_TAG = "taskTitle"
-
-        /** The extra tag for the task's ID. */
-        const val EXTRA_TASK_ID = "taskId"
     }
 }
