@@ -1,13 +1,16 @@
 package com.edricchan.studybuddy.ui.modules.task
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.view.plusAssign
 import androidx.core.view.updatePadding
@@ -159,14 +162,30 @@ class ViewTaskActivity : BaseActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        todoItem.title?.let {
-            outState.putString(TASK_TITLE_TAG, it)
+        todoItem.apply {
+            outState.putBoolean(TASK_COMPLETED_TAG, done ?: false)
+            title?.let {
+                outState.putString(TASK_TITLE_TAG, it)
+            }
         }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.getString(TASK_TITLE_TAG)?.let { title = it }
+        setTitleStrikeThrough(savedInstanceState.getBoolean(TASK_TITLE_TAG, false))
+    }
+
+    private fun setTitleStrikeThrough(
+        isCompleted: Boolean
+    ) {
+        // Hacky workaround to get the Toolbar's TextView to apply the strike-through
+        // on, but it appears to work ¯\_(ツ)_/¯
+        // TODO: Revisit to verify performance
+        binding.toolbar.children.filterIsInstance<TextView>().forEach {
+            it.paintFlags = if (isCompleted) it.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            else it.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+        }
     }
 
     private fun navigateToEditTask(taskId: String) {
@@ -289,6 +308,7 @@ class ViewTaskActivity : BaseActivity() {
             }
             toolbar.apply {
                 title = item.title
+                setTitleStrikeThrough(item.done ?: false)
             }
             taskContent.apply {
                 item.content.also {
@@ -354,6 +374,9 @@ class ViewTaskActivity : BaseActivity() {
     companion object {
         // Tag to be used for saving the task item's title
         private const val TASK_TITLE_TAG = "taskTitle"
+
+        // Tag to be used for saving the task item's completion state
+        private const val TASK_COMPLETED_TAG = "taskCompleted"
 
         private const val TAG = "ViewTaskActivity"
     }
