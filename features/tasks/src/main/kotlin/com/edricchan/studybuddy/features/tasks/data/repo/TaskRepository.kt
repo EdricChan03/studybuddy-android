@@ -105,7 +105,41 @@ class TaskRepository @Inject constructor(
         getTaskDocument(id).update(data).await()
     }
 
+    /** Updates the list of tasks (given by [ids]) with the specified [data]. */
+    suspend fun updateTasks(ids: Set<String>, data: Map<String, Any>) {
+        val collectionRef = getCollectionRef()
+        val docs = ids.map(collectionRef::document)
+
+        firestore.runBatch { batch ->
+            docs.forEach {
+                batch.update(it, data)
+            }
+        }.await()
+    }
+
     /** Updates the task given its [id] with the [dataAction] to be passed to [buildMap]. */
     suspend fun updateTask(id: String, dataAction: MutableMap<String, Any>.() -> Unit) =
         updateTask(id, buildMap(dataAction))
 }
+
+suspend fun TaskRepository.update(
+    id: String,
+    data: Map<TodoItem.Field, Any>
+) {
+    updateTask(id, data.mapKeys { it.key.fieldName })
+}
+
+suspend fun TaskRepository.update(
+    id: String,
+    dataAction: MutableMap<TodoItem.Field, Any>.() -> Unit
+) {
+    updateTask(id, buildMap(dataAction).mapKeys { it.key.fieldName })
+}
+
+/** Toggles the [item]'s [completion status][TodoItem.done]. */
+suspend fun TaskRepository.toggleCompleted(item: TodoItem) =
+    updateTask(item.id, mapOf(TodoItem.Field.IsDone.fieldName to !(item.done ?: false)))
+
+/** Toggles the [item]'s [archival status][TodoItem.archived]. */
+suspend fun TaskRepository.toggleArchived(item: TodoItem) =
+    updateTask(item.id, mapOf(TodoItem.Field.IsArchived.fieldName to !(item.archived ?: false)))
