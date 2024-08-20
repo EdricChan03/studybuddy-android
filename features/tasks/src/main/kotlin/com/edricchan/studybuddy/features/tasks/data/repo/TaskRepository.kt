@@ -19,7 +19,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
-    firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>,
 ) {
     private val userId = userFlow.mapNotNull { it?.uid }
