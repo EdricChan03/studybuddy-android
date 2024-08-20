@@ -217,7 +217,7 @@ class ViewTaskActivity : BaseActivity() {
                 val hasArchived = todoItem.archived ?: false
                 Log.d(TAG, "Archived state: $hasArchived")
 
-                viewModel.archive(viewModel.taskId, !hasArchived)
+                viewModel.archive(!hasArchived)
                 Log.d(TAG, "Successfully toggled task archival state to ${!hasArchived}")
             } catch (e: Exception) {
                 showToast(R.string.task_archive_fail_msg, Toast.LENGTH_SHORT)

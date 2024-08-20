@@ -53,8 +53,8 @@ class TaskDetailViewModel @Inject constructor(
         repo.removeTask(item)
     }
 
-    suspend fun archive(id: String, isArchived: Boolean) {
-        repo.update(id) {
+    suspend fun archive(isArchived: Boolean) {
+        repo.update(taskId) {
             this[TodoItem.Field.IsArchived] = isArchived
         }
     }
