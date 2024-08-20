@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.task
 
-import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -20,6 +19,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.databinding.ActivityViewTaskBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
+import com.edricchan.studybuddy.exts.android.widget.paintStrikeThrough
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.exts.markwon.coilImagesPlugin
@@ -183,8 +183,7 @@ class ViewTaskActivity : BaseActivity() {
         // on, but it appears to work ¯\_(ツ)_/¯
         // TODO: Revisit to verify performance
         binding.toolbar.children.filterIsInstance<TextView>().forEach {
-            it.paintFlags = if (isCompleted) it.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            else it.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            it.paintStrikeThrough(isCompleted)
         }
     }
 
