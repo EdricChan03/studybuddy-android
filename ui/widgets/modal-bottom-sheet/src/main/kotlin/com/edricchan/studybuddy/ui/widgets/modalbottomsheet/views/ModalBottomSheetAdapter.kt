@@ -54,8 +54,8 @@ class ModalBottomSheetAdapter(
     override fun getItemViewType(position: Int): Int {
         val item = items[position]
         return if (item.icon != null) {
-            if (item.group != null && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
-                when (item.group?.checkableBehavior) {
+            if (item.group != null && item.group.id != ModalBottomSheetGroup.ID_NONE) {
+                when (item.group.checkableBehavior) {
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_ICON_CHECKBOX
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_ICON_RADIO_BUTTON
                     else -> LIST_ITEM_ICON
@@ -64,8 +64,8 @@ class ModalBottomSheetAdapter(
                 LIST_ITEM_ICON
             }
         } else {
-            if (item.group != null && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
-                when (item.group?.checkableBehavior) {
+            if (item.group != null && item.group.id != ModalBottomSheetGroup.ID_NONE) {
+                when (item.group.checkableBehavior) {
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_NO_ICON_CHECKBOX
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_NO_ICON_RADIO_BUTTON
                     else -> LIST_ITEM_NO_ICON
@@ -92,9 +92,9 @@ class ModalBottomSheetAdapter(
                 tempHolder.titleTextView.text = item.title
 
                 // Handle on click listener in item
-                if (item.onItemClickListener != null) {
+                item.onItemClickListener?.let { listener ->
                     holder.itemView.setOnClickListener {
-                        item.onItemClickListener?.onItemClick(item)
+                        listener.onItemClick(item)
                     }
                 }
             }
@@ -115,14 +115,10 @@ class ModalBottomSheetAdapter(
                     tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
 
                     // Handle on item checked listener in item's group
-                    if (itemGroup?.onItemCheckedChangeListener != null) {
-                        itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
-                    }
+                    itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
 
                     // Handle on click listener in item
-                    if (item.onItemClickListener != null) {
-                        item.onItemClickListener?.onItemClick(item)
-                    }
+                    item.onItemClickListener?.onItemClick(item)
                 }
 
             }
@@ -153,14 +149,10 @@ class ModalBottomSheetAdapter(
                     tempHolder.radioButton.isChecked = itemGroup.selected.contains(item)
 
                     // Handle on item checked listener in item's group
-                    if (itemGroup.onItemCheckedChangeListener != null) {
-                        itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-                    }
+                    itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
 
                     // Handle on click listener in item
-                    if (item.onItemClickListener != null) {
-                        item.onItemClickListener?.onItemClick(item)
-                    }
+                    item.onItemClickListener?.onItemClick(item)
                 }
             }
 
@@ -172,9 +164,9 @@ class ModalBottomSheetAdapter(
                 tempHolder.titleTextView.text = item.title
 
                 // Handle on click listener in item
-                if (item.onItemClickListener != null) {
+                item.onItemClickListener?.let { listener ->
                     holder.itemView.setOnClickListener {
-                        item.onItemClickListener?.onItemClick(item)
+                        listener.onItemClick(item)
                     }
                 }
             }
@@ -198,14 +190,10 @@ class ModalBottomSheetAdapter(
                     tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
 
                     // Handle on item checked listener in item's group
-                    if (itemGroup?.onItemCheckedChangeListener != null) {
-                        itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
-                    }
+                    itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
 
                     // Handle on click listener in item
-                    if (item.onItemClickListener != null) {
-                        item.onItemClickListener?.onItemClick(item)
-                    }
+                    item.onItemClickListener?.onItemClick(item)
                 }
             }
 
@@ -241,14 +229,10 @@ class ModalBottomSheetAdapter(
                     tempHolder.radioButton.isChecked = itemGroup.selected.contains(item)
 
                     // Handle on item checked listener in item's group
-                    if (itemGroup.onItemCheckedChangeListener != null) {
-                        itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-                    }
+                    itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
 
                     // Handle on click listener in item
-                    if (item.onItemClickListener != null) {
-                        item.onItemClickListener.onItemClick(item)
-                    }
+                    item.onItemClickListener?.onItemClick(item)
 
                 }
             }

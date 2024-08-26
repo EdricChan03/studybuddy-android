@@ -19,13 +19,13 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomShe
  * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
  */
 data class ModalBottomSheetItem(
-    var id: Int = ID_NONE,
-    var title: String,
-    var icon: Icon? = null,
-    var onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
-    var visible: Boolean = true,
-    var enabled: Boolean = true,
-    var group: ModalBottomSheetGroup? = null
+    val id: Int = ID_NONE,
+    val title: String,
+    val icon: Icon? = null,
+    val onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
+    val visible: Boolean = true,
+    val enabled: Boolean = true,
+    val group: ModalBottomSheetGroup? = null
 ) {
     @Deprecated("Use the relevant overload which takes a drawable resource or a drawable instead")
     constructor(
