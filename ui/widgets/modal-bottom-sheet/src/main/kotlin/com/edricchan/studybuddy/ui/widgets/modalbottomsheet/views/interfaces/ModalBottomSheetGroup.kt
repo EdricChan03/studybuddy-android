@@ -16,12 +16,12 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.Mod
  * @property selected The selected items
  */
 data class ModalBottomSheetGroup(
-    var id: Int,
-    var checkableBehaviorEnum: CheckableBehavior,
-    var onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
-    var visible: Boolean = true,
-    var enabled: Boolean = true,
-    var selected: MutableList<ModalBottomSheetItem> = mutableListOf()
+    val id: Int,
+    val checkableBehaviorEnum: CheckableBehavior,
+    val onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
+    val visible: Boolean = true,
+    val enabled: Boolean = true,
+    val selected: MutableList<ModalBottomSheetItem> = mutableListOf()
 ) {
     @Deprecated("Use the overload which takes an enum for the checkable behaviour")
     constructor(
@@ -43,11 +43,7 @@ data class ModalBottomSheetGroup(
 
     @Deprecated("Use checkableBehaviorEnum instead")
     @ModalBottomSheetCheckableBehavior
-    var checkableBehavior: String
-        get() = checkableBehaviorEnum.value
-        set(value) {
-            checkableBehaviorEnum = CheckableBehavior.fromValue(value)
-        }
+    val checkableBehavior: String = checkableBehaviorEnum.value
 
     enum class CheckableBehavior(@ModalBottomSheetCheckableBehavior internal val value: String) {
         /** No items can be checked. */

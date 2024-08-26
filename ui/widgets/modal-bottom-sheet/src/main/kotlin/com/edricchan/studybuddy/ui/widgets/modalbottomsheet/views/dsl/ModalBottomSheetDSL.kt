@@ -114,25 +114,45 @@ class ModalBottomSheetGroupBuilder(
         group.apply(groupOptions)
     }
 
-    var id by group::id
+    var id = group.id
 
     @Deprecated("Use checkableBehaviorEnum instead")
     @ModalBottomSheetCheckableBehavior
-    var checkableBehavior by group::checkableBehavior
-    var checkableBehaviorEnum by group::checkableBehaviorEnum
+    var checkableBehavior
+        get() = checkableBehaviorEnum.value
+        set(value) {
+            checkableBehaviorEnum = ModalBottomSheetGroup.CheckableBehavior.fromValue(value)
+        }
+    var checkableBehaviorEnum = group.checkableBehaviorEnum
 
-    var onItemCheckedChangeListener by group::onItemCheckedChangeListener
+    var onItemCheckedChangeListener = group.onItemCheckedChangeListener
 
     fun setItemCheckedChangeListener(listener: ModalBottomSheetAdapter.OnItemCheckedChangeListener) {
         onItemCheckedChangeListener = listener
     }
 
-    var visible by group::visible
-    var enabled by group::enabled
-    var selected by group::selected
+    var visible = group.visible
+    var enabled = group.enabled
+    var selected = group.selected
 
-    fun build() = group
+    fun build() = group.copy(
+        id = id,
+        checkableBehaviorEnum = checkableBehaviorEnum,
+        onItemCheckedChangeListener = onItemCheckedChangeListener,
+        visible = visible,
+        enabled = enabled,
+        selected = selected
+    )
 }
+
+/**
+ * Creates a copy of the receiver [ModalBottomSheetGroup] with the
+ * specified properties as per [buildInit].
+ * @return The modified [ModalBottomSheetGroup].
+ */
+fun ModalBottomSheetGroup.copy(
+    buildInit: ModalBottomSheetGroupBuilder.() -> Unit
+): ModalBottomSheetGroup = ModalBottomSheetGroupBuilder(this).apply(buildInit).build()
 
 @ModalBottomSheetDsl
 class ModalBottomSheetGroupItemsBuilder(private val group: ModalBottomSheetGroup) {
