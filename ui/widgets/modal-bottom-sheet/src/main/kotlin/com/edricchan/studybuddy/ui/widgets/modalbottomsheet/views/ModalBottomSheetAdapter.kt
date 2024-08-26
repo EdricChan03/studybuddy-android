@@ -53,7 +53,7 @@ class ModalBottomSheetAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = items[position]
-        return if (item.iconDrawable != null || item.icon != null) {
+        return if (item.icon != null) {
             if (item.group != null && item.group?.id != ModalBottomSheetGroup.ID_NONE) {
                 when (item.group?.checkableBehavior) {
                     ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_ICON_CHECKBOX
@@ -166,12 +166,8 @@ class ModalBottomSheetAdapter(
 
             LIST_ITEM_ICON -> {
                 val tempHolder = holder as IconWithTextHolder
-                if (item.iconDrawable != null) {
-                    tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
-                } else {
-                    tempHolder.iconImageView.setImageDrawable(item.icon?.let {
-                        context.getDrawable(it)
-                    })
+                item.icon?.let { icon ->
+                    tempHolder.iconImageView.setImageDrawable(icon.asDrawable(context))
                 }
                 tempHolder.titleTextView.text = item.title
 
@@ -185,14 +181,8 @@ class ModalBottomSheetAdapter(
 
             LIST_ITEM_ICON_CHECKBOX -> {
                 val tempHolder = holder as IconWithTextWithCheckboxHolder
-                if (item.iconDrawable != null) {
-                    tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
-                } else {
-                    tempHolder.iconImageView.setImageDrawable(item.icon?.let {
-                        context.getDrawable(
-                            it
-                        )
-                    })
+                item.icon?.let {
+                    tempHolder.iconImageView.setImageDrawable(it.asDrawable(context))
                 }
                 tempHolder.titleTextView.text = item.title
                 tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
@@ -226,14 +216,8 @@ class ModalBottomSheetAdapter(
                 tempHolder.radioButton.isChecked = tempCheckedState
                 // Disable clicks on the radio button
                 tempHolder.radioButton.isClickable = false
-                if (item.iconDrawable != null) {
-                    tempHolder.iconImageView.setImageDrawable(item.iconDrawable)
-                } else {
-                    tempHolder.iconImageView.setImageDrawable(item.icon?.let {
-                        context.getDrawable(
-                            it
-                        )
-                    })
+                item.icon?.let { icon ->
+                    tempHolder.iconImageView.setImageDrawable(icon.asDrawable(context))
                 }
 
                 tempHolder.titleTextView.text = item.title
@@ -263,7 +247,7 @@ class ModalBottomSheetAdapter(
 
                     // Handle on click listener in item
                     if (item.onItemClickListener != null) {
-                        item.onItemClickListener?.onItemClick(item)
+                        item.onItemClickListener.onItemClick(item)
                     }
 
                 }

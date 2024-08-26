@@ -167,45 +167,56 @@ class ModalBottomSheetGroupItemsBuilder(private val group: ModalBottomSheetGroup
         items(buildList(itemsInit))
 
     /** Returns the added list of items with the group assigned to it. */
-    fun build() = items.map { it.apply { group = this@ModalBottomSheetGroupItemsBuilder.group } }
+    fun build() = items.map { it.copy { group = this@ModalBottomSheetGroupItemsBuilder.group } }
 }
 
 @ModalBottomSheetDsl
 class ModalBottomSheetItemBuilder(
-    private val item: ModalBottomSheetItem = ModalBottomSheetItem(title = ""),
-    itemOptions: ModalBottomSheetItem.() -> Unit = {}
+    private val item: ModalBottomSheetItem = ModalBottomSheetItem(title = "")
 ) {
-    init {
-        item.apply(itemOptions)
-    }
+    var id: Int = item.id
+    var title: String = item.title
 
-    var id by item::id
-    var title by item::title
-
-    private var icon by item::icon
-    private var iconDrawable by item::iconDrawable
+    var iconValue = item.icon
 
     fun setIcon(icon: Drawable) {
-        iconDrawable = icon
+        iconValue = ModalBottomSheetItem.Icon.Raw(icon)
     }
 
     fun setIcon(@DrawableRes iconRes: Int) {
-        icon = iconRes
+        iconValue = ModalBottomSheetItem.Icon.Resource(iconRes)
     }
 
-    var onItemClickListener by item::onItemClickListener
+    var onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = item.onItemClickListener
 
     fun setItemClickListener(listener: ModalBottomSheetAdapter.OnItemClickListener) {
         onItemClickListener = listener
     }
 
-    var visible by item::visible
-    var enabled by item::enabled
+    var visible: Boolean = item.visible
+    var enabled: Boolean = item.enabled
 
-    var group by item::group
+    var group: ModalBottomSheetGroup? = item.group
 
-    fun build() = item
+    fun build(): ModalBottomSheetItem = item.copy(
+        id = id,
+        title = title,
+        icon = iconValue,
+        onItemClickListener = onItemClickListener,
+        visible = visible,
+        enabled = enabled,
+        group = group
+    )
 }
+
+/**
+ * Creates a copy of the receiver [ModalBottomSheetItem] with the specified
+ * properties modified to match that of [buildInit].
+ * @return The modified copy of [ModalBottomSheetItem].
+ */
+fun ModalBottomSheetItem.copy(
+    buildInit: ModalBottomSheetItemBuilder.() -> Unit
+) = ModalBottomSheetItemBuilder(this).apply(buildInit).build()
 
 /** Creates a [ModalBottomSheetGroup] using DSL syntax. */
 @ModalBottomSheetDsl
