@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 /** Destinations that have yet to be migrated to Jetpack Compose. */
 // TODO: Remove
+@Serializable
 sealed interface CompatDestination {
     // Top-level destinations
 
