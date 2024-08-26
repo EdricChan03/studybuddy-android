@@ -15,7 +15,7 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.Mod
  * @property enabled Whether the group is enabled
  * @property selected The selected items
  */
-class ModalBottomSheetGroup(
+data class ModalBottomSheetGroup(
     var id: Int,
     var checkableBehaviorEnum: CheckableBehavior,
     var onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
@@ -40,11 +40,6 @@ class ModalBottomSheetGroup(
         enabled = enabled,
         selected = selected
     )
-
-    override fun toString(): String {
-        return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehaviorEnum, visible=$visible, enabled=$enabled," +
-            "selected=${selected.joinToString(prefix = "[", postfix = "]")}"
-    }
 
     @Deprecated("Use checkableBehaviorEnum instead")
     @ModalBottomSheetCheckableBehavior
