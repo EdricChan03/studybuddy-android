@@ -116,8 +116,11 @@ class ModalBottomSheetGroupBuilder(
 
     var id by group::id
 
+    @Deprecated("Use checkableBehaviorEnum instead")
     @ModalBottomSheetCheckableBehavior
     var checkableBehavior by group::checkableBehavior
+    var checkableBehaviorEnum by group::checkableBehaviorEnum
+
     var onItemCheckedChangeListener by group::onItemCheckedChangeListener
 
     fun setItemCheckedChangeListener(listener: ModalBottomSheetAdapter.OnItemCheckedChangeListener) {

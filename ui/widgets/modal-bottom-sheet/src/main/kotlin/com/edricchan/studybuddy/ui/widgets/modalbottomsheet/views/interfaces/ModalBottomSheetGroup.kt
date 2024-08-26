@@ -2,13 +2,13 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces
 
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.annotations.ModalBottomSheetCheckableBehavior
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup.Companion.CHECKABLE_BEHAVIOR_NONE
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup.CheckableBehavior
 
 /**
  * Represents a group of [ModalBottomSheetItem]s
  * @property id An non-zero integer ID so that [ModalBottomSheetItem]s can use the ID
- * @property checkableBehavior The type of the checkable behavior for the group (Default:
- * [CHECKABLE_BEHAVIOR_NONE])
+ * @property checkableBehaviorEnum The type of the checkable behavior for the group (Default:
+ * [CheckableBehavior.None])
  * @property onItemCheckedChangeListener A listener which is called when an item's checked state is
  * toggled
  * @property visible Whether the group is visible
@@ -17,22 +17,24 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.Mod
  */
 class ModalBottomSheetGroup(
     var id: Int,
-    @ModalBottomSheetCheckableBehavior var checkableBehavior: String = CHECKABLE_BEHAVIOR_NONE,
+    var checkableBehaviorEnum: CheckableBehavior,
     var onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
     var visible: Boolean = true,
     var enabled: Boolean = true,
     var selected: MutableList<ModalBottomSheetItem> = mutableListOf()
 ) {
+    @Deprecated("Use the overload which takes an enum for the checkable behaviour")
     constructor(
         id: Int,
-        checkableBehavior: CheckableBehavior,
+        @ModalBottomSheetCheckableBehavior
+        checkableBehavior: String = CHECKABLE_BEHAVIOR_NONE,
         onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
         visible: Boolean = true,
         enabled: Boolean = true,
         selected: MutableList<ModalBottomSheetItem> = mutableListOf()
     ) : this(
         id = id,
-        checkableBehavior = checkableBehavior.value,
+        checkableBehaviorEnum = CheckableBehavior.fromValue(checkableBehavior),
         onItemCheckedChangeListener = onItemCheckedChangeListener,
         visible = visible,
         enabled = enabled,
@@ -40,9 +42,17 @@ class ModalBottomSheetGroup(
     )
 
     override fun toString(): String {
-        return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehavior, visible=$visible, enabled=$enabled," +
+        return "ModalBottomSheetGroup(id=$id, checkableBehavior=$checkableBehaviorEnum, visible=$visible, enabled=$enabled," +
             "selected=${selected.joinToString(prefix = "[", postfix = "]")}"
     }
+
+    @Deprecated("Use checkableBehaviorEnum instead")
+    @ModalBottomSheetCheckableBehavior
+    var checkableBehavior: String
+        get() = checkableBehaviorEnum.value
+        set(value) {
+            checkableBehaviorEnum = CheckableBehavior.fromValue(value)
+        }
 
     enum class CheckableBehavior(@ModalBottomSheetCheckableBehavior internal val value: String) {
         /** No items can be checked. */
@@ -52,7 +62,17 @@ class ModalBottomSheetGroup(
         All(value = CHECKABLE_BEHAVIOR_ALL),
 
         /** Only one item can be checked. */
-        Single(value = CHECKABLE_BEHAVIOR_SINGLE),
+        Single(value = CHECKABLE_BEHAVIOR_SINGLE);
+
+        companion object {
+            internal fun fromValue(
+                @ModalBottomSheetCheckableBehavior value: String
+            ): CheckableBehavior = when (value) {
+                CHECKABLE_BEHAVIOR_ALL -> All
+                CHECKABLE_BEHAVIOR_SINGLE -> Single
+                else -> None // Default to None if no valid value was specified
+            }
+        }
     }
 
     companion object {
