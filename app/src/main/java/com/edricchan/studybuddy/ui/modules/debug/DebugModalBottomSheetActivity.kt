@@ -41,61 +41,51 @@ class DebugModalBottomSheetActivity : BaseActivity() {
 
         with(binding.modalBottomSheetLauncherButtonsLayout) {
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with text items and no header",
                 buildOnClickListener(modalBottomSheetWithTextNoHeader())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with text items and header",
                 buildOnClickListener(modalBottomSheetWithTextAndHeader())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with icons and text items",
                 buildOnClickListener(modalBottomSheetWithIconItems())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with 1000 text items",
                 buildOnClickListener(modalBottomSheetWith1000Items())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with text items with checkboxes",
                 buildOnClickListener(modalBottomSheetCheckBoxItems())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with text items with radio buttons",
                 buildOnClickListener(modalBottomSheetRadioButtonItems())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with disabled even text items",
                 buildOnClickListener(modalBottomSheetDisabledEvenItems())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with hidden odd text items",
                 buildOnClickListener(modalBottomSheetHiddenOddItems())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet with DSL syntax",
                 buildOnClickListener(modalBottomSheetDSL())
             )
 
             addModalBottomSheetLauncher(
-                this,
                 "Modal bottom sheet without draggable handle",
                 buildOnClickListener(modalBottomSheetNoDraggable())
             )
@@ -111,21 +101,29 @@ class DebugModalBottomSheetActivity : BaseActivity() {
 
     // Code adapted from
     // https://github.com/material-components/material-components-android/blob/master/catalog/java/io/material/catalog/picker/PickerMainDemoFragment.java
-    private fun addModalBottomSheetLauncher(
-        viewGroup: ViewGroup, @StringRes stringResId: Int, onClickListener: View.OnClickListener
+    private fun ViewGroup.addModalBottomSheetLauncher(
+        @StringRes demoTitleResId: Int, onClickListener: View.OnClickListener
     ) {
-        viewGroup += MaterialButton(viewGroup.context).apply {
+        this += MaterialButton(
+            context,
+            null,
+            com.google.android.material.R.attr.materialButtonOutlinedStyle
+        ).apply {
             setOnClickListener(onClickListener)
-            setText(stringResId)
+            setText(demoTitleResId)
         }
     }
 
-    private fun addModalBottomSheetLauncher(
-        viewGroup: ViewGroup, string: String, onClickListener: View.OnClickListener
+    private fun ViewGroup.addModalBottomSheetLauncher(
+        demoTitle: String, onClickListener: View.OnClickListener
     ) {
-        viewGroup += MaterialButton(viewGroup.context).apply {
+        this += MaterialButton(
+            context,
+            null,
+            com.google.android.material.R.attr.materialButtonOutlinedStyle
+        ).apply {
             setOnClickListener(onClickListener)
-            text = string
+            text = demoTitle
         }
     }
 
