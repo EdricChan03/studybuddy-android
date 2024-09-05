@@ -4,8 +4,16 @@ rootProject.name = "studybuddy-android"
 // (See https://developer.android.com/studio/releases/gradle-plugin#settings-gradle)
 pluginManagement {
     repositories {
+        google {
+            content {
+                includeGroupByRegex("""com\.android.*""")
+                includeGroupByRegex("""com\.google.*""")
+                // Newer versions of KSP are published on Maven Central
+                excludeGroup("com.google.devtools.ksp")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         gradlePluginPortal()
-        google()
         mavenCentral()
     }
 }
@@ -13,13 +21,6 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
     repositories {
-        // For Compose Compiler dev versions
-        maven("https://androidx.dev/storage/compose-compiler/repository/") {
-            name = "Jetpack Compose Compiler Repository"
-            mavenContent {
-                includeVersionByRegex("^androidx.compose.compiler\$", ".*", ".+-dev-k.+")
-            }
-        }
         google()
         mavenCentral()
         maven("https://jitpack.io")

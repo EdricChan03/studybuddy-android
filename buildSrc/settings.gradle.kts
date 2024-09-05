@@ -1,7 +1,15 @@
 pluginManagement {
     repositories {
+        google {
+            content {
+                includeGroupByRegex("""com\.android.*""")
+                includeGroupByRegex("""com\.google.*""")
+                // Newer versions of KSP are published on Maven Central
+                excludeGroup("com.google.devtools.ksp")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         gradlePluginPortal()
-        google()
         mavenCentral()
     }
 }
