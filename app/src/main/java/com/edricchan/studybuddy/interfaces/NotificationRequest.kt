@@ -16,15 +16,15 @@ import androidx.annotation.StringDef
  * @property userOrTopic The user ID or the topic ID to send the notification to
  */
 data class NotificationRequest(
-    var notificationActions: List<NotificationAction>? = null,
-    var notificationBody: String? = null,
-    var notificationChannelId: String? = "uncategorised",
-    var notificationColor: String? = "#3f51b5",
-    var notificationIcon: String? = null,
-    @NotificationPriority var notificationPriority: String? = null,
-    var notificationTitle: String? = null,
-    var notificationTtl: Long? = null,
-    var userOrTopic: String? = null
+    val notificationActions: List<NotificationAction>? = null,
+    val notificationBody: String? = null,
+    val notificationChannelId: String? = "uncategorised",
+    val notificationColor: String? = "#3f51b5",
+    val notificationIcon: String? = null,
+    @NotificationPriority val notificationPriority: String? = null,
+    val notificationTitle: String? = null,
+    val notificationTtl: Long? = null,
+    val userOrTopic: String? = null
 ) {
 
     private constructor(builder: Builder) : this(
@@ -50,6 +50,7 @@ data class NotificationRequest(
          * Indicates that the notification should have a normal priority
          */
         const val NOTIFICATION_PRIORITY_NORMAL = "normal"
+
         /**
          * Indicates that the notification should have a high priority
          */
@@ -59,41 +60,48 @@ data class NotificationRequest(
     @StringDef(NOTIFICATION_PRIORITY_NORMAL, NOTIFICATION_PRIORITY_HIGH)
     annotation class NotificationPriority
 
-
     class Builder {
         /**
          * The notification's actions
          */
         var notificationActions: MutableList<NotificationAction>? = mutableListOf()
+
         /**
          * The notification's body
          */
         var notificationBody: String? = null
+
         /**
          * The notification's channel ID
          */
         var notificationChannelId: String? = null
+
         /**
          * The notification's colour/color
          */
         var notificationColor: String? = null
+
         /**
          * The notification's icon
          */
         var notificationIcon: String? = null
+
         /**
          * The notification's priority
          */
         @NotificationPriority
         var notificationPriority: String? = null
+
         /**
          * The notification's title
          */
         var notificationTitle: String? = null
+
         /**
          * The notification's Time-To-Live (TTL)
          */
         var notificationTtl: Long? = null
+
         /**
          * The user/topic to send the notification to
          *
