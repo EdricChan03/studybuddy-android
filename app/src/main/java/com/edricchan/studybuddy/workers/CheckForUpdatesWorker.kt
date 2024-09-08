@@ -136,7 +136,10 @@ class CheckForUpdatesWorker(
         val contentIntent = buildIntent<UpdatesActivity>(appContext) {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pContentIntent = PendingIntent.getActivity(appContext, 0, contentIntent, 0)
+        val pContentIntent = PendingIntent.getActivity(
+            appContext, 0, contentIntent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
 
         showUpdateNotification {
             setContentTitle(appContext.getString(R.string.notification_new_update_title))
