@@ -58,7 +58,6 @@ sealed interface CompatDestination {
         data object ViewLicenses : About
     }
 
-
     /** Destinations related to the auth feature. */
     @Serializable
     sealed interface Auth : CompatDestination {
@@ -94,12 +93,16 @@ sealed interface CompatDestination {
         @Serializable
         data object List : Task
 
+        interface Detail {
+            val taskId: String
+        }
+
         /** Typed destination for the edit task entry-point. */
         @Serializable
-        data class Edit(val taskId: String) : Task
+        data class Edit(override val taskId: String) : Task, Detail
 
         /** Typed destination for the view task entry-point. */
         @Serializable
-        data class View(val taskId: String) : Task
+        data class View(override val taskId: String) : Task, Detail
     }
 }
