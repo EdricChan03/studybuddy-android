@@ -1,11 +1,15 @@
 package com.edricchan.studybuddy.core.compat.navigation
 
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.navOptions
 
 val DefaultNavOptionsBuilder: NavOptionsBuilder.() -> Unit = {
     launchSingleTop = true
 }
+
+val DefaultNavOpts: NavOptions = navOptions(DefaultNavOptionsBuilder)
 
 /**
  * Navigates to the [CompatDestination.Debug] route.
