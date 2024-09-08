@@ -12,6 +12,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorSurface"
@@ -35,7 +36,8 @@
             android:layout_marginVertical="@dimen/m3_switch_title_margin"
             android:layout_marginEnd="@dimen/m3_switch_title_margin"
             android:layout_weight="1"
-            android:ellipsize="end" />
+            android:ellipsize="end"
+            tools:text="Enable weekly summary" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_widget"
