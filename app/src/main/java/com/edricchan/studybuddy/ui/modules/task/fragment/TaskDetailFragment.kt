@@ -65,7 +65,7 @@ class TaskDetailFragment :
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             return when (menuItem.itemId) {
                 R.id.action_edit -> {
-                    navController.navigateToTaskEdit(viewModel.taskId)
+                    navController.navigateToTaskEdit(viewModel.currentTaskId)
                     true
                 }
 
@@ -100,7 +100,7 @@ class TaskDetailFragment :
         iconRes = R.drawable.ic_edit_outline_24dp,
         contentDescriptionRes = TaskR.string.action_edit_task,
         onClick = {
-            navController.navigateToTaskEdit(viewModel.taskId)
+            navController.navigateToTaskEdit(viewModel.currentTaskId)
         },
         alignment = BottomAppBar.FAB_ALIGNMENT_MODE_END
     )
@@ -119,11 +119,11 @@ class TaskDetailFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.taskFlow.collect(::setTaskData)
+                    viewModel.currTaskFlow.collect(::setTaskData)
                 }
 
                 launch {
-                    viewModel.taskProjectFlow.collect(::setTaskProjectData)
+                    viewModel.currTaskProjectFlow.collect(::setTaskProjectData)
                 }
             }
         }
@@ -162,7 +162,7 @@ class TaskDetailFragment :
             }
             taskId.apply {
                 isVisible = requireContext().isDevMode()
-                text = viewModel.taskId
+                text = viewModel.currentTaskId
             }
             taskDate.apply {
                 item?.dueDate.also {

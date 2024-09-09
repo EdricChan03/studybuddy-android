@@ -7,43 +7,32 @@ import androidx.navigation.toRoute
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleArchived
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleCompleted
 import com.edricchan.studybuddy.features.tasks.data.repo.update
+import com.edricchan.studybuddy.ui.modules.task.detail.TaskDetailData
+import com.edricchan.studybuddy.ui.modules.task.detail.impl.FirestoreTaskDetailData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TaskDetailViewModel @Inject constructor(
     private val repo: TaskRepository,
-    private val projectRepo: TaskProjectRepository,
+    detailDataFactory: FirestoreTaskDetailData.Factory,
     savedState: SavedStateHandle
-) : ViewModel() {
+) : ViewModel(), TaskDetailData {
     private val routeData = savedState.toRoute<CompatDestination.Task.View>()
 
-    val taskId: String = routeData.taskId
+    override val currentTaskId: String = routeData.taskId
 
-    val taskFlow: StateFlow<TodoItem?> = repo.observeTask(taskId)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
+    private val detailData =
+        detailDataFactory.create(selectedTaskId = routeData.taskId, coroutineScope = viewModelScope)
 
-    val currentTask by taskFlow::value
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val taskProjectFlow: StateFlow<TodoProject?> = taskFlow
-        .flatMapConcat { item ->
-            // Return a flow with null if the ID is null
-            item?.project?.id?.let(projectRepo::get) ?: flowOf(null)
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
+    override val currTaskFlow: StateFlow<TodoItem?> by detailData::currTaskFlow
+    override val currTaskProjectFlow: StateFlow<TodoProject?> by detailData::currTaskProjectFlow
 
     suspend fun toggleCompleted(item: TodoItem) {
         repo.toggleCompleted(item)
@@ -60,11 +49,11 @@ class TaskDetailViewModel @Inject constructor(
     }
 
     suspend fun deleteTask() {
-        taskFlow.value?.let { repo.removeTask(it) }
+        currTaskFlow.value?.let { repo.removeTask(it) }
     }
 
     suspend fun archive(isArchived: Boolean) {
-        repo.update(taskId) {
+        repo.update(currentTaskId) {
             this[TodoItem.Field.IsArchived] = isArchived
         }
     }
