@@ -58,8 +58,8 @@ class TaskDetailFragment :
             super.onPrepareMenu(menu)
 
             val hasArchived = viewModel.currentTask?.archived ?: false
-            menu.findItem(R.id.action_unarchive).isVisible = hasArchived
-            menu.findItem(R.id.action_archive).isVisible = !hasArchived
+            menu.findItem(R.id.action_unarchive)?.isVisible = hasArchived
+            menu.findItem(R.id.action_archive)?.isVisible = !hasArchived
         }
 
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
