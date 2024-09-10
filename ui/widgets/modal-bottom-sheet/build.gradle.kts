@@ -23,6 +23,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.exts.androidx.viewBinding)
     implementation(projects.ui.insets)
     implementation(projects.ui.widgets.views) {
         because("NoTextCheckBox, NoTextRadioButton")

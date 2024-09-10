@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.FragModalBottomSheetBinding
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetBuilder
@@ -28,13 +29,13 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
     /** Whether the draggable handle should be hidden. */
     var hideDragHandle: Boolean = false
 
-    private lateinit var binding: FragModalBottomSheetBinding
+    private val binding: FragModalBottomSheetBinding by viewInflateBinding(
+        FragModalBottomSheetBinding::inflate
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ) = FragModalBottomSheetBinding.inflate(
-        inflater, container, false
-    ).also { binding = it }.root
+    ) = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
