@@ -14,7 +14,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:clickable="false"
-        android:contentDescription="Document icon"
+        android:contentDescription="@string/help_article_icon_content_desc"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:src="@drawable/ic_file_document_box_outline_24dp"
