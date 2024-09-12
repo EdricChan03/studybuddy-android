@@ -66,11 +66,6 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".ui.modules.settings.SettingsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/Theme.App.NoActionBar" />
-        <activity
             android:name=".ui.modules.task.NewTaskActivity"
             android:label="@string/title_activity_new_task"
             android:theme="@style/Theme.App.NoActionBar" />
