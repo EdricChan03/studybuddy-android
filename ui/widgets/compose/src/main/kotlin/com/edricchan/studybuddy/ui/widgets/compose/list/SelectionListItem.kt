@@ -48,6 +48,8 @@ fun RadioButtonListItem(
     onSelected: () -> Unit,
     enabled: Boolean = true,
     trailingContent: @Composable (() -> Unit)? = null,
+    supportingContent: @Composable (() -> Unit)? = null,
+    overlineContent: @Composable (() -> Unit)? = null,
     text: @Composable () -> Unit
 ) = ListItem(
     modifier = modifier.selectable(
@@ -56,6 +58,8 @@ fun RadioButtonListItem(
     ),
     colors = colors.withDisabledColors(enabled),
     headlineContent = text,
+    supportingContent = supportingContent,
+    overlineContent = overlineContent,
     leadingContent = {
         RadioButton(
             modifier = radioButtonModifier,
@@ -103,6 +107,8 @@ fun CheckboxListItem(
     onCheckedChange: (Boolean) -> Unit,
     enabled: Boolean = true,
     trailingContent: @Composable (() -> Unit)? = null,
+    supportingContent: @Composable (() -> Unit)? = null,
+    overlineContent: @Composable (() -> Unit)? = null,
     text: @Composable () -> Unit
 ) = ListItem(
     modifier = modifier.toggleable(
@@ -113,6 +119,8 @@ fun CheckboxListItem(
     ),
     colors = colors.withDisabledColors(enabled),
     headlineContent = text,
+    supportingContent = supportingContent,
+    overlineContent = overlineContent,
     leadingContent = {
         Checkbox(
             modifier = checkboxModifier,
