@@ -20,6 +20,9 @@
     <!-- Layout strings -->
     <eat-comment />
 
+    <!-- The help article icon's content description. -->
+    <string name="help_article_icon_content_desc">Help article icon</string>
+
     <!-- The text to show when the help articles are loading. -->
     <string name="help_articles_empty_state_loading">Loading help articles&#8230;</string>
     <!-- The text to show when no help articles are available. -->

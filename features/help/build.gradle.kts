@@ -1,5 +1,5 @@
 plugins {
-    com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`android-compose`
     com.edricchan.studybuddy.library.`android-hilt`
 
     kotlin("plugin.serialization")
@@ -30,12 +30,14 @@ android {
 dependencies {
     // Project dependencies
     implementation(projects.ui.common)
+    implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.core.compat.navigation)
     implementation(projects.core.deeplink)
     implementation(projects.core.di)
     implementation(projects.core.resources)
     implementation(projects.data.serialization.android)
+    implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.androidx.viewBinding)
     implementation(projects.exts.common)
@@ -53,6 +55,10 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.materialComponents)
 
+    implementation(libs.bundles.androidx.compose)
+
+    debugImplementation(libs.bundles.androidx.compose.tooling)
+
     implementation(libs.bundles.ktor)
     implementation(libs.kotlinx.serialization.json)
 
@@ -60,4 +66,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+
+    // Compose rule support
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 }
