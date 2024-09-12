@@ -24,6 +24,7 @@ import com.edricchan.studybuddy.features.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.features.help.constants.uriSendFeedback
 import com.edricchan.studybuddy.features.help.constants.uriSrcCode
 import com.edricchan.studybuddy.features.help.databinding.ActivityHelpBinding
+import com.edricchan.studybuddy.features.help.ui.HelpArticlesState
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesCompatActivity
 import com.edricchan.studybuddy.ui.theming.setDynamicColors
@@ -143,6 +144,37 @@ class HelpActivity : BaseActivity() {
         }
     }
 
+    private fun onStateChanged(state: HelpArticlesState) {
+        when (state) {
+            HelpArticlesState.Loading -> {
+                with(binding) {
+                    helpFeaturedRecyclerView.isVisible = false
+                    progressBarLinearLayout.isVisible = true
+                    tvEmptyStateLoading.isVisible = true
+                    tvEmptyState.isVisible = false
+                }
+            }
+
+            is HelpArticlesState.Success -> {
+                with(binding) {
+                    helpFeaturedRecyclerView.isVisible = true
+                    progressBarLinearLayout.isVisible = false
+                    adapter.submitList(state.articles)
+                }
+            }
+
+            is HelpArticlesState.Error -> {
+                with(binding) {
+                    helpFeaturedRecyclerView.isVisible = false
+                    progressBarLinearLayout.isVisible = true
+                    tvEmptyStateLoading.isVisible = false
+                    tvEmptyState.isVisible = true
+                }
+                Log.e(TAG, "Could not load help articles:", state.exception)
+            }
+        }
+    }
+
     private fun initAdapter() {
         adapter = HelpArticleAdapter().apply {
             setOnItemClickListener { article, _ ->
@@ -152,9 +184,7 @@ class HelpActivity : BaseActivity() {
 
         lifecycleScope.launch {
             viewModel.helpArticles.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    adapter.submitList(it)
-                }
+                .collect(::onStateChanged)
         }
     }
 
@@ -163,10 +193,6 @@ class HelpActivity : BaseActivity() {
      */
     private fun loadFeaturedList() {
         try {
-            binding.apply {
-                progressBarLinearLayout.isVisible = true
-                helpFeaturedRecyclerView.isVisible = false
-            }
             // Load data
             lifecycleScope.launch {
                 viewModel.refreshHelpArticles()
