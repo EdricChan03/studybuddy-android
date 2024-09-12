@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * An interface for [com.edricchan.studybuddy.features.help.HelpActivity]
+ * Article metadata for a help entry.
  * @property description The description of this help article
  * @property icon The icon of this help article
  * @property title The title of this help article
