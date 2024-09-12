@@ -31,11 +31,13 @@ dependencies {
     // Project dependencies
     implementation(projects.ui.common)
     implementation(projects.ui.theming.views)
+    implementation(projects.core.compat.navigation)
     implementation(projects.core.deeplink)
     implementation(projects.core.di)
     implementation(projects.core.resources)
     implementation(projects.data.serialization.android)
     implementation(projects.exts.androidx.preference)
+    implementation(projects.exts.androidx.viewBinding)
     implementation(projects.exts.common)
     implementation(projects.exts.material)
     implementation(projects.utils.recyclerview)
@@ -43,6 +45,7 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.desugar)
 
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.recyclerview.core)

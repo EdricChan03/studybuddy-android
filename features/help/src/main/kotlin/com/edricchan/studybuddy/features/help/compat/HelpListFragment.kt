@@ -1,15 +1,17 @@
-package com.edricchan.studybuddy.features.help
+package com.edricchan.studybuddy.features.help.compat
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.activity.viewModels
+import android.view.View
+import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,16 +19,17 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
-import com.edricchan.studybuddy.core.deeplink.AppDeepLink
-import com.edricchan.studybuddy.core.deeplink.WebDeepLink
+import com.edricchan.studybuddy.core.compat.navigation.about.navigateToLicenses
 import com.edricchan.studybuddy.exts.common.TAG
+import com.edricchan.studybuddy.features.help.HelpViewModel
+import com.edricchan.studybuddy.features.help.R
 import com.edricchan.studybuddy.features.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.features.help.constants.uriSendFeedback
 import com.edricchan.studybuddy.features.help.constants.uriSrcCode
-import com.edricchan.studybuddy.features.help.databinding.ActivityHelpBinding
+import com.edricchan.studybuddy.features.help.databinding.FragHelpListBinding
+import com.edricchan.studybuddy.features.help.showVersionDialog
 import com.edricchan.studybuddy.features.help.ui.HelpArticlesState
-import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.common.licenses.OssLicensesCompatActivity
+import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.theming.setDynamicColors
 import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -34,25 +37,51 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
-@WebDeepLink(["/help"])
-@AppDeepLink(["/help"])
 @AndroidEntryPoint
-class HelpActivity : BaseActivity() {
-    private lateinit var binding: ActivityHelpBinding
+class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBinding::inflate) {
+    private val viewModel: HelpViewModel by viewModels()
     private lateinit var adapter: HelpArticleAdapter
 
-    private val viewModel: HelpViewModel by viewModels()
-
-    override val isEdgeToEdgeEnabled = true
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityHelpBinding.inflate(layoutInflater).also {
-            setContentView(it.root)
-            setSupportActionBar(it.toolbar)
+    override val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.menu_help, menu)
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return when (menuItem.itemId) {
+                R.id.action_refresh -> {
+                    binding.swipeRefreshLayout.isRefreshing = true
+                    loadFeaturedList()
+                    true
+                }
+
+                R.id.action_send_feedback -> {
+                    requireContext().launchUri(uriSendFeedback)
+                    true
+                }
+
+                R.id.action_version -> {
+                    requireContext().showVersionDialog()
+                    true
+                }
+
+                R.id.action_licenses -> {
+                    navController.navigateToLicenses()
+                    true
+                }
+
+                R.id.action_source_code -> {
+                    requireContext().launchUri(uriSrcCode)
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener { loadFeaturedList() }
@@ -83,48 +112,6 @@ class HelpActivity : BaseActivity() {
         loadFeaturedList()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_help, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                true
-            }
-
-            R.id.action_refresh -> {
-                binding.swipeRefreshLayout.isRefreshing = true
-                loadFeaturedList()
-                true
-            }
-
-            R.id.action_send_feedback -> {
-                launchUri(uriSendFeedback)
-                true
-            }
-
-            R.id.action_version -> {
-                showVersionDialog()
-                true
-            }
-
-            R.id.action_licenses -> {
-                startActivity(Intent(this, OssLicensesCompatActivity::class.java))
-                true
-            }
-
-            R.id.action_source_code -> {
-                launchUri(uriSrcCode)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     /**
      * Initialises the recycler view by calling the needed methods
      */
@@ -132,10 +119,10 @@ class HelpActivity : BaseActivity() {
         binding.helpFeaturedRecyclerView.apply {
             setHasFixedSize(true)
             itemAnimator = DefaultItemAnimator()
-            layoutManager = LinearLayoutManager(this@HelpActivity)
+            layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(
                 MaterialDividerItemDecoration(
-                    this@HelpActivity,
+                    requireContext(),
                     MaterialDividerItemDecoration.VERTICAL
                 ).apply {
                     isLastItemDecorated = false
@@ -170,7 +157,6 @@ class HelpActivity : BaseActivity() {
                     tvEmptyStateLoading.isVisible = false
                     tvEmptyState.isVisible = true
                 }
-                Log.e(TAG, "Could not load help articles:", state.exception)
             }
         }
     }
@@ -178,11 +164,11 @@ class HelpActivity : BaseActivity() {
     private fun initAdapter() {
         adapter = HelpArticleAdapter().apply {
             setOnItemClickListener { article, _ ->
-                launchUri(article.uri)
+                requireContext().launchUri(article.uri)
             }
         }.also { binding.helpFeaturedRecyclerView.adapter = it }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.helpArticles.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect(::onStateChanged)
         }
@@ -193,8 +179,12 @@ class HelpActivity : BaseActivity() {
      */
     private fun loadFeaturedList() {
         try {
+            binding.apply {
+                progressBarLinearLayout.isVisible = true
+                helpFeaturedRecyclerView.isVisible = false
+            }
             // Load data
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.refreshHelpArticles()
             }.invokeOnCompletion {
                 if (it != null && it !is CancellationException) {

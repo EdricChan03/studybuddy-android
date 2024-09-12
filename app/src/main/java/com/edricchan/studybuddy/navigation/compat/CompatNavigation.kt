@@ -13,7 +13,7 @@ import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
 import com.edricchan.studybuddy.features.auth.ui.ResetPasswordActivity
-import com.edricchan.studybuddy.features.help.HelpActivity
+import com.edricchan.studybuddy.features.help.compat.HelpListFragment
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
@@ -93,9 +93,7 @@ fun NavGraphBuilder.compatGraphs() {
         activityClass = UpdatesActivity::class
     }
 
-    activity<CompatDestination.Help> {
-        activityClass = HelpActivity::class
-    }
+    fragment<HelpListFragment, CompatDestination.Help>()
 
     aboutGraph()
     authGraph()
