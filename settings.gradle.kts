@@ -37,7 +37,7 @@ plugins {
     // https://docs.gradle.org/8.7/userguide/toolchains.html#sub:download_repositories
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 
-    id("com.android.settings") version "8.8.0-alpha01"
+    id("com.android.settings") version "8.8.0-alpha02"
 }
 
 val isCi = !System.getenv("CI").isNullOrEmpty()
