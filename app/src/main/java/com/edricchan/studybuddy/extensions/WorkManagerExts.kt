@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.extensions
 
 import android.content.Context
+import androidx.work.Configuration
 import androidx.work.ListenableWorker
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
@@ -18,3 +19,7 @@ val Context.workManager get() = WorkManager.getInstance(this)
 inline fun <reified W : ListenableWorker> periodicWorkRequest(
     repeatInterval: Duration, init: PeriodicWorkRequest.Builder.() -> Unit
 ) = PeriodicWorkRequestBuilder<W>(repeatInterval).apply(init).build()
+
+/** Creates a [Configuration] using DSL syntax. */
+inline fun buildConfiguration(init: Configuration.Builder.() -> Unit): Configuration =
+    Configuration.Builder().apply(init).build()
