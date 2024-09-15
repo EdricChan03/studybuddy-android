@@ -1,5 +1,7 @@
 package com.edricchan.studybuddy.providers.fcm
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.res.Resources
@@ -19,6 +21,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.core.compat.navigation.UriSettings
 import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
+import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
@@ -44,48 +47,45 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
             AppNotificationChannel.Uncategorized.channelId
         )
 
-        if (remoteMessage.notification != null) {
-            if (remoteMessage.notification?.title != null) {
-                builder.setContentTitle(remoteMessage.notification?.title)
+        builder.setAutoCancel(true)
+
+        remoteMessage.notification?.let { notification ->
+            notification.title?.let { title ->
+                builder.setContentTitle(title)
                 builder.setStyle(
                     NotificationCompat.BigTextStyle().bigText(remoteMessage.notification?.body)
                 )
             }
-
-            if (remoteMessage.notification?.body != null) {
-                builder.setContentText(remoteMessage.notification?.body)
+            notification.body?.let { body ->
+                builder.setContentText(body)
             }
 
-            if (remoteMessage.notification?.icon != null) {
-                val icon = resources.getIdentifier(
-                    remoteMessage.notification?.icon,
+            builder.setSmallIcon(notification.icon?.let { icon ->
+                val iconRes = resources.getIdentifier(
+                    icon,
                     "drawable",
                     packageName
                 )
                 // getIdentifier returns Resources.ID_NULL (0) if not such identifier exists
-                if (icon != Resources.ID_NULL) {
-                    builder.setSmallIcon(icon)
+                if (iconRes != Resources.ID_NULL) {
+                    iconRes
                 } else {
                     // Use the default icon
-                    builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
+                    R.drawable.ic_notification_studybuddy_pencil_24dp
                 }
-            } else {
                 // Use the default icon
-                builder.setSmallIcon(R.drawable.ic_notification_studybuddy_pencil_24dp)
-            }
+            } ?: R.drawable.ic_notification_studybuddy_pencil_24dp)
 
-            builder.color = if (remoteMessage.notification?.color != null) {
-                Color.parseColor(remoteMessage.notification?.color)
-            } else {
+            builder.color = remoteMessage.notification?.color?.let { color ->
+                Color.parseColor(color)
                 // Use the default color
-                dynamicColorPrimary
-            }
+            } ?: dynamicColorPrimary
 
             // Image support was added in FCM 20.0.0
-            if (remoteMessage.notification?.imageUrl != null) {
+            notification.imageUrl?.let { imageUrl ->
                 val loader = applicationContext.imageLoader
                 val req = ImageRequest.Builder(this)
-                    .data(remoteMessage.notification?.imageUrl)
+                    .data(imageUrl)
                     .target { result ->
                         val bitmap = (result as BitmapDrawable).bitmap
                         builder.setLargeIcon(bitmap)
@@ -99,16 +99,13 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (remoteMessage.notification?.channelId != null) {
-                    if (manager.getNotificationChannel(remoteMessage.notification?.channelId!!) == null) {
-                        Log.w(
-                            TAG,
-                            "No such notification channel ${remoteMessage.notification?.channelId} exists." +
-                                "Assigning \"uncategorised\" channel."
-                        )
-                        builder.setChannelId(AppNotificationChannel.Uncategorized.channelId)
+                // A notification channel is already set by default from the
+                // NotificationCompat.Builder, so there's no else path
+                remoteMessage.notification?.channelId?.let { channelId ->
+                    if (manager.getNotificationChannel(channelId) != null) {
+                        builder.setChannelId(channelId)
                     } else {
-                        builder.setChannelId(remoteMessage.notification?.channelId!!)
+                        Log.w(TAG, "No such notification channel with ID $channelId exists")
                     }
                 }
             }
@@ -173,7 +170,12 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
             )
         )
 
-        manager.notify(notificationUtils.incrementAndGetId(), builder.build())
+        // Checked by the extension function, see
+        // https://issuetracker.google.com/issues/158721540 for feature request
+        @SuppressLint("MissingPermission")
+        if (checkPermissionGranted(Manifest.permission.POST_NOTIFICATIONS)) {
+            manager.notify(notificationUtils.incrementAndGetId(), builder.build())
+        }
     }
 
     override fun onNewToken(token: String) {
