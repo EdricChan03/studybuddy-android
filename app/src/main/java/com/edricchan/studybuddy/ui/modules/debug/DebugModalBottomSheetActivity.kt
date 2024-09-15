@@ -11,7 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.plusAssign
+import androidx.core.view.updatePadding
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityDebugModalBottomSheetBinding
@@ -38,6 +41,17 @@ class DebugModalBottomSheetActivity : BaseActivity() {
             .also { setContentView(it.root) }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right
+            )
+
+            windowInsets
+        }
 
         with(binding.modalBottomSheetLauncherButtonsLayout) {
             addModalBottomSheetLauncher(
