@@ -115,7 +115,9 @@ class MainActivity : BaseActivity() {
         setupFabController(binding.fab, binding.bottomAppBar, navHost)
 
         // Handle system notification preference navigation
-        if (intent.categories.any {
+        // NOTE: getCategories can return null, so we use orEmpty to handle this
+        // possibility
+        if (intent.categories.orEmpty().any {
                 it in listOf(
                     Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES,
                     Intent.CATEGORY_PREFERENCE
