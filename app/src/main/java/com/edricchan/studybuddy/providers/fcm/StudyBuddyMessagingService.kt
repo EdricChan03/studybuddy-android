@@ -9,16 +9,19 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.TaskStackBuilder
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toUri
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.compat.navigation.UriSettings
 import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
-import com.edricchan.studybuddy.ui.modules.settings.SettingsActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.utils.NotificationUtils
 import com.google.firebase.auth.ktx.auth
@@ -111,70 +114,64 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
             }
         }
 
-        if (remoteMessage.data["notificationActions"] != null) {
-            Log.d(TAG, "notificationActions: ${remoteMessage.data["notificationActions"]}")
-            var notificationActions: List<NotificationAction> = listOf()
-
-            try {
-                notificationActions = remoteMessage.data["notificationActions"]?.let {
-                    Json.decodeFromString(it)
-                } ?: listOf()
+        remoteMessage.data["notificationActions"]?.let { actions ->
+            Log.d(TAG, "notificationActions: $actions")
+            val notificationActions: List<NotificationAction> = try {
+                Json.decodeFromString(actions)
             } catch (e: Exception) {
                 Log.e(TAG, "Could not parse notification actions:", e)
                 Firebase.crashlytics.recordException(e)
+                listOf()
             }
 
             for (notificationAction in notificationActions) {
-                // This property is set to 0 by default to indicate that no such icon exists
-                var icon = 0
-                val intent: Intent
-                var notificationPendingIntent: PendingIntent? = null
-                val drawableIcon = resources.getIdentifier(
-                    notificationAction.icon,
-                    "drawable",
-                    packageName
-                )
-                // getIdentifier returns Resources.ID_NULL (0) if no such resource exists
-                if (drawableIcon != Resources.ID_NULL) {
-                    icon = drawableIcon
-                }
+                val icon = notificationAction.icon?.let {
+                    resources.getIdentifier(
+                        it,
+                        "drawable",
+                        packageName
+                    )
+                } ?: ResourcesCompat.ID_NULL
 
-                when (notificationAction.type) {
+                val pIntent = when (notificationAction.type) {
                     // TODO: Don't hardcode action types
                     Constants.actionNotificationsSettingsIntent -> {
-                        intent =
-                            buildIntent<SettingsActivity>(this) {
-                                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            }
-                        notificationPendingIntent = PendingIntent.getActivity(
-                            this,
-                            0,
-                            intent,
-                            PendingIntent.FLAG_ONE_SHOT
-                        )
+                        TaskStackBuilder.create(this).run {
+                            addNextIntentWithParentStack(buildIntent<MainActivity>(this@StudyBuddyMessagingService) {
+                                action = Intent.ACTION_VIEW
+                                data = UriSettings.toUri()
+                            })
+                            getPendingIntent(
+                                0,
+                                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                            )
+                        }
                     }
 
-                    else -> Log.w(
-                        TAG,
-                        "Unknown action type ${notificationAction.type} specified for $notificationAction."
-                    )
+                    else -> {
+                        Log.w(
+                            TAG,
+                            "Unknown action type ${notificationAction.type} specified for $notificationAction."
+                        )
+                        null
+                    }
                 }
                 builder.addAction(
                     NotificationCompat.Action(
                         icon,
                         notificationAction.title,
-                        notificationPendingIntent
+                        pIntent
                     )
                 )
             }
         }
 
-        val mainActivityIntent = buildIntent<MainActivity>(this) {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
-        val mainPendingIntent =
-            PendingIntent.getActivity(this, 0, mainActivityIntent, PendingIntent.FLAG_ONE_SHOT)
-        builder.setContentIntent(mainPendingIntent)
+        builder.setContentIntent(
+            PendingIntent.getActivity(
+                this, 0, packageManager.getLaunchIntentForPackage(packageName),
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        )
 
         manager.notify(notificationUtils.incrementAndGetId(), builder.build())
     }

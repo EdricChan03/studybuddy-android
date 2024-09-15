@@ -108,5 +108,6 @@ fun NavGraphBuilder.compatGraphs() {
                 action = Intent.ACTION_APPLICATION_PREFERENCES
             }
         }
+        deepLink(UriSettings)
     }
 }
