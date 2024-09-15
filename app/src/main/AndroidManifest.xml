@@ -54,7 +54,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
-                <!-- Handled by Jetpack Navigation -->
+            </intent-filter>
+
+            <!-- Handled by Jetpack Navigation -->
+            <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
 
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
