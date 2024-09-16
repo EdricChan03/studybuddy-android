@@ -10,6 +10,7 @@ import androidx.navigation.fragment.fragment
 import androidx.navigation.navigation
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
+import com.edricchan.studybuddy.core.compat.navigation.UriSettings
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
 import com.edricchan.studybuddy.features.auth.ui.ResetPasswordActivity
