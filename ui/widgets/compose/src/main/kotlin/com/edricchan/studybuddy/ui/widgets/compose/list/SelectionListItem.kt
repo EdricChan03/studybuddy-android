@@ -72,6 +72,38 @@ fun RadioButtonListItem(
 )
 
 @Composable
+fun TrailingRadioButtonListItem(
+    modifier: Modifier = Modifier,
+    radioButtonModifier: Modifier = Modifier,
+    colors: ListItemColors = ListItemDefaults.colors(),
+    selected: Boolean,
+    onSelected: () -> Unit,
+    enabled: Boolean = true,
+    leadingContent: @Composable (() -> Unit)? = null,
+    supportingContent: @Composable (() -> Unit)? = null,
+    overlineContent: @Composable (() -> Unit)? = null,
+    text: @Composable () -> Unit
+) = ListItem(
+    modifier = modifier.selectable(
+        selected = selected, enabled = enabled, onClick = onSelected,
+        role = Role.RadioButton
+    ),
+    colors = colors.withDisabledColors(enabled),
+    headlineContent = text,
+    supportingContent = supportingContent,
+    overlineContent = overlineContent,
+    trailingContent = {
+        RadioButton(
+            modifier = radioButtonModifier,
+            selected = selected,
+            enabled = enabled,
+            onClick = null
+        )
+    },
+    leadingContent = leadingContent
+)
+
+@Composable
 fun CheckboxRow(
     modifier: Modifier = Modifier,
     checkboxModifier: Modifier = Modifier,
@@ -130,4 +162,38 @@ fun CheckboxListItem(
         )
     },
     trailingContent = trailingContent
+)
+
+@Composable
+fun TrailingCheckboxListItem(
+    modifier: Modifier = Modifier,
+    checkboxModifier: Modifier = Modifier,
+    colors: ListItemColors = ListItemDefaults.colors(),
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    enabled: Boolean = true,
+    leadingContent: @Composable (() -> Unit)? = null,
+    supportingContent: @Composable (() -> Unit)? = null,
+    overlineContent: @Composable (() -> Unit)? = null,
+    text: @Composable () -> Unit
+) = ListItem(
+    modifier = modifier.toggleable(
+        value = checked,
+        onValueChange = onCheckedChange,
+        role = Role.Checkbox,
+        enabled = enabled
+    ),
+    colors = colors.withDisabledColors(enabled),
+    headlineContent = text,
+    supportingContent = supportingContent,
+    overlineContent = overlineContent,
+    trailingContent = {
+        Checkbox(
+            modifier = checkboxModifier,
+            checked = checked,
+            onCheckedChange = null,
+            enabled = enabled
+        )
+    },
+    leadingContent = leadingContent
 )
