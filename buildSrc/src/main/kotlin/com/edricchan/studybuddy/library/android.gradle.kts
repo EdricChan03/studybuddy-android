@@ -20,5 +20,5 @@ android {
 private val libs = versionCatalogs.named("libs")
 
 dependencies {
-    "androidTestImplementation"(libs.findLibrary("androidx-test-runner").get())
+    androidTestImplementation(libs.findLibrary("androidx-test-runner").get())
 }
