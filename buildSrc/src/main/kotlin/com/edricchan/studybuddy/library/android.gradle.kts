@@ -16,3 +16,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
+
+private val libs = versionCatalogs.named("libs")
+
+dependencies {
+    "androidTestImplementation"(libs.findLibrary("androidx-test-runner").get())
+}
