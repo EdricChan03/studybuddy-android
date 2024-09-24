@@ -4,11 +4,11 @@ accompanist = "0.36.0"
 android-desugar = "2.1.2"
 android-gradle = "8.8.0-alpha03"
 androidx-activity = "1.9.2"
-androidx-compose = "1.8.0-alpha01"
+androidx-compose = "1.8.0-alpha02"
 androidx-compose-material3 = "1.3.0"
 androidx-fragment = "1.8.3"
-androidx-lifecycle = "2.8.5"
-androidx-navigation = "2.8.0"
+androidx-lifecycle = "2.8.6"
+androidx-navigation = "2.8.1"
 coil = "2.7.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
@@ -19,8 +19,8 @@ firebase-bom = "32.8.1"
 gradle-versions = "0.51.0"
 kotest = "5.9.1"
 kotlin = "2.0.20"
-kotlinx-coroutines = "1.9.0-RC.2"
-kotlinx-serialization = "1.7.2"
+kotlinx-coroutines = "1.9.0"
+kotlinx-serialization = "1.7.3"
 ktor = "2.3.12"
 markwon = "4.6.2"
 mockk = "1.13.12"
@@ -42,7 +42,7 @@ androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.3.2"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.0-alpha03"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.0-alpha04"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
@@ -70,7 +70,7 @@ composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.12.0"
+materialComponents = "com.google.android.material:material:1.13.0-alpha06"
 
 # Credential Manager
 google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.1.1"
@@ -212,7 +212,7 @@ buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-ksp = "com.google.devtools.ksp:2.0.20-1.0.24"
+ksp = "com.google.devtools.ksp:2.0.20-1.0.25"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.2"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
