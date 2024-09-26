@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
@@ -14,6 +15,7 @@ import kotlinx.parcelize.Parcelize
  * @property checkableBehavior [CheckableBehavior] for this group.
  */
 @Parcelize
+@Immutable
 sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheetItem<Id>> {
     val items: List<OptionBottomSheetItem<Id>>
     val enabled: Boolean
@@ -32,6 +34,7 @@ sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheet
      * @property selectedIndex Selected index, if any, which should be an existing index in [items].
      */
     @Parcelize
+    @Immutable
     data class SingleSelect<Id>(
         override val items: List<OptionBottomSheetItem<Id>>,
         override val enabled: Boolean = true,
@@ -62,6 +65,7 @@ sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheet
      * should exist in [items].
      */
     @Parcelize
+    @Immutable
     data class MultiSelect<Id>(
         override val items: List<OptionBottomSheetItem<Id>>,
         override val enabled: Boolean = true,
