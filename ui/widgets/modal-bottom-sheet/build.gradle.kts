@@ -1,5 +1,7 @@
 plugins {
-    com.edricchan.studybuddy.library.android
+    // Compose interop for selection bottom sheet
+    com.edricchan.studybuddy.library.`android-compose`
+    `kotlin-parcelize`
 }
 
 android {
@@ -19,6 +21,17 @@ android {
         }
     }
 
+    // See https://stackoverflow.com/a/76462186
+    packaging {
+        // For MockK
+        jniLibs.useLegacyPackaging = true
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
+        }
+    }
+
     buildFeatures.viewBinding = true
 }
 
@@ -34,10 +47,30 @@ dependencies {
     api(libs.androidx.recyclerview.core)
     api(libs.materialComponents)
 
-    testImplementation(libs.junit)
+    //#region Compose dependencies
+    implementation(projects.exts.androidx.compose)
+    implementation(projects.ui.theming.compose)
+    implementation(projects.ui.widgets.compose)
+
+    api(libs.bundles.androidx.compose)
+    implementation(libs.androidx.fragment.compose)
+
+    debugImplementation(libs.bundles.androidx.compose.tooling)
+    //#endregion
+
     testImplementation(libs.kotlin.test)
 
-    androidTestImplementation(libs.kotlin.test)
+    debugImplementation(libs.androidx.fragment.testing.manifest)
+    androidTestImplementation(libs.mockk.core)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.androidx.lifecycle.viewmodel.testing)
+    androidTestImplementation(libs.androidx.fragment.testing)
     androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
+    androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.espresso.core)
+
+    // Compose rule support
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
