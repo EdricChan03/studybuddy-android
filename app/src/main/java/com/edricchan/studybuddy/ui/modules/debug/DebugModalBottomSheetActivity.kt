@@ -19,7 +19,10 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.databinding.ActivityDebugModalBottomSheetBinding
 import com.edricchan.studybuddy.exts.android.showToast
+import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.ui.common.BaseActivity
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
@@ -27,6 +30,8 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.Mod
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.modalBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 
 // TODO: Move demo class to dedicated Gradle module
 class DebugModalBottomSheetActivity : BaseActivity() {
@@ -103,6 +108,78 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                 "Modal bottom sheet without draggable handle",
                 buildOnClickListener(modalBottomSheetNoDraggable())
             )
+
+            // New select bottom sheet demos
+            addModalBottomSheetLauncher(
+                "Select bottom sheet (multi)"
+            ) {
+                showMultiSelectBottomSheet<Int>(
+                    headerTitle = "Select something",
+                    onCanceled = {
+                        showSnackbar(
+                            "Multi-select bottom sheet was cancelled",
+                            Snackbar.LENGTH_SHORT
+                        )
+                    },
+                    onConfirm = { items ->
+                        showSnackbar(
+                            "Items ${items.joinToString { it.id.toString() }} selected",
+                            Snackbar.LENGTH_LONG,
+                        )
+                    }
+                ) {
+                    (0..10).forEach {
+                        addItem(
+                            id = it,
+                            title = "Item $it"
+                        ) {
+                            enabled = it % 2 == 0
+                        }
+                    }
+                    addItem(
+                        id = 100,
+                        title = "Item with icon",
+                        selected = true
+                    ) {
+                        iconRes = R.drawable.ic_info_outline_24dp
+                    }
+                }
+            }
+
+            addModalBottomSheetLauncher(
+                "Select bottom sheet (single)"
+            ) {
+                showSingleSelectBottomSheet<Int>(
+                    headerTitle = "Select something",
+                    onCanceled = {
+                        showSnackbar(
+                            "Single-select bottom sheet was cancelled",
+                            Snackbar.LENGTH_SHORT
+                        )
+                    },
+                    onConfirm = {
+                        showSnackbar(
+                            "Item ${it.id} selected",
+                            Snackbar.LENGTH_LONG,
+                        )
+                    }
+                ) {
+                    (0..10).forEach {
+                        addItem(
+                            id = it,
+                            title = "Item $it"
+                        ) {
+                            enabled = it % 2 == 0
+                        }
+                    }
+                    addItem(
+                        id = 100,
+                        title = "Item with icon"
+                    ) {
+                        iconRes = R.drawable.ic_info_outline_24dp
+                    }
+                }
+            }
         }
     }
 
@@ -154,6 +231,10 @@ class DebugModalBottomSheetActivity : BaseActivity() {
 
     private fun showToast(item: ModalBottomSheetItem) {
         showToast("Item ${item.id} clicked!", Toast.LENGTH_SHORT)
+    }
+
+    private fun showSnackbar(text: String, @BaseTransientBottomBar.Duration duration: Int) {
+        showSnackbar(binding.root, text, duration)
     }
 
     private val onItemClickListener = ModalBottomSheetAdapter.OnItemClickListener { showToast(it) }
