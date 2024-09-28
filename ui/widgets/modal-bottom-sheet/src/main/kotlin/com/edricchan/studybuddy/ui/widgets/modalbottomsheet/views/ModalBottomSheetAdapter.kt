@@ -2,13 +2,10 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.BottomSheetItemRowNoIconBinding
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.BottomSheetItemRowWithIconBinding
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup.CheckableBehavior
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.utils.recyclerview.diffCallback
 
@@ -42,19 +39,7 @@ class ModalBottomSheetAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        return if (item.icon != null) {
-            if (item.group != null && item.group.id != ModalBottomSheetGroup.ID_NONE) {
-                FlagIcon or FlagCheckable
-            } else {
-                FlagIcon
-            }
-        } else {
-            if (item.group != null && item.group.id != ModalBottomSheetGroup.ID_NONE) {
-                FlagCheckable
-            } else {
-                0
-            }
-        }
+        return if (item.icon != null) FlagIcon else 0
     }
 
     override fun onBindViewHolder(holder: ModalBottomSheetViewHolder<*>, position: Int) {
@@ -71,26 +56,6 @@ class ModalBottomSheetAdapter(
     ) {
         override fun BottomSheetItemRowNoIconBinding.onSubBind(item: ModalBottomSheetItem) {
             itemTitle.text = item.title
-
-            if (itemViewType and FlagCheckable != 0) {
-                when (item.group?.checkableBehaviorEnum) {
-                    CheckableBehavior.All -> {
-                        with(itemCheckBox) {
-                            isVisible = true
-                            isChecked = item in item.group.selected
-                        }
-                    }
-
-                    CheckableBehavior.Single -> {
-                        with(itemRadioButton) {
-                            isVisible = true
-                            isChecked = item in item.group.selected
-                        }
-                    }
-
-                    else -> {} // No-op
-                }
-            }
         }
     }
 
@@ -106,26 +71,6 @@ class ModalBottomSheetAdapter(
 
             item.icon?.let { icon ->
                 itemIcon.setImageBitmap(icon.asBitmap(itemView.context))
-            }
-
-            if (itemViewType and FlagCheckable != 0) {
-                when (item.group?.checkableBehaviorEnum) {
-                    CheckableBehavior.All -> {
-                        with(itemCheckBox) {
-                            isVisible = true
-                            isChecked = item in item.group.selected
-                        }
-                    }
-
-                    CheckableBehavior.Single -> {
-                        with(itemRadioButton) {
-                            isVisible = true
-                            isChecked = item in item.group.selected
-                        }
-                    }
-
-                    else -> {} // No-op
-                }
             }
         }
     }
