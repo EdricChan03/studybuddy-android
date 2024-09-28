@@ -156,7 +156,7 @@ fun ModalBottomSheetGroup.copy(
 
 @ModalBottomSheetDsl
 class ModalBottomSheetGroupItemsBuilder(private val group: ModalBottomSheetGroup) {
-    private var items = mutableListOf<ModalBottomSheetItem>()
+    private val items = mutableListOf<ModalBottomSheetItem>()
 
     /** Adds the specified item to the group and returns the created item. */
     private fun item(init: ModalBottomSheetItemBuilder.() -> Unit) =
@@ -183,7 +183,7 @@ class ModalBottomSheetGroupItemsBuilder(private val group: ModalBottomSheetGroup
 
     /** Adds the specified list of items to the group and returns the created items. */
     fun items(items: List<ModalBottomSheetItem>) =
-        items.also { this.items = it.toMutableList() }
+        items.also { this.items += it }
 
     /** Adds the specified list of items to the group and returns the created items. */
     fun items(itemsInit: MutableList<ModalBottomSheetItem>.() -> Unit) =
