@@ -15,6 +15,8 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomShe
  * @property visible Whether the item is visible
  * @property enabled Whether the item is enabled
  * @property group A group reference
+ * @property requestDismissOnClick Whether the bottom sheet should be dismissed when this
+ * item is clicked. If [group] is set, it will default to the value of [isCheckable].
  * @see ModalBottomSheetGroup.id
  * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
  * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.item
@@ -26,7 +28,8 @@ data class ModalBottomSheetItem(
     val onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
     val visible: Boolean = true,
     val enabled: Boolean = true,
-    val group: ModalBottomSheetGroup? = null
+    val group: ModalBottomSheetGroup? = null,
+    val requestDismissOnClick: Boolean = group?.run { !isCheckable() } ?: true
 ) {
     constructor(
         id: Int = ID_NONE,
@@ -35,7 +38,8 @@ data class ModalBottomSheetItem(
         onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
         visible: Boolean = true,
         enabled: Boolean = true,
-        group: ModalBottomSheetGroup? = null
+        group: ModalBottomSheetGroup? = null,
+        requestDismissOnClick: Boolean = group?.run { !isCheckable() } ?: true
     ) : this(
         id = id,
         title = title,
@@ -43,7 +47,8 @@ data class ModalBottomSheetItem(
         onItemClickListener = onItemClickListener,
         visible = visible,
         enabled = enabled,
-        group = group
+        group = group,
+        requestDismissOnClick = requestDismissOnClick
     )
 
     constructor(
@@ -53,7 +58,8 @@ data class ModalBottomSheetItem(
         onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
         visible: Boolean = true,
         enabled: Boolean = true,
-        group: ModalBottomSheetGroup? = null
+        group: ModalBottomSheetGroup? = null,
+        requestDismissOnClick: Boolean = group?.run { !isCheckable() } ?: true
     ) : this(
         id = id,
         title = title,
@@ -61,7 +67,8 @@ data class ModalBottomSheetItem(
         onItemClickListener = onItemClickListener,
         visible = visible,
         enabled = enabled,
-        group = group
+        group = group,
+        requestDismissOnClick = requestDismissOnClick
     )
 
     /**

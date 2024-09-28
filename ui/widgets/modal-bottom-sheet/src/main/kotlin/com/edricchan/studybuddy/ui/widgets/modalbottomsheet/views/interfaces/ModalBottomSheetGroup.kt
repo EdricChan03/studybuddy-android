@@ -88,3 +88,10 @@ data class ModalBottomSheetGroup(
         const val ID_NONE = 0
     }
 }
+
+/**
+ * Whether the receiver [ModalBottomSheetGroup] is checkable.
+ * @return `true` if [ModalBottomSheetGroup.checkableBehaviorEnum] is
+ * either [CheckableBehavior.All] or [CheckableBehavior.Single], `false` otherwise.
+ */
+fun ModalBottomSheetGroup.isCheckable() = checkableBehaviorEnum != CheckableBehavior.None
