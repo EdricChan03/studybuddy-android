@@ -17,6 +17,7 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomShe
  * @property group A group reference
  * @see ModalBottomSheetGroup.id
  * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
+ * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.item
  */
 data class ModalBottomSheetItem(
     val id: Int = ID_NONE,
