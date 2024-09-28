@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
@@ -133,7 +134,9 @@ fun <Id : Any> SelectBottomSheetContent(
     }
 
     LazyColumn(
-        modifier = Modifier.weight(1f, fill = false),
+        modifier = Modifier
+            .weight(1f, fill = false)
+            .selectableGroup(),
         contentPadding = contentPadding
     ) {
         items(itemsList.items, key = { it.id }) { item ->
