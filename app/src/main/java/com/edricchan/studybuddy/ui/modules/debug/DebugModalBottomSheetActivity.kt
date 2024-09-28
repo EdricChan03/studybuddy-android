@@ -24,7 +24,6 @@ import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.modalBottomSheet
@@ -242,9 +241,9 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         ModalBottomSheetAdapter.OnItemCheckedChangeListener { showToast(it) }
 
     private fun modalBottomSheetWithTextNoHeader() =
-        ModalBottomSheetFragment().apply {
+        modalBottomSheet {
             for (i in 1..10) {
-                addItem(
+                item(
                     ModalBottomSheetItem(
                         id = i, title = "Item $i",
                         onItemClickListener = onItemClickListener
@@ -254,7 +253,9 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetWithTextAndHeader() =
-        ModalBottomSheetFragment().apply {
+        modalBottomSheet(
+            headerTitleRes = R.string.share_intent_value
+        ) {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 putExtra(
                     Intent.EXTRA_TEXT,
@@ -263,41 +264,40 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                 type = MimeTypeConstants.textPlainMime
             }
             // See https://stackoverflow.com/a/9083910/6782707
-            @Suppress("DEPRECATION") val launchables =
+            val launchables =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) packageManager.queryIntentActivities(
                     shareIntent,
                     PackageManager.ResolveInfoFlags.of(0)
                 ) else packageManager.queryIntentActivities(shareIntent, 0)
-            items += launchables.sortedWith(ResolveInfo.DisplayNameComparator(packageManager))
-                .map { resolveInfo ->
-                    ModalBottomSheetItem(
-                        title = resolveInfo.loadLabel(packageManager).toString(),
-                        iconDrawable = resolveInfo.loadIcon(packageManager),
-                        onItemClickListener = {
-                            showToast(it)
-                            // Code adapted from
-                            // https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
-                            val activity = resolveInfo.activityInfo
-                            // Passing an intent to the `Intent` constructor will create a copy of
-                            // that intent.
-                            val intent = Intent(shareIntent).apply {
-                                component = ComponentName(activity.packageName, activity.name)
-                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            items(
+                launchables.sortedWith(ResolveInfo.DisplayNameComparator(packageManager))
+                    .map { resolveInfo ->
+                        ModalBottomSheetItem(
+                            title = resolveInfo.loadLabel(packageManager).toString(),
+                            icon = resolveInfo.loadIcon(packageManager),
+                            onItemClickListener = {
+                                showToast(it)
+                                // Code adapted from
+                                // https://github.com/commonsguy/cw-advandroid/blob/master/Introspection/Launchalot/src/com/commonsware/android/launchalot/Launchalot.java
+                                val activity = resolveInfo.activityInfo
+                                // Passing an intent to the `Intent` constructor will create a copy of
+                                // that intent.
+                                val intent = Intent(shareIntent).apply {
+                                    component = ComponentName(activity.packageName, activity.name)
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                }
+                                startActivity(intent)
                             }
-                            startActivity(intent)
+                        )
+                    }
+            )
 
-                            // Dismiss the bottom sheet
-                            dismiss()
-                        }
-                    )
-                }
-            headerTitle = this@DebugModalBottomSheetActivity.getString(R.string.share_intent_value)
         }
 
     private fun modalBottomSheetWith1000Items() =
-        ModalBottomSheetFragment().apply {
+        modalBottomSheet {
             for (i in 1..1000) {
-                addItem(
+                item(
                     ModalBottomSheetItem(
                         id = i,
                         title = "Item $i",
@@ -308,8 +308,8 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetWithIconItems() =
-        ModalBottomSheetFragment().apply {
-            items = mutableListOf(
+        modalBottomSheet {
+            items(
                 ModalBottomSheetItem(
                     id = 1, title = "About app", icon = R.drawable.ic_info_outline_24dp,
                     onItemClickListener = onItemClickListener
@@ -334,14 +334,14 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetCheckBoxItems() =
-        ModalBottomSheetFragment().apply {
+        modalBottomSheet {
             val group = ModalBottomSheetGroup(
                 id = 1000,
                 checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL,
                 onItemCheckedChangeListener = onItemCheckedChangeListener
             )
             for (i in 1..10) {
-                addItem(
+                item(
                     ModalBottomSheetItem(
                         id = i,
                         title = "Item $i",
@@ -352,7 +352,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetRadioButtonItems() =
-        ModalBottomSheetFragment().apply {
+        modalBottomSheet {
             val groupId = 1000
             val group = ModalBottomSheetGroup(
                 id = groupId,
@@ -360,7 +360,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
                 onItemCheckedChangeListener = onItemCheckedChangeListener
             )
             for (i in 1..10) {
-                addItem(
+                item(
                     ModalBottomSheetItem(
                         id = i,
                         title = "Item $i",
@@ -371,11 +371,11 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetDisabledEvenItems() =
-        ModalBottomSheetFragment().apply {
+        modalBottomSheet {
             for (i in 1..10) {
                 // Only disable on even items
                 val disabled = i % 2 == 0
-                addItem(
+                item(
                     ModalBottomSheetItem(
                         id = i,
                         title = "Item $i",
@@ -387,12 +387,12 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetHiddenOddItems() =
-        ModalBottomSheetFragment().apply {
+        modalBottomSheet {
             for (i in 1..10) {
                 // Only hide on odd items
                 // This indicates that all even items are visible
                 val visible = i % 2 == 0
-                addItem(
+                item(
                     ModalBottomSheetItem(
                         id = i,
                         title = "Item $i",
@@ -404,65 +404,62 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetDSL() =
-        ModalBottomSheetFragment().apply {
-            setItems {
-                for (i in 1..10) {
-                    item(title = "Item $i") {
-                        id = i
-                        onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
-                    }
+        modalBottomSheet {
+            for (i in 1..10) {
+                item(title = "Item $i") {
+                    id = i
+                    onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
                 }
-                // plusAssign test
-                this += item(title = "Item from plusAssign operator")
-                this += {
-                    title = "Item from plusAssign with DSL"
-                }
+            }
+            // plusAssign test
+            this += item(title = "Item from plusAssign operator")
+            this += {
+                title = "Item from plusAssign with DSL"
+            }
 
-                // Group
-                group(id = 1) {
-                    onItemCheckedChangeListener =
-                        this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
-                    checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL
-                }.apply {
-                    items(buildList {
-                        for (i in 11..15) {
-                            this += item(title = "Item $i") {
-                                id = i
-                                onItemClickListener =
-                                    this@DebugModalBottomSheetActivity.onItemClickListener
-                            }
+            // Group
+            group(id = 1) {
+                onItemCheckedChangeListener =
+                    this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
+                checkableBehaviorEnum = ModalBottomSheetGroup.CheckableBehavior.All
+            }.apply {
+                items(buildList {
+                    for (i in 11..15) {
+                        this += item(title = "Item $i") {
+                            id = i
+                            onItemClickListener =
+                                this@DebugModalBottomSheetActivity.onItemClickListener
                         }
-                    })
-                }
-                // Another group
-                group(id = 2, {
-                    id = 2
-                    onItemCheckedChangeListener =
-                        this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
-                    checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
-                }) {
-                    items {
-                        for (i in 21..25) {
-                            this += item("Item $i") {
-                                id = i
-                                onItemClickListener =
-                                    this@DebugModalBottomSheetActivity.onItemClickListener
-                                setIcon(R.drawable.ic_info_outline_24dp)
-                            }
+                    }
+                })
+            }
+            // Another group
+            group(id = 2, {
+                id = 2
+                onItemCheckedChangeListener =
+                    this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
+                checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
+            }) {
+                items {
+                    for (i in 21..25) {
+                        this += item("Item $i") {
+                            id = i
+                            onItemClickListener =
+                                this@DebugModalBottomSheetActivity.onItemClickListener
+                            setIcon(R.drawable.ic_info_outline_24dp)
                         }
                     }
                 }
             }
         }
 
-    private fun modalBottomSheetNoDraggable() = modalBottomSheet {
+    private fun modalBottomSheetNoDraggable() = modalBottomSheet(
         hideDragHandle = true
-        setItems {
-            for (item in 1..5) {
-                item("Item $item") {
-                    id = item
-                    onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
-                }
+    ) {
+        for (item in 1..5) {
+            item("Item $item") {
+                id = item
+                onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
             }
         }
     }
