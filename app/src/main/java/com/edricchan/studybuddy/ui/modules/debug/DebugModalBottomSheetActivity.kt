@@ -337,7 +337,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         modalBottomSheet {
             val group = ModalBottomSheetGroup(
                 id = 1000,
-                checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL,
+                checkableBehaviorEnum = ModalBottomSheetGroup.CheckableBehavior.All,
                 onItemCheckedChangeListener = onItemCheckedChangeListener
             )
             for (i in 1..10) {
@@ -356,7 +356,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
             val groupId = 1000
             val group = ModalBottomSheetGroup(
                 id = groupId,
-                checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE,
+                checkableBehaviorEnum = ModalBottomSheetGroup.CheckableBehavior.Single,
                 onItemCheckedChangeListener = onItemCheckedChangeListener
             )
             for (i in 1..10) {
