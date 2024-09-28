@@ -16,6 +16,29 @@ import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.date.TaskDateDefaults
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import java.time.Instant
+import java.time.LocalDateTime
+
+/**
+ * Composable to display a [TodoItem]'s due-date as a [ListItem].
+ * @param modifier [Modifier] to be used for the [ListItem].
+ * @param dueDate The [TodoItem]'s due-date as a [LocalDateTime].
+ * @param formatDate Lambda used to format the [dueDate] to its string form.
+ * @param colors Colours to be used for the [ListItem].
+ */
+@Composable
+fun TaskDueDateListItem(
+    modifier: Modifier = Modifier,
+    dueDate: LocalDateTime,
+    formatDate: @Composable (LocalDateTime) -> String = {
+        it.appFormat(LocalContext.current)
+    },
+    colors: ListItemColors = ListItemDefaults.colors()
+) = ListItem(
+    modifier = modifier,
+    headlineContent = { Text(text = formatDate(dueDate)) },
+    leadingContent = { Icon(Icons.Outlined.DateRange, contentDescription = null) },
+    colors = colors
+)
 
 /**
  * Composable to display a [TodoItem]'s [TodoItem.dueDate][due-date] as a [ListItem].
