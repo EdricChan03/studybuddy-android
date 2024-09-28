@@ -99,46 +99,39 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
             R.id.action_show_more_options -> {
                 val context = requireContext()
                 showModalBottomSheet {
-                    setItems {
-                        item(context.getString(R.string.menu_frag_task_refresh_todos_title)) {
-                            setIcon(R.drawable.ic_refresh_24dp)
-                            setItemClickListener {
-                                binding.swipeRefreshLayout.isRefreshing = true
-                                lifecycleScope.launch {
-                                    viewModel.refresh()
-                                    binding.swipeRefreshLayout.isRefreshing = false
-                                }
-                                dismiss()
+                    item(context.getString(R.string.menu_frag_task_refresh_todos_title)) {
+                        setIcon(R.drawable.ic_refresh_24dp)
+                        setItemClickListener {
+                            binding.swipeRefreshLayout.isRefreshing = true
+                            lifecycleScope.launch {
+                                viewModel.refresh()
+                                binding.swipeRefreshLayout.isRefreshing = false
                             }
                         }
-                        item(context.getString(R.string.menu_frag_task_sort_by_title)) {
-                            setIcon(R.drawable.ic_sort_24dp)
-                            setItemClickListener {
-                                showSortByOptions()
-                                dismiss()
-                            }
+                    }
+                    item(context.getString(R.string.menu_frag_task_sort_by_title)) {
+                        setIcon(R.drawable.ic_sort_24dp)
+                        setItemClickListener {
+                            showSortByOptions()
                         }
-                        item(context.getString(R.string.menu_settings_title)) {
-                            setIcon(R.drawable.ic_settings_outline_24dp)
-                            setItemClickListener {
-                                navController.navigateToSettings()
-                                dismiss()
-                            }
+                    }
+                    item(context.getString(R.string.menu_settings_title)) {
+                        setIcon(R.drawable.ic_settings_outline_24dp)
+                        setItemClickListener {
+                            navController.navigateToSettings()
                         }
-                        item(context.getString(R.string.menu_help_title)) {
-                            setIcon(R.drawable.ic_help_outline_24dp)
-                            setItemClickListener {
-                                navController.navigateToHelp()
-                                dismiss()
-                            }
+                    }
+                    item(context.getString(R.string.menu_help_title)) {
+                        setIcon(R.drawable.ic_help_outline_24dp)
+                        setItemClickListener {
+                            navController.navigateToHelp()
                         }
-                        item(context.getString(R.string.menu_debug_title)) {
-                            setIcon(R.drawable.ic_bug_report_outline_24dp)
-                            visible = context.isDevMode()
-                            setItemClickListener {
-                                navController.navigateToDebug()
-                                dismiss()
-                            }
+                    }
+                    item(context.getString(R.string.menu_debug_title)) {
+                        setIcon(R.drawable.ic_bug_report_outline_24dp)
+                        visible = context.isDevMode()
+                        setItemClickListener {
+                            navController.navigateToDebug()
                         }
                     }
                 }
