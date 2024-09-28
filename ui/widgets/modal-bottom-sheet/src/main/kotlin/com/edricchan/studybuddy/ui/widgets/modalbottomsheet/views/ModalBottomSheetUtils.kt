@@ -6,23 +6,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetBuilder
-
-/** Instantiates a [modal bottom sheet][ModalBottomSheetFragment] given the specified options. */
-inline fun modalBottomSheet(init: ModalBottomSheetFragment.() -> Unit) =
-    ModalBottomSheetFragment().apply(init)
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
 
 /**
  * Instantiates a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
  * @param headerTitle The header title to use
  * @param items Items to be shown in the bottom sheet.
  */
-fun modalBottomSheet(
-    headerTitle: String,
+inline fun modalBottomSheet(
+    headerTitle: String? = null,
+    hideDragHandle: Boolean = false,
     items: ModalBottomSheetBuilder.() -> Unit
-) = modalBottomSheet {
-    this.headerTitle = headerTitle
-    this.setItems(items)
-}
+): ModalBottomSheetFragment = ModalBottomSheetFragment.newInstance(
+    items = items(items),
+    headerTitle = headerTitle, hideDragHandle = hideDragHandle
+)
 
 /**
  * Instantiates a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
@@ -30,39 +28,44 @@ fun modalBottomSheet(
  * @param items Items to be shown in the bottom sheet.
  * @receiver The [Context] used to resolve the [headerTitleRes] resource.
  */
-fun Context.modalBottomSheet(
+inline fun Context.modalBottomSheet(
     @StringRes headerTitleRes: Int,
+    hideDragHandle: Boolean = false,
     items: ModalBottomSheetBuilder.() -> Unit
-) = modalBottomSheet(getString(headerTitleRes), items)
+): ModalBottomSheetFragment = modalBottomSheet(
+    headerTitle = getString(headerTitleRes),
+    hideDragHandle = hideDragHandle,
+    items = items
+)
 
 /** Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified options. */
 inline fun FragmentManager.showModalBottomSheet(
-    init: ModalBottomSheetFragment.() -> Unit
-) {
-    val frag = modalBottomSheet(init)
-    frag.show(this, frag.tag)
+    headerTitle: String? = null,
+    hideDragHandle: Boolean = false,
+    itemsInit: ModalBottomSheetBuilder.() -> Unit,
+): ModalBottomSheetFragment = ModalBottomSheetFragment.newInstance(
+    items(itemsInit), headerTitle, hideDragHandle
+).apply {
+    show(this@showModalBottomSheet, tag)
 }
 
 /**
- * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified
- * options.
- */
-inline fun Fragment.showModalBottomSheet(
-    init: ModalBottomSheetFragment.() -> Unit
-) = parentFragmentManager.showModalBottomSheet(init)
-
-/**
  * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
+ *
+ * Note: The options specified ([headerTitle] and [items]) are set **after**
+ * [ModalBottomSheetFragment.show] is called.
  * @param headerTitle The header title to use.
  * @param items Items to be shown in the bottom sheet.
  */
 fun Fragment.showModalBottomSheet(
-    headerTitle: String,
-    items: ModalBottomSheetBuilder.() -> Unit
-) = showModalBottomSheet {
-    this.headerTitle = headerTitle
-    this.setItems(items)
-}
+    headerTitle: String? = null,
+    hideDragHandle: Boolean = false,
+    itemsInit: ModalBottomSheetBuilder.() -> Unit
+): ModalBottomSheetFragment = parentFragmentManager.showModalBottomSheet(
+    headerTitle = headerTitle,
+    hideDragHandle = hideDragHandle,
+    itemsInit = itemsInit
+)
 
 /**
  * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
@@ -71,29 +74,31 @@ fun Fragment.showModalBottomSheet(
  */
 fun Fragment.showModalBottomSheet(
     @StringRes headerTitleRes: Int,
-    items: ModalBottomSheetBuilder.() -> Unit
-) = showModalBottomSheet(getString(headerTitleRes), items)
-
-/**
- * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified
- * options.
- */
-inline fun FragmentActivity.showModalBottomSheet(
-    init: ModalBottomSheetFragment.() -> Unit
-) = supportFragmentManager.showModalBottomSheet(init)
+    hideDragHandle: Boolean = false,
+    itemsInit: ModalBottomSheetBuilder.() -> Unit
+): ModalBottomSheetFragment = showModalBottomSheet(
+    headerTitle = getString(headerTitleRes),
+    hideDragHandle = hideDragHandle,
+    itemsInit = itemsInit
+)
 
 /**
  * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
+ *
+ * Note: The options specified ([headerTitle] and [items]) are set **after**
+ * [ModalBottomSheetFragment.show] is called.
  * @param headerTitle The header title to use.
  * @param items Items to be shown in the bottom sheet.
  */
 fun FragmentActivity.showModalBottomSheet(
-    headerTitle: String,
-    items: ModalBottomSheetBuilder.() -> Unit
-) = showModalBottomSheet {
-    this.headerTitle = headerTitle
-    this.setItems(items)
-}
+    headerTitle: String? = null,
+    hideDragHandle: Boolean = false,
+    itemsInit: ModalBottomSheetBuilder.() -> Unit
+): ModalBottomSheetFragment = supportFragmentManager.showModalBottomSheet(
+    headerTitle = headerTitle,
+    hideDragHandle = hideDragHandle,
+    itemsInit = itemsInit
+)
 
 /**
  * Shows a [modal bottom sheet][ModalBottomSheetFragment] given the specified options.
@@ -102,5 +107,10 @@ fun FragmentActivity.showModalBottomSheet(
  */
 fun FragmentActivity.showModalBottomSheet(
     @StringRes headerTitleRes: Int,
-    items: ModalBottomSheetBuilder.() -> Unit
-) = showModalBottomSheet(getString(headerTitleRes), items)
+    hideDragHandle: Boolean = false,
+    itemsInit: ModalBottomSheetBuilder.() -> Unit
+): ModalBottomSheetFragment = showModalBottomSheet(
+    headerTitle = getString(headerTitleRes),
+    hideDragHandle = hideDragHandle,
+    itemsInit = itemsInit
+)

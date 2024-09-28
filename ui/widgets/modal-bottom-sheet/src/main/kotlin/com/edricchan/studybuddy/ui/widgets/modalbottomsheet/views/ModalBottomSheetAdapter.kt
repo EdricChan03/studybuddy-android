@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -16,15 +15,6 @@ import com.edricchan.studybuddy.utils.recyclerview.diffCallback
 class ModalBottomSheetAdapter(
     val requestDismiss: () -> Unit
 ) : ListAdapter<ModalBottomSheetItem, ModalBottomSheetViewHolder<*>>(DIFF_CALLBACK) {
-    @Deprecated("Submit lists via submitList()")
-    constructor(
-        context: Context,
-        items: List<ModalBottomSheetItem>,
-        requestDismiss: () -> Unit
-    ) : this(requestDismiss) {
-        submitList(items)
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

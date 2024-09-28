@@ -4,34 +4,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.FragModalBottomSheetBinding
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.ModalBottomSheetBuilder
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment.Companion.newInstance
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.vm.ModalBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 
 /**
- * A bottom sheet which can be used to show more options for a particular action
+ * A bottom sheet which can be used to show more options for a particular action..
+ *
+ * To create an instance of this class, use [newInstance].
  */
-class ModalBottomSheetFragment : BottomSheetDialogFragment() {
-
-    /** The current list of items */
-    var items: MutableList<ModalBottomSheetItem> = mutableListOf()
-
-    /** The bottom sheet's title to be shown on top of the list of items */
-    var headerTitle: String? = null
-
-    /** Whether the draggable handle should be hidden. */
-    var hideDragHandle: Boolean = false
+class ModalBottomSheetFragment
+// Not to be instantiated directly; `newInstance` should be used
+private constructor() : BottomSheetDialogFragment() {
+    private val viewModel by viewModels<ModalBottomSheetViewModel>()
 
     private val binding: FragModalBottomSheetBinding by viewInflateBinding(
         FragModalBottomSheetBinding::inflate
     )
+
+    private lateinit var adapter: ModalBottomSheetAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,20 +43,35 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        savedInstanceState?.run {
-            headerTitle = getString(HEADER_TITLE_TAG)
-        }
 
         binding.apply {
-            bottomSheetHeader.isVisible = headerTitle != null
-            bottomSheetHeaderTitleTextView.text = headerTitle
-
-            bottomSheetDragHandle.isGone = hideDragHandle
-
             bottomSheetRecyclerView.apply {
-                adapter = ModalBottomSheetAdapter(requireContext(), items, ::dismiss)
+                adapter = ModalBottomSheetAdapter(requestDismiss = ::dismiss).apply {
+                    this@ModalBottomSheetFragment.adapter = this
+                }
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
+            }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    launch {
+                        viewModel.headerTitleState.collect {
+                            bottomSheetHeader.isVisible = it != null
+                            bottomSheetHeaderTitleTextView.text = it
+                        }
+                    }
+
+                    launch {
+                        viewModel.hideDragHandleState.collect {
+                            bottomSheetDragHandle.isGone = it
+                        }
+                    }
+
+                    launch {
+                        viewModel.itemsState.collect(adapter::submitList)
+                    }
+                }
             }
         }
     }
@@ -62,78 +81,25 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
             dialog.window?.enableEdgeToEdge()
         }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(HEADER_TITLE_TAG, headerTitle)
-        super.onSaveInstanceState(outState)
-    }
-
-    /**
-     * Adds an item to the current list of items
-     * @param item The item to add
-     */
-    fun addItem(item: ModalBottomSheetItem) {
-        items += item
-    }
-
-    /**
-     * Clears the current list of items
-     */
-    fun clearItems() {
-        items.clear()
-    }
-
-    /**
-     * Retrieves an item at the specified [index]
-     * @param index The index of the item to retrieve
-     * @return The item at that specific index, or [null] if no such item exists
-     */
-    fun getItem(index: Int) = items.getOrNull(index)
-
-    /**
-     * Overwrites the current list of items with the specified list of items
-     * @param items The new list of items
-     */
-    fun setItems(items: Array<ModalBottomSheetItem>) {
-        this.items = items.toMutableList()
-    }
-
-    /**
-     * Overwrites the current list of items with the specified list of items
-     * using DSL-like syntax.
-     * Example:
-     * ```kt
-     * fragment.setItems {
-     *     // Add an item
-     *     item {
-     *         title = "Hello world!"
-     *         icon = R.drawable.ic_info_outline_24dp
-     *     }
-     *     // Add a list of items
-     *     items({ title = "Hello item 2!" }, { title = "Another item!" })
-     *     // Add a group
-     *     group {
-     *         // Provide group metadata
-     *         id = 123
-     *     }.apply {
-     *         // Add items
-     *         items({ title = "This is in a group!" }, { title = "Yet another item" })
-     *     }
-     *     // Or specify the items as a second argument
-     *     group({
-     *         id = 234
-     *     }) {
-     *         // Add items
-     *         item { title = "Hello another group!" }
-     *     }
-     * }
-     * ```
-     * @param init The new list of items.
-     */
-    fun setItems(init: ModalBottomSheetBuilder.() -> Unit) {
-        this.items = items(init).toMutableList()
-    }
-
     companion object {
-        private const val HEADER_TITLE_TAG = "headerTitle"
+        internal const val TAG_HEADER_TITLE = "bottom-sheet:headerTitle"
+        internal const val TAG_ITEMS = "bottom-sheet:items"
+        internal const val TAG_HIDE_DRAG_HANDLE = "bottom-sheet:hideDragHandle"
+
+        /**
+         * Creates a new instance of [ModalBottomSheetFragment] with the specified
+         * arguments.
+         */
+        fun newInstance(
+            items: List<ModalBottomSheetItem>,
+            headerTitle: String? = null,
+            hideDragHandle: Boolean = false
+        ) = ModalBottomSheetFragment().apply {
+            arguments = bundleOf(
+                TAG_HEADER_TITLE to headerTitle,
+                TAG_ITEMS to items,
+                TAG_HIDE_DRAG_HANDLE to hideDragHandle
+            )
+        }
     }
 }
