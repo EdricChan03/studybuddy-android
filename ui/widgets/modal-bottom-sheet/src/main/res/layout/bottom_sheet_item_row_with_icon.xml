@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_settings_outline_24dp" />
+        tools:srcCompat="@drawable/ic_bug_report_outline_24dp" />
 
     <TextView
         android:id="@+id/itemTitle"
@@ -37,6 +37,7 @@
         android:layout_marginTop="@dimen/one_line_list_item_meta_image_padding_top_bottom"
         android:layout_marginEnd="@dimen/one_line_list_item_meta_image_padding_left_right"
         android:layout_marginBottom="@dimen/one_line_list_item_meta_image_padding_top_bottom"
+        android:clickable="false"
         android:duplicateParentState="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/one_line_list_item_meta_image_padding_left_right"
         android:layout_marginEnd="@dimen/one_line_list_item_meta_image_padding_left_right"
+        android:clickable="false"
         android:duplicateParentState="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

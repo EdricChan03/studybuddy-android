@@ -2,283 +2,141 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.TextView
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.R
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.BottomSheetItemRowNoIconBinding
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.BottomSheetItemRowWithIconBinding
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup.CheckableBehavior
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
+import com.edricchan.studybuddy.utils.recyclerview.diffCallback
 
 class ModalBottomSheetAdapter(
-    private val context: Context,
-    private val items: List<ModalBottomSheetItem>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            LIST_ITEM_NO_ICON, LIST_ITEM_NO_ICON_CHECKBOX, LIST_ITEM_NO_ICON_RADIO_BUTTON -> {
-                val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.modalbottomsheetadapter_item_row_no_icon, parent, false)
-                when (viewType) {
-                    LIST_ITEM_NO_ICON -> NoIconWithTextHolder(itemView)
-                    LIST_ITEM_NO_ICON_CHECKBOX -> NoIconWithTextWithCheckboxHolder(itemView)
-                    LIST_ITEM_NO_ICON_RADIO_BUTTON -> NoIconWithTextWithRadioButtonHolder(itemView)
-                    else -> NoIconWithTextHolder(itemView)
-                }
-            }
+    val requestDismiss: () -> Unit
+) : ListAdapter<ModalBottomSheetItem, ModalBottomSheetViewHolder<*>>(DIFF_CALLBACK) {
+    @Deprecated("Submit lists via submitList()")
+    constructor(
+        context: Context,
+        items: List<ModalBottomSheetItem>,
+        requestDismiss: () -> Unit
+    ) : this(requestDismiss) {
+        submitList(items)
+    }
 
-            LIST_ITEM_ICON, LIST_ITEM_ICON_CHECKBOX, LIST_ITEM_ICON_RADIO_BUTTON -> {
-                val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.modalbottomsheetadapter_item_row_with_icon, parent, false)
-                when (viewType) {
-                    LIST_ITEM_ICON -> IconWithTextHolder(itemView)
-                    LIST_ITEM_ICON_CHECKBOX -> IconWithTextWithCheckboxHolder(itemView)
-                    LIST_ITEM_ICON_RADIO_BUTTON -> IconWithTextWithRadioButtonHolder(itemView)
-                    else -> IconWithTextHolder(itemView)
-                }
-            }
-
-            else -> {
-                val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.modalbottomsheetadapter_item_row_no_icon, parent, false)
-                NoIconWithTextHolder(itemView)
-            }
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ModalBottomSheetViewHolder<*> {
+        return if (viewType and FlagIcon != 0) {
+            WithIconViewHolder(
+                binding = BottomSheetItemRowWithIconBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                requestDismiss = requestDismiss
+            )
+        } else {
+            NoIconViewHolder(
+                binding = BottomSheetItemRowNoIconBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                requestDismiss = requestDismiss
+            )
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        val item = items[position]
+        val item = getItem(position)
         return if (item.icon != null) {
             if (item.group != null && item.group.id != ModalBottomSheetGroup.ID_NONE) {
-                when (item.group.checkableBehavior) {
-                    ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_ICON_CHECKBOX
-                    ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_ICON_RADIO_BUTTON
-                    else -> LIST_ITEM_ICON
-                }
+                FlagIcon or FlagCheckable
             } else {
-                LIST_ITEM_ICON
+                FlagIcon
             }
         } else {
             if (item.group != null && item.group.id != ModalBottomSheetGroup.ID_NONE) {
-                when (item.group.checkableBehavior) {
-                    ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_ALL -> LIST_ITEM_NO_ICON_CHECKBOX
-                    ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE -> LIST_ITEM_NO_ICON_RADIO_BUTTON
-                    else -> LIST_ITEM_NO_ICON
-                }
+                FlagCheckable
             } else {
-                LIST_ITEM_NO_ICON
+                0
             }
         }
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun onBindViewHolder(holder: ModalBottomSheetViewHolder<*>, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
+    }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = items[position]
-        val itemGroup = item.group
-        holder.itemView.isEnabled = item.enabled
-        if (!item.visible) {
-            holder.itemView.isGone = true
-            holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
-        }
-        when (holder.itemViewType) {
-            LIST_ITEM_NO_ICON -> {
-                val tempHolder = holder as NoIconWithTextHolder
-                tempHolder.titleTextView.text = item.title
+    class NoIconViewHolder(
+        binding: BottomSheetItemRowNoIconBinding,
+        requestDismiss: () -> Unit
+    ) : ModalBottomSheetViewHolder<BottomSheetItemRowNoIconBinding>(
+        binding = binding,
+        requestDismiss = requestDismiss
+    ) {
+        override fun BottomSheetItemRowNoIconBinding.onSubBind(item: ModalBottomSheetItem) {
+            itemTitle.text = item.title
 
-                // Handle on click listener in item
-                item.onItemClickListener?.let { listener ->
-                    holder.itemView.setOnClickListener {
-                        listener.onItemClick(item)
-                    }
-                }
-            }
-
-            LIST_ITEM_NO_ICON_CHECKBOX -> {
-                val tempHolder = holder as NoIconWithTextWithCheckboxHolder
-                tempHolder.titleTextView.text = item.title
-                tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
-                // Disable clicks on the checkbox
-                tempHolder.checkBox.isClickable = false
-
-                holder.itemView.setOnClickListener {
-                    if (itemGroup?.selected?.contains(item) == true) {
-                        itemGroup.selected.remove(item)
-                    } else {
-                        itemGroup?.selected?.add(item)
-                    }
-                    tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
-
-                    // Handle on item checked listener in item's group
-                    itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
-
-                    // Handle on click listener in item
-                    item.onItemClickListener?.onItemClick(item)
-                }
-
-            }
-
-            LIST_ITEM_NO_ICON_RADIO_BUTTON -> {
-                val tempHolder = holder as NoIconWithTextWithRadioButtonHolder
-                tempHolder.titleTextView.text = item.title
-                tempHolder.radioButton.isChecked = itemGroup?.selected?.contains(item) ?: false
-                // Disable clicks on the radio button
-                tempHolder.radioButton.isClickable = false
-
-                holder.itemView.setOnClickListener {
-                    if (itemGroup?.selected?.contains(item) == true) {
-                        itemGroup.selected.remove(item)
-                    } else {
-                        // Clear any existing selected items
-                        if (itemGroup?.selected?.size!! > 0) {
-                            // Update state of items that are not the item that was clicked
-                            itemGroup.selected.forEach { item ->
-                                if (items.indexOf(item) != -1) {
-                                    notifyItemChanged(items.indexOf(item))
-                                }
-                            }
-                            itemGroup.selected.clear()
+            if (itemViewType and FlagCheckable != 0) {
+                when (item.group?.checkableBehaviorEnum) {
+                    CheckableBehavior.All -> {
+                        with(itemCheckBox) {
+                            isVisible = true
+                            isChecked = item in item.group.selected
                         }
-                        itemGroup.selected.add(item)
                     }
-                    tempHolder.radioButton.isChecked = itemGroup.selected.contains(item)
 
-                    // Handle on item checked listener in item's group
-                    itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-
-                    // Handle on click listener in item
-                    item.onItemClickListener?.onItemClick(item)
-                }
-            }
-
-            LIST_ITEM_ICON -> {
-                val tempHolder = holder as IconWithTextHolder
-                item.icon?.let { icon ->
-                    tempHolder.iconImageView.setImageDrawable(icon.asDrawable(context))
-                }
-                tempHolder.titleTextView.text = item.title
-
-                // Handle on click listener in item
-                item.onItemClickListener?.let { listener ->
-                    holder.itemView.setOnClickListener {
-                        listener.onItemClick(item)
-                    }
-                }
-            }
-
-            LIST_ITEM_ICON_CHECKBOX -> {
-                val tempHolder = holder as IconWithTextWithCheckboxHolder
-                item.icon?.let {
-                    tempHolder.iconImageView.setImageDrawable(it.asDrawable(context))
-                }
-                tempHolder.titleTextView.text = item.title
-                tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
-                // Disable clicks on the checkbox
-                tempHolder.checkBox.isClickable = false
-
-                holder.itemView.setOnClickListener {
-                    if (itemGroup?.selected?.contains(item) == true) {
-                        itemGroup.selected.remove(item)
-                    } else {
-                        itemGroup?.selected?.add(item)
-                    }
-                    tempHolder.checkBox.isChecked = itemGroup?.selected?.contains(item) ?: false
-
-                    // Handle on item checked listener in item's group
-                    itemGroup?.onItemCheckedChangeListener?.onItemCheckedChange(item)
-
-                    // Handle on click listener in item
-                    item.onItemClickListener?.onItemClick(item)
-                }
-            }
-
-            LIST_ITEM_ICON_RADIO_BUTTON -> {
-                val tempHolder = holder as IconWithTextWithRadioButtonHolder
-
-                val tempCheckedState = itemGroup?.selected?.contains(item) ?: false
-                tempHolder.radioButton.isChecked = tempCheckedState
-                // Disable clicks on the radio button
-                tempHolder.radioButton.isClickable = false
-                item.icon?.let { icon ->
-                    tempHolder.iconImageView.setImageDrawable(icon.asDrawable(context))
-                }
-
-                tempHolder.titleTextView.text = item.title
-
-                holder.itemView.setOnClickListener {
-                    if (itemGroup?.selected?.contains(item) == true) {
-                        itemGroup.selected.remove(item)
-                    } else {
-                        // Clear any existing selected items
-                        if (itemGroup?.selected?.size!! > 0) {
-                            // Update state of items that are not the item that was clicked
-                            itemGroup.selected.forEach { item ->
-                                if (items.indexOf(item) != -1) {
-                                    notifyItemChanged(items.indexOf(item))
-                                }
-                            }
-                            itemGroup.selected.clear()
+                    CheckableBehavior.Single -> {
+                        with(itemRadioButton) {
+                            isVisible = true
+                            isChecked = item in item.group.selected
                         }
-                        itemGroup.selected.add(item)
                     }
-                    tempHolder.radioButton.isChecked = itemGroup.selected.contains(item)
 
-                    // Handle on item checked listener in item's group
-                    itemGroup.onItemCheckedChangeListener?.onItemCheckedChange(item)
-
-                    // Handle on click listener in item
-                    item.onItemClickListener?.onItemClick(item)
-
+                    else -> {} // No-op
                 }
             }
         }
     }
 
-    open inner class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var titleTextView: TextView = itemView.findViewById(R.id.itemTitle)
-    }
+    class WithIconViewHolder(
+        binding: BottomSheetItemRowWithIconBinding,
+        requestDismiss: () -> Unit
+    ) : ModalBottomSheetViewHolder<BottomSheetItemRowWithIconBinding>(
+        binding = binding,
+        requestDismiss = requestDismiss
+    ) {
+        override fun BottomSheetItemRowWithIconBinding.onSubBind(item: ModalBottomSheetItem) {
+            itemTitle.text = item.title
 
-    open inner class IconWithTextHolder(itemView: View) : TextHolder(itemView) {
-        internal var iconImageView: ImageView = itemView.findViewById(R.id.itemIcon)
-    }
+            item.icon?.let { icon ->
+                itemIcon.setImageBitmap(icon.asBitmap(itemView.context))
+            }
 
-    open inner class NoIconWithTextHolder(itemView: View) : TextHolder(itemView)
+            if (itemViewType and FlagCheckable != 0) {
+                when (item.group?.checkableBehaviorEnum) {
+                    CheckableBehavior.All -> {
+                        with(itemCheckBox) {
+                            isVisible = true
+                            isChecked = item in item.group.selected
+                        }
+                    }
 
-    inner class IconWithTextWithCheckboxHolder(itemView: View) : IconWithTextHolder(itemView) {
-        internal var checkBox: CheckBox = itemView.findViewById(R.id.itemCheckBox)
+                    CheckableBehavior.Single -> {
+                        with(itemRadioButton) {
+                            isVisible = true
+                            isChecked = item in item.group.selected
+                        }
+                    }
 
-        init {
-            checkBox.isVisible = true
-        }
-    }
-
-    inner class NoIconWithTextWithCheckboxHolder(itemView: View) : NoIconWithTextHolder(itemView) {
-        internal var checkBox: CheckBox = itemView.findViewById(R.id.itemCheckBox)
-
-        init {
-            checkBox.isVisible = true
-        }
-    }
-
-    inner class IconWithTextWithRadioButtonHolder(itemView: View) : IconWithTextHolder(itemView) {
-        internal var radioButton: RadioButton = itemView.findViewById(R.id.itemRadioButton)
-
-        init {
-            radioButton.isVisible = true
-        }
-    }
-
-    inner class NoIconWithTextWithRadioButtonHolder(itemView: View) :
-        NoIconWithTextHolder(itemView) {
-        internal var radioButton: RadioButton = itemView.findViewById(R.id.itemRadioButton)
-
-        init {
-            radioButton.isVisible = true
+                    else -> {} // No-op
+                }
+            }
         }
     }
 
@@ -301,11 +159,11 @@ class ModalBottomSheetAdapter(
     }
 
     companion object {
-        private const val LIST_ITEM_NO_ICON = 0
-        private const val LIST_ITEM_NO_ICON_CHECKBOX = 1
-        private const val LIST_ITEM_NO_ICON_RADIO_BUTTON = 2
-        private const val LIST_ITEM_ICON = 3
-        private const val LIST_ITEM_ICON_CHECKBOX = 4
-        private const val LIST_ITEM_ICON_RADIO_BUTTON = 5
+        private const val FlagIcon = 1 shl 0
+        private const val FlagCheckable = 1 shl 1
+
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<ModalBottomSheetItem> = diffCallback(
+            areItemsTheSame = { old, new -> old.id == new.id }
+        )
     }
 }

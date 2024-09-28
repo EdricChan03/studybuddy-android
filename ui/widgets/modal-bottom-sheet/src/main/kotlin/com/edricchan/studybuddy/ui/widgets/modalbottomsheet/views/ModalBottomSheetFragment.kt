@@ -50,7 +50,7 @@ class ModalBottomSheetFragment : BottomSheetDialogFragment() {
             bottomSheetDragHandle.isGone = hideDragHandle
 
             bottomSheetRecyclerView.apply {
-                adapter = ModalBottomSheetAdapter(requireContext(), items)
+                adapter = ModalBottomSheetAdapter(requireContext(), items, ::dismiss)
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
             }
