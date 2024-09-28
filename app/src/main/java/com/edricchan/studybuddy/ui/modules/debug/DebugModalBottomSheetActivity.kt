@@ -24,7 +24,6 @@ import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.modalBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -76,16 +75,6 @@ class DebugModalBottomSheetActivity : BaseActivity() {
             addModalBottomSheetLauncher(
                 "Modal bottom sheet with 1000 text items",
                 buildOnClickListener(modalBottomSheetWith1000Items())
-            )
-
-            addModalBottomSheetLauncher(
-                "Modal bottom sheet with text items with checkboxes",
-                buildOnClickListener(modalBottomSheetCheckBoxItems())
-            )
-
-            addModalBottomSheetLauncher(
-                "Modal bottom sheet with text items with radio buttons",
-                buildOnClickListener(modalBottomSheetRadioButtonItems())
             )
 
             addModalBottomSheetLauncher(
@@ -333,43 +322,6 @@ class DebugModalBottomSheetActivity : BaseActivity() {
             )
         }
 
-    private fun modalBottomSheetCheckBoxItems() =
-        modalBottomSheet {
-            val group = ModalBottomSheetGroup(
-                id = 1000,
-                checkableBehaviorEnum = ModalBottomSheetGroup.CheckableBehavior.All,
-                onItemCheckedChangeListener = onItemCheckedChangeListener
-            )
-            for (i in 1..10) {
-                item(
-                    ModalBottomSheetItem(
-                        id = i,
-                        title = "Item $i",
-                        group = group
-                    )
-                )
-            }
-        }
-
-    private fun modalBottomSheetRadioButtonItems() =
-        modalBottomSheet {
-            val groupId = 1000
-            val group = ModalBottomSheetGroup(
-                id = groupId,
-                checkableBehaviorEnum = ModalBottomSheetGroup.CheckableBehavior.Single,
-                onItemCheckedChangeListener = onItemCheckedChangeListener
-            )
-            for (i in 1..10) {
-                item(
-                    ModalBottomSheetItem(
-                        id = i,
-                        title = "Item $i",
-                        group = group
-                    )
-                )
-            }
-        }
-
     private fun modalBottomSheetDisabledEvenItems() =
         modalBottomSheet {
             for (i in 1..10) {
@@ -415,41 +367,6 @@ class DebugModalBottomSheetActivity : BaseActivity() {
             this += item(title = "Item from plusAssign operator")
             this += {
                 title = "Item from plusAssign with DSL"
-            }
-
-            // Group
-            group(id = 1) {
-                onItemCheckedChangeListener =
-                    this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
-                checkableBehaviorEnum = ModalBottomSheetGroup.CheckableBehavior.All
-            }.apply {
-                items(buildList {
-                    for (i in 11..15) {
-                        this += item(title = "Item $i") {
-                            id = i
-                            onItemClickListener =
-                                this@DebugModalBottomSheetActivity.onItemClickListener
-                        }
-                    }
-                })
-            }
-            // Another group
-            group(id = 2, {
-                id = 2
-                onItemCheckedChangeListener =
-                    this@DebugModalBottomSheetActivity.onItemCheckedChangeListener
-                checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
-            }) {
-                items {
-                    for (i in 21..25) {
-                        this += item("Item $i") {
-                            id = i
-                            onItemClickListener =
-                                this@DebugModalBottomSheetActivity.onItemClickListener
-                            setIcon(R.drawable.ic_info_outline_24dp)
-                        }
-                    }
-                }
             }
         }
 
