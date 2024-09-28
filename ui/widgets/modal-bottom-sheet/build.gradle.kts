@@ -42,6 +42,7 @@ dependencies {
         because("NoTextCheckBox, NoTextRadioButton")
     }
     implementation(projects.core.resources)
+    implementation(projects.utils.recyclerview)
 
     api(libs.androidx.fragment.ktx)
     api(libs.androidx.recyclerview.core)
