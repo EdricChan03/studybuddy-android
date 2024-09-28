@@ -37,8 +37,7 @@ import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.theming.setDynamicColors
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.items
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
 import com.edricchan.studybuddy.utils.dev.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
@@ -279,67 +278,52 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
         }
     }
 
+    // TODO: Use a more appropriate UI, see tracking issue
+    //  https://github.com/EdricChan03/studybuddy-android/issues/639
     private fun showSortByOptions() {
-        val itemNoneId = 1
-        val itemTitleAscId = 2
-        val itemTitleDescId = 3
-        val itemDueDateNewestId = 4
-        val itemDueDateOldestId = 5
-        val itemOptions = mapOf(
-            itemNoneId to TodoSortValues.NONE,
-            itemTitleAscId to TodoSortValues.TITLE_ASC,
-            itemTitleDescId to TodoSortValues.TITLE_DESC,
-            itemDueDateNewestId to TodoSortValues.DUE_DATE_NEW_TO_OLD,
-            itemDueDateOldestId to TodoSortValues.DUE_DATE_OLD_TO_NEW
-        )
-
-        // The DSL currently does not support selection via ID(s) within the group builder,
-        // so we have to do this manually for now
-        // FIXME: Remove workaround
-        val sheetItems = items {
+        showSingleSelectBottomSheet<String>(
+            headerTitleRes = R.string.task_sort_dialog_header_title,
+            onConfirm = {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewModel.updateSort(it.id)
+                }
+            }
+        ) {
             val context = requireContext()
 
-            item(context.getString(R.string.sort_by_bottomsheet_none_title)) {
-                id = itemNoneId
-                setIcon(R.drawable.ic_close_24dp)
+            isSelected = { item, _ ->
+                viewModel.compatQuery.value == item.id
             }
-            item(context.getString(R.string.sort_by_bottomsheet_title_asc_title)) {
-                id = itemTitleAscId
-                setIcon(R.drawable.ic_sort_ascending_24dp)
-            }
-            item(context.getString(R.string.sort_by_bottomsheet_title_desc_title)) {
-                id = itemTitleDescId
-                setIcon(R.drawable.ic_sort_descending_24dp)
-            }
-            item(context.getString(R.string.sort_by_bottomsheet_due_date_newest_title)) {
-                id = itemDueDateNewestId
-                setIcon(R.drawable.ic_sort_descending_24dp)
-            }
-            item(context.getString(R.string.sort_by_bottomsheet_due_date_oldest_title)) {
-                id = itemDueDateOldestId
-                setIcon(R.drawable.ic_sort_ascending_24dp)
-            }
-        }
 
-        showModalBottomSheet(R.string.task_sort_dialog_header_title) {
-            group(100, {
-                checkableBehavior = ModalBottomSheetGroup.CHECKABLE_BEHAVIOR_SINGLE
-                setItemCheckedChangeListener {
-                    lifecycleScope.launch {
-                        val noneValue = TodoSortValues.NONE
-                        val newValue =
-                            if (it.group?.selected?.contains(it) == true) itemOptions[it.id]
-                                ?: noneValue else noneValue
-                        viewModel.updateSort(newValue)
-                    }
-                }
-                // Set selection status
-                val selectedId =
-                    itemOptions.entries.find { viewModel.compatQuery.value == it.value }?.key
-                        ?: itemNoneId
-                selected += sheetItems.first { it.id == selectedId }
-            }) {
-                items(sheetItems)
+            addItem(
+                id = TodoSortValues.NONE,
+                title = context.getString(R.string.sort_by_bottomsheet_none_title)
+            ) {
+                iconRes = R.drawable.ic_close_24dp
+            }
+            addItem(
+                id = TodoSortValues.TITLE_ASC,
+                title = context.getString(R.string.sort_by_bottomsheet_title_asc_title)
+            ) {
+                iconRes = R.drawable.ic_sort_ascending_24dp
+            }
+            addItem(
+                id = TodoSortValues.TITLE_DESC,
+                title = context.getString(R.string.sort_by_bottomsheet_title_desc_title)
+            ) {
+                iconRes = R.drawable.ic_sort_descending_24dp
+            }
+            addItem(
+                id = TodoSortValues.DUE_DATE_NEW_TO_OLD,
+                title = context.getString(R.string.sort_by_bottomsheet_due_date_newest_title)
+            ) {
+                iconRes = R.drawable.ic_sort_descending_24dp
+            }
+            addItem(
+                id = TodoSortValues.DUE_DATE_OLD_TO_NEW,
+                title = context.getString(R.string.sort_by_bottomsheet_due_date_oldest_title)
+            ) {
+                iconRes = R.drawable.ic_sort_ascending_24dp
             }
         }
     }
