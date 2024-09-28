@@ -11,8 +11,8 @@ import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleArchived
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleCompleted
 import com.edricchan.studybuddy.features.tasks.data.repo.update
-import com.edricchan.studybuddy.ui.modules.task.detail.TaskDetailData
-import com.edricchan.studybuddy.ui.modules.task.detail.impl.FirestoreTaskDetailData
+import com.edricchan.studybuddy.features.tasks.detail.data.TaskDetailData
+import com.edricchan.studybuddy.features.tasks.detail.data.impl.FirestoreTaskDetailData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

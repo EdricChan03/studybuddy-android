@@ -1,10 +1,10 @@
-package com.edricchan.studybuddy.ui.modules.task.detail.impl
+package com.edricchan.studybuddy.features.tasks.detail.data.impl
 
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
-import com.edricchan.studybuddy.ui.modules.task.detail.TaskDetailData
+import com.edricchan.studybuddy.features.tasks.detail.data.TaskDetailData
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

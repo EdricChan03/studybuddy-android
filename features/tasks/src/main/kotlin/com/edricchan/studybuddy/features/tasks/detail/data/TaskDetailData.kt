@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.detail
+package com.edricchan.studybuddy.features.tasks.detail.data
 
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
