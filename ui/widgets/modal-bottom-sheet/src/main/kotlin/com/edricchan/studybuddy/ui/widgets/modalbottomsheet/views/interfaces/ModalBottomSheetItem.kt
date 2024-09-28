@@ -27,25 +27,6 @@ data class ModalBottomSheetItem(
     val enabled: Boolean = true,
     val group: ModalBottomSheetGroup? = null
 ) {
-    @Deprecated("Use the relevant overload which takes a drawable resource or a drawable instead")
-    constructor(
-        id: Int = ID_NONE,
-        title: String,
-        @DrawableRes icon: Int? = null,
-        iconDrawable: Drawable? = null,
-        onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
-        visible: Boolean = true,
-        enabled: Boolean = true,
-        group: ModalBottomSheetGroup? = null
-    ) : this(
-        id, title,
-        icon = Icon.getIcon(iconRes = icon, iconDrawable = iconDrawable),
-        onItemClickListener = onItemClickListener,
-        visible = visible,
-        enabled = enabled,
-        group = group
-    )
-
     constructor(
         id: Int = ID_NONE,
         title: String,
