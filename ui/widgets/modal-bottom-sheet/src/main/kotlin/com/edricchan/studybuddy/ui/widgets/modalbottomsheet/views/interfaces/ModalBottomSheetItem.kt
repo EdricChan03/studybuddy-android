@@ -1,10 +1,15 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.toBitmap
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
 /**
  * Represents an item in a modal bottom sheet
@@ -21,16 +26,17 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomShe
  * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetFragment
  * @see com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl.item
  */
+@Parcelize
 data class ModalBottomSheetItem(
     val id: Int = ID_NONE,
     val title: String,
     val icon: Icon? = null,
-    val onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
+    @IgnoredOnParcel val onItemClickListener: ModalBottomSheetAdapter.OnItemClickListener? = null,
     val visible: Boolean = true,
     val enabled: Boolean = true,
     val group: ModalBottomSheetGroup? = null,
     val requestDismissOnClick: Boolean = group?.run { !isCheckable() } ?: true
-) {
+) : Parcelable {
     constructor(
         id: Int = ID_NONE,
         title: String,
@@ -63,7 +69,7 @@ data class ModalBottomSheetItem(
     ) : this(
         id = id,
         title = title,
-        icon = Icon.Raw(icon),
+        icon = Icon.Raw(icon.toBitmap()),
         onItemClickListener = onItemClickListener,
         visible = visible,
         enabled = enabled,
@@ -79,37 +85,30 @@ data class ModalBottomSheetItem(
      *
      * To retrieve the icon as a [Drawable], use [asDrawable].
      */
-    sealed interface Icon {
+    @Parcelize
+    sealed class Icon : Parcelable {
         /** Converts this [Icon] to its [Drawable] form given the [context]. */
-        fun asDrawable(context: Context): Drawable
-
-        companion object {
-            internal fun getIcon(
-                iconRes: Int?,
-                iconDrawable: Drawable?
-            ): Icon? = if (iconRes != null) Resource(iconRes)
-            else if (iconDrawable != null) Raw(iconDrawable)
-            else null
-        }
+        abstract fun asBitmap(context: Context): Bitmap
 
         /** An [Icon] which takes a [drawable resource][iconRes]. */
-        data class Resource(@DrawableRes val iconRes: Int) : Icon {
+        data class Resource(@DrawableRes val iconRes: Int) : Icon() {
             /**
              * Loads the [iconRes] resource from the specified [context],
              * or throws an [IllegalArgumentException] if no such resource was found.
              */
-            override fun asDrawable(context: Context): Drawable =
+            override fun asBitmap(context: Context): Bitmap =
                 requireNotNull(AppCompatResources.getDrawable(context, iconRes)) {
                     "Resource specified (${
                         context.resources.getResourceEntryName(iconRes)
                     }) does not exist"
-                }
+                }.toBitmap()
         }
 
-        /** An [Icon] which takes a [raw drawable][Drawable]. */
-        data class Raw(val drawable: Drawable) : Icon {
-            /** Returns the [drawable]. */
-            override fun asDrawable(context: Context): Drawable = drawable
+        /** An [Icon] which takes a [raw bitmap][Bitmap]. */
+        // We use a Bitmap instead of a Drawable as it's parcelable
+        data class Raw(val bitmap: Bitmap) : Icon() {
+            /** Returns the [bitmap]. */
+            override fun asBitmap(context: Context): Bitmap = bitmap
         }
     }
 

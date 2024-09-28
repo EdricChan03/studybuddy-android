@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.dsl
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
+import androidx.core.graphics.drawable.toBitmap
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.annotations.ModalBottomSheetCheckableBehavior
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup
@@ -203,7 +204,7 @@ class ModalBottomSheetItemBuilder(
     var iconValue = item.icon
 
     fun setIcon(icon: Drawable) {
-        iconValue = ModalBottomSheetItem.Icon.Raw(icon)
+        iconValue = ModalBottomSheetItem.Icon.Raw(icon.toBitmap())
     }
 
     fun setIcon(@DrawableRes iconRes: Int) {

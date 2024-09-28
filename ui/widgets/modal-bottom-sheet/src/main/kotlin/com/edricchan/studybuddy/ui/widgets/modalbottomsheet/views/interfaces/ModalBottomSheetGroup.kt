@@ -1,8 +1,11 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces
 
+import android.os.Parcelable
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.annotations.ModalBottomSheetCheckableBehavior
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetGroup.CheckableBehavior
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
 /**
  * Represents a group of [ModalBottomSheetItem]s
@@ -15,19 +18,20 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.Mod
  * @property enabled Whether the group is enabled
  * @property selected The selected items
  */
+@Parcelize
 data class ModalBottomSheetGroup(
     val id: Int,
-    val checkableBehaviorEnum: CheckableBehavior,
-    val onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
+    val checkableBehaviorEnum: CheckableBehavior = CheckableBehavior.None,
+    @IgnoredOnParcel val onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
     val visible: Boolean = true,
     val enabled: Boolean = true,
-    val selected: MutableList<ModalBottomSheetItem> = mutableListOf()
-) {
+    val selected: List<ModalBottomSheetItem> = listOf()
+) : Parcelable {
     @Deprecated("Use the overload which takes an enum for the checkable behaviour")
     constructor(
         id: Int,
         @ModalBottomSheetCheckableBehavior
-        checkableBehavior: String = CHECKABLE_BEHAVIOR_NONE,
+        checkableBehavior: String,
         onItemCheckedChangeListener: ModalBottomSheetAdapter.OnItemCheckedChangeListener? = null,
         visible: Boolean = true,
         enabled: Boolean = true,
