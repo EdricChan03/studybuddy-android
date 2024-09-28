@@ -20,7 +20,6 @@ sealed class ModalBottomSheetViewHolder<VB : ViewBinding>(
                 layoutParams = RecyclerView.LayoutParams(0, 0)
             }
             setOnClickListener {
-                item.group?.onItemCheckedChangeListener?.onItemCheckedChange(item)
                 item.onItemClickListener?.onItemClick(item)
                 if (item.requestDismissOnClick) requestDismiss()
             }
