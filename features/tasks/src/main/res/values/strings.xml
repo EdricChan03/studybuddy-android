@@ -32,4 +32,13 @@
 
     <!-- Content description to indicate the task's created at timestamp. -->
     <string name="view_task_created_at_content_desc">This task is created at:</string>
+
+    <!-- Text-field strings -->
+    <eat-comment />
+
+    <!-- Title for the task title text field. -->
+    <string name="text_field_task_title_label">Task title</string>
+
+    <!-- Error text to be shown for required text fields. -->
+    <string name="text_field_error_required">This field is required.</string>
 </resources>
