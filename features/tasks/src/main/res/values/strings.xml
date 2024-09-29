@@ -20,6 +20,12 @@
     <string name="task_adapter_empty_content">&lt;No content&gt;</string>
     <!-- Default text to show if the task has no title. -->
     <string name="task_adapter_empty_title">&lt;No title&gt;</string>
+    <!-- Text for the "Mark as done" button. -->
+    <string name="task_adapter_mark_as_done_btn_text">Mark as done</string>
+    <!-- Text for the "Mark as undone" button. -->
+    <string name="task_adapter_mark_as_undone_btn_text">Mark as undone</string>
+    <!-- Text for the "Delete task" button. -->
+    <string name="task_adapter_delete_task_btn_text">Delete task</string>
 
     <!-- View task strings -->
     <eat-comment />
