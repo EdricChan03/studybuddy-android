@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.navigation.compat
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
@@ -9,6 +10,7 @@ import androidx.navigation.activity
 import androidx.navigation.fragment.fragment
 import androidx.navigation.navigation
 import com.edricchan.studybuddy.BuildConfig
+import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.UriSettings
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
@@ -30,9 +32,15 @@ import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 
-fun NavGraphBuilder.aboutGraph() {
-    fragment<AboutFragment, CompatDestination.About.AppAbout>()
-    fragment<OssLicensesFragment, CompatDestination.About.ViewLicenses>()
+fun NavGraphBuilder.aboutGraph(
+    context: Context
+) {
+    fragment<AboutFragment, CompatDestination.About.AppAbout> {
+        label = context.getString(R.string.title_activity_about)
+    }
+    fragment<OssLicensesFragment, CompatDestination.About.ViewLicenses> {
+        label = context.getString(R.string.title_activity_licenses)
+    }
     activity<CompatDestination.About.SystemAppInfo> {
         action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         data = "package:${BuildConfig.APPLICATION_ID}".toUri()
@@ -57,7 +65,9 @@ fun NavGraphBuilder.authGraph() {
     }
 }
 
-fun NavGraphBuilder.taskGraph() = navigation<CompatDestination.Task.Root>(
+fun NavGraphBuilder.taskGraph(
+    context: Context
+) = navigation<CompatDestination.Task.Root>(
     startDestination = CompatDestination.Task.List
 ) {
     activity<CompatDestination.Task.Edit> {
@@ -71,9 +81,13 @@ fun NavGraphBuilder.taskGraph() = navigation<CompatDestination.Task.Root>(
         }
     }
 
-    fragment<TaskDetailFragment, CompatDestination.Task.View>()
+    fragment<TaskDetailFragment, CompatDestination.Task.View> {
+        label = context.getString(R.string.title_activity_view_task)
+    }
 
-    fragment<TaskListFragment, CompatDestination.Task.List>()
+    fragment<TaskListFragment, CompatDestination.Task.List> {
+        label = context.getString(R.string.bottom_nav_todos)
+    }
 }
 
 /**
@@ -82,7 +96,7 @@ fun NavGraphBuilder.taskGraph() = navigation<CompatDestination.Task.Root>(
  * @see CompatDestination
  */
 // TODO: Migrate destinations to Jetpack Compose
-fun NavGraphBuilder.compatGraphs() {
+fun NavGraphBuilder.compatGraphs(context: Context) {
     activity<CompatDestination.Debug> {
         activityClass = DebugActivity::class
     }
@@ -94,14 +108,20 @@ fun NavGraphBuilder.compatGraphs() {
         activityClass = UpdatesActivity::class
     }
 
-    fragment<HelpListFragment, CompatDestination.Help>()
+    fragment<HelpListFragment, CompatDestination.Help> {
+        label = context.getString(R.string.title_activity_help)
+    }
 
-    aboutGraph()
+    aboutGraph(context = context)
     authGraph()
-    taskGraph()
+    taskGraph(context = context)
 
-    fragment<CalendarFragment, CompatDestination.Calendar>()
-    fragment<TipsFragment, CompatDestination.Tips>()
+    fragment<CalendarFragment, CompatDestination.Calendar> {
+        label = context.getString(R.string.bottom_nav_calendar)
+    }
+    fragment<TipsFragment, CompatDestination.Tips> {
+        label = context.getString(R.string.bottom_nav_tips)
+    }
 
     fragment<SettingsFragment, CompatDestination.Settings> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -110,5 +130,6 @@ fun NavGraphBuilder.compatGraphs() {
             }
         }
         deepLink(UriSettings)
+        label = context.getString(R.string.title_activity_settings)
     }
 }
