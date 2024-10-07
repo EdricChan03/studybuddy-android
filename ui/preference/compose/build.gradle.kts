@@ -30,7 +30,6 @@ dependencies {
 
     testImplementation(libs.junit)
 
-    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 

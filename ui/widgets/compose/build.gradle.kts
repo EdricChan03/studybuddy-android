@@ -41,7 +41,6 @@ dependencies {
     testImplementation(libs.kotest.assertion.core)
     testImplementation(libs.kotest.property)
 
-    androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 
