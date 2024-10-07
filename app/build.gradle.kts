@@ -60,7 +60,7 @@ android {
         versionCode = 10
         versionName = "1.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        resourceConfigurations += "en" // TODO: Don't restrict to just en
+        androidResources.localeFilters += "en" // TODO: Don't restrict to just en
 
         vectorDrawables.useSupportLibrary = true
     }
