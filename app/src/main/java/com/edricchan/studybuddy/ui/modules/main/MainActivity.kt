@@ -248,7 +248,7 @@ class MainActivity : BaseActivity() {
 
     private fun NavController.initNavGraph() {
         graph = createGraph(CompatDestination.Task.Root) {
-            compatGraphs()
+            compatGraphs(context = this@MainActivity)
         }
     }
 
