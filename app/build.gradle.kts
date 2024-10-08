@@ -100,6 +100,18 @@ android {
 
             matchingFallbacks += listOf(release.name, debug.name)
         }
+
+        val benchmark by registering {
+            initWith(release.get())
+
+            applicationIdSuffix = ".benchmark"
+            matchingFallbacks += release.name
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-benchmark-rules.pro"
+            )
+            isDebuggable = false
+        }
     }
 
     buildFeatures {
