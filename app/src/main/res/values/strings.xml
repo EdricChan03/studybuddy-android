@@ -481,8 +481,6 @@
     <string name="shortcut_todo_long_msg">Create a new todo</string>
     <string name="shortcut_todo_short_msg">New todo</string>
 
-    <string name="task_adapter_empty_content">&lt;No content&gt;</string>
-    <string name="task_adapter_empty_title">&lt;No title&gt;</string>
     <string name="task_content">Task Content</string>
     <string name="task_project">Task Project</string>
     <string name="task_project_create">Create a project…</string>
