@@ -5,25 +5,26 @@ import android.view.MenuItem
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.databinding.ActivityFragHostBinding
-import com.edricchan.studybuddy.exts.androidx.fragment.replaceFragment
+import androidx.navigation.activity
+import androidx.navigation.createGraph
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.fragment
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
+import com.edricchan.studybuddy.databinding.ActivityFragNavHostBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.settings.fragment.DebugSettingsFragment
+import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * Created by edricchan on 14/3/18.
- */
-
+@AndroidEntryPoint
 class DebugActivity : BaseActivity() {
-    private lateinit var binding: ActivityFragHostBinding
+    private lateinit var binding: ActivityFragNavHostBinding
 
     override val isEdgeToEdgeEnabled = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityFragHostBinding.inflate(layoutInflater).apply {
+        binding = ActivityFragNavHostBinding.inflate(layoutInflater).apply {
             setSupportActionBar(toolbar)
         }.also { setContentView(it.root) }
 
@@ -40,7 +41,18 @@ class DebugActivity : BaseActivity() {
             windowInsets
         }
 
-        replaceFragment(R.id.fragmentHostContainer, DebugSettingsFragment(), false)
+        val navHost = binding.fragmentHostContainer.getFragment<NavHostFragment>()
+        navHost.apply {
+            navController.graph = navController.createGraph(CompatDestination.Debug) {
+                // DebugFragment only has a feature flag and bottom sheet destination, so
+                // we should be fine with just defining 3 destinations here
+                fragment<DebugFragment, CompatDestination.Debug>()
+                fragment<FeatureFlagsSettingsFragment, CompatDestination.FeatureFlagsList>()
+                activity<CompatDestination.DebugModalBottomSheet> {
+                    activityClass = DebugModalBottomSheetActivity::class
+                }
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

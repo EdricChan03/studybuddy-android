@@ -21,6 +21,7 @@ import com.edricchan.studybuddy.exts.androidx.preference.setFragment
 import com.edricchan.studybuddy.features.settings.compat.ui.categories.GeneralSettingsFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.modules.debug.DebugFragment
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
 import com.edricchan.studybuddy.utils.dev.isDevMode
@@ -105,7 +106,7 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
         private fun initPreferences() {
             findPreference<Preference>(Constants.prefHeaderGeneral)?.setFragment<GeneralSettingsFragment>()
             findPreference<Preference>(Constants.prefHeaderTodo)?.setFragment<TodoSettingsFragment>()
-            findPreference<Preference>(Constants.prefHeaderDebug)?.setFragment<DebugSettingsFragment>()
+            findPreference<Preference>(Constants.prefHeaderDebug)?.setFragment<DebugFragment>()
             findPreference<Preference>(Constants.prefHeaderUpdates)?.setFragment<UpdateSettingsFragment>()
             findPreference<Preference>(Constants.prefHeaderAbout)?.setFragment {
                 if (featureFlagsUtils
