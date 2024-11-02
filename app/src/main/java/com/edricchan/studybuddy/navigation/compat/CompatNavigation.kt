@@ -25,6 +25,7 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity.Companion.ACTION_ADD_NEW_TODO
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
+import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.modules.task.EditTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskDetailFragment
@@ -102,6 +103,10 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
     }
     activity<CompatDestination.DebugModalBottomSheet> {
         activityClass = DebugModalBottomSheetActivity::class
+    }
+
+    fragment<FeatureFlagsSettingsFragment, CompatDestination.FeatureFlagsList> {
+        label = context.getString(R.string.debug_activity_feature_flags_title)
     }
 
     activity<CompatDestination.Updates> {

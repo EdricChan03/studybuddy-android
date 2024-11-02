@@ -32,6 +32,16 @@ fun NavController.navigateToDebugModalBottomSheet(
 ) = navigate(CompatDestination.DebugModalBottomSheet, builder)
 
 /**
+ * Navigates to the [CompatDestination.FeatureFlagsList] route.
+ *
+ * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
+ * behaviour is undesired, [builder] should be specified.
+ */
+fun NavController.navigateToFeatureFlagsList(
+    builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
+) = navigate(CompatDestination.FeatureFlagsList, builder)
+
+/**
  * Navigates to the [CompatDestination.Updates] route.
  *
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
