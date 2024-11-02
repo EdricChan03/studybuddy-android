@@ -15,6 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
+import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 
 private fun Modifier.categoryPadding(withPadding: Boolean) =
     if (withPadding) padding(horizontal = 56.dp) else this
@@ -40,6 +42,117 @@ internal class PreferenceCategoryScopeImpl(
     override val iconSpaceReserved: Boolean,
     private val columnScope: ColumnScope
 ) : PreferenceCategoryScope, ColumnScope by columnScope
+
+/**
+ * Simple UI composable to display a setting to be added to the receiver
+ * [PreferenceCategoryScope].
+ *
+ * Such preferences should ideally follow
+ * [AOSP's settings design guidelines](https://source.android.com/docs/core/settings/settings-guidelines).
+ *
+ * Variants should be used where preferable:
+ * * [CheckboxPreference] for displaying a preference with a
+ * [androidx.compose.material3.Checkbox], representing a checkable state.
+ * * [SwitchPreference] for displaying a preference with a
+ * [androidx.compose.material3.Switch], representing a checkable state.
+ * * [ListDialogPreference] for displaying a list of options in a dialog when clicked.
+ * * [InputDialogPreference] for displaying an input dialog when clicked.
+ * * [MainSwitchBar] if a root switch preference bar should be used,
+ * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
+ * * [PreferenceCategory] for grouping a list of [Preference]s.
+ * @param icon [Composable] to be displayed at the start. This should be an
+ * [androidx.compose.material3.Icon].
+ * @param title [Composable] to be displayed in the middle. This should contain the
+ * title of the preference.
+ * @param subtitle (Optional) [Composable] to be displayed before the [title].
+ * This should contain additional information.
+ * @param action (Optional) [Composable] to be displayed at the end. An [showActionDivider]
+ * can be optionally shown between it and its contents.
+ * @param showActionDivider Whether a vertical divider should be shown between the [action]
+ * and its contents.
+ * @see CheckboxPreference
+ * @see SwitchPreference
+ * @see InputDialogPreference
+ * @see ListDialogPreference
+ * @see PreferenceCategory
+ * @see MainSwitchBar
+ */
+@Composable
+fun PreferenceCategoryScope.Preference(
+    modifier: Modifier = Modifier,
+    icon: (@Composable () -> Unit)? = null,
+    iconSpaceReserved: Boolean = this.iconSpaceReserved,
+    title: @Composable () -> Unit,
+    subtitle: (@Composable () -> Unit)? = null,
+    action: (@Composable () -> Unit)? = null,
+    showActionDivider: Boolean = false
+) = Preference(
+    modifier = modifier,
+    enabled = enabled,
+    icon = icon,
+    iconSpaceReserved = iconSpaceReserved,
+    title = title,
+    subtitle = subtitle,
+    action = action,
+    showActionDivider = showActionDivider
+)
+
+/**
+ * Simple UI composable to display a setting to be added to the receiver
+ * [PreferenceCategoryScope].
+ *
+ * Such preferences should ideally follow
+ * [AOSP's settings design guidelines](https://source.android.com/docs/core/settings/settings-guidelines).
+ *
+ * Variants should be used where preferable:
+ * * [CheckboxPreference] for displaying a preference with a
+ * [androidx.compose.material3.Checkbox], representing a checkable state.
+ * * [SwitchPreference] for displaying a preference with a
+ * [androidx.compose.material3.Switch], representing a checkable state.
+ * * [ListDialogPreference] for displaying a list of options in a dialog when clicked.
+ * * [InputDialogPreference] for displaying an input dialog when clicked.
+ * * [MainSwitchBar] if a root switch preference bar should be used,
+ * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
+ * * [PreferenceCategory] for grouping a list of [Preference]s.
+ * @param onClick Lambda that is invoked when this preference is clicked on.
+ * @param icon [Composable] to be displayed at the start. This should be an
+ * [androidx.compose.material3.Icon].
+ * @param title [Composable] to be displayed in the middle. This should contain the
+ * title of the preference.
+ * @param subtitle (Optional) [Composable] to be displayed before the [title].
+ * This should contain additional information.
+ * @param action (Optional) [Composable] to be displayed at the end. An [showActionDivider]
+ * can be optionally shown between it and its contents.
+ * @param showActionDivider Whether a vertical divider should be shown between the [action]
+ * and its contents.
+ * @see CheckboxPreference
+ * @see SwitchPreference
+ * @see InputDialogPreference
+ * @see ListDialogPreference
+ * @see PreferenceCategory
+ * @see MainSwitchBar
+ */
+@Composable
+fun PreferenceCategoryScope.Preference(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    icon: (@Composable () -> Unit)? = null,
+    iconSpaceReserved: Boolean = this.iconSpaceReserved,
+    title: @Composable () -> Unit,
+    subtitle: (@Composable () -> Unit)? = null,
+    action: (@Composable () -> Unit)? = null,
+    showActionDivider: Boolean = false
+) = Preference(
+    modifier = modifier,
+    enabled = enabled,
+    onClick = onClick,
+    icon = icon,
+    iconSpaceReserved = iconSpaceReserved,
+    title = title,
+    subtitle = subtitle,
+    action = action,
+    showActionDivider = showActionDivider
+)
 
 /**
  * Wrapper [Composable] for a [PreferenceCategory]'s title.
