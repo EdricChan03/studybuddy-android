@@ -15,6 +15,10 @@ fun Long.toDuration(unit: TemporalUnit): Duration = Duration.of(this, unit)
 fun Instant.toLocalDateTime(zoneId: ZoneId = ZoneId.systemDefault()): LocalDateTime =
     LocalDateTime.ofInstant(this, zoneId)
 
+/** Converts the [LocalDateTime] to an [Instant] given the [zoneId]. */
+fun LocalDateTime.toInstant(zoneId: ZoneId = ZoneId.systemDefault()): Instant =
+    atZone(zoneId).toInstant()
+
 /** Formats the temporal object using the given [formatter]. */
 fun TemporalAccessor.format(formatter: DateTimeFormatter): String = formatter.format(this)
 
