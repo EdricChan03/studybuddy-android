@@ -10,12 +10,36 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 private fun Modifier.categoryPadding(withPadding: Boolean) =
     if (withPadding) padding(horizontal = 56.dp) else this
+
+/**
+ * Scope for a [PreferenceCategory]. Currently, it provides access to whether
+ * the category is [enabled], in addition to properties from [ColumnScope].
+ */
+@Stable
+interface PreferenceCategoryScope : ColumnScope {
+    /** Whether this category is enabled. Its children should be tied to this state. */
+    val enabled: Boolean
+
+    /**
+     * Whether there should be a starting horizontal padding if an `icon` is not
+     * specified.
+     */
+    val iconSpaceReserved: Boolean
+}
+
+internal class PreferenceCategoryScopeImpl(
+    override val enabled: Boolean,
+    override val iconSpaceReserved: Boolean,
+    private val columnScope: ColumnScope
+) : PreferenceCategoryScope, ColumnScope by columnScope
 
 /**
  * Wrapper [Composable] for a [PreferenceCategory]'s title.
@@ -48,21 +72,29 @@ fun PreferenceCategoryTitle(
  * it should ideally be a [Preference] or its variants ([ListDialogPreference],
  * [InputDialogPreference], [CheckboxPreference] or [SwitchPreference]).
  * @param title [Composable] for the category's title.
- * @param withTitlePadding Whether an additional horizontal padding of `56.dp`
- * should be added to the [title] composable.
+ * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
+ * should be added to the [title] composable and its contents.
+ * @param enabled Whether the contents of this category should be enabled.
  * @param content Content to be displayed.
+ * @see PreferenceCategoryScope
  */
 @Composable
 fun PreferenceCategory(
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
-    withTitlePadding: Boolean = true,
-    content: @Composable ColumnScope.() -> Unit,
-) = Surface {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-    ) {
-        title?.let { PreferenceCategoryTitle(title = it, withPadding = withTitlePadding) }
-        content()
+    iconSpaceReserved: Boolean = true,
+    enabled: Boolean = true,
+    content: @Composable PreferenceCategoryScope.() -> Unit,
+) {
+    val scope: (ColumnScope) -> PreferenceCategoryScopeImpl = remember {
+        { PreferenceCategoryScopeImpl(enabled, iconSpaceReserved, it) }
+    }
+    Surface {
+        Column(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            title?.let { PreferenceCategoryTitle(title = it, withPadding = iconSpaceReserved) }
+            scope(this).content()
+        }
     }
 }
