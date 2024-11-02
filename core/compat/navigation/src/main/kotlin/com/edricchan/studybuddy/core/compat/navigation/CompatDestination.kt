@@ -16,6 +16,10 @@ sealed interface CompatDestination {
     @Serializable
     data object DebugModalBottomSheet : CompatDestination
 
+    /** Typed destination for the feature flags list entry-point. */
+    @Serializable
+    data object FeatureFlagsList : CompatDestination
+
     /** Typed destination for the updates entry-point. */
     @Serializable
     data object Updates : CompatDestination
