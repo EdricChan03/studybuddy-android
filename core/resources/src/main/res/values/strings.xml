@@ -14,6 +14,9 @@
     <!-- Text for a cancel button in a dialog. -->
     <string name="dialog_action_cancel">Cancel</string>
 
+    <!-- Text for a dismiss button in a dialog. -->
+    <string name="dialog_action_dismiss">Dismiss</string>
+
     <!-- Text for a done button in a dialog. -->
     <string name="dialog_action_done">Done</string>
 
