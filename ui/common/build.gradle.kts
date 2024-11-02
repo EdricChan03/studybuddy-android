@@ -39,8 +39,8 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     api(libs.androidx.compose.material3)
 
-    implementation(libs.aboutLibraries)
-    implementation(libs.aboutLibraries.compose.material3)
+    api(libs.aboutLibraries)
+    api(libs.aboutLibraries.compose.material3)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
