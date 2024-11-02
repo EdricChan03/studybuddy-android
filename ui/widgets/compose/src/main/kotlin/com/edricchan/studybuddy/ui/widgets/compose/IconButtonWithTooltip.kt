@@ -27,7 +27,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 fun IconButtonWithTooltip(
     modifier: Modifier = Modifier,
     tooltipModifier: Modifier = Modifier,
-    positionProvider: PopupPositionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+    positionProvider: PopupPositionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
     state: TooltipState = rememberTooltipState(),
     tooltip: @Composable TooltipScope.() -> Unit,
     icon: @Composable () -> Unit,
