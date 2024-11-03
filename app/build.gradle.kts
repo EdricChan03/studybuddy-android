@@ -19,6 +19,7 @@ plugins {
     com.google.dagger.hilt.android
 
     com.edricchan.studybuddy.library.common
+    com.edricchan.studybuddy.common.`android-compose`
 }
 
 buildProperties {
