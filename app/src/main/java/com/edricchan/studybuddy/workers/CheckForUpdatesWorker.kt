@@ -130,7 +130,7 @@ class CheckForUpdatesWorker(
             appContext,
             1,
             intentAction,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val contentIntent = buildIntent<UpdatesActivity>(appContext) {
