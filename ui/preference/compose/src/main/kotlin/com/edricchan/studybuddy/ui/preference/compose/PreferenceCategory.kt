@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.preference.compose
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -10,7 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +26,8 @@ private fun Modifier.categoryPadding(withPadding: Boolean) =
  * Scope for a [PreferenceCategory]. Currently, it provides access to whether
  * the category is [enabled], in addition to properties from [ColumnScope].
  */
-@Stable
+@LayoutScopeMarker
+@Immutable
 interface PreferenceCategoryScope : ColumnScope {
     /** Whether this category is enabled. Its children should be tied to this state. */
     val enabled: Boolean
