@@ -31,6 +31,8 @@ const val ActionDividerTestTag = "Preference:ActionDivider"
  * [androidx.compose.material3.Checkbox], representing a checkable state.
  * * [SwitchPreference] for displaying a preference with a
  * [androidx.compose.material3.Switch], representing a checkable state.
+ * * [ListDialogPreference] for displaying a list of options in a dialog when clicked.
+ * * [InputDialogPreference] for displaying an input dialog when clicked.
  * * [MainSwitchBar] if a root switch preference bar should be used,
  * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
  * * [PreferenceCategory] for grouping a list of [Preference]s.
@@ -106,6 +108,8 @@ fun Preference(
  * [androidx.compose.material3.Checkbox], representing a checkable state.
  * * [SwitchPreference] for displaying a preference with a
  * [androidx.compose.material3.Switch], representing a checkable state.
+ * * [ListDialogPreference] for displaying a list of options in a dialog when clicked.
+ * * [InputDialogPreference] for displaying an input dialog when clicked.
  * * [MainSwitchBar] if a root switch preference bar should be used,
  * [emulating AOSP's master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting).
  * * [PreferenceCategory] for grouping a list of [Preference]s.
