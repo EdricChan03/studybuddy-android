@@ -157,6 +157,7 @@ dependencies {
     // Project dependencies
     implementation(projects.ui.common)
     implementation(projects.ui.insets)
+    implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.preference)
     implementation(projects.ui.widgets.views)
