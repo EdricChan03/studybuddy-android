@@ -52,6 +52,18 @@ fun HelpArticleItem(
     }
 )
 
+@Composable
+fun HelpArticleItem(
+    modifier: Modifier = Modifier,
+    article: HelpArticle,
+    onClick: () -> Unit
+) = HelpArticleItem(
+    modifier = modifier,
+    title = article.title,
+    description = article.description,
+    onClick = onClick
+)
+
 @Preview
 @Composable
 private fun HelpArticleItemPreview() {
