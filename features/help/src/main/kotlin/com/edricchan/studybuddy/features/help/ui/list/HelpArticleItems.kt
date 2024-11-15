@@ -84,8 +84,8 @@ private fun HelpArticleItemPreview() {
  */
 fun LazyListScope.helpArticlesList(
     itemModifier: Modifier = Modifier,
-    articles: List<HelpArticle> = listOf(),
-    onItemClick: (HelpArticle) -> Unit = {}
+    articles: List<HelpArticle>,
+    onItemClick: (HelpArticle) -> Unit
 ) = dividedItems(
     articles,
     key = HelpArticle::uri,
