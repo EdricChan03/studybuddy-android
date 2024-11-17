@@ -7,10 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.MenuProvider
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -86,25 +83,6 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener { loadFeaturedList() }
             setDynamicColors()
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            v.updatePadding(
-                left = insets.left,
-                right = insets.right
-            )
-
-            val contentInsets = windowInsets.getInsets(
-                WindowInsetsCompat.Type.displayCutout()
-            )
-            binding.helpFeaturedRecyclerView.updatePadding(
-                left = contentInsets.left,
-                right = contentInsets.right
-            )
-
-            windowInsets
         }
 
         initRecyclerView()
