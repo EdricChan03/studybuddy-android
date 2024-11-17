@@ -6,38 +6,47 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.core.compat.navigation.about.navigateToLicenses
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.help.HelpViewModel
 import com.edricchan.studybuddy.features.help.R
-import com.edricchan.studybuddy.features.help.adapter.HelpArticleAdapter
 import com.edricchan.studybuddy.features.help.constants.uriSendFeedback
 import com.edricchan.studybuddy.features.help.constants.uriSrcCode
 import com.edricchan.studybuddy.features.help.databinding.FragHelpListBinding
 import com.edricchan.studybuddy.features.help.showVersionDialog
 import com.edricchan.studybuddy.features.help.ui.HelpArticlesState
+import com.edricchan.studybuddy.features.help.ui.list.helpArticlesList
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.theming.setDynamicColors
 import com.edricchan.studybuddy.utils.web.launchUri
-import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBinding::inflate) {
     private val viewModel: HelpViewModel by viewModels()
-    private lateinit var adapter: HelpArticleAdapter
 
     override val menuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -86,7 +95,7 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
         }
 
         initRecyclerView()
-        initAdapter()
+        observeData()
         loadFeaturedList()
     }
 
@@ -94,18 +103,25 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
      * Initialises the recycler view by calling the needed methods
      */
     private fun initRecyclerView() {
-        binding.helpFeaturedRecyclerView.apply {
-            setHasFixedSize(true)
-            itemAnimator = DefaultItemAnimator()
-            layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(
-                MaterialDividerItemDecoration(
-                    requireContext(),
-                    MaterialDividerItemDecoration.VERTICAL
-                ).apply {
-                    isLastItemDecorated = false
+        binding.helpFeaturedListComposeView.apply {
+            setContent {
+                val state by viewModel.helpArticles.filterIsInstance<HelpArticlesState.Success>()
+                    .collectAsStateWithLifecycle(HelpArticlesState.Success(listOf()))
+
+                val nestedScrollInterop = rememberNestedScrollInteropConnection()
+                StudyBuddyTheme {
+                    LazyColumn(
+                        modifier = Modifier.nestedScroll(nestedScrollInterop),
+                        contentPadding = WindowInsets.displayCutout
+                            .only(WindowInsetsSides.Horizontal)
+                            .asPaddingValues()
+                    ) {
+                        helpArticlesList(articles = state.articles) {
+                            requireContext().launchUri(it.uri)
+                        }
+                    }
                 }
-            )
+            }
         }
     }
 
@@ -113,7 +129,7 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
         when (state) {
             HelpArticlesState.Loading -> {
                 with(binding) {
-                    helpFeaturedRecyclerView.isVisible = false
+                    helpFeaturedListComposeView.isVisible = false
                     progressBarLinearLayout.isVisible = true
                     tvEmptyStateLoading.isVisible = true
                     tvEmptyState.isVisible = false
@@ -122,15 +138,14 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
 
             is HelpArticlesState.Success -> {
                 with(binding) {
-                    helpFeaturedRecyclerView.isVisible = true
+                    helpFeaturedListComposeView.isVisible = true
                     progressBarLinearLayout.isVisible = false
-                    adapter.submitList(state.articles)
                 }
             }
 
             is HelpArticlesState.Error -> {
                 with(binding) {
-                    helpFeaturedRecyclerView.isVisible = false
+                    helpFeaturedListComposeView.isVisible = false
                     progressBarLinearLayout.isVisible = true
                     tvEmptyStateLoading.isVisible = false
                     tvEmptyState.isVisible = true
@@ -139,13 +154,7 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
         }
     }
 
-    private fun initAdapter() {
-        adapter = HelpArticleAdapter().apply {
-            setOnItemClickListener { article, _ ->
-                requireContext().launchUri(article.uri)
-            }
-        }.also { binding.helpFeaturedRecyclerView.adapter = it }
-
+    private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.helpArticles.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect(::onStateChanged)
@@ -159,7 +168,7 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
         try {
             binding.apply {
                 progressBarLinearLayout.isVisible = true
-                helpFeaturedRecyclerView.isVisible = false
+                helpFeaturedListComposeView.isVisible = false
             }
             // Load data
             viewLifecycleOwner.lifecycleScope.launch {
@@ -170,7 +179,7 @@ class HelpListFragment : ViewBindingFragment<FragHelpListBinding>(FragHelpListBi
                     Log.e(TAG, "Could not retrieve help articles:", it)
                 }
                 binding.apply {
-                    helpFeaturedRecyclerView.isVisible = true
+                    helpFeaturedListComposeView.isVisible = true
                     swipeRefreshLayout.isRefreshing = false
                     TransitionManager.beginDelayedTransition(constraintLayout, Fade(Fade.IN))
                     progressBarLinearLayout.isVisible = false

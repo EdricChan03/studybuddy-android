@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/helpFeaturedRecyclerView"
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/helpFeaturedListComposeView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/help_article_adapter_item_row" />
+            tools:composableName="com.edricchan.studybuddy.features.help.ui.list.HelpArticleItemsKt.HelpArticleItemsPreview" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
