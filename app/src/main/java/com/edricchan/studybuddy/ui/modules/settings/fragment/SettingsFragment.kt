@@ -29,20 +29,6 @@ import com.edricchan.studybuddy.utils.dev.isDevMode
 class SettingsFragment : PreferenceHeaderFragmentCompat() {
     override fun onCreatePreferenceHeader() = SettingsHeader()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // Handle back presses when the detail view is open so that a single
-        // back press doesn't exit the entire fragment
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            // Navigate back to the list view
-            slidingPaneLayout.close()
-
-            // And then update the back pressed dispatcher's enabled status
-            isEnabled = slidingPaneLayout.isOpen
-        }
-    }
-
     private val menuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
             // No-op
@@ -53,7 +39,9 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             if (menuItem.itemId != android.R.id.home) return false
 
-            if (!slidingPaneLayout.isOpen) return false
+            // Both the list and the detail fragments are shown, or they're
+            // already closed
+            if (!slidingPaneLayout.isSlideable || !slidingPaneLayout.isOpen) return false
 
             slidingPaneLayout.close()
             return true
