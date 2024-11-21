@@ -121,6 +121,7 @@ include(
     ":core:resources:temporal",
     ":core:settings:appearance",
     ":core:settings:tasks",
+    ":core:settings:updates",
     ":data:common",
     ":data:serialization:android",
     ":utils:dev-mode",

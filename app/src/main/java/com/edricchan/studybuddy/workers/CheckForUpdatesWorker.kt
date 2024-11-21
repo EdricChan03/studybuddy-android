@@ -15,8 +15,8 @@ import androidx.work.workDataOf
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
+import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver

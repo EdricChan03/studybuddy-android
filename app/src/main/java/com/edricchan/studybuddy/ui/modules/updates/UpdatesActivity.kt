@@ -27,8 +27,8 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
-import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
+import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.ActivityUpdatesBinding
 import com.edricchan.studybuddy.extensions.context.startActivity
 import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted

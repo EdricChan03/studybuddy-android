@@ -168,6 +168,7 @@ dependencies {
     implementation(projects.core.deeplink)
     implementation(projects.core.resources)
     implementation(projects.core.settings.tasks)
+    implementation(projects.core.settings.updates)
     implementation(projects.data.common)
     implementation(projects.data.serialization.android)
     implementation(projects.utils.devMode)

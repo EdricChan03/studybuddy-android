@@ -19,7 +19,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.ui.modules.debug.compose.device_info.DeviceInfoCategory
 import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBar

@@ -8,7 +8,7 @@ import android.text.format.DateUtils
 import androidx.preference.Preference
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.constants.sharedprefs.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.exts.android.getSerializableCompat
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
