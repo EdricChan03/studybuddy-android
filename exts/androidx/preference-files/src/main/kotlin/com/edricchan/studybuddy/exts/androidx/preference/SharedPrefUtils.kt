@@ -11,7 +11,7 @@ private val Context.dataDirCompat
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         dataDir.toPath()
     } else {
-        Path("/data/data")
+        Path(applicationInfo.dataDir)
     }
 
 /**
