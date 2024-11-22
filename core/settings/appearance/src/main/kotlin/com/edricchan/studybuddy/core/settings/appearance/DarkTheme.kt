@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.core.settings.appearance
 
 /**
- * Possible values for the [com.edricchan.studybuddy.core.settings.prefDarkTheme]
+ * Possible values for the [com.edricchan.studybuddy.core.settings.appearance.prefDarkTheme]
  * preference.
  */
 object DarkThemePrefValues {
