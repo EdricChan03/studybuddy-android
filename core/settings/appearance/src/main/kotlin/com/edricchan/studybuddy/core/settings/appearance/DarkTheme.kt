@@ -36,7 +36,7 @@ object DarkThemePrefValues {
     )
     const val V1_NEVER = "3"
     const val V2_ALWAYS = "always"
-    const val V2_AUTO_BATTERY = "automatic_battery_Saver"
+    const val V2_AUTO_BATTERY = "automatic_battery_saver"
     const val V2_FOLLOW_SYSTEM = "follow_system"
     const val V2_NEVER = "never"
 }
