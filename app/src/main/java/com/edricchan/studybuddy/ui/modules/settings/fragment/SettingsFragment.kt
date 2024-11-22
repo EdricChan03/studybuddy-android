@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.addCallback
 import androidx.core.view.MenuProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceHeaderFragmentCompat
