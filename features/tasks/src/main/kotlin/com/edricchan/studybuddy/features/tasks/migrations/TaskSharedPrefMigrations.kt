@@ -68,11 +68,11 @@ suspend fun Context.migrateTaskOptsPrefs(): Boolean = withContext(Dispatchers.IO
 val Context.TaskSharedPrefFileMigration
     get() = conditionalMigration(
         onShouldMigrate = { shouldMigrateTaskSharedPrefFile() },
-        onMigrate = { migrateTaskSharedPrefFile() }
+        onMigrate = ::migrateTaskSharedPrefFile
     )
 
 val Context.TaskSharedPrefValuesMigration
     get() = conditionalMigration(
         onShouldMigrate = { shouldMigrateTaskOptsPrefs() },
-        onMigrate = { migrateTaskOptsPrefs() }
+        onMigrate = ::migrateTaskOptsPrefs
     )
