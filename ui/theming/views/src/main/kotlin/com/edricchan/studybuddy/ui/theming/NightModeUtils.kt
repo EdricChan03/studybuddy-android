@@ -113,7 +113,7 @@ var Context.prefDarkTheme: DarkThemeOption
     get() = DarkThemeOption.fromValue(
         defaultSharedPreferences.getString(
             PREF_DARK_THEME,
-            DarkThemePrefValues.V2_AUTO_BATTERY
+            DarkThemePrefValues.V2_FOLLOW_SYSTEM
         )
     )
     set(theme) {
