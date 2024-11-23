@@ -51,6 +51,13 @@ object Constants {
     const val prefUseCustomTabs = "pref_use_custom_tabs"
     const val prefCustomTabsUseAppColorScheme = "pref_custom_tabs_use_app_color_scheme"
 
+    @Deprecated(
+        "Use the top-level keyPrefEnableUserTracking property",
+        ReplaceWith(
+            "keyPrefEnableUserTracking",
+            "com.edricchan.studybuddy.core.settings.tracking.keyPrefEnableUserTracking"
+        )
+    )
     const val prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking"
 
     // Preferences > Todos
