@@ -15,6 +15,8 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    testOptions.targetSdk = 34
 }
 
 private val libs = versionCatalogs.named("libs")
