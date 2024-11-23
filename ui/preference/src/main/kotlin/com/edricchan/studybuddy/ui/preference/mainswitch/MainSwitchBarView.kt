@@ -29,6 +29,11 @@ class MainSwitchBarView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AbstractComposeView(context, attrs, defStyleAttr), Checkable {
+    init {
+        isClickable = true
+        isFocusable = true
+    }
+
     private val checkedChangeListeners = mutableListOf<OnMainSwitchChangeListener>()
 
     /**
