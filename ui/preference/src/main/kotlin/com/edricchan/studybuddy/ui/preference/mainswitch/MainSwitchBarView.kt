@@ -65,6 +65,7 @@ class MainSwitchBarView @JvmOverloads constructor(
 
     override fun isEnabled(): Boolean = isEnabledState
     override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
         isEnabledState = enabled
     }
 
@@ -87,6 +88,7 @@ class MainSwitchBarView @JvmOverloads constructor(
             MainSwitchBar(
                 checked = isCheckedState,
                 onCheckedChange = ::onCheckedChange,
+                enabled = isEnabledState,
                 text = { MainSwitchBarDefaults.TitleText(text = title) }
             )
         }
