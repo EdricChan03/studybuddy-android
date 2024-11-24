@@ -1,150 +1,68 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.format.DateUtils
-import androidx.preference.Preference
-import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.constants.Constants
-import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
-import com.edricchan.studybuddy.exts.android.getSerializableCompat
-import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
-import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
-import java.time.Instant
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
+import androidx.fragment.app.viewModels
+import androidx.fragment.compose.content
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.edricchan.studybuddy.core.compat.navigation.navigateToUpdates
+import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
+import com.edricchan.studybuddy.features.settings.updates.ui.UpdateSettingsScreen
+import com.edricchan.studybuddy.ui.common.fragment.BaseFragment
+import com.edricchan.studybuddy.ui.modules.settings.fragment.vm.UpdateSettingsViewModel
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-class UpdateSettingsFragment : MaterialPreferenceFragment(),
-    SharedPreferences.OnSharedPreferenceChangeListener {
+@AndroidEntryPoint
+class UpdateSettingsFragment : BaseFragment() {
 
-    private lateinit var updateInfoPreferences: SharedPreferences
-    private var lastUpdatedInstant: Instant? = null
-    private var lastCheckedForUpdatesInstant: Instant? = null
+    private val viewModel by viewModels<UpdateSettingsViewModel>()
 
-    private fun setLastCheckedForUpdates(lastCheckedForUpdatesMs: Long) {
-        lastCheckedForUpdatesInstant =
-            lastCheckedForUpdatesMs.takeIf { it <= DEFAULT_INSTANT }
-                ?.let { Instant.ofEpochMilli(it) }
-    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = content {
+        val nestedScrollInterop = rememberNestedScrollInteropConnection()
 
-    private fun setLastUpdated(lastUpdatedMs: Long) {
-        lastUpdatedInstant =
-            lastUpdatedMs.takeIf { it <= DEFAULT_INSTANT }
-                ?.let { Instant.ofEpochMilli(it) }
-    }
+        val checkFrequency by viewModel.prefCheckFrequency.asFlow()
+            .collectAsStateWithLifecycle(initialValue = CheckFrequencyCompat.SixHours)
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
-        if (key == UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE || key == UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE) {
-            when (key) {
-                UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE -> {
-                    setLastCheckedForUpdates(
-                        updateInfoPreferences.getLong(
-                            UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
-                            DEFAULT_INSTANT
-                        )
-                    )
-                }
+        val canDownloadMetered by viewModel.prefCanDownloadMetered.asFlow()
+            .collectAsStateWithLifecycle(initialValue = false)
 
-                UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE -> {
-                    setLastUpdated(
-                        updateInfoPreferences.getLong(
-                            UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
-                            DEFAULT_INSTANT
-                        )
-                    )
-                }
-            }
-            updateUpdatesPreferenceSummary()
-        }
-    }
+        val onlyDownloadCharging by viewModel.prefOnlyDownloadCharging.asFlow()
+            .collectAsStateWithLifecycle(initialValue = false)
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(
-            LAST_CHECK_FOR_UPDATES_DATE_TAG,
-            lastCheckedForUpdatesInstant
-        )
-        outState.putSerializable(LAST_UPDATED_DATE_TAG, lastUpdatedInstant)
-        super.onSaveInstanceState(outState)
-    }
+        val lastChecked by viewModel.lastChecked.asFlow()
+            .collectAsStateWithLifecycle(initialValue = null)
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.pref_updates, rootKey)
+        val lastUpdated by viewModel.lastUpdated.asFlow()
+            .collectAsStateWithLifecycle(initialValue = null)
 
-        updateInfoPreferences = requireContext().getSharedPreferences(
-            UpdateInfoPrefConstants.FILE_UPDATE_INFO,
-            Context.MODE_PRIVATE
-        ).apply {
-            registerOnSharedPreferenceChangeListener(this@UpdateSettingsFragment)
-        }
-
-        savedInstanceState?.run {
-            lastCheckedForUpdatesInstant = getSerializableCompat(
-                LAST_CHECK_FOR_UPDATES_DATE_TAG
-            )
-            lastUpdatedInstant = getSerializableCompat(
-                LAST_UPDATED_DATE_TAG
-            )
-        } ?: run {
-            setLastCheckedForUpdates(
-                updateInfoPreferences
-                    .getLong(
-                        UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
-                        DEFAULT_INSTANT
-                    )
-            )
-            setLastUpdated(
-                updateInfoPreferences
-                    .getLong(
-                        UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
-                        DEFAULT_INSTANT
-                    )
+        StudyBuddyTheme {
+            UpdateSettingsScreen(
+                modifier = Modifier
+                    .nestedScroll(nestedScrollInterop)
+                    .windowInsetsPadding(WindowInsets.navigationBars),
+                onUpdatesClick = navController::navigateToUpdates,
+                lastChecked = lastChecked,
+                lastUpdated = lastUpdated,
+                checkFrequency = checkFrequency,
+                onCheckFrequencyChange = viewModel.prefCheckFrequency::set,
+                canDownloadMetered = canDownloadMetered,
+                onCanDownloadMeteredChange = viewModel.prefCanDownloadMetered::set,
+                onlyDownloadCharging = onlyDownloadCharging,
+                onOnlyDownloadCharging = viewModel.prefOnlyDownloadCharging::set,
             )
         }
-
-        findPreference<Preference>(Constants.prefUpdates)?.intent =
-            Intent(context, UpdatesActivity::class.java)
-
-        updateUpdatesPreferenceSummary()
     }
-
-    override fun onPause() {
-        super.onPause()
-        updateInfoPreferences.unregisterOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateInfoPreferences.registerOnSharedPreferenceChangeListener(this)
-    }
-
-    private fun updateUpdatesPreferenceSummary() {
-        findPreference<Preference>(Constants.prefUpdates)?.apply {
-            val lastCheckedForUpdates =
-                lastCheckedForUpdatesInstant?.let { getRelativeDateTimeString(it) }
-                    ?: getString(R.string.pref_updates_summary_never)
-            val lastUpdated = lastUpdatedInstant?.let { getRelativeDateTimeString(it) }
-                ?: getString(R.string.pref_updates_summary_never)
-            summary = getString(R.string.pref_updates_summary, lastCheckedForUpdates, lastUpdated)
-        }
-    }
-
-    private fun getRelativeDateTimeString(instant: Instant): CharSequence =
-        DateUtils.getRelativeDateTimeString(
-            context,
-            instant.toEpochMilli(),
-            DateUtils.MINUTE_IN_MILLIS,
-            DateUtils.WEEK_IN_MILLIS,
-            0
-        )
-
-    companion object {
-        // Indicates when the app was last updated
-        private const val LAST_UPDATED_DATE_TAG = "lastUpdatedDate"
-
-        // Indicates when the app last checked for updates
-        private const val LAST_CHECK_FOR_UPDATES_DATE_TAG = "lastCheckForUpdatesDate"
-
-        private const val DEFAULT_INSTANT = -1L
-    }
-
 }

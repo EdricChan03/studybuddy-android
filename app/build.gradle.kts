@@ -222,6 +222,7 @@ dependencies {
     // Other dependencies
     implementation(libs.materialAbout)
     implementation(libs.appUpdater)
+    implementation(libs.flowPreferences)
     implementation(libs.migration)
 
     // Dagger dependencies

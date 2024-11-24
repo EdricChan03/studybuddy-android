@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Summary text for the download over metered setting. -->
+    <string name="pref_updates_download_over_metered_summary">Switching this on will allow
+        downloads on cellular as well
+        as other metered networks. For more info, check your network settings
+    </string>
+    <!-- Title text for the download over metered setting. -->
+    <string name="pref_updates_download_over_metered_title">Download over metered networks</string>
+    <!-- Summary text for the download over charging setting. -->
+    <string name="pref_updates_download_only_when_charging_summary">When switched on, updates will
+        only be downloaded when your device is charging.
+    </string>
+    <!-- Title text for the download over charging setting. -->
+    <string name="pref_updates_download_only_when_charging_title">Download only when
+        charging</string>
+    <!-- Title for the update options category. -->
+    <string name="pref_updates_options_title">Update options</string>
+    <!-- Title for the updates setting. -->
+    <string name="pref_updates_title">Updates</string>
+    <!-- Summary text for the updates setting.
+        This string uses the last checked and updated dates. -->
+    <string name="pref_updates_summary">Last checked: %1$s\nLast updated: %2$s</string>
+    <!-- Default summary text for the updates setting. -->
+    <string name="pref_updates_summary_never">Never</string>
+
+    <!-- Title for the check for updates frequency setting. -->
+    <string name="pref_check_for_update_frequency_title">Checking frequency</string>
+
+    <!-- Display text for the manual frequency option. -->
+    <string name="pref_check_for_update_freq_manual">Manual</string>
+    <!-- Display text for the 3 hour frequency option. -->
+    <string name="pref_check_for_update_freq_three_hour">Every 3 hours</string>
+    <!-- Display text for the 6 hour frequency option. -->
+    <string name="pref_check_for_update_freq_six_hour">Every 6 hours</string>
+    <!-- Display text for the 12 hour frequency option. -->
+    <string name="pref_check_for_update_freq_twelve_hour">Every 12 hours</string>
+    <!-- Display text for the daily frequency option. -->
+    <string name="pref_check_for_update_freq_daily">Daily</string>
+    <!-- Display text for the weekly frequency option. -->
+    <string name="pref_check_for_update_freq_weekly">Weekly</string>
+</resources>

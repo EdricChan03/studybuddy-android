@@ -1,5 +1,5 @@
 plugins {
-    com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`android-compose`
 }
 
 android {
@@ -18,17 +18,33 @@ android {
             )
         }
     }
+
+    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
+    implementation(projects.core.resources.temporal)
+    implementation(projects.core.settings.updates)
+
     api(projects.ui.preference)
 
     implementation(projects.exts.common)
+    implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
+    implementation(projects.ui.preference.compose)
 
     api(libs.androidx.preference.ktx)
+
+    // Compose
+    implementation(libs.bundles.androidx.compose)
+    debugImplementation(libs.bundles.androidx.compose.tooling)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+
+    // Compose rule support
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
+    coreLibraryDesugaring(libs.android.desugar)
 }
