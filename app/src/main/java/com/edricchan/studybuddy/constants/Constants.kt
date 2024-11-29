@@ -27,10 +27,6 @@ object Constants {
         )
     )
     const val prefDarkTheme = "pref_dark_theme"
-    const val prefDarkThemeAutoBatterySaver = "automatic_battery_saver"
-    const val prefDarkThemeAlways = "always"
-    const val prefDarkThemeFollowSystem = "follow_system"
-    const val prefDarkThemeNever = "never"
 
     const val prefLanguage = "pref_language"
 
