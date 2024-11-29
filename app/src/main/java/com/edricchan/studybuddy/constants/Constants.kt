@@ -20,10 +20,10 @@ object Constants {
     const val prefCategoryTheme = "pref_category_theme"
 
     @Deprecated(
-        "Use the top-level prefDarkTheme property",
+        "Use the top-level keyPrefDarkTheme property",
         ReplaceWith(
-            "prefDarkTheme",
-            "com.edricchan.studybuddy.core.settings.appearance.prefDarkTheme"
+            "keyPrefDarkTheme",
+            "com.edricchan.studybuddy.core.settings.appearance.keyPrefDarkTheme"
         )
     )
     const val prefDarkTheme = "pref_dark_theme"
@@ -44,8 +44,8 @@ object Constants {
     @Deprecated(
         "Use the top-level prefUseCustomTabs property",
         ReplaceWith(
-            "prefUseCustomTabs",
-            "com.edricchan.studybuddy.core.settings.appearance.prefUseCustomTabs"
+            "keyPrefUseCustomTabs",
+            "com.edricchan.studybuddy.core.settings.appearance.keyPrefUseCustomTabs"
         )
     )
     const val prefUseCustomTabs = "pref_use_custom_tabs"
