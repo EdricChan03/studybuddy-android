@@ -32,13 +32,6 @@ object Constants {
     const val prefDarkThemeFollowSystem = "follow_system"
     const val prefDarkThemeNever = "never"
 
-    @Deprecated(
-        "Use Constants.prefDarkTheme", ReplaceWith(
-            "Constants.prefDarkTheme",
-            "com.edricchan.studybuddy.constants.Constants"
-        )
-    )
-    const val prefAppTheme = prefDarkTheme
     const val prefLanguage = "pref_language"
 
     @Deprecated(
