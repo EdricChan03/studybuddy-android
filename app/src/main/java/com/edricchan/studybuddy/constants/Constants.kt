@@ -38,7 +38,6 @@ object Constants {
         )
     )
     const val prefUseCustomTabs = "pref_use_custom_tabs"
-    const val prefCustomTabsUseAppColorScheme = "pref_custom_tabs_use_app_color_scheme"
 
     @Deprecated(
         "Use the top-level keyPrefEnableUserTracking property",
