@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.settings.compat.ui.categories
+package com.edricchan.studybuddy.features.settings.general.ui.compat
 
 import android.os.Bundle
 import android.util.Log
