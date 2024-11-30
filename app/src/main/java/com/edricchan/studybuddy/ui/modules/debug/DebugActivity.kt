@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.debug
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -9,6 +8,8 @@ import androidx.navigation.activity
 import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.fragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.databinding.ActivityFragNavHostBinding
@@ -57,17 +58,14 @@ class DebugActivity : BaseActivity() {
                     activityClass = DebugModalBottomSheetActivity::class
                 }
             }
-        }
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                true
-            }
+            val appBarConfiguration = AppBarConfiguration(
+                topLevelDestinationIds = setOf(),
+                fallbackOnNavigateUpListener = { onBackPressedDispatcher.onBackPressed(); true }
+            )
 
-            else -> super.onOptionsItemSelected(item)
+            binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         }
+
     }
 }
