@@ -18,9 +18,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeTimeSpan
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
+import com.edricchan.studybuddy.features.settings.updates.vm.UpdateSettingsViewModel
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
@@ -109,6 +111,41 @@ fun UpdateSettingsScreen(
             onCheckedChange = onOnlyDownloadCharging
         )
     }
+}
+
+@Composable
+fun UpdateSettingsScreen(
+    modifier: Modifier = Modifier,
+    viewModel: UpdateSettingsViewModel,
+    onUpdatesClick: () -> Unit
+) {
+    val checkFrequency by viewModel.prefCheckFrequency.asFlow()
+        .collectAsStateWithLifecycle(initialValue = CheckFrequencyCompat.SixHours)
+
+    val canDownloadMetered by viewModel.prefCanDownloadMetered.asFlow()
+        .collectAsStateWithLifecycle(initialValue = false)
+
+    val onlyDownloadCharging by viewModel.prefOnlyDownloadCharging.asFlow()
+        .collectAsStateWithLifecycle(initialValue = false)
+
+    val lastChecked by viewModel.lastChecked.asFlow()
+        .collectAsStateWithLifecycle(initialValue = null)
+
+    val lastUpdated by viewModel.lastUpdated.asFlow()
+        .collectAsStateWithLifecycle(initialValue = null)
+
+    UpdateSettingsScreen(
+        modifier = modifier,
+        onUpdatesClick = onUpdatesClick,
+        lastChecked = lastChecked,
+        lastUpdated = lastUpdated,
+        checkFrequency = checkFrequency,
+        onCheckFrequencyChange = viewModel.prefCheckFrequency::set,
+        canDownloadMetered = canDownloadMetered,
+        onCanDownloadMeteredChange = viewModel.prefCanDownloadMetered::set,
+        onlyDownloadCharging = onlyDownloadCharging,
+        onOnlyDownloadCharging = viewModel.prefOnlyDownloadCharging::set
+    )
 }
 
 @Preview
