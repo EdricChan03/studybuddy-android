@@ -74,22 +74,6 @@
         <location column="21" file="src/main/res/layout/activity_new_task.xml" line="65" />
     </issue>
 
-    <issue
-        errorLine1="                android:drawableStart=&quot;@drawable/ic_calendar_check_outline_24dp&quot;"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UseCompatTextViewDrawableXml"
-        message="Use `app:drawableStartCompat` instead of `android:drawableStart`">
-        <location column="17" file="src/main/res/layout/activity_view_task.xml" line="44" />
-    </issue>
-
-    <issue
-        errorLine1="                android:drawableStart=&quot;@drawable/ic_format_list_checks_24dp&quot;"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UseCompatTextViewDrawableXml"
-        message="Use `app:drawableStartCompat` instead of `android:drawableStart`">
-        <location column="17" file="src/main/res/layout/activity_view_task.xml" line="54" />
-    </issue>
-
     <issue id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location file="org/jsoup/helper/HttpConnection$Response$2.class" />
@@ -1164,13 +1148,6 @@
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         id="ContentDescription" message="Missing `contentDescription` attribute on image">
         <location column="10" file="src/main/res/layout/activity_main.xml" line="38" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
-        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="ContentDescription" message="Missing `contentDescription` attribute on image">
-        <location column="6" file="src/main/res/layout/activity_view_task.xml" line="130" />
     </issue>
 
     <issue errorLine1="    &lt;ImageView" errorLine2="     ~~~~~~~~~" id="ContentDescription"
