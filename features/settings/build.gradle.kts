@@ -29,6 +29,7 @@ dependencies {
 
     api(projects.ui.preference)
 
+    implementation(projects.exts.androidx.preference)
     implementation(projects.exts.common)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
