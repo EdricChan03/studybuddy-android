@@ -16,8 +16,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.compat.navigation.navigateToUpdates
 import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
 import com.edricchan.studybuddy.features.settings.updates.ui.UpdateSettingsScreen
+import com.edricchan.studybuddy.features.settings.updates.vm.UpdateSettingsViewModel
 import com.edricchan.studybuddy.ui.common.fragment.BaseFragment
-import com.edricchan.studybuddy.ui.modules.settings.fragment.vm.UpdateSettingsViewModel
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import dagger.hilt.android.AndroidEntryPoint
 

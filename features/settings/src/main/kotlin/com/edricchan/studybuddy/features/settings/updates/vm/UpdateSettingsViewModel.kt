@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.settings.fragment.vm
+package com.edricchan.studybuddy.features.settings.updates.vm
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -40,7 +40,8 @@ class UpdateSettingsViewModel @Inject constructor(
             defaultValue = CheckFrequencyCompat.SixHours.hourValue.toString()
         ).map(
             mapper = {
-                CheckFrequencyCompat.fromHoursOrNull(it.toInt()) ?: CheckFrequencyCompat.SixHours
+                CheckFrequencyCompat.Companion.fromHoursOrNull(it.toInt())
+                    ?: CheckFrequencyCompat.SixHours
             },
             reverse = { it.hourValue.toString() }
         )
