@@ -1143,11 +1143,6 @@
 
     <issue errorLine1="    &lt;ImageView" errorLine2="     ~~~~~~~~~" id="ContentDescription"
         message="Missing `contentDescription` attribute on image">
-        <location column="6" file="src/main/res/layout/item_list_icon.xml" line="12" />
-    </issue>
-
-    <issue errorLine1="    &lt;ImageView" errorLine2="     ~~~~~~~~~" id="ContentDescription"
-        message="Missing `contentDescription` attribute on image">
         <location column="6"
             file="src/main/res/layout/modalbottomsheetadapter_item_row_with_icon.xml" line="10" />
     </issue>
@@ -1162,12 +1157,6 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
         message="Hardcoded string &quot;Document icon&quot;, should use `@string` resource">
         <location column="9" file="src/main/res/layout/helparticleadapter_item_row.xml" line="17" />
-    </issue>
-
-    <issue errorLine1="        android:contentDescription=&quot;Icon info&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
-        message="Hardcoded string &quot;Icon info&quot;, should use `@string` resource">
-        <location column="9" file="src/main/res/layout/item_list_icon.xml" line="55" />
     </issue>
 
     <issue errorLine1="        android:contentDescription=&quot;App icon&quot;"
