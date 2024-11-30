@@ -74,30 +74,6 @@
         <location column="21" file="src/main/res/layout/activity_new_task.xml" line="65" />
     </issue>
 
-    <issue errorLine1="                        context.getDrawable("
-        errorLine2="                        ^" id="UseCompatLoadingForDrawables"
-        message="Use `ContextCompat.getDrawable()`">
-        <location column="25"
-            file="src/main/java/com/edricchan/studybuddy/ui/widget/bottomsheet/ModalBottomSheetAdapter.kt"
-            line="167" />
-    </issue>
-
-    <issue errorLine1="                        context.getDrawable("
-        errorLine2="                        ^" id="UseCompatLoadingForDrawables"
-        message="Use `ContextCompat.getDrawable()`">
-        <location column="25"
-            file="src/main/java/com/edricchan/studybuddy/ui/widget/bottomsheet/ModalBottomSheetAdapter.kt"
-            line="187" />
-    </issue>
-
-    <issue errorLine1="                        context.getDrawable("
-        errorLine2="                        ^" id="UseCompatLoadingForDrawables"
-        message="Use `ContextCompat.getDrawable()`">
-        <location column="25"
-            file="src/main/java/com/edricchan/studybuddy/ui/widget/bottomsheet/ModalBottomSheetAdapter.kt"
-            line="227" />
-    </issue>
-
     <issue
         errorLine1="                android:drawableStart=&quot;@drawable/ic_calendar_check_outline_24dp&quot;"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
