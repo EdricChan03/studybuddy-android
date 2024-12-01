@@ -66,7 +66,7 @@ enum class DarkThemeOption(val prefValue: DarkThemeValue, val mode: NightMode) {
         NightMode.Yes
     ),
     V2AutoBatterySaver(
-        DarkThemeValue.V2AutoBattery,
+        DarkThemeValue.V1AutoBattery,
         NightMode.AutoBattery
     ),
     V2FollowSystem(
@@ -87,7 +87,7 @@ enum class DarkThemeOption(val prefValue: DarkThemeValue, val mode: NightMode) {
             DarkThemePrefValues.V1_AUTO_TIME -> V1AutoTime
             DarkThemePrefValues.V1_NEVER -> V1Never
             DarkThemePrefValues.V2_ALWAYS -> V2Always
-            DarkThemePrefValues.V2_AUTO_BATTERY -> V2AutoBatterySaver
+            DarkThemePrefValues.V1_AUTO_BATTERY -> V2AutoBatterySaver
             DarkThemePrefValues.V2_FOLLOW_SYSTEM -> V2FollowSystem
             DarkThemePrefValues.V2_NEVER -> V2Never
             else -> Default
