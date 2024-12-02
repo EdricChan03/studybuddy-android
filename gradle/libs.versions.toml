@@ -13,7 +13,7 @@ coil = "2.7.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
 compose-richtext = "0.20.0"
-dagger = "2.52"
+dagger = "2.53"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "32.8.1"
 gradle-versions = "0.51.0"
