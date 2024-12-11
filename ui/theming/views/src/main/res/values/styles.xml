@@ -28,6 +28,7 @@
         <item name="switchPreferenceCompatStyle">
             @style/Preference.SwitchPreferenceCompat.Material.App
         </item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
     <!-- Theme to be used for applying custom insets. -->
     <style name="Theme.App.NoActionBar.Insets" parent="Theme.App.NoActionBar">
@@ -63,6 +64,12 @@
         </item>
         <item name="switchPreferenceCompatStyle">
             @style/Preference.SwitchPreferenceCompat.Material.App
+        </item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent
         </item>
     </style>
 
