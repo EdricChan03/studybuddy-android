@@ -73,6 +73,27 @@ class BottomSheetOptionGroupBuilder {
         }
     }
 
+    /**
+     * Adds the list of [items] to this option group.
+     *
+     * [itemInit] is used to determine how to add an item, see [item].
+     * @param items The list of items to be added.
+     * @param itemId Lambda used to map an item [T] to its ID form. Defaults to
+     * the index if not specified.
+     * @param itemInit Lambda used to create an item from [T].
+     * @see item
+     */
+    @Composable
+    fun <T> items(
+        items: List<T>,
+        itemId: (IndexedValue<T>) -> Int = IndexedValue<T>::index,
+        itemInit: @Composable BottomSheetOptionGroupItemBuilder.(T) -> Unit
+    ): List<BottomSheetOption> = items.withIndex().map {
+        item(id = itemId(it)) {
+            itemInit(it.value)
+        }
+    }
+
     // Group properties
     var title: String? = null
     var visible = true
