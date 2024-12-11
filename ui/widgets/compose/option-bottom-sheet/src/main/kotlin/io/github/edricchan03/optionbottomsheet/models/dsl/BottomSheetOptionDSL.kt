@@ -57,6 +57,11 @@ class BottomSheetOptionGroupItemBuilder(val id: Int) {
 class BottomSheetOptionGroupBuilder {
     private val itemSelectionMap = mutableMapOf<BottomSheetOption, Boolean>()
 
+    /**
+     * Adds an item to this option group.
+     * @param id The ID to use. This value should be unique.
+     * @param init Configuration options for the option group item.
+     */
     @Composable
     fun item(
         id: Int,
