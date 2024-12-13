@@ -1,11 +1,9 @@
 package com.edricchan.studybuddy.utils
 
-import android.content.Context
 import android.provider.Settings
 import androidx.core.net.toUri
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.exts.android.buildIntent
-import com.edricchan.studybuddy.ui.common.licenses.OssLicensesCompatActivity
 
 /** Creates an [android.content.Intent] that opens the given [packageName]'s app details. */
 fun appDetailsIntent(packageName: String = BuildConfig.APPLICATION_ID) = buildIntent {
@@ -18,12 +16,3 @@ fun appDetailsIntent(packageName: String = BuildConfig.APPLICATION_ID) = buildIn
  * @receiver The package name to use.
  */
 val String.appDetailsIntent get() = appDetailsIntent(this)
-
-/**
- * Creates an [android.content.Intent] that opens the
- * [licenses activity][OssLicensesCompatActivity].
- */
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Use the LibrariesContainer composable if possible")
-val Context.licenseIntent
-    get() = buildIntent<OssLicensesCompatActivity>(this)
