@@ -5,10 +5,13 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.edit
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.danielstone.materialaboutlibrary.ConvenienceBuilder
 import com.danielstone.materialaboutlibrary.MaterialAboutFragment
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
@@ -17,12 +20,11 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.compat.navigation.about.navigateToLicenses
 import com.edricchan.studybuddy.exts.android.showToast
-import com.edricchan.studybuddy.exts.androidx.fragment.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
-import com.edricchan.studybuddy.ui.common.licenses.OssLicensesCompatActivity
 import com.edricchan.studybuddy.utils.appDetailsIntent
 import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
 import com.edricchan.studybuddy.utils.web.launchUri
@@ -52,6 +54,8 @@ class AboutFragment : MaterialAboutFragment() {
 
     // Max number of clicks to unlock
     private val tapsToDev: Int = 7
+
+    private lateinit var navController: NavController
 
     override fun getMaterialAboutList(context: Context?): MaterialAboutList {
         initFragment()
@@ -152,9 +156,7 @@ class AboutFragment : MaterialAboutFragment() {
                 addItem {
                     text(R.string.about_frag_app_info_card_open_source_licenses_title)
                     icon(R.drawable.ic_file_document_box_outline_24dp)
-                    setOnClickAction {
-                        startActivity<OssLicensesCompatActivity>()
-                    }
+                    setOnClickAction(navController::navigateToLicenses)
                 }
             }
 
@@ -177,6 +179,12 @@ class AboutFragment : MaterialAboutFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initFragment()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
     }
 
     private fun createWebsiteActionItem(
