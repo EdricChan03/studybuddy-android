@@ -8,11 +8,4 @@
         app:key="pref_todo_default_sort"
         app:title="@string/pref_todo_default_sort_title"
         app:useSimpleSummaryProvider="true" />
-    <!-- Note: This preference will have its fragment defined programmatically -->
-    <SwitchPreferenceCompat
-        app:defaultValue="true"
-        app:key="pref_weekly_summary_enabled"
-        app:summaryOff="@string/pref_weekly_summary_enabled_summary_off"
-        app:summaryOn="@string/pref_weekly_summary_enabled_summary_on"
-        app:title="@string/pref_weekly_summary_switch_enabled_title" />
 </androidx.preference.PreferenceScreen>

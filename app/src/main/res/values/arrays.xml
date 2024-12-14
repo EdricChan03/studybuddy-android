@@ -69,43 +69,4 @@
         <item>due_date_new_to_old</item>
         <item>due_date_old_to_new</item>
     </string-array>
-
-    <string-array name="pref_weekly_summary_days_array">
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-        <item>Sunday</item>
-    </string-array>
-
-    <string-array name="pref_weekly_summary_days_array_values" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-    </string-array>
-
-    <string-array name="pref_weekly_summary_options_array">
-        <item>Completed todos</item>
-        <item>Overdue todos</item>
-        <item>Todos to complete</item>
-        <item>Total todos</item>
-        <item>Percentage completed</item>
-        <item>Percentage uncompleted</item>
-        <item>Efficiency</item>
-    </string-array>
-    <string-array name="pref_weekly_summary_options_array_values" translatable="false">
-        <item>completed_todos</item>
-        <item>overdue_todos</item>
-        <item>todos_to_complete</item>
-        <item>total_todos</item>
-        <item>completed_percentage</item>
-        <item>uncompleted_percentage</item>
-        <item>efficiency</item>
-    </string-array>
 </resources>
