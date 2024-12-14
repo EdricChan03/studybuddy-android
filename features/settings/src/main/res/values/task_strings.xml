@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TODO: Add a better UI for the default sort -->
+    <eat-comment />
+
+    <!-- Title for the default sort mode setting. -->
+    <string name="pref_task_default_sort_title">Default sorting mode</string>
+
+    <string name="pref_task_default_sort_entry_none">None (Default)</string>
+    <string name="pref_task_default_sort_entry_title_asc">Title (A to Z)</string>
+    <string name="pref_task_default_sort_entry_title_desc">Title (Z to A)</string>
+    <string name="pref_task_default_sort_entry_due_date_new_to_old">Due Date (Newest to Oldest)</string>
+    <string name="pref_task_default_sort_entry_due_date_old_to_new">Due Date (Oldest to Newest)</string>
+</resources>
