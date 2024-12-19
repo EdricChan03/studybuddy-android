@@ -119,6 +119,8 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 
 # Coil
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+coil-zoomable = "me.saket.telephoto:zoomable-image-coil:0.14.0"
 
 # Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }

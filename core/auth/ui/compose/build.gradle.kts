@@ -23,6 +23,7 @@ android {
 dependencies {
     api(projects.core.auth.model)
     api(projects.core.auth.ui.common)
+    implementation(projects.exts.coil)
     implementation(projects.ui.theming.compose)
 
     // Firebase dependencies
@@ -35,6 +36,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
 
     debugImplementation(libs.bundles.androidx.compose.tooling)
+
+    api(libs.coil.compose)
+    implementation(libs.coil.zoomable)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

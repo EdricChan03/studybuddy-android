@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Account info strings -->
+    <eat-comment />
+
+    <!-- Content description for the user's profile picture. -->
+    <string name="account_profile_content_desc">Profile photo for %1$s</string>
+
     <!-- Auth required dialog strings -->
     <eat-comment />
 
