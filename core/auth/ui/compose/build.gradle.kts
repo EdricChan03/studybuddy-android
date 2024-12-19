@@ -21,6 +21,7 @@ android {
 }
 
 dependencies {
+    api(projects.core.auth.model)
     implementation(projects.ui.theming.compose)
 
     // Firebase dependencies

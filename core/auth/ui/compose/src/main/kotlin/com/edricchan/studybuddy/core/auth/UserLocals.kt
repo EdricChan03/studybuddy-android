@@ -8,16 +8,18 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.compositionLocalWithComputedDefaultOf
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.edricchan.studybuddy.core.auth.model.User
+import com.edricchan.studybuddy.core.auth.model.firebase.toUser
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.flow.Flow
 
-/** [CompositionLocal] of the currently signed-in [FirebaseUser], or `null`. */
-val LocalCurrentUser: ProvidableCompositionLocal<FirebaseUser?> =
-    compositionLocalOf { Firebase.auth.currentUser }
+/** [CompositionLocal] of the currently signed-in [User], or `null`. */
+val LocalCurrentUser: ProvidableCompositionLocal<User?> =
+    compositionLocalOf { null }
 
-/** [CompositionLocal] of whether there's a currently signed-in [FirebaseUser]. */
+/** [CompositionLocal] of whether there's a currently signed-in [User]. */
 val LocalIsSignedIn: ProvidableCompositionLocal<Boolean> =
     compositionLocalWithComputedDefaultOf { LocalCurrentUser.currentValue != null }
 
@@ -36,7 +38,7 @@ fun ProvideCurrentUser(
     val user by userFlow.collectAsStateWithLifecycle(initialValue = initialUser)
 
     CompositionLocalProvider(
-        LocalCurrentUser provides user,
+        LocalCurrentUser provides user?.toUser(),
         LocalIsSignedIn provides (user != null),
         content = content
     )
