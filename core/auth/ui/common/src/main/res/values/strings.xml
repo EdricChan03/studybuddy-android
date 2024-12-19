@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Auth required dialog strings -->
+    <eat-comment />
+
+    <!-- Title for the auth required dialog. -->
+    <string name="dialog_requires_auth_title">Sign in to continue</string>
+
+    <!-- Message for the auth required dialog. -->
+    <string name="dialog_requires_auth_msg">Please log in to your account to continue.</string>
+
+    <!-- Account action strings -->
+    <eat-comment />
+
+    <!-- Title for an action that signs in the user. -->
+    <string name="account_action_sign_in">Login</string>
+
+    <!-- Title for an action that registers the user. -->
+    <string name="account_action_register">Register</string>
+
+</resources>

@@ -113,6 +113,7 @@ include(
     ":ui:widgets:compose:option-bottom-sheet",
     ":ui:widgets:modal-bottom-sheet",
     ":core:auth:model",
+    ":core:auth:ui:common",
     ":core:auth:ui:compose",
     ":core:auth:gms",
     ":core:compat:navigation",
