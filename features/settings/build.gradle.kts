@@ -25,6 +25,8 @@ android {
 
 dependencies {
     implementation(projects.core.resources.temporal)
+    implementation(projects.core.settings.appearance)
+    implementation(projects.core.settings.tasks)
     implementation(projects.core.settings.updates)
 
     api(projects.ui.preference)
