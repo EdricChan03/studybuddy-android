@@ -24,6 +24,7 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugFragment
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
 import com.edricchan.studybuddy.utils.dev.isDevMode
+import com.edricchan.studybuddy.features.settings.R as SettingsR
 
 class SettingsFragment : PreferenceHeaderFragmentCompat() {
     override fun onCreatePreferenceHeader() = SettingsHeader()
@@ -115,7 +116,7 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
                 findPreference<Preference>(Constants.prefHeaderAccount)?.setSummary(R.string.pref_header_account_summary)
                 findPreference<Preference>(Constants.prefHeaderDebug)?.setSummary(R.string.pref_header_debug_summary)
                 findPreference<Preference>(Constants.prefHeaderGeneral)?.setSummary(R.string.pref_header_general_summary)
-                findPreference<Preference>(Constants.prefHeaderTodo)?.setSummary(R.string.pref_header_todo_summary)
+                findPreference<Preference>(Constants.prefHeaderTodo)?.setSummary(SettingsR.string.pref_header_task_summary)
             } else {
                 findPreference<Preference>(Constants.prefHeaderAbout)?.summary = null
                 findPreference<Preference>(Constants.prefHeaderUpdates)?.summary = null

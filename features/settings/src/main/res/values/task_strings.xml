@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Task strings -->
+    <eat-comment />
+
+    <!-- Title for the task settings header. -->
+    <string name="pref_header_task_title">Tasks</string>
+    <!-- Summary for the task settings header. -->
+    <string name="pref_header_task_summary">Default sorting mode, weekly summary
+        preferences</string>
+
     <!-- TODO: Add a better UI for the default sort -->
     <eat-comment />
 
