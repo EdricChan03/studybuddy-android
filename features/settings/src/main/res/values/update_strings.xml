@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Header title for the updates category. -->
+    <string name="pref_header_updates_title">Updates</string>
+    <!-- Header summary for the updates category. -->
+    <string name="pref_header_updates_summary">Updates, update options</string>
+
     <!-- Summary text for the download over metered setting. -->
     <string name="pref_updates_download_over_metered_summary">Switching this on will allow
         downloads on cellular as well

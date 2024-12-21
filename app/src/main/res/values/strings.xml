@@ -422,8 +422,6 @@
         tracking, dark theme
     </string>
     <string name="pref_header_general_title">General</string>
-    <string name="pref_header_updates_title">Updates</string>
-    <string name="pref_header_updates_summary">Updates, update options</string>
     <string name="pref_header_about_summary">About
         app, about app author, licenses, view source code
     </string>

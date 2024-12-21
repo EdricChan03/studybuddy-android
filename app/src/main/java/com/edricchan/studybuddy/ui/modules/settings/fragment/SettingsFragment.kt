@@ -112,7 +112,7 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
         private fun updateHeaderSummaries(showHeaderSummaries: Boolean) {
             if (showHeaderSummaries) {
                 findPreference<Preference>(Constants.prefHeaderAbout)?.setSummary(R.string.pref_header_about_summary)
-                findPreference<Preference>(Constants.prefHeaderUpdates)?.setSummary(R.string.pref_header_updates_summary)
+                findPreference<Preference>(Constants.prefHeaderUpdates)?.setSummary(SettingsR.string.pref_header_updates_summary)
                 findPreference<Preference>(Constants.prefHeaderAccount)?.setSummary(R.string.pref_header_account_summary)
                 findPreference<Preference>(Constants.prefHeaderDebug)?.setSummary(R.string.pref_header_debug_summary)
                 findPreference<Preference>(Constants.prefHeaderGeneral)?.setSummary(R.string.pref_header_general_summary)
