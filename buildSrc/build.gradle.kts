@@ -30,7 +30,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        val dependencyUpdatePlugin by creating {
+        val dependencyUpdatePlugin by registering {
             id = "com.edricchan.studybuddy.dependency-updates"
             implementationClass = "com.edricchan.studybuddy.gradle.versions.DependencyUpdatesPlugin"
             displayName = "Dependency Updates plugin"
