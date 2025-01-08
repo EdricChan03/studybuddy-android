@@ -7,7 +7,7 @@ on:
       - main
       - develop
       - releases/*
-
+      - repro/*
 permissions:
   # For writing to the GitHub Dependency Graph API
   contents: write
