@@ -236,6 +236,6 @@ dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.4.2"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.6.1"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.2.1"
