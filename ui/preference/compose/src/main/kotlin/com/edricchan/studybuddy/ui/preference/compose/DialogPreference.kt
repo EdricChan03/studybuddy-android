@@ -59,7 +59,6 @@ fun <T> ListDialogPreference(
         ListDialog(
             modifier = dialogModifier,
             title = title,
-            // TODO: Remove workaround for https://youtrack.jetbrains.com/issue/KT-64994
             icon = dialogIcon,
             onDismissRequest = { dialogVisible = false },
             itemContent = valueLabel,
