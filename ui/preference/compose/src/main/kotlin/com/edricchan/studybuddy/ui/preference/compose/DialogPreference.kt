@@ -15,12 +15,14 @@ import com.edricchan.studybuddy.ui.widgets.compose.ListDialog
  * @param modifier A [Modifier] to apply to the setting item.
  * @param dialogModifier A [Modifier] to apply to the dialog.
  * @param title [Composable] to be displayed in the middle. This should contain the
- * title of the preference. It will be applied to the [Preference] and [InputDialog].
+ * title of the preference, which will be applied to the [Preference].
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
- * @param dialogIcon [Composable] to be used for the [InputDialog]'s `icon`. Defaults to
+ * @param dialogIcon [Composable] to be used for the [ListDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
+ * @param dialogTitle [Composable] to be used for the [ListDialog]'s `title`. Defaults to
+ * the preference's [title] if not explicitly set.
  * @param enabled Whether this preference is clickable.
  * @param values The list of values the user can choose from.
  * @param value The current value.
@@ -39,6 +41,7 @@ fun <T> ListDialogPreference(
     icon: @Composable (() -> Unit)? = null,
     iconSpaceReserved: Boolean = true,
     dialogIcon: @Composable (() -> Unit)? = null,
+    dialogTitle: @Composable () -> Unit = title,
     enabled: Boolean = true,
     values: List<T>,
     value: T,
@@ -58,7 +61,7 @@ fun <T> ListDialogPreference(
     if (dialogVisible) {
         ListDialog(
             modifier = dialogModifier,
-            title = title,
+            title = dialogTitle,
             icon = dialogIcon,
             onDismissRequest = { dialogVisible = false },
             itemContent = valueLabel,
@@ -74,12 +77,14 @@ fun <T> ListDialogPreference(
  * @param modifier The [Modifier] to be applied to the settings item.
  * @param dialogModifier The [Modifier] to be applied to the dialog.
  * @param title [Composable] to be displayed in the middle. This should contain the
- * title of the preference. It will be applied to the [Preference] and [InputDialog].
+ * title of the preference, which will be applied to the [Preference].
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
  * @param dialogIcon [Composable] to be used for the [InputDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
+ * @param dialogTitle [Composable] to be used for the [InputDialog]'s `title`. Defaults to
+ * the preference's [title] if not explicitly set.
  * @param value The input's value.
  * @param onConfirm Method that is invoked when the confirm button is pressed, with the final
  * input value.
@@ -99,6 +104,7 @@ fun InputDialogPreference(
     icon: @Composable (() -> Unit)? = null,
     iconSpaceReserved: Boolean = true,
     dialogIcon: @Composable (() -> Unit)? = icon,
+    dialogTitle: @Composable () -> Unit = title,
     value: String,
     onConfirm: (String) -> Unit = {},
     isValid: (String) -> Boolean = String::isNotBlank,
@@ -120,7 +126,7 @@ fun InputDialogPreference(
     if (dialogVisible) {
         InputDialog(
             modifier = dialogModifier,
-            title = title,
+            title = dialogTitle,
             icon = dialogIcon,
             onConfirm = onConfirm,
             onDismissRequest = { dialogVisible = false },
@@ -138,13 +144,14 @@ fun InputDialogPreference(
  * @param modifier A [Modifier] to apply to the setting item.
  * @param dialogModifier A [Modifier] to apply to the dialog.
  * @param title [Composable] to be displayed in the middle. This should contain the
- * title of the preference. It will be applied to the [Preference] and [InputDialog].
+ * title of the preference, which will be applied to the [Preference].
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
- * @param dialogIcon [Composable] to be used for the [InputDialog]'s `icon`. Defaults to
+ * @param dialogIcon [Composable] to be used for the [ListDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
- * @param enabled Whether this preference is clickable.
+ * @param dialogTitle [Composable] to be used for the [ListDialog]'s `title`. Defaults to
+ * the preference's [title] if not explicitly set.
  * @param values The list of values the user can choose from.
  * @param value The current value.
  * @param onValueChanged Called when the current value changes.
@@ -162,6 +169,7 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
     icon: @Composable (() -> Unit)? = null,
     iconSpaceReserved: Boolean = this.iconSpaceReserved,
     dialogIcon: @Composable (() -> Unit)? = null,
+    dialogTitle: @Composable () -> Unit = title,
     values: List<T>,
     value: T,
     onValueChanged: (T) -> Unit,
@@ -174,6 +182,7 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
     icon = icon,
     iconSpaceReserved = iconSpaceReserved,
     dialogIcon = dialogIcon,
+    dialogTitle = dialogTitle,
     enabled = enabled,
     values = values,
     value = value,
@@ -187,12 +196,14 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
  * @param modifier The [Modifier] to be applied to the settings item.
  * @param dialogModifier The [Modifier] to be applied to the dialog.
  * @param title [Composable] to be displayed in the middle. This should contain the
- * title of the preference. It will be applied to the [Preference] and [InputDialog].
+ * title of the preference, which will be applied to the [Preference].
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
  * @param dialogIcon [Composable] to be used for the [InputDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
+ * @param dialogTitle [Composable] to be used for the [InputDialog]'s `title`. Defaults
+ * to the preference's [title] if not explicitly set.
  * @param value The input's value.
  * @param onConfirm Method that is invoked when the confirm button is pressed, with the final
  * input value.
@@ -212,6 +223,7 @@ fun PreferenceCategoryScope.InputDialogPreference(
     icon: @Composable (() -> Unit)? = null,
     iconSpaceReserved: Boolean = this.iconSpaceReserved,
     dialogIcon: @Composable (() -> Unit)? = icon,
+    dialogTitle: @Composable () -> Unit = title,
     value: String,
     onConfirm: (String) -> Unit = {},
     isValid: (String) -> Boolean = String::isNotBlank,
@@ -224,6 +236,7 @@ fun PreferenceCategoryScope.InputDialogPreference(
     icon = icon,
     iconSpaceReserved = iconSpaceReserved,
     dialogIcon = dialogIcon,
+    dialogTitle = dialogTitle,
     value = value,
     onConfirm = onConfirm,
     isValid = isValid,
