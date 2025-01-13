@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.lifecycle.asFlow
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.ui.preference.compose.InputDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.Preference
@@ -83,7 +84,8 @@ fun UpdatesCategory(
     ) {
         InputDialogPreference(
             title = { Text(text = stringResource(R.string.debug_activity_updates_set_custom_json_url_title)) },
-            subtitle = { Text(text = customJsonUrlValue) },
+            subtitle = customJsonUrlValue.takeIf { it.isNotBlank() }
+                ?.letComposable { Text(text = it) },
             icon = { Icon(painterResource(R.drawable.ic_link_24dp), contentDescription = null) },
             value = customJsonUrlValue,
             onConfirm = onJsonUrlChange
