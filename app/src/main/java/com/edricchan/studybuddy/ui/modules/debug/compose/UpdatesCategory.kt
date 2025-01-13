@@ -75,7 +75,7 @@ fun UpdatesCategory(
         }
     }
 
-    var _customJsonUrlValue by rememberSaveable { mutableStateOf(customJsonUrl) }
+    var customJsonUrlValue by rememberSaveable { mutableStateOf(customJsonUrl) }
 
     PreferenceCategory(
         modifier = modifier,
@@ -83,14 +83,14 @@ fun UpdatesCategory(
     ) {
         InputDialogPreference(
             title = { Text(text = stringResource(R.string.debug_activity_updates_set_custom_json_url_title)) },
-            subtitle = { Text(text = _customJsonUrlValue) },
+            subtitle = { Text(text = customJsonUrlValue) },
             icon = { Icon(painterResource(R.drawable.ic_link_24dp), contentDescription = null) },
-            value = _customJsonUrlValue,
+            value = customJsonUrlValue,
             onConfirm = onJsonUrlChange
         ) {
             OutlinedTextField(
-                value = _customJsonUrlValue,
-                onValueChange = { _customJsonUrlValue = it }
+                value = customJsonUrlValue,
+                onValueChange = { customJsonUrlValue = it }
             )
         }
 
