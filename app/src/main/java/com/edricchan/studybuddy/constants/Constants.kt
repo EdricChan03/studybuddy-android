@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.constants
 
 import android.net.Uri
+import androidx.core.net.toUri
 import com.edricchan.studybuddy.BuildConfig
 
 object Constants {
@@ -117,17 +118,18 @@ object Constants {
     // URIs
     const val urlHelpFeatured =
         "https://edricchan03.github.io/res/studybuddy/help-featured-articles.json"
-    val uriHelpFeatured: Uri = Uri.parse(urlHelpFeatured)
+    val uriHelpFeatured: Uri = urlHelpFeatured.toUri()
     const val urlAuthorWebsite = "https://edricchan03.github.io"
-    val uriAuthorWebsite: Uri = Uri.parse(urlAuthorWebsite)
+    val uriAuthorWebsite: Uri = urlAuthorWebsite.toUri()
     const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy-android"
-    val uriSrcCode: Uri = Uri.parse(urlSrcCode)
+    val uriSrcCode: Uri = urlSrcCode.toUri()
     const val urlSendFeedback = "https://forms.gle/S6SY7aAgTyQUuKRw6"
-    val uriSendFeedback: Uri = Uri.parse(urlSendFeedback)
+    val uriSendFeedback: Uri = urlSendFeedback.toUri()
     const val urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92"
-    val uriSubmitTip: Uri = Uri.parse(urlSubmitTip)
+    val uriSubmitTip: Uri = urlSubmitTip.toUri()
     const val urlWiki = "https://github.com/EdricChan03/StudyBuddy-android/wiki"
-    val uriWiki: Uri = Uri.parse(urlWiki)
+    val uriWiki: Uri = urlWiki.toUri()
+
     // Other
     /**
      * The default file name to be used for SharedPreferences files
