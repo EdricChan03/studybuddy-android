@@ -176,6 +176,7 @@ dependencies {
     implementation(projects.utils.recyclerview)
     implementation(projects.utils.web)
     implementation(projects.exts.android)
+    implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.fragment)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.androidx.preferenceFiles)
