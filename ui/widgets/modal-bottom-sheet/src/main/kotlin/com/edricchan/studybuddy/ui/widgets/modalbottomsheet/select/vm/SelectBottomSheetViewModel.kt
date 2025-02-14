@@ -8,16 +8,20 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionB
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.toggleSelectedItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.withSelectedItem
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class SelectBottomSheetViewModel<Id>(
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    val items: StateFlow<OptionBottomSheetGroup<Id>> =
-        savedStateHandle.getStateFlow(
+    private val _items: MutableStateFlow<OptionBottomSheetGroup<Id>> =
+        savedStateHandle.getMutableStateFlow(
             SelectBottomSheetFragment.TAG_ITEMS_DATA,
             OptionBottomSheetGroup.SingleSelect(listOf())
         )
+    val items: StateFlow<OptionBottomSheetGroup<Id>> = _items.asStateFlow()
 
     val headerTitle: StateFlow<String?> = savedStateHandle.getStateFlow(
         SelectBottomSheetFragment.TAG_HEADER_TITLE,
@@ -32,14 +36,15 @@ class SelectBottomSheetViewModel<Id>(
     fun toggleSelectedItem(item: OptionBottomSheetItem<Id>, isSelected: Boolean) {
         Log.d("SelectSheetViewModel", "New item to be selected: $item")
         Log.d("SelectSheetViewModel", "Current items: ${items.value}")
-        savedStateHandle[SelectBottomSheetFragment.TAG_ITEMS_DATA] =
-            when (val value = items.value) {
-                is OptionBottomSheetGroup.SingleSelect -> value.withSelectedItem(item = item)
-                is OptionBottomSheetGroup.MultiSelect -> value.toggleSelectedItem(
+        _items.update { items ->
+            when (items) {
+                is OptionBottomSheetGroup.SingleSelect -> items.withSelectedItem(item = item)
+                is OptionBottomSheetGroup.MultiSelect -> items.toggleSelectedItem(
                     item = item,
                     isSelected = isSelected
                 )
             }
+        }
         Log.d("SelectSheetViewModel", "New value: ${items.value}")
     }
 }
