@@ -6,7 +6,10 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.getSystemService
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.auth.gms.contracts.GoogleAuth
 import com.edricchan.studybuddy.core.auth.gms.defaultSignInOptions
@@ -38,6 +41,8 @@ class LoginActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
 
+    override val isEdgeToEdgeEnabled = true
+
     private val googleLogin = registerForActivityResult(
         GoogleAuth()
     ) { acct ->
@@ -61,6 +66,18 @@ class LoginActivity : BaseActivity() {
         if (auth.currentUser != null) {
             finish()
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right
+            )
+
+            windowInsets
+        }
+
 
         binding.apply {
             googleSignInBtn.apply {
