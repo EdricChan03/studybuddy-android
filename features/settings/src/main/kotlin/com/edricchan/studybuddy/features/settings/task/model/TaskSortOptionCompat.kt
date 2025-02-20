@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.features.settings.task.model
 
 import androidx.annotation.StringRes
 import com.edricchan.studybuddy.features.settings.R
-import com.edricchan.studybuddy.features.settings.task.model.TaskSortOptionCompat.entries
 
 enum class TaskSortOptionCompat(
     @StringRes val stringResource: Int,
@@ -30,6 +29,7 @@ enum class TaskSortOptionCompat(
     );
 
     companion object {
-        fun fromValue(value: String): TaskSortOptionCompat = entries.first { it.value == value }
+        fun fromValue(value: String): TaskSortOptionCompat =
+            entries.find { it.value == value } ?: None
     }
 }
