@@ -37,16 +37,6 @@
             file="../../../../../.gradle/caches/transforms-2/files-2.1/7fb0b824aec216b030d463bf392e654c/jetified-firebase-installations-16.2.1/jars/lint.jar" />
     </issue>
 
-    <issue
-        errorLine1="        LayoutInflater.from(context).inflate(R.layout.edit_text_dialog, null)"
-        errorLine2="                                                                        ~~~~"
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)">
-        <location column="73"
-            file="src/main/java/com/edricchan/studybuddy/ui/widget/MaterialPromptDialogBuilder.kt"
-            line="22" />
-    </issue>
-
     <issue errorLine1="                    android:editable=&quot;false&quot; />"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~" id="Deprecated"
         message="`android:editable` is deprecated: Use an `&lt;EditText>` to make it editable">
