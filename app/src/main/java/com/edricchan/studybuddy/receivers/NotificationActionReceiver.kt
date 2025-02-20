@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -63,9 +64,11 @@ class NotificationActionReceiver : BroadcastReceiver() {
                 context.unregisterReceiver(this)
             }
         }
-        context.applicationContext.registerReceiver(
+        ContextCompat.registerReceiver(
+            context.applicationContext,
             onComplete,
-            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
 
     }
