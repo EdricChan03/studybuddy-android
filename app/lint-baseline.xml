@@ -37,12 +37,6 @@
             file="../../../../../.gradle/caches/transforms-2/files-2.1/7fb0b824aec216b030d463bf392e654c/jetified-firebase-installations-16.2.1/jars/lint.jar" />
     </issue>
 
-    <issue id="BadPeriodicWorkRequestEnqueue"
-        message="Use `enqueueUniquePeriodicWork()` instead of `enqueue()`">
-        <location
-            file="/Users/edricchan/.gradle/caches/transforms-2/files-2.1/74378bd74250f13a435918121f1c3936/work-runtime-2.4.0-alpha02/jars/classes.jar!/androidx/work/WorkManager.class" />
-    </issue>
-
     <issue
         errorLine1="        LayoutInflater.from(context).inflate(R.layout.edit_text_dialog, null)"
         errorLine2="                                                                        ~~~~"
