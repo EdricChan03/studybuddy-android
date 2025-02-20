@@ -64,7 +64,10 @@ fun ClearSettingsPreference(
     if (isConfirmShown) {
         ConfirmClearSettingsDialog(
             onDismissRequest = { isConfirmShown = false },
-            onConfirmClick = onClearSettingsRequest
+            onConfirmClick = {
+                onClearSettingsRequest()
+                isConfirmShown = false
+            }
         )
     }
 }
