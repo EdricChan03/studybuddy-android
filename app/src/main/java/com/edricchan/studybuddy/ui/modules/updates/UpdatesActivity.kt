@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -171,7 +170,7 @@ class UpdatesActivity : BaseActivity() {
                 }
             } else {
                 // Construct a request to download from a URI
-                val request = DownloadManager.Request(Uri.parse(downloadUrl)).apply {
+                val request = DownloadManager.Request(downloadUrl.toUri()).apply {
                     // Don't download over roaming
                     // TODO: Add setting for this
                     setAllowedOverRoaming(false)
