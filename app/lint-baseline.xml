@@ -37,21 +37,6 @@
             file="../../../../../.gradle/caches/transforms-2/files-2.1/7fb0b824aec216b030d463bf392e654c/jetified-firebase-installations-16.2.1/jars/lint.jar" />
     </issue>
 
-    <issue
-        errorLine1="        File(&quot;/data/data/$packageName/shared_prefs/$fileName.xml&quot;).exists()"
-        errorLine2="              ~~~~~~~~~~~" id="SdCardPath"
-        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead">
-        <location column="15" file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
-            line="17" />
-    </issue>
-
-    <issue errorLine1="        File(&quot;/data/data/$packageName/shared_prefs/$fileName.xml&quot;)"
-        errorLine2="              ~~~~~~~~~~~" id="SdCardPath"
-        message="Do not hardcode &quot;`/data/`&quot;; use `Context.getFilesDir().getPath()` instead">
-        <location column="15" file="src/main/java/com/edricchan/studybuddy/utils/SharedPrefUtils.kt"
-            line="27" />
-    </issue>
-
     <issue id="BadPeriodicWorkRequestEnqueue"
         message="Use `enqueueUniquePeriodicWork()` instead of `enqueue()`">
         <location
