@@ -11,7 +11,6 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.app.TaskStackBuilder
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import coil.imageLoader
@@ -21,6 +20,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.core.compat.navigation.UriSettings
 import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
+import com.edricchan.studybuddy.exts.android.createPendingIntent
 import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.interfaces.NotificationAction
@@ -133,15 +133,14 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                 val pIntent = when (notificationAction.type) {
                     // TODO: Don't hardcode action types
                     Constants.actionNotificationsSettingsIntent -> {
-                        TaskStackBuilder.create(this).run {
+                        createPendingIntent(
+                            0,
+                            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                        ) {
                             addNextIntentWithParentStack(buildIntent<MainActivity>(this@StudyBuddyMessagingService) {
                                 action = Intent.ACTION_VIEW
                                 data = UriSettings.toUri()
                             })
-                            getPendingIntent(
-                                0,
-                                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                            )
                         }
                     }
 
