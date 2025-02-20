@@ -21,7 +21,8 @@ class TaskSettingsViewModel @Inject constructor(
     )
 
     val prefDefaultSort: Preference<TaskSortOptionCompat> = appPreferences.getString(
-        keyPrefTaskDefaultSort
+        key = keyPrefTaskDefaultSort,
+        defaultValue = TaskSortOptionCompat.None.value
     ).map(
         mapper = TaskSortOptionCompat::fromValue,
         reverse = TaskSortOptionCompat::value
