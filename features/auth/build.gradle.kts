@@ -31,7 +31,7 @@ dependencies {
     implementation(projects.core.resources)
     implementation(projects.exts.android)
     implementation(projects.exts.common)
-    implementation(projects.exts.firebase)
+    implementation(projects.exts.firebase.core)
     implementation(projects.exts.material)
     implementation(projects.ui.common)
     implementation(projects.ui.theming.views) {
