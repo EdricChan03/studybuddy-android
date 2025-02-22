@@ -82,6 +82,7 @@ fun TaskTitleListItem(
  * @param title The task's title.
  * @param isDone Whether the task was marked as done. See [TaskTitleText]'s `isDone`
  * parameter for more info.
+ * @param isArchived Whether the [Checkbox] should be disabled.
  * @param colors Colours to be used for the [ListItem].
  */
 @Composable
@@ -91,7 +92,8 @@ fun TaskTitleWithCheckboxListItem(
     title: String,
     isDone: Boolean = false,
     onDoneChange: (Boolean) -> Unit,
-    isArchived: Boolean = false
+    isArchived: Boolean = false,
+    colors: ListItemColors = ListItemDefaults.colors(),
 ) = ListItem(
     modifier = modifier,
     headlineContent = {
@@ -104,6 +106,7 @@ fun TaskTitleWithCheckboxListItem(
             checked = isDone, onCheckedChange = onDoneChange, enabled = !isArchived
         )
     },
+    colors = colors
 )
 
 @Preview(showBackground = true)
