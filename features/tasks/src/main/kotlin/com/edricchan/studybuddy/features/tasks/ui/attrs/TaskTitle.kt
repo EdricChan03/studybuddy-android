@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.features.tasks.ui.attrs
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
@@ -66,7 +67,9 @@ fun TaskTitleListItem(
 ) = ListItem(
     modifier = modifier,
     headlineContent = {
-        TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
+        SelectionContainer {
+            TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
+        }
     },
     colors = colors
 )
@@ -92,7 +95,9 @@ fun TaskTitleWithCheckboxListItem(
 ) = ListItem(
     modifier = modifier,
     headlineContent = {
-        TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
+        SelectionContainer {
+            TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
+        }
     },
     leadingContent = {
         Checkbox(
