@@ -56,7 +56,7 @@ abstract class BaseFragment : Fragment() {
         @StringRes messageRes: Int,
         duration: SnackBarData.Duration = SnackBarData.Duration.Short,
         action: SnackBarData.Action? = null
-    ): Job = lifecycleScope.launch {
+    ): Job = viewLifecycleOwner.lifecycleScope.launch {
         mainViewModel.showSnackBar(
             messageRes = messageRes,
             duration = duration,
