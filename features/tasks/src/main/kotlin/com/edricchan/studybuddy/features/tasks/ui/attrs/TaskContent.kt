@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.ui.utils.SampleMarkdownText
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichTextStyle
@@ -88,27 +89,7 @@ fun TaskContentListItem(
 private fun TaskContentListItemPreview() {
     StudyBuddyTheme {
         TaskContentListItem(
-            content = """
-                Finish the Compose rewrite for the tasks feature :tada:
-                ---
-                **Bold** *Italics* ~~Strike-through~~ `code`
-                > Quote
-                ```kotlin
-                val isKotlin = true
-                ```
-                ![Random picture](https://picsum.photos/200/300)
-
-                [Link](https://example.com)
-                * Bullet list
-                * Another list item
-
-                1. Item 1
-                2. Item 2
-                3. Item 3
-
-                * [ ] Check-list item 1
-                * [x] Checked item 2
-            """.trimIndent()
+            content = SampleMarkdownText
         )
     }
 }
