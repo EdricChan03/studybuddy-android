@@ -71,3 +71,13 @@ private fun TaskTagsListItemPreview() {
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun TaskTagsListItemManyTagsPreview() {
+    StudyBuddyTheme {
+        TaskTagsListItem(
+            tags = (0..100).map { "Item $it" }
+        )
+    }
+}
