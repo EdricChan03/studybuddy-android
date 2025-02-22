@@ -63,11 +63,16 @@ fun TaskTitleListItem(
     textModifier: Modifier = Modifier,
     title: String,
     isDone: Boolean = false,
-    colors: ListItemColors = ListItemDefaults.colors()
+    colors: ListItemColors = ListItemDefaults.colors(),
+    isTextSelectable: Boolean = false
 ) = ListItem(
     modifier = modifier,
     headlineContent = {
-        SelectionContainer {
+        if (isTextSelectable) {
+            SelectionContainer {
+                TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
+            }
+        } else {
             TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
         }
     },
