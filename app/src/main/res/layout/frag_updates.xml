@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/emptyStateRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/emptyStateCtaBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emptyStateSubheadingTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/menu_updates_check_for_updates_title" />
+
+    <TextView
+        android:id="@+id/emptyStateSubheadingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emptyStateHeadingTextView"
+        android:layout_centerHorizontal="true"
+        android:text="@string/update_activity_empty_state_subhead"
+        android:textAlignment="center"
+        android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+    <TextView
+        android:id="@+id/emptyStateHeadingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/update_activity_empty_state_head"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+</RelativeLayout>
+

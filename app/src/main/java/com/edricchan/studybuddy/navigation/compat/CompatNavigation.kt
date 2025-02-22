@@ -31,7 +31,7 @@ import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskDetailFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
-import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
+import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
 
 fun NavGraphBuilder.aboutGraph(
     context: Context
@@ -109,8 +109,8 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
         label = context.getString(R.string.debug_activity_feature_flags_title)
     }
 
-    activity<CompatDestination.Updates> {
-        activityClass = UpdatesActivity::class
+    fragment<UpdatesFragment, CompatDestination.Updates> {
+        label = context.getString(R.string.title_activity_updates)
     }
 
     fragment<HelpListFragment, CompatDestination.Help> {
