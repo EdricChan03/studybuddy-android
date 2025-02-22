@@ -1,8 +1,8 @@
 plugins {
     com.edricchan.studybuddy.library.android
 
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    com.google.devtools.ksp
+    com.google.dagger.hilt.android
 }
 
 android {
@@ -27,7 +27,7 @@ android {
 
 dependencies {
     implementation(projects.exts.androidx.preference)
-    implementation(projects.exts.firebase)
+    implementation(projects.exts.firebase.core)
 
     implementation(platform(libs.firebase.bom))
     api(libs.bundles.firebase)

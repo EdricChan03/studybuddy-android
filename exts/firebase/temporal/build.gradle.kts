@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.exts.firebase"
+    namespace = "com.edricchan.studybuddy.exts.firebase.temporal"
 
     compileOptions.isCoreLibraryDesugaringEnabled = true
 }

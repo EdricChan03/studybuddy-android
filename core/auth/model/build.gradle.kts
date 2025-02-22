@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation(projects.exts.common)
-    api(projects.exts.firebase)
+    api(projects.exts.firebase.core)
 
     api(platform(libs.firebase.bom))
     api(libs.firebase.auth.ktx)
