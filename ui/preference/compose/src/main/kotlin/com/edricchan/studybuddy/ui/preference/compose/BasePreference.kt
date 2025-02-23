@@ -169,7 +169,7 @@ private fun PreferenceContent(
                         .width(1.dp)
                         .testTag(ActionDividerTestTag),
                 )
-                Spacer(modifier = Modifier.width(2.dp))
+                Spacer(modifier = Modifier.width(16.dp))
             }
             it()
         }
@@ -247,7 +247,7 @@ fun PreferenceListItem(
                             .width(1.dp)
                             .testTag(ActionDividerTestTag),
                     )
-                    Spacer(modifier = Modifier.width(2.dp))
+                    Spacer(modifier = Modifier.width(16.dp))
                 }
                 action()
             }
