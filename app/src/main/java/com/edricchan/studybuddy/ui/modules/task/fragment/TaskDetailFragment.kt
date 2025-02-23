@@ -220,6 +220,7 @@ class TaskDetailFragment :
                     TAG,
                     "Successfully toggled task archival state to ${!hasArchived}"
                 )
+                requireActivity().invalidateMenu()
             } catch (e: Exception) {
                 showToast(R.string.task_archive_fail_msg, Toast.LENGTH_SHORT)
                 Log.e(
