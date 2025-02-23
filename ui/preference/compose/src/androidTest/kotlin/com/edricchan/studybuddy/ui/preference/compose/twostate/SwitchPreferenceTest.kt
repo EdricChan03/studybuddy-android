@@ -4,7 +4,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
@@ -27,7 +29,7 @@ class SwitchPreferenceTest {
 
     @Test
     fun kitchenSinkTest() {
-        val (checked, onChecked) = mutableStateOf(false)
+        var checked by mutableStateOf(false)
 
         composeTestRule.apply {
             setContent {
@@ -42,7 +44,7 @@ class SwitchPreferenceTest {
                     },
                     title = { Text(text = "Switch item") },
                     checked = checked,
-                    onCheckedChange = onChecked
+                    onCheckedChange = { checked = it }
                 )
             }
 
@@ -62,7 +64,7 @@ class SwitchPreferenceTest {
                 assertIsEnabled()
                 assertIsOff()
 
-                onChecked(true)
+                checked = true
 
                 assertIsOn()
 
@@ -75,7 +77,7 @@ class SwitchPreferenceTest {
 
     @Test
     fun disabledTest() {
-        val (checked, onChecked) = mutableStateOf(false)
+        var checked by mutableStateOf(false)
 
         composeTestRule.apply {
             setContent {
@@ -84,7 +86,7 @@ class SwitchPreferenceTest {
                     enabled = false,
                     title = { Text(text = "Switch item") },
                     checked = checked,
-                    onCheckedChange = onChecked
+                    onCheckedChange = { checked = it }
                 )
             }
 
@@ -94,7 +96,7 @@ class SwitchPreferenceTest {
                 assertIsNotEnabled()
                 assertIsOff()
 
-                onChecked(true)
+                checked = true
                 assertIsOn()
 
                 performClick()
