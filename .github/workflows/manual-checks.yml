@@ -12,6 +12,9 @@ jobs:
     name: Instrumentation tests
 
     steps:
+      - name: Get date
+        id: date
+        run: echo "now=$(date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_OUTPUT
       # See https://github.com/ReactiveCircus/android-emulator-runner#running-hardware-accelerated-emulators-on-linux-runners
       - name: Enable KVM group perms
         run: |
@@ -80,6 +83,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Instrumentation test results
+          name: instr-api${{ matrix.api-level }}-${{ steps.date.outputs.now }}
           path: ./**/build/reports/androidTests/connected/
           if-no-files-found: ignore
