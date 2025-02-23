@@ -19,6 +19,7 @@ import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreference
 import com.edricchan.studybuddy.exts.androidx.preference.setFragment
 import com.edricchan.studybuddy.features.settings.general.ui.compat.GeneralSettingsFragment
 import com.edricchan.studybuddy.features.settings.task.ui.compat.TodoSettingsFragment
+import com.edricchan.studybuddy.features.settings.updates.ui.compat.UpdateSettingsFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.account.AccountActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugFragment

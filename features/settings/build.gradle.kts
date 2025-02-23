@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.compat.navigation)
     implementation(projects.core.resources.temporal)
     implementation(projects.core.settings.appearance)
     implementation(projects.core.settings.tasks)
