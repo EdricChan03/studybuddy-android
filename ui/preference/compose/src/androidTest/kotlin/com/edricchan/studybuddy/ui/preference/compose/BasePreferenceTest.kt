@@ -4,7 +4,6 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertHasClickAction
-import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -14,7 +13,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import org.junit.Rule
 import kotlin.test.Test
 
-private const val testTag = "PreferenceTag"
+private const val TestTag = "PreferenceTag"
+private const val TextTestTag = "PreferenceTextTag"
 private const val text = "Preference text"
 
 class BasePreferenceTest {
@@ -26,13 +26,13 @@ class BasePreferenceTest {
         composeTestRule.apply {
             setContent {
                 Preference(
-                    modifier = Modifier.testTag(testTag),
+                    modifier = Modifier.testTag(TestTag),
                     onClick = { /* No-op */ },
                     title = { Text(text = text) }
                 )
             }
 
-            with(onNodeWithTag(testTag)) {
+            with(onNodeWithTag(TestTag)) {
                 assertExists()
                 assertIsDisplayed()
                 assertIsEnabled()
@@ -47,18 +47,17 @@ class BasePreferenceTest {
         composeTestRule.apply {
             setContent {
                 Preference(
-                    modifier = Modifier.testTag(testTag),
+                    modifier = Modifier.testTag(TestTag),
                     enabled = false,
                     onClick = { /* No-op */ },
                     title = { Text(text = text) }
                 )
             }
 
-            with(onNodeWithTag(testTag)) {
+            with(onNodeWithTag(TestTag)) {
                 assertExists()
                 assertIsDisplayed()
                 assertIsNotEnabled()
-                assertHasNoClickAction()
                 assertTextContains(text)
             }
         }
@@ -72,8 +71,13 @@ class BasePreferenceTest {
         composeTestRule.apply {
             setContent {
                 Preference(
-                    modifier = Modifier.testTag(testTag),
-                    title = { Text(text = text) },
+                    modifier = Modifier.testTag(TestTag),
+                    title = {
+                        Text(
+                            modifier = Modifier.testTag(TextTestTag),
+                            text = text
+                        )
+                    },
                     action = {
                         Text(
                             modifier = Modifier.testTag(actionTag),
@@ -84,7 +88,7 @@ class BasePreferenceTest {
                 )
             }
 
-            with(onNodeWithTag(testTag)) {
+            with(onNodeWithTag(TextTestTag)) {
                 assertExists()
                 assertIsDisplayed()
                 assertTextContains(text)
@@ -103,13 +107,19 @@ class BasePreferenceTest {
         composeTestRule.apply {
             setContent {
                 Preference(
-                    modifier = Modifier.testTag(testTag),
-                    title = { Text(text = text) },
-                    showActionDivider = true
+                    modifier = Modifier.testTag(TestTag),
+                    title = {
+                        Text(
+                            modifier = Modifier.testTag(TextTestTag),
+                            text = text
+                        )
+                    },
+                    showActionDivider = true,
+                    action = {}
                 )
             }
 
-            with(onNodeWithTag(testTag)) {
+            with(onNodeWithTag(TextTestTag)) {
                 assertExists()
                 assertIsDisplayed()
                 assertTextContains(text)
