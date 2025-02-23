@@ -76,9 +76,8 @@ fun Preference(
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
     showActionDivider: Boolean = false
-) = Surface {
+) = Surface(modifier = modifier) {
     PreferenceContent(
-        modifier = modifier,
         icon = icon,
         iconSpaceReserved = iconSpaceReserved,
         title = title,
@@ -91,7 +90,7 @@ fun Preference(
 
 @Composable
 private fun PreferenceContent(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)?,
     iconSpaceReserved: Boolean,
     title: @Composable () -> Unit,
@@ -290,9 +289,12 @@ fun Preference(
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
     showActionDivider: Boolean = false
-) = Surface(onClick = onClick, enabled = enabled) {
+) = Surface(
+    modifier = modifier,
+    onClick = onClick,
+    enabled = enabled
+) {
     PreferenceContent(
-        modifier = modifier,
         icon = icon,
         iconSpaceReserved = iconSpaceReserved,
         title = title,
