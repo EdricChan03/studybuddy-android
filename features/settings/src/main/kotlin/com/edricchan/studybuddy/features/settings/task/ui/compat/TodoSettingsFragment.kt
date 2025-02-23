@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.settings.fragment
+package com.edricchan.studybuddy.features.settings.task.ui.compat
 
 import android.os.Bundle
 import android.view.LayoutInflater
