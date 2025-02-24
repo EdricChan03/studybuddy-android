@@ -17,29 +17,6 @@ object Constants {
     const val prefShowHeaderSummary = "pref_show_header_summary"
 
     // Preferences > General
-    const val prefCategoryGeneral = "pref_category_general"
-    const val prefCategoryTheme = "pref_category_theme"
-
-    @Deprecated(
-        "Use the top-level keyPrefDarkTheme property",
-        ReplaceWith(
-            "keyPrefDarkTheme",
-            "com.edricchan.studybuddy.core.settings.appearance.keyPrefDarkTheme"
-        )
-    )
-    const val prefDarkTheme = "pref_dark_theme"
-
-    const val prefLanguage = "pref_language"
-
-    @Deprecated(
-        "Use the top-level prefUseCustomTabs property",
-        ReplaceWith(
-            "keyPrefUseCustomTabs",
-            "com.edricchan.studybuddy.core.settings.appearance.keyPrefUseCustomTabs"
-        )
-    )
-    const val prefUseCustomTabs = "pref_use_custom_tabs"
-
     @Deprecated(
         "Use the top-level keyPrefEnableUserTracking property",
         ReplaceWith(
