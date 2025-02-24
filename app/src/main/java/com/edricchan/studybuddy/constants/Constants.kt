@@ -49,10 +49,6 @@ object Constants {
     )
     const val prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking"
 
-    // Preferences > Todos
-    const val prefTodoDefaultSort = "pref_tasks_default_sort"
-    const val prefTasksDefaultTaskList = "pref_tasks_default_task_list"
-
     // Prefrences > Updates
     const val prefUpdates = "pref_updates"
     const val prefUpdatesCategoryOptions = "pref_updates_options_category"
