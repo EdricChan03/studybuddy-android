@@ -23,6 +23,7 @@ android {
 }
 
 dependencies {
+    api(libs.androidx.navigation.common.ktx)
     api(libs.androidx.navigation.runtime.ktx)
 
     api(libs.kotlinx.serialization.core)
