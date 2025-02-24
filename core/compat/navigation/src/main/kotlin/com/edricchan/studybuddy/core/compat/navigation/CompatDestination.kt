@@ -1,5 +1,8 @@
 package com.edricchan.studybuddy.core.compat.navigation
 
+import androidx.core.os.BundleCompat
+import androidx.navigation.NavType
+import androidx.savedstate.SavedState
 import kotlinx.serialization.Serializable
 
 /** Destinations that have yet to be migrated to Jetpack Compose. */
