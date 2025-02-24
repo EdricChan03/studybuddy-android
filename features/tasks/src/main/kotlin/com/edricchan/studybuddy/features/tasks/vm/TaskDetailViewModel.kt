@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.vm
+package com.edricchan.studybuddy.features.tasks.vm
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

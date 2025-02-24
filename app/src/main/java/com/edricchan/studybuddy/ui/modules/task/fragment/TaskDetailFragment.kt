@@ -31,10 +31,10 @@ import com.edricchan.studybuddy.exts.markwon.taskListPlugin
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
+import com.edricchan.studybuddy.features.tasks.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
-import com.edricchan.studybuddy.ui.modules.task.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.utils.dev.isDevMode
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.chip.Chip
