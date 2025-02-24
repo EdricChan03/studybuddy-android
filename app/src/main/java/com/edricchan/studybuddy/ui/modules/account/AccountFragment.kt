@@ -3,20 +3,22 @@ package com.edricchan.studybuddy.ui.modules.account
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.toRoute
 import coil.load
-import com.airbnb.deeplinkdispatch.DeepLink
-import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.core.deeplink.AppDeepLink
-import com.edricchan.studybuddy.core.deeplink.WebDeepLink
-import com.edricchan.studybuddy.databinding.ActivityAccountBinding
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination.Auth.Account.AccountAction
+import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
+import com.edricchan.studybuddy.databinding.FragAccountInfoBinding
 import com.edricchan.studybuddy.exts.android.showToast
-import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reauthenticateAsync
@@ -25,16 +27,13 @@ import com.edricchan.studybuddy.exts.firebase.auth.updateEmailAsync
 import com.edricchan.studybuddy.exts.firebase.auth.updatePasswordAsync
 import com.edricchan.studybuddy.exts.firebase.auth.updateProfileAsync
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
-import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.exts.material.textfield.strValue
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
-import com.edricchan.studybuddy.features.auth.ui.LoginActivity
-import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
+import com.edricchan.studybuddy.ui.common.SnackBarData
+import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -45,19 +44,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
-@WebDeepLink(["/account"])
-@AppDeepLink(["/account"])
-class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
+class AccountFragment :
+    ViewBindingFragment<FragAccountInfoBinding>(FragAccountInfoBinding::inflate),
+    FirebaseAuth.AuthStateListener {
     private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityAccountBinding
     private var user: FirebaseUser? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityAccountBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         auth = Firebase.auth
         auth.addAuthStateListener(this)
@@ -65,11 +59,10 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
 
         binding.apply {
             accountActionSignInButton.setOnClickListener {
-                startActivity<LoginActivity>()
-                finish()
+                navController.navigateToLogin()
             }
             accountActionsButton.setOnClickListener {
-                showMaterialAlertDialog {
+                requireContext().showMaterialAlertDialog {
                     setTitle(R.string.account_account_actions_button_title)
                     setItems(R.array.account_activity_account_actions_array) { _, which ->
                         when (which) {
@@ -86,17 +79,21 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
             }
         }
 
-        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
-            intent.getStringExtra("action")?.let {
-                when (it) {
-                    "deleteAccount", "delete-account" -> showDeleteAccountDialog()
-                    "signOut", "sign-out" -> showSignOutDialog()
-                    "updateEmail", "update-email" -> showUpdateEmailDialog()
-                    "updateName", "update-name" -> showUpdateNameDialog()
-                    "updatePassword", "update-password" -> showUpdatePasswordDialog()
-                    "updateProfilePicture", "update-profile-picture" -> showUpdateProfilePictureDialog()
-                    else -> Log.w(TAG, "Action \"$it\" is not supported")
-                }
+        // We can use this fragment without navigating to it via Jetpack Nav (in SettingsFragment),
+        // so getBackStackEntry throws an IllegalArgumentException which we have to catch
+        val action = runCatching {
+            navController.getBackStackEntry<CompatDestination.Auth.Account>()
+                .toRoute<CompatDestination.Auth.Account>()
+                .action
+        }.getOrNull()
+        action?.let {
+            when (it) {
+                AccountAction.DeleteAccount -> showDeleteAccountDialog()
+                AccountAction.SignOut -> showSignOutDialog()
+                AccountAction.UpdateEmail -> showUpdateEmailDialog()
+                AccountAction.UpdateName -> showUpdateNameDialog()
+                AccountAction.UpdatePassword -> showUpdatePasswordDialog()
+                AccountAction.UpdateProfilePicture -> showUpdateProfilePictureDialog()
             }
         }
     }
@@ -111,24 +108,24 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
         auth.removeAuthStateListener(this)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                true
-            }
+    override val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(
+            menu: Menu,
+            menuInflater: MenuInflater
+        ) {
+            menu.findItem(R.id.action_account)?.isVisible = false
+            menuInflater.inflate(R.menu.menu_account, menu)
+        }
 
-            R.id.action_debug -> {
-                startActivity<DebugActivity>()
-                true
-            }
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return when (menuItem.itemId) {
+                R.id.action_refresh_credentials -> {
+                    refreshCredentials()
+                    return true
+                }
 
-            R.id.action_refresh_credentials -> {
-                refreshCredentials()
-                true
+                else -> false
             }
-
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -137,18 +134,8 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
         updateSignedIn()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_account, menu)
-        // Check if build is debug
-        if (!BuildConfig.DEBUG) {
-            menu.removeItem(R.id.action_debug)
-        }
-        return true
-    }
-
     private fun showDeleteAccountDialog() {
-        showMaterialAlertDialog {
+        requireContext().showMaterialAlertDialog {
             setTitle(R.string.account_delete_account_dialog_title)
             setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             setPositiveButton(R.string.dialog_action_delete_account) { _, _ ->
@@ -168,7 +155,7 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
                         when (e) {
                             is FirebaseAuthRecentLoginRequiredException -> {
                                 val account =
-                                    GoogleSignIn.getLastSignedInAccount(this@AccountActivity)
+                                    GoogleSignIn.getLastSignedInAccount(requireContext())
                                 val credential =
                                     GoogleAuthProvider.getCredential(account?.idToken, null)
                                 try {
@@ -222,10 +209,9 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
     }
 
     private fun refreshCredentials() {
-        showSnackbar(
-            binding.constraintLayout,
+        showSnackBar(
             R.string.account_refresh_creds_start_msg,
-            Snackbar.LENGTH_SHORT
+            SnackBarData.Duration.Short
         )
 
         lifecycleScope.launch {
@@ -238,19 +224,20 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
                     e
                 )
 
-                showSnackbar(
-                    binding.constraintLayout,
-                    R.string.account_refresh_creds_error_msg,
-                    Snackbar.LENGTH_LONG
-                ) {
-                    setAction(R.string.dialog_action_retry) { refreshCredentials() }
-                }
+                showSnackBar(
+                    messageRes = R.string.account_refresh_creds_error_msg,
+                    duration = SnackBarData.Duration.Long,
+                    action = SnackBarData.Action(
+                        text = getString(R.string.dialog_action_retry),
+                        onClick = ::refreshCredentials
+                    )
+                )
             }
         }
     }
 
     private fun showSignOutDialog() {
-        showMaterialAlertDialog {
+        requireContext().showMaterialAlertDialog {
             setTitle(R.string.account_sign_out_dialog_title)
             setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
@@ -262,9 +249,11 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
     }
 
     private fun showUpdateEmailDialog() {
-        showMaterialPromptDialog {
+        requireContext().showMaterialPromptDialog {
             textInputLayout {
                 setHint(R.string.account_new_email_dialog_edittext_title)
+            }
+            textInputLayout {
                 textInputEditText.doAfterTextChanged {
                     error = if (it?.toString()?.isInvalidEmail() == true) {
                         getString(R.string.account_new_email_dialog_edittext_err_invalid_email)
@@ -294,7 +283,7 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
     }
 
     private fun showUpdateNameDialog() {
-        showMaterialPromptDialog {
+        requireContext().showMaterialPromptDialog {
             textInputLayout {
                 setHint(R.string.account_new_name_dialog_edittext_title)
             }
@@ -321,10 +310,10 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
     }
 
     private fun showUpdatePasswordDialog() {
-        showMaterialPromptDialog {
+        requireContext().showMaterialPromptDialog {
             textInputLayout {
-                setHint(R.string.account_new_password_dialog_edittext_title)
                 endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+                setHint(R.string.account_new_password_dialog_edittext_title)
             }
             setTitle(R.string.account_new_password_dialog_title)
             setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
@@ -350,7 +339,7 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
 
     private fun showUpdateProfilePictureDialog() {
         // TODO: Add support for updating a profile picture
-        showMaterialAlertDialog {
+        requireContext().showMaterialAlertDialog {
             setTitle(R.string.account_new_profile_pic_dialog_title)
             setMessage(R.string.account_new_profile_pic_dialog_msg)
 //            setPositiveButton(R.string.dialog_action_update_profile_picture) { dialog, _ ->

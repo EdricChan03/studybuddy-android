@@ -13,13 +13,15 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.UriSettings
+import com.edricchan.studybuddy.core.deeplink.AppPrefixUrls
+import com.edricchan.studybuddy.core.deeplink.WebPrefixUrls
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
 import com.edricchan.studybuddy.features.auth.ui.ResetPasswordActivity
 import com.edricchan.studybuddy.features.help.compat.HelpListFragment
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
-import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.modules.account.AccountFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
@@ -32,6 +34,7 @@ import com.edricchan.studybuddy.ui.modules.task.fragment.TaskDetailFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
+import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.aboutGraph(
     context: Context
@@ -48,9 +51,17 @@ fun NavGraphBuilder.aboutGraph(
     }
 }
 
-fun NavGraphBuilder.authGraph() {
-    activity<CompatDestination.Auth.Account> {
-        activityClass = AccountActivity::class
+fun NavGraphBuilder.authGraph(
+    context: Context
+) {
+    fragment<AccountFragment, CompatDestination.Auth.Account>(
+        typeMap = mapOf(typeOf<CompatDestination.Auth.Account.AccountAction>() to CompatDestination.Auth.Account.AccountAction.NavType)
+    ) {
+        label = context.getString(R.string.title_activity_account)
+
+        (AppPrefixUrls + WebPrefixUrls).forEach {
+            deepLink<CompatDestination.Auth.Account>(basePath = "$it/account")
+        }
     }
 
     activity<CompatDestination.Auth.ResetPassword> {
@@ -118,7 +129,7 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
     }
 
     aboutGraph(context = context)
-    authGraph()
+    authGraph(context = context)
     taskGraph(context = context)
 
     fragment<CalendarFragment, CompatDestination.Calendar> {

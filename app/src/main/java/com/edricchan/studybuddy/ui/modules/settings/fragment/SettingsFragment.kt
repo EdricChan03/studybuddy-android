@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.settings.fragment
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
@@ -21,7 +20,7 @@ import com.edricchan.studybuddy.features.settings.general.ui.compat.GeneralSetti
 import com.edricchan.studybuddy.features.settings.task.ui.compat.TodoSettingsFragment
 import com.edricchan.studybuddy.features.settings.updates.ui.compat.UpdateSettingsFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
-import com.edricchan.studybuddy.ui.modules.account.AccountActivity
+import com.edricchan.studybuddy.ui.modules.account.AccountFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugFragment
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
@@ -107,8 +106,7 @@ class SettingsFragment : PreferenceHeaderFragmentCompat() {
                     AboutSettingsFragment::class
                 }
             }
-            findPreference<Preference>(Constants.prefHeaderAccount)?.intent =
-                Intent(context, AccountActivity::class.java)
+            findPreference<Preference>(Constants.prefHeaderAccount)?.setFragment<AccountFragment>()
         }
 
         private fun updateHeaderSummaries(showHeaderSummaries: Boolean) {

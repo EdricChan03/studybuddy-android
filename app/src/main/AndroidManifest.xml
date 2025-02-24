@@ -100,9 +100,6 @@
             android:name=".ui.modules.updates.UpdatesActivity"
             android:label="@string/title_activity_updates"
             android:theme="@style/Theme.App.NoActionBar" />
-        <activity
-            android:name=".ui.modules.account.AccountActivity"
-            android:label="@string/title_activity_account" />
         <!-- Handler for Firebase Deep Links -->
         <activity
             android:name=".ui.modules.deeplink.DeepLinkActivity"

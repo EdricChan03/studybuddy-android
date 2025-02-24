@@ -71,7 +71,51 @@ sealed interface CompatDestination {
 
         /** Typed destination for the account entry-point. */
         @Serializable
-        data object Account : Auth
+        data class Account(val action: AccountAction? = null) : Auth {
+            enum class AccountAction(val ids: List<String>) {
+                DeleteAccount(listOf("deleteAccount", "delete-account")),
+                SignOut(listOf("signOut", "sign-out")),
+                UpdateEmail(listOf("updateEmail", "update-email")),
+                UpdateName(listOf("updateName", "update-name")),
+                UpdatePassword(listOf("updatePassword", "update-password")),
+                UpdateProfilePicture(listOf("updateProfilePicture", "update-profile-picture"));
+
+                companion object {
+                    // SerializableType has a runtime check to assert that Enums are not passed,
+                    // and EnumType is not extendable, so we have to make do with our own
+                    // NavType
+                    val NavType =
+                        object : NavType<AccountAction>(isNullableAllowed = true) {
+                            override fun get(
+                                bundle: SavedState,
+                                key: String
+                            ): AccountAction? {
+                                return BundleCompat.getSerializable(
+                                    bundle,
+                                    key,
+                                    AccountAction::class.java
+                                )
+                            }
+
+                            override fun put(
+                                bundle: SavedState,
+                                key: String,
+                                value: AccountAction
+                            ) {
+                                bundle.putSerializable(key, value)
+                            }
+
+                            override fun parseValue(value: String): AccountAction =
+                                AccountAction.entries.first {
+                                    it.name.equals(
+                                        value,
+                                        ignoreCase = true
+                                    ) || value in it.ids
+                                }
+                        }
+                }
+            }
+        }
 
         /** Typed destination for the login entry-point. */
         @Serializable
