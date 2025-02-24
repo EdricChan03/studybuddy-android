@@ -263,9 +263,9 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
 
     private fun showUpdateEmailDialog() {
         showMaterialPromptDialog {
-            textInputEditText {
+            textInputLayout {
                 setHint(R.string.account_new_email_dialog_edittext_title)
-                doAfterTextChanged {
+                textInputEditText.doAfterTextChanged {
                     error = if (it?.toString()?.isInvalidEmail() == true) {
                         getString(R.string.account_new_email_dialog_edittext_err_invalid_email)
                     } else {
@@ -295,7 +295,7 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
 
     private fun showUpdateNameDialog() {
         showMaterialPromptDialog {
-            textInputEditText {
+            textInputLayout {
                 setHint(R.string.account_new_name_dialog_edittext_title)
             }
             setTitle(R.string.account_new_name_dialog_title)
@@ -323,10 +323,8 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
     private fun showUpdatePasswordDialog() {
         showMaterialPromptDialog {
             textInputLayout {
-                endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
-            }
-            textInputEditText {
                 setHint(R.string.account_new_password_dialog_edittext_title)
+                endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
             }
             setTitle(R.string.account_new_password_dialog_title)
             setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
