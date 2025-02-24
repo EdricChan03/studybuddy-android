@@ -87,7 +87,7 @@ class AccountActivity : BaseActivity(), FirebaseAuth.AuthStateListener {
         }
 
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
-            intent.extras?.getString("action")?.let {
+            intent.getStringExtra("action")?.let {
                 when (it) {
                     "deleteAccount", "delete-account" -> showDeleteAccountDialog()
                     "signOut", "sign-out" -> showSignOutDialog()
