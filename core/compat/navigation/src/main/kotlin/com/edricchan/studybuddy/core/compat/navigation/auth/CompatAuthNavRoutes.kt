@@ -12,8 +12,9 @@ import com.edricchan.studybuddy.core.compat.navigation.DefaultNavOptionsBuilder
  * behaviour is undesired, [builder] should be specified.
  */
 fun NavController.navigateToAccountInfo(
+    action: CompatDestination.Auth.Account.AccountAction? = null,
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(CompatDestination.Auth.Account, builder)
+) = navigate(CompatDestination.Auth.Account(action = action), builder)
 
 /**
  * Navigates to the [CompatDestination.Auth.ResetPassword] route.
