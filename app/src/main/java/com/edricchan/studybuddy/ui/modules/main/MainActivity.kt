@@ -31,6 +31,7 @@ import com.edricchan.studybuddy.core.compat.navigation.navigateToTips
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTasksList
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
+import com.edricchan.studybuddy.core.settings.tracking.keyPrefEnableUserTracking
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
 import com.edricchan.studybuddy.exts.android.startChooser
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
@@ -131,7 +132,7 @@ class MainActivity : BaseActivity() {
         super.onStart()
         auth.currentUser?.let { user ->
             val crashlyticsTrackingEnabled = defaultSharedPreferences
-                .getBoolean(Constants.prefEnableCrashlyticsUserTracking, false) &&
+                .getBoolean(keyPrefEnableUserTracking, false) &&
                 !BuildConfig.DEBUG
             user.setCrashlyticsTracking(
                 enabled = crashlyticsTrackingEnabled

@@ -16,17 +16,7 @@ object Constants {
     // Preferences
     const val prefShowHeaderSummary = "pref_show_header_summary"
 
-    // Preferences > General
-    @Deprecated(
-        "Use the top-level keyPrefEnableUserTracking property",
-        ReplaceWith(
-            "keyPrefEnableUserTracking",
-            "com.edricchan.studybuddy.core.settings.tracking.keyPrefEnableUserTracking"
-        )
-    )
-    const val prefEnableCrashlyticsUserTracking = "pref_enable_crashlytics_user_tracking"
-
-    // Prefrences > Updates
+    // Preferences > Updates
     const val prefUpdates = "pref_updates"
     const val prefUpdatesCategoryOptions = "pref_updates_options_category"
     const val prefUpdatesFrequency = "pref_updates_frequency"
