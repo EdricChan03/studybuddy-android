@@ -35,7 +35,7 @@ class ResetPasswordActivity : BaseActivity() {
 
             btnResetPassword.setOnClickListener {
 
-                val email = inputEmail.text.toString().trim { it <= ' ' }
+                val email = inputEmail.text.toString().trim()
 
                 if (email.isEmpty()) {
                     showSnackbar(
