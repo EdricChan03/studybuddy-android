@@ -170,39 +170,7 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
-            showNavBottomSheet {
-                navigationViewListener = {
-                    when (it.itemId) {
-                        R.id.navigation_calendar -> {
-                            navController.navigateToCalendar()
-                            true
-                        }
-
-                        R.id.navigation_todos -> {
-                            navController.navigateToTasksList()
-                            true
-                        }
-
-                        R.id.navigation_tips -> {
-                            navController.navigateToTips()
-                            true
-                        }
-
-                        else -> false
-                    }
-                }
-
-                auth.currentUser?.let {
-                    isLoggedIn = true
-                    displayName = it.displayName
-                    email = it.email
-                    photoUrl = it.photoUrl
-                }
-
-                navigationViewCheckedItemId = navViewIdsMap.entries
-                    .find { navController.currentDestination?.hasRoute(it.key) == true }
-                    ?.value
-            }
+            onShowNavBottomSheet()
             true
         }
 
@@ -245,6 +213,42 @@ class MainActivity : BaseActivity() {
         }
 
         else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun onShowNavBottomSheet() {
+        showNavBottomSheet {
+            navigationViewListener = {
+                when (it.itemId) {
+                    R.id.navigation_calendar -> {
+                        navController.navigateToCalendar()
+                        true
+                    }
+
+                    R.id.navigation_todos -> {
+                        navController.navigateToTasksList()
+                        true
+                    }
+
+                    R.id.navigation_tips -> {
+                        navController.navigateToTips()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+
+            auth.currentUser?.let {
+                isLoggedIn = true
+                displayName = it.displayName
+                email = it.email
+                photoUrl = it.photoUrl
+            }
+
+            navigationViewCheckedItemId = navViewIdsMap.entries
+                .find { navController.currentDestination?.hasRoute(it.key) == true }
+                ?.value
+        }
     }
 
     private fun NavController.initNavGraph() {
