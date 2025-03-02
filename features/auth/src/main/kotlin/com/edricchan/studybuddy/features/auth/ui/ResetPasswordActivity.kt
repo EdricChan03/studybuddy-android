@@ -3,7 +3,10 @@ package com.edricchan.studybuddy.features.auth.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.exts.common.TAG
@@ -21,14 +24,29 @@ class ResetPasswordActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityResetPasswordBinding
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityResetPasswordBinding.inflate(layoutInflater).apply {
+            setContentView(root)
+            setSupportActionBar(toolbar)
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding = ActivityResetPasswordBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         auth = Firebase.auth
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right
+            )
+
+            windowInsets
+        }
 
         binding.apply {
             btnBack.setOnClickListener { finish() }
