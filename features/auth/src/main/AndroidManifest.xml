@@ -8,7 +8,8 @@
             android:theme="@style/Theme.App.NoActionBar" />
         <activity
             android:name=".ui.RegisterActivity"
-            android:label="@string/title_activity_register" />
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.App.NoActionBar" />
         <activity
             android:name=".ui.ResetPasswordActivity"
             android:label="@string/title_activity_reset_password" />

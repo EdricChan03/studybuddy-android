@@ -3,7 +3,10 @@ package com.edricchan.studybuddy.features.auth.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
@@ -32,14 +35,29 @@ class RegisterActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityRegisterBinding
 
+    override val isEdgeToEdgeEnabled = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityRegisterBinding.inflate(layoutInflater).apply {
+            setSupportActionBar(toolbar)
+            setContentView(root)
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         auth = Firebase.auth
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = insets.left,
+                right = insets.right
+            )
+
+            windowInsets
+        }
 
         binding.apply {
             signInBtn.setOnClickListener {
