@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.main
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.content.Intent
 import android.os.Build
@@ -17,6 +18,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.serialization.generateHashCode
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -75,12 +79,12 @@ class MainActivity : BaseActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        binding.bottomAppBar.setNavigationOnClickListener { onShowNavBottomSheet() }
 
         navHost = binding.navHostMain.getFragment()
         navController = navHost.navController
         navController.initNavGraph()
-
-        setSupportActionBar(binding.bottomAppBar)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -162,6 +166,14 @@ class MainActivity : BaseActivity() {
         return true
     }
 
+    override fun onSupportNavigateUp(): Boolean =
+        navController.navigateUp() || super.onSupportNavigateUp()
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        navController.handleDeepLink(intent)
+    }
+
     private val navViewIdsMap = mapOf(
         CompatDestination.Calendar::class to R.id.navigation_calendar,
         CompatDestination.Task.List::class to R.id.navigation_todos,
@@ -169,11 +181,6 @@ class MainActivity : BaseActivity() {
     )
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        android.R.id.home -> {
-            onShowNavBottomSheet()
-            true
-        }
-
         R.id.action_settings -> {
             navController.navigateToSettings()
             true
@@ -251,10 +258,23 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    @SuppressLint("RestrictedApi") // For generateHashCode
     private fun NavController.initNavGraph() {
         graph = createGraph(CompatDestination.Task.Root) {
             compatGraphs(context = this@MainActivity)
         }
+
+        val appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = listOf(
+                CompatDestination.Task.Root.serializer(),
+                CompatDestination.Calendar.serializer(),
+                CompatDestination.Tips.serializer()
+            ).map { it.generateHashCode() }.toSet()
+        )
+        setupActionBarWithNavController(
+            navController = this,
+            configuration = appBarConfiguration
+        )
     }
 
     companion object {
