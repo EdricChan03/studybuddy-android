@@ -25,6 +25,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.compat.navigation)
+
     api(projects.core.deeplink)
     implementation(projects.core.auth.gms)
     implementation(projects.core.di)
