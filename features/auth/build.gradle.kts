@@ -56,6 +56,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.playServices)
 
+    // CoIL
+    implementation(libs.coil)
+
     coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.junit)
