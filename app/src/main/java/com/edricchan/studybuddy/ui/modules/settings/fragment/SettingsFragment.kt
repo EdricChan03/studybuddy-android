@@ -16,11 +16,11 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.sharedprefs.FeatureFlagsPrefConstants
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.androidx.preference.setFragment
+import com.edricchan.studybuddy.features.auth.account.compat.AccountFragment
 import com.edricchan.studybuddy.features.settings.general.ui.compat.GeneralSettingsFragment
 import com.edricchan.studybuddy.features.settings.task.ui.compat.TodoSettingsFragment
 import com.edricchan.studybuddy.features.settings.updates.ui.compat.UpdateSettingsFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
-import com.edricchan.studybuddy.ui.modules.account.AccountFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugFragment
 import com.edricchan.studybuddy.ui.preference.MaterialPreferenceFragment
 import com.edricchan.studybuddy.utils.FeatureFlagsUtils
