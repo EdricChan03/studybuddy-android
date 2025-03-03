@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.core.compat.navigation
 
+import androidx.annotation.Keep
 import androidx.core.os.BundleCompat
 import androidx.navigation.NavType
 import androidx.savedstate.SavedState
@@ -75,6 +76,7 @@ sealed interface CompatDestination {
         /** Typed destination for the account entry-point. */
         @Serializable
         data class Account(val action: AccountAction? = null) : Auth {
+            @Keep
             enum class AccountAction(val ids: List<String>) {
                 DeleteAccount(listOf("deleteAccount", "delete-account")),
                 SignOut(listOf("signOut", "sign-out")),
