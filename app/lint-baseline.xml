@@ -981,34 +981,6 @@
         <location column="13" file="src/main/res/values/strings.xml" line="264" />
     </issue>
 
-    <issue
-        errorLine1="    &lt;string name=&quot;debug_activity_confirm_crash_app_dialog_title&quot;>Crash app?&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UnusedResources"
-        message="The resource `R.string.debug_activity_confirm_crash_app_dialog_title` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="267" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;debug_activity_crash_app_summary&quot;>Programmatically crash the app with Firebase Crashlytics&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.debug_activity_crash_app_summary` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="275" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;debug_activity_crash_app_title&quot;>Crash app&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.debug_activity_crash_app_title` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="276" />
-    </issue>
-
-    <issue errorLine1="    &lt;string name=&quot;dialog_action_crash&quot;>Crash&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.dialog_action_crash` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="333" />
-    </issue>
-
     <issue errorLine1="    &lt;string name=&quot;dialog_action_no&quot;>No&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.dialog_action_no` appears to be unused">

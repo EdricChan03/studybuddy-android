@@ -145,7 +145,6 @@
     <string name="debug_activity_category_logging">Logging</string>
     <string name="debug_activity_category_updates">Updates</string>
     <string name="debug_activity_category_other">Other</string>
-    <string name="debug_activity_confirm_crash_app_dialog_title">Crash app?</string>
     <string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n
         (Note that a new ID will be generated after you delete the current ID)
     </string>
@@ -156,9 +155,6 @@
     <string name="debug_activity_confirm_clear_app_settings_dialog_msg">This cannot be
         undone!</string>
     <string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
-    <string name="debug_activity_crash_app_summary">Programmatically crash the app with Firebase
-        Crashlytics</string>
-    <string name="debug_activity_crash_app_title">Crash app</string>
     <string name="debug_activity_dev_mode_enabled_title">Developer mode</string>
     <string name="debug_activity_device_info_summary">Show information about the current
         device</string>
@@ -229,7 +225,6 @@
     <string name="dialog_action_clear">Clear</string>
     <string name="dialog_action_close">Close</string>
     <string name="dialog_action_confirm">Confirm</string>
-    <string name="dialog_action_crash">Crash</string>
     <string name="dialog_action_create">Create</string>
     <string name="dialog_action_disable">Disable</string>
     <string name="dialog_action_dismiss">Dismiss</string>
