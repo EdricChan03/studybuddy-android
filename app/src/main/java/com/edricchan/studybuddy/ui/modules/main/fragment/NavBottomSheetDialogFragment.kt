@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToAccountInfo
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
@@ -22,6 +21,7 @@ import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
+import com.edricchan.studybuddy.features.auth.R as AuthR
 
 class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var navController: NavController
@@ -74,8 +74,8 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 email?.let { userEmail.text = it }
                 photoUrl?.let(userAvatar::load)
             } else {
-                userName.setText(R.string.account_user_name_default)
-                userEmail.setText(R.string.account_user_email_default)
+                userName.setText(AuthR.string.account_user_name_default)
+                userEmail.setText(AuthR.string.account_user_email_default)
             }
         }
     }
