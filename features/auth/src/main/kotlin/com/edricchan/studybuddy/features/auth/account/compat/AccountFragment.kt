@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.account
+package com.edricchan.studybuddy.features.auth.account.compat
 
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +13,9 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.toRoute
 import coil.load
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination.Auth.Account.AccountAction
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
-import com.edricchan.studybuddy.databinding.FragAccountInfoBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
@@ -29,6 +27,8 @@ import com.edricchan.studybuddy.exts.firebase.auth.updateProfileAsync
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.exts.material.textfield.strValue
+import com.edricchan.studybuddy.features.auth.R
+import com.edricchan.studybuddy.features.auth.databinding.FragAccountInfoBinding
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
@@ -43,6 +43,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import com.edricchan.studybuddy.core.resources.R as CommonR
 
 class AccountFragment :
     ViewBindingFragment<FragAccountInfoBinding>(FragAccountInfoBinding::inflate),
@@ -113,7 +114,7 @@ class AccountFragment :
             menu: Menu,
             menuInflater: MenuInflater
         ) {
-            menu.findItem(R.id.action_account)?.isVisible = false
+//            menu.findItem(R.id.action_account)?.isVisible = false
             menuInflater.inflate(R.menu.menu_account, menu)
         }
 
@@ -137,7 +138,7 @@ class AccountFragment :
     private fun showDeleteAccountDialog() {
         requireContext().showMaterialAlertDialog {
             setTitle(R.string.account_delete_account_dialog_title)
-            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+            setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             setPositiveButton(R.string.dialog_action_delete_account) { _, _ ->
                 lifecycleScope.launch {
                     try {
@@ -228,7 +229,7 @@ class AccountFragment :
                     messageRes = R.string.account_refresh_creds_error_msg,
                     duration = SnackBarData.Duration.Long,
                     action = SnackBarData.Action(
-                        text = getString(R.string.dialog_action_retry),
+                        text = getString(CommonR.string.dialog_action_retry),
                         onClick = ::refreshCredentials
                     )
                 )
@@ -239,7 +240,7 @@ class AccountFragment :
     private fun showSignOutDialog() {
         requireContext().showMaterialAlertDialog {
             setTitle(R.string.account_sign_out_dialog_title)
-            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+            setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
                 auth.signOut()
                 showToast(R.string.account_log_out_success_msg, Toast.LENGTH_SHORT)
@@ -278,7 +279,7 @@ class AccountFragment :
                     }
                 }
             }
-            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+            setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
         }
     }
 
@@ -305,7 +306,7 @@ class AccountFragment :
                     }
                 }
             }
-            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+            setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
         }
     }
 
@@ -333,7 +334,7 @@ class AccountFragment :
                     }
                 }
             }
-            setNegativeButton(R.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+            setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
         }
     }
 
@@ -346,7 +347,7 @@ class AccountFragment :
 //                showToast(R.string.account_update_pic_success_msg, Toast.LENGTH_SHORT)
 //                dialog.dismiss()
 //            }
-            setPositiveButton(R.string.dialog_action_dismiss) { dialog, _ ->
+            setPositiveButton(CommonR.string.dialog_action_dismiss) { dialog, _ ->
                 dialog.dismiss()
             }
         }

@@ -51,84 +51,6 @@
     <string name="about_frag_about_author_card_author_name_title">Edric Chan</string>
     <string name="about_frag_about_author_card_view_author_website_title">Author\'s website</string>
 
-    <!-- ======================== -->
-    <!-- Account activity strings -->
-    <!-- ======================== -->
-    <eat-comment />
-
-    <!-- The account actions button title in the account activity. -->
-    <string name="account_account_actions_button_title">Account actions</string>
-    <!-- The sign in button title in the account activity. -->
-    <string name="account_sign_in_button_title">Sign in</string>
-    <!-- The content description of the account avatar in the account activity. -->
-    <string name="account_avatar_desc">Account avatar</string>
-    <!-- The default name to be shown if no user is logged-in. -->
-    <string name="account_user_name_default">Guest</string>
-    <!-- The default email address to be shown if no user is logged-in. -->
-    <string name="account_user_email_default">(No email address)</string>
-    <!-- The title of the delete account dialog in the account activity. -->
-    <string name="account_delete_account_dialog_title">Delete account?</string>
-    <!-- The title of the EditText in the new email dialog in the account activity. -->
-    <string name="account_new_email_dialog_edittext_title">New email address</string>
-    <!-- Error to be shown below the new email EditText if an invalid email was specified. -->
-    <string name="account_new_email_dialog_edittext_err_invalid_email">Please enter a valid email
-    </string>
-    <!-- The title of the new email dialog in the account activity. -->
-    <string name="account_new_email_dialog_title">Set new email address</string>
-    <!-- The title of the EditText in the new name dialog in the account activity. -->
-    <string name="account_new_name_dialog_edittext_title">New name</string>
-    <!-- The title of the EditText in the new name dialog in the account activity. -->
-    <string name="account_new_name_dialog_title">Set new name</string>
-    <!-- The title of the EditText in the new password dialog in the account activity. -->
-    <string name="account_new_password_dialog_edittext_title">New password</string>
-    <!-- The title of the new password dialog in the account activity. -->
-    <string name="account_new_password_dialog_title">Set new password</string>
-    <!-- The message of the new profile picture dialog in the account activity. -->
-    <string name="account_new_profile_pic_dialog_msg">The feature to set a new profile picture is
-        coming soon!
-    </string>
-    <!-- The title of the new profile picture dialog in the account activity. -->
-    <string name="account_new_profile_pic_dialog_title">Set new profile picture</string>
-    <!-- The title of the sign out dialog in the account activity. -->
-    <string name="account_sign_out_dialog_title">Sign out?</string>
-
-    <!-- About activity > toast message strings -->
-    <eat-comment />
-
-    <!-- Message used to notify that the account deletion request was successful. -->
-    <string name="account_delete_account_success_msg">Your account was successfully deleted</string>
-    <!-- Message used to notify that the account reauthentication request was successful. -->
-    <string name="account_delete_account_reauth_success_msg">
-        You\'ve successfully reauthenticated!</string>
-    <!-- Message used to notify that the account is invalid. -->
-    <string name="account_delete_account_invalid_msg">Your account appears to be not valid. Please
-        try again later</string>
-
-    <!-- Message used to notify that the account's credentials is being refreshed. -->
-    <string name="account_refresh_creds_start_msg">Refreshing your account\'s information…</string>
-    <!-- Message used to notify that an error occurred while attempting to refresh the account's
-    credentials. -->
-    <string name="account_refresh_creds_error_msg">Could not refresh your account\'s information.
-        Please try again later</string>
-
-    <!-- Message used to notify that the user has successfully signed out. -->
-    <string name="account_log_out_success_msg">You\'ve successfully been signed out!</string>
-
-    <!-- Message used to notify that the user has successfully updated their email address. -->
-    <string name="account_update_email_success_msg">Your email address has successfully been
-        updated!</string>
-
-    <!-- Message used to notify that the user has successfully updated their name. -->
-    <string name="account_update_name_success_msg">Your name has successfully been updated!</string>
-
-    <!-- Message used to notify that the user has successfully updated their password. -->
-    <string name="account_update_password_success_msg">Your password has successfully been
-        updated!</string>
-
-    <!-- Message used to notify that the user has successfully updated their profile picture. -->
-    <string name="account_update_pic_success_msg">Your profile picture has successfully been
-        updated!</string>
-
     <!-- The title of the about menu item in the main activity's menu. -->
     <string name="menu_main_about_title">About</string>
     <!-- The title of the account menu item in the main activity's menu. -->
@@ -154,8 +76,6 @@
 
     <!-- The title of the refresh articles menu item in the help activity's menu. -->
     <string name="menu_help_refresh_articles">Refresh articles</string>
-    <!-- The title of the refresh credentials menu item in the account activity's menu. -->
-    <string name="menu_account_refresh_credentials">Refresh</string>
     <!-- The title of the refresh tasks menu item in the task fragment's menu. -->
     <string name="menu_frag_task_refresh_todos_title">Refresh todos</string>
 
@@ -312,7 +232,6 @@
     <string name="dialog_action_crash">Crash</string>
     <string name="dialog_action_create">Create</string>
     <string name="dialog_action_disable">Disable</string>
-    <string name="dialog_action_delete_account">Delete account</string>
     <string name="dialog_action_dismiss">Dismiss</string>
     <string name="dialog_action_enable">Enable</string>
     <string name="dialog_action_login">Login</string>
@@ -320,12 +239,7 @@
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_retry">Retry</string>
     <string name="dialog_action_send">Send</string>
-    <string name="dialog_action_sign_out">Sign out</string>
     <string name="dialog_action_sign_up">Sign up</string>
-    <string name="dialog_action_update_email">Update email</string>
-    <string name="dialog_action_update_name">Update name</string>
-    <string name="dialog_action_update_password">Update password</string>
-    <string name="dialog_action_update_profile_picture">Update profile picture</string>
     <string name="dialog_action_view_source_code">View source code</string>
     <string name="dialog_action_yes">Yes</string>
     <string name="download_apk_name">com.edricchan.studybuddy-v%s.apk</string>

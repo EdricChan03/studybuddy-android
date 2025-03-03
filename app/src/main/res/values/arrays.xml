@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="account_activity_account_actions_array">
-        <item>Delete account</item>
-        <item>Sign out</item>
-        <item>Update email</item>
-        <item>Update name</item>
-        <item>Update password</item>
-        <item>Update profile picture</item>
-    </string-array>
     <string-array name="debug_activity_device_info_array">
         <item>Device SDK Info</item>
         <item>Connectivity Info</item>
