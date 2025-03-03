@@ -13,11 +13,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.lifecycle.asFlow
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
@@ -37,12 +37,22 @@ private fun PreferenceCategoryScope.UpdateInfoInstantPreference(
     titleString: String,
     unsetString: String
 ) {
-    val clipboard = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
+    val scope = rememberCoroutineScope()
 
     Preference(
         modifier = modifier,
         onClick = {
-            clipboard.setText(AnnotatedString(instant?.formatISO() ?: unsetString))
+            scope.launch {
+                clipboard.setClipEntry(
+                    ClipEntry(
+                        ClipData.newPlainText(
+                            /* label = */ "",
+                            /* text = */ instant?.formatISO() ?: unsetString
+                        )
+                    )
+                )
+            }
         },
         icon = { Icon(Icons.Outlined.Info, contentDescription = null) },
         title = { Text(text = titleString) },
