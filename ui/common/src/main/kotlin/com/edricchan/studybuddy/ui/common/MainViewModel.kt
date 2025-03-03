@@ -29,10 +29,26 @@ class MainViewModel @Inject constructor(
         messageRes: Int,
         duration: SnackBarData.Duration,
         action: SnackBarData.Action? = null
+    ) = showSnackBar(
+        message = context.getString(messageRes),
+        duration = duration,
+        action = action
+    )
+
+    /**
+     * Shows a snack-bar in the main UI with the specified parameters.
+     * @param message The message to be shown.
+     * @param duration How long the snack-bar should be shown for.
+     * @param action The snack-bar's action data if any.
+     */
+    suspend fun showSnackBar(
+        message: String,
+        duration: SnackBarData.Duration,
+        action: SnackBarData.Action? = null
     ) {
         _snackBarData.emit(
             SnackBarData(
-                message = context.getString(messageRes),
+                message = message,
                 duration = duration,
                 action = action
             )
