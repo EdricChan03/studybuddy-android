@@ -6,13 +6,16 @@ import android.content.Intent
 import androidx.annotation.Discouraged
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.compat.navigation.UriUpdates
 import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
+import com.edricchan.studybuddy.exts.android.createPendingIntent
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
-import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
+import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -82,12 +85,13 @@ object SharedUtils {
                             PendingIntent.FLAG_UPDATE_CURRENT
                         )
 
-                        val contentIntent = buildIntent<UpdatesActivity>(context) {
-                            flags =
-                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        }
                         val pContentIntent =
-                            PendingIntent.getActivity(context, 0, contentIntent, 0)
+                            context.createPendingIntent(requestCode = 0, flags = 0) {
+                                addNextIntentWithParentStack(buildIntent<MainActivity>(context) {
+                                    action = Intent.ACTION_VIEW
+                                    data = UriUpdates.toUri()
+                                })
+                            }
 
                         notifyBuilder.setContentTitle(context.getString(R.string.notification_new_update_title))
                             .setContentText(

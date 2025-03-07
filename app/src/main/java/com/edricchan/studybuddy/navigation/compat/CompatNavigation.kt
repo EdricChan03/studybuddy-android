@@ -13,6 +13,7 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.UriSettings
+import com.edricchan.studybuddy.core.compat.navigation.UriUpdates
 import com.edricchan.studybuddy.core.deeplink.AppPrefixUrls
 import com.edricchan.studybuddy.core.deeplink.WebPrefixUrls
 import com.edricchan.studybuddy.features.auth.account.compat.AccountFragment
@@ -122,6 +123,7 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
 
     fragment<UpdatesFragment, CompatDestination.Updates> {
         label = context.getString(R.string.title_activity_updates)
+        deepLink(UriUpdates)
     }
 
     fragment<HelpListFragment, CompatDestination.Help> {

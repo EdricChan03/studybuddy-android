@@ -15,12 +15,13 @@ import androidx.work.workDataOf
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.compat.navigation.UriUpdates
 import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.receivers.NotificationActionReceiver
-import com.edricchan.studybuddy.ui.modules.updates.UpdatesActivity
+import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.utils.getUpdateJsonUrl
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -133,7 +134,8 @@ class CheckForUpdatesWorker(
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val contentIntent = buildIntent<UpdatesActivity>(appContext) {
+        val contentIntent = buildIntent<MainActivity>(appContext) {
+            data = UriUpdates.toUri()
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pContentIntent = PendingIntent.getActivity(
