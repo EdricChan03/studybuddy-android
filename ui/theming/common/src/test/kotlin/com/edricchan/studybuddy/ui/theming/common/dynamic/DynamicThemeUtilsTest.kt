@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.theming
+package com.edricchan.studybuddy.ui.theming.common.dynamic
 
 import android.content.Context
 import android.content.SharedPreferences

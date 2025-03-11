@@ -18,9 +18,23 @@ import com.google.android.material.R as MaterialR
 const val PREF_DYNAMIC_THEME = keyPrefDynamicTheme
 
 /** Whether Android 12's dynamic theming system is available. */
+@Deprecated(
+    "Moved to ui-theming-common",
+    ReplaceWith(
+        "isDynamicColorAvailable",
+        "com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable"
+    )
+)
 val isDynamicColorAvailable get() = DynamicColors.isDynamicColorAvailable()
 
 /** Whether the app should use Android 12's dynamic theming system. */
+@Deprecated(
+    "Moved to ui-theming-common",
+    ReplaceWith(
+        "this.prefDynamicTheme",
+        "com.edricchan.studybuddy.ui.theming.common.dynamic.prefDynamicTheme"
+    )
+)
 var Context.prefDynamicTheme
     get() = defaultSharedPreferences.getBoolean(
         PREF_DYNAMIC_THEME, isDynamicColorAvailable
