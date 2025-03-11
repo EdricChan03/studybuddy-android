@@ -32,7 +32,7 @@ dependencies {
         because("Accessing SharedPreferences")
     }
 
-    implementation(libs.flowPreferences)
+    api(libs.flowPreferences)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotest.runner.junit5)
