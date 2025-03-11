@@ -2,12 +2,20 @@ package com.edricchan.studybuddy.ui.theming
 
 import android.content.Context
 import androidx.core.content.edit
+import com.edricchan.studybuddy.core.settings.appearance.keyPrefDynamicTheme
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.R as MaterialR
 
 /** Preference key used for the dynamic theme preference. */
-const val PREF_DYNAMIC_THEME = "pref_dynamic_theme"
+@Deprecated(
+    "Use keyPrefDynamicTheme from core-settings",
+    ReplaceWith(
+        "keyPrefDynamicTheme",
+        "com.edricchan.studybuddy.core.settings.appearance.keyPrefDynamicTheme"
+    )
+)
+const val PREF_DYNAMIC_THEME = keyPrefDynamicTheme
 
 /** Whether Android 12's dynamic theming system is available. */
 val isDynamicColorAvailable get() = DynamicColors.isDynamicColorAvailable()
