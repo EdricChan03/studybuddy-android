@@ -3,15 +3,12 @@ package com.edricchan.studybuddy.features.settings.general.vm
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
-import com.edricchan.studybuddy.core.settings.appearance.keyPrefDarkTheme
-import com.edricchan.studybuddy.core.settings.appearance.keyPrefDynamicTheme
 import com.edricchan.studybuddy.core.settings.appearance.keyPrefUseCustomTabs
 import com.edricchan.studybuddy.core.settings.tracking.keyPrefEnableUserTracking
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
-import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
+import com.edricchan.studybuddy.ui.theming.common.ThemePreferences
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.fredporciuncula.flow.preferences.Preference
-import com.fredporciuncula.flow.preferences.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -24,6 +21,8 @@ class GeneralSettingsViewModel @Inject constructor(
         context.defaultSharedPreferences
     )
 
+    private val themePrefs = ThemePreferences(context)
+
     val prefEnableUserTracking: Preference<Boolean> = appPreferences.getBoolean(
         keyPrefEnableUserTracking,
         defaultValue = false
@@ -34,16 +33,7 @@ class GeneralSettingsViewModel @Inject constructor(
         defaultValue = true
     )
 
-    val prefDarkTheme: Preference<DarkThemeValue.Version2> = appPreferences.getString(
-        keyPrefDarkTheme,
-        defaultValue = DarkThemeValue.V2FollowSystem.value
-    ).map(
-        mapper = DarkThemeValue.Version2::fromPrefValue,
-        reverse = DarkThemeValue::value
-    )
+    val prefDarkTheme: Preference<DarkThemeValue.Version2> = themePrefs.prefDarkTheme
 
-    val prefEnableDynamicTheme: Preference<Boolean> = appPreferences.getBoolean(
-        keyPrefDynamicTheme,
-        defaultValue = isDynamicColorAvailable
-    )
+    val prefEnableDynamicTheme: Preference<Boolean> = themePrefs.prefEnableDynamicTheme
 }
