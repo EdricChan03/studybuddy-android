@@ -22,8 +22,8 @@ import com.edricchan.studybuddy.features.settings.general.vm.GeneralSettingsView
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
+import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
-import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
 
 
 @get:StringRes

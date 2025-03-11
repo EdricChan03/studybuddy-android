@@ -5,7 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.edricchan.studybuddy.ui.theming.applyDarkTheme
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
-import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
+import com.edricchan.studybuddy.ui.theming.common.dynamic.prefDynamicTheme
 
 /**
  * Base activity that all activities should implement to handle theming behaviour.

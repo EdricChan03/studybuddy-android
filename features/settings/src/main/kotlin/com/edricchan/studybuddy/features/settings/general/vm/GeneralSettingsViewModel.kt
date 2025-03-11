@@ -8,7 +8,7 @@ import com.edricchan.studybuddy.core.settings.appearance.keyPrefDynamicTheme
 import com.edricchan.studybuddy.core.settings.appearance.keyPrefUseCustomTabs
 import com.edricchan.studybuddy.core.settings.tracking.keyPrefEnableUserTracking
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
-import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
+import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.fredporciuncula.flow.preferences.Preference
 import com.fredporciuncula.flow.preferences.map

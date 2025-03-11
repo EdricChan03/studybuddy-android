@@ -31,8 +31,8 @@ import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
-import com.edricchan.studybuddy.ui.theming.isDynamicColorAvailable
-import com.edricchan.studybuddy.ui.theming.prefDynamicTheme
+import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
+import com.edricchan.studybuddy.ui.theming.common.dynamic.prefDynamicTheme
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 import com.edricchan.studybuddy.features.settings.R as SettingsR
 
