@@ -31,7 +31,6 @@ import com.edricchan.studybuddy.core.compat.navigation.navigateToCalendar
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
 import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
 import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
-import com.edricchan.studybuddy.core.compat.navigation.navigateToTips
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTasksList
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
