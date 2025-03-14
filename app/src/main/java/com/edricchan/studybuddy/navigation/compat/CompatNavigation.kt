@@ -29,8 +29,8 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
 import com.edricchan.studybuddy.ui.modules.main.MainActivity.Companion.ACTION_ADD_NEW_TODO
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
-import com.edricchan.studybuddy.ui.modules.task.NewTaskActivity
 import com.edricchan.studybuddy.ui.modules.task.fragment.EditTaskFragment
+import com.edricchan.studybuddy.ui.modules.task.fragment.NewTaskFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskDetailFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
@@ -87,11 +87,12 @@ fun NavGraphBuilder.taskGraph(
         label = context.getString(R.string.title_activity_edit_task)
     }
 
-    activity<CompatDestination.Task.New> {
-        activityClass = NewTaskActivity::class
+    fragment<NewTaskFragment, CompatDestination.Task.New> {
         deepLink {
             action = ACTION_ADD_NEW_TODO
         }
+
+        label = context.getString(R.string.title_activity_new_task)
     }
 
     fragment<TaskDetailFragment, CompatDestination.Task.View> {
