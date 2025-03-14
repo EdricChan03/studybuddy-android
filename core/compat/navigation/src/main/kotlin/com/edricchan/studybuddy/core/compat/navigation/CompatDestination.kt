@@ -38,10 +38,6 @@ sealed interface CompatDestination {
 
     // Feature destinations
 
-    /** Typed destination for the tips entry-point. */
-    @Serializable
-    data object Tips : CompatDestination
-
     /** Typed destination for the calendar entry-point. */
     @Serializable
     data object Calendar : CompatDestination

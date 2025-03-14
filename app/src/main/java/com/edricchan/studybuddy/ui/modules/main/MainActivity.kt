@@ -176,8 +176,7 @@ class MainActivity : BaseActivity() {
 
     private val navViewIdsMap = mapOf(
         CompatDestination.Calendar::class to R.id.navigation_calendar,
-        CompatDestination.Task.List::class to R.id.navigation_todos,
-        CompatDestination.Tips::class to R.id.navigation_tips
+        CompatDestination.Task.List::class to R.id.navigation_todos
     )
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -236,11 +235,6 @@ class MainActivity : BaseActivity() {
                         true
                     }
 
-                    R.id.navigation_tips -> {
-                        navController.navigateToTips()
-                        true
-                    }
-
                     else -> false
                 }
             }
@@ -267,8 +261,7 @@ class MainActivity : BaseActivity() {
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = listOf(
                 CompatDestination.Task.Root.serializer(),
-                CompatDestination.Calendar.serializer(),
-                CompatDestination.Tips.serializer()
+                CompatDestination.Calendar.serializer()
             ).map { it.generateHashCode() }.toSet()
         )
         setupActionBarWithNavController(

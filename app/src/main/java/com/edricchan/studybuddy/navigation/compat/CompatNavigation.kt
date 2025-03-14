@@ -32,7 +32,6 @@ import com.edricchan.studybuddy.ui.modules.task.fragment.EditTaskFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.NewTaskFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskDetailFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
-import com.edricchan.studybuddy.ui.modules.tips.fragment.TipsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
 import kotlin.reflect.typeOf
 
@@ -136,9 +135,6 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
 
     fragment<CalendarFragment, CompatDestination.Calendar> {
         label = context.getString(R.string.bottom_nav_calendar)
-    }
-    fragment<TipsFragment, CompatDestination.Tips> {
-        label = context.getString(R.string.bottom_nav_tips)
     }
 
     fragment<SettingsFragment, CompatDestination.Settings> {

@@ -122,7 +122,6 @@
     <string name="app_name">Study Buddy</string>
 
     <string name="bottom_nav_calendar">Calendar</string>
-    <string name="bottom_nav_tips">Tips</string>
     <string name="bottom_nav_todos">Tasks</string>
 
     <string name="cab_action_delete_selected_tasks">Delete selected</string>
@@ -370,9 +369,6 @@
     <string name="task_project_choose_prompt_text">Choose a project…</string>
     <string name="task_tags">Task Tags</string>
     <string name="task_title">Task Title</string>
-
-    <string name="tips_empty_state_cta_text">Submit a tip</string>
-    <string name="tips_empty_state_head">No tips as of now</string>
 
     <string name="title_activity_about">About</string>
     <string name="title_activity_account">Account</string>

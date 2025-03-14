@@ -80,13 +80,3 @@ fun NavController.navigateToHelp(
 fun NavController.navigateToCalendar(
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
 ) = navigate(CompatDestination.Calendar, builder)
-
-/**
- * Navigates to the [CompatDestination.Tips] route.
- *
- * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
- * behaviour is undesired, [builder] should be specified.
- */
-fun NavController.navigateToTips(
-    builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(CompatDestination.Tips, builder)
