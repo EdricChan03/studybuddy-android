@@ -276,11 +276,4 @@ class MainActivity : BaseActivity() {
             configuration = appBarConfiguration
         )
     }
-
-    companion object {
-        /**
-         * The constant for a new task shortcut
-         */
-        const val ACTION_ADD_NEW_TODO = "com.edricchan.studybuddy.shortcuts.ADD_NEW_TODO"
-    }
 }

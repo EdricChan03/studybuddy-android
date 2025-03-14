@@ -39,6 +39,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBinding::inflate) {
+    companion object {
+        const val ACTION_NEW_TASK_SHORTCUT = "com.edricchan.studybuddy.shortcuts.ACTION_NEW_TASK"
+    }
+
     @Inject
     lateinit var auth: FirebaseAuth
 

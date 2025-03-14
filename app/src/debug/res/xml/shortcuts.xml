@@ -12,8 +12,8 @@
         <!-- Each one of these intents needs an android:action, even if you don't
              do anything with it. Otherwise you're in for a crash! -->
         <intent
-            android:action="com.edricchan.studybuddy.ACTION_NEW_TASK_FROM_SHORTCUT"
-            android:targetClass="com.edricchan.studybuddy.ui.modules.task.NewTaskActivity"
+            android:action="com.edricchan.studybuddy.shortcuts.ACTION_NEW_TASK"
+            android:targetClass="com.edricchan.studybuddy.ui.modules.main.MainActivity"
             android:targetPackage="com.edricchan.studybuddy.debug" />
     </shortcut>
 </shortcuts>
