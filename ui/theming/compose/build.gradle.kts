@@ -33,8 +33,6 @@ dependencies {
 
     implementation(libs.androidx.compose.material3)
 
-    implementation(libs.accompanist.material3.themeAdapter)
-
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.kotest.assertion.core)
