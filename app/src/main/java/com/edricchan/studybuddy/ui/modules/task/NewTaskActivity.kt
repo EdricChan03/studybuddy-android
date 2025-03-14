@@ -30,22 +30,27 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.time.Instant
+import javax.inject.Inject
 
 /**
  * Created by edricchan on 8/3/18.
  */
+@AndroidEntryPoint
 class NewTaskActivity : BaseActivity() {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityNewTaskBinding
-    private lateinit var firestore: FirebaseFirestore
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var firestore: FirebaseFirestore
     private lateinit var currentUser: FirebaseUser
+
+    private lateinit var binding: ActivityNewTaskBinding
+
     private var taskInstant: Instant? = null
 
     override val isEdgeToEdgeEnabled = true
@@ -70,8 +75,6 @@ class NewTaskActivity : BaseActivity() {
             windowInsets
         }
 
-        auth = Firebase.auth
-        firestore = Firebase.firestore
         auth.currentUser.let {
             if (it == null) {
                 showToast("Please sign in before continuing", Toast.LENGTH_SHORT)
