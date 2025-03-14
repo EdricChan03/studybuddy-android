@@ -26,7 +26,6 @@ import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
-import com.edricchan.studybuddy.ui.modules.main.MainActivity.Companion.ACTION_ADD_NEW_TODO
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.EditTaskFragment
@@ -89,7 +88,7 @@ fun NavGraphBuilder.taskGraph(
 
     fragment<NewTaskFragment, CompatDestination.Task.New> {
         deepLink {
-            action = ACTION_ADD_NEW_TODO
+            action = NewTaskFragment.ACTION_NEW_TASK_SHORTCUT
         }
 
         label = context.getString(R.string.title_activity_new_task)
