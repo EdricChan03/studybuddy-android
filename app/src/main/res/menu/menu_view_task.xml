@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!-- There's already a FAB to edit the task -->
     <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit_outline_24dp"
         android:title="@string/menu_view_task_edit_title"
-        android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_mark_as_done"
