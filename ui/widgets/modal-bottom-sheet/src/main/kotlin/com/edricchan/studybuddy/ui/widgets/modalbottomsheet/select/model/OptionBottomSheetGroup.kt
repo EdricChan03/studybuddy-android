@@ -212,8 +212,8 @@ fun <Id> OptionBottomSheetGroup<Id>.copy(
     items = items,
     enabled = enabled,
     selectedIndices = items.withIndex()
-        .filter { it.value in selectedItems }
-        .mapTo(mutableSetOf()) { it.index }
+        .mapNotNull { (index, value) -> index.takeIf { value in selectedItems } }
+        .toSet()
 )
 
 /**
@@ -235,10 +235,10 @@ fun <Id> OptionBottomSheetGroup<Id>.copy(
     items = items,
     enabled = enabled,
     selectedIndices =
-    if (this is OptionBottomSheetGroup.MultiSelect<Id>) selectedIndices else setOf<Int>()
-        + items.withIndex()
-        .filter { it.value == selectedItem }
-        .mapTo(mutableSetOf()) { it.index }
+        if (this is OptionBottomSheetGroup.MultiSelect<Id>) selectedIndices else setOf<Int>()
+            + items.withIndex()
+            .mapNotNull { (index, value) -> index.takeIf { value in selectedItems } }
+            .toSet()
 )
 
 /**
