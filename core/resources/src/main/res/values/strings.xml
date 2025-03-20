@@ -23,6 +23,16 @@
     <!-- Text for a retry button in a dialog. -->
     <string name="dialog_action_retry">Retry</string>
 
+    <!-- Menu strings -->
+    <eat-comment />
+
+    <!-- The title of the debug menu item. -->
+    <string name="menu_debug_title">Debug</string>
+    <!-- The title of the help menu item. -->
+    <string name="menu_help_title">Help</string>
+    <!-- The title of the settings menu item. -->
+    <string name="menu_settings_title">Settings</string>
+
     <!-- Formatting strings -->
     <eat-comment />
 
