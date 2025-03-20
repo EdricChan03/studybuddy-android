@@ -26,11 +26,6 @@ dependencies {
     implementation(projects.exts.coil)
     implementation(projects.ui.theming.compose)
 
-    // Firebase dependencies
-    api(platform(libs.firebase.bom))
-    api(libs.firebase.auth.ktx)
-    implementation(libs.playServices.auth)
-
     // Compose dependencies
     implementation(libs.bundles.androidx.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
