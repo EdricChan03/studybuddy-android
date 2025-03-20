@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +46,13 @@ fun AccountInfoRow(
 ) = AccountInfoRow(
     modifier = modifier,
     profileImage = {
-        ProfileImage(displayName = displayName, photoUri = photoUri)
+        photoUri?.let {
+            ProfileImage(displayName = displayName, photoUri = it)
+        } ?: Icon(
+            modifier = Modifier.fillMaxHeight(),
+            imageVector = Icons.Outlined.AccountCircle,
+            contentDescription = stringResource(R.string.account_profile_content_desc, displayName)
+        )
     },
     metadata = {
         Column {
