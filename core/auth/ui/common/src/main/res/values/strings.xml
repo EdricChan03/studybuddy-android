@@ -9,6 +9,9 @@
     <!-- The user's display name if no user is signed in. -->
     <string name="account_anon_display_name">Anonymous/Not signed in</string>
 
+    <!-- Text for the navigate to account screen action. -->
+    <string name="action_navigate_to_account_screen_text">View account</string>
+
     <!-- Auth required dialog strings -->
     <eat-comment />
 
