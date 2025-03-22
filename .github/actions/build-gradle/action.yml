@@ -50,9 +50,8 @@ runs:
         java-version: 17
         distribution: adopt
     # See https://github.com/actions/runner-images/issues/6283
-    - name: Add Homebrew to PATH
-      run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
-      shell: bash
+    - name: Set up Homebrew
+      uses: Homebrew/actions/setup-homebrew@2668452
     - name: Install Homebrew dependencies
       run: brew bundle
       shell: bash
