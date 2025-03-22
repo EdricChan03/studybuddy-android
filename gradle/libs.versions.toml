@@ -69,6 +69,7 @@ androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtim
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 
 androidxtra-browser-ktx = "io.github.edricchan03.androidx.browser:browser-ktx:0.2.0"
+androidxtra-recyclerview-ktx = "io.github.edricchan03.androidx.recyclerview:recyclerview-ktx:0.2.0"
 
 # Accompanist
 accompanist-drawablePainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }

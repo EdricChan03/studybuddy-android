@@ -10,4 +10,5 @@ android {
 
 dependencies {
     api(libs.androidx.recyclerview.core)
+    api(libs.androidxtra.recyclerview.ktx)
 }

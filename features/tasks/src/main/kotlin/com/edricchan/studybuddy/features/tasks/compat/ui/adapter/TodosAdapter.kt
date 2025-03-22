@@ -14,14 +14,14 @@ import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemdetails.TodoItemDetails
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.databinding.TodosAdapterItemRowBinding
-import com.edricchan.studybuddy.utils.recyclerview.diffCallback
+import io.github.edricchan03.androidx.recyclerview.ktx.itemCallback
 
 class TodosAdapter(
     private val context: Context,
     private var itemListener: OnItemClickListener? = null
 ) : ListAdapter<TodoItem, TodosAdapter.Holder>(DIFF_CALLBACK) {
     companion object {
-        val DIFF_CALLBACK = diffCallback<TodoItem>(
+        val DIFF_CALLBACK = itemCallback<TodoItem>(
             areItemsTheSame = { old, new -> old.id == new.id },
             areContentsTheSame = { old, new -> old == new }
         )

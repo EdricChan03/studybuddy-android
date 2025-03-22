@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.BottomSheetItemRowNoIconBinding
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.databinding.BottomSheetItemRowWithIconBinding
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
-import com.edricchan.studybuddy.utils.recyclerview.diffCallback
+import io.github.edricchan03.androidx.recyclerview.ktx.itemCallback
 
 class ModalBottomSheetAdapter(
     val requestDismiss: () -> Unit
@@ -97,8 +97,9 @@ class ModalBottomSheetAdapter(
         private const val FlagIcon = 1 shl 0
         private const val FlagCheckable = 1 shl 1
 
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<ModalBottomSheetItem> = diffCallback(
-            areItemsTheSame = { old, new -> old.id == new.id }
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<ModalBottomSheetItem> = itemCallback(
+            areItemsTheSame = { old, new -> old.id == new.id },
+            areContentsTheSame = { old, new -> old == new }
         )
     }
 }
