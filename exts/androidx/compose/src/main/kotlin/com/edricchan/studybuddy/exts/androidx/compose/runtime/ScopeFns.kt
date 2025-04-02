@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
  *
  * @Composable
  * fun MyComposable(
- *  text: @Composable (() -> Unit)?,
- *  example: @Composable () -> Example
+ *   text: @Composable (() -> Unit)?,
+ *   example: @Composable () -> Example
  * ) {}
  *
  * // Usage
  * MyComposable(
- *  text = nullableValue?.letComposable { Text(text = it) },
- *  example = value.letComposable { it.first() } // Similar to the .let {} scope function
+ *   text = nullableValue?.letComposable { Text(text = it) },
+ *   example = value.letComposable { it.first() } // Similar to the .let {} scope function
  * )
  * ```
  */
