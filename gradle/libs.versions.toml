@@ -2,7 +2,7 @@
 aboutLibraries = "11.2.3"
 accompanist = "0.36.0"
 android-desugar = "2.1.4"
-android-gradle = "8.10.0-alpha07"
+android-gradle = "8.11.0-alpha03"
 androidx-activity = "1.10.0"
 androidx-compose = "1.8.0-beta02"
 androidx-compose-material3 = "1.4.0-alpha08"
