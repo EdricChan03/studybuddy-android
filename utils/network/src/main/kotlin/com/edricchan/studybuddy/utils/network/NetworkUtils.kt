@@ -10,8 +10,13 @@ enum class NetworkType(
     private val transportType: Int,
     private val compatType: Int
 ) {
+    @Suppress("DEPRECATION")
     WiFi(NetworkCapabilities.TRANSPORT_WIFI, ConnectivityManager.TYPE_WIFI),
+
+    @Suppress("DEPRECATION")
     Cellular(NetworkCapabilities.TRANSPORT_CELLULAR, ConnectivityManager.TYPE_MOBILE),
+
+    @Suppress("DEPRECATION")
     Ethernet(NetworkCapabilities.TRANSPORT_ETHERNET, ConnectivityManager.TYPE_ETHERNET);
 
     fun isCurrentType(manager: ConnectivityManager): Boolean {
