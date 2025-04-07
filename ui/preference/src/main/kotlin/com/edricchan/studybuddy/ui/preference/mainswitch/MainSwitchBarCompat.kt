@@ -70,7 +70,7 @@ class MainSwitchBarCompat @JvmOverloads constructor(
     init {
         binding = PrefM3MainSwitchBarBinding.inflate(LayoutInflater.from(context), this, true)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            context.withStyledAttributes(attrs = intArrayOf(MaterialR.attr.colorAccent)) {
+            context.withStyledAttributes(attrs = intArrayOf(MaterialR.attr.colorSecondary)) {
                 mBackgroundActivatedColor = getColor(0, 0)
                 mBackgroundColor =
                     ContextCompat.getColor(context, AppCompatR.color.material_grey_600)
