@@ -7,6 +7,7 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.color.MaterialColors
+import androidx.appcompat.R as AppCompatR
 import com.google.android.material.R as MaterialR
 
 /**
@@ -18,7 +19,7 @@ import com.google.android.material.R as MaterialR
 val Context.dynamicColorPrimary
     get() = MaterialColors.getColor(
         this,
-        MaterialR.attr.colorPrimary,
+        AppCompatR.attr.colorPrimary,
         ContextCompat.getColor(this, R.color.colorPrimary)
     )
 
