@@ -134,6 +134,7 @@ include(
     ":exts:android",
     ":exts:androidx:compose",
     ":exts:androidx:fragment",
+    ":exts:androidx:navigation-runtime",
     ":exts:androidx:preference",
     ":exts:androidx:preference-files",
     ":exts:androidx:view-binding",
