@@ -105,9 +105,6 @@ firebase-perf-ktx = { module = "com.google.firebase:firebase-perf" }
 # Kotlin
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
-# Needed until Kotlin stdlib is automatically added into Android + Kotlin test-fixtures
-# TODO: Remove when https://issuetracker.google.com/issues/340315591 is fixed
-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 
 # Markwon
 markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }

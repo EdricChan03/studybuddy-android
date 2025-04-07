@@ -38,10 +38,6 @@ dependencies {
     testImplementation(libs.kotest.assertion.core)
     testImplementation(libs.kotest.property)
 
-    // TODO: Remove when https://issuetracker.google.com/issues/340315591 is fixed
-    testFixturesImplementation(libs.kotlin.stdlib) {
-        because("Required until https://issuetracker.google.com/issues/340315591 is fixed")
-    }
     testFixturesApi(libs.kotlin.test)
     testFixturesApi(libs.kotest.assertion.core)
     testFixturesApi(libs.kotest.property)
