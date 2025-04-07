@@ -1,29 +1,29 @@
 [versions]
 aboutLibraries = "11.2.3"
 accompanist = "0.36.0"
-android-desugar = "2.1.4"
+android-desugar = "2.1.5"
 android-gradle = "8.11.0-alpha04"
-androidx-activity = "1.10.0"
-androidx-compose = "1.8.0-beta02"
-androidx-compose-material3 = "1.4.0-alpha08"
+androidx-activity = "1.10.1"
+androidx-compose = "1.8.0-rc02"
+androidx-compose-material3 = "1.4.0-alpha11"
 androidx-fragment = "1.8.6"
-androidx-lifecycle = "2.9.0-alpha10"
-androidx-navigation = "2.9.0-alpha06"
+androidx-lifecycle = "2.9.0-alpha13"
+androidx-navigation = "2.9.0-alpha09"
 coil = "2.7.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
 compose-richtext = "0.20.0"
-dagger = "2.55"
+dagger = "2.56.1"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "32.8.1"
-gradle-versions = "0.51.0"
+gradle-versions = "0.52.0"
 kotest = "5.9.1"
-kotlin = "2.1.10"
+kotlin = "2.1.20"
 kotlinx-coroutines = "1.10.1"
-kotlinx-serialization = "1.8.0"
-ktor = "3.0.3"
+kotlinx-serialization = "1.8.1"
+ktor = "3.1.2"
 markwon = "4.6.2"
-mockk = "1.13.16"
+mockk = "1.13.17"
 # TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
 #  is fixed
 protobuf = "4.26.1"
@@ -34,7 +34,7 @@ androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref
 androidx-annotation = "androidx.annotation:annotation:1.9.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
 androidx-browser = "androidx.browser:browser:1.8.0"
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.15.0"
 androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version.ref = "androidx-fragment" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
@@ -80,7 +80,7 @@ composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.13.0-alpha10"
+materialComponents = "com.google.android.material:material:1.13.0-alpha12"
 
 # Credential Manager
 google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.1.1"
@@ -125,7 +125,7 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # Coil
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-coil-zoomable = "me.saket.telephoto:zoomable-image-coil:0.14.0"
+coil-zoomable = "me.saket.telephoto:zoomable-image-coil:0.15.1"
 
 # Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -168,7 +168,7 @@ androidx-test-runner = "androidx.test:runner:1.6.2"
 androidx-test-rules = "androidx.test:rules:1.6.1"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:5.15.2"
+mockito-core = "org.mockito:mockito-core:5.16.1"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 
@@ -233,7 +233,7 @@ buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-ksp = "com.google.devtools.ksp:2.1.10-1.0.30"
+ksp = "com.google.devtools.ksp:2.1.20-1.0.32"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.3"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
@@ -243,10 +243,10 @@ gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-v
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
-protobuf = "com.google.protobuf:0.9.4"
+protobuf = "com.google.protobuf:0.9.5"
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.10.1"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.14.0"
 
-testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.4.1"
+testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.4.4"
