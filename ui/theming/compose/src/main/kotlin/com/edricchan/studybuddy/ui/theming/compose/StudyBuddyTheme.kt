@@ -26,6 +26,13 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
  * @param useM3Colors Whether the [M3 dark colours][StudyBuddyM3DarkColors] should
  * be used instead of the [compat dark colours][StudyBuddyCompatDarkColors].
  */
+@Deprecated(
+    "Use StudyBuddyM3DarkColors directly",
+    ReplaceWith(
+        "StudyBuddyM3DarkColors",
+        "com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3DarkColors"
+    )
+)
 fun darkColorScheme(useM3Colors: Boolean = true) =
     if (useM3Colors) StudyBuddyM3DarkColors else StudyBuddyCompatDarkColors
 
@@ -34,6 +41,13 @@ fun darkColorScheme(useM3Colors: Boolean = true) =
  * @param useM3Colors Whether the [M3 light colours][StudyBuddyM3LightColors] should
  * be used instead of the [compat light colours][StudyBuddyCompatLightColors].
  */
+@Deprecated(
+    "Use StudyBuddyM3LightColors directly",
+    ReplaceWith(
+        "StudyBuddyM3LightColors",
+        "com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3LightColors"
+    )
+)
 fun lightColorScheme(useM3Colors: Boolean = true) =
     if (useM3Colors) StudyBuddyM3LightColors else StudyBuddyCompatLightColors
 
