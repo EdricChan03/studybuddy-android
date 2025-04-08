@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.appearance.proto;
+
+option java_multiple_files = true;
+
+/* Possible dark mode options. */
+enum DarkModeSetting {
+  /* Follow the system's dark mode setting. */
+  FollowSystem = 0;
+  /* Always enable dark mode. */
+  AlwaysOn = 1;
+  /* Always disable dark mode. */
+  AlwaysOff = 2;
+}
