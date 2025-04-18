@@ -12,8 +12,5 @@ object deps {
                 return "$dir/$outputSuffix"
             }
         }
-        object repositories {
-            const val jitpack = "https://jitpack.io"
-        }
     }
 }
