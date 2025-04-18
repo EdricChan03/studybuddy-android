@@ -1,29 +1,29 @@
 [versions]
-aboutLibraries = "11.2.3"
-accompanist = "0.36.0"
+aboutLibraries = "11.2.3" # TODO: Update when https://github.com/mikepenz/AboutLibraries/issues/1033 is resolved
+accompanist = "0.37.2"
 android-desugar = "2.1.5"
 android-gradle = "8.11.0-alpha07"
 androidx-activity = "1.10.1"
-androidx-compose = "1.8.0-rc02"
-androidx-compose-material3 = "1.4.0-alpha11"
+androidx-compose = "1.8.0-rc03"
+androidx-compose-material3 = "1.4.0-alpha12"
 androidx-fragment = "1.8.6"
-androidx-lifecycle = "2.9.0-alpha13"
-androidx-navigation = "2.9.0-alpha09"
+androidx-lifecycle = "2.9.0-beta01"
+androidx-navigation = "2.9.0-beta01"
 coil = "2.7.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
 compose-richtext = "0.20.0"
-dagger = "2.56.1"
+dagger = "2.56.2"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "32.8.1"
 gradle-versions = "0.52.0"
 kotest = "5.9.1"
 kotlin = "2.1.20"
-kotlinx-coroutines = "1.10.1"
+kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.8.1"
 ktor = "3.1.2"
 markwon = "4.6.2"
-mockk = "1.13.17"
+mockk = "1.14.0"
 # TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
 #  is fixed
 protobuf = "4.26.1"
@@ -35,7 +35,7 @@ androidx-annotation = "androidx.annotation:annotation:1.9.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
 androidx-browser = "androidx.browser:browser:1.8.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
-androidx-core-ktx = "androidx.core:core-ktx:1.15.0"
+androidx-core-ktx = "androidx.core:core-ktx:1.16.0"
 androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version.ref = "androidx-fragment" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "androidx-fragment" }
@@ -49,7 +49,7 @@ androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-run
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui", version.ref = "androidx-navigation" }
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
-androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
+androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-beta01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-beta01"
 androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.0"
 
@@ -165,7 +165,7 @@ androidx-test-runner = "androidx.test:runner:1.6.2"
 androidx-test-rules = "androidx.test:rules:1.6.1"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:5.16.1"
+mockito-core = "org.mockito:mockito-core:5.17.0"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 
@@ -244,6 +244,6 @@ protobuf = "com.google.protobuf:0.9.5"
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.14.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.16.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.4.4"

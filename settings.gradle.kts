@@ -32,10 +32,10 @@ plugins {
     // https://docs.gradle.com/enterprise/gradle-plugin/
     @Suppress("SpellCheckingInspection")
     // "develocity" is the branding for Gradle's build tooling
-    id("com.gradle.develocity") version "3.19.2"
+    id("com.gradle.develocity") version "4.0"
     // Gradle JVM Toolchains repository - see
     // https://docs.gradle.org/8.7/userguide/toolchains.html#sub:download_repositories
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
 
     id("com.android.settings") version "8.11.0-alpha07"
 }
