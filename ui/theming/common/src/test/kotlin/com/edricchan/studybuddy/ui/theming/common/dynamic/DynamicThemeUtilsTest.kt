@@ -4,59 +4,67 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.google.android.material.color.DynamicColors
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.verify
-import org.junit.Assert.assertEquals
-import org.junit.Test
 
-class DynamicThemeUtilsTest {
-    @Test
-    fun isDynamicColorAvailable_callsCorrect() {
-        assertEquals(isDynamicColorAvailable, DynamicColors.isDynamicColorAvailable())
+class DynamicThemeUtilsTest : DescribeSpec({
+    describe("isDynamicColorAvailable") {
+        it("should return the appropriate value") {
+            isDynamicColorAvailable shouldBeEqual DynamicColors.isDynamicColorAvailable()
+        }
     }
 
-    @Test
-    fun prefDynamicTheme_returnsValue() {
-        val context = mockk<Context>(relaxed = true)
-        val sharedPrefs = mockk<SharedPreferences>()
-        mockkStatic(PreferenceManager::class)
+    describe("prefDynamicTheme") {
+        lateinit var context: Context
+        lateinit var sharedPrefs: SharedPreferences
 
-        every { PreferenceManager.getDefaultSharedPreferences(any()) } returns sharedPrefs
+        beforeTest {
+            context = mockk<Context>(relaxed = true)
+            sharedPrefs = mockk<SharedPreferences>()
+            mockkStatic(PreferenceManager::class)
+        }
 
-        val value = false
-        every { sharedPrefs.getBoolean(PREF_DYNAMIC_THEME, isDynamicColorAvailable) } returns value
+        it("should return the appropriate value") {
+            every { PreferenceManager.getDefaultSharedPreferences(any()) } returns sharedPrefs
 
-        val dynamicTheme = context.prefDynamicTheme
+            val value = false
+            every {
+                sharedPrefs.getBoolean(
+                    PREF_DYNAMIC_THEME,
+                    isDynamicColorAvailable
+                )
+            } returns value
 
-        assertEquals(dynamicTheme, value)
+            val dynamicTheme = context.prefDynamicTheme
 
-        verify { sharedPrefs.getBoolean(PREF_DYNAMIC_THEME, isDynamicColorAvailable) }
+            dynamicTheme shouldBeEqual value
+
+            verify { sharedPrefs.getBoolean(PREF_DYNAMIC_THEME, isDynamicColorAvailable) }
+        }
+
+        it("should set the appropriate value") {
+            val sharedPrefsEditor = mockk<SharedPreferences.Editor>()
+
+            every { PreferenceManager.getDefaultSharedPreferences(any()) } returns sharedPrefs
+            every { sharedPrefs.edit() } returns sharedPrefsEditor
+
+            val newValue = true
+            every {
+                sharedPrefsEditor.putBoolean(
+                    PREF_DYNAMIC_THEME,
+                    newValue
+                )
+            } answers { sharedPrefsEditor }
+            justRun { sharedPrefsEditor.apply() }
+
+            context.prefDynamicTheme = newValue
+
+            verify { sharedPrefsEditor.putBoolean(PREF_DYNAMIC_THEME, newValue) }
+        }
     }
-
-    @Test
-    fun prefDynamicTheme_setsValue() {
-        val context = mockk<Context>(relaxed = true)
-        val sharedPrefs = mockk<SharedPreferences>()
-        val sharedPrefsEditor = mockk<SharedPreferences.Editor>()
-        mockkStatic(PreferenceManager::class)
-
-        every { PreferenceManager.getDefaultSharedPreferences(any()) } returns sharedPrefs
-        every { sharedPrefs.edit() } returns sharedPrefsEditor
-
-        val newValue = true
-        every {
-            sharedPrefsEditor.putBoolean(
-                PREF_DYNAMIC_THEME,
-                newValue
-            )
-        } answers { sharedPrefsEditor }
-        justRun { sharedPrefsEditor.apply() }
-
-        context.prefDynamicTheme = newValue
-
-        verify { sharedPrefsEditor.putBoolean(PREF_DYNAMIC_THEME, newValue) }
-    }
-}
+})
