@@ -15,41 +15,9 @@ import com.edricchan.studybuddy.ui.theming.common.ThemePreferences
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.night.shouldApplyDarkTheme
 import com.edricchan.studybuddy.ui.theming.compose.theme.StudyBuddyTypography
-import com.edricchan.studybuddy.ui.theming.compose.theme.compat.StudyBuddyCompatDarkColors
-import com.edricchan.studybuddy.ui.theming.compose.theme.compat.StudyBuddyCompatLightColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3DarkColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3LightColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
-
-/**
- * Retrieves the dark colour scheme to use.
- * @param useM3Colors Whether the [M3 dark colours][StudyBuddyM3DarkColors] should
- * be used instead of the [compat dark colours][StudyBuddyCompatDarkColors].
- */
-@Deprecated(
-    "Use StudyBuddyM3DarkColors directly",
-    ReplaceWith(
-        "StudyBuddyM3DarkColors",
-        "com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3DarkColors"
-    )
-)
-fun darkColorScheme(useM3Colors: Boolean = true) =
-    if (useM3Colors) StudyBuddyM3DarkColors else StudyBuddyCompatDarkColors
-
-/**
- * Retrieves the light colour scheme to use.
- * @param useM3Colors Whether the [M3 light colours][StudyBuddyM3LightColors] should
- * be used instead of the [compat light colours][StudyBuddyCompatLightColors].
- */
-@Deprecated(
-    "Use StudyBuddyM3LightColors directly",
-    ReplaceWith(
-        "StudyBuddyM3LightColors",
-        "com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3LightColors"
-    )
-)
-fun lightColorScheme(useM3Colors: Boolean = true) =
-    if (useM3Colors) StudyBuddyM3LightColors else StudyBuddyCompatLightColors
 
 /**
  * Sets the [MaterialTheme] for all of the Composables in [content].
@@ -59,9 +27,6 @@ fun lightColorScheme(useM3Colors: Boolean = true) =
  * @param enableDarkTheme Whether dark theme should be enabled.
  * @param useDynamicTheme Whether the system's wallpaper colour should be used. This defaults to
  * `true` for supported devices (Android 12+), or `false` otherwise.
- * @param useM3Colors Whether the M3 colours ([StudyBuddyM3LightColors],
- * [StudyBuddyM3DarkColors]) should be used instead of [StudyBuddyCompatLightColors] and
- * [StudyBuddyCompatDarkColors] when [dynamic theming][useDynamicTheme] is disabled.
  * @param typography The [Typography] to use.
  */
 @Composable
@@ -69,13 +34,10 @@ fun StudyBuddyTheme(
     context: Context = LocalContext.current,
     enableDarkTheme: Boolean = isSystemInDarkTheme(),
     useDynamicTheme: Boolean,
-    useM3Colors: Boolean = true,
     typography: Typography = StudyBuddyTypography,
     content: @Composable () -> Unit
 ) {
     // Dynamic color is available on Android 12+
-    val darkColor = darkColorScheme(useM3Colors)
-    val lightColor = lightColorScheme(useM3Colors)
     val colors = when {
         // useDynamicTheme doesn't imply that the Android device is actually running on
         // Android 12+, so an additional check is required
@@ -83,8 +45,8 @@ fun StudyBuddyTheme(
             if (enableDarkTheme) dynamicDarkColorScheme(context)
             else dynamicLightColorScheme(context)
 
-        enableDarkTheme -> darkColor
-        else -> lightColor
+        enableDarkTheme -> StudyBuddyM3DarkColors
+        else -> StudyBuddyM3LightColors
     }
 
     MaterialTheme(colorScheme = colors, typography = typography, content = content)
@@ -100,17 +62,12 @@ fun StudyBuddyTheme(
  * @param context The [Context] to be used to retrieve the dynamic colour (Android 12+).
  * @param themePrefs [ThemePreferences] object to retrieve the [ThemePreferences.prefDarkTheme]
  * and [ThemePreferences.prefEnableDynamicTheme] values from.
- * @param useM3Colors Whether the M3 colours ([StudyBuddyM3LightColors],
- * [StudyBuddyM3DarkColors]) should be used instead of [StudyBuddyCompatLightColors] and
- * [StudyBuddyCompatDarkColors] when [dynamic theming][ThemePreferences.prefEnableDynamicTheme]
- * is disabled.
  * @param typography The [Typography] to use.
  */
 @Composable
 fun StudyBuddyTheme(
     context: Context = LocalContext.current,
     themePrefs: ThemePreferences = ThemePreferences(context),
-    useM3Colors: Boolean = true,
     typography: Typography = StudyBuddyTypography,
     content: @Composable () -> Unit
 ) {
@@ -124,7 +81,6 @@ fun StudyBuddyTheme(
         context = context,
         enableDarkTheme = shouldApplyDarkTheme(themeValue = darkTheme),
         useDynamicTheme = dynamicTheme,
-        useM3Colors = useM3Colors,
         typography = typography,
         content = content
     )
