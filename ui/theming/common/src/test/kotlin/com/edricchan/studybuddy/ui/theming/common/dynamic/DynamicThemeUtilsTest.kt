@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.theming.common.dynamic
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.edricchan.studybuddy.core.settings.appearance.keyPrefDynamicTheme
 import com.google.android.material.color.DynamicColors
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.equals.shouldBeEqual
@@ -35,7 +36,7 @@ class DynamicThemeUtilsTest : DescribeSpec({
             val value = false
             every {
                 sharedPrefs.getBoolean(
-                    PREF_DYNAMIC_THEME,
+                    keyPrefDynamicTheme,
                     isDynamicColorAvailable
                 )
             } returns value
@@ -44,7 +45,7 @@ class DynamicThemeUtilsTest : DescribeSpec({
 
             dynamicTheme shouldBeEqual value
 
-            verify { sharedPrefs.getBoolean(PREF_DYNAMIC_THEME, isDynamicColorAvailable) }
+            verify { sharedPrefs.getBoolean(keyPrefDynamicTheme, isDynamicColorAvailable) }
         }
 
         it("should set the appropriate value") {
@@ -56,7 +57,7 @@ class DynamicThemeUtilsTest : DescribeSpec({
             val newValue = true
             every {
                 sharedPrefsEditor.putBoolean(
-                    PREF_DYNAMIC_THEME,
+                    keyPrefDynamicTheme,
                     newValue
                 )
             } answers { sharedPrefsEditor }
@@ -64,7 +65,7 @@ class DynamicThemeUtilsTest : DescribeSpec({
 
             context.prefDynamicTheme = newValue
 
-            verify { sharedPrefsEditor.putBoolean(PREF_DYNAMIC_THEME, newValue) }
+            verify { sharedPrefsEditor.putBoolean(keyPrefDynamicTheme, newValue) }
         }
     }
 })
