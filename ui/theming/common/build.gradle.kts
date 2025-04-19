@@ -1,5 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
 }
 
 android {
@@ -35,9 +36,6 @@ dependencies {
     api(libs.flowPreferences)
 
     testImplementation(libs.kotlin.test)
-    testImplementation(libs.kotest.runner.junit5)
-    testImplementation(libs.kotest.assertion.core)
-    testImplementation(libs.kotest.property)
     testImplementation(libs.mockk.core)
 
     androidTestImplementation(libs.junit)

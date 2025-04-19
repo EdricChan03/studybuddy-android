@@ -1,7 +1,6 @@
-import com.android.build.gradle.tasks.factory.AndroidUnitTest
-
 plugins {
     com.edricchan.studybuddy.library.`android-compose`
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
 }
 
 android {
@@ -24,19 +23,12 @@ android {
     testFixtures.enable = true
 }
 
-tasks.withType<AndroidUnitTest>().configureEach {
-    useJUnitPlatform()
-}
-
 dependencies {
     api(projects.ui.theming.common)
 
     implementation(libs.androidx.compose.material3)
 
     testImplementation(libs.kotlin.test)
-    testImplementation(libs.kotest.runner.junit5)
-    testImplementation(libs.kotest.assertion.core)
-    testImplementation(libs.kotest.property)
 
     testFixturesApi(libs.kotlin.test)
     testFixturesApi(libs.kotest.assertion.core)

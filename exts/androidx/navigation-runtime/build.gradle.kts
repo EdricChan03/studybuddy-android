@@ -1,7 +1,6 @@
-import com.android.build.gradle.tasks.factory.AndroidUnitTest
-
 plugins {
     com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
     alias(libs.plugins.kotlin.plugin.serialization)
 }
 
@@ -23,17 +22,9 @@ android {
     }
 }
 
-tasks.withType<AndroidUnitTest>().configureEach {
-    useJUnitPlatform()
-}
-
 dependencies {
     api(libs.androidx.navigation.runtime.ktx)
     api(libs.kotlinx.serialization.core)
-
-    testImplementation(libs.kotest.runner.junit5)
-    testImplementation(libs.kotest.assertion.core)
-    testImplementation(libs.kotest.property)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)

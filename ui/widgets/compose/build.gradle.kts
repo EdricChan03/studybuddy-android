@@ -1,7 +1,6 @@
-import com.android.build.gradle.tasks.factory.AndroidUnitTest
-
 plugins {
     com.edricchan.studybuddy.library.`android-compose`
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
 }
 
 android {
@@ -22,10 +21,6 @@ android {
     }
 }
 
-tasks.withType<AndroidUnitTest>().configureEach {
-    useJUnitPlatform()
-}
-
 dependencies {
     implementation(projects.ui.theming.compose)
     implementation(projects.core.resources)
@@ -37,9 +32,6 @@ dependencies {
     implementation(libs.accompanist.drawablePainter)
 
     testImplementation(libs.kotlin.test)
-    testImplementation(libs.kotest.runner.junit5)
-    testImplementation(libs.kotest.assertion.core)
-    testImplementation(libs.kotest.property)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)

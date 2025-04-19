@@ -1,5 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.`android-compose`
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
 }
 
 android {
@@ -23,7 +24,6 @@ android {
 dependencies {
     api(libs.bundles.androidx.compose)
 
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }
