@@ -138,7 +138,6 @@
     <string name="debug_activity_account_info_title">Account info</string>
     <string name="debug_activity_category_device">Device</string>
     <string name="debug_activity_category_firebase">Firebase</string>
-    <string name="debug_activity_category_logging">Logging</string>
     <string name="debug_activity_category_updates">Updates</string>
     <string name="debug_activity_category_other">Other</string>
     <string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n

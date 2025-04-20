@@ -939,13 +939,6 @@
         <location column="13" file="src/main/res/values/strings.xml" line="192" />
     </issue>
 
-    <issue
-        errorLine1="    &lt;string name=&quot;debug_activity_category_logging&quot;>Logging&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.debug_activity_category_logging` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="264" />
-    </issue>
-
     <issue errorLine1="    &lt;string name=&quot;dialog_action_no&quot;>No&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.dialog_action_no` appears to be unused">
