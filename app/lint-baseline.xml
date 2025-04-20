@@ -939,12 +939,6 @@
         <location column="13" file="src/main/res/values/strings.xml" line="192" />
     </issue>
 
-    <issue errorLine1="    &lt;string name=&quot;choose_a_date&quot;>Choose a date…&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.choose_a_date` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="252" />
-    </issue>
-
     <issue
         errorLine1="    &lt;string name=&quot;debug_activity_category_logging&quot;>Logging&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"

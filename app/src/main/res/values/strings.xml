@@ -127,8 +127,6 @@
     <string name="cab_action_edit_selected_tasks">Edit selected</string>
     <string name="cab_action_select_all">Select all</string>
 
-    <string name="choose_a_date">Choose a date…</string>
-
     <string name="comma_indicates_separator">Separate each tag/label with a comma</string>
 
     <string name="date_format_pattern">EEE, MMM d yyyy</string>
