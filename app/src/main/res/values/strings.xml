@@ -352,8 +352,6 @@
     </string>
     <string name="share_intent_value">Share this app via&#8230;</string>
 
-    <string name="shortcut_settings_long_msg">Open settings</string>
-    <string name="shortcut_settings_short_msg">Settings</string>
     <string name="shortcut_todo_disabled_msg">Todo is disabled</string>
     <string name="shortcut_todo_long_msg">Create a new todo</string>
     <string name="shortcut_todo_short_msg">New todo</string>

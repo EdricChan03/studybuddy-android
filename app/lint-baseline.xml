@@ -973,22 +973,6 @@
     </issue>
 
     <issue
-        errorLine1="    &lt;string name=&quot;shortcut_settings_long_msg&quot;>Open settings&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" excludedVariants="nightly"
-        id="UnusedResources" includedVariants="debug,release"
-        message="The resource `R.string.shortcut_settings_long_msg` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="479" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;shortcut_settings_short_msg&quot;>Settings&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" excludedVariants="nightly"
-        id="UnusedResources" includedVariants="debug,release"
-        message="The resource `R.string.shortcut_settings_short_msg` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="480" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;string name=&quot;shortcut_todo_disabled_msg&quot;>Todo is disabled&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" excludedVariants="debug,nightly"
         id="UnusedResources" includedVariants="release"
