@@ -919,13 +919,6 @@
     </issue>
 
     <issue
-        errorLine1="&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.menu.menu_frag_todo_bottomsheet` appears to be unused">
-        <location column="1" file="src/main/res/menu/menu_frag_todo_bottomsheet.xml" line="2" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;string name=&quot;pref_general_cct_color_scheme_title&quot;>Use app color scheme for in-app"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.pref_general_cct_color_scheme_title` appears to be unused">
