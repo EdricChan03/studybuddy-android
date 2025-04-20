@@ -1036,12 +1036,6 @@
         <location column="18" file="src/main/res/layout/activity_new_task.xml" line="61" />
     </issue>
 
-    <issue errorLine1="        android:contentDescription=&quot;Document icon&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
-        message="Hardcoded string &quot;Document icon&quot;, should use `@string` resource">
-        <location column="9" file="src/main/res/layout/helparticleadapter_item_row.xml" line="17" />
-    </issue>
-
     <issue errorLine1="        android:contentDescription=&quot;App icon&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
         message="Hardcoded string &quot;App icon&quot;, should use `@string` resource">
