@@ -741,13 +741,6 @@
     <issue
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.ic_forum_24dp` appears to be unused">
-        <location column="1" file="src/main/res/drawable/ic_forum_24dp.xml" line="2" />
-    </issue>
-
-    <issue
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
         message="The resource `R.drawable.ic_group_outline_24dp` appears to be unused">
         <location column="1" file="src/main/res/drawable/ic_group_outline_24dp.xml" line="2" />
     </issue>
