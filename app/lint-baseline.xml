@@ -926,14 +926,6 @@
     </issue>
 
     <issue
-        errorLine1="    &lt;string name=&quot;about_frag_app_info_card_app_license_title&quot;>App license&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UnusedResources"
-        message="The resource `R.string.about_frag_app_info_card_app_license_title` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="48" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;string name=&quot;cab_action_delete_selected_tasks&quot;>Delete selected&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.cab_action_delete_selected_tasks` appears to be unused">
