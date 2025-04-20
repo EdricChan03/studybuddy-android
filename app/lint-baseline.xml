@@ -919,13 +919,6 @@
     </issue>
 
     <issue
-        errorLine1="    &lt;string name=&quot;pref_general_cct_color_scheme_title&quot;>Use app color scheme for in-app"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.pref_general_cct_color_scheme_title` appears to be unused">
-        <location column="13" file="src/main/res/values/prefs_resources.xml" line="24" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;string name=&quot;pref_tasks_category_weekly_summary&quot;>Weekly summary&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.pref_tasks_category_weekly_summary` appears to be unused">
