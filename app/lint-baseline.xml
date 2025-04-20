@@ -121,13 +121,6 @@
     </issue>
 
     <issue
-        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.circle_image_button` appears to be unused">
-        <location column="1" file="src/main/res/drawable/circle_image_button.xml" line="2" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;dimen name=&quot;one_line_list_padding_top_bottom&quot;>8dp&lt;/dimen>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.dimen.one_line_list_padding_top_bottom` appears to be unused">
