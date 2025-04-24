@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.ui.modules.debug.compose
 
 import android.content.ClipData
 import android.util.Log
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
@@ -19,6 +20,7 @@ import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.asFlow
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
@@ -102,6 +104,7 @@ fun UpdatesCategory(
             subtitle = customJsonUrl.takeIf { it.isNotBlank() }
                 ?.letComposable { Text(text = it) },
             icon = { Icon(painterResource(R.drawable.ic_link_24dp), contentDescription = null) },
+            isValid = PatternsCompat.WEB_URL.toRegex().matches(customJsonUrlValue),
             onConfirm = {
                 onJsonUrlChange(customJsonUrlValue)
                 requestDismiss()
@@ -109,7 +112,13 @@ fun UpdatesCategory(
         ) {
             OutlinedTextField(
                 value = customJsonUrlValue,
-                onValueChange = { customJsonUrlValue = it }
+                onValueChange = { customJsonUrlValue = it },
+                label = { Text(text = stringResource(R.string.debug_activity_updates_set_custom_json_url_title)) },
+                singleLine = true,
+                keyboardActions = KeyboardActions {
+                    onJsonUrlChange(customJsonUrlValue)
+                    requestDismiss()
+                }
             )
         }
 
