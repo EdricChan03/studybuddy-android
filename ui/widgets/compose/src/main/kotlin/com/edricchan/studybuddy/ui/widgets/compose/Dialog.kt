@@ -106,10 +106,8 @@ fun <T> ListDialog(
  * @param title The dialog's title.
  * @param icon The dialog's icon.
  * @param onDismissRequest Invoked when the dialog is to be dismissed.
- * @param inputValue The current input's value.
- * @param valueValid Whether the input is valid. Defaults to [String.isNotBlank] on [inputValue]
- * if not specified.
- * @param onConfirm Invoked when the confirm button is pressed with the new input value.
+ * @param isValid Whether the confirm button should be enabled.
+ * @param onConfirm Invoked when the confirm button is pressed.
  * @param textField Composable to be shown for the input text-field.
  * This should be a [DialogDefaults.TextField].
  */
@@ -119,9 +117,8 @@ fun InputDialog(
     title: @Composable (() -> Unit)?,
     icon: @Composable (() -> Unit)?,
     onDismissRequest: () -> Unit,
-    inputValue: String,
-    valueValid: Boolean = inputValue.isNotBlank(),
-    onConfirm: (String) -> Unit,
+    isValid: Boolean,
+    onConfirm: () -> Unit,
     textField: @Composable () -> Unit
 ) = AlertDialog(
     modifier = modifier,
@@ -130,11 +127,8 @@ fun InputDialog(
     onDismissRequest = onDismissRequest,
     confirmButton = {
         TextButton(
-            enabled = valueValid,
-            onClick = {
-                onConfirm(inputValue)
-                onDismissRequest()
-            }
+            enabled = isValid,
+            onClick = onConfirm
         ) {
             Text(stringResource(CoreResR.string.dialog_action_done))
         }

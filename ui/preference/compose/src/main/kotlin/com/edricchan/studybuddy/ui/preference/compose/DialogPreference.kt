@@ -3,9 +3,12 @@ package com.edricchan.studybuddy.ui.preference.compose
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.edricchan.studybuddy.ui.preference.compose.dialog.DialogPreferenceScope
+import com.edricchan.studybuddy.ui.preference.compose.dialog.DialogPreferenceScopeImpl
 import com.edricchan.studybuddy.ui.widgets.compose.InputDialog
 import com.edricchan.studybuddy.ui.widgets.compose.ListDialog
 
@@ -85,17 +88,15 @@ fun <T> ListDialogPreference(
  * @param icon [Composable] to be displayed on the left of this preference.
  * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
  * should be added to the [title] composable and its contents.
+ * @param enabled Whether the preference is enabled.
  * @param dialogIcon [Composable] to be used for the [InputDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
  * @param dialogTitle [Composable] to be used for the [InputDialog]'s `title`. Defaults to
  * the preference's [title] if not explicitly set.
- * @param value The input's value.
- * @param onConfirm Method that is invoked when the confirm button is pressed, with the final
- * input value.
- * @param isValid Called to determine if the input's value is valid.
- * @param icon The dialog icon.
- * @param enabled Whether the preference is enabled.
- * @param
+ * @param onConfirm Method that is invoked when the dialog's confirm button is pressed.
+ * @param isValid Whether the dialog's confirm button should be enabled.
+ * @param dialogTextField Contents of the [InputDialog]. This should preferably be an
+ * [androidx.compose.material3.OutlinedTextField] or similar.
  * @see Preference
  * @see InputDialog
  */
@@ -107,15 +108,17 @@ fun InputDialogPreference(
     subtitle: @Composable (() -> Unit)? = null,
     icon: @Composable (() -> Unit)? = null,
     iconSpaceReserved: Boolean = true,
+    enabled: Boolean = true,
     dialogIcon: @Composable (() -> Unit)? = icon,
     dialogTitle: @Composable () -> Unit = title,
-    value: String,
-    onConfirm: (String) -> Unit = {},
-    isValid: (String) -> Boolean = String::isNotBlank,
-    enabled: Boolean = true,
-    dialogTextField: @Composable () -> Unit
+    onConfirm: DialogPreferenceScope.() -> Unit,
+    isValid: Boolean = true,
+    dialogTextField: @Composable DialogPreferenceScope.() -> Unit
 ) {
     var dialogVisible by rememberSaveable { mutableStateOf(false) }
+
+    val dialogScope =
+        remember { DialogPreferenceScopeImpl(onDismissRequest = { dialogVisible = false }) }
 
     Preference(
         modifier = modifier,
@@ -132,11 +135,10 @@ fun InputDialogPreference(
             modifier = dialogModifier,
             title = dialogTitle,
             icon = dialogIcon,
-            onConfirm = onConfirm,
+            onConfirm = { dialogScope.onConfirm() },
+            isValid = isValid,
             onDismissRequest = { dialogVisible = false },
-            inputValue = value,
-            valueValid = isValid(value),
-            textField = dialogTextField
+            textField = { dialogScope.dialogTextField() }
         )
     }
 }
@@ -212,12 +214,10 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
  * the preference's [icon] if not explicitly set.
  * @param dialogTitle [Composable] to be used for the [InputDialog]'s `title`. Defaults
  * to the preference's [title] if not explicitly set.
- * @param value The input's value.
- * @param onConfirm Method that is invoked when the confirm button is pressed, with the final
- * input value.
- * @param isValid Called to determine if the input's value is valid.
- * @param icon The dialog icon.
- * @param enabled Whether the preference is enabled.
+ * @param onConfirm Method that is invoked when the confirm button is pressed.
+ * @param isValid Whether the dialog's confirm button should be enabled.
+ * @param dialogTextField Contents of the [InputDialog]. This should preferably be an
+ * [androidx.compose.material3.OutlinedTextField] or similar.
  * @param
  * @see Preference
  * @see InputDialog
@@ -232,10 +232,9 @@ fun PreferenceCategoryScope.InputDialogPreference(
     iconSpaceReserved: Boolean = this.iconSpaceReserved,
     dialogIcon: @Composable (() -> Unit)? = icon,
     dialogTitle: @Composable () -> Unit = title,
-    value: String,
-    onConfirm: (String) -> Unit = {},
-    isValid: (String) -> Boolean = String::isNotBlank,
-    dialogTextField: @Composable () -> Unit
+    onConfirm: DialogPreferenceScope.() -> Unit,
+    isValid: Boolean = true,
+    dialogTextField: @Composable DialogPreferenceScope.() -> Unit
 ) = InputDialogPreference(
     modifier = modifier,
     dialogModifier = dialogModifier,
@@ -245,7 +244,6 @@ fun PreferenceCategoryScope.InputDialogPreference(
     iconSpaceReserved = iconSpaceReserved,
     dialogIcon = dialogIcon,
     dialogTitle = dialogTitle,
-    value = value,
     onConfirm = onConfirm,
     isValid = isValid,
     enabled = enabled,
