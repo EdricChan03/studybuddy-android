@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 
+@Deprecated("Use the Sign in With Google functionality from androidx.credentials instead")
 class GoogleAuth : ActivityResultContract<GoogleSignInOptions, GoogleSignInAccount?>() {
     override fun createIntent(context: Context, input: GoogleSignInOptions): Intent {
         val gso = GoogleSignIn.getClient(context, input)
