@@ -9,5 +9,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.exts.androidx.preference)
+
     implementation(libs.androidx.core.ktx)
+    api(libs.flowPreferences)
 }
