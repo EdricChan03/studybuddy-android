@@ -19,6 +19,8 @@ import com.edricchan.studybuddy.ui.widgets.compose.ListDialog
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
+ * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
+ * should be added to the [title] composable and its contents.
  * @param dialogIcon [Composable] to be used for the [ListDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
  * @param dialogTitle [Composable] to be used for the [ListDialog]'s `title`. Defaults to
@@ -81,6 +83,8 @@ fun <T> ListDialogPreference(
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
+ * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
+ * should be added to the [title] composable and its contents.
  * @param dialogIcon [Composable] to be used for the [InputDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
  * @param dialogTitle [Composable] to be used for the [InputDialog]'s `title`. Defaults to
@@ -148,6 +152,8 @@ fun InputDialogPreference(
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
+ * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
+ * should be added to the [title] composable and its contents.
  * @param dialogIcon [Composable] to be used for the [ListDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
  * @param dialogTitle [Composable] to be used for the [ListDialog]'s `title`. Defaults to
@@ -200,6 +206,8 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
  * @param subtitle [Composable] to be displayed below the [title]. This will only be
  * applied to the preference.
  * @param icon [Composable] to be displayed on the left of this preference.
+ * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
+ * should be added to the [title] composable and its contents.
  * @param dialogIcon [Composable] to be used for the [InputDialog]'s `icon`. Defaults to
  * the preference's [icon] if not explicitly set.
  * @param dialogTitle [Composable] to be used for the [InputDialog]'s `title`. Defaults
