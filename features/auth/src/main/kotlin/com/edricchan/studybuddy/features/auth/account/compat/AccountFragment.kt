@@ -10,6 +10,9 @@ import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.credentials.ClearCredentialStateRequest
+import androidx.credentials.CredentialManager
+import androidx.credentials.exceptions.ClearCredentialException
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.toRoute
 import coil.load
@@ -243,6 +246,15 @@ class AccountFragment :
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
                 auth.signOut()
+                lifecycleScope.launch {
+                    try {
+                        val clearRequest = ClearCredentialStateRequest()
+                        CredentialManager.create(requireContext())
+                            .clearCredentialState(clearRequest)
+                    } catch (e: ClearCredentialException) {
+                        Log.e(TAG, "Couldn't clear user credentials: ${e.localizedMessage}")
+                    }
+                }
                 showToast(R.string.account_log_out_success_msg, Toast.LENGTH_SHORT)
                 dialog.dismiss()
             }
