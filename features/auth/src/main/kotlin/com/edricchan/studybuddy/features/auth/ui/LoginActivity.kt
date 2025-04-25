@@ -10,9 +10,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
+import androidx.credentials.Credential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetPasswordOption
+import androidx.credentials.PendingGetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.pendingGetCredentialRequest
 import androidx.lifecycle.lifecycleScope
-import com.edricchan.studybuddy.core.auth.gms.contracts.GoogleAuth
-import com.edricchan.studybuddy.core.auth.gms.defaultSignInOptions
+import com.edricchan.studybuddy.core.auth.credentials.asGoogleIdTokenCredential
+import com.edricchan.studybuddy.core.auth.credentials.googleBtnOption
+import com.edricchan.studybuddy.core.auth.credentials.signInWithGoogleCredentials
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.exts.android.showToast
@@ -26,7 +33,6 @@ import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.ActivityLoginBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.AuthResult
@@ -42,16 +48,6 @@ class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     override val isEdgeToEdgeEnabled = true
-
-    private val googleLogin = registerForActivityResult(
-        GoogleAuth()
-    ) { acct ->
-        acct?.let {
-            lifecycleScope.launch {
-                signInGoogle(it)
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +74,6 @@ class LoginActivity : BaseActivity() {
             windowInsets
         }
 
-
         binding.apply {
             googleSignInBtn.apply {
                 setColorScheme(SignInButton.COLOR_DARK)
@@ -89,6 +84,18 @@ class LoginActivity : BaseActivity() {
             signUpBtn.setOnClickListener { startActivity<RegisterActivity>() }
 
             resetPasswordBtn.setOnClickListener { startActivity<ResetPasswordActivity>() }
+
+            PendingGetCredentialRequest(
+                request = GetCredentialRequest(
+                    listOf(GetPasswordOption())
+                ),
+                callback = {
+                    signInWithCredential(it.credential)
+                }
+            ).also {
+                emailLogin.editText?.pendingGetCredentialRequest = it
+                passwordLogin.editText?.pendingGetCredentialRequest = it
+            }
 
             loginBtn.setOnClickListener {
                 val email = emailLogin.editTextStrValue
@@ -131,8 +138,28 @@ class LoginActivity : BaseActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
+    private fun signInWithCredential(
+        credential: Credential
+    ) {
+        lifecycleScope.launch {
+            auth.signInWithGoogleAsync(credential.asGoogleIdTokenCredential())
+        }
+    }
+
     private fun signInWithGoogle() {
-        googleLogin.launch(defaultSignInOptions)
+        lifecycleScope.launch {
+            try {
+                signIn {
+                    auth.signInWithGoogleCredentials(
+                        this@LoginActivity,
+                        listOf(googleBtnOption)
+                    )
+                }
+            } catch (e: GetCredentialException) {
+                Log.w(TAG, "Could not get credentials:", e)
+                showToast(e.errorMessage!!, Toast.LENGTH_LONG)
+            }
+        }
     }
 
     private fun checkNetwork(snackbar: Snackbar?) {
@@ -167,10 +194,6 @@ class LoginActivity : BaseActivity() {
 
     private suspend fun signInEmail(email: String, password: String) {
         signIn { auth.signInWithEmailAndPasswordAsync(email, password) }
-    }
-
-    private suspend fun signInGoogle(acct: GoogleSignInAccount) {
-        signIn { auth.signInWithGoogleAsync(acct) }
     }
 
     private suspend fun signIn(
