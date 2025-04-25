@@ -214,6 +214,9 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.work.runtime.ktx)
 
+    // Compose dependencies
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
     // Firebase dependencies
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
