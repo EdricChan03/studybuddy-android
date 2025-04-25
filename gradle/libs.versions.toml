@@ -8,7 +8,7 @@ androidx-compose = "1.8.0-rc03"
 androidx-compose-material3 = "1.4.0-alpha12"
 androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.6"
-androidx-lifecycle = "2.9.0-beta01"
+androidx-lifecycle = "2.9.0-rc01"
 androidx-navigation = "2.9.0-beta01"
 coil = "2.7.0"
 # Used when resolving Markwon's CommonMark dependencies
