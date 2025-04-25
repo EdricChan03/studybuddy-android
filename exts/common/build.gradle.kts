@@ -1,11 +1,4 @@
 plugins {
     com.edricchan.studybuddy.library.kotlin
-}
-
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
-tasks.test {
-    useJUnitPlatform()
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
 }
