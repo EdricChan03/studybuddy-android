@@ -6,21 +6,17 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.plusAssign
-import androidx.core.view.updatePadding
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
-import com.edricchan.studybuddy.databinding.ActivityDebugModalBottomSheetBinding
+import com.edricchan.studybuddy.databinding.FragDebugModalBottomSheetBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
-import com.edricchan.studybuddy.ui.common.BaseActivity
+import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
@@ -32,29 +28,10 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 
 // TODO: Move demo class to dedicated Gradle module
-class DebugModalBottomSheetActivity : BaseActivity() {
-    private lateinit var binding: ActivityDebugModalBottomSheetBinding
-
-    override val isEdgeToEdgeEnabled = true
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityDebugModalBottomSheetBinding.inflate(layoutInflater)
-            .apply { setSupportActionBar(toolbar) }
-            .also { setContentView(it.root) }
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            v.updatePadding(
-                left = insets.left,
-                right = insets.right
-            )
-
-            windowInsets
-        }
+class DebugModalBottomSheetFragment :
+    ViewBindingFragment<FragDebugModalBottomSheetBinding>(FragDebugModalBottomSheetBinding::inflate) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         with(binding.modalBottomSheetLauncherButtonsLayout) {
             addModalBottomSheetLauncher(
@@ -171,13 +148,6 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == android.R.id.home) {
-            onBackPressedDispatcher.onBackPressed()
-            true
-        } else super.onOptionsItemSelected(item)
-    }
-
     // Code adapted from
     // https://github.com/material-components/material-components-android/blob/master/catalog/java/io/material/catalog/picker/PickerMainDemoFragment.java
     private fun ViewGroup.addModalBottomSheetLauncher(
@@ -211,7 +181,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
     private fun buildOnClickListener(bottomSheetDialogFragment: BottomSheetDialogFragment): View.OnClickListener {
         return View.OnClickListener {
             bottomSheetDialogFragment.show(
-                supportFragmentManager,
+                parentFragmentManager,
                 bottomSheetDialogFragment.tag
             )
         }
@@ -242,13 +212,14 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         }
 
     private fun modalBottomSheetWithTextAndHeader() =
-        modalBottomSheet(
+        requireContext().modalBottomSheet(
             headerTitleRes = R.string.share_intent_value
         ) {
+            val packageManager = requireContext().packageManager
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 putExtra(
                     Intent.EXTRA_TEXT,
-                    this@DebugModalBottomSheetActivity.getString(R.string.share_content)
+                    this@DebugModalBottomSheetFragment.getString(R.string.share_content)
                 )
                 type = MimeTypeConstants.textPlainMime
             }
@@ -360,7 +331,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
             for (i in 1..10) {
                 item(title = "Item $i") {
                     id = i
-                    onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
+                    onItemClickListener = this@DebugModalBottomSheetFragment.onItemClickListener
                 }
             }
             // plusAssign test
@@ -376,7 +347,7 @@ class DebugModalBottomSheetActivity : BaseActivity() {
         for (item in 1..5) {
             item("Item $item") {
                 id = item
-                onItemClickListener = this@DebugModalBottomSheetActivity.onItemClickListener
+                onItemClickListener = this@DebugModalBottomSheetFragment.onItemClickListener
             }
         }
     }

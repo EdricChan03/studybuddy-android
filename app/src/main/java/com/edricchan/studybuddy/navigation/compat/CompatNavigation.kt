@@ -25,7 +25,7 @@ import com.edricchan.studybuddy.ui.common.licenses.OssLicensesFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
-import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetActivity
+import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.EditTaskFragment
@@ -112,8 +112,8 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
     activity<CompatDestination.Debug> {
         activityClass = DebugActivity::class
     }
-    activity<CompatDestination.DebugModalBottomSheet> {
-        activityClass = DebugModalBottomSheetActivity::class
+    fragment<DebugModalBottomSheetFragment, CompatDestination.DebugModalBottomSheet> {
+        label = context.getString(R.string.title_activity_debug_modal_bottom_sheet)
     }
 
     fragment<FeatureFlagsSettingsFragment, CompatDestination.FeatureFlagsList> {

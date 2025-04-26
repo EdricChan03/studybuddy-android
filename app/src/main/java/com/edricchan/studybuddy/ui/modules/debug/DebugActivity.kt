@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.navigation.activity
 import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.fragment
@@ -54,8 +53,8 @@ class DebugActivity : BaseActivity() {
                 fragment<FeatureFlagsSettingsFragment, CompatDestination.FeatureFlagsList> {
                     label = getString(R.string.debug_activity_feature_flags_title)
                 }
-                activity<CompatDestination.DebugModalBottomSheet> {
-                    activityClass = DebugModalBottomSheetActivity::class
+                fragment<DebugModalBottomSheetFragment, CompatDestination.DebugModalBottomSheet> {
+                    label = getString(R.string.title_activity_debug_modal_bottom_sheet)
                 }
             }
 
