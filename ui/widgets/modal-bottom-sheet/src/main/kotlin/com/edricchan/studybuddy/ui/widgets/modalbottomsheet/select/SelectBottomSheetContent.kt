@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -33,6 +34,7 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionB
 
 // TODO: Move to compose module
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun <Id> CheckboxBottomSheetItem(
     modifier: Modifier = Modifier,
@@ -42,6 +44,9 @@ private fun <Id> CheckboxBottomSheetItem(
     onCheckedChange: (Boolean) -> Unit
 ) = TrailingCheckboxListItem(
     modifier = modifier,
+    colors = ListItemDefaults.colors(
+        containerColor = BottomSheetDefaults.ContainerColor,
+    ),
     text = { Text(text = item.title) },
     leadingContent = item.icon?.letComposable {
         Icon(
@@ -54,6 +59,7 @@ private fun <Id> CheckboxBottomSheetItem(
     enabled = enabled
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun <Id> RadioBottomSheetItem(
     modifier: Modifier = Modifier,
@@ -63,6 +69,9 @@ private fun <Id> RadioBottomSheetItem(
     onClick: () -> Unit
 ) = TrailingRadioButtonListItem(
     modifier = modifier,
+    colors = ListItemDefaults.colors(
+        containerColor = BottomSheetDefaults.ContainerColor,
+    ),
     text = { Text(text = item.title) },
     leadingContent = item.icon?.letComposable {
         Icon(
