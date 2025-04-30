@@ -4,12 +4,12 @@ accompanist = "0.37.2"
 android-desugar = "2.1.5"
 android-gradle = "8.11.0-alpha08"
 androidx-activity = "1.10.1"
-androidx-compose = "1.8.0-rc03"
-androidx-compose-material3 = "1.4.0-alpha12"
+androidx-compose = "1.9.0-alpha01"
+androidx-compose-material3 = "1.4.0-alpha13"
 androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.6"
-androidx-lifecycle = "2.9.0-beta01"
-androidx-navigation = "2.9.0-beta01"
+androidx-lifecycle = "2.9.0-rc01"
+androidx-navigation = "2.9.0-rc01"
 coil = "2.7.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
@@ -53,7 +53,7 @@ androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-beta01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-beta01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.0"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.1"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
@@ -82,7 +82,7 @@ composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.13.0-alpha12"
+materialComponents = "com.google.android.material:material:1.13.0-alpha13"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
@@ -248,6 +248,6 @@ protobuf = "com.google.protobuf:0.9.5"
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.16.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:2.17.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.4.4"
