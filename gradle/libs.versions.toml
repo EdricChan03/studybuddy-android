@@ -1,15 +1,15 @@
 [versions]
-aboutLibraries = "11.2.3" # TODO: Update when https://github.com/mikepenz/AboutLibraries/issues/1033 is resolved
-accompanist = "0.37.2"
+aboutLibraries = "12.1.2"
+accompanist = "0.37.3"
 android-desugar = "2.1.5"
-android-gradle = "8.11.0-alpha09"
+android-gradle = "8.11.0-alpha10"
 androidx-activity = "1.10.1"
-androidx-compose = "1.9.0-alpha01"
-androidx-compose-material3 = "1.4.0-alpha13"
+androidx-compose = "1.9.0-alpha02"
+androidx-compose-material3 = "1.4.0-alpha14"
 androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.6"
-androidx-lifecycle = "2.9.0-rc01"
-androidx-navigation = "2.9.0-rc01"
+androidx-lifecycle = "2.9.0"
+androidx-navigation = "2.9.0"
 coil = "2.7.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
@@ -19,12 +19,12 @@ deep-link-dispatch = "6.2.2"
 firebase-bom = "32.8.1"
 gradle-versions = "0.52.0"
 kotest = "5.9.1"
-kotlin = "2.1.20"
+kotlin = "2.1.21"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.8.1"
-ktor = "3.1.2"
+ktor = "3.1.3"
 markwon = "4.6.2"
-mockk = "1.14.0"
+mockk = "1.14.2"
 # TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
 #  is fixed
 protobuf = "4.26.1"
@@ -51,7 +51,7 @@ androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-run
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui", version.ref = "androidx-navigation" }
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
-androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-beta01"
+androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-rc01"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-beta01"
 androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.1"
 
@@ -234,7 +234,7 @@ buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-ksp = "com.google.devtools.ksp:2.1.20-1.0.32"
+ksp = "com.google.devtools.ksp:2.1.21-2.0.1"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.3"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
