@@ -1,6 +1,7 @@
 plugins {
     // Compose interop for selection bottom sheet
     com.edricchan.studybuddy.library.`android-compose`
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
     `kotlin-parcelize`
 }
 
@@ -60,8 +61,6 @@ dependencies {
 
     debugImplementation(libs.bundles.androidx.compose.tooling)
     //#endregion
-
-    testImplementation(libs.kotlin.test)
 
     debugImplementation(libs.androidx.fragment.testing.manifest)
     androidTestImplementation(libs.mockk.core)
