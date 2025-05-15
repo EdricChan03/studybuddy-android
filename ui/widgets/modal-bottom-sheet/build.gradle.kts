@@ -33,6 +33,8 @@ android {
     }
 
     buildFeatures.viewBinding = true
+
+    testFixtures.enable = true
 }
 
 dependencies {
@@ -74,4 +76,8 @@ dependencies {
     // Compose rule support
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    testFixturesApi(libs.kotlin.test)
+    testFixturesApi(libs.kotest.assertion.core)
+    testFixturesApi(libs.kotest.property)
 }
