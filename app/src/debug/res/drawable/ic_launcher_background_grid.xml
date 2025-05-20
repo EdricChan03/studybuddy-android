@@ -1,0 +1,114 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="198dp"
+    android:height="198dp"
+    android:viewportWidth="198"
+    android:viewportHeight="198">
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,18h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,38h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,58h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,78h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,98h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,118h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,138h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,158h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M0,178h198v2h-198z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M18,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M38,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M58,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M78,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M98,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M118,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M138,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M158,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillColor="@color/launcher_grid_stroke"
+        android:fillType="evenOdd"
+        android:pathData="M178,0h2v198h-2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+</vector>
