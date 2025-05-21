@@ -4,10 +4,10 @@ accompanist = "0.37.3"
 android-desugar = "2.1.5"
 android-gradle = "8.12.0-alpha01"
 androidx-activity = "1.10.1"
-androidx-compose = "1.9.0-alpha02"
-androidx-compose-material3 = "1.4.0-alpha14"
+androidx-compose = "1.9.0-alpha03"
+androidx-compose-material3 = "1.4.0-alpha15"
 androidx-credentials = "1.5.0"
-androidx-fragment = "1.8.6"
+androidx-fragment = "1.8.7"
 androidx-lifecycle = "2.9.0"
 androidx-navigation = "2.9.0"
 coil = "2.7.0"
@@ -51,7 +51,7 @@ androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-run
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui", version.ref = "androidx-navigation" }
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
-androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0-rc01"
+androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-beta01"
 androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.1"
 
@@ -82,7 +82,7 @@ composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.13.0-alpha13"
+materialComponents = "com.google.android.material:material:1.14.0-alpha01"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
@@ -169,7 +169,7 @@ androidx-test-runner = "androidx.test:runner:1.6.2"
 androidx-test-rules = "androidx.test:rules:1.6.1"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:5.17.0"
+mockito-core = "org.mockito:mockito-core:5.18.0"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 
