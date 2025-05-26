@@ -14,12 +14,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.edricchan.studybuddy.core.auth.common.R
 import com.edricchan.studybuddy.core.auth.ui.painter.tintedPainter
 import com.edricchan.studybuddy.exts.coil.imageRequest
-import me.saket.telephoto.zoomable.coil.ZoomableAsyncImage
+import me.saket.telephoto.zoomable.coil3.ZoomableAsyncImage
 
 /**
  * Displays a user's profile picture given the [photoUrl].

@@ -10,7 +10,7 @@ androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.7"
 androidx-lifecycle = "2.9.0"
 androidx-navigation = "2.9.0"
-coil = "2.7.0"
+coil = "3.2.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
 compose-richtext = "0.20.0"
@@ -124,9 +124,10 @@ markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref 
 # I/O Dependencies
 
 # Coil
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-coil-zoomable = "me.saket.telephoto:zoomable-image-coil:0.15.1"
+coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-zoomable = "me.saket.telephoto:zoomable-image-coil3:0.16.0"
 
 # Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }

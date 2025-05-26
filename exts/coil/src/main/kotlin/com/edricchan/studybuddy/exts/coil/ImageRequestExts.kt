@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.exts.coil
 
 import android.content.Context
-import coil.request.ImageRequest
+import coil3.request.ImageRequest
 
 // From https://github.com/coil-kt/coil/issues/674
 

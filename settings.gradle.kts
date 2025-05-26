@@ -129,6 +129,7 @@ include(
     ":data:common",
     ":data:serialization:android",
     ":utils:dev-mode",
+    ":utils:markwon",
     ":utils:network",
     ":utils:recyclerview",
     ":utils:web",

@@ -15,7 +15,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.exceptions.ClearCredentialException
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.toRoute
-import coil.load
+import coil3.load
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination.Auth.Account.AccountAction
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin

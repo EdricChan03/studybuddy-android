@@ -3,13 +3,14 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.exts.markwon"
+    namespace = "com.edricchan.studybuddy.utils.markwon"
 }
 
 dependencies {
-    api(projects.utils.markwon)
+    api(libs.coil)
+    api(libs.markwon.core)
 
-    api(libs.bundles.markwon)
+    implementation(libs.androidx.core.ktx)
 
     // See https://github.com/noties/Markwon/issues/148#issuecomment-508003794
     configurations.configureEach {

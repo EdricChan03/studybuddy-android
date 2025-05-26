@@ -3,10 +3,10 @@ package com.edricchan.studybuddy.exts.markwon
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
-import coil.ImageLoader
+import coil3.ImageLoader
+import com.edricchan.studybuddy.utils.markwon.CoilImagesPlugin
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.ext.tasklist.TaskListPlugin
-import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
 
 val Context.coilImagesPlugin get() = CoilImagesPlugin.create(this)
