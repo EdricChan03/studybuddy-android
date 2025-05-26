@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.appearance.proto;
+
+option java_multiple_files = true;
+
+/* Possible typeface values. */
+enum TypefaceSettingProto {
+  // Defaults
+  /* Use the default system typeface (typically Roboto). */
+  SystemDefault = 0;
+  /* Use the system monospace typeface. */
+  SystemMonospace = 1;
+  /* Use the system serif typeface. */
+  SystemSerif = 2;
+  /* Use the system sans-serif typeface. */
+  SystemSansSerif = 3;
+
+  /* Use the Baloo 2 typeface. */
+  Baloo2 = 10;
+  /* Use the Funnel Display typeface. */
+  FunnelDisplay = 11;
+}
