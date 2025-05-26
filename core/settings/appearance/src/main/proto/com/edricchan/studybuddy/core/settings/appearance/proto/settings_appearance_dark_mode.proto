@@ -5,7 +5,7 @@ package com.edricchan.studybuddy.core.settings.appearance.proto;
 option java_multiple_files = true;
 
 /* Possible dark mode options. */
-enum DarkModeSetting {
+enum DarkModeSettingProto {
   /* Follow the system's dark mode setting. */
   FollowSystem = 0;
   /* Always enable dark mode. */
