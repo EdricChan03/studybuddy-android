@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
-import com.edricchan.studybuddy.core.settings.appearance.proto.DarkModeSetting
+import com.edricchan.studybuddy.core.settings.appearance.proto.DarkModeSettingProto
 
 /** Checks if the receiver [Resources] has dark theme enabled. */
 val Resources.isDarkThemeEnabled: Boolean
@@ -38,11 +38,11 @@ fun Context.shouldApplyDarkTheme(
  * @param isSystemInDarkTheme Whether the system is using dark theme.
  */
 fun shouldApplyDarkTheme(
-    themeSetting: DarkModeSetting,
+    themeSetting: DarkModeSettingProto,
     isSystemInDarkTheme: Boolean
 ): Boolean = when (themeSetting) {
-    DarkModeSetting.AlwaysOff -> false
-    DarkModeSetting.AlwaysOn -> true
-    DarkModeSetting.FollowSystem -> isSystemInDarkTheme
+    DarkModeSettingProto.AlwaysOff -> false
+    DarkModeSettingProto.AlwaysOn -> true
+    DarkModeSettingProto.FollowSystem -> isSystemInDarkTheme
     else -> true
 }

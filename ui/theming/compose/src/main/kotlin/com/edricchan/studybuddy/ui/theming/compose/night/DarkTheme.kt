@@ -5,7 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
-import com.edricchan.studybuddy.core.settings.appearance.proto.DarkModeSetting
+import com.edricchan.studybuddy.core.settings.appearance.proto.DarkModeSettingProto
 import com.edricchan.studybuddy.ui.theming.common.night.shouldApplyDarkTheme as commonShouldApplyDarkTheme
 
 @Composable
@@ -19,7 +19,7 @@ fun shouldApplyDarkTheme(
 
 @Composable
 fun shouldApplyDarkTheme(
-    themeSetting: DarkModeSetting
+    themeSetting: DarkModeSettingProto
 ): Boolean = commonShouldApplyDarkTheme(
     themeSetting = themeSetting,
     isSystemInDarkTheme = isSystemInDarkTheme()
