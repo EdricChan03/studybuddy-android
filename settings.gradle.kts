@@ -128,6 +128,7 @@ include(
     ":core:settings:updates",
     ":data:common",
     ":data:serialization:android",
+    ":utils:android",
     ":utils:dev-mode",
     ":utils:markwon",
     ":utils:network",
