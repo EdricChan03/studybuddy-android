@@ -36,7 +36,10 @@ class FirebaseAuthServiceImpl @Inject constructor(
             val clearRequest = ClearCredentialStateRequest()
             CredentialManager.create(this).clearCredentialState(clearRequest)
         } catch (e: ClearCredentialException) {
-            Log.e(TAG, "Couldn't clear user credentials: ${e.localizedMessage}")
+            Log.e(
+                this@FirebaseAuthServiceImpl.TAG,
+                "Couldn't clear user credentials: ${e.localizedMessage}"
+            )
         }
     }
 
