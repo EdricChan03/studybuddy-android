@@ -29,6 +29,8 @@ dependencies {
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.firebase.core)
 
+    api(projects.core.auth.service)
+
     implementation(platform(libs.firebase.bom))
     api(libs.bundles.firebase)
 
