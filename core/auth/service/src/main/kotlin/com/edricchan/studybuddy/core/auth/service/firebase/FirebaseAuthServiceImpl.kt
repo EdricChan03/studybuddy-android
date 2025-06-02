@@ -14,7 +14,11 @@ import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.currentUserFlow
 import com.edricchan.studybuddy.exts.firebase.auth.signInWithEmailAndPasswordAsync
+import com.edricchan.studybuddy.exts.firebase.auth.updateEmailAsync
+import com.edricchan.studybuddy.exts.firebase.auth.updatePasswordAsync
+import com.edricchan.studybuddy.exts.firebase.auth.updateProfileAsync
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -52,4 +56,23 @@ class FirebaseAuthServiceImpl @Inject constructor(
         context = this,
         credentialOptions = credentialOptions
     ).user != null
+
+    private inline fun updateProfile(updateFn: (FirebaseUser) -> Unit): AuthService.UpdateProfileResult {
+        val user = auth.currentUser ?: return AuthService.UpdateProfileResult.NotSignedIn
+
+        return runCatching { updateFn(user) }
+            .fold(
+                onSuccess = { AuthService.UpdateProfileResult.Success },
+                onFailure = AuthService.UpdateProfileResult::Error
+            )
+    }
+
+    override suspend fun updateEmail(newEmail: String): AuthService.UpdateProfileResult =
+        updateProfile { it.updateEmailAsync(newEmail) }
+
+    override suspend fun updatePassword(newPassword: String): AuthService.UpdateProfileResult =
+        updateProfile { it.updatePasswordAsync(newPassword) }
+
+    override suspend fun updateDisplayName(newName: String): AuthService.UpdateProfileResult =
+        updateProfile { it.updateProfileAsync { displayName = newName } }
 }

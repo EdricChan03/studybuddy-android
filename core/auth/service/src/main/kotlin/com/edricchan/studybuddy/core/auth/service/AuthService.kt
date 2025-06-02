@@ -33,5 +33,48 @@ interface AuthService {
      * @receiver A UI [Context] for showing the sign in dialog.
      * @return Whether the operation was successful.
      */
-    suspend fun @receiver:UiContext Context.signInWithGoogle(credentialOptions: List<CredentialOption>): Boolean
+    suspend fun @receiver:UiContext Context.signInWithGoogle(
+        credentialOptions: List<CredentialOption>
+    ): Boolean
+
+    /**
+     * Interface used to represent the possible result of an update profile operation.
+     * @see updateEmail
+     * @see updatePassword
+     * @see updateDisplayName
+     */
+    sealed interface UpdateProfileResult {
+        /** The update operation succeeded. */
+        data object Success : UpdateProfileResult
+
+        /** There is no currently signed-in user. */
+        data object NotSignedIn : UpdateProfileResult
+
+        /** An error occurred when attempting to perform the update operation. */
+        data class Error(val error: Throwable) : UpdateProfileResult
+    }
+
+    /**
+     * Updates the currently signed-in user's email to the specified [newEmail].
+     *
+     * Note that reauthentication may be required to perform this operation -
+     * check [UpdateProfileResult.Error] accordingly.
+     */
+    suspend fun updateEmail(newEmail: String): UpdateProfileResult
+
+    /**
+     * Updates the currently signed-in user's password to the specified [newPassword].
+     *
+     * Note that reauthentication may be required to perform this operation -
+     * check [UpdateProfileResult.Error] accordingly.
+     */
+    suspend fun updatePassword(newPassword: String): UpdateProfileResult
+
+    /**
+     * Updates the currently signed-in user's display name to the specified [newName].
+     *
+     * Note that reauthentication may be required to perform this operation -
+     * check [UpdateProfileResult.Error] accordingly.
+     */
+    suspend fun updateDisplayName(newName: String): UpdateProfileResult
 }
