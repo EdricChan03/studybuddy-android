@@ -117,6 +117,7 @@ include(
     ":core:auth:ui:compose",
     ":core:auth:credentials",
     ":core:auth:gms",
+    ":core:auth:service",
     ":core:compat:navigation",
     ":core:deeplink",
     ":core:di",
