@@ -18,7 +18,7 @@ val baloo2Family = FontFamily(
     Font(ThemingR.font.baloo2_regular, FontWeight.Normal)
 )
 
-// FIXME: defaultFontFamily can't be used, see https://issuetracker.google.com/issues/236358112
+// TODO: Remove when https://issuetracker.google.com/issues/236358112 is fixed
 private fun Typography.defaultFontFamily(
     displayFontFamily: FontFamily,
     bodyFontFamily: FontFamily
