@@ -82,7 +82,8 @@ class AboutFragment : MaterialAboutFragment() {
                         ) {
                             Log.d(TAG, "User has disabled overriding of developer mode.")
                         }
-                        // See https://jaredrummler.com/2016/05/01/tutorial-easter-eggs/ for more info
+                        // See https://jaredrummler.com/blog/android/2016-05-01-tutorial-easter-eggs/
+                        // for more info
                         // Based on implementation from Android's Build Number preference
                         // (See https://github.com/aosp-mirror/platform_packages_apps_settings/blob/master/src/com/android/settings/deviceinfo/BuildNumberPreferenceController.java)
                         if (devHitCountdown > 0) {
