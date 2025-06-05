@@ -74,69 +74,7 @@ class AboutFragment : MaterialAboutFragment() {
                         """.trimIndent()
                     )
                     icon(R.drawable.ic_info_outline_24dp)
-                    setOnClickAction {
-                        if (!devModeOptions.getBoolean(
-                                DevModePrefConstants.DEV_MODE_ENABLED,
-                                false
-                            )
-                        ) {
-                            Log.d(TAG, "User has disabled overriding of developer mode.")
-                        }
-                        // See https://jaredrummler.com/blog/android/2016-05-01-tutorial-easter-eggs/
-                        // for more info
-                        // Based on implementation from Android's Build Number preference
-                        // (See https://github.com/aosp-mirror/platform_packages_apps_settings/blob/master/src/com/android/settings/deviceinfo/BuildNumberPreferenceController.java)
-                        if (devHitCountdown > 0) {
-                            devHitCountdown--
-                            if (devHitCountdown == 0) {
-                                // Add 1 count back
-                                devHitCountdown++
-                                requireContext().showMaterialAlertDialog {
-                                    setTitle(R.string.dev_mode_confirm_enable_dialog_title)
-                                    setMessage(R.string.dev_mode_confirm_enable_dialog_msg)
-                                    setNeutralButton(R.string.dialog_action_cancel, null)
-                                    setNegativeButton(R.string.dialog_action_disable) { dialog, _ ->
-                                        devModeOptions.edit {
-                                            putBoolean(
-                                                DevModePrefConstants.DEV_MODE_ENABLED,
-                                                false
-                                            )
-                                            showToast(
-                                                R.string.dev_mode_disabled,
-                                                Toast.LENGTH_SHORT
-                                            )
-                                        }
-                                        dialog.dismiss()
-                                    }
-                                    setPositiveButton(R.string.dialog_action_enable) { dialog, _ ->
-                                        devModeOptions.edit {
-                                            putBoolean(
-                                                DevModePrefConstants.DEV_MODE_ENABLED,
-                                                true
-                                            )
-                                            showToast(
-                                                R.string.dev_mode_on,
-                                                Toast.LENGTH_SHORT
-                                            )
-                                        }
-                                        dialog.dismiss()
-                                    }
-                                }
-                            } else if (devHitCountdown > 0 && devHitCountdown < (tapsToDev - 2)) {
-                                showToast(
-                                    requireContext().resources.getQuantityString(
-                                        R.plurals.dev_mode_countdown, devHitCountdown,
-                                        devHitCountdown
-                                    ), Toast.LENGTH_SHORT
-                                )
-                            }
-                        } else if (devHitCountdown < 0) {
-                            showToast(
-                                R.string.dev_mode_already,
-                                Toast.LENGTH_LONG
-                            )
-                        }
-                    }
+                    setOnClickAction(::onInfoClick)
                 }
                 addItem {
                     text(R.string.about_frag_app_info_card_open_app_info_title)
@@ -174,6 +112,70 @@ class AboutFragment : MaterialAboutFragment() {
                     )
                 )
             }
+        }
+    }
+
+    private fun onInfoClick() {
+        if (!devModeOptions.getBoolean(
+                DevModePrefConstants.DEV_MODE_ENABLED,
+                false
+            )
+        ) {
+            Log.d(TAG, "User has disabled overriding of developer mode.")
+        }
+        // See https://jaredrummler.com/blog/android/2016-05-01-tutorial-easter-eggs/
+        // for more info
+        // Based on implementation from Android's Build Number preference
+        // (See https://github.com/aosp-mirror/platform_packages_apps_settings/blob/master/src/com/android/settings/deviceinfo/BuildNumberPreferenceController.java)
+        if (devHitCountdown > 0) {
+            devHitCountdown--
+            if (devHitCountdown == 0) {
+                // Add 1 count back
+                devHitCountdown++
+                requireContext().showMaterialAlertDialog {
+                    setTitle(R.string.dev_mode_confirm_enable_dialog_title)
+                    setMessage(R.string.dev_mode_confirm_enable_dialog_msg)
+                    setNeutralButton(R.string.dialog_action_cancel, null)
+                    setNegativeButton(R.string.dialog_action_disable) { dialog, _ ->
+                        devModeOptions.edit {
+                            putBoolean(
+                                DevModePrefConstants.DEV_MODE_ENABLED,
+                                false
+                            )
+                            showToast(
+                                R.string.dev_mode_disabled,
+                                Toast.LENGTH_SHORT
+                            )
+                        }
+                        dialog.dismiss()
+                    }
+                    setPositiveButton(R.string.dialog_action_enable) { dialog, _ ->
+                        devModeOptions.edit {
+                            putBoolean(
+                                DevModePrefConstants.DEV_MODE_ENABLED,
+                                true
+                            )
+                            showToast(
+                                R.string.dev_mode_on,
+                                Toast.LENGTH_SHORT
+                            )
+                        }
+                        dialog.dismiss()
+                    }
+                }
+            } else if (devHitCountdown > 0 && devHitCountdown < (tapsToDev - 2)) {
+                showToast(
+                    requireContext().resources.getQuantityString(
+                        R.plurals.dev_mode_countdown, devHitCountdown,
+                        devHitCountdown
+                    ), Toast.LENGTH_SHORT
+                )
+            }
+        } else if (devHitCountdown < 0) {
+            showToast(
+                R.string.dev_mode_already,
+                Toast.LENGTH_LONG
+            )
         }
     }
 
