@@ -6,29 +6,56 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.edricchan.studybuddy.ui.theming.common.R as ThemingR
 
-// FIXME: defaultFontFamily can't be used, see https://issuetracker.google.com/issues/236358112
+val funnelDisplayFamily = FontFamily(
+    Font(ThemingR.font.funnel_display_bold, FontWeight.Bold),
+    Font(ThemingR.font.funnel_display_medium, FontWeight.Medium),
+    Font(ThemingR.font.funnel_display_regular, FontWeight.Normal),
+)
+
 val baloo2Family = FontFamily(
     Font(ThemingR.font.baloo2_bold, FontWeight.Bold),
     Font(ThemingR.font.baloo2_medium, FontWeight.Medium),
     Font(ThemingR.font.baloo2_regular, FontWeight.Normal)
 )
 
-private val defaultTypography = Typography()
+// FIXME: defaultFontFamily can't be used, see https://issuetracker.google.com/issues/236358112
+private fun Typography.defaultFontFamily(
+    displayFontFamily: FontFamily,
+    bodyFontFamily: FontFamily
+): Typography = this.copy(
+    displayLarge = this.displayLarge.copy(fontFamily = displayFontFamily),
+    displayMedium = this.displayMedium.copy(fontFamily = displayFontFamily),
+    displaySmall = this.displaySmall.copy(fontFamily = displayFontFamily),
+    headlineLarge = this.headlineLarge.copy(fontFamily = displayFontFamily),
+    headlineMedium = this.headlineMedium.copy(fontFamily = displayFontFamily),
+    headlineSmall = this.headlineSmall.copy(fontFamily = displayFontFamily),
+    titleLarge = this.titleLarge.copy(fontFamily = displayFontFamily),
+    titleMedium = this.titleMedium.copy(fontFamily = displayFontFamily),
+    titleSmall = this.titleSmall.copy(fontFamily = displayFontFamily),
+    bodyLarge = this.bodyLarge.copy(fontFamily = bodyFontFamily),
+    bodyMedium = this.bodyMedium.copy(fontFamily = bodyFontFamily),
+    bodySmall = this.bodySmall.copy(fontFamily = bodyFontFamily),
+    labelLarge = this.labelLarge.copy(fontFamily = displayFontFamily),
+    labelMedium = this.labelMedium.copy(fontFamily = displayFontFamily),
+    labelSmall = this.labelSmall.copy(fontFamily = displayFontFamily)
+)
 
-val StudyBuddyTypography = Typography(
-    displayLarge = defaultTypography.displayLarge.copy(fontFamily = baloo2Family),
-    displayMedium = defaultTypography.displayMedium.copy(fontFamily = baloo2Family),
-    displaySmall = defaultTypography.displaySmall.copy(fontFamily = baloo2Family),
-    headlineLarge = defaultTypography.headlineLarge.copy(fontFamily = baloo2Family),
-    headlineMedium = defaultTypography.headlineMedium.copy(fontFamily = baloo2Family),
-    headlineSmall = defaultTypography.headlineSmall.copy(fontFamily = baloo2Family),
-    titleLarge = defaultTypography.titleLarge.copy(fontFamily = baloo2Family),
-    titleMedium = defaultTypography.titleMedium.copy(fontFamily = baloo2Family),
-    titleSmall = defaultTypography.titleSmall.copy(fontFamily = baloo2Family),
-    bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = baloo2Family),
-    bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = baloo2Family),
-    bodySmall = defaultTypography.bodySmall.copy(fontFamily = baloo2Family),
-    labelLarge = defaultTypography.labelLarge.copy(fontFamily = baloo2Family),
-    labelMedium = defaultTypography.labelMedium.copy(fontFamily = baloo2Family),
-    labelSmall = defaultTypography.labelSmall.copy(fontFamily = baloo2Family),
+/**
+ * Creates the [Typography] styles for the app with the font-families set for the relevant styles.
+ * @param displayFontFamily The [FontFamily] to be applied to all display [Typography] styles.
+ * @param bodyFontFamily The [FontFamily] to be applied to all body [Typography] styles.
+ */
+
+fun StudyBuddyTypography(
+    displayFontFamily: FontFamily,
+    bodyFontFamily: FontFamily
+) = Typography().defaultFontFamily(displayFontFamily, bodyFontFamily)
+
+/**
+ * The default [Typography] style to use, where the [Funnel Display][funnelDisplayFamily] and
+ * [Baloo 2][baloo2Family] type-faces are applied to the display and body styles respectively.
+ */
+val StudyBuddyTypography = StudyBuddyTypography(
+    displayFontFamily = funnelDisplayFamily,
+    bodyFontFamily = baloo2Family,
 )

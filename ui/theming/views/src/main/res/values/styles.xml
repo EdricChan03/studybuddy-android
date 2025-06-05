@@ -50,15 +50,73 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
 
         <!-- The font family of the app -->
-        <item name="fontFamily">@font/baloo_2</item>
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.App.DisplayLarge</item>
+        <item name="textAppearanceDisplayLargeEmphasized">
+            @style/TextAppearance.App.DisplayLarge.Emphasized
+        </item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.App.DisplayMedium</item>
+        <item name="textAppearanceDisplayMediumEmphasized">
+            @style/TextAppearance.App.DisplayMedium.Emphasized
+        </item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.App.DisplaySmall</item>
+        <item name="textAppearanceDisplaySmallEmphasized">
+            @style/TextAppearance.App.DisplaySmall.Emphasized
+        </item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.App.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineLargeEmphasized">
+            @style/TextAppearance.App.HeadlineLarge.Emphasized
+        </item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.App.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineMediumEmphasized">
+            @style/TextAppearance.App.HeadlineMedium.Emphasized
+        </item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.App.HeadlineSmall</item>
+        <item name="textAppearanceHeadlineSmallEmphasized">
+            @style/TextAppearance.App.HeadlineSmall.Emphasized
+        </item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
+        <item name="textAppearanceTitleLargeEmphasized">
+            @style/TextAppearance.App.TitleLarge.Emphasized
+        </item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
+        <item name="textAppearanceTitleMediumEmphasized">
+            @style/TextAppearance.App.TitleMedium.Emphasized
+        </item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.App.TitleSmall</item>
+        <item name="textAppearanceTitleSmallEmphasized">
+            @style/TextAppearance.App.TitleSmall.Emphasized
+        </item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.App.LabelLarge</item>
+        <item name="textAppearanceLabelLargeEmphasized">
+            @style/TextAppearance.App.LabelLarge.Emphasized
+        </item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.App.LabelMedium</item>
+        <item name="textAppearanceLabelMediumEmphasized">
+            @style/TextAppearance.App.LabelMedium.Emphasized
+        </item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.App.LabelSmall</item>
+        <item name="textAppearanceLabelSmallEmphasized">
+            @style/TextAppearance.App.LabelSmall.Emphasized
+        </item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.App.BodyLarge</item>
+        <item name="textAppearanceBodyLargeEmphasized">
+            @style/TextAppearance.App.BodyLarge.Emphasized
+        </item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.App.BodyMedium</item>
+        <item name="textAppearanceBodyMediumEmphasized">
+            @style/TextAppearance.App.BodyMedium.Emphasized
+        </item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.App.BodySmall</item>
+        <item name="textAppearanceBodySmallEmphasized">
+            @style/TextAppearance.App.BodySmall.Emphasized
+        </item>
+
         <!-- The text input style -->
         <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox
         </item>
         <!-- The edit text style -->
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
-        <!-- The font family of the app -->
-        <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
         </item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
@@ -130,15 +188,73 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
 
         <!-- The font family of the app -->
-        <item name="fontFamily">@font/baloo_2</item>
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.App.DisplayLarge</item>
+        <item name="textAppearanceDisplayLargeEmphasized">
+            @style/TextAppearance.App.DisplayLarge.Emphasized
+        </item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.App.DisplayMedium</item>
+        <item name="textAppearanceDisplayMediumEmphasized">
+            @style/TextAppearance.App.DisplayMedium.Emphasized
+        </item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.App.DisplaySmall</item>
+        <item name="textAppearanceDisplaySmallEmphasized">
+            @style/TextAppearance.App.DisplaySmall.Emphasized
+        </item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.App.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineLargeEmphasized">
+            @style/TextAppearance.App.HeadlineLarge.Emphasized
+        </item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.App.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineMediumEmphasized">
+            @style/TextAppearance.App.HeadlineMedium.Emphasized
+        </item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.App.HeadlineSmall</item>
+        <item name="textAppearanceHeadlineSmallEmphasized">
+            @style/TextAppearance.App.HeadlineSmall.Emphasized
+        </item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
+        <item name="textAppearanceTitleLargeEmphasized">
+            @style/TextAppearance.App.TitleLarge.Emphasized
+        </item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
+        <item name="textAppearanceTitleMediumEmphasized">
+            @style/TextAppearance.App.TitleMedium.Emphasized
+        </item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.App.TitleSmall</item>
+        <item name="textAppearanceTitleSmallEmphasized">
+            @style/TextAppearance.App.TitleSmall.Emphasized
+        </item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.App.LabelLarge</item>
+        <item name="textAppearanceLabelLargeEmphasized">
+            @style/TextAppearance.App.LabelLarge.Emphasized
+        </item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.App.LabelMedium</item>
+        <item name="textAppearanceLabelMediumEmphasized">
+            @style/TextAppearance.App.LabelMedium.Emphasized
+        </item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.App.LabelSmall</item>
+        <item name="textAppearanceLabelSmallEmphasized">
+            @style/TextAppearance.App.LabelSmall.Emphasized
+        </item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.App.BodyLarge</item>
+        <item name="textAppearanceBodyLargeEmphasized">
+            @style/TextAppearance.App.BodyLarge.Emphasized
+        </item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.App.BodyMedium</item>
+        <item name="textAppearanceBodyMediumEmphasized">
+            @style/TextAppearance.App.BodyMedium.Emphasized
+        </item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.App.BodySmall</item>
+        <item name="textAppearanceBodySmallEmphasized">
+            @style/TextAppearance.App.BodySmall.Emphasized
+        </item>
+
         <!-- The text input style -->
         <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox
         </item>
         <!-- The edit text style -->
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox
         </item>
-        <!-- The font family of the app -->
-        <item name="android:fontFamily">@font/baloo_2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent
         </item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.App.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplayLarge.Emphasized" parent="TextAppearance.Material3.DisplayLarge.Emphasized">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplayMedium.Emphasized" parent="TextAppearance.Material3.DisplayMedium.Emphasized">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplaySmall.Emphasized" parent="TextAppearance.Material3.DisplaySmall.Emphasized">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineLarge.Emphasized" parent="TextAppearance.Material3.HeadlineLarge.Emphasized">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineMedium.Emphasized" parent="TextAppearance.Material3.HeadlineMedium.Emphasized">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineSmall.Emphasized" parent="TextAppearance.Material3.HeadlineSmall.Emphasized">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleLarge.Emphasized" parent="TextAppearance.Material3.TitleLarge.Emphasized">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleMedium.Emphasized" parent="TextAppearance.Material3.TitleMedium.Emphasized">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleSmall.Emphasized" parent="TextAppearance.Material3.TitleSmall.Emphasized">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelLarge.Emphasized" parent="TextAppearance.Material3.LabelLarge.Emphasized">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelMedium.Emphasized" parent="TextAppearance.Material3.LabelMedium.Emphasized">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">@font/funnel_display_medium</item>
+        <item name="android:fontFamily">@font/funnel_display_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelSmall.Emphasized" parent="TextAppearance.Material3.LabelSmall.Emphasized">
+        <item name="fontFamily">@font/funnel_display_regular</item>
+        <item name="android:fontFamily">@font/funnel_display_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/baloo2_regular</item>
+        <item name="android:fontFamily">@font/baloo2_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.BodyLarge.Emphasized" parent="TextAppearance.Material3.BodyLarge.Emphasized">
+        <item name="fontFamily">@font/baloo2_medium</item>
+        <item name="android:fontFamily">@font/baloo2_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/baloo2_regular</item>
+        <item name="android:fontFamily">@font/baloo2_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.BodyMedium.Emphasized" parent="TextAppearance.Material3.BodyMedium.Emphasized">
+        <item name="fontFamily">@font/baloo2_medium</item>
+        <item name="android:fontFamily">@font/baloo2_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/baloo2_regular</item>
+        <item name="android:fontFamily">@font/baloo2_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.BodySmall.Emphasized" parent="TextAppearance.Material3.BodySmall.Emphasized">
+        <item name="fontFamily">@font/baloo2_medium</item>
+        <item name="android:fontFamily">@font/baloo2_medium</item>
+    </style>
+</resources>
