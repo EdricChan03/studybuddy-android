@@ -130,6 +130,7 @@ include(
     ":data:common",
     ":data:serialization:android",
     ":utils:android",
+    ":utils:coil:compose",
     ":utils:dev-mode",
     ":utils:markwon",
     ":utils:network",

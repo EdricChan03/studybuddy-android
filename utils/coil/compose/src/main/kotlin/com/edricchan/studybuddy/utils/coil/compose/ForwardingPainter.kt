@@ -1,5 +1,5 @@
 // From https://gist.github.com/colinrtwhite/c2966e0b8584b4cdf0a5b05786b20ae1
-package com.edricchan.studybuddy.core.auth.ui.painter
+package com.edricchan.studybuddy.utils.coil.compose
 
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.painter.Painter
 /**
  * Create and return a new [Painter] that wraps [painter] with its [alpha], [colorFilter], or [onDraw] overwritten.
  */
-internal fun forwardingPainter(
+fun forwardingPainter(
     painter: Painter,
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
@@ -24,13 +24,13 @@ internal fun forwardingPainter(
  * @see forwardingPainter
  */
 @Composable
-internal fun tintedPainter(
+fun tintedPainter(
     painter: Painter,
     alpha: Float = DefaultAlpha,
     tint: Color = LocalContentColor.current
 ): Painter = forwardingPainter(painter, alpha, colorFilter = ColorFilter.tint(tint))
 
-internal data class ForwardingDrawInfo(
+data class ForwardingDrawInfo(
     val painter: Painter,
     val alpha: Float,
     val colorFilter: ColorFilter?,

@@ -25,6 +25,7 @@ dependencies {
     api(projects.core.auth.ui.common)
     implementation(projects.exts.coil)
     implementation(projects.ui.theming.compose)
+    implementation(projects.utils.coil.compose)
 
     // Compose dependencies
     implementation(libs.bundles.androidx.compose)

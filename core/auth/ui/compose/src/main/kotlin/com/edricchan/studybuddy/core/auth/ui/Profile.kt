@@ -18,8 +18,8 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.edricchan.studybuddy.core.auth.common.R
-import com.edricchan.studybuddy.core.auth.ui.painter.tintedPainter
 import com.edricchan.studybuddy.exts.coil.imageRequest
+import com.edricchan.studybuddy.utils.coil.compose.tintedPainter
 import me.saket.telephoto.zoomable.coil3.ZoomableAsyncImage
 
 /**
