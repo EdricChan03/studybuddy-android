@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.theming.compose.theme
 
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -19,25 +20,41 @@ val baloo2Family = FontFamily(
 )
 
 // TODO: Remove when https://issuetracker.google.com/issues/236358112 is fixed
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 private fun Typography.defaultFontFamily(
     displayFontFamily: FontFamily,
     bodyFontFamily: FontFamily
 ): Typography = this.copy(
     displayLarge = this.displayLarge.copy(fontFamily = displayFontFamily),
+    displayLargeEmphasized = this.displayLargeEmphasized.copy(fontFamily = displayFontFamily),
     displayMedium = this.displayMedium.copy(fontFamily = displayFontFamily),
+    displayMediumEmphasized = this.displayMediumEmphasized.copy(fontFamily = displayFontFamily),
     displaySmall = this.displaySmall.copy(fontFamily = displayFontFamily),
+    displaySmallEmphasized = this.displaySmallEmphasized.copy(fontFamily = displayFontFamily),
     headlineLarge = this.headlineLarge.copy(fontFamily = displayFontFamily),
+    headlineLargeEmphasized = this.headlineLargeEmphasized.copy(fontFamily = displayFontFamily),
     headlineMedium = this.headlineMedium.copy(fontFamily = displayFontFamily),
+    headlineMediumEmphasized = this.headlineMediumEmphasized.copy(fontFamily = displayFontFamily),
     headlineSmall = this.headlineSmall.copy(fontFamily = displayFontFamily),
+    headlineSmallEmphasized = this.headlineSmallEmphasized.copy(fontFamily = displayFontFamily),
     titleLarge = this.titleLarge.copy(fontFamily = displayFontFamily),
+    titleLargeEmphasized = this.titleLargeEmphasized.copy(fontFamily = displayFontFamily),
     titleMedium = this.titleMedium.copy(fontFamily = displayFontFamily),
+    titleMediumEmphasized = this.titleMediumEmphasized.copy(fontFamily = displayFontFamily),
     titleSmall = this.titleSmall.copy(fontFamily = displayFontFamily),
+    titleSmallEmphasized = this.titleSmallEmphasized.copy(fontFamily = displayFontFamily),
     bodyLarge = this.bodyLarge.copy(fontFamily = bodyFontFamily),
+    bodyLargeEmphasized = this.bodyLargeEmphasized.copy(fontFamily = bodyFontFamily),
     bodyMedium = this.bodyMedium.copy(fontFamily = bodyFontFamily),
+    bodyMediumEmphasized = this.bodyMediumEmphasized.copy(fontFamily = bodyFontFamily),
     bodySmall = this.bodySmall.copy(fontFamily = bodyFontFamily),
+    bodySmallEmphasized = this.bodySmallEmphasized.copy(fontFamily = bodyFontFamily),
     labelLarge = this.labelLarge.copy(fontFamily = displayFontFamily),
+    labelLargeEmphasized = this.labelLargeEmphasized.copy(fontFamily = displayFontFamily),
     labelMedium = this.labelMedium.copy(fontFamily = displayFontFamily),
-    labelSmall = this.labelSmall.copy(fontFamily = displayFontFamily)
+    labelMediumEmphasized = this.labelMediumEmphasized.copy(fontFamily = displayFontFamily),
+    labelSmall = this.labelSmall.copy(fontFamily = displayFontFamily),
+    labelSmallEmphasized = this.labelSmallEmphasized.copy(fontFamily = displayFontFamily),
 )
 
 /**
