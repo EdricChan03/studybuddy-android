@@ -16,6 +16,16 @@ fun NavController.navigateToLicenses(
 ) = navigate(CompatDestination.About.ViewLicenses, builder)
 
 /**
+ * Navigates to the [CompatDestination.About.SystemAppInfo] route.
+ *
+ * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
+ * behaviour is undesired, [builder] should be specified.
+ */
+fun NavController.navigateToSystemAppInfo(
+    builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
+) = navigate(CompatDestination.About.SystemAppInfo, builder)
+
+/**
  * Navigates to the [CompatDestination.About.AppAbout] route.
  *
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
