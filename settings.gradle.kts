@@ -35,7 +35,7 @@ plugins {
     id("com.gradle.develocity") version "4.0.1"
     // Gradle JVM Toolchains repository - see
     // https://docs.gradle.org/8.7/userguide/toolchains.html#sub:download_repositories
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 
     id("com.android.settings") version "8.12.0-alpha05"
 }
