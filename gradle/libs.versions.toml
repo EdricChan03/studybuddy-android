@@ -1,5 +1,5 @@
 [versions]
-aboutLibraries = "12.1.2"
+aboutLibraries = "12.2.3"
 accompanist = "0.37.3"
 android-desugar = "2.1.5"
 android-gradle = "8.12.0-alpha05"
