@@ -124,6 +124,7 @@ include(
     ":core:resources",
     ":core:resources:temporal",
     ":core:settings:appearance",
+    ":core:settings:appearance:datastore-proto",
     ":core:settings:tasks",
     ":core:settings:tracking",
     ":core:settings:updates",

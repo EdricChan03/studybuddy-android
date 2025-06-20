@@ -23,6 +23,7 @@ android {
 
 dependencies {
     api(projects.core.settings.appearance)
+    api(projects.core.settings.appearance.datastoreProto)
     implementation(projects.exts.androidx.preference)
 
     implementation(libs.androidx.core.ktx)
