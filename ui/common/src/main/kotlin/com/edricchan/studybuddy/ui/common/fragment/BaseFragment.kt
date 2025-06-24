@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.common.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
+import androidx.annotation.Discouraged
 import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -59,6 +60,27 @@ abstract class BaseFragment : Fragment() {
     ): Job = viewLifecycleOwner.lifecycleScope.launch {
         mainViewModel.showSnackBar(
             messageRes = messageRes,
+            duration = duration,
+            action = action
+        )
+    }
+
+    /**
+     * Shows a snack-bar in the host activity.
+     * @param message The message to be shown as a [String].
+     * @param duration How long the snack-bar should be shown.
+     * @param action The snack-bar's action, if any.
+     * @return The resulting [Job] of the [launch]ed coroutine scope.
+     * @see MainViewModel.showSnackBar
+     */
+    @Discouraged("Use the overload which takes a string resource for the message")
+    protected fun showSnackBar(
+        message: String,
+        duration: SnackBarData.Duration = SnackBarData.Duration.Short,
+        action: SnackBarData.Action? = null
+    ): Job = viewLifecycleOwner.lifecycleScope.launch {
+        mainViewModel.showSnackBar(
+            message = message,
             duration = duration,
             action = action
         )
