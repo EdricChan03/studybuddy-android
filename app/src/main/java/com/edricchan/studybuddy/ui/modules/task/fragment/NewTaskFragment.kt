@@ -21,13 +21,12 @@ import com.edricchan.studybuddy.exts.firebase.toTimestamp
 import com.edricchan.studybuddy.exts.material.picker.setCalendarConstraints
 import com.edricchan.studybuddy.exts.material.picker.setSelection
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
-import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.tasks.compat.utils.TodoUtils
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -156,10 +155,9 @@ class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBindi
                             }
                         } else {
                             taskTitleTextInputLayout.error = "Please enter something."
-                            showSnackbar(
-                                coordinatorLayoutNewTask,
+                            showSnackBar(
                                 "Some errors occurred while attempting to submit the form.",
-                                Snackbar.LENGTH_LONG
+                                SnackBarData.Duration.Long
                             )
                         }
                     }
