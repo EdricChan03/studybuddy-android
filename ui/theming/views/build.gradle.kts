@@ -26,7 +26,7 @@ dependencies {
         because("Preference XML styling")
     }
 
-    implementation(projects.core.settings.appearance)
+    implementation(projects.core.settings.appearance.model)
     implementation(projects.exts.androidx.preference)
 
     api(libs.androidx.annotation)

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.core.settings.appearance"
+    namespace = "com.edricchan.studybuddy.core.settings.appearance.model"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
