@@ -240,7 +240,7 @@ ksp = "com.google.devtools.ksp:2.1.21-2.0.1"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.4"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
-googleServices = "com.google.gms.google-services:4.4.2"
+googleServices = "com.google.gms.google-services:4.4.3"
 
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 
