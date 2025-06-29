@@ -129,6 +129,7 @@ include(
     ":data:common",
     ":data:serialization:android",
     ":utils:android",
+    ":utils:androidx:core",
     ":utils:coil:compose",
     ":utils:dev-mode",
     ":utils:markwon",
