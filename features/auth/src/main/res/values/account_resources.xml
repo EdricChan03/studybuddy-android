@@ -32,12 +32,6 @@
     <string name="account_new_password_dialog_edittext_title">New password</string>
     <!-- The title of the new password dialog in the account activity. -->
     <string name="account_new_password_dialog_title">Set new password</string>
-    <!-- The message of the new profile picture dialog in the account activity. -->
-    <string name="account_new_profile_pic_dialog_msg">The feature to set a new profile picture is
-        coming soon!
-    </string>
-    <!-- The title of the new profile picture dialog in the account activity. -->
-    <string name="account_new_profile_pic_dialog_title">Set new profile picture</string>
     <!-- The title of the sign out dialog in the account activity. -->
     <string name="account_sign_out_dialog_title">Sign out?</string>
 
@@ -74,17 +68,12 @@
     <string name="account_update_password_success_msg">Your password has successfully been
         updated!</string>
 
-    <!-- Message used to notify that the user has successfully updated their profile picture. -->
-    <string name="account_update_pic_success_msg">Your profile picture has successfully been
-        updated!</string>
-
     <string-array name="account_activity_account_actions_array">
         <item>Delete account</item>
         <item>Sign out</item>
         <item>Update email</item>
         <item>Update name</item>
         <item>Update password</item>
-        <item>Update profile picture</item>
     </string-array>
 
     <!-- The title of the refresh credentials menu item in the account activity's menu. -->
@@ -95,5 +84,4 @@
     <string name="dialog_action_update_email">Update email</string>
     <string name="dialog_action_update_name">Update name</string>
     <string name="dialog_action_update_password">Update password</string>
-    <string name="dialog_action_update_profile_picture">Update profile picture</string>
 </resources>

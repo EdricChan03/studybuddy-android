@@ -75,7 +75,6 @@ class AccountFragment :
                             2 -> showUpdateEmailDialog()
                             3 -> showUpdateNameDialog()
                             4 -> showUpdatePasswordDialog()
-                            5 -> showUpdateProfilePictureDialog()
                             else -> Log.w(TAG, "Unknown item clicked! Index was at $which")
                         }
                     }
@@ -97,7 +96,6 @@ class AccountFragment :
                 AccountAction.UpdateEmail -> showUpdateEmailDialog()
                 AccountAction.UpdateName -> showUpdateNameDialog()
                 AccountAction.UpdatePassword -> showUpdatePasswordDialog()
-                AccountAction.UpdateProfilePicture -> showUpdateProfilePictureDialog()
             }
         }
     }
@@ -347,21 +345,6 @@ class AccountFragment :
                 }
             }
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-        }
-    }
-
-    private fun showUpdateProfilePictureDialog() {
-        // TODO: Add support for updating a profile picture
-        requireContext().showMaterialAlertDialog {
-            setTitle(R.string.account_new_profile_pic_dialog_title)
-            setMessage(R.string.account_new_profile_pic_dialog_msg)
-//            setPositiveButton(R.string.dialog_action_update_profile_picture) { dialog, _ ->
-//                showToast(R.string.account_update_pic_success_msg, Toast.LENGTH_SHORT)
-//                dialog.dismiss()
-//            }
-            setPositiveButton(CommonR.string.dialog_action_dismiss) { dialog, _ ->
-                dialog.dismiss()
-            }
         }
     }
 }

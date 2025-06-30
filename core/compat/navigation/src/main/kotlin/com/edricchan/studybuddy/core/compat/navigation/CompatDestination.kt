@@ -78,8 +78,7 @@ sealed interface CompatDestination {
                 SignOut(listOf("signOut", "sign-out")),
                 UpdateEmail(listOf("updateEmail", "update-email")),
                 UpdateName(listOf("updateName", "update-name")),
-                UpdatePassword(listOf("updatePassword", "update-password")),
-                UpdateProfilePicture(listOf("updateProfilePicture", "update-profile-picture"));
+                UpdatePassword(listOf("updatePassword", "update-password"));
 
                 companion object {
                     // SerializableType has a runtime check to assert that Enums are not passed,
