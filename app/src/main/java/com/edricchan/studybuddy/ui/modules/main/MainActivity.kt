@@ -23,9 +23,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
+import com.edricchan.studybuddy.core.compat.navigation.about.navigateToAbout
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToAccountInfo
 import com.edricchan.studybuddy.core.compat.navigation.navigateToCalendar
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
@@ -38,7 +38,6 @@ import com.edricchan.studybuddy.core.settings.tracking.keyPrefEnableUserTracking
 import com.edricchan.studybuddy.databinding.ActivityMainBinding
 import com.edricchan.studybuddy.exts.android.startChooser
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
-import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.navigation.compat.compatGraphs
 import com.edricchan.studybuddy.ui.common.BaseActivity
@@ -47,7 +46,6 @@ import com.edricchan.studybuddy.ui.common.fab.setupFabController
 import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
-import com.edricchan.studybuddy.utils.web.launchUri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -185,15 +183,7 @@ class MainActivity : BaseActivity() {
         }
 
         R.id.action_about -> {
-            showMaterialAlertDialog {
-                // TODO: i18n
-                setTitle("About this app")
-                setMessage(getString(R.string.about_dialog_msg, BuildConfig.VERSION_NAME))
-                setPositiveButton(R.string.dialog_action_close) { dialog, _ -> dialog.dismiss() }
-                setNeutralButton(R.string.dialog_action_view_source_code) { _, _ ->
-                    launchUri(Constants.uriSrcCode)
-                }
-            }
+            navController.navigateToAbout()
             true
         }
 

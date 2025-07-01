@@ -30,11 +30,6 @@
     <!-- The title of the developer options activity. -->
     <string name="pref_header_dev_mode_opts_title">Developer options</string>
 
-    <!-- The about dialog's message -->
-    <string name="about_dialog_msg">Purpose: To help students in their studies
-        \nVersion: %s\n---\nApp is fully open source. Check it out!
-    </string>
-
     <!-- About fragment strings -->
     <eat-comment />
 
@@ -230,7 +225,6 @@
     <string name="dialog_action_retry">Retry</string>
     <string name="dialog_action_send">Send</string>
     <string name="dialog_action_sign_up">Sign up</string>
-    <string name="dialog_action_view_source_code">View source code</string>
     <string name="dialog_action_yes">Yes</string>
     <string name="download_apk_name">com.edricchan.studybuddy-v%s.apk</string>
     <string name="due_date">Due date</string>
