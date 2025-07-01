@@ -253,7 +253,10 @@ class MainActivity : BaseActivity() {
 
     @SuppressLint("RestrictedApi") // For generateHashCode
     private fun NavController.initNavGraph() {
-        graph = createGraph(CompatDestination.Task.Root) {
+        graph = createGraph(
+            if (auth.currentUser != null) CompatDestination.Task.Root
+            else CompatDestination.Auth.Login
+        ) {
             compatGraphs(context = this@MainActivity)
         }
 
