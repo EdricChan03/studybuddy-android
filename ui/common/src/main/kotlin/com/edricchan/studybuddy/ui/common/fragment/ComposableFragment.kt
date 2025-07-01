@@ -25,7 +25,7 @@ abstract class ComposableFragment : BaseFragment() {
      * @param modifier [Modifier] to be passed to the layout.
      */
     @Composable
-    abstract fun Content(modifier: Modifier = Modifier)
+    protected abstract fun Content(modifier: Modifier)
 
     final override fun onCreateView(
         inflater: LayoutInflater,
