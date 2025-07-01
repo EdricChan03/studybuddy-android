@@ -115,7 +115,6 @@ class AccountFragment :
             menu: Menu,
             menuInflater: MenuInflater
         ) {
-//            menu.findItem(R.id.action_account)?.isVisible = false
             menuInflater.inflate(R.menu.menu_account, menu)
         }
 

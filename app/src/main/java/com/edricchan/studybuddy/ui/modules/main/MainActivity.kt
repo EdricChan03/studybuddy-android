@@ -163,6 +163,23 @@ class MainActivity : BaseActivity() {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val destination = navController.currentBackStackEntry
+            ?.destination ?: return super.onPrepareOptionsMenu(menu)
+
+        val routesMap = mapOf(
+            CompatDestination.Settings::class to R.id.action_settings,
+            CompatDestination.Auth.Account::class to R.id.action_account,
+            CompatDestination.About.AppAbout::class to R.id.action_about,
+            CompatDestination.Help::class to R.id.action_help,
+        )
+        routesMap.entries.forEach { (dest, itemId) ->
+            if (destination.hasRoute(dest)) menu.removeItem(itemId)
+        }
+
+        return true
+    }
+
     override fun onSupportNavigateUp(): Boolean =
         navController.navigateUp() || super.onSupportNavigateUp()
 
