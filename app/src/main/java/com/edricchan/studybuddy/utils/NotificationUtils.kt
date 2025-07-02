@@ -45,36 +45,7 @@ class NotificationUtils(
 fun Context.createNotificationChannelsCompat() {
     val notificationManager = NotificationManagerCompat.from(this)
 
-    val channels = listOf(
-        // Task updates notifications
-        AppNotificationChannel.TaskUpdates.asNotificationChannel(this),
-
-        // Weekly summary notifications
-        AppNotificationChannel.WeeklySummary.asNotificationChannel(this),
-
-        // Syncing notifications
-        AppNotificationChannel.Sync.asNotificationChannel(this),
-
-        // Update error notifications
-        AppNotificationChannel.UpdateError.asNotificationChannel(this),
-        // Update status notifications
-        AppNotificationChannel.UpdateStatus.asNotificationChannel(this),
-        // Update complete notifications
-        AppNotificationChannel.UpdateComplete.asNotificationChannel(this),
-        // Update not available notifications
-        AppNotificationChannel.UpdateUnavailable.asNotificationChannel(this),
-        // Update available notifications
-        AppNotificationChannel.UpdateAvailable.asNotificationChannel(this),
-
-        // Media playback notifications
-        AppNotificationChannel.Playback.asNotificationChannel(this),
-
-        // New in-app features notifications
-        AppNotificationChannel.NewAppFeatures.asNotificationChannel(this),
-
-        // Uncategorised notifications
-        AppNotificationChannel.Uncategorized.asNotificationChannel(this)
-    )
+    val channels = AppNotificationChannel.entries.map { it.asNotificationChannel(this) }
 
     val channelGroups = listOf(
         notificationChannelGroupCompat(
