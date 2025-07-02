@@ -18,7 +18,7 @@ import io.github.edricchan03.androidx.recyclerview.ktx.itemCallback
 
 class TodosAdapter(
     private val context: Context,
-    private var itemListener: OnItemClickListener? = null
+    private val itemListener: OnItemClickListener? = null
 ) : ListAdapter<TodoItem, TodosAdapter.Holder>(DIFF_CALLBACK) {
     companion object {
         val DIFF_CALLBACK = itemCallback<TodoItem>(
