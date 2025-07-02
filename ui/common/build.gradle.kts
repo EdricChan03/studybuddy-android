@@ -26,6 +26,7 @@ dependencies {
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.widgets.compose)
+    implementation(projects.utils.web)
 
     api(libs.androidx.fragment.ktx)
     api(libs.androidx.fragment.compose)
