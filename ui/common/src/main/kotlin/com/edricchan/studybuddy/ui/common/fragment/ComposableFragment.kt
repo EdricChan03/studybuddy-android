@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.core.net.toUri
 import androidx.fragment.compose.content
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
-import com.edricchan.studybuddy.utils.web.launchUri
 
 /**
  * [BaseFragment] sub-class for fragments which use Jetpack Compose for its
@@ -36,7 +35,7 @@ abstract class ComposableFragment : BaseFragment() {
 
     private val uriHandler: UriHandler = object : UriHandler {
         override fun openUri(uri: String) {
-            requireContext().launchUri(uri.toUri())
+            launchUri(uri.toUri())
         }
     }
 

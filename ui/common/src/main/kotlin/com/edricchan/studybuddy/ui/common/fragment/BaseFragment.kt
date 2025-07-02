@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.common.fragment
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
+import com.edricchan.studybuddy.utils.web.launchUri
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -84,5 +86,14 @@ abstract class BaseFragment : Fragment() {
             duration = duration,
             action = action
         )
+    }
+
+    /**
+     * Launches the desired [uri] in a Chrome Custom Tab or opens an [android.content.Intent]
+     * with [android.content.Intent.ACTION_VIEW] otherwise.
+     * @see com.edricchan.studybuddy.utils.web.launchUri
+     */
+    protected fun launchUri(uri: Uri) {
+        requireContext().launchUri(uri)
     }
 }
