@@ -11,7 +11,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -84,6 +86,7 @@ private fun <Id> RadioBottomSheetItem(
     enabled = enabled
 )
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun SelectBottomSheetActions(
     modifier: Modifier = Modifier,
@@ -95,12 +98,16 @@ private fun SelectBottomSheetActions(
     horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    OutlinedButton(onClick = onCancelClick) {
+    OutlinedButton(
+        onClick = onCancelClick,
+        shapes = ButtonDefaults.shapes(),
+    ) {
         Text(text = stringResource(R.string.cancel))
     }
     FilledTonalButton(
         onClick = onConfirmClick,
-        enabled = confirmEnabled
+        enabled = confirmEnabled,
+        shapes = ButtonDefaults.shapes(),
     ) {
         Text(text = stringResource(R.string.ok))
     }
