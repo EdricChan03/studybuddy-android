@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.core.auth.common.R as CommonR
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun GoogleSignInButton(
     modifier: Modifier = Modifier,
@@ -28,27 +30,26 @@ fun GoogleSignInButton(
     border: BorderStroke?,
     text: String = stringResource(CommonR.string.google_sign_in_btn_default_text),
     onClick: () -> Unit
+) = OutlinedButton(
+    modifier = modifier,
+    enabled = enabled,
+    shapes = ButtonDefaults.shapes(),
+    colors = colors,
+    border = border,
+    onClick = onClick,
+    contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
 ) {
-    OutlinedButton(
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        border = border,
-        onClick = onClick,
-        contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
-    ) {
-        Image(
-            modifier = Modifier.size(ButtonDefaults.IconSize),
-            painter = painterResource(CommonR.drawable.ic_google_logo),
-            contentDescription = null
-        )
-        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-        Text(
-            text = text,
-            fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.Medium
-        )
-    }
+    Image(
+        modifier = Modifier.size(ButtonDefaults.IconSize),
+        painter = painterResource(CommonR.drawable.ic_google_logo),
+        contentDescription = null
+    )
+    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+    Text(
+        text = text,
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium
+    )
 }
 
 @Composable
