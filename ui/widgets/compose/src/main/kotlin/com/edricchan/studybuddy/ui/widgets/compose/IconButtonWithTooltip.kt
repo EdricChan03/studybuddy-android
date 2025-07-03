@@ -1,7 +1,9 @@
 package com.edricchan.studybuddy.ui.widgets.compose
 
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipScope
@@ -22,7 +24,7 @@ import androidx.compose.ui.window.PopupPositionProvider
  * @param enabled Whether the icon button is enabled
  * @param onClick Function that is invoked when the icon button is clicked
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun IconButtonWithTooltip(
     modifier: Modifier = Modifier,
@@ -39,5 +41,11 @@ fun IconButtonWithTooltip(
     state = state,
     positionProvider = positionProvider
 ) {
-    IconButton(modifier = modifier, onClick = onClick, enabled = enabled, content = icon)
+    IconButton(
+        modifier = modifier,
+        shapes = IconButtonDefaults.shapes(),
+        onClick = onClick,
+        enabled = enabled,
+        content = icon
+    )
 }
