@@ -236,7 +236,7 @@ buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-ksp = "com.google.devtools.ksp:2.1.21-2.0.1"
+ksp = "com.google.devtools.ksp:2.2.0-2.0.2"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.4"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
