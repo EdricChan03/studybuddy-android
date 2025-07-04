@@ -19,7 +19,7 @@ deep-link-dispatch = "6.2.2"
 firebase-bom = "32.8.1"
 gradle-versions = "0.52.0"
 kotest = "5.9.1"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.8.1"
 # TODO: Bump to 3.2.1 when released, see https://youtrack.jetbrains.com/issue/KTOR-8583
