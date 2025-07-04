@@ -15,7 +15,7 @@ dependencies {
         because("AGP DataBinding uses an older version of Javapoet which breaks Hilt")
     }
     // See https://github.com/autonomousapps/dependency-analysis-gradle-plugin/issues/1240
-    implementation("com.google.guava:guava:33.1.0-jre") {
+    implementation("com.google.guava:guava:33.4.8-jre") {
         because(
             "Guava 33+ uses an ImmutableSet for graphs, required " +
                 "for Dependency Analysis 1.33.0 (see " +
