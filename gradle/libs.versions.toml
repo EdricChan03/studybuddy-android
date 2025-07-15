@@ -22,7 +22,7 @@ kotest = "5.9.1"
 kotlin = "2.2.0"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.9.0"
-ktor = "3.2.1"
+ktor = "3.2.2"
 markwon = "4.6.2"
 mockk = "1.14.4"
 # TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
