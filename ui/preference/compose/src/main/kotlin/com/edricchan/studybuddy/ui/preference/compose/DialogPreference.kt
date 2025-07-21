@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import com.edricchan.studybuddy.ui.preference.compose.dialog.DialogPreferenceScope
 import com.edricchan.studybuddy.ui.preference.compose.dialog.DialogPreferenceScopeImpl
 import com.edricchan.studybuddy.ui.widgets.compose.InputDialog
@@ -34,6 +35,8 @@ import com.edricchan.studybuddy.ui.widgets.compose.ListDialog
  * @param onValueChanged Called when the current value changes.
  * @param valueLabel [Composable] to be displayed for each `value` in the [ListDialog].
  * The value to render will be passed as the parameter.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see Preference
  * @see ListDialog
  */
@@ -51,7 +54,9 @@ fun <T> ListDialogPreference(
     values: List<T>,
     value: T,
     onValueChanged: (T) -> Unit,
-    valueLabel: @Composable (T) -> Unit
+    valueLabel: @Composable (T) -> Unit,
+    shape: Shape = PreferenceDefaults.itemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) {
     var dialogVisible by rememberSaveable { mutableStateOf(false) }
     Preference(
@@ -61,7 +66,9 @@ fun <T> ListDialogPreference(
         icon = icon,
         iconSpaceReserved = iconSpaceReserved,
         onClick = { dialogVisible = true },
-        enabled = enabled
+        enabled = enabled,
+        shape = shape,
+        colors = colors
     )
     if (dialogVisible) {
         ListDialog(
@@ -95,6 +102,8 @@ fun <T> ListDialogPreference(
  * the preference's [title] if not explicitly set.
  * @param onConfirm Method that is invoked when the dialog's confirm button is pressed.
  * @param isValid Whether the dialog's confirm button should be enabled.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @param dialogTextField Contents of the [InputDialog]. This should preferably be an
  * [androidx.compose.material3.OutlinedTextField] or similar.
  * @see Preference
@@ -113,6 +122,8 @@ fun InputDialogPreference(
     dialogTitle: @Composable () -> Unit = title,
     onConfirm: DialogPreferenceScope.() -> Unit,
     isValid: Boolean = true,
+    shape: Shape = PreferenceDefaults.itemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors(),
     dialogTextField: @Composable DialogPreferenceScope.() -> Unit
 ) {
     var dialogVisible by rememberSaveable { mutableStateOf(false) }
@@ -127,7 +138,9 @@ fun InputDialogPreference(
         subtitle = subtitle,
         icon = icon,
         iconSpaceReserved = iconSpaceReserved,
-        onClick = { dialogVisible = true }
+        onClick = { dialogVisible = true },
+        shape = shape,
+        colors = colors
     )
 
     if (dialogVisible) {
@@ -165,6 +178,8 @@ fun InputDialogPreference(
  * @param onValueChanged Called when the current value changes.
  * @param valueLabel [Composable] to be displayed for each `value` in the [ListDialog].
  * The value to render will be passed as the parameter.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see Preference
  * @see ListDialog
  */
@@ -181,7 +196,9 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
     values: List<T>,
     value: T,
     onValueChanged: (T) -> Unit,
-    valueLabel: @Composable (T) -> Unit
+    valueLabel: @Composable (T) -> Unit,
+    shape: Shape = PreferenceDefaults.categoryItemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) = ListDialogPreference(
     modifier = modifier,
     dialogModifier = dialogModifier,
@@ -195,7 +212,9 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
     values = values,
     value = value,
     onValueChanged = onValueChanged,
-    valueLabel = valueLabel
+    valueLabel = valueLabel,
+    shape = shape,
+    colors = colors
 )
 
 /**
@@ -216,6 +235,8 @@ fun <T> PreferenceCategoryScope.ListDialogPreference(
  * to the preference's [title] if not explicitly set.
  * @param onConfirm Method that is invoked when the confirm button is pressed.
  * @param isValid Whether the dialog's confirm button should be enabled.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @param dialogTextField Contents of the [InputDialog]. This should preferably be an
  * [androidx.compose.material3.OutlinedTextField] or similar.
  * @param
@@ -234,6 +255,8 @@ fun PreferenceCategoryScope.InputDialogPreference(
     dialogTitle: @Composable () -> Unit = title,
     onConfirm: DialogPreferenceScope.() -> Unit,
     isValid: Boolean = true,
+    shape: Shape = PreferenceDefaults.categoryItemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors(),
     dialogTextField: @Composable DialogPreferenceScope.() -> Unit
 ) = InputDialogPreference(
     modifier = modifier,
@@ -247,5 +270,7 @@ fun PreferenceCategoryScope.InputDialogPreference(
     onConfirm = onConfirm,
     isValid = isValid,
     enabled = enabled,
+    shape = shape,
+    colors = colors,
     dialogTextField = dialogTextField
 )

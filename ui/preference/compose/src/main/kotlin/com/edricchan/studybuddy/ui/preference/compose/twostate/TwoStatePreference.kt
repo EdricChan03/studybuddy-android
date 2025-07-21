@@ -16,11 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.edricchan.studybuddy.ui.preference.compose.Preference
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceColors
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceDefaults
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
 /** Test tag for the [SwitchPreference]'s [Switch] action. */
@@ -44,6 +47,8 @@ const val ActionSwitchTestTag = "SwitchPreference:SwitchAction"
  * passed as a parameter.
  * @param thumbContent The [Switch]'s thumb [Composable] to render.
  * @param switchColors [SwitchColors] to use for the [Switch].
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see Preference
  * @see CheckboxPreference
  */
@@ -57,7 +62,9 @@ fun SwitchPreference(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     thumbContent: (@Composable () -> Unit)? = null,
-    switchColors: SwitchColors = SwitchDefaults.colors()
+    switchColors: SwitchColors = SwitchDefaults.colors(),
+    shape: Shape = PreferenceDefaults.itemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) = Preference(
     modifier = modifier.toggleable(
         enabled = enabled,
@@ -77,7 +84,9 @@ fun SwitchPreference(
             thumbContent = thumbContent,
             colors = switchColors
         )
-    }
+    },
+    shape = shape,
+    colors = colors
 )
 
 /** Test tag for the [CheckboxPreference]'s [Checkbox] action. */
@@ -100,6 +109,8 @@ const val ActionCheckboxTestTag = "CheckboxPreference:CheckboxAction"
  * has changed (usually when the user clicks on the preference), with the new `checked` state
  * passed as a parameter.
  * @param checkboxColors [CheckboxColors] to use for the [Checkbox].
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see Preference
  * @see SwitchPreference
  */
@@ -112,7 +123,9 @@ fun CheckboxPreference(
     subtitle: (@Composable () -> Unit)? = null,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    checkboxColors: CheckboxColors = CheckboxDefaults.colors()
+    checkboxColors: CheckboxColors = CheckboxDefaults.colors(),
+    shape: Shape = PreferenceDefaults.itemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) = Preference(
     modifier = modifier.toggleable(
         enabled = enabled,
@@ -131,7 +144,9 @@ fun CheckboxPreference(
             onCheckedChange = null, // Prevent the checkbox from being clicked
             colors = checkboxColors
         )
-    }
+    },
+    shape = shape,
+    colors = colors
 )
 
 private class BooleanPreviewParameterProvider : PreviewParameterProvider<Boolean> {

@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.preference.compose
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
@@ -72,6 +74,8 @@ internal class PreferenceCategoryScopeImpl(
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see CheckboxPreference
  * @see SwitchPreference
  * @see InputDialogPreference
@@ -87,7 +91,9 @@ fun PreferenceCategoryScope.Preference(
     title: @Composable () -> Unit,
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
-    showActionDivider: Boolean = false
+    showActionDivider: Boolean = false,
+    shape: Shape = PreferenceDefaults.categoryItemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) = Preference(
     modifier = modifier,
     enabled = enabled,
@@ -127,6 +133,8 @@ fun PreferenceCategoryScope.Preference(
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see CheckboxPreference
  * @see SwitchPreference
  * @see InputDialogPreference
@@ -143,7 +151,9 @@ fun PreferenceCategoryScope.Preference(
     title: @Composable () -> Unit,
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
-    showActionDivider: Boolean = false
+    showActionDivider: Boolean = false,
+    shape: Shape = PreferenceDefaults.categoryItemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) = Preference(
     modifier = modifier,
     enabled = enabled,
@@ -153,7 +163,9 @@ fun PreferenceCategoryScope.Preference(
     title = title,
     subtitle = subtitle,
     action = action,
-    showActionDivider = showActionDivider
+    showActionDivider = showActionDivider,
+    shape = shape,
+    colors = colors
 )
 
 /**
@@ -177,7 +189,7 @@ fun PreferenceCategoryTitle(
 ) {
     val primary = MaterialTheme.colorScheme.primary
     val titleStyle = MaterialTheme.typography.labelLarge.copy(color = primary)
-    ProvideTextStyle(value = titleStyle) { title() }
+    ProvideTextStyle(value = titleStyle, content = title)
 }
 
 /**
@@ -190,6 +202,7 @@ fun PreferenceCategoryTitle(
  * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
  * should be added to the [title] composable and its contents.
  * @param enabled Whether the contents of this category should be enabled.
+ * @param listShape [Shape] to be applied on the category's list items.
  * @param content Content to be displayed.
  * @see PreferenceCategoryScope
  */
@@ -199,6 +212,7 @@ fun PreferenceCategory(
     title: @Composable (() -> Unit)? = null,
     iconSpaceReserved: Boolean = true,
     enabled: Boolean = true,
+    listShape: Shape = PreferenceDefaults.itemShape,
     content: @Composable PreferenceCategoryScope.() -> Unit,
 ) {
     val scope: (ColumnScope) -> PreferenceCategoryScopeImpl = remember {
@@ -206,10 +220,16 @@ fun PreferenceCategory(
     }
     Surface {
         Column(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth()
         ) {
             title?.let { PreferenceCategoryTitle(title = it, withPadding = iconSpaceReserved) }
-            scope(this).content()
+            Surface(shape = listShape) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    scope(this).content()
+                }
+            }
         }
     }
 }

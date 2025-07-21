@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.preference.compose
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.DividerDefaults
@@ -22,12 +24,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -71,6 +78,8 @@ internal val TitleFontSize = 16.sp
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see CheckboxPreference
  * @see SwitchPreference
  * @see InputDialogPreference
@@ -87,17 +96,29 @@ fun Preference(
     title: @Composable () -> Unit,
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
-    showActionDivider: Boolean = false
-) = Surface(modifier = modifier) {
-    PreferenceContent(
-        icon = icon,
-        iconSpaceReserved = iconSpaceReserved,
-        title = title,
-        subtitle = subtitle,
-        action = action,
-        showActionDivider = showActionDivider,
-        enabled = enabled
-    )
+    showActionDivider: Boolean = false,
+    shape: Shape = PreferenceDefaults.itemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
+) {
+    val containerColor by colors.containerColor(enabled = enabled)
+    val contentColor by colors.contentColor(enabled = enabled)
+
+    Surface(
+        modifier = modifier,
+        shape = shape,
+        color = containerColor,
+        contentColor = contentColor
+    ) {
+        PreferenceContent(
+            icon = icon,
+            iconSpaceReserved = iconSpaceReserved,
+            title = title,
+            subtitle = subtitle,
+            action = action,
+            showActionDivider = showActionDivider,
+            enabled = enabled
+        )
+    }
 }
 
 @Composable
@@ -204,6 +225,8 @@ private fun PreferenceContent(
  * can be optionally shown between it and its contents.
  * @param showActionDivider Whether a vertical divider should be shown between the [action]
  * and its contents.
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see CheckboxPreference
  * @see SwitchPreference
  * @see InputDialogPreference
@@ -221,21 +244,31 @@ fun Preference(
     title: @Composable () -> Unit,
     subtitle: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
-    showActionDivider: Boolean = false
-) = Surface(
-    modifier = modifier,
-    onClick = onClick,
-    enabled = enabled
+    showActionDivider: Boolean = false,
+    shape: Shape = PreferenceDefaults.itemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) {
-    PreferenceContent(
-        icon = icon,
-        iconSpaceReserved = iconSpaceReserved,
-        title = title,
-        subtitle = subtitle,
-        action = action,
-        showActionDivider = showActionDivider,
-        enabled = enabled
-    )
+    val containerColor by colors.containerColor(enabled = enabled)
+    val contentColor by colors.contentColor(enabled = enabled)
+
+    Surface(
+        modifier = modifier,
+        onClick = onClick,
+        enabled = enabled,
+        shape = shape,
+        color = containerColor,
+        contentColor = contentColor
+    ) {
+        PreferenceContent(
+            icon = icon,
+            iconSpaceReserved = iconSpaceReserved,
+            title = title,
+            subtitle = subtitle,
+            action = action,
+            showActionDivider = showActionDivider,
+            enabled = enabled
+        )
+    }
 }
 
 @Preview
@@ -257,4 +290,58 @@ private fun PreferenceWithActionPreview() {
             }
         )
     }
+}
+
+/**
+ * Colours to be used for a [Preference].
+ * @param containerColor Container colour to use when enabled.
+ * @param contentColor Content colour to use when enabled.
+ * @param disabledContainerColor Container colour to use when disabled.
+ * @param disabledContentColor Content colour to use when disabled.
+ */
+@Immutable
+data class PreferenceColors(
+    val containerColor: Color,
+    val contentColor: Color,
+    val disabledContainerColor: Color,
+    val disabledContentColor: Color
+) {
+    @Composable
+    fun containerColor(enabled: Boolean): State<Color> =
+        animateColorAsState(if (enabled) containerColor else disabledContainerColor)
+
+    @Composable
+    fun contentColor(enabled: Boolean): State<Color> =
+        animateColorAsState(if (enabled) contentColor else disabledContentColor)
+
+}
+
+@Stable
+object PreferenceDefaults {
+    /** Desired [Shape] to use when this [Preference] is used on its own. */
+    @get:Composable
+    val itemShape: Shape get() = MaterialTheme.shapes.large
+
+    /** Desired [Shape] to use when this [Preference] is used in a [PreferenceCategory]. */
+    val categoryItemShape: Shape = RoundedCornerShape(2.dp)
+
+    /**
+     * Gets the [PreferenceColors] to be used for a [Preference].
+     * @param containerColor Container colour to use when enabled.
+     * @param contentColor Content colour to use when enabled.
+     * @param disabledContainerColor Container colour to use when disabled.
+     * @param disabledContentColor Content colour to use when disabled.
+     */
+    @Composable
+    fun colors(
+        containerColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        contentColor: Color = MaterialTheme.colorScheme.onSurface,
+        disabledContainerColor: Color = containerColor.copy(alpha = 0.38f),
+        disabledContentColor: Color = contentColor.copy(alpha = 0.38f)
+    ): PreferenceColors = PreferenceColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor
+    )
 }

@@ -8,8 +8,11 @@ import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceColors
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceDefaults
 
 
 /**
@@ -27,6 +30,8 @@ import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
  * has changed (usually when the user clicks on the preference), with the new `checked` state
  * passed as a parameter.
  * @param checkboxColors [CheckboxColors] to use for the [Checkbox].
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see CheckboxPreference
  */
 @Composable
@@ -37,7 +42,9 @@ fun PreferenceCategoryScope.CheckboxPreference(
     subtitle: @Composable (() -> Unit)? = null,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    checkboxColors: CheckboxColors = CheckboxDefaults.colors()
+    checkboxColors: CheckboxColors = CheckboxDefaults.colors(),
+    shape: Shape = PreferenceDefaults.categoryItemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) = CheckboxPreference(
     modifier = modifier,
     enabled = enabled,
@@ -46,7 +53,9 @@ fun PreferenceCategoryScope.CheckboxPreference(
     subtitle = subtitle,
     checked = checked,
     onCheckedChange = onCheckedChange,
-    checkboxColors = checkboxColors
+    checkboxColors = checkboxColors,
+    shape = shape,
+    colors = colors
 )
 
 /**
@@ -65,6 +74,8 @@ fun PreferenceCategoryScope.CheckboxPreference(
  * passed as a parameter.
  * @param thumbContent The [Switch]'s thumb [Composable] to render.
  * @param switchColors [SwitchColors] to use for the [Switch].
+ * @param shape Desired [Shape] to clip the content with.
+ * @param colors Desired colours to be used for this preference. See [PreferenceColors].
  * @see Preference
  * @see CheckboxPreference
  */
@@ -77,7 +88,9 @@ fun PreferenceCategoryScope.SwitchPreference(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     thumbContent: (@Composable () -> Unit)? = null,
-    switchColors: SwitchColors = SwitchDefaults.colors()
+    switchColors: SwitchColors = SwitchDefaults.colors(),
+    shape: Shape = PreferenceDefaults.categoryItemShape,
+    colors: PreferenceColors = PreferenceDefaults.colors()
 ) = SwitchPreference(
     modifier = modifier,
     enabled = enabled,
@@ -87,5 +100,7 @@ fun PreferenceCategoryScope.SwitchPreference(
     checked = checked,
     onCheckedChange = onCheckedChange,
     thumbContent = thumbContent,
-    switchColors = switchColors
+    switchColors = switchColors,
+    shape = shape,
+    colors = colors
 )
