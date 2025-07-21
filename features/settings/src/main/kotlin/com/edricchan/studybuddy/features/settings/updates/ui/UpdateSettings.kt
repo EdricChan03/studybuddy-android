@@ -33,6 +33,7 @@ import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import java.time.Duration
 import java.time.Instant
+import com.edricchan.studybuddy.core.settings.updates.resources.R as UpdateR
 
 @Composable
 private fun Instant.formatRelativeTimeSpan(
@@ -65,15 +66,15 @@ fun UpdateSettingsScreen(
                 contentDescription = null
             )
         },
-        title = { Text(text = stringResource(R.string.pref_updates_title)) },
+        title = { Text(text = stringResource(UpdateR.string.pref_updates_title)) },
         subtitle = {
             Text(
                 text = stringResource(
-                    R.string.pref_updates_summary,
+                    UpdateR.string.pref_updates_summary,
                     lastChecked?.formatRelativeTimeSpan()
-                        ?: stringResource(R.string.pref_updates_summary_never),
+                        ?: stringResource(UpdateR.string.pref_updates_summary_never),
                     lastUpdated?.formatRelativeTimeSpan()
-                        ?: stringResource(R.string.pref_updates_summary_never)
+                        ?: stringResource(UpdateR.string.pref_updates_summary_never)
                 )
             )
         },
@@ -81,11 +82,11 @@ fun UpdateSettingsScreen(
     )
 
     PreferenceCategory(
-        title = { Text(text = stringResource(R.string.pref_updates_options_title)) }
+        title = { Text(text = stringResource(UpdateR.string.pref_updates_options_title)) }
     ) {
         ListDialogPreference(
             icon = { Icon(Icons.Outlined.Refresh, contentDescription = null) },
-            title = { Text(text = stringResource(R.string.pref_check_for_update_frequency_title)) },
+            title = { Text(text = stringResource(UpdateR.string.pref_check_for_update_frequency_title)) },
             subtitle = { Text(text = stringResource(checkFrequency.stringResource)) },
             values = CheckFrequencyCompat.entries,
             valueLabel = { Text(text = stringResource(it.stringResource)) },
@@ -99,8 +100,8 @@ fun UpdateSettingsScreen(
                     contentDescription = null
                 )
             },
-            title = { Text(text = stringResource(R.string.pref_updates_download_over_metered_title)) },
-            subtitle = { Text(text = stringResource(R.string.pref_updates_download_over_metered_summary)) },
+            title = { Text(text = stringResource(UpdateR.string.pref_updates_download_over_metered_title)) },
+            subtitle = { Text(text = stringResource(UpdateR.string.pref_updates_download_over_metered_summary)) },
             checked = canDownloadMetered,
             onCheckedChange = onCanDownloadMeteredChange
         )
@@ -111,8 +112,8 @@ fun UpdateSettingsScreen(
                     contentDescription = null
                 )
             },
-            title = { Text(text = stringResource(R.string.pref_updates_download_only_when_charging_title)) },
-            subtitle = { Text(text = stringResource(R.string.pref_updates_download_only_when_charging_summary)) },
+            title = { Text(text = stringResource(UpdateR.string.pref_updates_download_only_when_charging_title)) },
+            subtitle = { Text(text = stringResource(UpdateR.string.pref_updates_download_only_when_charging_summary)) },
             checked = onlyDownloadCharging,
             onCheckedChange = onOnlyDownloadCharging
         )

@@ -31,6 +31,7 @@ dependencies {
     implementation(projects.core.settings.tasks.resources)
     implementation(projects.core.settings.tracking)
     implementation(projects.core.settings.updates)
+    implementation(projects.core.settings.updates.resources)
 
     api(projects.ui.preference)
 

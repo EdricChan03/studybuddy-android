@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.features.settings.updates.model
 
 import androidx.annotation.StringRes
-import com.edricchan.studybuddy.features.settings.R
+import com.edricchan.studybuddy.core.settings.updates.resources.R
 
 private val hourToEnumMap = mapOf(
     CheckFrequencyCompat.Manual to 0,
@@ -12,7 +12,7 @@ private val hourToEnumMap = mapOf(
     CheckFrequencyCompat.Weekly to 24 * 7
 )
 
-enum class CheckFrequencyCompat(@StringRes val stringResource: Int) {
+enum class CheckFrequencyCompat(@field:StringRes val stringResource: Int) {
     Manual(R.string.pref_check_for_update_freq_manual),
     ThreeHours(R.string.pref_check_for_update_freq_three_hour),
     SixHours(R.string.pref_check_for_update_freq_six_hour),

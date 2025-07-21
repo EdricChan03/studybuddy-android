@@ -127,6 +127,7 @@ include(
     ":core:settings:tasks:resources",
     ":core:settings:tracking",
     ":core:settings:updates",
+    ":core:settings:updates:resources",
     ":data:common",
     ":data:serialization:android",
     ":utils:android",

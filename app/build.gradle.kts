@@ -171,6 +171,7 @@ dependencies {
     implementation(projects.core.settings.tasks.resources)
     implementation(projects.core.settings.tracking)
     implementation(projects.core.settings.updates)
+    implementation(projects.core.settings.updates.resources)
     implementation(projects.data.common)
     implementation(projects.data.serialization.android)
     implementation(projects.utils.devMode)
