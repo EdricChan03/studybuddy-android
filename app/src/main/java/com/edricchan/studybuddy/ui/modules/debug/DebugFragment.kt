@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.modules.debug
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
@@ -11,11 +12,13 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.compose.content
 import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebugModalBottomSheet
 import com.edricchan.studybuddy.core.compat.navigation.navigateToFeatureFlagsList
+import com.edricchan.studybuddy.exts.androidx.compose.plus
 import com.edricchan.studybuddy.ui.modules.debug.compose.DebugScreen
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.google.firebase.auth.FirebaseUser
@@ -40,7 +43,7 @@ class DebugFragment : Fragment() {
             DebugScreen(
                 modifier = Modifier.nestedScroll(nestedScrollInterop),
                 contentPadding = WindowInsets.navigationBars.only(WindowInsetsSides.Bottom)
-                    .asPaddingValues(),
+                    .asPaddingValues() + PaddingValues(16.dp),
                 onNavigateToDebugModalBottomSheet = findNavController()::navigateToDebugModalBottomSheet,
                 onNavigateToFeatureFlagsList = findNavController()::navigateToFeatureFlagsList,
                 userFlow = userFlow

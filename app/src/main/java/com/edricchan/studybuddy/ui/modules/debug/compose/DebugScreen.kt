@@ -20,12 +20,12 @@ import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBar
 import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBarDefaults
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
-import com.edricchan.studybuddy.ui.preference.compose.PreferenceDivider
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-private fun OpenDebugModalBottomSheetPreference(
+private fun PreferenceCategoryScope.OpenDebugModalBottomSheetPreference(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -45,7 +45,7 @@ private fun OpenDebugModalBottomSheetPreference(
 @Composable
 fun DebugScreen(
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
+    contentPadding: PaddingValues = PaddingValues(16.dp),
     viewModel: DebugViewModel = viewModel(),
     userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>,
     onNavigateToDebugModalBottomSheet: () -> Unit,
@@ -88,7 +88,6 @@ fun DebugScreen(
 
         item {
             DeviceInfoCategory()
-            PreferenceDivider(iconSpaceReserved = false)
         }
         item {
             PreferenceCategory(
@@ -96,7 +95,6 @@ fun DebugScreen(
             ) {
                 AccountInfoPreference(user = user)
             }
-            PreferenceDivider(iconSpaceReserved = false)
         }
 
         item {
@@ -106,7 +104,6 @@ fun DebugScreen(
                 lastCheckedInstant = lastCheckedInstant,
                 lastUpdatedInstant = lastUpdatedInstant
             )
-            PreferenceDivider(iconSpaceReserved = false)
         }
 
         item {

@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.preference.compose.Preference
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 
 @Composable
 private fun ConfirmClearSettingsDialog(
@@ -48,7 +49,7 @@ private fun ConfirmClearSettingsDialog(
 )
 
 @Composable
-fun ClearSettingsPreference(
+fun PreferenceCategoryScope.ClearSettingsPreference(
     modifier: Modifier = Modifier,
     onClearSettingsRequest: () -> Unit
 ) {

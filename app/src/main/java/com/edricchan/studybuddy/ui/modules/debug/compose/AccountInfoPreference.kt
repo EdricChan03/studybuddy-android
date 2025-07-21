@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.ui.modules.debug.compose
 
+import android.content.ClipData
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -18,12 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.platform.toClipEntry
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.R
@@ -34,10 +36,12 @@ import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.exts.firebase.auth.creationInstant
 import com.edricchan.studybuddy.exts.firebase.auth.lastSignInInstant
 import com.edricchan.studybuddy.ui.preference.compose.Preference
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.messaging
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
@@ -124,13 +128,14 @@ private fun AccountInfoDialog(
 }
 
 @Composable
-fun AccountInfoPreference(
+fun PreferenceCategoryScope.AccountInfoPreference(
     modifier: Modifier = Modifier,
     user: FirebaseUser?
 ) {
     var isAcctInfoShown by rememberSaveable { mutableStateOf(false) }
 
-    val clipboardManager = LocalClipboardManager.current
+    val clipboardManager = LocalClipboard.current
+    val scope = rememberCoroutineScope()
 
     val tokenResult by loadMessagingToken(Firebase.messaging)
 
@@ -146,7 +151,9 @@ fun AccountInfoPreference(
         AccountInfoDialog(
             onDismissRequest = { isAcctInfoShown = false },
             onCopyClick = {
-                clipboardManager.setText(AnnotatedString(it))
+                scope.launch {
+                    clipboardManager.setClipEntry(ClipData.newPlainText(it, it).toClipEntry())
+                }
             },
             user = user,
             token = tokenResult

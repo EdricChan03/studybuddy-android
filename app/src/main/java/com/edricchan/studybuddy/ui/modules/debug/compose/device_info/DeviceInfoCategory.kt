@@ -31,6 +31,7 @@ import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
+import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.common.dynamic.prefDynamicTheme
 import com.edricchan.studybuddy.core.resources.R as CoreResR
@@ -111,7 +112,7 @@ private fun DeviceSdkInfoDialog(
 }
 
 @Composable
-private fun DeviceSdkInfoPreference(modifier: Modifier = Modifier) {
+private fun PreferenceCategoryScope.DeviceSdkInfoPreference(modifier: Modifier = Modifier) {
     var isDeviceInfoShown by rememberSaveable { mutableStateOf(false) }
 
     val clipboardManager = LocalClipboardManager.current
@@ -193,7 +194,7 @@ private fun DeviceNetworkInfoDialog(
 }
 
 @Composable
-private fun DeviceNetworkInfoPreference(modifier: Modifier = Modifier) {
+private fun PreferenceCategoryScope.DeviceNetworkInfoPreference(modifier: Modifier = Modifier) {
     var isNetworkInfoShown by rememberSaveable { mutableStateOf(false) }
 
     val clipboardManager = LocalClipboardManager.current
@@ -262,7 +263,7 @@ private fun DeviceDynamicThemeInfoDialog(
 }
 
 @Composable
-private fun DeviceDynamicThemePreference(modifier: Modifier = Modifier) {
+private fun PreferenceCategoryScope.DeviceDynamicThemePreference(modifier: Modifier = Modifier) {
     var isInfoShown by rememberSaveable { mutableStateOf(false) }
 
     val clipboardManager = LocalClipboardManager.current
