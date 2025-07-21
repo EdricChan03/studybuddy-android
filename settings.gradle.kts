@@ -123,6 +123,7 @@ include(
     ":core:resources:temporal",
     ":core:settings:appearance:datastore-proto",
     ":core:settings:appearance:model",
+    ":core:settings:appearance:resources",
     ":core:settings:tasks",
     ":core:settings:tasks:resources",
     ":core:settings:tracking",

@@ -27,14 +27,15 @@ import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
 
 
 @get:StringRes
 val DarkThemeValue.Version2.labelResource
     get() = when (this) {
-        DarkThemeValue.V2Always -> R.string.pref_dark_theme_entry_always
-        DarkThemeValue.V2Never -> R.string.pref_dark_theme_entry_never
-        DarkThemeValue.V2FollowSystem -> R.string.pref_dark_theme_entry_system
+        DarkThemeValue.V2Always -> AppearanceR.string.pref_dark_theme_entry_always
+        DarkThemeValue.V2Never -> AppearanceR.string.pref_dark_theme_entry_never
+        DarkThemeValue.V2FollowSystem -> AppearanceR.string.pref_dark_theme_entry_system
     }
 
 @Composable
@@ -79,7 +80,7 @@ fun GeneralSettingsScreen(
                 )
             },
             title = {
-                Text(text = stringResource(R.string.pref_use_custom_tabs_title))
+                Text(text = stringResource(AppearanceR.string.pref_use_custom_tabs_title))
             },
             checked = useCustomTabs,
             onCheckedChange = onUseCustomTabsChange
@@ -87,7 +88,7 @@ fun GeneralSettingsScreen(
     }
 
     PreferenceCategory(
-        title = { Text(text = stringResource(R.string.pref_category_theme)) }
+        title = { Text(text = stringResource(AppearanceR.string.pref_category_theming_title)) }
     ) {
         ListDialogPreference(
             icon = {
@@ -96,7 +97,7 @@ fun GeneralSettingsScreen(
                     contentDescription = null
                 )
             },
-            title = { Text(text = stringResource(R.string.pref_dark_theme_title)) },
+            title = { Text(text = stringResource(AppearanceR.string.pref_dark_theme_title)) },
             subtitle = {
                 Text(text = stringResource(useDarkTheme.labelResource))
             },
@@ -116,8 +117,8 @@ fun GeneralSettingsScreen(
                         contentDescription = null
                     )
                 },
-                title = { Text(text = stringResource(R.string.pref_dynamic_theme_title)) },
-                subtitle = { Text(text = stringResource(R.string.pref_dynamic_theme_summary)) },
+                title = { Text(text = stringResource(AppearanceR.string.pref_dynamic_theme_title)) },
+                subtitle = { Text(text = stringResource(AppearanceR.string.pref_dynamic_theme_subtitle)) },
                 checked = enableDynamicTheme,
                 onCheckedChange = onDynamicThemeChange
             )

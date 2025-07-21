@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Appearance settings strings -->
+    <eat-comment />
+
+    <!-- Title for the general settings header. -->
+    <string name="pref_header_appearance_title">Appearance</string>
+    <!-- Summary for the appearance settings header. -->
+    <string name="pref_header_appearance_summary">Language, in-app browser, dark theme
+    </string>
+
+    <!-- Title for the custom tabs setting. -->
+    <string name="pref_use_custom_tabs_title">Open web links in-app</string>
+
+    <!-- Title for the theming settings category. -->
+    <string name="pref_category_theming_title">Theming</string>
+
+    <!-- Title for the dark theme setting. -->
+    <string name="pref_dark_theme_title">Dark theme</string>
+
+    <!-- Entry text for the follow system option for the dark theme setting. -->
+    <string name="pref_dark_theme_entry_system">Follow system</string>
+    <!-- Entry text for the always dark theme option for the dark theme setting. -->
+    <string name="pref_dark_theme_entry_always">Always</string>
+    <!-- Entry text for the never dark theme option for the dark theme setting. -->
+    <string name="pref_dark_theme_entry_never">Never</string>
+
+    <!-- Title for the enable dynamic theme setting. -->
+    <string name="pref_dynamic_theme_title">Material You</string>
+    <!-- Subtitle for the enable dynamic theme setting. -->
+    <string name="pref_dynamic_theme_subtitle">Use this device\'s wallpaper colours across the
+        app</string>
+</resources>
