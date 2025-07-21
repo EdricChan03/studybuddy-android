@@ -32,6 +32,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
+import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
 /** Test tag for the [Preference]'s `actionDivider` composable. */
@@ -71,7 +73,7 @@ internal val TitleFontSize = 16.sp
  * and its contents.
  * @see CheckboxPreference
  * @see SwitchPreference
- * @see DialogPreference
+ * @see InputDialogPreference
  * @see ListDialogPreference
  * @see PreferenceCategory
  * @see MainSwitchBar
@@ -204,7 +206,7 @@ private fun PreferenceContent(
  * and its contents.
  * @see CheckboxPreference
  * @see SwitchPreference
- * @see DialogPreference
+ * @see InputDialogPreference
  * @see ListDialogPreference
  * @see PreferenceCategory
  * @see MainSwitchBar
