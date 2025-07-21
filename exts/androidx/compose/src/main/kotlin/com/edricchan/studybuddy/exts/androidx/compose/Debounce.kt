@@ -21,7 +21,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 inline fun debounced(
     debounceTime: Duration = 500.milliseconds,
-    crossinline getElapsedRealTimeMillis: () -> Long = { SystemClock.elapsedRealtime() },
+    crossinline getElapsedRealTimeMillis: () -> Long = SystemClock::elapsedRealtime,
     crossinline onClick: () -> Unit
 ): () -> Unit {
     var lastClickTime by remember { mutableLongStateOf(getElapsedRealTimeMillis()) }
