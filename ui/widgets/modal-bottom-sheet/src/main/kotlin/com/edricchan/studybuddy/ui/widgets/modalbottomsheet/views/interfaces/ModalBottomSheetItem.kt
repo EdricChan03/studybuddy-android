@@ -76,7 +76,7 @@ data class ModalBottomSheetItem(
      * * To use an icon resource, use [Icon.Resource].
      * * To use a raw [Drawable], use [Icon.Raw].
      *
-     * To retrieve the icon as a [Drawable], use [asDrawable].
+     * To retrieve the icon as a [Bitmap], use [asBitmap].
      */
     @Parcelize
     sealed class Icon : Parcelable {
