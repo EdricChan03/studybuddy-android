@@ -47,34 +47,36 @@ fun GeneralSettingsScreen(
     onDynamicThemeChange: (Boolean) -> Unit,
     isDynamicThemeAvailable: Boolean = isDynamicColorAvailable
 ) = Column(modifier = modifier.verticalScroll(rememberScrollState())) {
-    SwitchPreference(
-        icon = {
-            Icon(
-                painterResource(R.drawable.ic_bug_report_outline_24dp),
-                contentDescription = null
-            )
-        },
-        title = {
-            Text(text = stringResource(R.string.pref_enable_crashlytics_user_tracking_title))
-        },
-        subtitle = { Text(text = stringResource(R.string.pref_enable_crashlytics_user_tracking_summary)) },
-        checked = enableUserTracking,
-        onCheckedChange = onEnableUserTrackingChange
-    )
+    PreferenceCategory {
+        SwitchPreference(
+            icon = {
+                Icon(
+                    painterResource(R.drawable.ic_bug_report_outline_24dp),
+                    contentDescription = null
+                )
+            },
+            title = {
+                Text(text = stringResource(R.string.pref_enable_crashlytics_user_tracking_title))
+            },
+            subtitle = { Text(text = stringResource(R.string.pref_enable_crashlytics_user_tracking_summary)) },
+            checked = enableUserTracking,
+            onCheckedChange = onEnableUserTrackingChange
+        )
 
-    SwitchPreference(
-        icon = {
-            Icon(
-                painterResource(R.drawable.ic_open_in_browser_24dp),
-                contentDescription = null
-            )
-        },
-        title = {
-            Text(text = stringResource(R.string.pref_use_custom_tabs_title))
-        },
-        checked = useCustomTabs,
-        onCheckedChange = onUseCustomTabsChange
-    )
+        SwitchPreference(
+            icon = {
+                Icon(
+                    painterResource(R.drawable.ic_open_in_browser_24dp),
+                    contentDescription = null
+                )
+            },
+            title = {
+                Text(text = stringResource(R.string.pref_use_custom_tabs_title))
+            },
+            checked = useCustomTabs,
+            onCheckedChange = onUseCustomTabsChange
+        )
+    }
 
     PreferenceCategory(
         title = { Text(text = stringResource(R.string.pref_category_theme)) }
@@ -88,7 +90,6 @@ fun GeneralSettingsScreen(
             },
             title = { Text(text = stringResource(R.string.pref_dark_theme_title)) },
             subtitle = {
-                // FIXME: Remove !! operator
                 Text(text = stringResource(useDarkTheme.labelResource))
             },
             values = DarkThemeValue.Version2.entries,
