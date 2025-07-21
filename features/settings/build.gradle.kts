@@ -46,6 +46,11 @@ dependencies {
 
     // Compose
     implementation(libs.bundles.androidx.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.androidx.compose.material3.adaptive.layout)
+    api(libs.androidx.compose.material3.adaptive.navigation)
+
     debugImplementation(libs.bundles.androidx.compose.tooling)
 
     implementation(libs.flowPreferences)
