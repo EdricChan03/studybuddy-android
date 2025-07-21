@@ -233,8 +233,6 @@
 
     <string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
 
-    <string name="help_activity_empty_state_title">Loading help articles&#8230;</string>
-
     <string name="notification_check_update">Checking for updates…</string>
     <string name="notification_new_update_text">Version %s is available! Tap here to download &amp;
         install</string>
