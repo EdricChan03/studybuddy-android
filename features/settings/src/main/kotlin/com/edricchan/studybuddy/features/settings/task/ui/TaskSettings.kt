@@ -23,6 +23,7 @@ import com.edricchan.studybuddy.features.settings.task.model.TaskSortOptionCompa
 import com.edricchan.studybuddy.features.settings.task.vm.TaskSettingsViewModel
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.core.settings.tasks.resources.R as TaskR
 
 @Composable
 private fun TaskDefaultSortPreference(
@@ -33,7 +34,7 @@ private fun TaskDefaultSortPreference(
     ListDialogPreference(
         modifier = modifier,
         icon = { Icon(painterResource(R.drawable.ic_sort_24dp), contentDescription = null) },
-        title = { Text(text = stringResource(R.string.pref_task_default_sort_title)) },
+        title = { Text(text = stringResource(TaskR.string.pref_task_default_sort_title)) },
         subtitle = { Text(text = stringResource(defaultSort.stringResource)) },
         values = TaskSortOptionCompat.entries,
         value = defaultSort,

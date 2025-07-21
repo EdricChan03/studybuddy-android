@@ -1,10 +1,10 @@
 package com.edricchan.studybuddy.features.settings.task.model
 
 import androidx.annotation.StringRes
-import com.edricchan.studybuddy.features.settings.R
+import com.edricchan.studybuddy.core.settings.tasks.resources.R
 
 enum class TaskSortOptionCompat(
-    @StringRes val stringResource: Int,
+    @field:StringRes val stringResource: Int,
     val value: String
 ) {
     None(
