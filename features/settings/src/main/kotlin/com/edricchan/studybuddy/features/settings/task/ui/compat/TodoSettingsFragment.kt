@@ -1,37 +1,29 @@
 package com.edricchan.studybuddy.features.settings.task.ui.compat
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
-import androidx.fragment.compose.content
 import com.edricchan.studybuddy.features.settings.task.ui.TaskSettingsScreen
 import com.edricchan.studybuddy.features.settings.task.vm.TaskSettingsViewModel
-import com.edricchan.studybuddy.ui.common.fragment.BaseFragment
+import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TodoSettingsFragment : BaseFragment() {
+class TodoSettingsFragment : ComposableFragment() {
     private val viewModel by viewModels<TaskSettingsViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = content {
-        val nestedScrollInterop = rememberNestedScrollInteropConnection()
+    @Composable
+    override fun Content(modifier: Modifier) {
         StudyBuddyTheme {
             TaskSettingsScreen(
-                modifier = Modifier
-                    .nestedScroll(nestedScrollInterop)
-                    .windowInsetsPadding(WindowInsets.navigationBars),
+                modifier = modifier.windowInsetsPadding(WindowInsets.navigationBars),
+                contentPadding = PaddingValues(16.dp),
                 viewModel = viewModel
             )
         }
