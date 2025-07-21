@@ -12,9 +12,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +22,6 @@ import androidx.core.content.FileProvider
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
-import androidx.core.view.MenuProvider
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -40,6 +36,7 @@ import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
+import com.edricchan.studybuddy.utils.androidx.core.menuProvider
 import com.edricchan.studybuddy.utils.getUpdateJsonUrl
 import com.edricchan.studybuddy.utils.network.isMeteredNetwork
 import com.github.javiersantos.appupdater.AppUpdaterUtils
@@ -82,37 +79,27 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
         binding.emptyStateCtaBtn.setOnClickListener { checkForUpdates() }
     }
 
-    override val menuProvider = object : MenuProvider {
-        override fun onCreateMenu(
-            menu: Menu,
-            menuInflater: MenuInflater
-        ) {
-            menuInflater.inflate(R.menu.menu_updates, menu)
+    override val menuProvider = menuProvider(
+        menuResId = R.menu.menu_updates,
+        onPrepareMenu = {
+            it.findItem(R.id.action_check_for_updates).isEnabled = !isChecking
         }
+    ) {
+        when (it.itemId) {
+            R.id.action_check_for_updates -> {
+                Log.d(TAG, "Check for updates clicked!")
+                showSnackBar(
+                    R.string.update_snackbar_checking,
+                    SnackBarData.Duration.Short
+                )
 
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            return when (menuItem.itemId) {
-                R.id.action_check_for_updates -> {
-                    Log.d(TAG, "Check for updates clicked!")
-                    showSnackBar(
-                        R.string.update_snackbar_checking,
-                        SnackBarData.Duration.Short
-                    )
-
-                    checkForUpdates()
-                    true
-                }
-
-                else -> false
+                checkForUpdates()
+                true
             }
-        }
 
-        override fun onPrepareMenu(menu: Menu) {
-            super.onPrepareMenu(menu)
-            menu.findItem(R.id.action_check_for_updates).isEnabled = !isChecking
+            else -> false
         }
     }
-
 
     private fun getDownloadFile(fileName: String) =
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
