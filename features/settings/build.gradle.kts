@@ -26,6 +26,7 @@ android {
 dependencies {
     implementation(projects.core.compat.navigation)
     implementation(projects.core.resources.temporal)
+    implementation(projects.core.settings.appearance.resources)
     implementation(projects.core.settings.appearance.model)
     implementation(projects.core.settings.tasks)
     implementation(projects.core.settings.tasks.resources)
@@ -35,6 +36,8 @@ dependencies {
 
     api(projects.ui.preference)
 
+    implementation(projects.core.auth.ui.compose)
+    implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.common)
     implementation(projects.ui.common)
@@ -42,6 +45,7 @@ dependencies {
     implementation(projects.ui.theming.views)
     implementation(projects.ui.preference.compose)
 
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     api(libs.androidx.preference.ktx)
 
     // Compose

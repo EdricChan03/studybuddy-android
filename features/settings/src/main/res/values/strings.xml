@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Empty state header text when no settings category is selected. -->
+    <string name="settings_detail_empty_state_header_text">No category selected</string>
+    <!-- Empty state body text when no settings category is selected. -->
+    <string name="settings_detail_empty_state_body_text">Select a category to view its details</string>
+</resources>
