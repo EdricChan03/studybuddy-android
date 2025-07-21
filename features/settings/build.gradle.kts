@@ -44,6 +44,7 @@ dependencies {
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.preference.compose)
+    implementation(projects.utils.androidx.core)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     api(libs.androidx.preference.ktx)

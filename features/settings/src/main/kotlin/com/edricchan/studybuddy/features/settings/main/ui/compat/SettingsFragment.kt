@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.settings.fragment
+package com.edricchan.studybuddy.features.settings.main.ui.compat
 
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator

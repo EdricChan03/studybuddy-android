@@ -21,12 +21,12 @@ import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
 import com.edricchan.studybuddy.features.auth.ui.ResetPasswordActivity
 import com.edricchan.studybuddy.features.help.compat.HelpListFragment
+import com.edricchan.studybuddy.features.settings.main.ui.compat.SettingsFragment
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
-import com.edricchan.studybuddy.ui.modules.settings.fragment.SettingsFragment
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.EditTaskFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.NewTaskFragment
