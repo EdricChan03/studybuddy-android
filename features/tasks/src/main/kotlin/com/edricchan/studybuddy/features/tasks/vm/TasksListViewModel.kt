@@ -29,7 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksListViewModel @Inject constructor(
     private val repository: TaskRepository,
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val savedState: SavedStateHandle
 ) : ViewModel() {
     private val taskOptionsPrefs = context.getSharedPreferences(

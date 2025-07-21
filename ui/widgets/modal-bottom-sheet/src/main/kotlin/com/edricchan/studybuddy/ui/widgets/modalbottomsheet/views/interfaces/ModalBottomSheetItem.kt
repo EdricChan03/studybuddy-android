@@ -84,7 +84,7 @@ data class ModalBottomSheetItem(
         abstract fun asBitmap(context: Context): Bitmap
 
         /** An [Icon] which takes a [drawable resource][iconRes]. */
-        data class Resource(@DrawableRes val iconRes: Int) : Icon() {
+        data class Resource(@field:DrawableRes val iconRes: Int) : Icon() {
             /**
              * Loads the [iconRes] resource from the specified [context],
              * or throws an [IllegalArgumentException] if no such resource was found.

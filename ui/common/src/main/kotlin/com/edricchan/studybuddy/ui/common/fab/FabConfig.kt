@@ -14,13 +14,13 @@ data class FabConfig(
      * The icon drawable resource for the [FloatingActionButton].
      * @see FloatingActionButton.setImageResource
      */
-    @DrawableRes
+    @field:DrawableRes
     val iconRes: Int,
     /**
      * A string resource to the content description for the [FloatingActionButton].
      * @see FloatingActionButton.setContentDescription
      */
-    @StringRes
+    @field:StringRes
     val contentDescriptionRes: Int,
     /**
      * Lambda to invoke when the [FloatingActionButton] is clicked.
@@ -31,6 +31,6 @@ data class FabConfig(
      * How the [FloatingActionButton] should be aligned in the [BottomAppBar].
      * @see BottomAppBar.setFabAlignmentMode
      */
-    @BottomAppBar.FabAlignmentMode
+    @field:BottomAppBar.FabAlignmentMode
     val alignment: Int = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
 )

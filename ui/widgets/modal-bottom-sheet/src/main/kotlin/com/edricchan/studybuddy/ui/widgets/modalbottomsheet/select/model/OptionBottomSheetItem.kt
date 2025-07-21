@@ -17,7 +17,7 @@ import kotlinx.parcelize.RawValue
 data class OptionBottomSheetItem<Id>(
     val id: @RawValue Id,
     val title: String,
-    @DrawableRes
+    @field:DrawableRes
     val icon: Int? = null,
     val enabled: Boolean = true
 ) : Parcelable

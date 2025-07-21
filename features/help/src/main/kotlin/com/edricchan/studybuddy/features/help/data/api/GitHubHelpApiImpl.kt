@@ -10,7 +10,7 @@ import io.ktor.client.request.get
 import javax.inject.Inject
 
 class GitHubHelpApiImpl @Inject constructor(
-    @ContentNegotiationJsonHttpClient
+    @param:ContentNegotiationJsonHttpClient
     private val http: HttpClient
 ) : HelpApi {
     override suspend fun fetchHelpArticles(): List<HelpArticle> {
