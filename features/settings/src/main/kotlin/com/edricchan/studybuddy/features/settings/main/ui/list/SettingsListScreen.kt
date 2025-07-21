@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.settings.main.list
+package com.edricchan.studybuddy.features.settings.main.ui.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues

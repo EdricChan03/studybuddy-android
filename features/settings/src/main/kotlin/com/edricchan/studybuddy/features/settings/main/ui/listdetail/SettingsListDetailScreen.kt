@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.settings.main.listdetail
+package com.edricchan.studybuddy.features.settings.main.ui.listdetail
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +32,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.general.ui.GeneralSettingsScreen
-import com.edricchan.studybuddy.features.settings.main.list.SettingsListScreen
+import com.edricchan.studybuddy.features.settings.main.ui.list.SettingsListScreen
 import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
 import com.edricchan.studybuddy.features.settings.task.ui.TaskSettingsScreen
 import com.edricchan.studybuddy.features.settings.updates.ui.UpdateSettingsScreen
