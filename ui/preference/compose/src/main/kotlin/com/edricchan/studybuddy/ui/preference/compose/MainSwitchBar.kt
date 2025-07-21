@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -63,6 +63,7 @@ private fun switchBarSurfaceContentColor(
  * switch, used to indicate that an entire feature can be turned on/off.
  * @param text Text [Composable] to be displayed at the start.
  * [MainSwitchBarDefaults.TitleText] can be used which provides default title styling.
+ * @param includePadding Whether to include padding on the content.
  * @param checked Whether the setting is checked.
  * @param onCheckedChange Invoked when the setting is clicked on, with the new `checked`
  * state passed as a parameter.
@@ -70,9 +71,11 @@ private fun switchBarSurfaceContentColor(
  * [MainSwitchBarDefaults.Switch] can be used which provides a default [Switch] implementation.
  * @param enabled Whether the switch bar is enabled.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun MainSwitchBar(
     modifier: Modifier = Modifier,
+    includePadding: Boolean = false,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     enabled: Boolean = true,
@@ -90,16 +93,18 @@ fun MainSwitchBar(
         label = "Surface content colour"
     )
 
+    val paddingModifier = if (includePadding) Modifier.padding(16.dp) else Modifier
+
     Surface(
         modifier = modifier
-            .padding(16.dp)
+            .then(paddingModifier)
             .fillMaxWidth(),
         checked = checked,
         onCheckedChange = onCheckedChange,
         enabled = enabled,
         color = surfaceColor,
         contentColor = surfaceContentColor,
-        shape = RoundedCornerShape(28.dp)
+        shape = MaterialTheme.shapes.extraLarge
     ) {
         Row(
             modifier = Modifier

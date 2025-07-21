@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.ui.modules.debug.compose
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -65,6 +66,7 @@ fun DebugScreen(
     LazyColumn(modifier = modifier, contentPadding = contentPadding) {
         item {
             MainSwitchBar(
+                modifier = Modifier.padding(bottom = 16.dp),
                 checked = devModeEnabled,
                 onCheckedChange = viewModel.devModeEnabled::set,
                 enabled = !BuildConfig.DEBUG
