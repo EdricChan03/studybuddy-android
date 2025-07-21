@@ -49,7 +49,7 @@ fun TaskCreatedAtText(
     instant: Instant
 ) = Text(
     modifier = modifier,
-    text = instant.appFormat(LocalContext.current),
+    text = LocalContext.current.formatRelativeTimeSpan(instant),
     style = MaterialTheme.typography.labelSmall
 )
 
@@ -66,7 +66,7 @@ fun TaskCreatedAtListItem(
     textModifier: Modifier = Modifier,
     createdAt: Instant,
     formatDate: @Composable (Instant) -> String = {
-        it.appFormat(LocalContext.current)
+        LocalContext.current.formatRelativeTimeSpan(it)
     },
 ) = ListItem(
     modifier = modifier,
