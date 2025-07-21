@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.features.help.data.model
 
 import android.net.Uri
-import androidx.annotation.StringDef
 import com.edricchan.studybuddy.data.serialization.UriSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -18,22 +17,36 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class HelpArticle(
     @SerialName("articleDesc") val description: String? = null,
-    @SerialName("articleIcon") @field:ArticleIcon val icon: String? = null,
+    @SerialName("articleIcon") val icon: ArticleIcon? = null,
     @SerialName("articleTitle") val title: String,
     @Serializable(with = UriSerializer::class) @SerialName("articleUri") val uri: Uri,
     val isDisabled: Boolean = false,
     val isHidden: Boolean = false
 ) {
-    @Suppress("DEPRECATION")
-    @StringDef(
-        ICON_CONTACT,
-        ICON_DOCUMENT,
-        ICON_GITHUB,
-        ICON_HELP,
-        ICON_OPEN_IN_NEW,
-        ICON_SEND_FEEDBACK
-    )
-    annotation class ArticleIcon
+    @Serializable
+    @JvmInline
+    value class ArticleIcon(val value: String) {
+        companion object {
+            /** Use a contact icon for this article item when displayed in a list. */
+            val Contact: ArticleIcon = ArticleIcon(ICON_CONTACT)
+
+            /** Use a document icon for this article item when displayed in a list. */
+            val Document: ArticleIcon = ArticleIcon(ICON_DOCUMENT)
+
+            /** Use the GitHub logo for this article item when displayed in a list. */
+            @Deprecated("Consider using a document icon instead")
+            val GitHub: ArticleIcon = ArticleIcon(ICON_GITHUB)
+
+            /** Use a help icon for this article item when displayed in a list. */
+            val Help: ArticleIcon = ArticleIcon(ICON_HELP)
+
+            /** Use an open link icon for this article item when displayed in a list. */
+            val OpenInNew: ArticleIcon = ArticleIcon(ICON_OPEN_IN_NEW)
+
+            /** Use a feedback icon for this article item when displayed in a list. */
+            val SendFeedback: ArticleIcon = ArticleIcon(ICON_SEND_FEEDBACK)
+        }
+    }
 
     companion object {
         /**
