@@ -269,10 +269,6 @@
     <string name="pref_about_source_code_summary">View the app\'s source code on Github</string>
     <string name="pref_about_source_code_title">Source code</string>
 
-    <string name="pref_category_todo_general">General</string>
-
-    <string name="pref_check_for_update_frequency_title">Checking frequency</string>
-
     <!-- Feature flags strings -->
     <eat-comment />
 
@@ -325,21 +321,6 @@
     </string>
     <string name="pref_header_about_title">About</string>
     <string name="pref_show_header_summary_title">Show header summaries</string>
-
-    <string name="pref_updates_download_over_metered_summary">Switching this on will allow
-        downloads on cellular as well
-        as other metered networks. For more info, check your network settings
-    </string>
-    <string name="pref_updates_download_over_metered_title">Download over metered networks</string>
-    <string name="pref_updates_download_only_when_charging_summary">When switched on, updates will
-        only be downloaded when your device is charging.
-    </string>
-    <string name="pref_updates_download_only_when_charging_title">Download only when
-        charging</string>
-    <string name="pref_updates_options_title">Update options</string>
-    <string name="pref_updates_title">Updates</string>
-    <string name="pref_updates_summary">Last checked: %1$s\nLast updated: %2$s</string>
-    <string name="pref_updates_summary_never">Never</string>
 
     <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code
         available at https://github.com/EdricChan03/StudyBuddy
