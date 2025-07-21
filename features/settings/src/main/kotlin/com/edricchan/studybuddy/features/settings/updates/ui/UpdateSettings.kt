@@ -2,6 +2,8 @@ package com.edricchan.studybuddy.features.settings.updates.ui
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -18,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeTimeSpan
 import com.edricchan.studybuddy.features.settings.R
@@ -40,6 +43,7 @@ private fun Instant.formatRelativeTimeSpan(
 @Composable
 fun UpdateSettingsScreen(
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     onUpdatesClick: () -> Unit,
     lastUpdated: Instant?,
     lastChecked: Instant?,
@@ -50,7 +54,9 @@ fun UpdateSettingsScreen(
     onlyDownloadCharging: Boolean,
     onOnlyDownloadCharging: (Boolean) -> Unit
 ) = Column(
-    modifier = modifier.verticalScroll(rememberScrollState())
+    modifier = modifier
+        .verticalScroll(rememberScrollState())
+        .padding(contentPadding)
 ) {
     Preference(
         icon = {
@@ -116,6 +122,7 @@ fun UpdateSettingsScreen(
 @Composable
 fun UpdateSettingsScreen(
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     viewModel: UpdateSettingsViewModel,
     onUpdatesClick: () -> Unit
 ) {
@@ -136,6 +143,7 @@ fun UpdateSettingsScreen(
 
     UpdateSettingsScreen(
         modifier = modifier,
+        contentPadding = contentPadding,
         onUpdatesClick = onUpdatesClick,
         lastChecked = lastChecked,
         lastUpdated = lastUpdated,
