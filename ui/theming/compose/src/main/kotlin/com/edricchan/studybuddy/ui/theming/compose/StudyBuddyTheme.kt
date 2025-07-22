@@ -2,7 +2,10 @@ package com.edricchan.studybuddy.ui.theming.compose
 
 import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -15,8 +18,8 @@ import com.edricchan.studybuddy.ui.theming.common.ThemePreferences
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.night.shouldApplyDarkTheme
 import com.edricchan.studybuddy.ui.theming.compose.theme.StudyBuddyTypography
-import com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3DarkColors
-import com.edricchan.studybuddy.ui.theming.compose.theme.m3.StudyBuddyM3LightColors
+import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveDarkColors
+import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveLightColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
 
 /**
@@ -45,11 +48,16 @@ fun StudyBuddyTheme(
             if (enableDarkTheme) dynamicDarkColorScheme(context)
             else dynamicLightColorScheme(context)
 
-        enableDarkTheme -> StudyBuddyM3DarkColors
-        else -> StudyBuddyM3LightColors
+        enableDarkTheme -> StudyBuddyExpressiveDarkColors
+        else -> StudyBuddyExpressiveLightColors
     }
 
-    MaterialTheme(colorScheme = colors, typography = typography, content = content)
+    MaterialExpressiveTheme(
+        colorScheme = colors,
+        typography = typography,
+        content = content,
+        motionScheme = MotionScheme.expressive()
+    )
 }
 
 /**
