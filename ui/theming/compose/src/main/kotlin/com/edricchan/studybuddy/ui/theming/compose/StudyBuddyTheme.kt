@@ -32,6 +32,7 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
  * `true` for supported devices (Android 12+), or `false` otherwise.
  * @param typography The [Typography] to use.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun StudyBuddyTheme(
     context: Context = LocalContext.current,
