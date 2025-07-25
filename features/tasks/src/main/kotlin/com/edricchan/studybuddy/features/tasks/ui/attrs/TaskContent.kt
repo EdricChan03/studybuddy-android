@@ -1,6 +1,8 @@
 package com.edricchan.studybuddy.features.tasks.ui.attrs
 
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -68,7 +70,8 @@ fun TaskContentListItem(
     textModifier: Modifier = Modifier,
     content: String,
     useRichText: Boolean = true,
-    richTextStyle: RichTextStyle? = null
+    richTextStyle: RichTextStyle? = null,
+    colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
     modifier = modifier,
     headlineContent = {
@@ -81,7 +84,8 @@ fun TaskContentListItem(
         } else {
             TaskContentRawText(modifier = textModifier, text = content)
         }
-    }
+    },
+    colors = colors
 )
 
 @Preview(showBackground = true)
