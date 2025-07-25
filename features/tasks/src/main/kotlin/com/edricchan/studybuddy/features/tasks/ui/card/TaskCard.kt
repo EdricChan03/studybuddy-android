@@ -9,7 +9,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
@@ -85,11 +84,9 @@ fun TaskCard(
     onMarkAsDoneClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
-    val indication = LocalIndication.current
     val selectionModifier = if (inSelectionMode) Modifier
         .combinedClickable(
             interactionSource = interactionSource,
-            indication = indication,
             enabled = enabled,
             onClick = {},
             onLongClick = onLongClick,
@@ -97,13 +94,11 @@ fun TaskCard(
         )
         .toggleable(
             interactionSource = interactionSource,
-            indication = indication,
             enabled = enabled,
             value = selected,
             onValueChange = onSelectedChange
         ) else Modifier.combinedClickable(
         interactionSource = interactionSource,
-        indication = indication,
         enabled = enabled,
         onClick = onClick,
         onLongClick = onLongClick,
