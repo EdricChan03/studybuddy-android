@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Entry text for the system default option for the font style setting. -->
+    <string name="pref_font_style_entry_system_default">System default</string>
+    <!-- Entry text for the system sans-serif option for the font style setting. -->
+    <string name="pref_font_style_entry_system_sans_serif">Sans-serif</string>
+    <!-- Entry text for the system serif option for the font style setting. -->
+    <string name="pref_font_style_entry_system_serif">Serif</string>
+    <!-- Entry text for the system monospace option for the font style setting. -->
+    <string name="pref_font_style_entry_system_monospace">Monospace</string>
+
+    <!-- Entry text for the Baloo 2 font option for the font style setting. -->
+    <string name="pref_font_style_entry_baloo_2" translatable="false">Baloo 2</string>
+    <!-- Entry text for the Funnel Display font option for the font style setting. -->
+    <string name="pref_font_style_entry_funnel_display" translatable="false">Funnel Display</string>
+</resources>
