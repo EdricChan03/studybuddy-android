@@ -24,6 +24,7 @@ object FeatureFlagsPrefConstants {
     /**
      * Feature flag to indicate if v2 of the about app UI should be enabled
      */
+    @Deprecated("This flag no longer has any effect")
     const val FEATURE_FLAG_ABOUT_APP_V2_ENABLED = "feature_flags_about_app_v2_enabled"
 
     @StringDef(
