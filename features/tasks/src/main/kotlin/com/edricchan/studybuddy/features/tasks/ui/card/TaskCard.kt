@@ -154,7 +154,10 @@ fun TaskCard(
                     )
                 )
                 TaskContentListItem(
-                    content = content ?: stringResource(R.string.task_adapter_empty_content)
+                    content = content ?: stringResource(R.string.task_adapter_empty_content),
+                    colors = ListItemDefaults.colors(
+                        containerColor = Color.Transparent
+                    )
                 )
                 dueDate?.let {
                     TaskDueDateListItem(
