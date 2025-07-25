@@ -49,6 +49,7 @@ object DarkThemePrefValues {
     const val V2_NEVER = "never"
 }
 
+@Deprecated("Use DarkModeSetting instead")
 @Suppress("DEPRECATION")
 sealed interface DarkThemeValue {
     val value: String
@@ -113,8 +114,32 @@ sealed interface DarkThemeValue {
         )
     )
     data object V1AutoBattery : Version1(DarkThemePrefValues.V1_AUTO_BATTERY)
+
+    @Deprecated(
+        "Use DarkModeSetting.AlwaysOn instead",
+        ReplaceWith(
+            "DarkModeSetting.AlwaysOn",
+            "com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting"
+        )
+    )
     data object V2Always : Version2(DarkThemePrefValues.V2_ALWAYS)
+
+    @Deprecated(
+        "Use DarkModeSetting.FollowSystem instead",
+        ReplaceWith(
+            "DarkModeSetting.FollowSystem",
+            "com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting"
+        )
+    )
     data object V2FollowSystem : Version2(DarkThemePrefValues.V2_FOLLOW_SYSTEM)
+
+    @Deprecated(
+        "Use DarkModeSetting.AlwaysOff instead",
+        ReplaceWith(
+            "DarkModeSetting.AlwaysOff",
+            "com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting"
+        )
+    )
     data object V2Never : Version2(DarkThemePrefValues.V2_NEVER)
 
     companion object {
