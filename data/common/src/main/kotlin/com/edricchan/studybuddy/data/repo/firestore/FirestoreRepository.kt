@@ -21,7 +21,9 @@ import kotlin.reflect.KClass
 open class FirestoreRepository<T : HasId>(
     private val collectionRef: CollectionReference,
     private val klass: KClass<T>
-) : CrudRepository<T, String, DocumentReference>, HasQueryOperations<T, QueryMapper> {
+) : CrudRepository<T, String, DocumentReference>,
+    HasQueryOperations<T, QueryMapper>,
+    Countable<Long> {
     /**
      * Retrieves a document from the [collectionRef].
      * @see CollectionReference.document
@@ -38,7 +40,11 @@ open class FirestoreRepository<T : HasId>(
 
     override suspend fun getRef(id: String): DocumentReference = collectionRef.document(id)
 
-    override suspend fun add(item: T): DocumentReference = collectionRef.add(item).await()
+    override suspend fun count(): Long =
+        collectionRef.count()[AggregateSource.SERVER].await().count
+
+    override suspend fun add(item: T): DocumentReference =
+        collectionRef.add(item).await()
 
     override suspend fun remove(item: T) = removeById(item.id)
 
