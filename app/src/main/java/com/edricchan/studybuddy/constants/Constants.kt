@@ -55,9 +55,6 @@ object Constants {
 
     // Feature flags
     const val featureFlagsReset = "feature_flags_reset"
-    const val featureFlagsCalendarEnabled = "feature_flags_calendar_enabled"
-    const val featureFlagsInterfaceV2Enabled = "feature_flags_interface_v2_enabled"
-    const val featureFlagsAboutAppV2Enabled = "feature_flags_about_app_v2_enabled"
 
     // Actions
     const val actionNotificationsSettingsIntent =
