@@ -1,6 +1,5 @@
 plugins {
     com.edricchan.studybuddy.library.android
-    com.edricchan.studybuddy.library.`android-protobuf`
 }
 
 android {
@@ -22,6 +21,11 @@ android {
 }
 
 dependencies {
+    api(projects.core.settings.appearance.datastoreProto)
+    api(projects.core.settings.appearance.resources)
+
+    api(libs.androidx.annotation)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The default theme label. -->
+    <string name="theme_studybuddy_name">(Default)</string>
+
+    <!-- The Monet theme's label. -->
+    <string name="theme_monet_name">Material You</string>
+</resources>
