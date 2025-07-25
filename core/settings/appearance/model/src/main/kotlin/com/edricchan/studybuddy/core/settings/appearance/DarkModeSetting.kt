@@ -35,3 +35,11 @@ val DarkModeSetting.labelResource: Int
         DarkModeSetting.AlwaysOn -> R.string.pref_dark_theme_entry_always
         DarkModeSetting.AlwaysOff -> R.string.pref_dark_theme_entry_never
     }
+
+@Suppress("DEPRECATION")
+fun DarkThemeValue.toSetting(): DarkModeSetting? = when (this) {
+    DarkThemeValue.V1Always, DarkThemeValue.V2Always -> DarkModeSetting.Always
+    DarkThemeValue.V1Never, DarkThemeValue.V2Never -> DarkModeSetting.Never
+    DarkThemeValue.V2FollowSystem -> DarkModeSetting.FollowSystem
+    else -> null
+}
