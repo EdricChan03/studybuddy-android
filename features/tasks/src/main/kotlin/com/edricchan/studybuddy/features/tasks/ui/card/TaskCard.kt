@@ -127,8 +127,6 @@ fun TaskCard(
 
     OutlinedCard(
         modifier = modifier then selectionModifier,
-        enabled = enabled,
-        onClick = onClick,
         colors = CardDefaults.outlinedCardColors(
             containerColor = containerColor,
             contentColor = contentColor,
