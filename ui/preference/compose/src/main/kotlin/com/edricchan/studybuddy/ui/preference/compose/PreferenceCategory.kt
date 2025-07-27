@@ -102,7 +102,9 @@ fun PreferenceCategoryScope.Preference(
     title = title,
     subtitle = subtitle,
     action = action,
-    showActionDivider = showActionDivider
+    showActionDivider = showActionDivider,
+    shape = shape,
+    colors = colors
 )
 
 /**
