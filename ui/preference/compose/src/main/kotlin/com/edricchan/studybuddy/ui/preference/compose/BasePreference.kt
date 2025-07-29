@@ -50,6 +50,49 @@ internal val PrefsHorizontalPadding = 16.dp
 internal val PrefsVerticalPadding = 16.dp
 internal val TitleFontSize = 16.sp
 
+@Composable
+internal fun PreferenceSurface(
+    modifier: Modifier = Modifier,
+    enabled: Boolean,
+    shape: Shape,
+    colors: PreferenceColors,
+    content: @Composable () -> Unit
+) {
+    val containerColor by colors.containerColor(enabled = enabled)
+    val contentColor by colors.contentColor(enabled = enabled)
+
+    Surface(
+        modifier = modifier,
+        shape = shape,
+        color = containerColor,
+        contentColor = contentColor,
+        content = content
+    )
+}
+
+@Composable
+internal fun PreferenceSurface(
+    modifier: Modifier = Modifier,
+    enabled: Boolean,
+    onClick: () -> Unit,
+    shape: Shape,
+    colors: PreferenceColors,
+    content: @Composable () -> Unit
+) {
+    val containerColor by colors.containerColor(enabled = enabled)
+    val contentColor by colors.contentColor(enabled = enabled)
+
+    Surface(
+        modifier = modifier,
+        enabled = enabled,
+        onClick = onClick,
+        shape = shape,
+        color = containerColor,
+        contentColor = contentColor,
+        content = content
+    )
+}
+
 /**
  * Simple UI composable to display a setting.
  *
@@ -100,14 +143,11 @@ fun Preference(
     shape: Shape = PreferenceDefaults.itemShape,
     colors: PreferenceColors = PreferenceDefaults.colors()
 ) {
-    val containerColor by colors.containerColor(enabled = enabled)
-    val contentColor by colors.contentColor(enabled = enabled)
-
-    Surface(
+    PreferenceSurface(
         modifier = modifier,
+        enabled = enabled,
         shape = shape,
-        color = containerColor,
-        contentColor = contentColor
+        colors = colors
     ) {
         PreferenceContent(
             icon = icon,
@@ -248,16 +288,12 @@ fun Preference(
     shape: Shape = PreferenceDefaults.itemShape,
     colors: PreferenceColors = PreferenceDefaults.colors()
 ) {
-    val containerColor by colors.containerColor(enabled = enabled)
-    val contentColor by colors.contentColor(enabled = enabled)
-
-    Surface(
+    PreferenceSurface(
         modifier = modifier,
-        onClick = onClick,
         enabled = enabled,
+        onClick = onClick,
         shape = shape,
-        color = containerColor,
-        contentColor = contentColor
+        colors = colors
     ) {
         PreferenceContent(
             icon = icon,
