@@ -4,20 +4,20 @@ accompanist = "0.37.3"
 android-desugar = "2.1.5"
 android-gradle = "8.12.0-rc01"
 androidx-activity = "1.10.1"
-androidx-compose = "1.9.0-beta03"
-androidx-compose-material3 = "1.4.0-alpha18"
-androidx-compose-material3-adaptive = "1.2.0-alpha09"
+androidx-compose = "1.9.0-rc01"
+androidx-compose-material3 = "1.5.0-alpha01"
+androidx-compose-material3-adaptive = "1.2.0-alpha10"
 androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.8"
 androidx-lifecycle = "2.9.2"
-androidx-navigation = "2.9.2"
-coil = "3.2.0"
+androidx-navigation = "2.9.3"
+coil = "3.3.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
 compose-richtext = "0.20.0"
 dagger = "2.57"
 deep-link-dispatch = "6.2.2"
-firebase-bom = "32.8.1"
+firebase-bom = "34.0.0"
 gradle-versions = "0.52.0"
 kotest = "5.9.1"
 kotlin = "2.2.0"
@@ -35,7 +35,7 @@ protobuf = "4.26.1"
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-annotation = "androidx.annotation:annotation:1.9.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
-androidx-browser = "androidx.browser:browser:1.8.0"
+androidx-browser = "androidx.browser:browser:1.9.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.16.0"
 androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version.ref = "androidx-fragment" }
@@ -54,7 +54,7 @@ androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-beta01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.2"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.3"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
@@ -86,7 +86,7 @@ composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.14.0-alpha02"
+materialComponents = "com.google.android.material:material:1.14.0-alpha03"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
@@ -102,7 +102,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 # KTX artifacts have been merged into the main artifacts from Firebase BoM 32.4.0+
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth" }
-playServices-auth = "com.google.android.gms:play-services-auth:21.3.0"
+playServices-auth = "com.google.android.gms:play-services-auth:21.4.0"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore" }
@@ -165,13 +165,13 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 kotlin-composeCompiler-gradle = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
 # Testing dependencies
-androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.6.1"
-androidx-test-core = "androidx.test:core:1.6.1"
-androidx-test-core-ktx = "androidx.test:core-ktx:1.6.1"
-androidx-test-ext-junit = "androidx.test.ext:junit:1.2.1"
-androidx-test-ext-junit-ktx = "androidx.test.ext:junit-ktx:1.2.1"
-androidx-test-runner = "androidx.test:runner:1.6.2"
-androidx-test-rules = "androidx.test:rules:1.6.1"
+androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.7.0"
+androidx-test-core = "androidx.test:core:1.7.0"
+androidx-test-core-ktx = "androidx.test:core-ktx:1.7.0"
+androidx-test-ext-junit = "androidx.test.ext:junit:1.3.0"
+androidx-test-ext-junit-ktx = "androidx.test.ext:junit-ktx:1.3.0"
+androidx-test-runner = "androidx.test:runner:1.7.0"
+androidx-test-rules = "androidx.test:rules:1.7.0"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 mockito-core = "org.mockito:mockito-core:5.18.0"
@@ -241,8 +241,8 @@ kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization"
 
 ksp = "com.google.devtools.ksp:2.2.0-2.0.2"
 
-firebase-crashlytics = "com.google.firebase.crashlytics:3.0.4"
-firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
+firebase-crashlytics = "com.google.firebase.crashlytics:3.0.5"
+firebase-perf = "com.google.firebase.firebase-perf:2.0.0"
 googleServices = "com.google.gms.google-services:4.4.3"
 
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
