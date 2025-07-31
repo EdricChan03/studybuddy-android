@@ -37,14 +37,15 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @WebDeepLink(["/login"])
 @AppDeepLink(["/login"])
+@AndroidEntryPoint
 class LoginActivity : BaseActivity() {
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
 
     override val isEdgeToEdgeEnabled = true
@@ -57,7 +58,6 @@ class LoginActivity : BaseActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        auth = Firebase.auth
         // Check if there's already an authenticated user
         if (auth.currentUser != null) {
             finish()
