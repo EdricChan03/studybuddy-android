@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.exts.firebase
 
+import android.annotation.SuppressLint
 import com.edricchan.studybuddy.exts.datetime.format
 import com.google.firebase.Timestamp
 import java.time.Instant
@@ -8,12 +9,14 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 /** Formats the [Timestamp] using the given [formatter]. */
+@SuppressLint("NewApi") // Provided by core library desugaring
 fun Timestamp.format(formatter: DateTimeFormatter) = toInstant().format(formatter)
 
 /**
  * Formats the [Timestamp] using the given [pattern] and configures
  * the formatter with [formatterInit].
  */
+@SuppressLint("NewApi") // Provided by core library desugaring
 fun Timestamp.format(
     pattern: String, formatterInit: DateTimeFormatter.() -> Unit = {}
 ) = toInstant().format(pattern, formatterInit)
@@ -24,9 +27,6 @@ fun Timestamp.toLocalDateTime(): LocalDateTime =
 
 /** Converts a [LocalDateTime] to a [Timestamp]. */
 fun LocalDateTime.toTimestamp() = Timestamp(second.toLong(), nano)
-
-/** Converts a [Timestamp] to an [Instant]. */
-fun Timestamp.toInstant(): Instant = Instant.ofEpochSecond(seconds, nanoseconds.toLong())
 
 /** Converts an [Instant] to a [Timestamp]. */
 fun Instant.toTimestamp() = Timestamp(epochSecond, nano)
