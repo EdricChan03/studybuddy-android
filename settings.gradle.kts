@@ -1,7 +1,5 @@
 rootProject.name = "studybuddy-android"
 
-// Repository settings
-// (See https://developer.android.com/studio/releases/gradle-plugin#settings-gradle)
 pluginManagement {
     repositories {
         google {
@@ -28,11 +26,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-    // Used for Gradle's Build Scan feature - see
-    // https://docs.gradle.com/enterprise/gradle-plugin/
     id("com.gradle.develocity") version "4.0.2"
-    // Gradle JVM Toolchains repository - see
-    // https://docs.gradle.org/8.7/userguide/toolchains.html#sub:download_repositories
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 
     id("com.android.settings") version "8.12.0-rc01"
@@ -41,7 +35,6 @@ plugins {
 val isCi = !System.getenv("CI").isNullOrEmpty()
 val isGitHubActions = !System.getenv("GITHUB_ACTIONS").isNullOrEmpty()
 
-// Configure the Gradle Enterprise Plugin
 develocity.buildScan {
     termsOfUseUrl = "https://gradle.com/terms-of-service"
     termsOfUseAgree = "yes"
