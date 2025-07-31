@@ -83,8 +83,8 @@ develocity.buildScan {
 }
 
 android {
-    buildToolsVersion = "35.0.0"
-    compileSdk = 35
+    buildToolsVersion = "36.0.0"
+    compileSdk = 36
     minSdk = 21
 }
 
