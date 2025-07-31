@@ -1,6 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
-    id("com.google.devtools.ksp")
+    com.google.devtools.ksp
 }
 
 android {
@@ -22,9 +22,6 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.dynamicLinks.ktx)
-
     api(libs.deepLinkDispatch.core)
     ksp(libs.deepLinkDispatch.processor)
 

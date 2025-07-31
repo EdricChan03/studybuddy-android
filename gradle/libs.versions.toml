@@ -104,7 +104,6 @@ firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth" }
 playServices-auth = "com.google.android.gms:play-services-auth:21.4.0"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics" }
-firebase-dynamicLinks-ktx = { module = "com.google.firebase:firebase-dynamic-links" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore" }
 firebase-installations-ktx = { module = "com.google.firebase:firebase-installations" }
 firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging" }
@@ -214,9 +213,14 @@ androidx-test = [
 ]
 
 firebase = [
-  "firebase-analytics-ktx", "firebase-auth-ktx", "playServices-auth",
-  "firebase-crashlytics-ktx", "firebase-dynamicLinks-ktx", "firebase-firestore-ktx",
-  "firebase-installations-ktx", "firebase-messaging-ktx", "firebase-perf-ktx"
+  "firebase-analytics-ktx",
+  "firebase-auth-ktx",
+  "playServices-auth",
+  "firebase-crashlytics-ktx",
+  "firebase-firestore-ktx",
+  "firebase-installations-ktx",
+  "firebase-messaging-ktx",
+  "firebase-perf-ktx"
 ]
 
 ktor = [
