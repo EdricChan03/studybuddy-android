@@ -14,9 +14,9 @@ import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.features.auth.databinding.ActivityResetPasswordBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.auth
 
 @WebDeepLink(["/resetPassword", "/reset-password"])
 @AppDeepLink(["/resetPassword", "/reset-password"])

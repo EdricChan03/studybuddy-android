@@ -1,9 +1,9 @@
 package com.edricchan.studybuddy.utils.firebase
 
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.crashlytics.crashlytics
 
 /**
  * Enables Firebase Crashlytics user tracking for the currently logged-in user.
