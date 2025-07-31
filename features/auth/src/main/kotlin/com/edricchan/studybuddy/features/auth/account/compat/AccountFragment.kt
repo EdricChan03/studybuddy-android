@@ -43,21 +43,22 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import com.edricchan.studybuddy.core.resources.R as CommonR
 
+@AndroidEntryPoint
 class AccountFragment :
     ViewBindingFragment<FragAccountInfoBinding>(FragAccountInfoBinding::inflate),
     FirebaseAuth.AuthStateListener {
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = Firebase.auth
         auth.addAuthStateListener(this)
         user = auth.currentUser
 
