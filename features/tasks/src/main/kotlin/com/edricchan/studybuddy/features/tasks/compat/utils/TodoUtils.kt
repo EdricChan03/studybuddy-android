@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.features.tasks.compat.utils
 
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -32,18 +31,6 @@ class TodoUtils(
         "Use the appropriate TaskRepository methods for performing CRUD operations"
     )
     val taskCollectionRef = fs.collection(taskCollectionPath)
-
-    /**
-     * A [Task] object that maps to the user's task items.
-     */
-    @Deprecated(
-        "Use TaskRepository#getTasksCompat instead",
-        ReplaceWith(
-            "TaskRepository(user, fs).getTasksCompat(item)",
-            "com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository"
-        )
-    )
-    val taskCollectionQuerySnapshot = taskCollectionRef.get()
 
     /**
      * Adds a new task to the [Firestore collection of tasks][taskCollectionRef].

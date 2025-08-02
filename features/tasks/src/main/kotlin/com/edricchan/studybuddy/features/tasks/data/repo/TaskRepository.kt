@@ -30,14 +30,6 @@ class TaskRepository @Inject constructor(
     /** Retrieves the user's list of tasks. */
     suspend fun getTasks() = getCollectionRef().get().await().toObjects<TodoItem>()
 
-    /**
-     * Retrieves the user's list of tasks.
-     *
-     * This method returns a [com.google.android.gms.tasks.Task] for backwards compatibility.
-     */
-    @Deprecated("This method is kept for backwards compatibility. Use getTasks instead")
-    fun getTasksCompat() = runBlocking(Dispatchers.Default) { getCollectionRef() }
-
     /** Retrieves the user's list of tasks as a [kotlinx.coroutines.flow.Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)
     val tasksFlow = taskCollectionRef.flatMapLatest { it.dataObjects<TodoItem>() }
