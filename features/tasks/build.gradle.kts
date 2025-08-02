@@ -38,7 +38,9 @@ dependencies {
     implementation(projects.exts.firebase.core)
     implementation(projects.exts.firebase.temporal)
     implementation(projects.exts.markwon)
+    implementation(projects.utils.devMode)
     implementation(projects.utils.recyclerview)
+    implementation(projects.ui.common)
     implementation(projects.ui.theming.compose)
 
     // AndroidX
