@@ -49,18 +49,10 @@
     <string name="menu_main_about_title">About</string>
     <!-- The title of the account menu item in the main activity's menu. -->
     <string name="menu_main_account_title">Account</string>
-    <!-- The title of the archive task menu item in the view task activity's menu. -->
-    <string name="menu_view_task_archive_todo_title">Archive todo</string>
-    <!-- The title of the unarchive task menu item in the view task activity's menu. -->
-    <string name="menu_view_task_unarchive_todo_title">Unarchive todo</string>
     <!-- The title of the check for updates menu item in the update activity's menu. -->
     <string name="menu_updates_check_for_updates_title">Check for updates</string>
     <!-- The title of the debug menu item. -->
     <string name="menu_debug_title">Debug</string>
-    <!-- The title of the delete task menu item in the view task activity's menu. -->
-    <string name="menu_view_task_delete_todo_title">Delete todo</string>
-    <!-- The title of the edit task menu item in the view task activity's menu. -->
-    <string name="menu_view_task_edit_title">Edit</string>
 
     <!-- The title of the help menu item. -->
     <string name="menu_help_title">Help</string>
@@ -409,7 +401,6 @@
         connection is required.
     </string>
     <string name="update_snackbar_latest">You already have the latest version!</string>
-    <string name="view_task_label_icon_content_desc">Label icon</string>
     <string name="view_task_loading">Loading task\'s contents…</string>
     <string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
     <!--suppress LongLine -->

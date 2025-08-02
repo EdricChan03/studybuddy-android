@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.core.compat.navigation)
 
     api(projects.core.settings.tasks)
+    implementation(projects.core.resources)
     implementation(projects.core.resources.temporal)
     implementation(projects.data.common)
     implementation(projects.exts.androidx.preferenceFiles)

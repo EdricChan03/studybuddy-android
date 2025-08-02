@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+This file houses resources that are still used for existing
+files. They should be moved to their respective files at some point :)
+
+TODO: Remove this file
+-->
+<resources>
+    <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is
+        irreversible.</string>
+
+    <string name="todo_frag_delete_task_dialog_title">Delete task?</string>
+
+    <string name="view_task_loading">Loading task\'s contents…</string>
+    <string name="view_task_label_icon_content_desc">Label icon</string>
+
+    <!-- Menu strings -->
+    <eat-comment />
+
+    <!-- The title of the archive task menu item in the view task activity's menu. -->
+    <string name="menu_view_task_archive_todo_title">Archive todo</string>
+    <!-- The title of the unarchive task menu item in the view task activity's menu. -->
+    <string name="menu_view_task_unarchive_todo_title">Unarchive todo</string>
+    <!-- The title of the delete task menu item in the view task activity's menu. -->
+    <string name="menu_view_task_delete_todo_title">Delete todo</string>
+    <!-- The title of the edit task menu item in the view task activity's menu. -->
+    <string name="menu_view_task_edit_title">Edit</string>
+</resources>

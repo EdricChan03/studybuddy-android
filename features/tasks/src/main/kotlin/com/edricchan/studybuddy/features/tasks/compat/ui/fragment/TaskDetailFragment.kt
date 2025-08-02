@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.fragment
+package com.edricchan.studybuddy.features.tasks.compat.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -17,9 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskEdit
-import com.edricchan.studybuddy.databinding.FragTaskDetailBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
@@ -29,8 +27,10 @@ import com.edricchan.studybuddy.exts.markwon.setMarkdown
 import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
 import com.edricchan.studybuddy.exts.markwon.taskListPlugin
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
+import com.edricchan.studybuddy.features.tasks.databinding.FragTaskDetailBinding
 import com.edricchan.studybuddy.features.tasks.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
@@ -40,7 +40,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import com.edricchan.studybuddy.features.tasks.R as TaskR
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @AndroidEntryPoint
 class TaskDetailFragment :
@@ -79,7 +79,7 @@ class TaskDetailFragment :
                         setTitle(R.string.todo_frag_delete_task_dialog_title)
                         setMessage(R.string.todo_frag_delete_task_dialog_msg)
                         setNegativeButton(android.R.string.cancel, null) // No-op
-                        setPositiveButton(TaskR.string.action_delete_task) { _, _ ->
+                        setPositiveButton(R.string.action_delete_task) { _, _ ->
                             onRemoveTask()
                         }
                     }
@@ -98,7 +98,7 @@ class TaskDetailFragment :
 
     override val fabConfig = FabConfig(
         iconRes = R.drawable.ic_edit_outline_24dp,
-        contentDescriptionRes = TaskR.string.action_edit_task,
+        contentDescriptionRes = R.string.action_edit_task,
         onClick = {
             navController.navigateToTaskEdit(viewModel.currentTaskId)
         },
@@ -171,7 +171,9 @@ class TaskDetailFragment :
                     // We need to convert it to a LocalDateTime as Instants don't support
                     // temporal units bigger than days - see the `Instant#isSupported` Javadocs
                     // for more info
-                    text = it.toLocalDateTime().format(getString(R.string.date_format_pattern))
+                    text = it.toLocalDateTime().format(
+                        getString(CoreResR.string.java_time_format_pattern_default)
+                    )
                 }
             }
             taskTags.apply {
