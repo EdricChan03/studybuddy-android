@@ -21,19 +21,9 @@ class TodoUtils(
 
     private val repository =
         TaskRepository(userFlow = flowOf(user), firestore = fs)
-    private val taskCollectionPath = "users/${user?.uid}/todos"
 
     /**
-     * A [collection reference][com.google.firebase.firestore.CollectionReference] to the user's
-     * task collection.
-     */
-    @Deprecated(
-        "Use the appropriate TaskRepository methods for performing CRUD operations"
-    )
-    val taskCollectionRef = fs.collection(taskCollectionPath)
-
-    /**
-     * Adds a new task to the [Firestore collection of tasks][taskCollectionRef].
+     * Adds a new task to the Firestore collection of tasks.
      * @param item The task item to add
      * @return The result.
      */
