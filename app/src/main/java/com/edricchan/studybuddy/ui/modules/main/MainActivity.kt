@@ -109,7 +109,7 @@ class MainActivity : BaseActivity() {
                         it.message,
                         it.duration.value
                     ) {
-                        setAnchorView(binding.bottomAppBar)
+                        anchorView = binding.bottomAppBar
                     }
                 }
         }
