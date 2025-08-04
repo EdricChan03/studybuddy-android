@@ -4,11 +4,11 @@ package com.edricchan.studybuddy.core.settings.appearance.proto;
 
 option java_multiple_files = true;
 
-/** Possible theming options. */
+/* Possible theming options. */
 enum AppThemeSettingProto {
-  /** The default app theme. */
+  /* The default app theme. */
   StudyBuddy = 0;
 
-  /** The dynamic theme, available in Android 12+. */
+  /* The dynamic theme, available in Android 12+. */
   Monet = 1;
 }
