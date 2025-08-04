@@ -1,9 +1,9 @@
 package com.edricchan.studybuddy.ui.preference.compose
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -313,22 +314,74 @@ fun Preference(
 
 @Preview
 @Composable
-private fun PreferenceWithActionPreview() {
+private fun PreferencePreview() {
     var checked by remember { mutableStateOf(false) }
     StudyBuddyTheme {
-        Preference(
-            modifier = Modifier.height(IntrinsicSize.Min),
-            title = { Text(text = "Title text") },
-            subtitle = { Text(text = "Subtitle text") },
-            icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
-            showActionDivider = true,
-            action = {
-                Switch(
-                    checked = checked,
-                    onCheckedChange = { checked = it }
-                )
-            }
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            // Base
+            Preference(
+                title = { Text(text = "Title text") },
+                icon = { Icon(Icons.Outlined.Build, contentDescription = null) }
+            )
+            // With subtitle
+            Preference(
+                title = { Text(text = "Title text") },
+                subtitle = { Text(text = "Subtitle text") },
+                icon = { Icon(Icons.Outlined.Build, contentDescription = null) }
+            )
+            // With action (switch)
+            Preference(
+                title = { Text(text = "Title text") },
+                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                showActionDivider = true,
+                action = {
+                    Switch(
+                        checked = checked,
+                        onCheckedChange = { checked = it }
+                    )
+                }
+            )
+            // With action (checkbox)
+            Preference(
+                title = { Text(text = "Title text") },
+                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                showActionDivider = true,
+                action = {
+                    Checkbox(
+                        checked = checked,
+                        onCheckedChange = { checked = it }
+                    )
+                }
+            )
+            // With subtitle + action (switch)
+            Preference(
+                title = { Text(text = "Title text") },
+                subtitle = { Text(text = "Subtitle text") },
+                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                showActionDivider = true,
+                action = {
+                    Switch(
+                        checked = checked,
+                        onCheckedChange = { checked = it }
+                    )
+                }
+            )
+            // With subtitle + action (checkbox)
+            Preference(
+                title = { Text(text = "Title text") },
+                subtitle = { Text(text = "Subtitle text") },
+                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                showActionDivider = true,
+                action = {
+                    Checkbox(
+                        checked = checked,
+                        onCheckedChange = { checked = it }
+                    )
+                }
+            )
+        }
     }
 }
 
