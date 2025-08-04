@@ -107,7 +107,9 @@ private fun BaseOptionBottomSheetItem(
             headlineContent = title,
             leadingContent = icon,
             trailingContent = trailingContent,
-            colors = ListItemDefaults.colors().withDisabledColors(enabled)
+            colors = ListItemDefaults.colors(
+                containerColor = Color.Transparent
+            ).withDisabledColors(enabled)
         )
     }
 }
