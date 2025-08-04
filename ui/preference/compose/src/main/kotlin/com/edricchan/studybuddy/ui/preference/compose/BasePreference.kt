@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -224,9 +223,7 @@ private fun PreferenceContent(
                 VerticalDivider(
                     color = color,
                     modifier = Modifier
-                        .padding(vertical = 4.dp)
-                        .fillMaxHeight()
-                        .width(1.dp)
+                        .height(32.dp)
                         .testTag(ActionDividerTestTag),
                 )
                 Spacer(modifier = Modifier.width(16.dp))
