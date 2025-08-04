@@ -155,7 +155,8 @@ fun Preference(
             subtitle = subtitle,
             action = action,
             showActionDivider = showActionDivider,
-            enabled = enabled
+            enabled = enabled,
+            colors = colors
         )
     }
 }
@@ -169,66 +170,71 @@ private fun PreferenceContent(
     subtitle: @Composable (() -> Unit)?,
     action: @Composable (() -> Unit)?,
     showActionDivider: Boolean,
-    enabled: Boolean
-) = Row(
-    modifier = modifier.padding(horizontal = PrefsHorizontalPadding),
-    verticalAlignment = Alignment.CenterVertically
+    enabled: Boolean,
+    colors: PreferenceColors
 ) {
-    icon?.let {
-        Box(
-            modifier = Modifier.padding(end = PrefsHorizontalPadding),
-        ) {
-            CompositionLocalProvider(
-                LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant,
-                content = it
-            )
-        }
-    }
+    val iconColor by colors.iconColor(enabled = enabled)
 
-    val reservedSpaceModifier = when {
-        icon == null && iconSpaceReserved -> Modifier.padding(start = 40.dp)
-        else -> Modifier
-    }
-
-    Column(
-        modifier = Modifier
-            .weight(1f)
-            .padding(vertical = PrefsVerticalPadding)
-            .then(reservedSpaceModifier),
+    Row(
+        modifier = modifier.padding(horizontal = PrefsHorizontalPadding),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        ProvideTextStyle(
-            value = MaterialTheme.typography.titleMedium,
-            content = title
-        )
-        ProvideTextStyle(
-            value = MaterialTheme.typography.bodyMedium
-        ) {
-            subtitle?.invoke()
-        }
-    }
-
-    action?.let {
-        Row(
-            modifier = Modifier.padding(start = PrefsHorizontalPadding),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            if (showActionDivider) {
-                val color = DividerDefaults.color.copy(
-                    alpha = if (enabled) {
-                        1f
-                    } else {
-                        0.6f
-                    },
+        icon?.let {
+            Box(
+                modifier = Modifier.padding(end = PrefsHorizontalPadding),
+            ) {
+                CompositionLocalProvider(
+                    LocalContentColor provides iconColor,
+                    content = it
                 )
-                VerticalDivider(
-                    color = color,
-                    modifier = Modifier
-                        .height(32.dp)
-                        .testTag(ActionDividerTestTag),
-                )
-                Spacer(modifier = Modifier.width(16.dp))
             }
-            it()
+        }
+
+        val reservedSpaceModifier = when {
+            icon == null && iconSpaceReserved -> Modifier.padding(start = 40.dp)
+            else -> Modifier
+        }
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(vertical = PrefsVerticalPadding)
+                .then(reservedSpaceModifier),
+        ) {
+            ProvideTextStyle(
+                value = MaterialTheme.typography.titleMedium,
+                content = title
+            )
+            ProvideTextStyle(
+                value = MaterialTheme.typography.bodyMedium
+            ) {
+                subtitle?.invoke()
+            }
+        }
+
+        action?.let {
+            Row(
+                modifier = Modifier.padding(start = PrefsHorizontalPadding),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                if (showActionDivider) {
+                    val color = DividerDefaults.color.copy(
+                        alpha = if (enabled) {
+                            1f
+                        } else {
+                            0.6f
+                        },
+                    )
+                    VerticalDivider(
+                        color = color,
+                        modifier = Modifier
+                            .height(32.dp)
+                            .testTag(ActionDividerTestTag),
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+                it()
+            }
         }
     }
 }
@@ -299,7 +305,8 @@ fun Preference(
             subtitle = subtitle,
             action = action,
             showActionDivider = showActionDivider,
-            enabled = enabled
+            enabled = enabled,
+            colors = colors
         )
     }
 }
@@ -327,17 +334,21 @@ private fun PreferenceWithActionPreview() {
 
 /**
  * Colours to be used for a [Preference].
- * @param containerColor Container colour to use when enabled.
- * @param contentColor Content colour to use when enabled.
- * @param disabledContainerColor Container colour to use when disabled.
- * @param disabledContentColor Content colour to use when disabled.
+ * @property containerColor Container colour to use when enabled.
+ * @property contentColor Content colour to use when enabled.
+ * @property iconColor Icon content colour to use when enabled.
+ * @property disabledContainerColor Container colour to use when disabled.
+ * @property disabledContentColor Content colour to use when disabled.
+ * @property disabledIconColor Icon content colour to use when disabled.
  */
 @Immutable
 data class PreferenceColors(
     val containerColor: Color,
     val contentColor: Color,
+    val iconColor: Color,
     val disabledContainerColor: Color,
-    val disabledContentColor: Color
+    val disabledContentColor: Color,
+    val disabledIconColor: Color
 ) {
     @Composable
     fun containerColor(enabled: Boolean): State<Color> =
@@ -347,6 +358,9 @@ data class PreferenceColors(
     fun contentColor(enabled: Boolean): State<Color> =
         animateColorAsState(if (enabled) contentColor else disabledContentColor)
 
+    @Composable
+    fun iconColor(enabled: Boolean): State<Color> =
+        animateColorAsState(if (enabled) iconColor else disabledIconColor)
 }
 
 @Stable
@@ -362,19 +376,25 @@ object PreferenceDefaults {
      * Gets the [PreferenceColors] to be used for a [Preference].
      * @param containerColor Container colour to use when enabled.
      * @param contentColor Content colour to use when enabled.
+     * @param iconColor Icon content colour to use when enabled.
      * @param disabledContainerColor Container colour to use when disabled.
      * @param disabledContentColor Content colour to use when disabled.
+     * @param disabledIconColor Icon content colour to use when disabled.
      */
     @Composable
     fun colors(
         containerColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
         contentColor: Color = MaterialTheme.colorScheme.onSurface,
+        iconColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
         disabledContainerColor: Color = containerColor.copy(alpha = 0.38f),
-        disabledContentColor: Color = contentColor.copy(alpha = 0.38f)
+        disabledContentColor: Color = contentColor.copy(alpha = 0.38f),
+        disabledIconColor: Color = iconColor.copy(alpha = 0.38f)
     ): PreferenceColors = PreferenceColors(
         containerColor = containerColor,
         contentColor = contentColor,
+        iconColor = iconColor,
         disabledContainerColor = disabledContainerColor,
-        disabledContentColor = disabledContentColor
+        disabledContentColor = disabledContentColor,
+        disabledIconColor = disabledIconColor
     )
 }
