@@ -6,7 +6,6 @@ import androidx.core.content.edit
 import com.boswelja.migration.conditionalMigration
 import com.edricchan.studybuddy.exts.androidx.preference.getSharedPreferencesPath
 import com.edricchan.studybuddy.exts.androidx.preference.sharedPreferencesFileExists
-import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,6 +13,7 @@ import java.io.IOException
 import kotlin.io.path.moveTo
 
 private const val oldSharedPrefsFile = "TodoFragPrefs"
+private const val TAG = "TaskSharedPrefMigrations"
 
 fun Context.shouldMigrateTaskSharedPrefFile() = sharedPreferencesFileExists(oldSharedPrefsFile)
 
