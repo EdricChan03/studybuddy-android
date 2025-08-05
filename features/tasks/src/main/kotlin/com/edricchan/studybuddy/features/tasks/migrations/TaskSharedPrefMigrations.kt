@@ -49,8 +49,7 @@ fun Context.shouldMigrateTaskOptsPrefs() =
 @Suppress("Deprecation")
 suspend fun Context.migrateTaskOptsPrefs(): Boolean = withContext(Dispatchers.IO) {
     return@withContext try {
-        Log.d(TAG, "Migrating task options shared preference keys...")
-        // Old SharedPreference key still exists
+        Log.d(TAG, "migrateTaskOptsPrefs: Migrating task options shared preference keys...")
         val oldValue = taskOptionsPrefs.getString(
             TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD,
             TodoOptionsPrefConstants.TodoSortValues.NONE
@@ -61,6 +60,7 @@ suspend fun Context.migrateTaskOptsPrefs(): Boolean = withContext(Dispatchers.IO
         }
         true
     } catch (e: Exception) {
+        Log.e(TAG, "migrateTaskOptsPrefs: Could not migrate old task options:", e)
         false
     }
 }
