@@ -10,12 +10,10 @@ import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.credentials.ClearCredentialStateRequest
-import androidx.credentials.CredentialManager
-import androidx.credentials.exceptions.ClearCredentialException
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.toRoute
 import coil3.load
+import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination.Auth.Account.AccountAction
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
@@ -55,6 +53,9 @@ class AccountFragment :
     @Inject
     lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
+
+    @Inject
+    lateinit var authService: AuthService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -243,17 +244,12 @@ class AccountFragment :
             setTitle(R.string.account_sign_out_dialog_title)
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
-                auth.signOut()
-                lifecycleScope.launch {
-                    try {
-                        val clearRequest = ClearCredentialStateRequest()
-                        CredentialManager.create(requireContext())
-                            .clearCredentialState(clearRequest)
-                    } catch (e: ClearCredentialException) {
-                        Log.e(TAG, "Couldn't clear user credentials: ${e.localizedMessage}")
+                with(authService) {
+                    lifecycleScope.launch {
+                        requireContext().signOut()
+                        showToast(R.string.account_log_out_success_msg, Toast.LENGTH_SHORT)
                     }
                 }
-                showToast(R.string.account_log_out_success_msg, Toast.LENGTH_SHORT)
                 dialog.dismiss()
             }
         }
