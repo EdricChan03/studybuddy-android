@@ -21,6 +21,8 @@ android {
 }
 
 dependencies {
+    api(projects.core.resources.icons)
+
     api(libs.androidx.annotation)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
