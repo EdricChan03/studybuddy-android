@@ -8,9 +8,9 @@ import com.edricchan.studybuddy.core.resources.R
 
 enum class AppNotificationChannel(
     val channelId: String,
-    @StringRes
+    @field:StringRes
     val titleRes: Int,
-    @StringRes
+    @field:StringRes
     val descRes: Int,
     val importance: NotificationImportance = NotificationImportance.Unspecified
 ) {
