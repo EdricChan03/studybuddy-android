@@ -28,7 +28,7 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.FragUpdatesBinding
-import com.edricchan.studybuddy.extensions.context.startActivity
+import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
