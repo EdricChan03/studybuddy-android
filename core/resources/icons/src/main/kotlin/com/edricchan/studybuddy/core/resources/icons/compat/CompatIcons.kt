@@ -29,3 +29,6 @@ val AppIcons.Compat.Close: CompatIcon by lazy { CompatIcon(R.drawable.ic_close_2
 
 /** @see R.drawable.ic_help_outline_24dp */
 val AppIcons.Compat.Help: CompatIcon by lazy { CompatIcon(R.drawable.ic_help_outline_24dp) }
+
+/** @see R.drawable.ic_refresh_24dp */
+val AppIcons.Compat.Refresh: CompatIcon by lazy { CompatIcon(R.drawable.ic_refresh_24dp) }

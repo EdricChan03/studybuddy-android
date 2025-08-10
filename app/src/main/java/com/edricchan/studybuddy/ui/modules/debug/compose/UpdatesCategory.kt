@@ -23,6 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.asFlow
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.compat.Refresh
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.ui.preference.compose.InputDialogPreference
@@ -139,7 +141,7 @@ fun UpdatesCategory(
             onClick = ::startCheckForUpdates,
             icon = {
                 Icon(
-                    painterResource(R.drawable.ic_refresh_24dp),
+                    AppIcons.Compat.Refresh.vector(),
                     contentDescription = null
                 )
             },

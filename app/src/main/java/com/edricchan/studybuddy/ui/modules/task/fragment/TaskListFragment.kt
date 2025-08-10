@@ -23,6 +23,8 @@ import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
 import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToCreateTask
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskView
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.compat.Refresh
 import com.edricchan.studybuddy.databinding.FragTodoBinding
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
@@ -100,7 +102,7 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
                 val context = requireContext()
                 showModalBottomSheet {
                     item(context.getString(R.string.menu_frag_task_refresh_todos_title)) {
-                        setIcon(R.drawable.ic_refresh_24dp)
+                        setIcon(AppIcons.Compat.Refresh.iconRes)
                         setItemClickListener {
                             binding.swipeRefreshLayout.isRefreshing = true
                             lifecycleScope.launch {

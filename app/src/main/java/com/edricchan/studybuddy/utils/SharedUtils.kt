@@ -11,6 +11,8 @@ import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.core.compat.navigation.UriUpdates
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.compat.Refresh
 import com.edricchan.studybuddy.core.resources.notification.AppNotificationChannel
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.android.createPendingIntent
@@ -168,7 +170,7 @@ object SharedUtils {
                             .setColor(context.dynamicColorPrimary)
                             .addAction(
                                 NotificationCompat.Action(
-                                    R.drawable.ic_refresh_24dp,
+                                    AppIcons.Compat.Refresh.iconRes,
                                     "Retry",
                                     pIntentRetry
                                 )
