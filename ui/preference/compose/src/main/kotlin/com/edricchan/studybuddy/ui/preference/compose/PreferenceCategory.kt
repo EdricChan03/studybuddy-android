@@ -17,12 +17,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 
 private fun Modifier.categoryPadding(withPadding: Boolean) =
     if (withPadding) padding(horizontal = 56.dp) else this
+
+/** Desired spacing between items in a [PreferenceCategory]. */
+val PreferenceCategoryItemsSpacing: Dp = 2.dp
 
 /**
  * Scope for a [PreferenceCategory]. Currently, it provides access to whether
@@ -227,7 +231,7 @@ fun PreferenceCategory(
             title?.let { PreferenceCategoryTitle(title = it, withPadding = iconSpaceReserved) }
             Surface(shape = listShape) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                    verticalArrangement = Arrangement.spacedBy(PreferenceCategoryItemsSpacing)
                 ) {
                     scope(this).content()
                 }
