@@ -51,6 +51,7 @@ inline fun Context.startActivity(
  * Starts an activity with the given [intentOptions] to be used.
  * @param intentOptions Options to be set on the [Intent] to launch.
  */
+@JvmName("startActivityNoClass")
 inline fun Context.startActivity(intentOptions: Intent.() -> Unit) {
     startActivity(Intent().apply(intentOptions))
 }
