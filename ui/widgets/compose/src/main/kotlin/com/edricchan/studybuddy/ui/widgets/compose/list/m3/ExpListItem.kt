@@ -329,6 +329,14 @@ object ExpListItemDefaults {
         }
     }
 
+    /** The default [ExpListItemColors.containerColor] value if not specified. */
+    @get:Composable
+    val itemContainerColor: Color get() = MaterialTheme.colorScheme.surfaceContainerHigh
+
+    /** The default [ExpListItemColors.iconColor] value if not specified. */
+    @get:Composable
+    val itemIconColor: Color get() = MaterialTheme.colorScheme.onSurfaceVariant
+
     /**
      * Gets the [ExpListItemColors] to be used for a [ExpListItem].
      * @param containerColor Container colour to use when enabled.
@@ -340,9 +348,9 @@ object ExpListItemDefaults {
      */
     @Composable
     fun colors(
-        containerColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        containerColor: Color = itemContainerColor,
         contentColor: Color = contentColorFor(containerColor),
-        iconColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+        iconColor: Color = itemIconColor,
         disabledContainerColor: Color = containerColor.copy(alpha = 0.38f),
         disabledContentColor: Color = contentColor.copy(alpha = 0.38f),
         disabledIconColor: Color = iconColor.copy(alpha = 0.38f)
