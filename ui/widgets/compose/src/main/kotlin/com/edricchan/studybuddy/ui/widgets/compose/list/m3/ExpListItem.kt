@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -340,7 +341,7 @@ object ExpListItemDefaults {
     @Composable
     fun colors(
         containerColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
-        contentColor: Color = MaterialTheme.colorScheme.onSurface,
+        contentColor: Color = contentColorFor(containerColor),
         iconColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
         disabledContainerColor: Color = containerColor.copy(alpha = 0.38f),
         disabledContentColor: Color = contentColor.copy(alpha = 0.38f),
