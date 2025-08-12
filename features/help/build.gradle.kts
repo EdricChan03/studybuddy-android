@@ -30,6 +30,7 @@ android {
 dependencies {
     // Project dependencies
     implementation(projects.ui.common)
+    implementation(projects.ui.widgets.compose)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.core.compat.navigation)
