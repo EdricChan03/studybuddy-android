@@ -1,30 +1,31 @@
 package com.edricchan.studybuddy.features.help.ui.list
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.edricchan.studybuddy.exts.androidx.compose.foundation.lazy.dividedItems
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.help.R
 import com.edricchan.studybuddy.features.help.data.model.HelpArticle
 import com.edricchan.studybuddy.features.help.data.sample.sampleHelpArticles
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
+import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 
 /**
  * Composable which displays a given [HelpArticle]'s metadata.
@@ -35,11 +36,14 @@ import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 @Composable
 fun HelpArticleItem(
     modifier: Modifier = Modifier,
+    shape: Shape,
     title: String,
     description: String? = null,
     onClick: () -> Unit
-) = ListItem(
-    modifier = modifier.clickable(onClick = onClick),
+) = ExpListItem(
+    modifier = modifier,
+    onClick = onClick,
+    shape = shape,
     headlineContent = { Text(text = title) },
     supportingContent = description?.letComposable { Text(text = it) },
     leadingContent = {
@@ -59,10 +63,12 @@ fun HelpArticleItem(
 @Composable
 fun HelpArticleItem(
     modifier: Modifier = Modifier,
+    shape: Shape,
     article: HelpArticle,
     onClick: () -> Unit
 ) = HelpArticleItem(
     modifier = modifier,
+    shape = shape,
     title = article.title,
     description = article.description,
     onClick = onClick
@@ -73,6 +79,7 @@ fun HelpArticleItem(
 private fun HelpArticleItemPreview() {
     StudyBuddyTheme {
         HelpArticleItem(
+            shape = ExpListItemDefaults.baseShape,
             title = "Title goes here",
             description = "Description goes here",
             onClick = {}
@@ -86,7 +93,9 @@ private fun HelpArticleItemPreview() {
 @Composable
 private fun HelpArticleItemsPreview() {
     StudyBuddyTheme {
-        LazyColumn {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
+        ) {
             helpArticlesList(articles = sampleHelpArticles) {}
         }
     }
@@ -102,18 +111,15 @@ fun LazyListScope.helpArticlesList(
     itemModifier: Modifier = Modifier,
     articles: List<HelpArticle>,
     onItemClick: (HelpArticle) -> Unit
-) = dividedItems(
-    articles,
-    key = HelpArticle::uri,
-    itemContent = { item ->
-        HelpArticleItem(
-            modifier = itemModifier.animateItem(),
-            title = item.title,
-            description = item.description,
-            onClick = { onItemClick(item) }
-        )
-    },
-    dividerContent = {
-        HorizontalDivider(modifier = Modifier.padding(start = 72.dp))
-    }
-)
+) = itemsIndexed(
+    items = articles,
+    key = { _, item -> item.uri }
+) { i, item ->
+    HelpArticleItem(
+        modifier = itemModifier.animateItem(),
+        shape = ExpListItemDefaults.itemShape(i, articles.size),
+        title = item.title,
+        description = item.description,
+        onClick = { onItemClick(item) }
+    )
+}
