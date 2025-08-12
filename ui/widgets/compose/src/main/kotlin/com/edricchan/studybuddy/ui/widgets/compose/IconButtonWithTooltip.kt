@@ -4,6 +4,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipScope
@@ -29,7 +30,9 @@ import androidx.compose.ui.window.PopupPositionProvider
 fun IconButtonWithTooltip(
     modifier: Modifier = Modifier,
     tooltipModifier: Modifier = Modifier,
-    positionProvider: PopupPositionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
+    positionProvider: PopupPositionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+        positioning = TooltipAnchorPosition.Below
+    ),
     state: TooltipState = rememberTooltipState(),
     tooltip: @Composable TooltipScope.() -> Unit,
     icon: @Composable () -> Unit,
