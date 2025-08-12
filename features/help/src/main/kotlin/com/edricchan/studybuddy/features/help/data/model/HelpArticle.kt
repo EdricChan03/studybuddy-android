@@ -34,6 +34,7 @@ data class HelpArticle(
             val Document: ArticleIcon = ArticleIcon(ICON_DOCUMENT)
 
             /** Use the GitHub logo for this article item when displayed in a list. */
+            @Suppress("DEPRECATION")
             @Deprecated("Consider using a document icon instead")
             val GitHub: ArticleIcon = ArticleIcon(ICON_GITHUB)
 
