@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.features.help.ui.list
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,8 +9,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -44,15 +43,16 @@ fun HelpArticleItem(
     headlineContent = { Text(text = title) },
     supportingContent = description?.letComposable { Text(text = it) },
     leadingContent = {
-        val backgroundColor = MaterialTheme.colorScheme.primaryContainer
-        Icon(
-            modifier = Modifier
-                .background(backgroundColor, CircleShape)
-                .padding(8.dp),
-            painter = painterResource(R.drawable.ic_file_document_box_outline_24dp),
-            contentDescription = stringResource(R.string.help_article_icon_content_desc),
-            tint = contentColorFor(backgroundColor)
-        )
+        Surface(
+            color = MaterialTheme.colorScheme.primaryContainer,
+            shape = CircleShape
+        ) {
+            Icon(
+                modifier = Modifier.padding(8.dp),
+                painter = painterResource(R.drawable.ic_file_document_box_outline_24dp),
+                contentDescription = stringResource(R.string.help_article_icon_content_desc)
+            )
+        }
     }
 )
 
