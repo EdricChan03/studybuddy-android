@@ -1,12 +1,10 @@
 package com.edricchan.studybuddy.ui.dialogs
 
 import android.content.Context
-import android.content.DialogInterface
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.exts.android.startActivity
-import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.auth.ui.LoginActivity
 import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
+import com.edricchan.studybuddy.ui.common.dialogs.showAuthRequiredDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -19,33 +17,30 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  * **after** the default options have been set.
  * @return The shown [android.app.AlertDialog].
  */
+@Deprecated(
+    "Use the common variant of this function which requires specifying " +
+        "how to navigate to the register and login end-points respectively",
+    ReplaceWith(
+        "this.showAuthRequiredDialog(\n" +
+            "  onNavigateToRegister = { this.startActivity<RegisterActivity>() },\n" +
+            "  onNavigateToLogin = { this.startActivity<LoginActivity>() },\n" +
+            "  isCancelable = isCancelable, showCancelButton = showCancelButton,\n" +
+            "  dialogInit = dialogInit\n" +
+            ")",
+        "com.edricchan.studybuddy.exts.android.startActivity",
+        "com.edricchan.studybuddy.features.auth.ui.LoginActivity",
+        "com.edricchan.studybuddy.features.auth.ui.RegisterActivity",
+        "com.edricchan.studybuddy.ui.common.dialogs.showAuthRequiredDialog"
+    )
+)
 fun Context.showAuthRequiredDialog(
     isCancelable: Boolean = false,
     showCancelButton: Boolean = false,
     dialogInit: MaterialAlertDialogBuilder.() -> Unit = {}
-) = showMaterialAlertDialog {
-    setTitle(R.string.auth_required_dialog_title)
-    setMessage(R.string.auth_required_dialog_msg)
-    setCancelable(isCancelable)
-    val onLoginClick = DialogInterface.OnClickListener { dialog, _ ->
-        startActivity<LoginActivity>()
-        dialog.dismiss()
-    }
-    val onSignUpClick = DialogInterface.OnClickListener { dialog, _ ->
-        startActivity<RegisterActivity>()
-        dialog.dismiss()
-    }
-
-    if (showCancelButton) {
-        setPositiveButton(R.string.dialog_action_login, onLoginClick)
-        setNeutralButton(R.string.dialog_action_sign_up, onSignUpClick)
-        setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
-            dialog.cancel()
-        }
-    } else {
-        setPositiveButton(R.string.dialog_action_login, onLoginClick)
-        setNegativeButton(R.string.dialog_action_sign_up, onSignUpClick)
-    }
-
-    dialogInit()
-}
+) = showAuthRequiredDialog(
+    onNavigateToRegister = { startActivity<RegisterActivity>() },
+    onNavigateToLogin = { startActivity<LoginActivity>() },
+    isCancelable = isCancelable,
+    showCancelButton = showCancelButton,
+    dialogInit = dialogInit
+)
