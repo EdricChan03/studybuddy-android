@@ -2,8 +2,10 @@ package com.edricchan.studybuddy.data.repo.firestore
 
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
+import com.edricchan.studybuddy.data.repo.crud.Countable
 import com.edricchan.studybuddy.data.repo.crud.CrudRepository
 import com.edricchan.studybuddy.data.repo.crud.HasQueryOperations
+import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.snapshots
@@ -31,7 +33,9 @@ import kotlin.reflect.KClass
 open class FlowableFirestoreRepository<T : HasId>(
     private val collectionRefFlow: Flow<CollectionReference>,
     private val klass: KClass<T>
-) : CrudRepository<T, String, DocumentReference>, HasQueryOperations<T, QueryMapper> {
+) : CrudRepository<T, String, DocumentReference>,
+    HasQueryOperations<T, QueryMapper>,
+    Countable<Long> {
     private suspend fun getCollectionRef() = collectionRefFlow.first()
 
     /**
@@ -55,6 +59,9 @@ open class FlowableFirestoreRepository<T : HasId>(
         documentFlow(id).flatMapConcat { ref -> ref.snapshots().map { it.toObject(klass) } }
 
     override suspend fun getRef(id: String): DocumentReference = getCollectionRef().document(id)
+
+    override suspend fun count(): Long =
+        getCollectionRef().count()[AggregateSource.SERVER].await().count
 
     override suspend fun add(item: T): DocumentReference = getCollectionRef().add(item).await()
 
