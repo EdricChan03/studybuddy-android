@@ -13,6 +13,11 @@ TODO: Remove this file
     <string name="view_task_loading">Loading task\'s contents…</string>
     <string name="view_task_label_icon_content_desc">Label icon</string>
 
+    <!-- Error text to be shown when the task item can't be retrieved. -->
+    <string name="task_item_get_error_text">An error occurred while attempting to retrieve the task
+        item\'s details. Please try again later
+    </string>
+
     <!-- Menu strings -->
     <eat-comment />
 
@@ -24,4 +29,7 @@ TODO: Remove this file
     <string name="menu_view_task_delete_todo_title">Delete todo</string>
     <!-- The title of the edit task menu item in the view task activity's menu. -->
     <string name="menu_view_task_edit_title">Edit</string>
+
+    <!-- The title of the save menu item in the edit task activity's menu. -->
+    <string name="menu_edit_task_save_title">Save</string>
 </resources>

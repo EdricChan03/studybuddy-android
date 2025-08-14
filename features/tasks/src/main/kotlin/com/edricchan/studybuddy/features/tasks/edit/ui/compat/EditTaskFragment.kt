@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.fragment
+package com.edricchan.studybuddy.features.tasks.edit.ui.compat
 
 import android.os.Bundle
 import android.util.Log
@@ -11,9 +11,7 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.toRoute
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
-import com.edricchan.studybuddy.databinding.FragEditTaskBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
@@ -25,8 +23,10 @@ import com.edricchan.studybuddy.exts.material.picker.setSelection
 import com.edricchan.studybuddy.exts.material.picker.setStart
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.compat.utils.TodoUtils
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.databinding.FragEditTaskBinding
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.firebase.Firebase
@@ -40,6 +40,7 @@ import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.time.Instant
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBinding::inflate) {
     private lateinit var auth: FirebaseAuth
@@ -126,7 +127,7 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
                                         // don't support temporal units bigger than days - see
                                         // the `Instant#isSupported` Javadocs for more info
                                         text = it.toLocalDateTime()
-                                            .format(getString(R.string.date_format_pattern))
+                                            .format(getString(CoreResR.string.java_time_format_pattern_default))
                                     }
                                     // Allow due date to be reset
                                     isCloseIconVisible = true
@@ -154,7 +155,7 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
                         // temporal units bigger than days - see the `Instant#isSupported` Javadocs
                         // for more info
                         taskDueDateChip.text = it.toLocalDateTime()
-                            .format(getString(R.string.date_format_pattern))
+                            .format(getString(CoreResR.string.java_time_format_pattern_default))
                         // Allow due date to be reset
                         taskDueDateChip.isCloseIconVisible = true
                     }

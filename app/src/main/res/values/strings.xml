@@ -68,9 +68,6 @@
     <!-- The text of the sign up button in the register activity. -->
     <string name="register_signup_button_title">Register</string>
 
-    <!-- The title of the save menu item in the edit task activity's menu. -->
-    <string name="menu_edit_task_save_title">Save</string>
-
     <!-- The title of the send feedback menu item in the help and settings activities' menus. -->
     <string name="menu_send_feedback_title">Send Feedback</string>
 
@@ -429,10 +426,5 @@
     <!-- Message for the sign in dialog. -->
     <string name="auth_required_dialog_msg">To access the content, please login or register for an
         account.
-    </string>
-
-    <!-- Error text to be shown when the task item can't be retrieved. -->
-    <string name="task_item_get_error_text">An error occurred while attempting to retrieve the task
-        item\'s details. Please try again later
     </string>
 </resources>
