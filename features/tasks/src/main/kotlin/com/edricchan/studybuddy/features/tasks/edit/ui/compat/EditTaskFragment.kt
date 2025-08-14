@@ -9,9 +9,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.toRoute
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
@@ -24,33 +23,25 @@ import com.edricchan.studybuddy.exts.material.picker.setStart
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.compat.utils.TodoUtils
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.databinding.FragEditTaskBinding
+import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.auth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.toObject
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import java.time.Instant
+import javax.inject.Inject
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
+@AndroidEntryPoint
 class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBinding::inflate) {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var currentUser: FirebaseUser
+    private val viewModel by viewModels<EditTaskViewModel>()
 
-    private lateinit var taskDocument: DocumentReference
-    private lateinit var taskId: String
-
-    private lateinit var todoUtils: TodoUtils
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     private var taskInstant: Instant? = null
     private lateinit var todoItem: TodoItem
@@ -58,12 +49,7 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firestore = Firebase.firestore
-        auth = Firebase.auth
-
-        auth.currentUser?.let {
-            currentUser = it
-        } ?: run {
+        if (auth.currentUser == null) {
             Log.e(TAG, "User isn't logged in. Exiting...")
             showToast(
                 "An error occurred while attempting to retrieve the task item's " +
@@ -74,93 +60,69 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
             return
         }
 
-        todoUtils = TodoUtils(auth, firestore)
+        binding.apply {
+            // TODO: Migrate logic to separate component
+            taskDueDateChip.apply {
+                setOnClickListener {
+                    showMaterialDatePicker(
+                        "taskDueDatePicker",
+                        builderInit = {
+                            setCalendarConstraints {
+                                setValidator(DateValidatorPointForward.now())
+                                setStart(Instant.now())
+                            }
+                            // Set the initial selection
+                            taskInstant?.let(::setSelection)
+                        },
+                        pickerInit = {
+                            addOnPositiveButtonClickListener { selection ->
+                                Instant.ofEpochMilli(selection).let {
+                                    taskInstant = it
+                                    // Produces <day name>, <month> <year>
+                                    // We need to convert it to a LocalDateTime as Instants
+                                    // don't support temporal units bigger than days - see
+                                    // the `Instant#isSupported` Javadocs for more info
+                                    text = it.toLocalDateTime()
+                                        .format(getString(CoreResR.string.java_time_format_pattern_default))
+                                }
+                                // Allow due date to be reset
+                                isCloseIconVisible = true
+                            }
+                        })
+                }
+                setOnCloseIconClickListener {
+                    // Reset due date
+                    taskInstant = null
 
-        taskId = runCatching {
-            navController.getBackStackEntry<CompatDestination.Task.Edit>()
-        }.getOrElse {
-            Log.e(TAG, "No task item ID was specified. Exiting...", it)
-            showToast(
-                R.string.task_item_get_error_text,
-                Toast.LENGTH_LONG
-            )
-            navController.navigateUp()
-            return
-        }.toRoute<CompatDestination.Task.Edit>().taskId
-
-        taskDocument = todoUtils.getTask(taskId)
-        lifecycleScope.launch {
-            val taskData = taskDocument.get().await()
-            if (!taskData.exists()) {
-                Log.e(TAG, "No such task with the ID $taskId exists. Exiting...")
-                showToast(
-                    R.string.task_item_get_error_text,
-                    Toast.LENGTH_LONG
-                )
-                navController.navigateUp()
-                return@launch
+                    // Reset chip's state
+                    isCloseIconVisible = false
+                    setText(R.string.select_date_chip_default_text)
+                }
             }
 
-            todoItem = taskData.toObject()
-                ?: return@launch // null is returned if the doc doesn't exist
 
-            binding.apply {
-                // TODO: Migrate logic to separate component
-                taskDueDateChip.apply {
-                    setOnClickListener {
-                        showMaterialDatePicker(
-                            "taskDueDatePicker",
-                            builderInit = {
-                                setCalendarConstraints {
-                                    setValidator(DateValidatorPointForward.now())
-                                    setStart(Instant.now())
-                                }
-                                // Set the initial selection
-                                taskInstant?.let { setSelection(it) }
-                            },
-                            pickerInit = {
-                                addOnPositiveButtonClickListener { selection ->
-                                    Instant.ofEpochMilli(selection).let {
-                                        taskInstant = it
-                                        // Produces <day name>, <month> <year>
-                                        // We need to convert it to a LocalDateTime as Instants
-                                        // don't support temporal units bigger than days - see
-                                        // the `Instant#isSupported` Javadocs for more info
-                                        text = it.toLocalDateTime()
-                                            .format(getString(CoreResR.string.java_time_format_pattern_default))
-                                    }
-                                    // Allow due date to be reset
-                                    isCloseIconVisible = true
-                                }
-                            })
-                    }
-                    setOnCloseIconClickListener {
-                        // Reset due date
-                        taskInstant = null
-
-                        // Reset chip's state
-                        isCloseIconVisible = false
-                        setText(R.string.select_date_chip_default_text)
-                    }
-                }
-
-                progressBar.isVisible = false
-                scrollView.isVisible = true
-                with(todoItem) {
-                    title?.let { textInputTitle.editText?.setText(it) }
-                    content?.let { textInputContent.editText?.setText(it) }
-                    done?.let { checkboxMarkAsDone.isChecked = it }
-                    dueDate?.let {
-                        // We need to convert it to a LocalDateTime as Instants don't support
-                        // temporal units bigger than days - see the `Instant#isSupported` Javadocs
-                        // for more info
-                        taskDueDateChip.text = it.toLocalDateTime()
-                            .format(getString(CoreResR.string.java_time_format_pattern_default))
-                        // Allow due date to be reset
-                        taskDueDateChip.isCloseIconVisible = true
-                    }
-                    tags?.let {
-                        textInputTags.editText?.setText(it.joinToString(","))
+            lifecycleScope.launch {
+                viewModel.taskDetail.filterNotNull().collect { item ->
+                    progressBar.isVisible = false
+                    scrollView.isVisible = true
+                    todoItem = item
+                    with(todoItem) {
+                        title?.let { textInputTitle.editText?.setText(it) }
+                        content?.let { textInputContent.editText?.setText(it) }
+                        done?.let { checkboxMarkAsDone.isChecked = it }
+                        taskInstant = dueDate?.toInstant()
+                        dueDate?.let {
+                            // We need to convert it to a LocalDateTime as Instants don't support
+                            // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                            // for more info
+                            taskDueDateChip.text = it.toLocalDateTime()
+                                .format(getString(CoreResR.string.java_time_format_pattern_default))
+                            // Allow due date to be reset
+                            taskDueDateChip.isCloseIconVisible = true
+                        }
+                        tags?.let {
+                            textInputTags.editText?.setText(it.joinToString(","))
+                        }
                     }
                 }
             }
@@ -177,40 +139,43 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
 
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             if (menuItem.itemId == R.id.action_save) {
-                val taskItemUpdates = buildMap<String, Any> {
+                val taskItemUpdates = buildMap<TodoItem.Field, Any> {
                     binding.also {
                         if (it.textInputTitle.editTextStrValue != todoItem.title) {
-                            this["title"] = it.textInputTitle.editTextStrValue
+                            this[TodoItem.Field.Title] = it.textInputTitle.editTextStrValue
                         }
                         if (it.textInputContent.editTextStrValue != todoItem.content) {
-                            this["content"] = it.textInputContent.editTextStrValue
+                            this[TodoItem.Field.Content] = it.textInputContent.editTextStrValue
                         }
                     }
                     taskInstant?.let {
                         if (todoItem.dueDate?.toInstant() != it) {
-                            this["dueDate"] = it.toTimestamp()
+                            this[TodoItem.Field.DueDate] = it.toTimestamp()
                         }
                     }
                 }
 
-                lifecycleScope.launch {
-                    try {
-                        taskDocument.update(taskItemUpdates).await()
-
-                        Log.d(TAG, "Successfully updated task item with ID $taskId!")
+                viewModel.updateTask(
+                    taskItemUpdates,
+                    onSuccess = {
+                        Log.d(
+                            TAG,
+                            "Successfully updated task item with ID ${viewModel.taskId}!"
+                        )
                         showToast(
                             "Successfully updated task item!",
                             Toast.LENGTH_SHORT
                         )
                         navController.navigateUp()
-                    } catch (e: Exception) {
-                        Log.e(TAG, "Could not update task item", e)
+                    },
+                    onFailure = {
+                        Log.e(TAG, "Could not update task item", it)
                         showToast(
                             "An error occurred while attempting to update the task item. Please try again later.",
                             Toast.LENGTH_LONG
                         )
                     }
-                }
+                )
                 return true
             }
 
