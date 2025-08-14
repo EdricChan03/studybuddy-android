@@ -147,6 +147,10 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
                         if (it.textInputContent.editTextStrValue != todoItem.content) {
                             this[TodoItem.Field.Content] = it.textInputContent.editTextStrValue
                         }
+                        this[TodoItem.Field.IsDone] = it.checkboxMarkAsDone.isChecked
+                        this[TodoItem.Field.Tags] = it.textInputTags.editTextStrValue.split(
+                            Regex("""\s*,\s*""")
+                        ).filter(String::isNotBlank)
                     }
                     taskInstant?.let {
                         if (todoItem.dueDate?.toInstant() != it) {
