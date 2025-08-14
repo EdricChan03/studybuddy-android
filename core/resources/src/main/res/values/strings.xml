@@ -20,6 +20,9 @@
     <!-- Text for a done button in a dialog. -->
     <string name="dialog_action_done">Done</string>
 
+    <!-- Text for an okay button in a dialog. -->
+    <string name="dialog_action_ok">@android:string/ok</string>
+
     <!-- Text for a retry button in a dialog. -->
     <string name="dialog_action_retry">Retry</string>
 

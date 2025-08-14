@@ -37,6 +37,9 @@ TODO: Remove this file
 
     <string name="action_menu_overflow_title">More options</string>
 
+    <!-- The title of the refresh tasks menu item in the task fragment's menu. -->
+    <string name="menu_frag_task_refresh_todos_title">Refresh tasks</string>
+
     <!-- Sorting dialog strings -->
     <eat-comment />
 

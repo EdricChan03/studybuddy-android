@@ -46,12 +46,26 @@ dependencies {
     implementation(projects.ui.common)
     implementation(projects.ui.theming.compose)
 
+    // TODO: Remove when TaskListFragment has migrated to Compose
+    implementation(projects.ui.widgets.modalBottomSheet) {
+        because("TaskListFragment uses the modal bottom-sheet UI")
+    }
+    implementation(projects.ui.theming.views) {
+        because("setDynamicColors extension function for TaskListFragment")
+    }
+    implementation(libs.androidx.swiperefreshlayout) {
+        because("TaskListFragment uses SwipeRefreshLayout")
+    }
+
     // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.recyclerview.core)
     implementation(libs.androidx.recyclerview.selection)
+    implementation(libs.androidx.swiperefreshlayout) {
+        because("TaskListFragment uses SwipeRefreshLayout")
+    }
     implementation(libs.materialComponents)
 
     // Compose
