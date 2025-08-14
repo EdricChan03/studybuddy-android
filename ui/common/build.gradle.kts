@@ -22,8 +22,11 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.compat.navigation)
+    implementation(projects.core.resources)
     implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.viewBinding)
+    implementation(projects.exts.material)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.widgets.compose)

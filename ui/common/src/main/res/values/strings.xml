@@ -2,4 +2,17 @@
 <resources>
     <!-- Title for the open-source licenses activity. -->
     <string name="activity_license_title">Licenses</string>
+
+    <!-- Sign in dialog strings -->
+    <eat-comment />
+
+    <!-- Title for the sign in dialog. -->
+    <string name="auth_required_dialog_title">Sign in to continue</string>
+    <!-- Message for the sign in dialog. -->
+    <string name="auth_required_dialog_msg">To access the content, please login or register for an
+        account.
+    </string>
+    <string name="dialog_action_login">Login</string>
+    <string name="dialog_action_sign_up">Sign up</string>
+
 </resources>
