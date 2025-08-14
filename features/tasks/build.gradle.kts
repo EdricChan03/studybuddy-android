@@ -30,6 +30,7 @@ dependencies {
 
     api(projects.core.settings.tasks)
     implementation(projects.core.resources)
+    implementation(projects.core.resources.icons)
     implementation(projects.core.resources.temporal)
     implementation(projects.data.common)
     implementation(projects.exts.android)
