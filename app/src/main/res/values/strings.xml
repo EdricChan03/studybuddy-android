@@ -135,9 +135,6 @@
         undone!</string>
     <string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
     <string name="debug_activity_dev_mode_enabled_title">Developer mode</string>
-    <string name="debug_activity_device_info_summary">Show information about the current
-        device</string>
-    <string name="debug_activity_device_info_title">Device info</string>
     <string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
     <string name="debug_activity_dynamic_theme_info_dialog_title">Dynamic theme info</string>
     <string name="debug_activity_dynamic_theme_info_dialog_toggle_btn">Toggle theme</string>
@@ -170,7 +167,6 @@
         URL</string>
     <string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON
         URL</string>
-    <string name="debug_activity_updates_update_metadata_title">Update metadata</string>
     <string name="debug_activity_updates_start_worker_title">Start check for updates worker</string>
     <string name="debug_activity_updates_start_worker_summary">Explicitly start the worker. (Note:
         The worker is automatically started on boot.)
