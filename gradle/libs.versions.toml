@@ -157,7 +157,7 @@ migration = "io.github.boswelja.migration:migration-core:2.1.4"
 gradleVersions-gradle = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradle-versions" }
 
 # AGP (as a library such that it can be used in precompiled scripts)
-android-gradle-library = { module = "com.android.library:com.android.library.gradle.plugin", version.ref = "android-gradle" }
+android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
 
 # Kotlin Gradle plugin
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
