@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
+import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
 import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
 import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
@@ -35,9 +37,9 @@ import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
+import com.edricchan.studybuddy.ui.common.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
-import com.edricchan.studybuddy.ui.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.theming.setDynamicColors
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
@@ -221,7 +223,10 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
         super.onStart()
         if (auth.currentUser == null) {
             Log.d(TAG, "Not logged in")
-            requireContext().showAuthRequiredDialog()
+            requireContext().showAuthRequiredDialog(
+                onNavigateToRegister = navController::navigateToRegister,
+                onNavigateToLogin = navController::navigateToLogin
+            )
         }
     }
 
