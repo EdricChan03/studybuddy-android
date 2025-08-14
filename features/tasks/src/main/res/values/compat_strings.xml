@@ -5,6 +5,8 @@ files. They should be moved to their respective files at some point :)
 TODO: Remove this file
 -->
 <resources>
+    <string name="select_date_chip_default_text">Select a date&#8230;</string>
+
     <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is
         irreversible.</string>
 
