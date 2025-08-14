@@ -208,8 +208,10 @@ androidx-compose-tooling = [
 ]
 
 androidx-test = [
-  "androidx-test-espresso-core", "androidx-test-core",
-  "androidx-test-runner", "androidx-test-rules"
+  "androidx-test-espresso-core",
+  "androidx-test-core",
+  "androidx-test-runner",
+  "androidx-test-rules"
 ]
 
 firebase = [
@@ -224,14 +226,22 @@ firebase = [
 ]
 
 ktor = [
-  "ktor-client-core", "ktor-client-content-negotiation", "ktor-client-okhttp",
+  "ktor-client-core",
+  "ktor-client-content-negotiation",
+  "ktor-client-okhttp",
   "ktor-serialization-kotlinx-json"
 ]
 
 markwon = [
-  "markwon-core", "markwon-editor", "markwon-html",
-  "markwon-imageCoil", "markwon-linkify", "markwon-syntaxHighlight",
-  "markwon-ext-strikethrough", "markwon-ext-tables", "markwon-ext-tasklist"
+  "markwon-core",
+  "markwon-editor",
+  "markwon-html",
+  "markwon-imageCoil",
+  "markwon-linkify",
+  "markwon-syntaxHighlight",
+  "markwon-ext-strikethrough",
+  "markwon-ext-tables",
+  "markwon-ext-tasklist"
 ]
 
 [plugins]
