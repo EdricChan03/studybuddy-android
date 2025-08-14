@@ -32,3 +32,6 @@ val AppIcons.Compat.Help: CompatIcon by lazy { CompatIcon(R.drawable.ic_help_out
 
 /** @see R.drawable.ic_refresh_24dp */
 val AppIcons.Compat.Refresh: CompatIcon by lazy { CompatIcon(R.drawable.ic_refresh_24dp) }
+
+/** @see R.drawable.ic_settings_outline_24dp */
+val AppIcons.Compat.Settings: CompatIcon by lazy { CompatIcon(R.drawable.ic_settings_outline_24dp) }
