@@ -29,6 +29,7 @@ import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -156,6 +157,10 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
                         if (todoItem.dueDate?.toInstant() != it) {
                             this[TodoItem.Field.DueDate] = it.toTimestamp()
                         }
+                        // When taskInstant is set to null, this means that the user
+                        // wants to clear the due-date of the item
+                    } ?: run {
+                        this[TodoItem.Field.DueDate] = FieldValue.delete()
                     }
                 }
 
