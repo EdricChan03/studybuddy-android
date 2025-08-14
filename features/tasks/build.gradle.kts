@@ -63,9 +63,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.recyclerview.core)
     implementation(libs.androidx.recyclerview.selection)
-    implementation(libs.androidx.swiperefreshlayout) {
-        because("TaskListFragment uses SwipeRefreshLayout")
-    }
     implementation(libs.materialComponents)
 
     // Compose
