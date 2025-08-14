@@ -208,12 +208,10 @@
     <string name="dialog_action_disable">Disable</string>
     <string name="dialog_action_dismiss">Dismiss</string>
     <string name="dialog_action_enable">Enable</string>
-    <string name="dialog_action_login">Login</string>
     <string name="dialog_action_no">No</string>
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_retry">Retry</string>
     <string name="dialog_action_send">Send</string>
-    <string name="dialog_action_sign_up">Sign up</string>
     <string name="dialog_action_yes">Yes</string>
     <string name="download_apk_name">com.edricchan.studybuddy-v%s.apk</string>
     <string name="due_date">Due date</string>
@@ -420,11 +418,4 @@
     <string name="chips_text_input_layout_default_hint">Enter something&#8230;</string>
 
     <string name="select_date_chip_default_text">Select a date&#8230;</string>
-
-    <!-- Title for the sign in dialog. -->
-    <string name="auth_required_dialog_title">Sign in to continue</string>
-    <!-- Message for the sign in dialog. -->
-    <string name="auth_required_dialog_msg">To access the content, please login or register for an
-        account.
-    </string>
 </resources>
