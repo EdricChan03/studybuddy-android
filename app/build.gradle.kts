@@ -161,6 +161,8 @@ dependencies {
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.preference)
+    implementation(projects.ui.preference.compose)
+    implementation(projects.ui.widgets.compose)
     implementation(projects.ui.widgets.views)
     implementation(projects.ui.widgets.modalBottomSheet)
     implementation(projects.core.auth.gms)
