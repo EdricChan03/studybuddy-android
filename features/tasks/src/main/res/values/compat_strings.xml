@@ -34,4 +34,24 @@ TODO: Remove this file
 
     <!-- The title of the save menu item in the edit task activity's menu. -->
     <string name="menu_edit_task_save_title">Save</string>
+
+    <string name="action_menu_overflow_title">More options</string>
+
+    <!-- Sorting dialog strings -->
+    <eat-comment />
+
+    <!-- The sort dialog's header title. -->
+    <string name="task_sort_dialog_header_title">Sort tasks by&#8230;</string>
+    <!-- The title of the sort by menu item in the task fragment's menu. -->
+    <string name="menu_frag_task_sort_by_title">Sort by…</string>
+    <!-- The title of the fourth item in the sort by modal bottom sheet in the task fragment. -->
+    <string name="sort_by_bottomsheet_due_date_newest_title">Due date (newest first)</string>
+    <!-- The title of the fifth item in the sort by modal bottom sheet in the task fragment. -->
+    <string name="sort_by_bottomsheet_due_date_oldest_title">Due date (oldest first)</string>
+    <!-- The title of the first item in the sort by modal bottom sheet in the task fragment. -->
+    <string name="sort_by_bottomsheet_none_title">None</string>
+    <!-- The title of the second item in the sort by modal bottom sheet in the task fragment. -->
+    <string name="sort_by_bottomsheet_title_asc_title">Title (ascending)</string>
+    <!-- The title of the third item in the sort by modal bottom sheet in the task fragment. -->
+    <string name="sort_by_bottomsheet_title_desc_title">Title (descending)</string>
 </resources>

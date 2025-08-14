@@ -24,6 +24,7 @@ import com.edricchan.studybuddy.features.help.compat.HelpListFragment
 import com.edricchan.studybuddy.features.settings.main.ui.compat.SettingsFragment
 import com.edricchan.studybuddy.features.tasks.compat.ui.fragment.TaskDetailFragment
 import com.edricchan.studybuddy.features.tasks.edit.ui.compat.EditTaskFragment
+import com.edricchan.studybuddy.features.tasks.list.ui.compat.TaskListFragment
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
@@ -31,7 +32,6 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.modules.task.fragment.NewTaskFragment
-import com.edricchan.studybuddy.ui.modules.task.fragment.TaskListFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
 import kotlin.reflect.typeOf
 

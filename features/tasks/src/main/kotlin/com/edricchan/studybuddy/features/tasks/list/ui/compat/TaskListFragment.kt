@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.fragment
+package com.edricchan.studybuddy.features.tasks.list.ui.compat
 
 import android.os.Bundle
 import android.util.Log
@@ -16,8 +16,6 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.edricchan.studybuddy.BuildConfig
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
@@ -26,14 +24,19 @@ import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToCreateTask
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskView
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.compat.BugReport
+import com.edricchan.studybuddy.core.resources.icons.compat.Help
+import com.edricchan.studybuddy.core.resources.icons.compat.Plus
 import com.edricchan.studybuddy.core.resources.icons.compat.Refresh
-import com.edricchan.studybuddy.databinding.FragTodoBinding
+import com.edricchan.studybuddy.core.resources.icons.compat.Settings
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.TodosAdapter
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemListener
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.databinding.FragTodoBinding
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
@@ -49,10 +52,11 @@ import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.edricchan03.androidx.recyclerview.ktx.hasFixedSize
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.edricchan.studybuddy.features.tasks.R as TaskR
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 // FIXME: Fix whole code - it's very messy especially after migrating to Kotlin
 @AndroidEntryPoint
@@ -75,10 +79,10 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
             requireContext().showMaterialAlertDialog {
                 setTitle(R.string.todo_frag_delete_task_dialog_title)
                 setMessage(R.string.todo_frag_delete_task_dialog_msg)
-                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+                setNegativeButton(CoreResR.string.dialog_action_cancel) { dialog, _ ->
                     dialog.dismiss()
                 }
-                setPositiveButton(R.string.dialog_action_ok) { dialog, _ ->
+                setPositiveButton(CoreResR.string.dialog_action_ok) { dialog, _ ->
                     onRemoveTask(item, onSuccess = { dialog.dismiss() })
                 }
             }
@@ -89,10 +93,6 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
     )
 
     override val menuProvider = object : MenuProvider {
-        override fun onPrepareMenu(menu: Menu) {
-            if (!BuildConfig.DEBUG) menu.removeItem(R.id.action_debug)
-        }
-
         override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
             // Clear the main activity's menu before inflating the fragment's menu
             menu.clear()
@@ -119,20 +119,20 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
                             showSortByOptions()
                         }
                     }
-                    item(context.getString(R.string.menu_settings_title)) {
-                        setIcon(R.drawable.ic_settings_outline_24dp)
+                    item(context.getString(CoreResR.string.menu_settings_title)) {
+                        setIcon(AppIcons.Compat.Settings.iconRes)
                         setItemClickListener {
                             navController.navigateToSettings()
                         }
                     }
-                    item(context.getString(R.string.menu_help_title)) {
-                        setIcon(R.drawable.ic_help_outline_24dp)
+                    item(context.getString(CoreResR.string.menu_help_title)) {
+                        setIcon(AppIcons.Compat.Help.iconRes)
                         setItemClickListener {
                             navController.navigateToHelp()
                         }
                     }
-                    item(context.getString(R.string.menu_debug_title)) {
-                        setIcon(R.drawable.ic_bug_report_outline_24dp)
+                    item(context.getString(CoreResR.string.menu_debug_title)) {
+                        setIcon(AppIcons.Compat.BugReport.iconRes)
                         visible = context.isDevMode()
                         setItemClickListener {
                             navController.navigateToDebug()
@@ -184,8 +184,8 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
             }
 
             recyclerView.apply {
-                setHasFixedSize(false)
-                layoutManager = LinearLayoutManager(context)
+                hasFixedSize = false
+                layoutManager = LinearLayoutManager(requireContext())
                 itemAnimator = DefaultItemAnimator()
                 adapter = this@TaskListFragment.adapter
                 setItemTouchHelper(
@@ -214,8 +214,8 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
     }
 
     override val fabConfig = FabConfig(
-        iconRes = R.drawable.ic_plus_24dp,
-        contentDescriptionRes = TaskR.string.action_create_task,
+        iconRes = AppIcons.Compat.Plus.iconRes,
+        contentDescriptionRes = R.string.action_create_task,
         onClick = ::newTaskActivity
     )
 

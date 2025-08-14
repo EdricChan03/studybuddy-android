@@ -23,10 +23,4 @@
     <string name="task_archive_fail_msg">The task could not be archived. Try again later</string>
     <!-- Text to show if a task could not be unarchived for any reason. -->
     <string name="task_unarchive_fail_msg">The task could not be unarchived. Try again later</string>
-
-    <!-- Sort dialog strings -->
-    <eat-comment />
-
-    <!-- The sort dialog's header title. -->
-    <string name="task_sort_dialog_header_title">Sort tasks by&#8230;</string>
 </resources>
