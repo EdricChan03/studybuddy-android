@@ -54,4 +54,10 @@ TODO: Remove this file
     <string name="sort_by_bottomsheet_title_asc_title">Title (ascending)</string>
     <!-- The title of the third item in the sort by modal bottom sheet in the task fragment. -->
     <string name="sort_by_bottomsheet_title_desc_title">Title (descending)</string>
+
+    <!-- New task strings -->
+    <eat-comment />
+
+    <!-- The title of the submit task menu item in the new task activity's menu. -->
+    <string name="menu_new_task_submit_title">Submit</string>
 </resources>

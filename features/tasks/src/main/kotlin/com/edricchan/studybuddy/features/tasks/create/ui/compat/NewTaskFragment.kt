@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.modules.task.fragment
+package com.edricchan.studybuddy.features.tasks.create.ui.compat
 
 import android.os.Bundle
 import android.util.Log
@@ -9,10 +9,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.lifecycleScope
-import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
-import com.edricchan.studybuddy.databinding.FragNewTaskBinding
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
@@ -22,8 +20,10 @@ import com.edricchan.studybuddy.exts.material.picker.setCalendarConstraints
 import com.edricchan.studybuddy.exts.material.picker.setSelection
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.compat.utils.TodoUtils
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.databinding.FragNewTaskBinding
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.time.Instant
 import javax.inject.Inject
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @AndroidEntryPoint
 class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBinding::inflate) {
@@ -90,7 +91,7 @@ class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBindi
                                     // temporal units bigger than days - see the `Instant#isSupported` Javadocs
                                     // for more info
                                     text = it.toLocalDateTime()
-                                        .format(getString(R.string.date_format_pattern))
+                                        .format(getString(CoreResR.string.java_time_format_pattern_default))
                                 }
                                 // Allow due date to be reset
                                 isCloseIconVisible = true

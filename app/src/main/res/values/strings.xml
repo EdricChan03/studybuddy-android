@@ -82,9 +82,6 @@
     <!-- The title of the source code menu item in the help activity's menu. -->
     <string name="menu_help_src_code_title">View source code</string>
 
-    <!-- The title of the submit task menu item in the new task activity's menu. -->
-    <string name="menu_new_task_submit_title">Submit</string>
-
     <string name="action_version">Version</string>
 
     <string name="app_desc">Study Buddy is an app that aids students with their studies.</string>
