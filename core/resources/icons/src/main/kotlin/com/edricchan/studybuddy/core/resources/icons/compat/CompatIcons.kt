@@ -33,6 +33,9 @@ val AppIcons.Compat.Help: CompatIcon by lazy { CompatIcon(R.drawable.ic_help_out
 /** @see R.drawable.ic_more_vert_24dp */
 val AppIcons.Compat.MoreVert: CompatIcon by lazy { CompatIcon(R.drawable.ic_more_vert_24dp) }
 
+/** @see R.drawable.ic_open_in_new_24dp */
+val AppIcons.Compat.OpenInNew: CompatIcon by lazy { CompatIcon(R.drawable.ic_open_in_new_24dp) }
+
 /** @see R.drawable.ic_plus_24dp */
 val AppIcons.Compat.Plus: CompatIcon by lazy { CompatIcon(R.drawable.ic_plus_24dp) }
 
