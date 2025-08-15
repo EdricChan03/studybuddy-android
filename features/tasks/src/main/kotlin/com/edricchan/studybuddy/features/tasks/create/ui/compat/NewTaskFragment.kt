@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.exts.android.showToast
-import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
@@ -40,6 +39,7 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
 @AndroidEntryPoint
 class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBinding::inflate) {
     companion object {
+        private const val TAG = "NewTaskFragment"
         const val ACTION_NEW_TASK_SHORTCUT = "com.edricchan.studybuddy.shortcuts.ACTION_NEW_TASK"
     }
 
