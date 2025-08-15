@@ -122,14 +122,13 @@ class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBindi
                         taskTitleTextInputLayout.isErrorEnabled = false
                         val taskItem = TodoItem.build {
                             title = taskTitleTextInputLayout.editTextStrValue
-                            if (taskContentTextInputLayout.editTextStrValue.isNotBlank()) {
-                                content = taskContentTextInputLayout.editTextStrValue
-                            }
-                            if (taskTagsTextInputLayout.editTextStrValue.isNotBlank()) {
-                                tags = taskTagsTextInputLayout.editTextStrValue.split(",")
-                                    .map { it.trim() }
-                            }
-                            taskInstant?.toTimestamp()?.let { dueDate = it }
+                            content = taskContentTextInputLayout.editTextStrValue
+                                .takeIf { it.isNotBlank() }
+                            tags = taskTagsTextInputLayout.editTextStrValue
+                                .takeIf { it.isNotBlank() }
+                                ?.split(Regex("""\s*,\s*"""))
+                                ?.filter { it.isNotBlank() }
+                            dueDate = taskInstant?.toTimestamp()
                             done = taskIsDoneCheckbox.isChecked
                         }
                         viewModel.submitTask(
