@@ -12,7 +12,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.exts.android.showToast
-import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
@@ -39,6 +38,10 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @AndroidEntryPoint
 class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBinding::inflate) {
+    companion object {
+        private const val TAG = "EditTaskFragment"
+    }
+
     private val viewModel by viewModels<EditTaskViewModel>()
 
     @Inject
