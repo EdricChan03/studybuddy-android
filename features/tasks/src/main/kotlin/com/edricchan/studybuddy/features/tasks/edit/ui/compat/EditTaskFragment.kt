@@ -38,7 +38,7 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @AndroidEntryPoint
 class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBinding::inflate) {
-    companion object {
+    private companion object {
         private const val TAG = "EditTaskFragment"
     }
 
