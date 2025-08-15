@@ -169,6 +169,7 @@ dependencies {
     implementation(projects.core.compat.navigation)
     implementation(projects.core.deeplink)
     implementation(projects.core.resources)
+    implementation(projects.core.resources.icons)
     implementation(projects.core.settings.tasks)
     implementation(projects.core.settings.tasks.resources)
     implementation(projects.core.settings.tracking)
