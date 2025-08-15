@@ -110,48 +110,49 @@ class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBindi
             return when (menuItem.itemId) {
                 R.id.action_submit -> {
                     binding.apply {
-                        if (taskTitleTextInputLayout.editTextStrValue.isNotBlank()) {
-                            taskTitleTextInputLayout.isErrorEnabled = false
-                            val taskItem = TodoItem.build {
-                                title = taskTitleTextInputLayout.editTextStrValue
-                                if (taskContentTextInputLayout.editTextStrValue.isNotBlank()) {
-                                    content = taskContentTextInputLayout.editTextStrValue
-                                }
-                                if (taskTagsTextInputLayout.editTextStrValue.isNotBlank()) {
-                                    tags = taskTagsTextInputLayout.editTextStrValue.split(",")
-                                        .map { it.trim() }
-                                }
-                                taskInstant?.toTimestamp()?.let { dueDate = it }
-                                done = taskIsDoneCheckbox.isChecked
-                            }
-                            viewModel.submitTask(
-                                item = taskItem,
-                                onSuccess = {
-                                    showToast(
-                                        "Successfully added task!",
-                                        Toast.LENGTH_SHORT
-                                    )
-                                    navController.popBackStack()
-                                },
-                                onFailure = {
-                                    Log.e(
-                                        TAG,
-                                        "An error occurred while adding the task:",
-                                        it
-                                    )
-                                    showToast(
-                                        "An error occurred while adding the task. Try again later.",
-                                        Toast.LENGTH_LONG
-                                    )
-                                }
-                            )
-                        } else {
+                        if (taskTitleTextInputLayout.editTextStrValue.isBlank()) {
                             taskTitleTextInputLayout.error = "Please enter something."
                             showSnackBar(
                                 "Some errors occurred while attempting to submit the form.",
                                 SnackBarData.Duration.Long
                             )
+                            return true
                         }
+
+                        taskTitleTextInputLayout.isErrorEnabled = false
+                        val taskItem = TodoItem.build {
+                            title = taskTitleTextInputLayout.editTextStrValue
+                            if (taskContentTextInputLayout.editTextStrValue.isNotBlank()) {
+                                content = taskContentTextInputLayout.editTextStrValue
+                            }
+                            if (taskTagsTextInputLayout.editTextStrValue.isNotBlank()) {
+                                tags = taskTagsTextInputLayout.editTextStrValue.split(",")
+                                    .map { it.trim() }
+                            }
+                            taskInstant?.toTimestamp()?.let { dueDate = it }
+                            done = taskIsDoneCheckbox.isChecked
+                        }
+                        viewModel.submitTask(
+                            item = taskItem,
+                            onSuccess = {
+                                showToast(
+                                    "Successfully added task!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                navController.popBackStack()
+                            },
+                            onFailure = {
+                                Log.e(
+                                    TAG,
+                                    "An error occurred while adding the task:",
+                                    it
+                                )
+                                showToast(
+                                    "An error occurred while adding the task. Try again later.",
+                                    Toast.LENGTH_LONG
+                                )
+                            }
+                        )
                     }
                     true
                 }
