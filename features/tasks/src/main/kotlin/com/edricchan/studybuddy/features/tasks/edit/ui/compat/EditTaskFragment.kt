@@ -25,12 +25,12 @@ import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.databinding.FragEditTaskBinding
 import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel
+import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel.TaskState
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
@@ -103,29 +103,47 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
                     setText(R.string.select_date_chip_default_text)
                 }
             }
+        }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.taskDetail.collect { state ->
+                when (state) {
+                    TaskState.DoesNotExist -> {
+                        Log.w(
+                            TAG,
+                            "onViewCreated: Attempted to load non-existent task item " +
+                                "with ID ${viewModel.taskId}, exiting"
+                        )
+                        navController.navigateUp()
+                        return@collect
+                    }
 
-            lifecycleScope.launch {
-                viewModel.taskDetail.filterNotNull().collect { item ->
-                    progressBar.isVisible = false
-                    scrollView.isVisible = true
-                    todoItem = item
-                    with(todoItem) {
-                        title?.let { textInputTitle.editText?.setText(it) }
-                        content?.let { textInputContent.editText?.setText(it) }
-                        done?.let { checkboxMarkAsDone.isChecked = it }
-                        taskInstant = dueDate?.toInstant()
-                        dueDate?.let {
-                            // We need to convert it to a LocalDateTime as Instants don't support
-                            // temporal units bigger than days - see the `Instant#isSupported` Javadocs
-                            // for more info
-                            taskDueDateChip.text = it.toLocalDateTime()
-                                .format(getString(CoreResR.string.java_time_format_pattern_default))
-                            // Allow due date to be reset
-                            taskDueDateChip.isCloseIconVisible = true
-                        }
-                        tags?.let {
-                            textInputTags.editText?.setText(it.joinToString(","))
+                    TaskState.Loading -> binding.apply {
+                        progressBar.isVisible = true
+                        scrollView.isVisible = false
+                    }
+
+                    is TaskState.Success -> binding.apply {
+                        progressBar.isVisible = false
+                        scrollView.isVisible = true
+                        todoItem = state.item
+                        with(todoItem) {
+                            title?.let { textInputTitle.editText?.setText(it) }
+                            content?.let { textInputContent.editText?.setText(it) }
+                            done?.let { checkboxMarkAsDone.isChecked = it }
+                            taskInstant = dueDate?.toInstant()
+                            dueDate?.let {
+                                // We need to convert it to a LocalDateTime as Instants don't support
+                                // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                                // for more info
+                                taskDueDateChip.text = it.toLocalDateTime()
+                                    .format(getString(CoreResR.string.java_time_format_pattern_default))
+                                // Allow due date to be reset
+                                taskDueDateChip.isCloseIconVisible = true
+                            }
+                            tags?.let {
+                                textInputTags.editText?.setText(it.joinToString(","))
+                            }
                         }
                     }
                 }
