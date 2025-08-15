@@ -299,9 +299,9 @@ object CollapsibleListDefaults {
      * `containerColor` | [ExpListItemDefaults.itemContainerColor]
      * `iconColor` | [ExpListItemDefaults.itemIconColor]
      * `indicatorContainerColor` | [androidx.compose.material3.ColorScheme.primary]
-     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.primaryContainer]
+     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.primary]
      * `expandedIndicatorContainerColor` | [androidx.compose.material3.ColorScheme.surfaceContainerHigh]
-     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onPrimaryContainer]
+     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onPrimary]
      */
     @Composable
     fun primaryHeaderColors(): CollapsibleListHeaderColors = headerColors(
@@ -323,9 +323,9 @@ object CollapsibleListDefaults {
      * `containerColor` | [ExpListItemDefaults.itemContainerColor]
      * `iconColor` | [ExpListItemDefaults.itemIconColor]
      * `indicatorContainerColor` | [androidx.compose.material3.ColorScheme.tertiary]
-     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.tertiaryContainer]
+     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.tertiary]
      * `expandedIndicatorContainerColor` | [androidx.compose.material3.ColorScheme.surfaceContainerHigh]
-     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onTertiaryContainer]
+     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onTertiary]
      */
     @Composable
     fun tertiaryHeaderColors(): CollapsibleListHeaderColors = headerColors(
