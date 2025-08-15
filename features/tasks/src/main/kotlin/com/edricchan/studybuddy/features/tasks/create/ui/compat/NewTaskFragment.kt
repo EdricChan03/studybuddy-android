@@ -49,21 +49,17 @@ class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBindi
     @Inject
     lateinit var firestore: FirebaseFirestore
 
-    private lateinit var currentUser: FirebaseUser
     private var taskInstant: Instant? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth.currentUser.let {
-            if (it == null) {
-                showToast("Please sign in before continuing", Toast.LENGTH_SHORT)
-                navController.navigateToLogin {
-                    popUpTo<CompatDestination.Auth.Login>()
-                }
-                return
+        if (auth.currentUser == null) {
+            showToast("Please sign in before continuing", Toast.LENGTH_SHORT)
+            navController.navigateToLogin {
+                popUpTo<CompatDestination.Auth.Login>()
             }
-            currentUser = it
+            return
         }
 
         binding.apply {
