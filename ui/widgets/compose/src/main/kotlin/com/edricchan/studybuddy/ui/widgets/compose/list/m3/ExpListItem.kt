@@ -351,15 +351,24 @@ data class ExpListItemColors(
 ) {
     @Composable
     fun containerColor(enabled: Boolean): State<Color> =
-        animateColorAsState(if (enabled) containerColor else disabledContainerColor)
+        animateColorAsState(
+            label = "Expressive list item container colour",
+            targetValue = if (enabled) containerColor else disabledContainerColor
+        )
 
     @Composable
     fun contentColor(enabled: Boolean): State<Color> =
-        animateColorAsState(if (enabled) contentColor else disabledContentColor)
+        animateColorAsState(
+            label = "Expressive list item content colour",
+            targetValue = if (enabled) contentColor else disabledContentColor
+        )
 
     @Composable
     fun iconColor(enabled: Boolean): State<Color> =
-        animateColorAsState(if (enabled) iconColor else disabledIconColor)
+        animateColorAsState(
+            label = "Expressive list item icon colour",
+            targetValue = if (enabled) iconColor else disabledIconColor
+        )
 }
 
 @Stable
