@@ -130,8 +130,8 @@ suspend fun TaskRepository.update(
 
 /** Toggles the [item]'s [completion status][TodoItem.done]. */
 suspend fun TaskRepository.toggleCompleted(item: TodoItem) =
-    updateTask(item.id, mapOf(TodoItem.Field.IsDone.fieldName to !(item.done ?: false)))
+    update(item.id, mapOf(TodoItem.Field.IsDone to !(item.done ?: false)))
 
 /** Toggles the [item]'s [archival status][TodoItem.archived]. */
 suspend fun TaskRepository.toggleArchived(item: TodoItem) =
-    updateTask(item.id, mapOf(TodoItem.Field.IsArchived.fieldName to !(item.archived ?: false)))
+    update(item.id, mapOf(TodoItem.Field.IsArchived to !(item.archived ?: false)))
