@@ -4,11 +4,13 @@ import androidx.annotation.Keep
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
+import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
+import java.time.Instant
 import java.time.LocalDateTime
 
 /**
@@ -192,5 +194,100 @@ data class TodoItem(
          * if not specified.
          */
         LastModified("lastModified");
+    }
+
+    sealed class FieldValue<T>(val field: Field, open val value: T) {
+        val fieldName by field::fieldName
+
+        fun toPair() = field to value
+
+        fun toFieldNamePair() = fieldName to value
+
+        /** [FieldValue] for the [Field.Title] field. */
+        data class Title(override val value: String) :
+            FieldValue<String>(field = Field.Title, value = value)
+
+        /** [FieldValue] for the [Field.Content] field. */
+        data class Content(override val value: String) :
+            FieldValue<String>(field = Field.Content, value = value)
+
+        /** [FieldValue] for the [Field.DueDate] field. */
+        data class DueDate(override val value: Timestamp?) :
+            FieldValue<Timestamp?>(field = Field.DueDate, value = value) {
+            /**
+             * Creates a [DueDate] with the given [dateTime],
+             * which will be converted to its [Timestamp] equivalent.
+             */
+            constructor(dateTime: LocalDateTime?) : this(dateTime?.toTimestamp())
+
+            /**
+             * Creates a [DueDate] with the given [instant],
+             * which will be converted to its [Timestamp] equivalent.
+             */
+            constructor(instant: Instant?) : this(instant?.toTimestamp())
+        }
+
+        /** [FieldValue] for the [Field.Tags] field. */
+        data class Tags(override val value: List<String>) :
+            FieldValue<List<String>>(field = Field.Tags, value = value)
+
+        /**
+         * [FieldValue] for the [Field.Project] field.
+         *
+         * This version expects a [DocumentReference] to be passed. To pass just its
+         * ID (of type [String]), use [ProjectId] instead.
+         * @see ProjectId
+         */
+        data class Project(override val value: DocumentReference?) :
+            FieldValue<DocumentReference?>(field = Field.Project, value = value) {
+            /** Converts this [FieldValue] to its [ProjectId] equivalent. */
+            fun toProjectId() = ProjectId(value?.id)
+        }
+
+        /**
+         * [FieldValue] for the [Field.Project] field, of type [String].
+         *
+         * This version expects a [DocumentReference]'s ID of type [String] to be passed.
+         * To pass it as a [DocumentReference], use [Project] instead.
+         * @see Project
+         */
+        data class ProjectId(override val value: String?) :
+            FieldValue<String?>(field = Field.Project, value = value) {
+            /**
+             * Converts this [FieldValue] to its [Project] equivalent.
+             * @param repo The repository to retrieve the [DocumentReference] from.
+             */
+            suspend fun toProject(
+                repo: TaskProjectRepository
+            ) = Project(value?.let { repo.getRef(it) })
+        }
+
+        /** [FieldValue] for the [Field.IsDone] field. */
+        data class IsDone(override val value: Boolean) :
+            FieldValue<Boolean>(field = Field.IsDone, value = value)
+
+        /** [FieldValue] for the [Field.IsArchived] field. */
+        data class IsArchived(override val value: Boolean) :
+            FieldValue<Boolean>(field = Field.IsArchived, value = value)
+
+        /** [FieldValue] for the [Field.CreatedAt] field. */
+        data class CreatedAt(override val value: Timestamp?) :
+            FieldValue<Timestamp?>(field = Field.CreatedAt, value = value) {
+            /**
+             * Creates a [CreatedAt] with the given [LocalDateTime],
+             * which will be converted to its [Timestamp] equivalent.
+             */
+            constructor(dateTime: LocalDateTime?) : this(dateTime?.toTimestamp())
+        }
+
+        /** [FieldValue] for the [Field.LastModified] field. */
+        data class LastModified(override val value: Timestamp?) :
+            FieldValue<Timestamp?>(field = Field.LastModified, value = value) {
+            /**
+             * Creates a [LastModified] with the given [LocalDateTime],
+             * which will be converted to its [Timestamp] equivalent.
+             */
+            constructor(dateTime: LocalDateTime?) : this(dateTime?.toTimestamp())
+        }
     }
 }
