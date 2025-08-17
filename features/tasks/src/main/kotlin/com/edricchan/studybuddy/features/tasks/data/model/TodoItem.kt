@@ -3,11 +3,13 @@ package com.edricchan.studybuddy.features.tasks.data.model
 import androidx.annotation.Keep
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
+import com.edricchan.studybuddy.exts.firebase.toTimestamp
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
+import java.time.LocalDateTime
 
 /**
  * Specifies a task (in the old format)
@@ -105,12 +107,38 @@ data class TodoItem(
         var createdAt: Timestamp? = null
 
         /**
+         * The timestamp the task was created at.
+         *
+         * If left null, this field will be replaced with a server-generated timestamp.
+         *
+         * This variant allows for a [LocalDateTime] to be specified.
+         * @see ServerTimestamp
+         * @see createdAt
+         */
+        fun setCreatedAt(dateTime: LocalDateTime?) {
+            createdAt = dateTime?.toTimestamp()
+        }
+
+        /**
          * The timestamp the task was last modified
          *
          * If left null, this field will be replaced with a server-generated timestamp
          * @see ServerTimestamp
          */
         var lastModified: Timestamp? = null
+
+        /**
+         * The timestamp the task was last modified.
+         *
+         * If left null, this field will be replaced with a server-generated timestamp.
+         *
+         * This variant allows for a [LocalDateTime] to be specified.
+         * @see ServerTimestamp
+         * @see lastModified
+         */
+        fun setLastModified(dateTime: LocalDateTime?) {
+            lastModified = dateTime?.toTimestamp()
+        }
 
         /**
          * Returns the created [TodoItem]
