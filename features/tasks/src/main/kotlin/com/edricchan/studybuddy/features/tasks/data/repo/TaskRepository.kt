@@ -7,14 +7,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.dataObjects
 import com.google.firebase.firestore.toObject
 import com.google.firebase.firestore.toObjects
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -53,10 +51,6 @@ class TaskRepository @Inject constructor(
     /** Retrieves the task given its [id] as a [com.google.firebase.firestore.DocumentReference] */
     suspend fun getTaskDocument(id: String) = getCollectionRef().document(id)
 
-    /** Retrieves the task given its [id] as a [com.google.firebase.firestore.DocumentReference] */
-    @Deprecated("This method is kept for backwards compatibility. Use getTaskDocument instead")
-    fun getTaskDocumentCompat(id: String) = runBlocking(Dispatchers.Default) { getTaskDocument(id) }
-
     /** Retrieves the task given its [id] as a [kotlinx.coroutines.flow.Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
     fun observeTask(id: String) = taskCollectionRef.flatMapLatest {
@@ -66,15 +60,6 @@ class TaskRepository @Inject constructor(
     /** Adds the specified [task]. */
     suspend fun addTask(task: TodoItem) = getCollectionRef().add(task).await()
 
-    /**
-     * Adds the specified [task].
-     *
-     * This method returns a [com.google.android.gms.tasks.Task] for backwards compatibility.
-     */
-    @Deprecated("This method is kept for backwards compatibility. Use addTask instead")
-    fun addTaskCompat(task: TodoItem) =
-        runBlocking(Dispatchers.Default) { getCollectionRef().add(task) }
-
     /** Removes the specified [task]. */
     suspend fun removeTask(task: TodoItem) = removeTask(task.id)
 
@@ -82,15 +67,6 @@ class TaskRepository @Inject constructor(
     suspend fun removeTask(id: String) {
         getTaskDocument(id).delete().await()
     }
-
-    /**
-     * Removes the specified task given its [id].
-     *
-     * This method returns a [com.google.android.gms.tasks.Task] for backwards compatibility.
-     */
-    @Deprecated("This method is kept for backwards compatibility. Use removeTask instead")
-    fun removeTaskCompat(id: String) =
-        runBlocking(Dispatchers.Default) { getTaskDocument(id).delete() }
 
     /** Update the task (given its [id]) with the specified [data]. */
     suspend fun updateTask(id: String, data: Map<String, Any>) {
