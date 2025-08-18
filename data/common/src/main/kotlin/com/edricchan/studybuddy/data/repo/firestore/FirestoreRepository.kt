@@ -4,10 +4,14 @@ import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.repo.crud.Countable
 import com.edricchan.studybuddy.data.repo.crud.CrudRepository
+import com.edricchan.studybuddy.data.repo.crud.HasBatchOperations
 import com.edricchan.studybuddy.data.repo.crud.HasQueryOperations
+import com.google.firebase.Firebase
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.WriteBatch
+import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.snapshots
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
@@ -20,11 +24,16 @@ import kotlin.reflect.KClass
  * @see CrudRepository
  * @see HasQueryOperations
  */
-open class FirestoreRepository<T : HasId>(
+open class FirestoreRepository<T : HasId, Batch : FirestoreRepository.FirestoreCrudBatch<T>>(
     private val collectionRef: CollectionReference,
-    private val klass: KClass<T>
+    private val klass: KClass<T>,
+    private val batchFactory: (CollectionReference) -> Batch = {
+        @Suppress("UNCHECKED_CAST")
+        FirestoreCrudBatch<T>(collectionRef = it) as Batch
+    },
 ) : CrudRepository<T, String, DocumentReference>,
     HasQueryOperations<T, QueryMapper>,
+    HasBatchOperations<Batch>,
     Countable<Long> {
     /**
      * Retrieves a document from the [collectionRef].
@@ -56,5 +65,33 @@ open class FirestoreRepository<T : HasId>(
 
     override suspend fun update(id: String, data: Map<String, Any?>) {
         document(id).update(data).await()
+    }
+
+    override suspend fun createBatch(): Batch = batchFactory(collectionRef)
+
+    /**
+     * [HasBatchOperations.CrudBatch] which implements Firestore's [WriteBatch].
+     * @property firestoreBatch The [WriteBatch] to use.
+     * @property collectionRef Collection reference to be used for the [WriteBatch].
+     */
+    open class FirestoreCrudBatch<T : HasId>(
+        protected val firestoreBatch: WriteBatch = Firebase.firestore.batch(),
+        protected val collectionRef: CollectionReference
+    ) : HasBatchOperations.CrudBatch<T, String> {
+        override fun set(id: String, data: T) {
+            firestoreBatch[collectionRef.document(id)] = data
+        }
+
+        override fun update(id: String, data: Map<String, Any?>) {
+            firestoreBatch.update(collectionRef.document(id), data)
+        }
+
+        override fun delete(id: String) {
+            firestoreBatch.delete(collectionRef.document(id))
+        }
+
+        override suspend fun commit() {
+            firestoreBatch.commit().await()
+        }
     }
 }
