@@ -3,7 +3,10 @@ package com.edricchan.studybuddy.exts.androidx.lifecycle.serialization
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.serialization.saved
 import androidx.savedstate.serialization.SavedStateConfiguration
+import androidx.savedstate.serialization.serializers.MutableStateFlowSerializer
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.serializer
 import kotlin.properties.ReadWriteProperty
 
 /**
@@ -19,12 +22,14 @@ import kotlin.properties.ReadWriteProperty
  * @return A property delegate that manages the saving and restoring of the [MutableStateFlow]
  * value.
  */
-inline fun <T> SavedStateHandle.savedMutableStateFlow(
+inline fun <reified T> SavedStateHandle.savedMutableStateFlow(
+    valueSerializer: KSerializer<T> = serializer(),
     key: String? = null,
     configuration: SavedStateConfiguration = SavedStateConfiguration.DEFAULT,
     crossinline initialValue: () -> T
 ): ReadWriteProperty<Any?, MutableStateFlow<T>> = saved(
     key = key,
+    serializer = MutableStateFlowSerializer(valueSerializer),
     configuration = configuration
 ) { MutableStateFlow(initialValue()) }
 
@@ -41,11 +46,13 @@ inline fun <T> SavedStateHandle.savedMutableStateFlow(
  * @return A property delegate that manages the saving and restoring of the [MutableStateFlow]
  * value.
  */
-fun <T> SavedStateHandle.savedMutableStateFlow(
+inline fun <reified T> SavedStateHandle.savedMutableStateFlow(
+    valueSerializer: KSerializer<T> = serializer(),
     key: String? = null,
     configuration: SavedStateConfiguration = SavedStateConfiguration.DEFAULT,
     initialValue: T
 ): ReadWriteProperty<Any?, MutableStateFlow<T>> = savedMutableStateFlow(
+    valueSerializer = valueSerializer,
     key = key,
     configuration = configuration,
     initialValue = { initialValue }
