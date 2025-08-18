@@ -47,16 +47,18 @@ class TodosAdapter(
             binding.apply {
                 if (!item.title.isNullOrEmpty()) itemTitle.text = item.title
                 else itemTitle.setText(R.string.task_adapter_empty_title)
-                if (!item.content.isNullOrEmpty()) {
-                    itemContent.setMarkdown(item.content) {
-                        usePlugins(
-                            context.coilImagesPlugin,
-                            linkifyPlugin,
-                            context.taskListPlugin,
-                            strikethroughPlugin
-                        )
-                    }
-                } else itemContent.setText(R.string.task_adapter_empty_content)
+                itemContent.apply {
+                    item.content?.takeIf { it.isNotBlank() }?.let {
+                        setMarkdown(it) {
+                            usePlugins(
+                                this@TodosAdapter.context.coilImagesPlugin,
+                                linkifyPlugin,
+                                context.taskListPlugin,
+                                strikethroughPlugin
+                            )
+                        }
+                    } ?: setText(R.string.task_adapter_empty_content)
+                }
 
                 itemMarkAsDone.setOnClickListener {
                     itemListener?.onMarkAsDoneButtonClick(item, bindingAdapterPosition)
