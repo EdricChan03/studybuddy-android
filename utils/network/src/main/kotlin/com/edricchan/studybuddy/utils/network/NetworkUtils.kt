@@ -3,31 +3,24 @@ package com.edricchan.studybuddy.utils.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.core.content.getSystemService
 
 enum class NetworkType(
-    private val transportType: Int,
-    private val compatType: Int
+    private val transportType: Int
 ) {
     @Suppress("DEPRECATION")
-    WiFi(NetworkCapabilities.TRANSPORT_WIFI, ConnectivityManager.TYPE_WIFI),
+    WiFi(NetworkCapabilities.TRANSPORT_WIFI),
 
     @Suppress("DEPRECATION")
-    Cellular(NetworkCapabilities.TRANSPORT_CELLULAR, ConnectivityManager.TYPE_MOBILE),
+    Cellular(NetworkCapabilities.TRANSPORT_CELLULAR),
 
     @Suppress("DEPRECATION")
-    Ethernet(NetworkCapabilities.TRANSPORT_ETHERNET, ConnectivityManager.TYPE_ETHERNET);
+    Ethernet(NetworkCapabilities.TRANSPORT_ETHERNET);
 
     fun isCurrentType(manager: ConnectivityManager): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val network = manager.activeNetwork ?: return false
-            val actNw = manager.getNetworkCapabilities(network) ?: return false
-            actNw.hasTransport(transportType)
-        } else {
-            @Suppress("DEPRECATION") // Deprecated in API level 29
-            manager.activeNetworkInfo?.type == compatType
-        }
+        val network = manager.activeNetwork ?: return false
+        val actNw = manager.getNetworkCapabilities(network) ?: return false
+        return actNw.hasTransport(transportType)
     }
 }
 
