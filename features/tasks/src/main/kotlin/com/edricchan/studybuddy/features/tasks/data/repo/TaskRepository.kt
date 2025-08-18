@@ -68,6 +68,18 @@ class TaskRepository @Inject constructor(
         getTaskDocument(id).delete().await()
     }
 
+    /** Bulk removes the specified list of tasks by their [ids]. */
+    suspend fun removeTasks(ids: Set<String>) {
+        val collectionRef = getCollectionRef()
+        val docs = ids.map(collectionRef::document)
+
+        firestore.runBatch { batch ->
+            docs.forEach {
+                batch.delete(it)
+            }
+        }.await()
+    }
+
     /** Update the task (given its [id]) with the specified [data]. */
     suspend fun updateTask(id: String, data: Map<String, Any>) {
         getTaskDocument(id).update(data).await()
