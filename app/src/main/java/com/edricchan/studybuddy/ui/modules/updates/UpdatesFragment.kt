@@ -28,9 +28,9 @@ import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.databinding.FragUpdatesBinding
-import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted
 import com.edricchan.studybuddy.exts.android.showToast
+import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
@@ -266,9 +266,7 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
             setNegativeButton(android.R.string.cancel, null)
             setPositiveButton(R.string.update_dialog_positive_btn_text) { _, _ ->
                 // Check if the write external storage permission has been granted
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-                    requireContext().checkPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                )
+                if (requireContext().checkPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                     return@setPositiveButton downloadUpdate(
                         appUpdate.urlToDownload.toString(),
                         appUpdate.latestVersion
