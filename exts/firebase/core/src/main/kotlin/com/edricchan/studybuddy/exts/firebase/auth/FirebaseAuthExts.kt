@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
@@ -71,11 +72,8 @@ suspend fun FirebaseAuth.awaitSignInWithGoogle(credential: GoogleIdTokenCredenti
     return signInWithCredential(firCredential).await()
 }
 
-/**
- * Gets the [currently signed-in user][FirebaseAuth.getCurrentUser] as a
- * [kotlinx.coroutines.flow.Flow].
- */
-val FirebaseAuth.currentUserFlow
+/** Gets the [currently signed-in user][FirebaseAuth.getCurrentUser] as a [Flow]. */
+val FirebaseAuth.currentUserFlow: Flow<FirebaseUser?>
     get() = callbackFlow {
         val listener = FirebaseAuth.AuthStateListener { auth ->
             trySend(auth.currentUser)
