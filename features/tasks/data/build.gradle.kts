@@ -25,6 +25,7 @@ android {
 
 dependencies {
     api(projects.data.common)
+    api(projects.features.tasks.domain)
     implementation(projects.exts.firebase.temporal)
 
     // Firebase
