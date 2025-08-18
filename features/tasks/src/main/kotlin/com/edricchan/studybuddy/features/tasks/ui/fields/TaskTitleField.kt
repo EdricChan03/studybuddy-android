@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.semantics
 import com.edricchan.studybuddy.features.tasks.R
 
 @Composable
@@ -16,9 +18,12 @@ fun TaskTitleTextField(
     onValueChange: (String) -> Unit
 ) {
     val isError = remember(value, value::isBlank)
+    val requiredMsg = stringResource(R.string.text_field_error_required)
 
     OutlinedTextField(
-        modifier = modifier,
+        modifier = modifier.semantics {
+            if (isError) error(requiredMsg)
+        },
         value = value,
         onValueChange = onValueChange,
         label = {
@@ -26,7 +31,7 @@ fun TaskTitleTextField(
         },
         supportingText = {
             AnimatedVisibility(isError) {
-                Text(text = stringResource(R.string.text_field_error_required))
+                Text(text = requiredMsg)
             }
         },
         isError = isError,
