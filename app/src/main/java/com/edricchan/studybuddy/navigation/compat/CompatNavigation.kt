@@ -33,6 +33,7 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
+import com.edricchan.studybuddy.utils.android.fromApi
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.aboutGraph(
@@ -138,7 +139,7 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
     }
 
     fragment<SettingsFragment, CompatDestination.Settings> {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        fromApi(Build.VERSION_CODES.N) {
             deepLink {
                 action = Intent.ACTION_APPLICATION_PREFERENCES
             }

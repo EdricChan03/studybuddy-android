@@ -27,6 +27,7 @@ import com.edricchan.studybuddy.interfaces.NotificationAction
 import com.edricchan.studybuddy.ui.modules.main.MainActivity
 import com.edricchan.studybuddy.ui.theming.dynamicColorPrimary
 import com.edricchan.studybuddy.utils.NotificationUtils
+import com.edricchan.studybuddy.utils.android.fromApi
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.crashlytics.crashlytics
@@ -98,7 +99,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                 loader.enqueue(req)
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            fromApi(Build.VERSION_CODES.O) {
                 // A notification channel is already set by default from the
                 // NotificationCompat.Builder, so there's no else path
                 remoteMessage.notification?.channelId?.let { channelId ->

@@ -44,6 +44,7 @@ import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.fab.setupFabController
 import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
+import com.edricchan.studybuddy.utils.android.fromApi
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
 import com.google.firebase.auth.FirebaseAuth
@@ -95,7 +96,7 @@ class MainActivity : BaseActivity() {
         }
 
         // Create notification channels
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        fromApi(Build.VERSION_CODES.O) {
             createNotificationChannelsCompat()
         }
 
