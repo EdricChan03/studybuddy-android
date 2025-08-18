@@ -153,5 +153,6 @@ include(
     ":features:settings",
     ":features:tasks",
     ":features:tasks:data",
+    ":features:tasks:domain",
     ":app"
 )
