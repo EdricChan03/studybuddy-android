@@ -4,6 +4,7 @@ import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.repo.crud.Countable
 import com.edricchan.studybuddy.data.repo.crud.CrudRepository
+import com.edricchan.studybuddy.data.repo.crud.HasBatchOperations
 import com.edricchan.studybuddy.data.repo.crud.HasQueryOperations
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
@@ -30,11 +31,18 @@ import kotlin.reflect.KClass
  * @see HasQueryOperations
  * @see FirestoreRepository
  */
-open class FlowableFirestoreRepository<T : HasId>(
+open class FlowableFirestoreRepository<T : HasId, Batch : FirestoreRepository.FirestoreCrudBatch<T>>(
     private val collectionRefFlow: Flow<CollectionReference>,
-    private val klass: KClass<T>
+    private val klass: KClass<T>,
+    private val batchFactory: (CollectionReference) -> Batch = {
+        @Suppress("UNCHECKED_CAST")
+        FirestoreRepository.FirestoreCrudBatch<T>(
+            collectionRef = it
+        ) as Batch
+    }
 ) : CrudRepository<T, String, DocumentReference>,
     HasQueryOperations<T, QueryMapper>,
+    HasBatchOperations<Batch>,
     Countable<Long> {
     private suspend fun getCollectionRef() = collectionRefFlow.first()
 
@@ -74,4 +82,6 @@ open class FlowableFirestoreRepository<T : HasId>(
     override suspend fun update(id: String, data: Map<String, Any?>) {
         getRef(id).update(data).await()
     }
+
+    override suspend fun createBatch(): Batch = batchFactory(getCollectionRef())
 }
