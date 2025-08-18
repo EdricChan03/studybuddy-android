@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
-import com.edricchan.studybuddy.exts.firebase.auth.createUserWithEmailAndPasswordAsync
+import com.edricchan.studybuddy.exts.firebase.auth.awaitCreateUserWithEmailAndPassword
 import com.edricchan.studybuddy.exts.material.snackbar.createSnackbar
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
@@ -131,7 +131,7 @@ class RegisterActivity : BaseActivity() {
 
     private fun register(email: String, password: String) = lifecycleScope.launch {
         try {
-            auth.createUserWithEmailAndPasswordAsync(email, password)
+            auth.awaitCreateUserWithEmailAndPassword(email, password)
             binding.progressBar.isVisible = false
             finish()
         } catch (e: Exception) {

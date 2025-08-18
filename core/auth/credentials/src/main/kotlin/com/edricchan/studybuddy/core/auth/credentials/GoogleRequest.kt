@@ -7,7 +7,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CredentialOption
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
-import com.edricchan.studybuddy.exts.firebase.auth.signInWithGoogleAsync
+import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithGoogle
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.AuthResult
@@ -68,7 +68,7 @@ suspend fun @receiver:UiContext Context.requestGoogleCredential(
  * [requestGoogleCredential].
  * @param context A [Context] that must be of a UI context.
  * @param credentialOptions List of credential options to be passed to [requestGoogleCredential].
- * @return The result of [signInWithGoogleAsync].
+ * @return The result of [awaitSignInWithGoogle].
  */
 suspend fun FirebaseAuth.signInWithGoogleCredentials(
     @UiContext context: Context,
@@ -76,5 +76,5 @@ suspend fun FirebaseAuth.signInWithGoogleCredentials(
 ): AuthResult {
     val cred = context.requestGoogleCredential(credentialOptions)
 
-    return signInWithGoogleAsync(cred)
+    return awaitSignInWithGoogle(cred)
 }

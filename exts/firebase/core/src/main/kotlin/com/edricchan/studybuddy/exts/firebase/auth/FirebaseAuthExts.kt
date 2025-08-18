@@ -29,44 +29,44 @@ val FirebaseUser?.userDocument: DocumentReference
     get() = this.getUserDocument(Firebase.firestore)
 
 /**
- * Asynchronously creates a user using the email + password authentication method,
+ * Suspends the current coroutine creating a user using the email + password authentication method
  * with the given [email] and [password].
  * @return The result of the user creation request.
  * @see FirebaseAuth.createUserWithEmailAndPassword
  */
-suspend fun FirebaseAuth.createUserWithEmailAndPasswordAsync(
+suspend fun FirebaseAuth.awaitCreateUserWithEmailAndPassword(
     email: String, password: String
 ): AuthResult = createUserWithEmailAndPassword(email, password).await()
 
 /**
- * Asynchronously signs in via the email + password authentication method, using the given
- * [email] and [password].
+ * Suspends the current coroutine attempting to sign in via the email + password authentication
+ * method, using the given [email] and [password].
  * @return The result of the sign in request.
  * @see FirebaseAuth.signInWithEmailAndPassword
  */
-suspend fun FirebaseAuth.signInWithEmailAndPasswordAsync(
+suspend fun FirebaseAuth.awaitSignInWithEmailAndPassword(
     email: String, password: String
 ): AuthResult = signInWithEmailAndPassword(email, password).await()
 
 /**
- * Asynchronously signs in to Google using the given [account].
+ * Suspends the current coroutine and attempts to sign in to Google using the given [account].
  * @return The result of the sign in request.
  * @see FirebaseAuth.signInWithCredential
  * @see GoogleAuthProvider
  */
-suspend fun FirebaseAuth.signInWithGoogleAsync(account: GoogleSignInAccount): AuthResult {
+suspend fun FirebaseAuth.awaitSignInWithGoogle(account: GoogleSignInAccount): AuthResult {
     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
     return signInWithCredential(credential).await()
 }
 
 /**
- * Asynchronously signs in to Google using the given [credential].
+ * Suspends the current coroutine and attempts to sign in to Google using the given [credential].
  * @return The result of the sign in request.
  * @see FirebaseAuth.signInWithCredential
  * @see GoogleAuthProvider
  * @see GoogleIdTokenCredential
  */
-suspend fun FirebaseAuth.signInWithGoogleAsync(credential: GoogleIdTokenCredential): AuthResult {
+suspend fun FirebaseAuth.awaitSignInWithGoogle(credential: GoogleIdTokenCredential): AuthResult {
     val firCredential = GoogleAuthProvider.getCredential(credential.idToken, null)
     return signInWithCredential(firCredential).await()
 }

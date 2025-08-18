@@ -25,8 +25,8 @@ import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
-import com.edricchan.studybuddy.exts.firebase.auth.signInWithEmailAndPasswordAsync
-import com.edricchan.studybuddy.exts.firebase.auth.signInWithGoogleAsync
+import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
+import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithGoogle
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.auth.R
@@ -143,7 +143,7 @@ class LoginActivity : BaseActivity() {
         credential: Credential
     ) {
         lifecycleScope.launch {
-            auth.signInWithGoogleAsync(credential.asGoogleIdTokenCredential())
+            auth.awaitSignInWithGoogle(credential.asGoogleIdTokenCredential())
         }
     }
 
@@ -194,7 +194,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private suspend fun signInEmail(email: String, password: String) {
-        signIn { auth.signInWithEmailAndPasswordAsync(email, password) }
+        signIn { auth.awaitSignInWithEmailAndPassword(email, password) }
     }
 
     private suspend fun signIn(
