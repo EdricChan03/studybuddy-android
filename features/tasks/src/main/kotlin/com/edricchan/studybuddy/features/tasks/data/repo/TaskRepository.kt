@@ -51,6 +51,9 @@ class TaskRepository @Inject constructor(
     /** Retrieves the task given its [id] as a [com.google.firebase.firestore.DocumentReference] */
     suspend fun getTaskDocument(id: String) = getCollectionRef().document(id)
 
+    /** Checks if the specified [id] exists. */
+    suspend fun hasTask(id: String) = getTaskDocument(id).get().await().exists()
+
     /** Retrieves the task given its [id] as a [kotlinx.coroutines.flow.Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
     fun observeTask(id: String) = taskCollectionRef.flatMapLatest {
