@@ -28,7 +28,7 @@ class TaskRepository @Inject constructor(
     /** Retrieves the user's list of tasks. */
     suspend fun getTasks() = getCollectionRef().get().await().toObjects<TodoItem>()
 
-    /** Retrieves the user's list of tasks as a [kotlinx.coroutines.flow.Flow] of updates. */
+    /** Retrieves the user's list of tasks as a [Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)
     val tasksFlow = taskCollectionRef.flatMapLatest { it.dataObjects<TodoItem>() }
 
@@ -36,10 +36,7 @@ class TaskRepository @Inject constructor(
     suspend fun queryTasks(query: QueryMapper) =
         query(getCollectionRef()).get().await().toObjects<TodoItem>()
 
-    /**
-     * Retrieves the user's list of tasks given the specified [query] as a
-     * [kotlinx.coroutines.flow.Flow].
-     */
+    /** Retrieves the user's list of tasks given the specified [query] as a [Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
     fun observeQueryTasks(query: QueryMapper) =
         taskCollectionRef.flatMapLatest { query(it).dataObjects<TodoItem>() }
@@ -54,7 +51,7 @@ class TaskRepository @Inject constructor(
     /** Checks if the specified [id] exists. */
     suspend fun hasTask(id: String) = getTaskDocument(id).get().await().exists()
 
-    /** Retrieves the task given its [id] as a [kotlinx.coroutines.flow.Flow]. */
+    /** Retrieves the task given its [id] as a [Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
     fun observeTask(id: String) = taskCollectionRef.flatMapLatest {
         it.document(id).dataObjects<TodoItem>()
