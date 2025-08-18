@@ -21,16 +21,14 @@ import kotlin.reflect.KClass
  * [CrudRepository] which uses Firebase Firestore as its underlying data-source.
  * @property collectionRef [CollectionReference] to retrieve the data from.
  * @property klass [KClass] representation of the POJO class to be used for [CrudRepository].
+ * @property batchFactory Lambda used to instantiate a [Batch] for [createBatch].
  * @see CrudRepository
  * @see HasQueryOperations
  */
 open class FirestoreRepository<T : HasId, Batch : FirestoreRepository.FirestoreCrudBatch<T>>(
     private val collectionRef: CollectionReference,
     private val klass: KClass<T>,
-    private val batchFactory: (CollectionReference) -> Batch = {
-        @Suppress("UNCHECKED_CAST")
-        FirestoreCrudBatch<T>(collectionRef = it) as Batch
-    },
+    private val batchFactory: (CollectionReference) -> Batch
 ) : CrudRepository<T, String, DocumentReference>,
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
