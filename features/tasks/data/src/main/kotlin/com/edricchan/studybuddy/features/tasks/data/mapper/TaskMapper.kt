@@ -10,7 +10,7 @@ import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.google.firebase.firestore.DocumentReference
 import java.time.Instant
 
-fun TaskItem.toDto(
+inline fun TaskItem.toDto(
     projectMapper: (TaskProject) -> DocumentReference
 ): TodoItem = TodoItem(
     id = id,
