@@ -49,6 +49,8 @@ open class FirestoreRepository<T : HasId, Batch : FirestoreRepository.FirestoreC
 
     override suspend fun getRef(id: String): DocumentReference = collectionRef.document(id)
 
+    override suspend fun getSnapshot(id: String): T? = getRef(id).get().await().toObject(klass)
+
     override suspend fun count(): Long =
         collectionRef.count()[AggregateSource.SERVER].await().count
 

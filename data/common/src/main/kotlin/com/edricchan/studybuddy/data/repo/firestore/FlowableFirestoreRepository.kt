@@ -64,6 +64,8 @@ open class FlowableFirestoreRepository<T : HasId, Batch : FirestoreRepository.Fi
 
     override suspend fun getRef(id: String): DocumentReference = getCollectionRef().document(id)
 
+    override suspend fun getSnapshot(id: String): T? = getRef(id).get().await().toObject(klass)
+
     override suspend fun count(): Long =
         getCollectionRef().count()[AggregateSource.SERVER].await().count
 

@@ -27,6 +27,13 @@ interface CrudRepository<T, Id, Reference> {
 
     /** Retrieves the specified document [id]'s reference. */
     suspend fun getRef(id: Id): Reference
+
+    /**
+     * Retrieves a snapshot of the specified document's data, or `null` if no such document exists.
+     *
+     * Use [get] instead if an observable [Flow] is desired.
+     */
+    suspend fun getSnapshot(id: Id): T?
     //#endregion
 
     //#region Create operations
