@@ -5,7 +5,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
-import io.kotest.matchers.reflection.compose
+import io.kotest.matchers.compose.all
+import io.kotest.matchers.reflection.havingProperty
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
 
@@ -29,22 +30,22 @@ fun TextStyle.shouldNotUseFontFamily(family: FontFamily) = apply {
 }
 
 /** Creates a [Matcher] for a [Typography] with the given [family] for each [TextStyle]. */
-fun typographyMatcher(family: FontFamily) = Matcher.compose(
-    useFontFamily(family) to Typography::displayLarge,
-    useFontFamily(family) to Typography::displayMedium,
-    useFontFamily(family) to Typography::displaySmall,
-    useFontFamily(family) to Typography::headlineLarge,
-    useFontFamily(family) to Typography::headlineMedium,
-    useFontFamily(family) to Typography::headlineSmall,
-    useFontFamily(family) to Typography::titleLarge,
-    useFontFamily(family) to Typography::titleMedium,
-    useFontFamily(family) to Typography::titleSmall,
-    useFontFamily(family) to Typography::bodyLarge,
-    useFontFamily(family) to Typography::bodyMedium,
-    useFontFamily(family) to Typography::bodySmall,
-    useFontFamily(family) to Typography::labelLarge,
-    useFontFamily(family) to Typography::labelMedium,
-    useFontFamily(family) to Typography::labelSmall,
+fun typographyMatcher(family: FontFamily) = Matcher.all(
+    havingProperty(useFontFamily(family) to Typography::displayLarge),
+    havingProperty(useFontFamily(family) to Typography::displayMedium),
+    havingProperty(useFontFamily(family) to Typography::displaySmall),
+    havingProperty(useFontFamily(family) to Typography::headlineLarge),
+    havingProperty(useFontFamily(family) to Typography::headlineMedium),
+    havingProperty(useFontFamily(family) to Typography::headlineSmall),
+    havingProperty(useFontFamily(family) to Typography::titleLarge),
+    havingProperty(useFontFamily(family) to Typography::titleMedium),
+    havingProperty(useFontFamily(family) to Typography::titleSmall),
+    havingProperty(useFontFamily(family) to Typography::bodyLarge),
+    havingProperty(useFontFamily(family) to Typography::bodyMedium),
+    havingProperty(useFontFamily(family) to Typography::bodySmall),
+    havingProperty(useFontFamily(family) to Typography::labelLarge),
+    havingProperty(useFontFamily(family) to Typography::labelMedium),
+    havingProperty(useFontFamily(family) to Typography::labelSmall),
 )
 
 /**
