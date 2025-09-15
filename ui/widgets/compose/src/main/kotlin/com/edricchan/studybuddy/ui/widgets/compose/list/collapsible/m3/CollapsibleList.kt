@@ -178,12 +178,12 @@ fun CollapsibleListHeader(
     enabled: Boolean = true,
     isExpanded: Boolean,
     onExpansionChange: (Boolean) -> Unit,
-    shape: Shape = CollapsibleListDefaults.headerShape(isExpanded = isExpanded),
     leadingContent: @Composable (() -> Unit)? = null,
     overlineContent: @Composable (() -> Unit)? = null,
     headlineContent: @Composable () -> Unit,
     supportingContent: @Composable (() -> Unit)? = null,
-    colors: CollapsibleListHeaderColors,
+    shape: Shape = CollapsibleListDefaults.headerShape(isExpanded = isExpanded),
+    colors: CollapsibleListHeaderColors
 ) {
     val indicatorContainerColor by colors.expandIndicatorContainerColor(
         enabled = enabled,
