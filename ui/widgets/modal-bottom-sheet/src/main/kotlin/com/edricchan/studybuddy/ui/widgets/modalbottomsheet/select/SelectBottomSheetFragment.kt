@@ -64,26 +64,32 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
         }
     }
 
-    private fun onConfirmClick() {
+    private fun dismissWithResult(
+        isCanceled: Boolean,
+        selectedItems: Set<OptionBottomSheetItem<Id>>? = null
+    ) {
         setFragmentResult(
-            RESULT_KEY,
-            FragmentResult(
-                false,
-                viewModel.items.value.selectedItems
+            requestKey = RESULT_KEY,
+            result = FragmentResult(
+                isCanceled = isCanceled,
+                selectedItems = selectedItems
             ).toBundle()
         )
         dismiss()
+    }
+
+    private fun onConfirmClick() {
+        dismissWithResult(
+            isCanceled = false,
+            selectedItems = viewModel.items.value.selectedItems
+        )
     }
 
     private fun onCancelClick() {
-        setFragmentResult(
-            RESULT_KEY, FragmentResult<Nothing>(
-                true
-            ).toBundle()
+        dismissWithResult(
+            isCanceled = true
         )
-        dismiss()
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
