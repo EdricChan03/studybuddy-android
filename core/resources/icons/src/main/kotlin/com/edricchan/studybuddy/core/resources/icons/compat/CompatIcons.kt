@@ -2,7 +2,9 @@ package com.edricchan.studybuddy.core.resources.icons.compat
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.R
@@ -19,6 +21,10 @@ value class CompatIcon(
     /** Converts this vector icon to its Compose [ImageVector] equivalent. */
     @Composable
     fun vector(): ImageVector = ImageVector.vectorResource(iconRes)
+
+    /** Converts this vector icon to its Compose [Painter] equivalent. */
+    @Composable
+    fun painter(): Painter = painterResource(iconRes)
 }
 
 /** @see R.drawable.ic_bug_report_outline_24dp */
