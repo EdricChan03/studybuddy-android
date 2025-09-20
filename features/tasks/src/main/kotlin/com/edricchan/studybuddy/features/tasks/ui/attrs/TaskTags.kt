@@ -26,7 +26,7 @@ import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 @Composable
 fun TaskTagsListItem(
     modifier: Modifier = Modifier,
-    tags: List<String>
+    tags: Set<String>
 ) {
     val displayTags = tags.filter(String::isNotBlank)
     if (displayTags.isNotEmpty()) {
@@ -62,7 +62,7 @@ fun TaskTagsListItem(
 private fun TaskTagsListItemPreview() {
     StudyBuddyTheme {
         TaskTagsListItem(
-            tags = listOf(
+            tags = setOf(
                 "compose",
                 "studybuddy",
                 "tasks",
@@ -77,7 +77,7 @@ private fun TaskTagsListItemPreview() {
 private fun TaskTagsListItemManyTagsPreview() {
     StudyBuddyTheme {
         TaskTagsListItem(
-            tags = (0..100).map { "Item $it" }
+            tags = (0..100).map { "Item $it" }.toSet()
         )
     }
 }
