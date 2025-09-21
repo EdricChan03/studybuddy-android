@@ -110,6 +110,31 @@ internal fun ExpListItemSurface(
 }
 
 @Composable
+internal fun ExpListItemSurface(
+    modifier: Modifier = Modifier,
+    enabled: Boolean,
+    selected: Boolean,
+    onClick: () -> Unit,
+    shape: Shape,
+    colors: ExpListItemColors,
+    content: @Composable () -> Unit
+) {
+    val containerColor by colors.containerColor(enabled = enabled)
+    val contentColor by colors.contentColor(enabled = enabled)
+
+    Surface(
+        modifier = modifier,
+        enabled = enabled,
+        selected = selected,
+        onClick = onClick,
+        shape = shape,
+        color = containerColor,
+        contentColor = contentColor,
+        content = content
+    )
+}
+
+@Composable
 private fun ExpListItemContent(
     modifier: Modifier = Modifier,
     leadingContent: @Composable (() -> Unit)?,
@@ -316,6 +341,63 @@ fun ExpListItem(
         enabled = enabled,
         checked = checked,
         onCheckedChange = onCheckedChange,
+        shape = shape,
+        colors = colors
+    ) {
+        ExpListItemContent(
+            leadingContent = leadingContent,
+            overlineContent = overlineContent,
+            headlineContent = headlineContent,
+            supportingContent = supportingContent,
+            trailingContent = trailingContent,
+            enabled = enabled,
+            colors = colors
+        )
+    }
+}
+
+/**
+ * Expressive variant of the Material3 [androidx.compose.material3.ListItem], which
+ * adds a default [Shape].
+ * @param modifier [Modifier] for the layout.
+ * @param enabled Whether interactions should be enabled.
+ * @param selected Whether the item is selected. It is up to the consumer to specify
+ * custom styling if desired when the item is actually selected.
+ * @param onClick Invoked when the item is clicked.
+ * @param leadingContent Content to be shown on the start/left-hand side of the layout.
+ * @param overlineContent Content to be shown above the [headlineContent].
+ * @param headlineContent Content to be shown above the [supportingContent].
+ * This could be used to provide a title.
+ * @param supportingContent Additional content to be shown. This could be used to provide
+ * a description.
+ * @param trailingContent Content to be shown on the end/right-hand side of the layout.
+ * @param shape Desired [Shape] for the layout. The content is clipped to this shape.
+ *
+ * To get the recommended shape for this layout, use [ExpListItemDefaults.itemShape] if the
+ * list item is in a list of items or [ExpListItemDefaults.baseShape] if this item is
+ * displayed on its own.
+ * @param colors Desired [ExpListItemColors] to be used for this layout. Use
+ * [ExpListItemDefaults.colors] to retrieve the default colours.
+ */
+@Composable
+fun ExpListItem(
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    selected: Boolean,
+    onClick: () -> Unit,
+    leadingContent: (@Composable () -> Unit)? = null,
+    overlineContent: @Composable (() -> Unit)? = null,
+    headlineContent: @Composable () -> Unit,
+    supportingContent: (@Composable () -> Unit)? = null,
+    trailingContent: (@Composable () -> Unit)? = null,
+    shape: Shape,
+    colors: ExpListItemColors = ExpListItemDefaults.colors()
+) {
+    ExpListItemSurface(
+        modifier = modifier,
+        enabled = enabled,
+        selected = selected,
+        onClick = onClick,
         shape = shape,
         colors = colors
     ) {
