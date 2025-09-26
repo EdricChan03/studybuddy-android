@@ -1,7 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
-
-    kotlin("plugin.serialization")
+    com.edricchan.studybuddy.library.`kotlinx-serialization`
 }
 
 android {
@@ -25,6 +24,4 @@ android {
 dependencies {
     api(libs.androidx.navigation.common.ktx)
     api(libs.androidx.navigation.runtime.ktx)
-
-    api(libs.kotlinx.serialization.core)
 }

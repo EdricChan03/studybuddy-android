@@ -1,6 +1,6 @@
 plugins {
-    id("com.edricchan.studybuddy.library.android")
-    kotlin("plugin.serialization")
+    com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`kotlinx-serialization`
 }
 
 android {
@@ -9,5 +9,4 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.kotlinx.serialization.core)
 }

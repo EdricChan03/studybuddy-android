@@ -1,7 +1,7 @@
 plugins {
     com.edricchan.studybuddy.library.android
     com.edricchan.studybuddy.library.testing.`kotest-junit5`
-    alias(libs.plugins.kotlin.plugin.serialization)
+    com.edricchan.studybuddy.library.`kotlinx-serialization`
 }
 
 android {
@@ -24,7 +24,6 @@ android {
 
 dependencies {
     api(libs.androidx.navigation.runtime.ktx)
-    api(libs.kotlinx.serialization.core)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)

@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.plugins.protobuf.text())
     implementation(libs.plugins.ksp.text())
     implementation(libs.plugins.dagger.hilt.text())
+    implementation(libs.plugins.kotlin.plugin.serialization.text())
 }
 
 gradlePlugin {

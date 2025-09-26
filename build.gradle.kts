@@ -12,7 +12,6 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.kotlin.plugin.serialization) apply false
     alias(libs.plugins.dependencyAnalysis)
     com.github.`ben-manes`.versions
     com.edricchan.studybuddy.`dependency-updates`
