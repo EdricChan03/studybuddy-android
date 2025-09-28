@@ -26,7 +26,7 @@ android {
 dependencies {
     api(projects.ui.theming.common)
 
-    implementation(libs.androidx.compose.material3)
+    api(libs.androidx.compose.material3)
 
     testImplementation(libs.kotlin.test)
 
