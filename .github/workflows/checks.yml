@@ -49,7 +49,8 @@ jobs:
       - name: Run dependencyUpdates task
         uses: ./.github/actions/build-gradle
         with:
-          gradle-arguments: dependencyUpdates
+          # TODO: Remove --no-parallel flag (see also https://github.com/ben-manes/gradle-versions-plugin/issues/966)
+          gradle-arguments: dependencyUpdates --no-parallel
           upload-name: dependency-updates
           # Dependency update info is available at build/dependencyUpdates/report.<filetype>
           upload-path: build/dependencyUpdates/
