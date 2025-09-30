@@ -4,21 +4,21 @@ accompanist = "0.37.3"
 android-desugar = "2.1.5"
 android-gradle = "8.13.0"
 androidx-activity = "1.11.0"
-androidx-compose = "1.10.0-alpha03"
+androidx-compose = "1.10.0-alpha04"
 androidx-compose-material3 = "1.5.0-alpha04"
-androidx-compose-material3-adaptive = "1.2.0-beta02"
+androidx-compose-material3-adaptive = "1.2.0-beta03"
 androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.9"
 androidx-lifecycle = "2.9.4"
-androidx-navigation = "2.9.4"
+androidx-navigation = "2.9.5"
 coil = "3.3.0"
 # Used when resolving Markwon's CommonMark dependencies
 commonmark = "0.21.0"
 compose-richtext = "0.20.0"
-dagger = "2.57.1"
+dagger = "2.57.2"
 deep-link-dispatch = "6.2.2"
 firebase-bom = "34.3.0"
-gradle-versions = "0.52.0"
+gradle-versions = "0.53.0"
 kotest = "6.0.3"
 kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
@@ -56,7 +56,7 @@ androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0"
 androidx-savedstate-ktx = "androidx.savedstate:savedstate-ktx:1.4.0-alpha03"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-beta01"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.4"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.10.5"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
@@ -88,7 +88,7 @@ composeRichText-commonmark = { module = "com.halilibo.compose-richtext:richtext-
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.14.0-alpha04"
+materialComponents = "com.google.android.material:material:1.14.0-alpha05"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
@@ -175,7 +175,7 @@ androidx-test-runner = "androidx.test:runner:1.7.0"
 androidx-test-rules = "androidx.test:rules:1.7.0"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:5.19.0"
+mockito-core = "org.mockito:mockito-core:5.20.0"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 
