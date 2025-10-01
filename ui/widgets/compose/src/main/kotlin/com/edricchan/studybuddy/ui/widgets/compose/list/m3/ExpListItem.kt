@@ -524,6 +524,18 @@ object ExpListItemDefaults {
         }
     }
 
+    /**
+     * Gets the desired [Shape] for an [ExpListItem].
+     * @param index Current index of this list item in a lazy list.
+     * @param count The number of list items to be shown in the surrounding lazy list.
+     * @param selected Whether the list item is selected.
+     */
+    @Composable
+    fun itemShape(index: Int, count: Int, selected: Boolean): CornerBasedShape {
+        if (selected) return baseShape
+        return itemShape(index = index, count = count)
+    }
+
     /** The default [ExpListItemColors.containerColor] value if not specified. */
     @get:Composable
     val itemContainerColor: Color get() = MaterialTheme.colorScheme.surfaceContainerHigh
