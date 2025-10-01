@@ -256,7 +256,9 @@ class AccountFragment :
     }
 
     private fun showUpdateEmailDialog() {
-        requireContext().showMaterialPromptDialog {
+        requireContext().showMaterialPromptDialog(
+            defaultIsEnabled = false
+        ) {
             textInputLayout {
                 setHint(R.string.account_new_email_dialog_edittext_title)
             }
@@ -290,7 +292,9 @@ class AccountFragment :
     }
 
     private fun showUpdateNameDialog() {
-        requireContext().showMaterialPromptDialog {
+        requireContext().showMaterialPromptDialog(
+            defaultIsEnabled = false
+        ) {
             textInputLayout {
                 setHint(R.string.account_new_name_dialog_edittext_title)
             }
@@ -317,7 +321,9 @@ class AccountFragment :
     }
 
     private fun showUpdatePasswordDialog() {
-        requireContext().showMaterialPromptDialog {
+        requireContext().showMaterialPromptDialog(
+            defaultIsEnabled = false
+        ) {
             textInputLayout {
                 endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
                 setHint(R.string.account_new_password_dialog_edittext_title)
