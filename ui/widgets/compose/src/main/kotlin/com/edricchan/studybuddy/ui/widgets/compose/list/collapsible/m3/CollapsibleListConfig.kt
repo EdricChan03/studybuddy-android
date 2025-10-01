@@ -145,10 +145,6 @@ data class CollapsibleListHeaderColors(
         ),
     )
 
-    internal fun getColorsPair(isExpanded: Boolean): Pair<SurfaceColors, SurfaceColors> =
-        if (isExpanded) expandedColors to disabledExpandedColors
-        else baseColors to disabledColors
-
     /** Gets the desired [SurfaceColors] based upon the [enabled] and [isExpanded] states. */
     fun getColors(enabled: Boolean, isExpanded: Boolean): SurfaceColors = when {
         enabled && isExpanded -> expandedColors
@@ -190,15 +186,20 @@ data class CollapsibleListHeaderColors(
         )
 
     @Composable
-    internal fun asExpListItemColors(isExpanded: Boolean): ExpListItemColors {
-        val (enabledColors, disabledColors) = getColorsPair(isExpanded)
+    internal fun asExpListItemColors(): ExpListItemColors {
         return ExpListItemColors(
-            containerColor = enabledColors.containerColor,
-            contentColor = enabledColors.contentColor,
-            iconColor = enabledColors.iconColor,
+            containerColor = baseColors.containerColor,
+            contentColor = baseColors.contentColor,
+            iconColor = baseColors.iconColor,
+            selectedContainerColor = expandedColors.containerColor,
+            selectedContentColor = expandedColors.contentColor,
+            selectedIconColor = expandedColors.iconColor,
             disabledContainerColor = disabledColors.containerColor,
             disabledContentColor = disabledColors.contentColor,
-            disabledIconColor = disabledColors.iconColor
+            disabledIconColor = disabledColors.iconColor,
+            disabledSelectedContainerColor = disabledExpandedColors.containerColor,
+            disabledSelectedContentColor = disabledExpandedColors.contentColor,
+            disabledSelectedIconColor = disabledExpandedColors.iconColor
         )
     }
 }

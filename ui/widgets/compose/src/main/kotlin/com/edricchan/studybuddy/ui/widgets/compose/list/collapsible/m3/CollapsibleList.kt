@@ -144,7 +144,7 @@ fun CollapsibleListHeader(
         headlineContent = headlineContent,
         supportingContent = supportingContent,
         trailingContent = trailingContent,
-        colors = colors.asExpListItemColors(isExpanded = isExpanded)
+        colors = colors.asExpListItemColors()
     )
 }
 

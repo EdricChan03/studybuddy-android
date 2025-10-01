@@ -94,8 +94,8 @@ internal fun ExpListItemSurface(
     colors: ExpListItemColors,
     content: @Composable () -> Unit
 ) {
-    val containerColor by colors.containerColor(enabled = enabled)
-    val contentColor by colors.contentColor(enabled = enabled)
+    val containerColor by colors.containerColor(enabled = enabled, selected = checked)
+    val contentColor by colors.contentColor(enabled = enabled, selected = checked)
 
     Surface(
         modifier = modifier,
@@ -119,8 +119,8 @@ internal fun ExpListItemSurface(
     colors: ExpListItemColors,
     content: @Composable () -> Unit
 ) {
-    val containerColor by colors.containerColor(enabled = enabled)
-    val contentColor by colors.contentColor(enabled = enabled)
+    val containerColor by colors.containerColor(enabled = enabled, selected = selected)
+    val contentColor by colors.contentColor(enabled = enabled, selected = selected)
 
     Surface(
         modifier = modifier,
@@ -427,29 +427,50 @@ data class ExpListItemColors(
     val containerColor: Color,
     val contentColor: Color,
     val iconColor: Color,
+    val selectedContainerColor: Color,
+    val selectedContentColor: Color,
+    val selectedIconColor: Color,
     val disabledContainerColor: Color,
     val disabledContentColor: Color,
-    val disabledIconColor: Color
+    val disabledIconColor: Color,
+    val disabledSelectedContainerColor: Color,
+    val disabledSelectedContentColor: Color,
+    val disabledSelectedIconColor: Color,
 ) {
     @Composable
-    fun containerColor(enabled: Boolean): State<Color> =
+    fun containerColor(enabled: Boolean, selected: Boolean = false): State<Color> =
         animateColorAsState(
             label = "Expressive list item container colour",
-            targetValue = if (enabled) containerColor else disabledContainerColor
+            targetValue = when {
+                enabled && selected -> selectedContainerColor
+                !enabled && selected -> disabledSelectedContainerColor
+                enabled && !selected -> containerColor
+                else -> disabledContainerColor
+            }
         )
 
     @Composable
-    fun contentColor(enabled: Boolean): State<Color> =
+    fun contentColor(enabled: Boolean, selected: Boolean = false): State<Color> =
         animateColorAsState(
             label = "Expressive list item content colour",
-            targetValue = if (enabled) contentColor else disabledContentColor
+            targetValue = when {
+                enabled && selected -> selectedContentColor
+                !enabled && selected -> disabledSelectedContentColor
+                enabled && !selected -> contentColor
+                else -> disabledContentColor
+            }
         )
 
     @Composable
-    fun iconColor(enabled: Boolean): State<Color> =
+    fun iconColor(enabled: Boolean, selected: Boolean = false): State<Color> =
         animateColorAsState(
             label = "Expressive list item icon colour",
-            targetValue = if (enabled) iconColor else disabledIconColor
+            targetValue = when {
+                enabled && selected -> selectedIconColor
+                !enabled && selected -> disabledSelectedIconColor
+                enabled && !selected -> iconColor
+                else -> disabledIconColor
+            }
         )
 }
 
@@ -515,30 +536,60 @@ object ExpListItemDefaults {
     @get:Composable
     val itemIconColor: Color get() = MaterialTheme.colorScheme.onSurfaceVariant
 
+    /** The default [ExpListItemColors.selectedContainerColor] value if not specified. */
+    @get:Composable
+    val itemSelectedContainerColor: Color get() = MaterialTheme.colorScheme.primaryContainer
+
+    /** The default [ExpListItemColors.selectedContentColor] value if not specified. */
+    @get:Composable
+    val itemSelectedContentColor: Color get() = contentColorFor(itemContainerColor)
+
+    /** The default [ExpListItemColors.selectedIconColor] value if not specified. */
+    @get:Composable
+    val itemSelectedIconColor: Color get() = MaterialTheme.colorScheme.onPrimaryContainer
+
     /**
      * Gets the [ExpListItemColors] to be used for a [ExpListItem].
      * @param containerColor Container colour to use when enabled.
      * @param contentColor Content colour to use when enabled.
      * @param iconColor Icon content colour to use when enabled.
+     * @param selectedContainerColor Container colour to use when enabled and selected.
+     * @param selectedContentColor Content colour to use when enabled and selected.
+     * @param selectedIconColor Icon content colour to use when enabled and selected.
      * @param disabledContainerColor Container colour to use when disabled.
      * @param disabledContentColor Content colour to use when disabled.
      * @param disabledIconColor Icon content colour to use when disabled.
+     * @param disabledSelectedContainerColor Container colour to use when disabled and selected.
+     * @param disabledSelectedContentColor Content colour to use when disabled and selected.
+     * @param disabledSelectedIconColor Icon content colour to use when disabled and selected.
      */
     @Composable
     fun colors(
         containerColor: Color = itemContainerColor,
         contentColor: Color = contentColorFor(containerColor),
         iconColor: Color = itemIconColor,
+        selectedContainerColor: Color = itemSelectedContainerColor,
+        selectedContentColor: Color = contentColorFor(selectedContainerColor),
+        selectedIconColor: Color = itemSelectedIconColor,
         disabledContainerColor: Color = containerColor.copy(alpha = 0.38f),
         disabledContentColor: Color = contentColor.copy(alpha = 0.38f),
-        disabledIconColor: Color = iconColor.copy(alpha = 0.38f)
+        disabledIconColor: Color = iconColor.copy(alpha = 0.38f),
+        disabledSelectedContainerColor: Color = selectedContainerColor.copy(alpha = 0.38f),
+        disabledSelectedContentColor: Color = selectedContentColor.copy(alpha = 0.38f),
+        disabledSelectedIconColor: Color = selectedIconColor.copy(alpha = 0.38f)
     ): ExpListItemColors = ExpListItemColors(
         containerColor = containerColor,
         contentColor = contentColor,
         iconColor = iconColor,
+        selectedContainerColor = selectedContainerColor,
+        selectedContentColor = selectedContentColor,
+        selectedIconColor = selectedIconColor,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
-        disabledIconColor = disabledIconColor
+        disabledIconColor = disabledIconColor,
+        disabledSelectedContainerColor = disabledSelectedContainerColor,
+        disabledSelectedContentColor = disabledSelectedContentColor,
+        disabledSelectedIconColor = disabledSelectedIconColor
     )
 }
 
