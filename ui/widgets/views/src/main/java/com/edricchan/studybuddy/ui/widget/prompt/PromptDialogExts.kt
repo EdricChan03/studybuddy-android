@@ -17,8 +17,9 @@ import com.google.android.material.textfield.TextInputLayout
  * @return The created [MaterialPromptDialogBuilder].
  * @see MaterialPromptDialogBuilder
  */
-inline fun Context.materialPromptDialogBuilder(init: MaterialPromptDialogBuilder.() -> Unit) =
-    MaterialPromptDialogBuilder(this).apply(init)
+inline fun Context.materialPromptDialogBuilder(
+    init: MaterialPromptDialogBuilder.() -> Unit
+): MaterialPromptDialogBuilder = MaterialPromptDialogBuilder(this).apply(init)
 
 /**
  * Creates a Material Design prompt dialog using the specified [configuration][init].
@@ -30,7 +31,7 @@ inline fun Context.materialPromptDialogBuilder(init: MaterialPromptDialogBuilder
  */
 inline fun Context.createMaterialPromptDialog(
     init: MaterialPromptDialogBuilder.() -> Unit
-) = materialPromptDialogBuilder(init).create()
+): AlertDialog = materialPromptDialogBuilder(init).create()
 
 /**
  * Creates and shows a Material Design prompt dialog using the specified
@@ -47,8 +48,11 @@ inline fun Context.showMaterialPromptDialog(
     dialogInit: AlertDialog.() -> Unit = {},
     postDialogInit: AlertDialog.() -> Unit = {},
     builderInit: MaterialPromptDialogBuilder.() -> Unit
-) =
-    createMaterialPromptDialog(builderInit).apply(dialogInit).apply { show() }.apply(postDialogInit)
+): AlertDialog =
+    createMaterialPromptDialog(builderInit)
+        .apply(dialogInit)
+        .apply { show() }
+        .apply(postDialogInit)
 
 /**
  * Creates and shows a Material Design prompt dialog using the specified
@@ -114,7 +118,7 @@ inline fun Context.showMaterialPromptDialog(
     noinline textInputLayoutInit: TextInputLayout.() -> Unit = {},
     noinline textInputEditTextInit: TextInputEditText.() -> Unit = {},
     builderInit: MaterialPromptDialogBuilder.() -> Unit,
-) = showMaterialPromptDialog(dialogInit, postDialogInit) {
+): AlertDialog = showMaterialPromptDialog(dialogInit, postDialogInit) {
     builderInit()
     textInputLayout(textInputLayoutInit)
     textInputEditText(textInputEditTextInit)
