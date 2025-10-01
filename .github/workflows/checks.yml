@@ -50,7 +50,8 @@ jobs:
         uses: ./.github/actions/build-gradle
         with:
           # TODO: Remove --no-parallel flag (see also https://github.com/ben-manes/gradle-versions-plugin/issues/966)
-          gradle-arguments: dependencyUpdates --no-parallel
+          # TODO: Also remove --no-configuration-cache flag
+          gradle-arguments: dependencyUpdates --no-parallel --no-configuration-cache
           upload-name: dependency-updates
           # Dependency update info is available at build/dependencyUpdates/report.<filetype>
           upload-path: build/dependencyUpdates/
