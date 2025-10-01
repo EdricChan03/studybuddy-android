@@ -1,7 +1,10 @@
 package com.edricchan.studybuddy.ui.widget.prompt
 
 import android.content.Context
+import android.content.DialogInterface
+import android.text.Editable
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -46,6 +49,51 @@ inline fun Context.showMaterialPromptDialog(
     builderInit: MaterialPromptDialogBuilder.() -> Unit
 ) =
     createMaterialPromptDialog(builderInit).apply(dialogInit).apply { show() }.apply(postDialogInit)
+
+/**
+ * Creates and shows a Material Design prompt dialog using the specified
+ * [dialog builder configuration][builderInit], and [dialog configuration][dialogInit], if any.
+ * Optionally, additional [dialog configuration][postDialogInit] can be set after the dialog is
+ * shown.
+ *
+ * This variant disables the positive button according to the result of [isValidInput], with the
+ * [value of the text-input][TextInputEditText.getText] passed to the lambda.
+ * @param dialogInit Configuration to be passed to [AlertDialog] before it is shown.
+ * @param postDialogInit Configuration to be passed to [AlertDialog] after it is shown, if any.
+ * @param builderInit Configuration to be passed to [MaterialPromptDialogBuilder].
+ * @param isValidInput Lambda used to check if the user-specified input text is valid. The dialog's
+ * positive button will be enabled/disabled accordingly.
+ * @param defaultIsEnabled Default enabled state if the [TextInputEditText] does not have
+ * an [Editable] yet.
+ * @return The shown [AlertDialog].
+ * @see MaterialPromptDialogBuilder
+ */
+inline fun Context.showMaterialPromptDialog(
+    dialogInit: AlertDialog.() -> Unit = {},
+    postDialogInit: AlertDialog.() -> Unit = {},
+    crossinline isValidInput: (Editable) -> Boolean = CharSequence::isNotBlank,
+    defaultIsEnabled: Boolean,
+    builderInit: MaterialPromptDialogBuilder.() -> Unit
+): AlertDialog {
+    lateinit var editText: TextInputEditText
+    return showMaterialPromptDialog(
+        dialogInit = dialogInit,
+        postDialogInit = {
+            postDialogInit()
+            val okBtn =
+                getButton(DialogInterface.BUTTON_POSITIVE) ?: return@showMaterialPromptDialog
+
+            okBtn.isEnabled = editText.text?.let { isValidInput(it) } ?: defaultIsEnabled
+            editText.doAfterTextChanged {
+                okBtn.isEnabled = editText.text?.let { isValidInput(it) } ?: defaultIsEnabled
+            }
+        },
+        builderInit = {
+            builderInit()
+            editText = textInputEditText
+        }
+    )
+}
 
 /**
  * Creates and shows a Material Design prompt dialog using the specified
