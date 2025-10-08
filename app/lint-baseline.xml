@@ -37,12 +37,6 @@
             file="../../../../../.gradle/caches/transforms-2/files-2.1/7fb0b824aec216b030d463bf392e654c/jetified-firebase-installations-16.2.1/jars/lint.jar" />
     </issue>
 
-    <issue errorLine1="                    android:editable=&quot;false&quot; />"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~" id="Deprecated"
-        message="`android:editable` is deprecated: Use an `&lt;EditText>` to make it editable">
-        <location column="21" file="src/main/res/layout/activity_new_task.xml" line="65" />
-    </issue>
-
     <issue id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location file="org/jsoup/helper/HttpConnection$Response$2.class" />
