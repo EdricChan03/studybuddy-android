@@ -274,5 +274,4 @@
     <string name="update_json_testing_url" translatable="false">
         https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
     </string>
-    <string name="markdown_supported_helpertext">Markdown is supported</string>
 </resources>
