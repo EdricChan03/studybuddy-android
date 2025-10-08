@@ -120,28 +120,6 @@
     <string name="debug_activity_feature_flags_title">Feature flags</string>
     <string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
     <string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
-    <string name="debug_activity_send_notification_dialog_body_hint">Body</string>
-    <string name="debug_activity_send_notification_dialog_channel_id_helpertext">Applicable for
-        devices running Android Oreo and up
-    </string>
-    <string name="debug_activity_send_notification_dialog_channel_id_hint">Notification Channel
-        ID</string>
-    <string name="debug_activity_send_notification_dialog_color_helpertext">Only hexadecimal values
-        are supported.
-    </string>
-    <string name="debug_activity_send_notification_dialog_color_hint">Color</string>
-    <string name="debug_activity_send_notification_dialog_priority_high">High</string>
-    <string name="debug_activity_send_notification_dialog_priority_normal">Normal</string>
-    <string name="debug_activity_send_notification_dialog_priority_title">Priority</string>
-    <string name="debug_activity_send_notification_dialog_title_hint">Title</string>
-    <string name="debug_activity_send_notification_dialog_ttl_helpertext">The time specified (in
-        milliseconds) to keep the notification in FCM storage. (Default: 4 weeks)
-    </string>
-    <string name="debug_activity_send_notification_dialog_ttl_hint">Time-to-live</string>
-    <string name="debug_activity_send_notification_dialog_user_or_topic_hint">User or topic</string>
-    <string name="debug_activity_send_notification_summary">Programmatically send a FCM
-        notification request</string>
-    <string name="debug_activity_send_notification_title">Send FCM notification</string>
     <string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON
         URL</string>
     <string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON
