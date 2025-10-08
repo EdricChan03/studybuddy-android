@@ -172,26 +172,6 @@
     <string name="feature_flags_about_app_v2_enabled_summary">Revamps the about app UI to show
         more info about the app.</string>
 
-    <string name="pref_header_account_summary">Delete account, sign out, update email/name/password/
-        profile picture
-    </string>
-    <string name="pref_header_account_title">Account options</string>
-
-    <string name="pref_header_debug_summary">Device info, account info, crash app, send
-        notification, delete device\'s instance ID, clear app settings, modal bottom sheet testing
-    </string>
-    <string name="pref_header_debug_title">Debug</string>
-
-    <string name="pref_header_general_summary">Language, in-app browser, Firebase Crashlytics user
-        tracking, dark theme
-    </string>
-    <string name="pref_header_general_title">General</string>
-    <string name="pref_header_about_summary">About
-        app, about app author, licenses, view source code
-    </string>
-    <string name="pref_header_about_title">About</string>
-    <string name="pref_show_header_summary_title">Show header summaries</string>
-
     <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code
         available at https://github.com/EdricChan03/StudyBuddy
     </string>
