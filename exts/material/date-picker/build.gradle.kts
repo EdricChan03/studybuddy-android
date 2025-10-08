@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.exts.material"
+    namespace = "com.edricchan.studybuddy.exts.material.datepicker"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -18,6 +18,8 @@ android {
             )
         }
     }
+
+    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -28,4 +30,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+
+    coreLibraryDesugaring(libs.android.desugar)
 }

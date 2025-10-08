@@ -42,6 +42,7 @@ dependencies {
     implementation(projects.exts.firebase.core)
     implementation(projects.exts.firebase.temporal)
     implementation(projects.exts.material)
+    implementation(projects.exts.material.datePicker)
     implementation(projects.exts.markwon)
     implementation(projects.utils.devMode)
     implementation(projects.utils.recyclerview)

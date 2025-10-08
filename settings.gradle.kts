@@ -149,6 +149,7 @@ include(
     ":exts:firebase:temporal",
     ":exts:markwon",
     ":exts:material",
+    ":exts:material:date-picker",
     ":features:help",
     ":features:auth",
     ":features:settings",
