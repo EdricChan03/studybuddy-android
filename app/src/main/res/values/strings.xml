@@ -63,9 +63,6 @@
     <!-- The title of the refresh articles menu item in the help activity's menu. -->
     <string name="menu_help_refresh_articles">Refresh articles</string>
 
-    <!-- The text of the sign up button in the register activity. -->
-    <string name="register_signup_button_title">Register</string>
-
     <!-- The title of the send feedback menu item in the help and settings activities' menus. -->
     <string name="menu_send_feedback_title">Send Feedback</string>
 
