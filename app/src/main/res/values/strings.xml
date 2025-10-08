@@ -72,8 +72,6 @@
     <!-- The title of the share this app menu item in the main activity's menu. -->
     <string name="menu_main_share_app_title">Share this app</string>
 
-    <string name="menu_frag_task_import_from_title">Import from&#8230;</string>
-
     <!-- The title of the source code menu item in the help activity's menu. -->
     <string name="menu_help_src_code_title">View source code</string>
 
