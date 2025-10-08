@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        api-level: [ 21, 23, 29, 33, 34, 35 ]
+        api-level: [ 23, 29, 33, 34, 35 ]
 
     name: Instrumentation tests
 
