@@ -189,9 +189,6 @@
     <string name="dialog_action_send">Send</string>
     <string name="dialog_action_yes">Yes</string>
     <string name="download_apk_name">com.edricchan.studybuddy-v%s.apk</string>
-    <string name="due_date">Due date</string>
-
-    <string name="due_date_text">Selected due date shows here</string>
 
     <string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
 
