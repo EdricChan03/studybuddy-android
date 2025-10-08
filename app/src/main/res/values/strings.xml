@@ -84,10 +84,6 @@
     <string name="bottom_nav_calendar">Calendar</string>
     <string name="bottom_nav_todos">Tasks</string>
 
-    <string name="cab_action_delete_selected_tasks">Delete selected</string>
-    <string name="cab_action_edit_selected_tasks">Edit selected</string>
-    <string name="cab_action_select_all">Select all</string>
-
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_action_clear">Clear</string>
     <string name="dialog_action_close">Close</string>

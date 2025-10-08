@@ -114,13 +114,6 @@
     </issue>
 
     <issue
-        errorLine1="&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.menu.cab_tasks` appears to be unused">
-        <location column="1" file="src/main/res/menu/cab_tasks.xml" line="2" />
-    </issue>
-
-    <issue
         errorLine1="    &lt;dimen name=&quot;one_line_list_padding_top_bottom&quot;>8dp&lt;/dimen>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.dimen.one_line_list_padding_top_bottom` appears to be unused">
@@ -818,20 +811,6 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
         message="The resource `R.string.pref_tasks_category_weekly_summary` appears to be unused">
         <location column="13" file="src/main/res/values/prefs_resources.xml" line="94" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;cab_action_delete_selected_tasks&quot;>Delete selected&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.cab_action_delete_selected_tasks` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="191" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;cab_action_edit_selected_tasks&quot;>Edit selected&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
-        message="The resource `R.string.cab_action_edit_selected_tasks` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="192" />
     </issue>
 
     <issue errorLine1="    &lt;string name=&quot;dialog_action_no&quot;>No&lt;/string>"
