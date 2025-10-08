@@ -291,14 +291,6 @@
     <string name="shortcut_todo_long_msg">Create a new todo</string>
     <string name="shortcut_todo_short_msg">New todo</string>
 
-    <string name="task_content">Task Content</string>
-    <string name="task_project">Task Project</string>
-    <string name="task_project_create">Create a project…</string>
-    <string name="task_project_none">No project</string>
-    <string name="task_project_choose_prompt_text">Choose a project…</string>
-    <string name="task_tags">Task Tags</string>
-    <string name="task_title">Task Title</string>
-
     <string name="title_activity_about">About</string>
     <string name="title_activity_account">Account</string>
     <string name="title_activity_debug">Debug</string>
@@ -311,15 +303,6 @@
     <string name="title_activity_updates">Updates</string>
     <string name="title_activity_view_task">Task view</string>
 
-    <string name="todo_frag_delete_selected_tasks_dialog_msg">Note that the deletion process is
-        irreversible and that it may take a while to delete the selected tasks.
-    </string>
-
-    <string name="todo_frag_delete_selected_tasks_dialog_title">Delete selected tasks?</string>
-    <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is
-        irreversible.</string>
-
-    <string name="todo_frag_delete_task_dialog_title">Delete task?</string>
     <string name="todo_frag_empty_state_cta">New todo</string>
     <string name="todo_frag_empty_state_head">All todos done!</string>
     <string name="update_activity_cannot_delete_update_toast">Can\'t delete update. Try again
@@ -371,8 +354,6 @@
         connection is required.
     </string>
     <string name="update_snackbar_latest">You already have the latest version!</string>
-    <string name="view_task_loading">Loading task\'s contents…</string>
-    <string name="view_task_unsuccessful_snackbar_text">Could not load task</string>
     <!--suppress LongLine -->
     <string name="debug_activity_updates_set_custom_json_url_default_value" translatable="false">
         https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
@@ -388,9 +369,4 @@
         https://raw.githubusercontent.com/EdricChan03/StudyBuddy-builds/master/testing/changelog.json
     </string>
     <string name="markdown_supported_helpertext">Markdown is supported</string>
-    <string name="action_menu_overflow_title">More options</string>
-
-    <string name="chips_text_input_layout_default_hint">Enter something&#8230;</string>
-
-    <string name="select_date_chip_default_text">Select a date&#8230;</string>
 </resources>

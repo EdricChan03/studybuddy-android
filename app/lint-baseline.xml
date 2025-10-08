@@ -890,22 +890,6 @@
         <location column="13" file="src/main/res/values/strings.xml" line="483" />
     </issue>
 
-    <issue
-        errorLine1="    &lt;string name=&quot;todo_frag_delete_selected_tasks_dialog_msg&quot;>Note that the deletion process is irreversible and that it"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UnusedResources"
-        message="The resource `R.string.todo_frag_delete_selected_tasks_dialog_msg` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="525" />
-    </issue>
-
-    <issue
-        errorLine1="    &lt;string name=&quot;todo_frag_delete_selected_tasks_dialog_title&quot;>Delete selected tasks?&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UnusedResources"
-        message="The resource `R.string.todo_frag_delete_selected_tasks_dialog_title` appears to be unused">
-        <location column="13" file="src/main/res/values/strings.xml" line="529" />
-    </issue>
-
     <issue errorLine1="        &lt;LinearLayout" errorLine2="         ~~~~~~~~~~~~"
         id="UselessParent"
         message="This `LinearLayout` layout or its `RelativeLayout` parent is useless">

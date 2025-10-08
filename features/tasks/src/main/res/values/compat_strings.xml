@@ -5,6 +5,14 @@ files. They should be moved to their respective files at some point :)
 TODO: Remove this file
 -->
 <resources>
+    <string name="task_content">Task Content</string>
+    <string name="task_tags">Task Tags</string>
+    <string name="task_title">Task Title</string>
+
+    <string name="markdown_supported_helpertext">Markdown is supported</string>
+
+    <string name="comma_indicates_separator">Separate each tag/label with a comma</string>
+
     <string name="select_date_chip_default_text">Select a date&#8230;</string>
 
     <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is
