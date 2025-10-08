@@ -188,7 +188,4 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_updates">Updates</string>
     <string name="title_activity_view_task">Task view</string>
-
-    <string name="todo_frag_empty_state_cta">New todo</string>
-    <string name="todo_frag_empty_state_head">All todos done!</string>
 </resources>
