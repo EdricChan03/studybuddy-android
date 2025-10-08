@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="debug_activity_account_info_summary">Show information about the currently
+        signed-in Firebase User
+    </string>
+
+    <string name="debug_activity_account_info_title">Account info</string>
+    <string name="debug_activity_category_device">Device</string>
+    <string name="debug_activity_category_firebase">Firebase</string>
+    <string name="debug_activity_category_updates">Updates</string>
+    <string name="debug_activity_category_other">Other</string>
+    <string name="debug_activity_confirm_reset_instance_id_dialog_msg">This cannot be undone!\n
+        (Note that a new ID will be generated after you delete the current ID)
+    </string>
+    <string name="debug_activity_confirm_reset_instance_id_dialog_title">Delete device\'s Instance
+        ID?</string>
+    <string name="debug_activity_confirm_clear_app_settings_dialog_title">Clear app
+        settings?</string>
+    <string name="debug_activity_confirm_clear_app_settings_dialog_msg">This cannot be
+        undone!</string>
+    <string name="debug_activity_connectivity_info_dialog_title">Connectivity Info</string>
+    <string name="debug_activity_dev_mode_enabled_title">Developer mode</string>
+    <string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
+    <string name="debug_activity_dynamic_theme_info_dialog_title">Dynamic theme info</string>
+    <string name="debug_activity_dynamic_theme_info_dialog_toggle_btn">Toggle theme</string>
+    <string name="debug_activity_feature_flags_title">Feature flags</string>
+    <string name="debug_activity_night_mode_info_dialog_title">Night Mode Info</string>
+    <string name="debug_activity_reset_instance_id_title">Delete device\'s Instance ID</string>
+    <string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON
+        URL</string>
+    <string name="debug_activity_updates_use_testing_json_url_title">Use debug update JSON
+        URL</string>
+    <string name="debug_activity_updates_start_worker_title">Start check for updates worker</string>
+    <string name="debug_activity_updates_start_worker_summary">Explicitly start the worker. (Note:
+        The worker is automatically started on boot.)
+    </string>
+    <string name="debug_activity_updates_tip_summary">Tip: You can copy the values by long pressing
+        on the preference and tapping on "Copy" in the context menu
+    </string>
+    <string name="debug_activity_updates_last_checked_for_updates_date_title">Last checked for
+        updates date</string>
+    <string name="debug_activity_updates_last_checked_for_updates_date_summary_default">&lt;Not
+        set&gt;</string>
+    <string name="debug_activity_updates_clear_last_checked_for_updates_date_title">Clear last
+        checked for updates date
+    </string>
+    <string name="debug_activity_updates_clear_last_checked_for_updates_date_confirm_dialog_title">
+        Clear last checked for updates date?
+    </string>
+    <string name="debug_activity_updates_last_updated_date_title">Last updated date</string>
+    <string name="debug_activity_updates_last_updated_date_summary_default">&lt;Not set&gt;</string>
+    <string name="debug_activity_updates_clear_last_updated_date_title">Clear last updated
+        date</string>
+    <string name="debug_activity_updates_clear_last_updated_date_confirm_dialog_title">Clear last
+        updated date?</string>
+    <string name="debug_activity_other_clear_app_settings_title">Clear app settings</string>
+    <string name="debug_activity_other_modal_bottom_sheet_testing_title">Modal Bottom Sheet
+        testing</string>
+    <string name="debug_activity_other_modal_bottom_sheet_testing_summary">Show examples of the
+        Modal Bottom Sheet
+    </string>
+</resources>
