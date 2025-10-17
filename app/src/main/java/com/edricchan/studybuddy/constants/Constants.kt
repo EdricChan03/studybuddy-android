@@ -38,6 +38,8 @@ object Constants {
     val uriAuthorWebsite: Uri = urlAuthorWebsite.toUri()
     const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy-android"
     val uriSrcCode: Uri = urlSrcCode.toUri()
+    const val urlSrcBugTracker = "$urlSrcCode/issues"
+    val uriSrcBugTracker: Uri = urlSrcBugTracker.toUri()
     const val urlSrcContributors = "$urlSrcCode/graph/contributors"
     val uriSrcContributors: Uri = urlSrcContributors.toUri()
     const val urlSendFeedback = "https://forms.gle/S6SY7aAgTyQUuKRw6"
