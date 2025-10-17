@@ -1,5 +1,5 @@
 [versions]
-aboutLibraries = "12.2.4"
+aboutLibraries = "13.1.0"
 accompanist = "0.37.3"
 android-desugar = "2.1.5"
 android-gradle = "8.13.0"
@@ -267,7 +267,7 @@ dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
 protobuf = "com.google.protobuf:0.9.5"
 
-aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
+aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 
 dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.0.4"
 

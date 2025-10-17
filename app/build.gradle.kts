@@ -13,7 +13,7 @@ plugins {
 
     alias(libs.plugins.buildProperties)
 
-    id("com.mikepenz.aboutlibraries.plugin")
+    id("com.mikepenz.aboutlibraries.plugin.android")
 
     com.google.devtools.ksp
     com.google.dagger.hilt.android
