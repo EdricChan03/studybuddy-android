@@ -100,6 +100,7 @@ include(
     ":ui:theming:views",
     ":ui:widgets:compose",
     ":ui:widgets:views",
+    ":ui:widgets:compose:markdown-viewer",
     ":ui:widgets:compose:navigation",
     ":ui:widgets:compose:option-bottom-sheet",
     ":ui:widgets:modal-bottom-sheet",
