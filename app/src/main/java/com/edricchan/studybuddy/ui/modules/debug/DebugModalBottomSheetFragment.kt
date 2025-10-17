@@ -37,7 +37,6 @@ import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.exts.android.showToast
-import com.edricchan.studybuddy.exts.androidx.compose.plus
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
