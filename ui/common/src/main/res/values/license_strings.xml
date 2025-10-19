@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="licenses_action_view_scm_url">View Source</string>
+    <string name="licenses_action_view_website_url">View Website</string>
+
+    <string name="licenses_search_bar_placeholder_text">Search to filter licenses</string>
+    <string name="licenses_search_bar_action_clear_input">Clear</string>
+    <string name="licenses_search_filtered_results_empty_text_title">No results found</string>
+    <string name="licenses_search_filtered_results_empty_text_suggestion">Try a different search
+        query</string>
+</resources>
