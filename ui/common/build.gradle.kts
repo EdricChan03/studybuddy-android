@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     api(libs.androidx.compose.material3)
 
-    api(libs.aboutLibraries)
+    api(libs.aboutLibraries.core)
     api(libs.aboutLibraries.compose.material3)
 
     testImplementation(libs.junit)

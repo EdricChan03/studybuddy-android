@@ -149,7 +149,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 # Miscellaneous
 
 materialAbout = "com.github.daniel-stoneuk:material-about-library:3.2.0-rc01"
-aboutLibraries = { module = "com.mikepenz:aboutlibraries", version.ref = "aboutLibraries" }
+aboutLibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
 aboutLibraries-compose-material3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 # TODO: Switch to an in-house updater
 appUpdater = "com.github.AleP04:AppUpdater:2.7.2"
