@@ -13,12 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Article
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.help.R
 import com.edricchan.studybuddy.features.help.data.model.HelpArticle
@@ -53,7 +54,7 @@ fun HelpArticleItem(
         ) {
             Icon(
                 modifier = Modifier.padding(8.dp),
-                painter = painterResource(R.drawable.ic_file_document_box_outline_24dp),
+                imageVector = AppIcons.Outlined.Article,
                 contentDescription = stringResource(R.string.help_article_icon_content_desc)
             )
         }
