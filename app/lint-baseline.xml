@@ -1,59 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <issues by="lint 4.1.0-alpha07" client="gradle" format="5" variant="all" version="4.1.0-alpha07">
-
-    <issue excludedVariants="nightly,release" id="ObsoleteLintCustomCheck" includedVariants="debug"
-        message="Lint found an issue registry (`androidx.annotation.experimental.lint.ExperimentalIssueRegistry`) which did not specify the Lint API version it was compiled with.&#xA;&#xA;**This means that the lint checks are likely not compatible.**&#xA;&#xA;If you are the author of this lint check, make your lint `IssueRegistry` class contain&#xA;  override val api: Int = com.android.tools.lint.detector.api.CURRENT_API&#xA;or from Java,&#xA;  @Override public int getApi() { return com.android.tools.lint.detector.api.ApiKt.CURRENT_API; }&#xA;&#xA;If you are just using lint checks from a third party library you have no control over, you can disable these lint checks (if they misbehave) like this:&#xA;&#xA;    android {&#xA;        lintOptions {&#xA;            disable &quot;UnsafeExperimentalUsageError&quot;,&#xA;                    &quot;UnsafeExperimentalUsageWarning&quot;&#xA;        }&#xA;    }&#xA;">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/0d2972be7d0bc9585bebb6e6538a3f91/jetified-annotation-experimental-1.0.0/jars/lint.jar" />
-    </issue>
-
-    <issue excludedVariants="nightly,release" id="ObsoleteLintCustomCheck" includedVariants="debug"
-        message="Lint found an issue registry (`androidx.fragment.lint.FragmentIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 6 (3.6), current lint API level is 7 (4.0+)">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/c3cee140c8cad7d03737a3d0298f987a/fragment-1.2.4/jars/lint.jar" />
-    </issue>
-
-    <issue excludedVariants="nightly,release" id="ObsoleteLintCustomCheck" includedVariants="debug"
-        message="Lint found an issue registry (`androidx.lifecycle.lint.LifecycleRuntimeIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 6 (3.6), current lint API level is 7 (4.0+)">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/e259a6909d15acee3193a7329050021c/jetified-lifecycle-runtime-ktx-2.2.0/jars/lint.jar" />
-    </issue>
-
-    <issue excludedVariants="nightly,release" id="ObsoleteLintCustomCheck" includedVariants="debug"
-        message="Lint found an issue registry (`androidx.recyclerview.lint.RecyclerViewIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 3 (3.3), current lint API level is 7 (4.0+)">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/cb0649d443190c5a5ced21f1a12277fa/recyclerview-1.2.0-alpha02/jars/lint.jar" />
-    </issue>
-
-    <issue excludedVariants="nightly,release" id="ObsoleteLintCustomCheck" includedVariants="debug"
-        message="Lint found an issue registry (`androidx.work.lint.WorkManagerIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 3 (3.3), current lint API level is 7 (4.0+)">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/74378bd74250f13a435918121f1c3936/work-runtime-2.4.0-alpha02/jars/lint.jar" />
-    </issue>
-
-    <issue excludedVariants="nightly,release" id="ObsoleteLintCustomCheck" includedVariants="debug"
-        message="Lint found an issue registry (`com.google.firebase.installations.lint.Checks`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 2 (3.2), current lint API level is 7 (4.0+)">
-        <location
-            file="../../../../../.gradle/caches/transforms-2/files-2.1/7fb0b824aec216b030d463bf392e654c/jetified-firebase-installations-16.2.1/jars/lint.jar" />
-    </issue>
-
-    <issue id="TrustAllX509TrustManager"
-        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location file="org/jsoup/helper/HttpConnection$Response$2.class" />
-    </issue>
-
-    <issue id="TrustAllX509TrustManager"
-        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location file="org/jsoup/helper/HttpConnection$Response$2.class" />
-    </issue>
-
-    <issue
-        errorLine1="        &lt;service android:name=&quot;.providers.fcm.StudyBuddyMessagingService&quot;>"
-        errorLine2="         ~~~~~~~" id="ExportedService"
-        message="Exported service does not require permission">
-        <location column="10" file="src/main/AndroidManifest.xml" line="177" />
-    </issue>
-
     <issue
         errorLine1="        android:pathData=&quot;M16.36 14c0.08-0.66 0.14-1.32 0.14-2 0-0.68-0.06-1.34-0.14-2h3.38C19.9 10.64 20 11.31 20 12s-0.1 1.36-0.26 2m-5.15 5.56c0.6-1.11 1.06-2.31 1.38-3.56h2.95c-0.96 1.65-2.49 2.93-4.33 3.56M14.34 14H9.66c-0.1-0.66-0.16-1.32-0.16-2 0-0.68 0.06-1.35 0.16-2h4.68c0.09 0.65 0.16 1.32 0.16 2 0 0.68-0.07 1.34-0.16 2M12 19.96c-0.83-1.2-1.5-2.53-1.91-3.96h3.82c-0.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08C6.03 6.34 7.57 5.06 9.4 4.44 8.8 5.55 8.35 6.75 8 8m-2.92 8H8c0.35 1.25 0.8 2.45 1.4 3.56-1.83-0.63-3.37-1.91-4.32-3.56m-0.82-2C4.1 13.36 4 12.69 4 12s0.1-1.36 0.26-2h3.38c-0.08 0.66-0.14 1.32-0.14 2 0 0.68 0.06 1.34 0.14 2M12 4.03c0.83 1.2 1.5 2.54 1.91 3.97h-3.82C10.5 6.57 11.17 5.23 12 4.03M18.92 8h-2.95c-0.32-1.25-0.78-2.45-1.38-3.56 1.84 0.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z&quot; />"
         errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -808,35 +754,10 @@
         <location column="13" file="src/main/res/values/strings.xml" line="483" />
     </issue>
 
-    <issue errorLine1="        &lt;LinearLayout" errorLine2="         ~~~~~~~~~~~~"
-        id="UselessParent"
-        message="This `LinearLayout` layout or its `RelativeLayout` parent is useless">
-        <location column="10" file="src/main/res/layout/activity_edit_task.xml" line="16" />
-    </issue>
-
     <issue
         errorLine1="        &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
         errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         id="ContentDescription" message="Missing `contentDescription` attribute on image">
         <location column="10" file="src/main/res/layout/activity_main.xml" line="38" />
     </issue>
-
-    <issue errorLine1="    &lt;ImageView" errorLine2="     ~~~~~~~~~" id="ContentDescription"
-        message="Missing `contentDescription` attribute on image">
-        <location column="6"
-            file="src/main/res/layout/modalbottomsheetadapter_item_row_with_icon.xml" line="10" />
-    </issue>
-
-    <issue errorLine1="                &lt;AutoCompleteTextView"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~" id="LabelFor"
-        message="Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`">
-        <location column="18" file="src/main/res/layout/activity_new_task.xml" line="61" />
-    </issue>
-
-    <issue errorLine1="        android:contentDescription=&quot;App icon&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
-        message="Hardcoded string &quot;App icon&quot;, should use `@string` resource">
-        <location column="9" file="src/main/res/layout/version_dialog.xml" line="15" />
-    </issue>
-
 </issues>
