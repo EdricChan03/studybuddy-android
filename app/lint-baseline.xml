@@ -672,34 +672,6 @@
     <issue
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.ic_access_time_24dp` appears to be unused">
-        <location column="1" file="src/main/res/drawable/ic_access_time_24dp.xml" line="2" />
-    </issue>
-
-    <issue
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.ic_download_outline_24dp` appears to be unused">
-        <location column="1" file="src/main/res/drawable/ic_download_outline_24dp.xml" line="2" />
-    </issue>
-
-    <issue
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.ic_group_outline_24dp` appears to be unused">
-        <location column="1" file="src/main/res/drawable/ic_group_outline_24dp.xml" line="2" />
-    </issue>
-
-    <issue
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.ic_network_cell_24dp` appears to be unused">
-        <location column="1" file="src/main/res/drawable/ic_network_cell_24dp.xml" line="2" />
-    </issue>
-
-    <issue
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
         message="The resource `R.drawable.ic_notification_alert_decagram_24dp` appears to be unused">
         <location column="1" file="src/main/res/drawable/ic_notification_alert_decagram_24dp.xml"
             line="2" />
@@ -784,20 +756,6 @@
         message="The resource `R.drawable.ic_shortcut_settings_foreground_outline` appears to be unused">
         <location column="1"
             file="src/main/res/drawable/ic_shortcut_settings_foreground_outline.xml" line="2" />
-    </issue>
-
-    <issue
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.ic_sync_24dp` appears to be unused">
-        <location column="1" file="src/main/res/drawable/ic_sync_24dp.xml" line="2" />
-    </issue>
-
-    <issue
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^" id="UnusedResources"
-        message="The resource `R.drawable.ic_text_24dp` appears to be unused">
-        <location column="1" file="src/main/res/drawable/ic_text_24dp.xml" line="2" />
     </issue>
 
     <issue
