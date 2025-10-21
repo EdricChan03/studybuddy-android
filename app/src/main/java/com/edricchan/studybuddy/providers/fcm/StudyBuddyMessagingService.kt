@@ -5,13 +5,13 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.toColorInt
 import androidx.core.net.toUri
 import coil3.imageLoader
 import coil3.request.ImageRequest
@@ -77,10 +77,7 @@ class StudyBuddyMessagingService : FirebaseMessagingService() {
                 // Use the default icon
             } ?: R.drawable.ic_notification_studybuddy_pencil_24dp)
 
-            builder.color = remoteMessage.notification?.color?.let { color ->
-                Color.parseColor(color)
-                // Use the default color
-            } ?: dynamicColorPrimary
+            builder.color = remoteMessage.notification?.color?.toColorInt() ?: dynamicColorPrimary
 
             // Image support was added in FCM 20.0.0
             notification.imageUrl?.let { imageUrl ->
