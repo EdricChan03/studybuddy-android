@@ -24,6 +24,7 @@ android {
 dependencies {
     implementation(projects.ui.theming.compose)
     implementation(projects.core.resources)
+    implementation(projects.exts.androidx.compose)
 
     api(libs.bundles.androidx.compose)
 

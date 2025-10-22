@@ -2,22 +2,26 @@
 package com.edricchan.studybuddy.ui.widgets.compose
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -25,11 +29,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
-import com.edricchan.studybuddy.ui.widgets.compose.list.RadioButtonListItem
+import com.edricchan.studybuddy.exts.androidx.compose.ui.graphics.animateInterpolatableAsState
+import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
+import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 /**
@@ -44,6 +48,7 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
  * @param selectedItem The current selected item.
  * @param onItemSelectionChanged Called when a new item is selected.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun <T> ListDialog(
     modifier: Modifier = Modifier,
@@ -65,36 +70,58 @@ fun <T> ListDialog(
         icon = icon,
         onDismissRequest = onDismissRequest,
         confirmButton = {
-            TextButton(
+            Button(
                 enabled = dialogSelectedItem != null,
                 onClick = {
                     onItemSelectionChanged(dialogSelectedItem!!)
                     onDismissRequest()
-                }
+                },
+                shapes = ButtonDefaults.shapes()
             ) {
                 Text(stringResource(CoreResR.string.dialog_action_done))
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
+            OutlinedButton(
+                onClick = onDismissRequest,
+                shapes = ButtonDefaults.shapes()
+            ) {
                 Text(stringResource(CoreResR.string.dialog_action_cancel))
             }
         },
         text = {
-            Column {
-                LazyColumn(modifier = Modifier.selectableGroup()) {
-                    items(items) { item ->
-                        RadioButtonListItem(
-                            modifier = Modifier.height(48.dp),
-                            colors = ListItemDefaults.colors(
-                                containerColor = Color.Transparent
-                            ),
-                            selected = item == dialogSelectedItem,
-                            onSelected = { dialogSelectedItem = item }
-                        ) {
-                            itemContent(item)
+            LazyColumn(
+                modifier = Modifier.selectableGroup(),
+                verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
+            ) {
+                itemsIndexed(items) { i, item ->
+                    val isSelected = item == dialogSelectedItem
+                    val shape by animateInterpolatableAsState(
+                        targetValue = ExpListItemDefaults.itemShape(
+                            index = i,
+                            count = items.size,
+                            selected = isSelected
+                        ),
+                        animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
+                    )
+                    ExpListItem(
+                        shape = shape,
+                        colors = ExpListItemDefaults.colors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            selectedContainerColor = MaterialTheme.colorScheme.secondaryContainer
+                        ),
+                        selected = isSelected,
+                        onClick = { dialogSelectedItem = item },
+                        headlineContent = { itemContent(item) },
+                        trailingContent = {
+                            RadioButton(
+                                selected = isSelected, onClick = null,
+                                colors = RadioButtonDefaults.colors(
+                                    selectedColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            )
                         }
-                    }
+                    )
                 }
             }
         }
@@ -111,6 +138,7 @@ fun <T> ListDialog(
  * @param textField Composable to be shown for the input text-field.
  * This should be a [DialogDefaults.TextField].
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun InputDialog(
     modifier: Modifier = Modifier,
@@ -126,15 +154,19 @@ fun InputDialog(
     icon = icon,
     onDismissRequest = onDismissRequest,
     confirmButton = {
-        TextButton(
+        Button(
             enabled = isValid,
-            onClick = onConfirm
+            onClick = onConfirm,
+            shapes = ButtonDefaults.shapes()
         ) {
             Text(stringResource(CoreResR.string.dialog_action_done))
         }
     },
     dismissButton = {
-        TextButton(onClick = onDismissRequest) {
+        OutlinedButton(
+            onClick = onDismissRequest,
+            shapes = ButtonDefaults.shapes()
+        ) {
             Text(stringResource(CoreResR.string.dialog_action_cancel))
         }
     },
