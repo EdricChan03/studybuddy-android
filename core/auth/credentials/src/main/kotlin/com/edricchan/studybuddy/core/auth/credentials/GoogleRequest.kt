@@ -47,13 +47,14 @@ fun Credential.asGoogleIdTokenCredential(): GoogleIdTokenCredential = when (this
 /**
  * Requests for a [GoogleIdTokenCredential] with the given [credentialOptions].
  * @receiver A [Context] that must be of a UI context.
+ * @param credentialManager Desired [CredentialManager] to call [CredentialManager.getCredential]
+ * against.
  */
 suspend fun @receiver:UiContext Context.requestGoogleCredential(
-    credentialOptions: List<CredentialOption> = listOf(googleIdOption)
+    credentialOptions: List<CredentialOption> = listOf(googleIdOption),
+    credentialManager: CredentialManager = CredentialManager.create(this)
 ): GoogleIdTokenCredential {
     val getCredentialRequest = GetCredentialRequest(credentialOptions = credentialOptions)
-
-    val credentialManager = CredentialManager.create(this)
 
     val getCredentialResponse = credentialManager.getCredential(
         context = this,
@@ -68,13 +69,19 @@ suspend fun @receiver:UiContext Context.requestGoogleCredential(
  * [requestGoogleCredential].
  * @param context A [Context] that must be of a UI context.
  * @param credentialOptions List of credential options to be passed to [requestGoogleCredential].
+ * @param credentialManager Desired [CredentialManager] instance to be used in
+ * [requestGoogleCredential].
  * @return The result of [awaitSignInWithGoogle].
  */
 suspend fun FirebaseAuth.signInWithGoogleCredentials(
     @UiContext context: Context,
-    credentialOptions: List<CredentialOption> = listOf(context.googleIdOption)
+    credentialOptions: List<CredentialOption> = listOf(context.googleIdOption),
+    credentialManager: CredentialManager = CredentialManager.create(context)
 ): AuthResult {
-    val cred = context.requestGoogleCredential(credentialOptions)
+    val cred = context.requestGoogleCredential(
+        credentialOptions = credentialOptions,
+        credentialManager = credentialManager
+    )
 
     return awaitSignInWithGoogle(cred)
 }
