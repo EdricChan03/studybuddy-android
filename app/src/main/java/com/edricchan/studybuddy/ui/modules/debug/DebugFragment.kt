@@ -18,6 +18,7 @@ import androidx.fragment.compose.content
 import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebugModalBottomSheet
 import com.edricchan.studybuddy.core.compat.navigation.navigateToFeatureFlagsList
+import com.edricchan.studybuddy.exts.androidx.compose.plus
 import com.edricchan.studybuddy.ui.modules.debug.compose.DebugScreen
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.google.firebase.auth.FirebaseUser
