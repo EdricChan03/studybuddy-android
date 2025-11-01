@@ -125,12 +125,16 @@ private data class MainSwitchBarPreviewData(
 )
 
 private class MainSwitchBarParameterProvider : PreviewParameterProvider<MainSwitchBarPreviewData> {
-    override val values = sequenceOf(
+    val previews = listOf(
         MainSwitchBarPreviewData(enabled = false, checked = false),
         MainSwitchBarPreviewData(enabled = true, checked = false),
         MainSwitchBarPreviewData(enabled = false, checked = true),
         MainSwitchBarPreviewData(enabled = true, checked = true)
     )
+    override val values = previews.asSequence()
+
+    override fun getDisplayName(index: Int): String =
+        previews[index].let { "enabled = ${it.enabled}, checked = ${it.checked}" }
 }
 
 @Preview
