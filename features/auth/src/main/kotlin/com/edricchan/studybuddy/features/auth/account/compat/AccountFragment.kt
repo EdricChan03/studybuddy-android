@@ -261,8 +261,6 @@ class AccountFragment :
         ) {
             textInputLayout {
                 setHint(R.string.account_new_email_dialog_edittext_title)
-            }
-            textInputLayout {
                 textInputEditText.doAfterTextChanged {
                     error = if (it?.toString()?.isInvalidEmail() == true) {
                         getString(R.string.account_new_email_dialog_edittext_err_invalid_email)
@@ -271,6 +269,8 @@ class AccountFragment :
                     }
                 }
             }
+            textInputEditText.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
             setTitle(R.string.account_new_email_dialog_title)
             setPositiveButton(R.string.dialog_action_update_email) { dialog, _ ->
                 lifecycleScope.launch {
@@ -328,6 +328,8 @@ class AccountFragment :
                 endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
                 setHint(R.string.account_new_password_dialog_edittext_title)
             }
+            textInputEditText.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             setTitle(R.string.account_new_password_dialog_title)
             setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
                 lifecycleScope.launch {
