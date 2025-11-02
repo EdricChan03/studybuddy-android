@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.database.Cursor
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
@@ -43,11 +45,15 @@ class MaterialPromptDialogBuilder(context: Context) : MaterialAlertDialogBuilder
         textInputEditText.apply(init)
     }
 
-    /** The [TextInputEditText]'s text. */
-    var promptText by textInputEditText::text
+    /** The [TextInputEditText]'s text as an [Editable]. */
+    var inputEditable: Editable? by textInputEditText::text
 
-    /** The [TextInputEditText]'s text as a string. */
-    val promptTextStr get() = textInputEditText.text?.toString()
+    /** The [TextInputEditText]'s text as a [String]. */
+    var inputText: String?
+        get() = textInputEditText.text?.toString()
+        set(inputText) {
+            textInputEditText.text = SpannableStringBuilder(inputText)
+        }
 
     override fun create(): AlertDialog {
         super.setView(binding.root)
