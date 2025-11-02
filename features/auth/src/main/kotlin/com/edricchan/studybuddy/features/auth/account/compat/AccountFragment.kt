@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.features.auth.account.compat
 
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
