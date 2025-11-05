@@ -228,8 +228,8 @@ data class TodoItem(
         }
 
         /** [FieldValue] for the [Field.Tags] field. */
-        data class Tags(override val value: List<String>) :
-            FieldValue<List<String>>(field = Field.Tags, value = value)
+        data class Tags(override val value: Set<String>) :
+            FieldValue<Set<String>>(field = Field.Tags, value = value)
 
         /**
          * [FieldValue] for the [Field.Project] field.
