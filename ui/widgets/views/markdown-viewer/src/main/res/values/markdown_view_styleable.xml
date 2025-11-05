@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MarkdownView">
+        <!-- Desired text to be rendered in Markdown format. -->
+        <attr name="android:text" format="string" />
+        <!-- Whether the text can be selected by the user. -->
+        <attr name="android:textIsSelectable" format="boolean" />
+
+        <!--
+         Note: We're not using the android:padding and its equivalent attributes to make it
+         explicit that the padding is only applied to the inner _MarkdownViewer_ composable
+         rather than the view itself.
+         -->
+        <eat-comment />
+        <!-- Content padding for the inner view. -->
+        <attr name="markdown_contentPadding" format="dimension" />
+        <!-- Start content padding for the inner view. -->
+        <attr name="markdown_contentPaddingStart" format="dimension" />
+        <!-- End content padding for the inner view. -->
+        <attr name="markdown_contentPaddingEnd" format="dimension" />
+        <!-- Top content padding for the inner view. -->
+        <attr name="markdown_contentPaddingTop" format="dimension" />
+        <!-- Bottom content padding for the inner view. -->
+        <attr name="markdown_contentPaddingBottom" format="dimension" />
+
+        <!-- Desired container colour for this view. -->
+        <attr name="markdown_containerColor" format="color" />
+
+        <!-- Desired content colour for this view. -->
+        <attr name="markdown_contentColor" format="color" />
+
+        <!-- Desired link content colour for this view. -->
+        <attr name="markdown_linkContentColor" format="color" />
+    </declare-styleable>
+</resources>
