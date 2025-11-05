@@ -5,11 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.edricchan.studybuddy.exts.markwon.coilImagesPlugin
-import com.edricchan.studybuddy.exts.markwon.linkifyPlugin
-import com.edricchan.studybuddy.exts.markwon.setMarkdown
-import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
-import com.edricchan.studybuddy.exts.markwon.taskListPlugin
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemdetails.TodoItemDetails
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
@@ -49,15 +44,8 @@ class TodosAdapter(
                 else itemTitle.setText(R.string.task_adapter_empty_title)
                 itemContent.apply {
                     item.content?.takeIf { it.isNotBlank() }?.let {
-                        setMarkdown(it) {
-                            usePlugins(
-                                this@TodosAdapter.context.coilImagesPlugin,
-                                linkifyPlugin,
-                                context.taskListPlugin,
-                                strikethroughPlugin
-                            )
-                        }
-                    } ?: setText(R.string.task_adapter_empty_content)
+                        markdownText = it
+                    } ?: setMarkdownText(R.string.task_adapter_empty_content)
                 }
 
                 itemMarkAsDone.setOnClickListener {

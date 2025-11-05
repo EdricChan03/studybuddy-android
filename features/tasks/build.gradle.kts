@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.utils.recyclerview)
     implementation(projects.ui.common)
     implementation(projects.ui.theming.compose)
+    implementation(projects.ui.widgets.views.markdownViewer)
 
     // TODO: Remove when TaskListFragment has migrated to Compose
     implementation(projects.ui.widgets.modalBottomSheet) {

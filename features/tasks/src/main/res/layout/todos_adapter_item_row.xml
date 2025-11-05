@@ -30,7 +30,7 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="Task name" />
 
-        <TextView
+        <com.edricchan.studybuddy.ui.widgets.views.markdown.MarkdownView
             android:id="@+id/itemContent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
