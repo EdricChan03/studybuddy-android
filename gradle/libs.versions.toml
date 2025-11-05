@@ -118,7 +118,6 @@ kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coro
 markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-editor = { module = "io.noties.markwon:editor", version.ref = "markwon" }
 markwon-html = { module = "io.noties.markwon:html", version.ref = "markwon" }
-markwon-imageCoil = { module = "io.noties.markwon:image-coil", version.ref = "markwon" }
 markwon-linkify = { module = "io.noties.markwon:linkify", version.ref = "markwon" }
 markwon-syntaxHighlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwon" }
 markwon-ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwon" }
@@ -237,7 +236,6 @@ markwon = [
   "markwon-core",
   "markwon-editor",
   "markwon-html",
-  "markwon-imageCoil",
   "markwon-linkify",
   "markwon-syntaxHighlight",
   "markwon-ext-strikethrough",
