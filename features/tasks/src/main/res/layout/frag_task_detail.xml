@@ -29,7 +29,7 @@
                 android:transitionName="task_detail_title"
                 tools:text="&lt;Title of task goes here&gt;" />
 
-            <TextView
+            <com.edricchan.studybuddy.ui.widgets.views.markdown.MarkdownView
                 android:id="@+id/taskContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

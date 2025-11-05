@@ -21,11 +21,6 @@ import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskEdit
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
-import com.edricchan.studybuddy.exts.markwon.coilImagesPlugin
-import com.edricchan.studybuddy.exts.markwon.linkifyPlugin
-import com.edricchan.studybuddy.exts.markwon.setMarkdown
-import com.edricchan.studybuddy.exts.markwon.strikethroughPlugin
-import com.edricchan.studybuddy.exts.markwon.taskListPlugin
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
@@ -150,14 +145,7 @@ class TaskDetailFragment :
                 item?.content.also {
                     isVisible = it != null
                 }?.let {
-                    setMarkdown(it) {
-                        usePlugins(
-                            requireContext().coilImagesPlugin,
-                            linkifyPlugin,
-                            strikethroughPlugin,
-                            requireContext().taskListPlugin
-                        )
-                    }
+                    markdownText = it
                 }
             }
             taskId.apply {
