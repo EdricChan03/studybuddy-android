@@ -253,7 +253,7 @@ class TaskDetailFragment :
         }
     }
 
-    companion object {
+    private companion object {
         private const val TAG = "TaskDetailFragment"
     }
 }
