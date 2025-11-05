@@ -34,7 +34,33 @@ import com.edricchan.studybuddy.ui.widgets.compose.markdown.MarkdownViewer
 import com.edricchan.studybuddy.ui.widgets.compose.markdown.SampleMarkdownText
 import kotlinx.parcelize.Parcelize
 
-/** [android.view.View] to render Markdown using the [MarkdownViewer] composable. */
+/**
+ * [android.view.View] to render Markdown using the [MarkdownViewer] composable.
+ *
+ * ## Rendering content
+ * Use the [markdownText] or [setMarkdownText] property/method to set the desired Markdown
+ * content to be rendered. Alternatively, set the [R.styleable.MarkdownView_android_text]
+ * XML attribute.
+ *
+ * ## Customisation
+ * This view supports the following behaviours:
+ * * [Enabling/disabling text selection][isTextSelectable] (or
+ * [R.styleable.MarkdownView_android_textIsSelectable])
+ * * [Content padding][contentPadding] (see [R.styleable.MarkdownView_markdown_contentPadding],
+ * [R.styleable.MarkdownView_markdown_contentPaddingBottom],
+ * [R.styleable.MarkdownView_markdown_contentPaddingTop],
+ * [R.styleable.MarkdownView_markdown_contentPaddingStart],
+ * [R.styleable.MarkdownView_markdown_contentPaddingEnd])
+ * * Desired [container][ColorSpec.containerColor], [link][ColorSpec.linkContentColor] and
+ * [content][ColorSpec.contentColor] colours
+ * (see [R.styleable.MarkdownView_markdown_containerColor],
+ * [R.styleable.MarkdownView_markdown_linkContentColor] and
+ * [R.styleable.MarkdownView_markdown_contentColor])
+ *
+ * ### Link listeners
+ * This view also supports adding custom behaviour when a link is clicked on, via
+ * [addOnLinkClickListener] and [removeOnLinkClickListener].
+ */
 @Deprecated("Use the MarkdownViewer composable instead")
 class MarkdownView @JvmOverloads constructor(
     context: Context,
