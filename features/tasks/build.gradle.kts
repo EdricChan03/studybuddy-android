@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.utils.recyclerview)
     implementation(projects.ui.common)
     implementation(projects.ui.theming.compose)
+    implementation(projects.ui.widgets.compose.markdownViewer)
     implementation(projects.ui.widgets.views.markdownViewer)
 
     // TODO: Remove when TaskListFragment has migrated to Compose
@@ -83,10 +84,6 @@ dependencies {
 
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
-
-    // Markdown support
-    implementation(libs.composeRichText.ui.material3)
-    implementation(libs.composeRichText.commonmark)
 
     // Migration
     implementation(libs.migration)

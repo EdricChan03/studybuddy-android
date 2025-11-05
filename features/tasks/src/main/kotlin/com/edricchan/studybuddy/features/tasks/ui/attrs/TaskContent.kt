@@ -11,9 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.ui.utils.SampleMarkdownText
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
-import com.halilibo.richtext.markdown.Markdown
-import com.halilibo.richtext.ui.RichTextStyle
-import com.halilibo.richtext.ui.material3.RichText
+import com.edricchan.studybuddy.ui.widgets.compose.markdown.MarkdownViewer
 
 /**
  * Composable to display a [TodoItem]'s content. The content is truncated to
@@ -21,7 +19,7 @@ import com.halilibo.richtext.ui.material3.RichText
  * [ellipses][TextOverflow.Ellipsis].
  *
  * Note: This composable does **not** render the text as Markdown. Use
- * [TaskContentRichText] instead if this behaviour is desired.
+ * [TaskContentMarkdownText] instead if this behaviour is desired.
  * @param modifier [Modifier] to be passed to the [Text].
  * @param text The task's content.
  */
@@ -37,49 +35,42 @@ fun TaskContentRawText(
 )
 
 /**
- * Composable to display a [TodoItem]'s content as [RichText]. The text
- * is rendered using [Markdown].
+ * Composable to display a [TodoItem]'s content as markdown. The text
+ * is rendered using [MarkdownViewer].
  *
  * To display the [text] as-is, use [TaskContentRawText] instead.
  * @param modifier [Modifier] to be passed to the [Text].
  * @param text The task's content.
- * @param richTextStyle [RichTextStyle] to use for the [RichText].
  */
 @Composable
-fun TaskContentRichText(
+fun TaskContentMarkdownText(
     modifier: Modifier = Modifier,
-    text: String,
-    richTextStyle: RichTextStyle? = null
-) = RichText(modifier = modifier, style = richTextStyle) {
-    Markdown(content = text)
-}
+    text: String
+) = MarkdownViewer(modifier = modifier, markdownText = text)
 
 /**
  * Composable which displays the [TodoItem]'s `content` field in a [ListItem].
  * @param modifier [Modifier] to be passed to the [ListItem].
- * @param textModifier [Modifier] to be passed to the [TaskContentRichText] or
+ * @param textModifier [Modifier] to be passed to the [TaskContentMarkdownText] or
  * [TaskContentRawText].
  * @param content The task's content.
- * @param useRichText Whether the [TaskContentRichText] composable should be used
+ * @param shouldRenderAsMarkdown Whether the [TaskContentMarkdownText] composable should be used
  * to render the [content].
- * @param richTextStyle [RichTextStyle] for the [TaskContentRichText].
  */
 @Composable
 fun TaskContentListItem(
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     content: String,
-    useRichText: Boolean = true,
-    richTextStyle: RichTextStyle? = null,
+    shouldRenderAsMarkdown: Boolean = true,
     colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
     modifier = modifier,
     headlineContent = {
-        if (useRichText) {
-            TaskContentRichText(
+        if (shouldRenderAsMarkdown) {
+            TaskContentMarkdownText(
                 modifier = textModifier,
-                text = content,
-                richTextStyle = richTextStyle
+                text = content
             )
         } else {
             TaskContentRawText(modifier = textModifier, text = content)
