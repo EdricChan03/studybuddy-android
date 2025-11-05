@@ -93,7 +93,7 @@ class MultiSelectBottomSheetFragmentTest {
 
         launchActivity<EmptyFragmentActivity>().use { scenario ->
             scenario.onActivity { activity ->
-                activity.showMultiSelectBottomSheet<Int>(
+                activity.showMultiSelectBottomSheet(
                     "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm
@@ -150,7 +150,7 @@ class MultiSelectBottomSheetFragmentTest {
 
         launchActivity<EmptyFragmentActivity>().use { scenario ->
             scenario.onActivity { activity ->
-                activity.showMultiSelectBottomSheet<Int>(
+                activity.showMultiSelectBottomSheet(
                     "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm

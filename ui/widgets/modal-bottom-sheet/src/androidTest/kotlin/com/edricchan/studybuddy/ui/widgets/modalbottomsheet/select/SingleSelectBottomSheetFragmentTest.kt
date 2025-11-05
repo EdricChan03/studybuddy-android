@@ -91,7 +91,7 @@ class SingleSelectBottomSheetFragmentTest {
 
         launchActivity<EmptyFragmentActivity>().use { scenario ->
             scenario.onActivity { activity ->
-                activity.showSingleSelectBottomSheet<Int>(
+                activity.showSingleSelectBottomSheet(
                     "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm
@@ -128,7 +128,7 @@ class SingleSelectBottomSheetFragmentTest {
 
         launchActivity<EmptyFragmentActivity>().use { scenario ->
             scenario.onActivity { activity ->
-                activity.showSingleSelectBottomSheet<Int>(
+                activity.showSingleSelectBottomSheet(
                     "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm
