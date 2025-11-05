@@ -193,7 +193,6 @@ dependencies {
     implementation(projects.exts.datetime)
     implementation(projects.exts.firebase.core)
     implementation(projects.exts.firebase.temporal)
-    implementation(projects.exts.markwon)
     implementation(projects.exts.material)
     implementation(projects.features.auth)
     implementation(projects.features.help)
@@ -247,14 +246,6 @@ dependencies {
     // DeepLinkDispatch dependencies
     implementation(libs.deepLinkDispatch.core)
     ksp(libs.deepLinkDispatch.processor)
-
-    // Markwon dependencies
-    // See https://noties.io/Markwon for more info
-    implementation(libs.bundles.markwon)
-    // See https://github.com/noties/Markwon/issues/148#issuecomment-508003794
-    configurations.configureEach {
-        exclude("org.jetbrains", "annotations-java5")
-    }
 
     // Kotlin dependencies
     implementation(libs.kotlinx.coroutines.android)

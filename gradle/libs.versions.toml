@@ -12,8 +12,6 @@ androidx-fragment = "1.8.9"
 androidx-lifecycle = "2.9.4"
 androidx-navigation = "2.9.5"
 coil = "3.3.0"
-# Used when resolving Markwon's CommonMark dependencies
-commonmark = "0.21.0"
 compose-richtext = "0.20.0"
 dagger = "2.57.2"
 deep-link-dispatch = "6.2.2"
@@ -24,7 +22,6 @@ kotlin = "2.2.21"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.9.0"
 ktor = "3.3.1"
-markwon = "4.6.2"
 mockk = "1.14.6"
 # TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
 #  is fixed
@@ -113,16 +110,6 @@ firebase-perf-ktx = { module = "com.google.firebase:firebase-perf" }
 # Kotlin
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
-
-# Markwon
-markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
-markwon-editor = { module = "io.noties.markwon:editor", version.ref = "markwon" }
-markwon-html = { module = "io.noties.markwon:html", version.ref = "markwon" }
-markwon-linkify = { module = "io.noties.markwon:linkify", version.ref = "markwon" }
-markwon-syntaxHighlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwon" }
-markwon-ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwon" }
-markwon-ext-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
-markwon-ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 
 # I/O Dependencies
 
@@ -230,17 +217,6 @@ ktor = [
   "ktor-client-content-negotiation",
   "ktor-client-okhttp",
   "ktor-serialization-kotlinx-json"
-]
-
-markwon = [
-  "markwon-core",
-  "markwon-editor",
-  "markwon-html",
-  "markwon-linkify",
-  "markwon-syntaxHighlight",
-  "markwon-ext-strikethrough",
-  "markwon-ext-tables",
-  "markwon-ext-tasklist"
 ]
 
 [plugins]
