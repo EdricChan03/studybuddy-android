@@ -107,7 +107,7 @@ class MainActivity : BaseActivity() {
                 .collect {
                     showSnackbar(
                         binding.coordinatorLayoutMain,
-                        it.message,
+                        it.message.asString(this@MainActivity),
                         it.duration.value
                     ) {
                         anchorView = binding.bottomAppBar
