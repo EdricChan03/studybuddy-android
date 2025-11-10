@@ -30,6 +30,7 @@ dependencies {
     implementation(projects.exts.firebase.core)
 
     api(projects.core.auth.service)
+    api(projects.ui.common)
 
     implementation(platform(libs.firebase.bom))
     api(libs.bundles.firebase)
