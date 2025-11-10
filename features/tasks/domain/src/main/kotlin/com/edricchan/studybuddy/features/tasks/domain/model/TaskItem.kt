@@ -25,4 +25,56 @@ data class TaskItem(
     val project: TaskProject? = null,
     override val createdAt: Instant,
     override val lastModified: Instant
-) : HasId, WithTimestampMetadata
+) : HasId, WithTimestampMetadata {
+    enum class Field {
+        Title,
+        Content,
+        DueDate,
+        IsCompleted,
+        IsArchived,
+        Tags,
+        Project,
+        CreatedAt,
+        LastModified
+    }
+
+    sealed class FieldValue<T>(
+        val field: Field,
+        open val value: T
+    ) {
+        data class Title(override val value: String) : FieldValue<String>(
+            field = Field.Title,
+            value = value
+        )
+
+        data class Content(override val value: String?) : FieldValue<String?>(
+            field = Field.Content,
+            value = value
+        )
+
+        data class DueDate(override val value: Instant?) : FieldValue<Instant?>(
+            field = Field.DueDate,
+            value = value
+        )
+
+        data class IsCompleted(override val value: Boolean) : FieldValue<Boolean>(
+            field = Field.IsCompleted,
+            value = value
+        )
+
+        data class IsArchived(override val value: Boolean) : FieldValue<Boolean>(
+            field = Field.IsArchived,
+            value = value
+        )
+
+        data class Tags(override val value: Set<String>?) : FieldValue<Set<String>?>(
+            field = Field.Tags,
+            value = value
+        )
+
+        data class Project(override val value: TaskProject?) : FieldValue<TaskProject?>(
+            field = Field.Project,
+            value = value
+        )
+    }
+}
