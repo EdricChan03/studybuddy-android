@@ -25,9 +25,6 @@ class TaskRepository @Inject constructor(
 
     private suspend fun getCollectionRef() = taskCollectionRef.first()
 
-    /** Retrieves the user's list of tasks. */
-    suspend fun getTasks() = getCollectionRef().get().await().toObjects<TodoItem>()
-
     /** Retrieves the user's list of tasks as a [Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)
     val tasksFlow = taskCollectionRef.flatMapLatest { it.dataObjects<TodoItem>() }
