@@ -17,4 +17,4 @@ open class DefaultFirestoreDataSource<T : HasId>(
     batchFactory = {
         FirestoreCrudBatch(collectionRef = it)
     }
-)
+), IDefaultFirestoreDataSource<T>

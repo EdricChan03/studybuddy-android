@@ -5,6 +5,7 @@ import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.source.crud.Countable
 import com.edricchan.studybuddy.data.source.crud.DataSource
 import com.edricchan.studybuddy.data.source.crud.HasBatchOperations
+import com.edricchan.studybuddy.data.source.crud.HasBatchOperations.CrudBatch
 import com.edricchan.studybuddy.data.source.crud.HasQueryOperations
 import com.google.firebase.firestore.DocumentReference
 
@@ -22,3 +23,10 @@ sealed interface IFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.Fir
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
     Countable<Long>
+
+/**
+ * Generic Firestore-backed [DataSource] with a default [CrudBatch] type.
+ * @see IFirestoreDataSource
+ */
+sealed interface IDefaultFirestoreDataSource<T : HasId> :
+    IFirestoreDataSource<T, FirestoreDataSource.FirestoreCrudBatch<T>>
