@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectRepository
+import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectDataSource
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
@@ -255,11 +255,11 @@ data class TodoItem(
             FieldValue<String?>(field = Field.Project, value = value) {
             /**
              * Converts this [FieldValue] to its [Project] equivalent.
-             * @param repo The repository to retrieve the [DocumentReference] from.
+             * @param source The data-source to retrieve the [DocumentReference] from.
              */
             suspend fun toProject(
-                repo: TaskProjectRepository
-            ) = Project(value?.let { repo.getRef(it) })
+                source: TaskProjectDataSource
+            ) = Project(value?.let { source.getRef(it) })
         }
 
         /** [FieldValue] for the [Field.IsDone] field. */

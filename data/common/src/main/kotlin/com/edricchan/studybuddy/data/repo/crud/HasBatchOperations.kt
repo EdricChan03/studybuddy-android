@@ -4,11 +4,11 @@ import com.edricchan.studybuddy.data.repo.crud.HasBatchOperations.CrudBatch
 import com.google.firebase.firestore.WriteBatch
 
 /**
- * Repository that supports batch CRUD operations.
+ * Represents a data-source that supports batch CRUD operations.
  * @param Batch Class used to support batch CRUD operations. For example,
  * this would be the [WriteBatch] class from Firestore.
  * @see CrudBatch
- * @see CrudRepository
+ * @see DataSource
  */
 interface HasBatchOperations<Batch : CrudBatch<*, *>> {
     /** Sub-classes should implement this method to create [Batch] instances. */

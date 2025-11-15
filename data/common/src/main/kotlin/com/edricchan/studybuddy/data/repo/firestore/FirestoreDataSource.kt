@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.data.repo.firestore
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.repo.crud.Countable
-import com.edricchan.studybuddy.data.repo.crud.CrudRepository
+import com.edricchan.studybuddy.data.repo.crud.DataSource
 import com.edricchan.studybuddy.data.repo.crud.HasBatchOperations
 import com.edricchan.studybuddy.data.repo.crud.HasQueryOperations
 import com.google.firebase.Firebase
@@ -18,18 +18,18 @@ import kotlinx.coroutines.tasks.await
 import kotlin.reflect.KClass
 
 /**
- * [CrudRepository] which uses Firebase Firestore as its underlying data-source.
+ * [DataSource] which uses Firebase Firestore.
  * @property collectionRef [CollectionReference] to retrieve the data from.
- * @property klass [KClass] representation of the POJO class to be used for [CrudRepository].
+ * @property klass [KClass] representation of the POJO class to be used for [DataSource].
  * @property batchFactory Lambda used to instantiate a [Batch] for [createBatch].
- * @see CrudRepository
+ * @see DataSource
  * @see HasQueryOperations
  */
-open class FirestoreRepository<T : HasId, Batch : FirestoreRepository.FirestoreCrudBatch<T>>(
+open class FirestoreDataSource<T : HasId, Batch : FirestoreDataSource.FirestoreCrudBatch<T>>(
     private val collectionRef: CollectionReference,
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
-) : CrudRepository<T, String, DocumentReference>,
+) : DataSource<T, String, DocumentReference>,
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
     Countable<Long> {

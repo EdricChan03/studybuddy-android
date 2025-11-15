@@ -4,12 +4,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 /**
- * Repository that has query operations.
+ * Represents a data source that has query operations.
  *
- * This interface is separate from [CrudRepository] to facilitate
- * repositories that might not have the ability to perform queries on the
+ * This interface is separate from [DataSource] to facilitate
+ * data sources that might not have the ability to perform queries on the
  * underlying data.
- * @see CrudRepository
+ * @see DataSource
  * @param T Concrete POJO class that the CRUD operations will return.
  * @param Query Type representing a class of some kind which can be used to query
  * data from the underlying database.

@@ -5,13 +5,13 @@ import com.google.firebase.firestore.CollectionReference
 import kotlin.reflect.KClass
 
 /**
- * Implementation of [FirestoreRepository] which does not require a `Batch` to be specified.
- * @see FirestoreRepository
+ * Implementation of [FirestoreDataSource] which does not require a `Batch` to be specified.
+ * @see FirestoreDataSource
  */
-open class DefaultFirestoreRepository<T : HasId>(
+open class DefaultFirestoreDataSource<T : HasId>(
     collectionRef: CollectionReference,
     klass: KClass<T>
-) : FirestoreRepository<T, FirestoreRepository.FirestoreCrudBatch<T>>(
+) : FirestoreDataSource<T, FirestoreDataSource.FirestoreCrudBatch<T>>(
     collectionRef = collectionRef,
     klass = klass,
     batchFactory = {

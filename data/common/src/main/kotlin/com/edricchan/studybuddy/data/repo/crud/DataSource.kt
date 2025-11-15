@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.data.repo.crud
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Generic repository interface for Create, Read, Update and Delete operations.
+ * Generic data-source interface for Create, Read, Update and Delete operations.
  *
  * This interface does not have any tight coupling with any specific database implementation,
  * so it should be safe for use across databases.
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
  * @param Reference Type representing a class which can be used to retrieve the underlying
  * representation of a [T] class from the database.
  */
-interface CrudRepository<T, Id, Reference> {
+interface DataSource<T, Id, Reference> {
     //#region Read operations
     /** Retrieves all data from this repository as a [Flow]. */
     val items: Flow<List<T>>

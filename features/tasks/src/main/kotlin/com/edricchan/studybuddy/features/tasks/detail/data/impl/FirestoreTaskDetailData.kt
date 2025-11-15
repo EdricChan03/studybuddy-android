@@ -2,7 +2,7 @@ package com.edricchan.studybuddy.features.tasks.detail.data.impl
 
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectRepository
+import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.detail.data.TaskDetailData
 import dagger.assisted.Assisted
@@ -20,7 +20,7 @@ class FirestoreTaskDetailData @AssistedInject constructor(
     @Assisted private val selectedTaskId: String,
     @Assisted private val coroutineScope: CoroutineScope,
     private val repo: TaskRepository,
-    private val projectRepo: TaskProjectRepository
+    private val projectSource: TaskProjectDataSource
 ) : TaskDetailData {
     @AssistedFactory
     fun interface Factory {
@@ -35,8 +35,7 @@ class FirestoreTaskDetailData @AssistedInject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     override val currTaskProjectFlow: StateFlow<TodoProject?> = currTaskFlow
         .flatMapConcat { item ->
-            // Return a flow with null if the ID is null
-            item?.project?.id?.let(projectRepo::get) ?: flowOf(null)
+            item?.project?.id?.let(projectSource::get) ?: flowOf(null)
         }
         .stateIn(coroutineScope, SharingStarted.WhileSubscribed(), null)
 }

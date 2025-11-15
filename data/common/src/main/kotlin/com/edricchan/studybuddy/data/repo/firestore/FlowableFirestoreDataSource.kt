@@ -3,7 +3,7 @@ package com.edricchan.studybuddy.data.repo.firestore
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.repo.crud.Countable
-import com.edricchan.studybuddy.data.repo.crud.CrudRepository
+import com.edricchan.studybuddy.data.repo.crud.DataSource
 import com.edricchan.studybuddy.data.repo.crud.HasBatchOperations
 import com.edricchan.studybuddy.data.repo.crud.HasQueryOperations
 import com.google.firebase.firestore.AggregateSource
@@ -20,23 +20,23 @@ import kotlinx.coroutines.tasks.await
 import kotlin.reflect.KClass
 
 /**
- * [CrudRepository] which uses Firebase Firestore as its underlying data-source.
+ * [DataSource] which uses Firebase Firestore.
  *
  * This variant allows for a [Flow] of the [CollectionReference] to be used.
- * For its non-[Flow] equivalent, use [FirestoreRepository] instead.
+ * For its non-[Flow] equivalent, use [FirestoreDataSource] instead.
  * @property collectionRefFlow [CollectionReference] to retrieve the data from as a
  * [Flow].
- * @property klass [KClass] representation of the POJO class to be used for [CrudRepository].
+ * @property klass [KClass] representation of the POJO class to be used for [DataSource].
  * @property batchFactory Lambda used to instantiate a [Batch] for [createBatch].
- * @see CrudRepository
+ * @see DataSource
  * @see HasQueryOperations
- * @see FirestoreRepository
+ * @see FirestoreDataSource
  */
-open class FlowableFirestoreRepository<T : HasId, Batch : FirestoreRepository.FirestoreCrudBatch<T>>(
+open class FlowableFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.FirestoreCrudBatch<T>>(
     private val collectionRefFlow: Flow<CollectionReference>,
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
-) : CrudRepository<T, String, DocumentReference>,
+) : DataSource<T, String, DocumentReference>,
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
     Countable<Long> {
