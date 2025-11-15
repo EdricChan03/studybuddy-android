@@ -1,11 +1,11 @@
-package com.edricchan.studybuddy.data.repo.firestore
+package com.edricchan.studybuddy.data.source.firestore
 
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
-import com.edricchan.studybuddy.data.repo.crud.Countable
-import com.edricchan.studybuddy.data.repo.crud.DataSource
-import com.edricchan.studybuddy.data.repo.crud.HasBatchOperations
-import com.edricchan.studybuddy.data.repo.crud.HasQueryOperations
+import com.edricchan.studybuddy.data.source.crud.Countable
+import com.edricchan.studybuddy.data.source.crud.DataSource
+import com.edricchan.studybuddy.data.source.crud.HasBatchOperations
+import com.edricchan.studybuddy.data.source.crud.HasQueryOperations
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference

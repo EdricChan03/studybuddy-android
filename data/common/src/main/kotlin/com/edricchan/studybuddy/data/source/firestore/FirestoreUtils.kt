@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.data.repo.firestore
+package com.edricchan.studybuddy.data.source.firestore
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot

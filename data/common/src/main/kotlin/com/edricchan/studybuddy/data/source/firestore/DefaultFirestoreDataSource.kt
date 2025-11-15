@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.data.repo.firestore
+package com.edricchan.studybuddy.data.source.firestore
 
 import com.edricchan.studybuddy.data.common.HasId
 import com.google.firebase.firestore.CollectionReference

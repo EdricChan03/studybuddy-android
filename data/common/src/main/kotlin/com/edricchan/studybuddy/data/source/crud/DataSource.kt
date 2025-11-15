@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.data.repo.crud
+package com.edricchan.studybuddy.data.source.crud
 
 import kotlinx.coroutines.flow.Flow
 

@@ -1,7 +1,7 @@
-package com.edricchan.studybuddy.data.repo.firestore
+package com.edricchan.studybuddy.data.source.firestore
 
 import com.edricchan.studybuddy.data.common.HasId
-import com.edricchan.studybuddy.data.repo.firestore.FirestoreDataSource.FirestoreCrudBatch
+import com.edricchan.studybuddy.data.source.firestore.FirestoreDataSource.FirestoreCrudBatch
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.flow.Flow
 import kotlin.reflect.KClass

@@ -1,6 +1,6 @@
-package com.edricchan.studybuddy.data.repo.crud
+package com.edricchan.studybuddy.data.source.crud
 
-import com.edricchan.studybuddy.data.repo.crud.HasBatchOperations.CrudBatch
+import com.edricchan.studybuddy.data.source.crud.HasBatchOperations.CrudBatch
 import com.google.firebase.firestore.WriteBatch
 
 /**

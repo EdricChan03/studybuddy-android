@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.data.repo.crud
+package com.edricchan.studybuddy.data.source.crud
 
 /**
  * Indicates that a repository can return the number of elements from its data-source.
