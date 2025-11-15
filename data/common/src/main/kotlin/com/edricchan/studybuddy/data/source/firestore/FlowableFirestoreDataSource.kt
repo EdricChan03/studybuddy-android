@@ -2,9 +2,7 @@ package com.edricchan.studybuddy.data.source.firestore
 
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
-import com.edricchan.studybuddy.data.source.crud.Countable
 import com.edricchan.studybuddy.data.source.crud.DataSource
-import com.edricchan.studybuddy.data.source.crud.HasBatchOperations
 import com.edricchan.studybuddy.data.source.crud.HasQueryOperations
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.CollectionReference
@@ -36,10 +34,7 @@ open class FlowableFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.Fi
     private val collectionRefFlow: Flow<CollectionReference>,
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
-) : DataSource<T, String, DocumentReference>,
-    HasQueryOperations<T, QueryMapper>,
-    HasBatchOperations<Batch>,
-    Countable<Long> {
+) : IFirestoreDataSource<T, Batch> {
     private suspend fun getCollectionRef() = collectionRefFlow.first()
 
     /**

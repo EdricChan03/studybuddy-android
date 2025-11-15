@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.data.source.firestore
 
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
-import com.edricchan.studybuddy.data.source.crud.Countable
 import com.edricchan.studybuddy.data.source.crud.DataSource
 import com.edricchan.studybuddy.data.source.crud.HasBatchOperations
 import com.edricchan.studybuddy.data.source.crud.HasQueryOperations
@@ -29,10 +28,7 @@ open class FirestoreDataSource<T : HasId, Batch : FirestoreDataSource.FirestoreC
     private val collectionRef: CollectionReference,
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
-) : DataSource<T, String, DocumentReference>,
-    HasQueryOperations<T, QueryMapper>,
-    HasBatchOperations<Batch>,
-    Countable<Long> {
+) : IFirestoreDataSource<T, Batch> {
     /**
      * Retrieves a document from the [collectionRef].
      * @see CollectionReference.document
