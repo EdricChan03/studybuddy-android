@@ -143,9 +143,10 @@ private fun ExpListItemContent(
     supportingContent: @Composable (() -> Unit)?,
     trailingContent: @Composable (() -> Unit)?,
     enabled: Boolean,
+    selected: Boolean,
     colors: ExpListItemColors
 ) {
-    val iconColor by colors.iconColor(enabled = enabled)
+    val iconColor by colors.iconColor(enabled = enabled, selected = selected)
 
     Row(
         modifier = modifier.padding(horizontal = ListItemHorizontalPadding),
@@ -240,6 +241,7 @@ fun ExpListItem(
             supportingContent = supportingContent,
             trailingContent = trailingContent,
             enabled = enabled,
+            selected = false,
             colors = colors
         )
     }
@@ -293,6 +295,7 @@ fun ExpListItem(
             supportingContent = supportingContent,
             trailingContent = trailingContent,
             enabled = enabled,
+            selected = false,
             colors = colors
         )
     }
@@ -351,6 +354,7 @@ fun ExpListItem(
             supportingContent = supportingContent,
             trailingContent = trailingContent,
             enabled = enabled,
+            selected = checked,
             colors = colors
         )
     }
@@ -408,6 +412,7 @@ fun ExpListItem(
             supportingContent = supportingContent,
             trailingContent = trailingContent,
             enabled = enabled,
+            selected = selected,
             colors = colors
         )
     }
