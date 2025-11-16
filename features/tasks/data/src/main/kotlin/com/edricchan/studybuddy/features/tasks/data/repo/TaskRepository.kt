@@ -17,7 +17,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
-    private val source: IDefaultFirestoreDataSource<TodoItem>
+    private val source: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoItem>
 ) {
     /** Retrieves the user's list of tasks as a [Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)
