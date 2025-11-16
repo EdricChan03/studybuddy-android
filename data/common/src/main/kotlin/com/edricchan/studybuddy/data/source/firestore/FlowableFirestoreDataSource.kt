@@ -35,7 +35,7 @@ open class FlowableFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.Fi
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
 ) : IFirestoreDataSource<T, Batch> {
-    private suspend fun getCollectionRef() = collectionRefFlow.first()
+    override suspend fun getCollectionRef() = collectionRefFlow.first()
 
     /**
      * Retrieves a document from the [collectionRefFlow] as a [Flow].

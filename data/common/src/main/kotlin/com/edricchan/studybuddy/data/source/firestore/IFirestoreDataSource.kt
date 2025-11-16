@@ -7,6 +7,7 @@ import com.edricchan.studybuddy.data.source.crud.DataSource
 import com.edricchan.studybuddy.data.source.crud.HasBatchOperations
 import com.edricchan.studybuddy.data.source.crud.HasBatchOperations.CrudBatch
 import com.edricchan.studybuddy.data.source.crud.HasQueryOperations
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 
 /**
@@ -22,7 +23,10 @@ sealed interface IFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.Fir
     DataSource<T, String, DocumentReference>,
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
-    Countable<Long>
+    Countable<Long> {
+    /** Retrieves the source [CollectionReference] for this data-source. */
+    suspend fun getCollectionRef(): CollectionReference
+}
 
 /**
  * Generic Firestore-backed [DataSource] with a default [CrudBatch] type.

@@ -29,6 +29,8 @@ open class FirestoreDataSource<T : HasId, Batch : FirestoreDataSource.FirestoreC
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
 ) : IFirestoreDataSource<T, Batch> {
+    override suspend fun getCollectionRef(): CollectionReference = collectionRef
+
     /**
      * Retrieves a document from the [collectionRef].
      * @see CollectionReference.document
