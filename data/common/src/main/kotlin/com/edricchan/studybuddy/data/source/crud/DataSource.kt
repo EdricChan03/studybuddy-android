@@ -16,8 +16,9 @@ import kotlinx.coroutines.flow.Flow
  * @param Id Type representing the POJO's `id` field. Usually a [String].
  * @param Reference Type representing a class which can be used to retrieve the underlying
  * representation of a [T] class from the database.
+ * @param UpdateDto Type representing the class to be used for the [update] operation.
  */
-interface DataSource<T, Id, Reference> {
+interface DataSource<T, Id, Reference, UpdateDto> {
     //#region Read operations
     /** Retrieves all data from this repository as a [Flow]. */
     val items: Flow<List<T>>
@@ -51,15 +52,18 @@ interface DataSource<T, Id, Reference> {
 
     //#region Update operations
     /** Updates the given item represented by the [id] from the data source with the new [data]. */
-    suspend fun update(id: Id, data: Map<String, Any?>)
-
-    /**
-     * Updates the given item represented by the [id] from the data source with the new [dataAction].
-     *
-     * This variant allows for DSL syntax for the data, similar to that of [buildMap].
-     */
-    suspend fun update(id: Id, dataAction: MutableMap<String, Any?>.() -> Unit) {
-        update(id, buildMap(dataAction))
-    }
+    suspend fun update(id: Id, data: UpdateDto)
     //#endregion
+}
+
+/**
+ * Updates the given item represented by the [id] from the data source with the new [dataAction].
+ *
+ * This variant allows for DSL syntax for the data, similar to that of [buildMap].
+ */
+suspend fun <Id> DataSource<*, Id, *, Map<String, Any?>>.update(
+    id: Id,
+    dataAction: MutableMap<String, Any?>.() -> Unit
+) {
+    update(id, buildMap(dataAction))
 }

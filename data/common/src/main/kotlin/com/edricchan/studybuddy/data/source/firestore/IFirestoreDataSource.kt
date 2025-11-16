@@ -20,7 +20,7 @@ import com.google.firebase.firestore.DocumentReference
  * @see FlowableFirestoreDataSource
  */
 sealed interface IFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.FirestoreCrudBatch<T>> :
-    DataSource<T, String, DocumentReference>,
+    DataSource<T, String, DocumentReference, Map<String, Any?>>,
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
     Countable<Long> {
