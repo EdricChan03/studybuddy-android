@@ -87,6 +87,25 @@ interface HasBatchOperations<Batch : CrudBatch<*, *>> {
             update(id, buildMap(dataAction))
         }
 
+        /**
+         * Adds an update operation for every value in [ids] with the new [data].
+         * @see update
+         */
+        fun updateAll(ids: Set<Id>, data: Map<String, Any?>) {
+            ids.forEach { update(it, data) }
+        }
+
+        /**
+         * Adds an update operation for every value in [ids] with the resulting map from
+         * [dataAction].
+         *
+         * This variant allows for the [buildMap] DSL to be used.
+         * @see update
+         */
+        fun updateAll(ids: Set<Id>, dataAction: MutableMap<String, Any?>.() -> Unit) {
+            updateAll(ids, buildMap(dataAction))
+        }
+
         // Delete
         /** Adds a delete operation to this [CrudBatch]. */
         fun delete(id: Id)
