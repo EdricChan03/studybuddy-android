@@ -25,6 +25,8 @@ android {
 dependencies {
     api(projects.data.common)
 
+    api(libs.androidx.paging.common)
+
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
