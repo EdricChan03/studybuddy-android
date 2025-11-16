@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.database.Cursor
 import android.graphics.drawable.Drawable
 import android.text.Editable
-import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
@@ -52,7 +51,7 @@ class MaterialPromptDialogBuilder(context: Context) : MaterialAlertDialogBuilder
     var inputText: String?
         get() = textInputEditText.text?.toString()
         set(inputText) {
-            textInputEditText.text = SpannableStringBuilder(inputText)
+            textInputEditText.setText(inputText)
         }
 
     override fun create(): AlertDialog {
