@@ -17,81 +17,54 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
-    private val firestore: FirebaseFirestore,
-    userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>,
+    private val source: IDefaultFirestoreDataSource<TodoItem>
 ) {
-    private val userId = userFlow.mapNotNull { it?.uid }
-    private val taskCollectionRef = userId.map { firestore.collection("/users/$it/todos") }
-
-    private suspend fun getCollectionRef() = taskCollectionRef.first()
-
     /** Retrieves the user's list of tasks as a [Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)
-    val tasksFlow = taskCollectionRef.flatMapLatest { it.dataObjects<TodoItem>() }
+    val tasksFlow: Flow<List<TodoItem>> = source.items
 
     /** Retrieves the user's list of tasks given the specified [query]. */
-    suspend fun queryTasks(query: QueryMapper) =
-        query(getCollectionRef()).get().await().toObjects<TodoItem>()
+    suspend fun queryTasks(query: QueryMapper): List<TodoItem> = source.findAll(query).first()
 
     /** Retrieves the user's list of tasks given the specified [query] as a [Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun observeQueryTasks(query: QueryMapper) =
-        taskCollectionRef.flatMapLatest { query(it).dataObjects<TodoItem>() }
+    fun observeQueryTasks(query: QueryMapper): Flow<List<TodoItem>> = source.findAll(query)
 
     /** Retrieves the task given its [id]. */
-    suspend fun getTask(id: String) =
-        getCollectionRef().document(id).get().await().toObject<TodoItem>()
-
-    /** Retrieves the task given its [id] as a [com.google.firebase.firestore.DocumentReference] */
-    suspend fun getTaskDocument(id: String) = getCollectionRef().document(id)
-
-    /** Checks if the specified [id] exists. */
-    suspend fun hasTask(id: String) = getTaskDocument(id).get().await().exists()
+    suspend fun getTask(id: String): TodoItem? = source.getSnapshot(id)
 
     /** Retrieves the task given its [id] as a [Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun observeTask(id: String) = taskCollectionRef.flatMapLatest {
-        it.document(id).dataObjects<TodoItem>()
-    }
+    fun observeTask(id: String): Flow<TodoItem?> = source[id]
 
     /** Adds the specified [task]. */
-    suspend fun addTask(task: TodoItem) = getCollectionRef().add(task).await()
+    suspend fun addTask(task: TodoItem): DocumentReference = source.add(task)
 
     /** Removes the specified [task]. */
     suspend fun removeTask(task: TodoItem) = removeTask(task.id)
 
     /** Removes the specified task given its [id]. */
     suspend fun removeTask(id: String) {
-        getTaskDocument(id).delete().await()
+        source.removeById(id)
     }
 
     /** Bulk removes the specified list of tasks by their [ids]. */
     suspend fun removeTasks(ids: Set<String>) {
-        val collectionRef = getCollectionRef()
-        val docs = ids.map(collectionRef::document)
-
-        firestore.runBatch { batch ->
-            docs.forEach {
-                batch.delete(it)
-            }
-        }.await()
+        source.runBatch {
+            deleteAll(ids)
+        }
     }
 
     /** Update the task (given its [id]) with the specified [data]. */
-    suspend fun updateTask(id: String, data: Map<String, Any>) {
-        getTaskDocument(id).update(data).await()
+    suspend fun updateTask(id: String, data: Map<String, Any?>) {
+        source.update(id, data)
     }
 
     /** Updates the list of tasks (given by [ids]) with the specified [data]. */
-    suspend fun updateTasks(ids: Set<String>, data: Map<String, Any>) {
-        val collectionRef = getCollectionRef()
-        val docs = ids.map(collectionRef::document)
-
-        firestore.runBatch { batch ->
-            docs.forEach {
-                batch.update(it, data)
-            }
-        }.await()
+    suspend fun updateTasks(ids: Set<String>, data: Map<String, Any?>) {
+        source.runBatch {
+            updateAll(ids, data)
+        }
     }
 
     /** Updates the task given its [id] with the [dataAction] to be passed to [buildMap]. */
@@ -101,14 +74,14 @@ class TaskRepository @Inject constructor(
 
 suspend fun TaskRepository.update(
     id: String,
-    data: Map<TodoItem.Field, Any>
+    data: Map<TodoItem.Field, Any?>
 ) {
     updateTask(id, data.mapKeys { it.key.fieldName })
 }
 
 suspend fun TaskRepository.update(
     id: String,
-    dataAction: MutableMap<TodoItem.Field, Any>.() -> Unit
+    dataAction: MutableMap<TodoItem.Field, Any?>.() -> Unit
 ) {
     updateTask(id, buildMap(dataAction).mapKeys { it.key.fieldName })
 }
