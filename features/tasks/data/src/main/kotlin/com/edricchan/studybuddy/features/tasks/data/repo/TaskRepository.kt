@@ -60,10 +60,6 @@ class TaskRepository @Inject constructor(
             updateAll(ids, data)
         }
     }
-
-    /** Updates the task given its [id] with the [dataAction] to be passed to [buildMap]. */
-    suspend fun updateTask(id: String, dataAction: MutableMap<String, Any>.() -> Unit) =
-        updateTask(id, buildMap(dataAction))
 }
 
 suspend fun TaskRepository.update(
