@@ -12,6 +12,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
+@JvmSuppressWildcards
 abstract class TaskDataModule {
     @Binds
     abstract fun bindTaskDataSource(
