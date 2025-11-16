@@ -1,19 +1,16 @@
 package com.edricchan.studybuddy.features.tasks.data.repo
 
 import com.edricchan.studybuddy.data.common.QueryMapper
+import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSource
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.dataObjects
-import com.google.firebase.firestore.toObject
-import com.google.firebase.firestore.toObjects
+import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
+import com.google.firebase.firestore.DocumentReference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
