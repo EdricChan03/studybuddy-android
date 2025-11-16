@@ -27,9 +27,6 @@ class TaskRepository @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     fun observeQueryTasks(query: QueryMapper): Flow<List<TodoItem>> = source.findAll(query)
 
-    /** Retrieves the task given its [id]. */
-    suspend fun getTask(id: String): TodoItem? = source.getSnapshot(id)
-
     /** Retrieves the task given its [id] as a [Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
     fun observeTask(id: String): Flow<TodoItem?> = source[id]
