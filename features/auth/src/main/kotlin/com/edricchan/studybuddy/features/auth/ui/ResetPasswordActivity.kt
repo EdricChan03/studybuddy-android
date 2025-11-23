@@ -7,21 +7,29 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
+import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
+import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.ActivityResetPasswordBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 @WebDeepLink(["/resetPassword", "/reset-password"])
 @AppDeepLink(["/resetPassword", "/reset-password"])
+@AndroidEntryPoint
 class ResetPasswordActivity : BaseActivity() {
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var auth: FirebaseAuth
+
     private lateinit var binding: ActivityResetPasswordBinding
 
     override val isEdgeToEdgeEnabled = true
@@ -34,8 +42,6 @@ class ResetPasswordActivity : BaseActivity() {
             setSupportActionBar(toolbar)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        auth = Firebase.auth
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -51,43 +57,36 @@ class ResetPasswordActivity : BaseActivity() {
         binding.apply {
             btnBack.setOnClickListener { finish() }
 
+            inputEmail.doAfterTextChanged {
+                btnResetPassword.isEnabled = !it.isNullOrBlank()
+            }
             btnResetPassword.setOnClickListener {
 
-                val email = inputEmail.text.toString().trim()
-
-                if (email.isEmpty()) {
-                    showSnackbar(
-                        mainView,
-                        "Please enter an email address",
-                        Snackbar.LENGTH_LONG
-                    )
-                    return@setOnClickListener
-                }
+                val email = inputEmail.text?.toString()?.trim() ?: return@setOnClickListener
 
                 progressBar.isVisible = true
-                auth.sendPasswordResetEmail(email)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            showSnackbar(
-                                mainView,
-                                "An email has been sent to the email address that you have specified",
-                                Snackbar.LENGTH_LONG
-                            )
-                        } else {
-                            showSnackbar(
-                                mainView,
-                                "An error occurred while attempting to send an email. Please try again later",
-                                Snackbar.LENGTH_LONG
-                            )
-                            Log.e(
-                                TAG,
-                                "An error occurred while attempting to send a reset password email.",
-                                task.exception
-                            )
-                        }
-
+                lifecycleScope.launch {
+                    try {
+                        auth.sendPasswordResetEmail(email).await()
+                        showSnackbar(
+                            mainView,
+                            R.string.forgot_pwd_confirmed_msg,
+                            Snackbar.LENGTH_LONG
+                        )
                         progressBar.isVisible = false
+                    } catch (e: Exception) {
+                        showSnackbar(
+                            mainView,
+                            R.string.forgot_pwd_error_msg,
+                            Snackbar.LENGTH_LONG
+                        )
+                        Log.e(
+                            TAG,
+                            "An error occurred while attempting to send a reset password email.",
+                            e
+                        )
                     }
+                }
             }
         }
     }

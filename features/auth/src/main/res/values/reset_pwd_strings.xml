@@ -21,4 +21,11 @@
     <!-- Text for the back button in the forgot password screen. -->
     <string name="btn_back">&lt; Go back</string>
 
+    <!-- Message strings -->
+    <eat-comment />
+
+    <!-- Message text when the password reset request has gone through successfully. -->
+    <string name="forgot_pwd_confirmed_msg">An email has been sent to the email address that you have specified</string>
+    <!-- Message text when the password reset request failed. -->
+    <string name="forgot_pwd_error_msg">An error occurred while attempting to send an email. Please try again later</string>
 </resources>
