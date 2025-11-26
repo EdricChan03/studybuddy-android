@@ -17,7 +17,7 @@ jobs:
     if: ${{ startsWith(github.repository, 'EdricChan03') }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Build nightly app
         uses: ./.github/actions/build-gradle
         with:
