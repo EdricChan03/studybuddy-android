@@ -79,7 +79,7 @@ jobs:
           script: ./gradlew connectedCheck
 
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: instr-api${{ matrix.api-level }}-${{ steps.date.outputs.now }}
