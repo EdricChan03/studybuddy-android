@@ -54,3 +54,12 @@ interface TaskDetailData {
     )
     val currTaskProjectFlow: StateFlow<TodoProject?>
 }
+
+/**
+ * Awaits the [TaskDetailData.currentTaskStateFlow] state flow until the first
+ * [TaskDetailState.Success] item is emitted, returning its [TaskDetailState.Success.item]
+ * value mapped to the result of [onTask].
+ */
+suspend inline fun <R> TaskDetailData.mapCurrentTask(onTask: (TaskItem) -> R): R {
+    return currentTask().let(onTask)
+}
