@@ -26,7 +26,10 @@ android {
 dependencies {
     api(projects.data.common)
     api(projects.features.tasks.domain)
+    implementation(projects.data.paging.firestore)
     implementation(projects.exts.firebase.temporal)
+
+    api(libs.androidx.paging.common)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
