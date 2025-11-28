@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.data.source.firestore
 
+import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.source.crud.DataSource
@@ -30,11 +31,11 @@ import kotlin.reflect.KClass
  * @see HasQueryOperations
  * @see FirestoreDataSource
  */
-open class FlowableFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.FirestoreCrudBatch<T>>(
+open class FlowableFirestoreDataSource<T, Batch : FirestoreDataSource.FirestoreCrudBatch<T>>(
     private val collectionRefFlow: Flow<CollectionReference>,
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
-) : IFirestoreDataSource<T, Batch> {
+) : IFirestoreDataSource<T, Batch> where T : HasId, T : DtoModel {
     override suspend fun getCollectionRef() = collectionRefFlow.first()
 
     /**

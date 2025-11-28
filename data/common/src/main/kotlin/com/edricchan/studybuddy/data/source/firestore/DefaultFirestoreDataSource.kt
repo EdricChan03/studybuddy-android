@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.data.source.firestore
 
+import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.google.firebase.firestore.CollectionReference
 import kotlin.reflect.KClass
@@ -8,7 +9,7 @@ import kotlin.reflect.KClass
  * Implementation of [FirestoreDataSource] which does not require a `Batch` to be specified.
  * @see FirestoreDataSource
  */
-open class DefaultFirestoreDataSource<T : HasId>(
+open class DefaultFirestoreDataSource<T>(
     collectionRef: CollectionReference,
     klass: KClass<T>
 ) : FirestoreDataSource<T, FirestoreDataSource.FirestoreCrudBatch<T>>(
@@ -18,3 +19,4 @@ open class DefaultFirestoreDataSource<T : HasId>(
         FirestoreCrudBatch(collectionRef = it)
     }
 ), IDefaultFirestoreDataSource<T>
+    where T : HasId, T : DtoModel

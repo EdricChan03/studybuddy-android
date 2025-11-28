@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.data.source.firestore
 
+import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.source.crud.Countable
@@ -19,11 +20,12 @@ import com.google.firebase.firestore.DocumentReference
  * @see FirestoreDataSource
  * @see FlowableFirestoreDataSource
  */
-sealed interface IFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.FirestoreCrudBatch<T>> :
+sealed interface IFirestoreDataSource<T, Batch : FirestoreDataSource.FirestoreCrudBatch<T>> :
     DataSource<T, String, DocumentReference, Map<String, Any?>>,
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
-    Countable<Long> {
+    Countable<Long>
+    where T : HasId, T : DtoModel {
     /** Retrieves the source [CollectionReference] for this data-source. */
     suspend fun getCollectionRef(): CollectionReference
 }
@@ -32,5 +34,6 @@ sealed interface IFirestoreDataSource<T : HasId, Batch : FirestoreDataSource.Fir
  * Generic Firestore-backed [DataSource] with a default [CrudBatch] type.
  * @see IFirestoreDataSource
  */
-sealed interface IDefaultFirestoreDataSource<T : HasId> :
+sealed interface IDefaultFirestoreDataSource<T> :
     IFirestoreDataSource<T, FirestoreDataSource.FirestoreCrudBatch<T>>
+    where T : HasId, T : DtoModel
