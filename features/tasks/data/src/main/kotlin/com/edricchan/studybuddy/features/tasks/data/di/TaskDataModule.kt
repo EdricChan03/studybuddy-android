@@ -4,7 +4,9 @@ import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSourc
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.source.TaskDataSource
+import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,4 +25,9 @@ abstract class TaskDataModule {
     abstract fun bindTaskProjectDataSource(
         source: TaskProjectDataSource
     ): IDefaultFirestoreDataSource<TodoProject>
+
+    @Binds
+    abstract fun bindTaskRepository(
+        repo: TaskRepository
+    ): ITaskRepository
 }
