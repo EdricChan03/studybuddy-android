@@ -20,9 +20,6 @@ class TaskRepository @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     val tasksFlow: Flow<List<TodoItem>> = source.items
 
-    /** Retrieves the user's list of tasks given the specified [query]. */
-    suspend fun queryTasks(query: QueryMapper): List<TodoItem> = source.findAll(query).first()
-
     /** Retrieves the user's list of tasks given the specified [query] as a [Flow]. */
     @OptIn(ExperimentalCoroutinesApi::class)
     fun observeQueryTasks(query: QueryMapper): Flow<List<TodoItem>> = source.findAll(query)
