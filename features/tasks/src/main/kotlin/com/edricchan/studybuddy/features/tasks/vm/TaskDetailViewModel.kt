@@ -65,7 +65,7 @@ class TaskDetailViewModel @Inject constructor(
     }
 
     suspend fun deleteTask() {
-        currTaskFlow.value?.let { repo.removeTask(it) }
+        repo.deleteTaskById(currentTaskId)
     }
 
     suspend fun archive(isArchived: Boolean) {
