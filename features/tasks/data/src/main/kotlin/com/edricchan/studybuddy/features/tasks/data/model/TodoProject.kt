@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.features.tasks.data.model
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.Keep
+import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.google.firebase.Timestamp
@@ -23,7 +24,7 @@ data class TodoProject(
     val name: String? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
     @ServerTimestamp override val lastModified: Timestamp? = null
-) : HasId, HasTimestampMetadata {
+) : DtoModel, HasId, HasTimestampMetadata {
     private constructor(builder: Builder) : this(
         color = builder.color,
         name = builder.name,

@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.features.tasks.data.model
 
 import androidx.annotation.Keep
+import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
@@ -39,7 +40,7 @@ data class TodoItem(
     val title: String? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
     @ServerTimestamp override val lastModified: Timestamp? = null
-) : HasId, HasTimestampMetadata {
+) : DtoModel, HasId, HasTimestampMetadata {
 
     private constructor(builder: Builder) : this(
         content = builder.content,
