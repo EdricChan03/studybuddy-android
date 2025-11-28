@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.core.compat.navigation)
 
     api(projects.features.tasks.data)
+    api(projects.features.tasks.domain)
 
     api(projects.core.settings.tasks)
     implementation(projects.core.resources)

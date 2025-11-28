@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,18 +13,17 @@ import androidx.core.view.isVisible
 import androidx.core.view.plusAssign
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskEdit
-import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
-import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
+import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.databinding.FragTaskDetailBinding
+import com.edricchan.studybuddy.features.tasks.detail.data.mapCurrentTask
+import com.edricchan.studybuddy.features.tasks.detail.data.state.TaskDetailState
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.edricchan.studybuddy.features.tasks.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
@@ -52,9 +50,11 @@ class TaskDetailFragment :
         override fun onPrepareMenu(menu: Menu) {
             super.onPrepareMenu(menu)
 
-            val hasArchived = viewModel.currentTask?.archived ?: false
-            menu.findItem(R.id.action_unarchive)?.isVisible = hasArchived
-            menu.findItem(R.id.action_archive)?.isVisible = !hasArchived
+            viewLifecycleOwner.lifecycleScope.launch {
+                val hasArchived = viewModel.mapCurrentTask { it.isArchived }
+                menu.findItem(R.id.action_unarchive)?.isVisible = hasArchived
+                menu.findItem(R.id.action_archive)?.isVisible = !hasArchived
+            }
         }
 
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -65,7 +65,7 @@ class TaskDetailFragment :
                 }
 
                 R.id.action_mark_as_done -> {
-                    onToggleComplete()
+                    viewModel.onToggleComplete()
                     true
                 }
 
@@ -75,14 +75,14 @@ class TaskDetailFragment :
                         setMessage(R.string.todo_frag_delete_task_dialog_msg)
                         setNegativeButton(android.R.string.cancel, null) // No-op
                         setPositiveButton(R.string.action_delete_task) { _, _ ->
-                            onRemoveTask()
+                            viewModel.onDeleteTask()
                         }
                     }
                     true
                 }
 
                 R.id.action_archive, R.id.action_unarchive -> {
-                    onToggleArchive()
+                    viewModel.onToggleArchived()
                     true
                 }
 
@@ -112,19 +112,12 @@ class TaskDetailFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.currTaskFlow.collect(::setTaskData)
-                }
-
-                launch {
-                    viewModel.currTaskProjectFlow.collect(::setTaskProjectData)
-                }
-            }
+            viewModel.currentTaskStateFlow.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect(::setTaskData)
         }
     }
 
-    private fun setTaskProjectData(project: TodoProject?) {
+    private fun setTaskProjectData(project: TaskProject?) {
         binding.taskProject.apply {
             project.also {
                 isVisible = it != null
@@ -134,109 +127,82 @@ class TaskDetailFragment :
         }
     }
 
-    private fun setTaskData(item: TodoItem?) {
-        binding.apply {
-            taskTitle.apply {
-                item?.title.also {
-                    isVisible = it != null
-                }?.let { text = it }
-            }
-            taskContent.apply {
-                item?.content.also {
-                    isVisible = it != null
-                }?.let {
-                    markdownText = it
-                }
-            }
-            taskId.apply {
-                isVisible = requireContext().isDevMode()
-                text = viewModel.currentTaskId
-            }
-            taskDate.apply {
-                item?.dueDate.also {
-                    isVisible = it != null
-                }?.let {
-                    // We need to convert it to a LocalDateTime as Instants don't support
-                    // temporal units bigger than days - see the `Instant#isSupported` Javadocs
-                    // for more info
-                    text = it.toLocalDateTime().format(
-                        getString(CoreResR.string.java_time_format_pattern_default)
+    private fun setTaskData(state: TaskDetailState) {
+        binding.progressBar.isVisible = state is TaskDetailState.Loading
+        binding.scrollTaskView.isVisible = state !is TaskDetailState.Loading
+        requireActivity().invalidateMenu()
+
+        when (state) {
+            TaskDetailState.Loading -> {}
+            TaskDetailState.NoData -> {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    // This NoData state can be emitted right after the task has been
+                    // deleted, so we need to catch it here rather than in the ViewModel,
+                    // where it wouldn't get triggered otherwise as we would've already
+                    // navigated up
+                    if (viewModel.pendingDelete.value) {
+                        viewModel.showSnackBar(
+                            R.string.task_delete_success_msg,
+                            SnackBarData.Duration.Long
+                        )
+                    }
+                    Log.d(
+                        TAG,
+                        "setTaskData: Attempted to load task ID ${viewModel.currentTaskId} but no such task exists"
                     )
+                    navController.navigateUp()
                 }
             }
-            taskTags.apply {
-                item?.tags.also {
-                    taskTagsParentView.isVisible = !it.isNullOrEmpty()
-                }?.let {
-                    Log.d(TAG, "Tags: $it")
-                    // Remove all chips or this will cause duplicate tags
-                    removeAllViews()
-                    it.forEach { tag ->
-                        this += Chip(requireContext()).apply { text = tag }
+
+            is TaskDetailState.Error -> {
+                Log.e(TAG, "setTaskData: Could not load task item:", state.error)
+            }
+
+            is TaskDetailState.Success -> {
+                val item = state.item
+                setTaskProjectData(item.project)
+                binding.apply {
+                    taskTitle.apply {
+                        item.title.takeIf { it.isNotBlank() }.also {
+                            isVisible = it != null
+                        }?.let { text = it }
+                    }
+                    taskContent.apply {
+                        item.content.also {
+                            isVisible = it != null
+                        }?.let {
+                            markdownText = it
+                        }
+                    }
+                    taskId.apply {
+                        isVisible = requireContext().isDevMode()
+                        text = viewModel.currentTaskId
+                    }
+                    taskDate.apply {
+                        item.dueDate.also {
+                            isVisible = it != null
+                        }?.let {
+                            // We need to convert it to a LocalDateTime as Instants don't support
+                            // temporal units bigger than days - see the `Instant#isSupported` Javadocs
+                            // for more info
+                            text = it.toLocalDateTime().format(
+                                getString(CoreResR.string.java_time_format_pattern_default)
+                            )
+                        }
+                    }
+                    taskTags.apply {
+                        item.tags.also {
+                            taskTagsParentView.isVisible = !it.isNullOrEmpty()
+                        }?.let {
+                            Log.d(TAG, "Tags: $it")
+                            // Remove all chips or this will cause duplicate tags
+                            removeAllViews()
+                            it.forEach { tag ->
+                                this += Chip(requireContext()).apply { text = tag }
+                            }
+                        }
                     }
                 }
-            }
-            progressBar.isVisible = false
-            scrollTaskView.isVisible = true
-        }
-    }
-
-    private fun onRemoveTask() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                viewModel.deleteTask()
-                showToast(R.string.task_delete_success_msg, Toast.LENGTH_SHORT)
-                navController.navigateUp()
-            } catch (e: Exception) {
-                showToast(R.string.task_delete_fail_msg, Toast.LENGTH_LONG)
-                Log.e(
-                    TAG,
-                    "An error occurred while deleting the task.",
-                    e
-                )
-            }
-        }
-    }
-
-    private fun onToggleArchive() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                // Variable to indicate whether task was already archived
-                val hasArchived = viewModel.currentTask?.archived ?: false
-                Log.d(TAG, "Archived state: $hasArchived")
-
-                viewModel.archive(!hasArchived)
-                Log.d(
-                    TAG,
-                    "Successfully toggled task archival state to ${!hasArchived}"
-                )
-                requireActivity().invalidateMenu()
-            } catch (e: Exception) {
-                showToast(R.string.task_archive_fail_msg, Toast.LENGTH_SHORT)
-                Log.e(
-                    TAG,
-                    "An error occurred while attempting to archive the task:",
-                    e
-                )
-            }
-        }
-    }
-
-    private fun onToggleComplete() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                viewModel.currentTask?.let { viewModel.toggleCompleted(it) }
-            } catch (e: Exception) {
-                showSnackBar(
-                    if (viewModel.currentTask?.done != true) R.string.task_done_fail_msg else R.string.task_undone_fail_msg,
-                    SnackBarData.Duration.Long
-                )
-                Log.e(
-                    TAG,
-                    "An error occurred while marking the task as " +
-                        if (viewModel.currentTask?.done != true) "done" else "undone",
-                    e
-                )
             }
         }
     }
