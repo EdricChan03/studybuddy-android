@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.features.tasks.compat.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.edricchan.studybuddy.features.tasks.R
