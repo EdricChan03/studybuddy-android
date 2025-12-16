@@ -60,9 +60,6 @@
     <!-- The title of the licenses menu item in the help activity's menu. -->
     <string name="menu_help_licenses_title">Licenses</string>
 
-    <!-- The title of the refresh articles menu item in the help activity's menu. -->
-    <string name="menu_help_refresh_articles">Refresh articles</string>
-
     <!-- The title of the send feedback menu item in the help and settings activities' menus. -->
     <string name="menu_send_feedback_title">Send Feedback</string>
 
