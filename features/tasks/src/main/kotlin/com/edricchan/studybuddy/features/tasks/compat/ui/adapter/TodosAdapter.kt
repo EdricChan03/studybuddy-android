@@ -43,6 +43,7 @@ class TodosAdapter(
                 if (!item.title.isNullOrEmpty()) itemTitle.text = item.title
                 else itemTitle.setText(R.string.task_adapter_empty_title)
                 itemContent.apply {
+                    contentPadding = PaddingValues.Zero
                     item.content?.takeIf { it.isNotBlank() }?.let {
                         markdownText = it
                     } ?: setMarkdownText(R.string.task_adapter_empty_content)
