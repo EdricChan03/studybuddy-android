@@ -57,9 +57,6 @@
     <!-- The title of the help menu item. -->
     <string name="menu_help_title">Help</string>
 
-    <!-- The title of the licenses menu item in the help activity's menu. -->
-    <string name="menu_help_licenses_title">Licenses</string>
-
     <!-- The title of the send feedback menu item in the help and settings activities' menus. -->
     <string name="menu_send_feedback_title">Send Feedback</string>
 
@@ -68,9 +65,6 @@
 
     <!-- The title of the share this app menu item in the main activity's menu. -->
     <string name="menu_main_share_app_title">Share this app</string>
-
-    <!-- The title of the source code menu item in the help activity's menu. -->
-    <string name="menu_help_src_code_title">View source code</string>
 
     <string name="action_version">Version</string>
 
@@ -92,7 +86,6 @@
     <string name="dialog_action_no">No</string>
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_retry">Retry</string>
-    <string name="dialog_action_send">Send</string>
     <string name="dialog_action_yes">Yes</string>
     <string name="download_apk_name">com.edricchan.studybuddy-v%s.apk</string>
 
@@ -118,19 +111,6 @@
         Please check that you have enabled the Storage permission.
     </string>
     <string name="notification_updates_error_not_found_title">File not found</string>
-
-    <string name="pref_about_app_info_title">App info</string>
-    <string name="pref_about_app_info_summary">Open this app\'s info page in Settings</string>
-    <string name="pref_about_app_version_title">App version</string>
-    <string name="pref_about_app_version_code_title">App version code</string>
-    <string name="pref_about_app_build_variant_title">Build variant</string>
-    <string name="pref_about_author_title">App author</string>
-    <string name="pref_about_author_summary">Tap here to view his website</string>
-    <string name="pref_about_licenses_title">Licenses</string>
-    <string name="pref_about_licenses_summary">License details for open source libraries/
-        software</string>
-    <string name="pref_about_source_code_summary">View the app\'s source code on Github</string>
-    <string name="pref_about_source_code_title">Source code</string>
 
     <!-- Feature flags strings -->
     <eat-comment />
