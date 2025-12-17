@@ -113,6 +113,7 @@ fun LibraryItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
+                    modifier = Modifier.weight(1f),
                     text = lib.name,
                     style = MaterialTheme.typography.titleLarge
                 )
@@ -201,7 +202,7 @@ private fun LibraryItemPreview(
             lib = Library(
                 uniqueId = Uuid.random().toString(),
                 artifactVersion = "1.0.0",
-                name = "Example library",
+                name = "Example Library with a lot of text that should cover more than the contents",
                 description = ipsum.take(1000),
                 website = "https://example.com",
                 developers = persistentListOf(
