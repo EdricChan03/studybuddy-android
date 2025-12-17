@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -23,8 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.asFlow
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.core.resources.icons.AppIcons
-import com.edricchan.studybuddy.core.resources.icons.compat.Refresh
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.exts.datetime.formatISO
 import com.edricchan.studybuddy.ui.preference.compose.InputDialogPreference
@@ -139,7 +138,7 @@ fun UpdatesCategory(
             onClick = ::startCheckForUpdates,
             icon = {
                 Icon(
-                    AppIcons.Compat.Refresh.vector(),
+                    Icons.Outlined.Refresh,
                     contentDescription = null
                 )
             },
