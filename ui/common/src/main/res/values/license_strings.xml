@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="licenses_action_view_license_text_url">View License Text</string>
     <string name="licenses_action_view_scm_url">View Source</string>
     <string name="licenses_action_view_website_url">View Website</string>
 

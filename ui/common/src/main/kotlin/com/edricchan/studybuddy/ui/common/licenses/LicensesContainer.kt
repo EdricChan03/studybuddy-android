@@ -61,6 +61,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -106,7 +110,35 @@ fun LibraryItem(
     val labelViewWebsite = stringResource(R.string.licenses_action_view_website_url)
 
     Surface(
-        modifier = modifier,
+        modifier = modifier.semantics {
+            customActions = listOfNotNull(
+                CustomAccessibilityAction(
+                    label = labelViewLicense,
+                    action = {
+                        onClick()
+                        true
+                    }
+                ),
+                lib.scm?.url?.takeIf { it.isNotBlank() }?.let {
+                    CustomAccessibilityAction(
+                        label = labelViewScm,
+                        action = {
+                            onLinkClick(it)
+                            true
+                        }
+                    )
+                },
+                lib.website?.takeIf { it.isNotBlank() }?.let {
+                    CustomAccessibilityAction(
+                        label = labelViewWebsite,
+                        action = {
+                            onLinkClick(it)
+                            true
+                        }
+                    )
+                }
+            )
+        },
         onClick = onClick,
         shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.surfaceContainer
@@ -164,7 +196,8 @@ fun LibraryItem(
                 ButtonGroup(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 14.dp),
+                        .padding(top = 14.dp)
+                        .clearAndSetSemantics {},
                     overflowIndicator = {
                         ButtonGroupDefaults.OverflowIndicator(
                             menuState = it
