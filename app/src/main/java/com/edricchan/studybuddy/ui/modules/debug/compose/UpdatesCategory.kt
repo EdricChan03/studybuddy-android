@@ -15,9 +15,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.toClipEntry
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.util.PatternsCompat
@@ -50,12 +50,10 @@ private fun PreferenceCategoryScope.UpdateInfoInstantPreference(
         onClick = {
             scope.launch {
                 clipboard.setClipEntry(
-                    ClipEntry(
-                        ClipData.newPlainText(
-                            /* label = */ "",
-                            /* text = */ instant?.formatISO() ?: unsetString
-                        )
-                    )
+                    ClipData.newPlainText(
+                        /* label = */ "",
+                        /* text = */ instant?.formatISO() ?: unsetString
+                    ).toClipEntry()
                 )
             }
         },
