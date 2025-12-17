@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,9 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ButtonGroupDefaults
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -98,6 +101,10 @@ fun LibraryItem(
     onClick: () -> Unit,
     onLinkClick: (String) -> Unit = LocalUriHandler.current::openUri
 ) {
+    val labelViewLicense = stringResource(R.string.licenses_action_view_license_text_url)
+    val labelViewScm = stringResource(R.string.licenses_action_view_scm_url)
+    val labelViewWebsite = stringResource(R.string.licenses_action_view_website_url)
+
     Surface(
         modifier = modifier,
         onClick = onClick,
@@ -154,35 +161,89 @@ fun LibraryItem(
             }
 
             if (lib.scm?.url?.isNotBlank() == true || lib.website?.isNotBlank() == true) {
-                Row(
-                    modifier = Modifier.padding(top = 14.dp),
-                    horizontalArrangement = ButtonGroupDefaults.HorizontalArrangement
+                ButtonGroup(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 14.dp),
+                    overflowIndicator = {
+                        ButtonGroupDefaults.OverflowIndicator(
+                            menuState = it
+                        )
+                    }
                 ) {
                     lib.scm?.url?.takeIf { it.isNotBlank() }?.let {
-                        OutlinedButton(
-                            modifier = Modifier.weight(1f),
-                            shapes = ButtonDefaults.shapes(),
-                            onClick = { onLinkClick(it) }
-                        ) {
-                            Icon(AppIcons.Outlined.Code, contentDescription = null)
-                            Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                            Text(
-                                text = stringResource(R.string.licenses_action_view_scm_url)
-                            )
-                        }
+                        customItem(
+                            buttonGroupContent = {
+                                val interactionSource = remember { MutableInteractionSource() }
+                                OutlinedButton(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .animateWidth(interactionSource),
+                                    shapes = ButtonDefaults.shapes(),
+                                    onClick = { onLinkClick(it) },
+                                    interactionSource = interactionSource
+                                ) {
+                                    Icon(AppIcons.Outlined.Code, contentDescription = null)
+                                    Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
+                                    Text(
+                                        text = labelViewScm
+                                    )
+                                }
+                            },
+                            menuContent = { state ->
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        Icon(AppIcons.Outlined.Code, contentDescription = null)
+                                    },
+                                    text = {
+                                        Text(
+                                            text = labelViewScm
+                                        )
+                                    },
+                                    onClick = {
+                                        onLinkClick(it)
+                                        state.dismiss()
+                                    },
+                                )
+                            }
+                        )
                     }
                     lib.website?.takeIf { it.isNotBlank() }?.let {
-                        OutlinedButton(
-                            modifier = Modifier.weight(1f),
-                            shapes = ButtonDefaults.shapes(),
-                            onClick = { onLinkClick(it) }
-                        ) {
-                            Icon(AppIcons.Outlined.Link, contentDescription = null)
-                            Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                            Text(
-                                text = stringResource(R.string.licenses_action_view_website_url)
-                            )
-                        }
+                        customItem(
+                            buttonGroupContent = {
+                                val interactionSource = remember { MutableInteractionSource() }
+                                OutlinedButton(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .animateWidth(interactionSource),
+                                    shapes = ButtonDefaults.shapes(),
+                                    onClick = { onLinkClick(it) },
+                                    interactionSource = interactionSource
+                                ) {
+                                    Icon(AppIcons.Outlined.Link, contentDescription = null)
+                                    Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
+                                    Text(
+                                        text = labelViewWebsite
+                                    )
+                                }
+                            },
+                            menuContent = { state ->
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        Icon(AppIcons.Outlined.Link, contentDescription = null)
+                                    },
+                                    text = {
+                                        Text(
+                                            text = labelViewWebsite
+                                        )
+                                    },
+                                    onClick = {
+                                        onLinkClick(it)
+                                        state.dismiss()
+                                    },
+                                )
+                            }
+                        )
                     }
                 }
             }
