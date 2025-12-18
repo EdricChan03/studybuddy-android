@@ -3,10 +3,13 @@ package com.edricchan.studybuddy.ui.common.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.material3.ComposeMaterial3Flags
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
@@ -39,15 +42,20 @@ abstract class ComposableFragment : BaseFragment() {
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     final override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = content {
-        val nestedScrollInterop = rememberNestedScrollInteropConnection()
-        StudyBuddyTheme {
-            CompositionLocalProvider(LocalUriHandler provides uriHandler) {
-                Content(modifier = Modifier.nestedScroll(nestedScrollInterop))
+    ): ComposeView {
+        ComposeMaterial3Flags.isCheckboxStylingFixEnabled = true
+
+        return content {
+            val nestedScrollInterop = rememberNestedScrollInteropConnection()
+            StudyBuddyTheme {
+                CompositionLocalProvider(LocalUriHandler provides uriHandler) {
+                    Content(modifier = Modifier.nestedScroll(nestedScrollInterop))
+                }
             }
         }
     }
