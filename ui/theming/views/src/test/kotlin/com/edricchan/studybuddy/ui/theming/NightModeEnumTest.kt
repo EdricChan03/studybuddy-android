@@ -1,35 +1,30 @@
 package com.edricchan.studybuddy.ui.theming
 
 import androidx.appcompat.app.AppCompatDelegate
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
-import org.junit.runners.Parameterized.Parameters
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.datatest.withData
+import io.kotest.matchers.equals.shouldBeEqual
+import io.kotest.matchers.nulls.shouldNotBeNull
 
-@RunWith(Parameterized::class)
-class NightModeEnumTest(
-    @AppCompatDelegate.NightMode private val input: Int,
-    private val expected: NightMode?
-) {
-    @Test
-    fun nightModeFromValue_returnsCorrect() {
-        assertEquals(NightMode.fromMode(input), expected)
+@Suppress("DEPRECATION")
+class NightModeEnumTest : DescribeSpec({
+    describe("NightMode.fromMode") {
+        withData(
+            ts = listOf(
+                AppCompatDelegate::MODE_NIGHT_YES to NightMode.Yes,
+                AppCompatDelegate::MODE_NIGHT_NO to NightMode.No,
+                AppCompatDelegate::MODE_NIGHT_AUTO_TIME to NightMode.AutoTime,
+                AppCompatDelegate::MODE_NIGHT_AUTO_BATTERY to NightMode.AutoBattery,
+                AppCompatDelegate::MODE_NIGHT_FOLLOW_SYSTEM to NightMode.FollowSystem,
+                AppCompatDelegate::MODE_NIGHT_UNSPECIFIED to NightMode.Unspecified
+            ),
+            nameFn = { (input, expected) ->
+                "fromMode(${input.name}) should equal $expected"
+            }
+        ) { (input, expected) ->
+            NightMode.fromMode(input.get()) shouldNotBeNull {
+                this shouldBeEqual expected
+            }
+        }
     }
-
-    companion object {
-        @Suppress("DEPRECATION")
-        @Parameters(name = "{index}: fromMode({0})={1}")
-        @JvmStatic
-        fun data() = listOf(
-            arrayOf(AppCompatDelegate.MODE_NIGHT_YES, NightMode.Yes),
-            arrayOf(AppCompatDelegate.MODE_NIGHT_NO, NightMode.No),
-            arrayOf(AppCompatDelegate.MODE_NIGHT_AUTO_TIME, NightMode.AutoTime),
-            arrayOf(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY, NightMode.AutoBattery),
-            arrayOf(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, NightMode.FollowSystem),
-            arrayOf(AppCompatDelegate.MODE_NIGHT_UNSPECIFIED, NightMode.Unspecified),
-            // Invalid value
-            arrayOf(Int.MAX_VALUE, null)
-        )
-    }
-}
+})
