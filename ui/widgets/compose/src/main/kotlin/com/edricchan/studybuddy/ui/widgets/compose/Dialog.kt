@@ -16,11 +16,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -31,8 +33,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
-import com.edricchan.studybuddy.exts.androidx.compose.ui.graphics.animateInterpolatableAsState
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
@@ -96,31 +96,22 @@ fun <T> ListDialog(
             ) {
                 itemsIndexed(items) { i, item ->
                     val isSelected = item == dialogSelectedItem
-                    val shape by animateInterpolatableAsState(
-                        targetValue = ExpListItemDefaults.itemShape(
+                    SegmentedListItem(
+                        shapes = ListItemDefaults.segmentedShapes(
                             index = i,
-                            count = items.size,
-                            selected = isSelected
-                        ),
-                        animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
-                    )
-                    ExpListItem(
-                        shape = shape,
-                        colors = ExpListItemDefaults.colors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-                            selectedContainerColor = MaterialTheme.colorScheme.secondaryContainer
+                            count = items.size
                         ),
                         selected = isSelected,
                         onClick = { dialogSelectedItem = item },
-                        headlineContent = { itemContent(item) },
-                        trailingContent = {
+                        content = { itemContent(item) },
+                        leadingContent = {
                             RadioButton(
                                 selected = isSelected, onClick = null,
                                 colors = RadioButtonDefaults.colors(
                                     selectedColor = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
                             )
-                        }
+                        },
                     )
                 }
             }
