@@ -18,9 +18,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -31,7 +34,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.R
@@ -39,8 +41,6 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.androidx.compose.plus
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
@@ -109,6 +109,7 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
 
     private val snackbarHostState = SnackbarHostState()
 
+    @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
         val demos = rememberDemos()
@@ -121,11 +122,11 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
             LazyColumn(
                 modifier = Modifier.consumeWindowInsets(innerPadding),
                 contentPadding = innerPadding + PaddingValues(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
+                verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
             ) {
                 itemsIndexed(demos) { i, item ->
                     DemoListItem(
-                        shape = ExpListItemDefaults.itemShape(
+                        shapes = ListItemDefaults.segmentedShapes(
                             index = i, count = demos.size
                         ),
                         iconRotationDeg = i * 15,
@@ -141,12 +142,12 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
     @Composable
     private fun DemoListItem(
         modifier: Modifier = Modifier,
-        shape: Shape,
+        shapes: ListItemShapes,
         iconRotationDeg: Int,
         title: String,
         onClick: () -> Unit
     ) {
-        ExpListItem(
+        SegmentedListItem(
             modifier = modifier,
             onClick = onClick,
             leadingContent = {
@@ -160,10 +161,14 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
                     )
                 }
             },
-            headlineContent = {
+            content = {
                 Text(text = title)
             },
-            shape = shape
+            colors = ListItemDefaults.segmentedColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            ),
+            shapes = shapes
         )
     }
 
