@@ -2,6 +2,9 @@ package com.edricchan.studybuddy.ui.widgets.compose
 
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,13 +22,37 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
 @Composable
 fun AppIcon(
     modifier: Modifier = Modifier,
-    iconDrawable: Drawable = LocalContext.current.appIcon
+    iconDrawable: Drawable
 ) {
     Image(
         modifier = modifier,
-        painter = rememberDrawablePainter(drawable = iconDrawable),
+        painter = rememberDrawablePainter(iconDrawable),
         contentDescription = stringResource(CoreResR.string.app_logo_content_desc)
     )
+}
+
+/**
+ * Composable that shows the current app's icon. A fallback icon is shown
+ * in preview mode.
+ */
+@Composable
+fun AppIcon(
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+    val icon = runCatching { context.appIcon }.getOrNull()
+    if (icon == null) {
+        Icon(
+            modifier = modifier,
+            imageVector = Icons.Outlined.Build,
+            contentDescription = "[INSPECTION] StudyBuddy icon"
+        )
+    } else {
+        AppIcon(
+            modifier = modifier,
+            iconDrawable = icon
+        )
+    }
 }
 
 @Preview
