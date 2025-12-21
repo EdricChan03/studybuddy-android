@@ -1,7 +1,9 @@
 package com.edricchan.studybuddy.features.tasks.domain.repo
 
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 /** Repository interface for CRUD operations related to the tasks feature. */
@@ -11,12 +13,15 @@ interface ITaskRepository {
 
     /**
      * Configuration options for [observeTasks].
+     * @property cachedCoroutineScope Desired [CoroutineScope] to cache the paging data in
+     * (see [cachedIn] for more info).
      * @property includeArchived Whether archived tasks should be included in the list.
      * @property excludeCompleted Whether completed tasks should be excluded from the list.
      * @property pageSize Number of tasks to be shown per page.
      * @property orderByField The [TaskItem.Field] to order the list of tasks by.
      */
     data class PaginationConfig(
+        val cachedCoroutineScope: CoroutineScope,
         val includeArchived: Boolean = false,
         val excludeCompleted: Boolean = false,
         val pageSize: Int = 30,

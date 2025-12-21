@@ -4,6 +4,7 @@ import androidx.annotation.Discouraged
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.paging.firestore.firestorePagingSource
@@ -126,14 +127,16 @@ class TaskRepository @Inject constructor(
                     query = query,
                     limit = config.pageSize.toLong()
                 )
-            }.flow.map {
-                it.map { item ->
-                    item.project?.let { projectRef ->
-                        val proj = projectsSource.getSnapshot(projectRef.id)
-                        item.toDomain(proj?.toDomain())
-                    } ?: item.toDomain(null)
+            }.flow
+                .cachedIn(config.cachedCoroutineScope)
+                .map {
+                    it.map { item ->
+                        item.project?.let { projectRef ->
+                            val proj = projectsSource.getSnapshot(projectRef.id)
+                            item.toDomain(proj?.toDomain())
+                        } ?: item.toDomain(null)
+                    }
                 }
-            }
         )
     }
 
