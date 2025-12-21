@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.features.tasks.compat.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,7 +12,6 @@ import com.edricchan.studybuddy.features.tasks.databinding.TodosAdapterItemRowBi
 import io.github.edricchan03.androidx.recyclerview.ktx.itemCallback
 
 class TodosAdapter(
-    private val context: Context,
     private val itemListener: OnItemClickListener? = null
 ) : ListAdapter<TodoItem, TodosAdapter.Holder>(DIFF_CALLBACK) {
     companion object {

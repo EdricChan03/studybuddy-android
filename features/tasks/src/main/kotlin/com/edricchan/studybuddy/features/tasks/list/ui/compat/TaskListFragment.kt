@@ -158,7 +158,7 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = TodosAdapter(context = requireContext(), itemListener = itemListener)
+        adapter = TodosAdapter(itemListener = itemListener)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerView) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
