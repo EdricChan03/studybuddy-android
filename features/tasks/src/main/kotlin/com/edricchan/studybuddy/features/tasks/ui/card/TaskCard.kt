@@ -295,28 +295,40 @@ data class TaskCardColors(
     val selectedContentColor: Color,
     val disabledContainerColor: Color,
     val disabledContentColor: Color,
+    val disabledSelectedContainerColor: Color,
+    val disabledSelectedContentColor: Color,
 ) {
     @Composable
-    fun containerColor(enabled: Boolean, selected: Boolean): Color = if (enabled) {
-        if (selected) selectedContainerColor else containerColor
-    } else disabledContainerColor
+    fun containerColor(enabled: Boolean, selected: Boolean): Color = when {
+        enabled && selected -> selectedContainerColor
+        enabled && !selected -> containerColor
+        !enabled && selected -> disabledSelectedContainerColor
+        else -> disabledContainerColor
+    }
 
     @Composable
-    fun contentColor(enabled: Boolean, selected: Boolean): Color = if (enabled) {
-        if (selected) selectedContentColor else contentColor
-    } else disabledContentColor
+    fun contentColor(enabled: Boolean, selected: Boolean): Color = when {
+        enabled && selected -> selectedContentColor
+        enabled && !selected -> contentColor
+        !enabled && selected -> disabledSelectedContentColor
+        else -> disabledContentColor
+    }
 }
 
 @Immutable
 data class TaskCardBorderColors(
     val borderColor: Color,
     val selectedBorderColor: Color,
-    val disabledBorderColor: Color
+    val disabledBorderColor: Color,
+    val disabledSelectedBorderColor: Color,
 ) {
     @Composable
-    fun borderColor(enabled: Boolean, selected: Boolean): Color = if (enabled) {
-        if (selected) selectedBorderColor else borderColor
-    } else disabledBorderColor
+    fun borderColor(enabled: Boolean, selected: Boolean): Color = when {
+        enabled && selected -> selectedBorderColor
+        enabled && !selected -> borderColor
+        !enabled && selected -> disabledSelectedBorderColor
+        else -> disabledBorderColor
+    }
 }
 
 object TaskCardDefaults {
@@ -333,14 +345,20 @@ object TaskCardDefaults {
             ),
         disabledContentColor: Color = contentColorFor(containerColor).copy(alpha = 0.38f),
         selectedContainerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
-        selectedContentColor: Color = contentColorFor(selectedContainerColor)
+        selectedContentColor: Color = contentColorFor(selectedContainerColor),
+        disabledSelectedContainerColor: Color = selectedContainerColor.copy(
+            alpha = 0.38f
+        ),
+        disabledSelectedContentColor: Color = selectedContentColor.copy(alpha = 0.38f)
     ) = TaskCardColors(
         containerColor = containerColor,
         contentColor = contentColor,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
         selectedContainerColor = selectedContainerColor,
-        selectedContentColor = selectedContentColor
+        selectedContentColor = selectedContentColor,
+        disabledSelectedContainerColor = disabledSelectedContainerColor,
+        disabledSelectedContentColor = disabledSelectedContentColor
     )
 
     @Composable
@@ -351,11 +369,17 @@ object TaskCardDefaults {
             .copy(alpha = 0.12f)
             .compositeOver(
                 MaterialTheme.colorScheme.surfaceColorAtElevation(0.dp)
+            ),
+        disabledSelectedBorderColor: Color = selectedBorderColor
+            .copy(alpha = 0.12f)
+            .compositeOver(
+                MaterialTheme.colorScheme.surfaceColorAtElevation(0.dp)
             )
     ) = TaskCardBorderColors(
         borderColor = borderColor,
         selectedBorderColor = selectedBorderColor,
-        disabledBorderColor = disabledBorderColor
+        disabledBorderColor = disabledBorderColor,
+        disabledSelectedBorderColor = disabledSelectedBorderColor
     )
 
     /**
