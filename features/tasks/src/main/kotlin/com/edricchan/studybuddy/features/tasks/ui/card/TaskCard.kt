@@ -2,8 +2,7 @@ package com.edricchan.studybuddy.features.tasks.ui.card
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.animateColor
-import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
@@ -27,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +37,9 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -105,25 +107,10 @@ fun TaskCard(
         onLongClickLabel = onLongClickLabel
     )
 
-    val transition = updateTransition(
-        targetState = inSelectionMode && selected,
-        label = "selected"
-    )
-    val containerColor by transition.animateColor(
-        label = "card container colour"
-    ) { isSelected ->
-        colors.containerColor(enabled = enabled, selected = isSelected)
-    }
-    val contentColor by transition.animateColor(
-        label = "card content colour"
-    ) { isSelected ->
-        colors.contentColor(enabled = enabled, selected = isSelected)
-    }
-    val borderColor by transition.animateColor(
-        label = "card border colour"
-    ) { isSelected ->
-        borderColors.borderColor(enabled = enabled, selected = isSelected)
-    }
+    val isSelected by rememberUpdatedState(inSelectionMode && selected)
+    val containerColor by colors.containerColor(enabled = enabled, selected = isSelected)
+    val contentColor by colors.contentColor(enabled = enabled, selected = isSelected)
+    val borderColor by borderColors.borderColor(enabled = enabled, selected = isSelected)
 
     OutlinedCard(
         modifier = modifier then selectionModifier,
@@ -287,6 +274,7 @@ fun TaskCard(
     onDeleteClick = onDeleteClick
 )
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Immutable
 data class TaskCardColors(
     val containerColor: Color,
@@ -299,22 +287,31 @@ data class TaskCardColors(
     val disabledSelectedContentColor: Color,
 ) {
     @Composable
-    fun containerColor(enabled: Boolean, selected: Boolean): Color = when {
-        enabled && selected -> selectedContainerColor
-        enabled && !selected -> containerColor
-        !enabled && selected -> disabledSelectedContainerColor
-        else -> disabledContainerColor
-    }
+    fun containerColor(enabled: Boolean, selected: Boolean): State<Color> = animateColorAsState(
+        targetValue = when {
+            enabled && selected -> selectedContainerColor
+            enabled && !selected -> containerColor
+            !enabled && selected -> disabledSelectedContainerColor
+            else -> disabledContainerColor
+        },
+        label = "Task card container colour",
+        animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
+    )
 
     @Composable
-    fun contentColor(enabled: Boolean, selected: Boolean): Color = when {
-        enabled && selected -> selectedContentColor
-        enabled && !selected -> contentColor
-        !enabled && selected -> disabledSelectedContentColor
-        else -> disabledContentColor
-    }
+    fun contentColor(enabled: Boolean, selected: Boolean): State<Color> = animateColorAsState(
+        targetValue = when {
+            enabled && selected -> selectedContentColor
+            enabled && !selected -> contentColor
+            !enabled && selected -> disabledSelectedContentColor
+            else -> disabledContentColor
+        },
+        label = "Task card content colour",
+        animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
+    )
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Immutable
 data class TaskCardBorderColors(
     val borderColor: Color,
@@ -323,12 +320,16 @@ data class TaskCardBorderColors(
     val disabledSelectedBorderColor: Color,
 ) {
     @Composable
-    fun borderColor(enabled: Boolean, selected: Boolean): Color = when {
-        enabled && selected -> selectedBorderColor
-        enabled && !selected -> borderColor
-        !enabled && selected -> disabledSelectedBorderColor
-        else -> disabledBorderColor
-    }
+    fun borderColor(enabled: Boolean, selected: Boolean): State<Color> = animateColorAsState(
+        targetValue = when {
+            enabled && selected -> selectedBorderColor
+            enabled && !selected -> borderColor
+            !enabled && selected -> disabledSelectedBorderColor
+            else -> disabledBorderColor
+        },
+        label = "Task card border colour",
+        animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
+    )
 }
 
 object TaskCardDefaults {
