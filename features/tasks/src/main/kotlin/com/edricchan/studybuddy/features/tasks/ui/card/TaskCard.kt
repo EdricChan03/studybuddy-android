@@ -63,6 +63,7 @@ import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskCard(
     modifier: Modifier = Modifier,
@@ -182,10 +183,22 @@ fun TaskCard(
                 visible = inSelectionMode,
                 modifier = Modifier.align(Alignment.TopEnd),
                 label = "selected icon animated visibility",
-                enter = fadeIn() + scaleIn(),
-                exit = fadeOut() + scaleOut()
+                enter = fadeIn(
+                    animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
+                ) + scaleIn(
+                    animationSpec = MaterialTheme.motionScheme.defaultSpatialSpec()
+                ),
+                exit = fadeOut(
+                    animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
+                ) + scaleOut(
+                    animationSpec = MaterialTheme.motionScheme.defaultSpatialSpec()
+                )
             ) {
-                Crossfade(targetState = selected, label = "selected icon crossfade") {
+                Crossfade(
+                    targetState = selected,
+                    label = "selected icon crossfade",
+                    animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
+                ) {
                     if (it) {
                         val bgColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
                         Icon(
