@@ -2,6 +2,8 @@ package com.edricchan.studybuddy.features.tasks.domain.repo
 
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.edricchan.studybuddy.domain.common.sorting.OrderSpec
+import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -18,15 +20,24 @@ interface ITaskRepository {
      * @property includeArchived Whether archived tasks should be included in the list.
      * @property excludeCompleted Whether completed tasks should be excluded from the list.
      * @property pageSize Number of tasks to be shown per page.
-     * @property orderByField The [TaskItem.Field] to order the list of tasks by.
+     * @property orderByFields The set of [TaskOrderSpec] configurations to order the resulting data by,
+     * applied sequentially in-order.
      */
     data class PaginationConfig(
         val cachedCoroutineScope: CoroutineScope,
         val includeArchived: Boolean = false,
         val excludeCompleted: Boolean = false,
         val pageSize: Int = 30,
-        val orderByField: TaskItem.Field = TaskItem.Field.CreatedAt
-    )
+        val orderByFields: Set<TaskOrderSpec> = setOf(TaskOrderSpec())
+    ) {
+        data class TaskOrderSpec(
+            override val field: TaskItem.Field = TaskItem.Field.CreatedAt,
+            override val direction: SortDirection = SortDirection.Descending
+        ) : OrderSpec<TaskItem.Field>(
+            field = field,
+            direction = direction
+        )
+    }
 
     /**
      * Gets a paginated list of tasks.
