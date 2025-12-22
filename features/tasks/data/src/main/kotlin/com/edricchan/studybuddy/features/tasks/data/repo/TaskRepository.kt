@@ -16,6 +16,7 @@ import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
+import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -103,7 +104,7 @@ class TaskRepository @Inject constructor(
     }
 
     override fun observeTasks(
-        config: ITaskRepository.PaginationConfig
+        config: TasksPaginationConfig
     ): Flow<PagingData<TaskItem>> = flow {
         // flow {} is used here as we need a suspending context for the
         // getCollectionRef call

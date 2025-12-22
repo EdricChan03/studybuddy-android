@@ -1,11 +1,7 @@
 package com.edricchan.studybuddy.features.tasks.domain.repo
 
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.edricchan.studybuddy.domain.common.sorting.OrderSpec
-import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 /** Repository interface for CRUD operations related to the tasks feature. */
@@ -14,36 +10,12 @@ interface ITaskRepository {
     fun observeTaskById(id: String): Flow<TaskItem?>
 
     /**
-     * Configuration options for [observeTasks].
-     * @property cachedCoroutineScope Desired [CoroutineScope] to cache the paging data in
-     * (see [cachedIn] for more info).
-     * @property includeArchived Whether archived tasks should be included in the list.
-     * @property excludeCompleted Whether completed tasks should be excluded from the list.
-     * @property pageSize Number of tasks to be shown per page.
-     * @property orderByFields The set of [TaskOrderSpec] configurations to order the resulting data by,
-     * applied sequentially in-order.
-     */
-    data class PaginationConfig(
-        val cachedCoroutineScope: CoroutineScope,
-        val includeArchived: Boolean = false,
-        val excludeCompleted: Boolean = false,
-        val pageSize: Int = 30,
-        val orderByFields: Set<TaskOrderSpec> = setOf(TaskOrderSpec())
-    ) {
-        data class TaskOrderSpec(
-            override val field: TaskItem.Field = TaskItem.Field.CreatedAt,
-            override val direction: SortDirection = SortDirection.Descending
-        ) : OrderSpec<TaskItem.Field>(
-            field = field,
-            direction = direction
-        )
-    }
-
-    /**
      * Gets a paginated list of tasks.
+     * @param config Configuration options specifying how the items should be paginated,
+     * as well as filtering options. (See [TasksPaginationConfig])
      */
     fun observeTasks(
-        config: PaginationConfig
+        config: TasksPaginationConfig
     ): Flow<PagingData<TaskItem>>
 
     /** Adds the specified task to the database. */
