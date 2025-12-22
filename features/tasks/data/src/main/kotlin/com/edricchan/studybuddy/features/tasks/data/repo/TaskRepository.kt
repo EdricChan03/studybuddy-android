@@ -9,7 +9,7 @@ import androidx.paging.map
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.paging.firestore.firestorePagingSource
 import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSource
-import com.edricchan.studybuddy.domain.common.sorting.SortDirection
+import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
@@ -18,7 +18,6 @@ import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.Query
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -120,11 +119,7 @@ class TaskRepository @Inject constructor(
             ) else it
         }.let {
             config.orderByFields.fold(it) { query, spec ->
-                val direction = when (spec.direction) {
-                    SortDirection.Descending -> Query.Direction.DESCENDING
-                    SortDirection.Ascending -> Query.Direction.ASCENDING
-                }
-                query.orderBy(spec.field.toDto().fieldName, direction)
+                query.orderBy(spec.field.toDto().fieldName, spec.direction.toFirestoreDirection())
             }
         }
 
