@@ -6,11 +6,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
@@ -40,7 +40,8 @@ class NotificationActionReceiver : BroadcastReceiver() {
     }
 
     private fun downloadUpdate(context: Context, intent: Intent) {
-        val request = DownloadManager.Request(Uri.parse(intent.getStringExtra("downloadUrl")))
+        val downloadUrl = intent.getStringExtra("downloadUrl")?.toUri() ?: return
+        val request = DownloadManager.Request(downloadUrl)
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
         request.setDestinationInExternalPublicDir(
             Environment.DIRECTORY_DOWNLOADS,
