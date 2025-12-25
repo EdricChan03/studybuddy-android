@@ -17,17 +17,13 @@ import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.exts.android.buildIntent
 import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted
 import com.edricchan.studybuddy.exts.common.TAG
-import com.edricchan.studybuddy.utils.SharedUtils
 
 class NotificationActionReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.d(TAG, "Received broadcast with action ${intent.getStringExtra("action")}.")
         when (intent.getStringExtra("action")) {
             Constants.actionNotificationsStartDownloadReceiver -> checkPermission(context, intent)
-            Constants.actionNotificationsRetryCheckForUpdateReceiver -> SharedUtils.checkForUpdates(
-                context
-            )
-        }// Register receiver for when .apk download is compete
+        }
     }
 
     private fun checkPermission(context: Context, intent: Intent) {

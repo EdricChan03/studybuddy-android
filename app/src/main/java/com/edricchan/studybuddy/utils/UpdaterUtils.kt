@@ -20,7 +20,6 @@ const val UPDATE_WORK_NAME = "workUpdater"
 
 /**
  * Retrieves the JSON update URL.
- * Used for [SharedUtils.checkForUpdates]
  * @param forceDebugUrl Whether to return the debug URL even if [isDevMode] is `true`.
  * @return The JSON update URL as a [String]
  */
