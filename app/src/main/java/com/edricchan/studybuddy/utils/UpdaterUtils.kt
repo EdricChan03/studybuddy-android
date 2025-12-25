@@ -85,7 +85,9 @@ fun Context.enqueueUniqueCheckForUpdatesWorker(
 
     val constraints = Constraints(
         requiredNetworkType = networkType,
-        requiresCharging = requiresCharging
+        requiresCharging = requiresCharging,
+        requiresBatteryNotLow = true,
+        requiresStorageNotLow = true
     )
 
     val checkForUpdatesWorkerRequest = periodicWorkRequest<CheckForUpdatesWorker>(
