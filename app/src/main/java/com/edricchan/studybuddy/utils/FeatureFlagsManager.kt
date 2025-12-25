@@ -12,7 +12,7 @@ import com.edricchan.studybuddy.exts.android.showToast
  * Initialises an instance of the utilities
  * @param context The context to retrieve the [android.content.SharedPreferences] from
  */
-class FeatureFlagsUtils(
+class FeatureFlagsManager(
     val context: Context
 ) {
     val featureFlagsPrefs: SharedPreferences = context.getSharedPreferences(
