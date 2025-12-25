@@ -108,14 +108,14 @@ class TaskRepository @Inject constructor(
         // flow {} is used here as we need a suspending context for the
         // getCollectionRef call
         val query = source.getCollectionRef().let {
-            if (!config.includeArchived) it.whereEqualTo(
+            if (config.includeArchived) it.whereEqualTo(
                 TodoItem.Field.IsArchived.fieldName,
                 true
             ) else it
         }.let {
             if (config.excludeCompleted) it.whereEqualTo(
                 TodoItem.Field.IsDone.fieldName,
-                true
+                false
             ) else it
         }.let {
             config.orderByFields.fold(it) { query, spec ->
