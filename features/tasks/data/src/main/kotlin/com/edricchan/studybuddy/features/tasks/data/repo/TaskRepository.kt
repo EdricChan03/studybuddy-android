@@ -134,7 +134,6 @@ class TaskRepository @Inject constructor(
                     limit = config.pageSize.toLong()
                 )
             }.flow
-                .cachedIn(config.cachedCoroutineScope)
                 .map {
                     it.map { item ->
                         item.project?.let { projectRef ->
@@ -143,6 +142,7 @@ class TaskRepository @Inject constructor(
                         } ?: item.toDomain(null)
                     }
                 }
+                .cachedIn(config.cachedCoroutineScope)
         )
     }
 
