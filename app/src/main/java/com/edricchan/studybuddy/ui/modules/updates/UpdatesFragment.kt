@@ -262,7 +262,7 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
         requireContext().showMaterialAlertDialog {
             setTitle(getString(R.string.update_dialog_title_new, appUpdate.latestVersion))
             setIcon(R.drawable.ic_system_update_24dp)
-            setMessage("What's new:\n${appUpdate.releaseNotes}")
+            setMessage(getString(R.string.new_update_dialog_msg, appUpdate.releaseNotes))
             setNegativeButton(android.R.string.cancel, null)
             setPositiveButton(R.string.update_dialog_positive_btn_text) { _, _ ->
                 // Check if the write external storage permission has been granted

@@ -31,6 +31,7 @@
         downloaded</string>
     <string name="update_dialog_positive_btn_text">Download build</string>
     <string name="update_dialog_title_new">New version (%s) available!</string>
+    <string name="new_update_dialog_msg">What\'s new:\n%s</string>
     <string name="update_perm_rationale_dialog_deny">Deny</string>
 
     <string name="update_perm_rationale_dialog_grant">Grant</string>
