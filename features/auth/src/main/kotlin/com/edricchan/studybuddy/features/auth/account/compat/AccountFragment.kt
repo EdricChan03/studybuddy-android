@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.features.auth.account.compat
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -23,12 +25,7 @@ import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reauthenticateAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reloadAsync
-import com.edricchan.studybuddy.exts.firebase.auth.updateEmailAsync
-import com.edricchan.studybuddy.exts.firebase.auth.updatePasswordAsync
-import com.edricchan.studybuddy.exts.firebase.auth.updateProfileAsync
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
-import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
-import com.edricchan.studybuddy.exts.material.textfield.strValue
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragAccountInfoBinding
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
@@ -42,6 +39,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.recordException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,6 +52,10 @@ class AccountFragment :
     FirebaseAuth.AuthStateListener {
     @Inject
     lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var crashlytics: FirebaseCrashlytics
+
     private var user: FirebaseUser? = null
 
     @Inject
@@ -273,18 +276,13 @@ class AccountFragment :
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
             setTitle(R.string.account_new_email_dialog_title)
             setPositiveButton(R.string.dialog_action_update_email) { dialog, _ ->
-                lifecycleScope.launch {
-                    try {
-                        textInputEditText.strValue?.let { user?.updateEmailAsync(it) }
-                        showToast(R.string.account_update_email_success_msg, Toast.LENGTH_SHORT)
-                        dialog.dismiss()
-                    } catch (e: Exception) {
-                        Log.e(
-                            TAG,
-                            "An error occurred when attempting to update the email address",
-                            e
-                        )
-                    }
+                onProfileUpdate(
+                    successMsgRes = R.string.account_update_email_success_msg,
+                    updateTypeKeyValue = "email",
+                    onDismissRequest = dialog::dismiss
+                ) {
+                    inputText?.takeIf(String::isNotBlank)
+                        ?.let { authService.updateEmail(it) }
                 }
             }
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
@@ -300,20 +298,13 @@ class AccountFragment :
             }
             setTitle(R.string.account_new_name_dialog_title)
             setPositiveButton(R.string.dialog_action_update_name) { dialog, _ ->
-                lifecycleScope.launch {
-                    try {
-                        user?.updateProfileAsync {
-                            displayName = textInputLayout.editTextStrValue
-                        }
-                        showToast(R.string.account_update_name_success_msg, Toast.LENGTH_SHORT)
-                        dialog.dismiss()
-                    } catch (e: Exception) {
-                        Log.e(
-                            TAG,
-                            "An error occurred when attempting to update the name",
-                            e
-                        )
-                    }
+                onProfileUpdate(
+                    successMsgRes = R.string.account_update_name_success_msg,
+                    updateTypeKeyValue = "display_name",
+                    onDismissRequest = dialog::dismiss
+                ) {
+                    inputText?.takeIf(String::isNotBlank)
+                        ?.let { authService.updateDisplayName(it) }
                 }
             }
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
@@ -332,23 +323,58 @@ class AccountFragment :
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             setTitle(R.string.account_new_password_dialog_title)
             setPositiveButton(R.string.dialog_action_update_password) { dialog, _ ->
-                lifecycleScope.launch {
-                    try {
-                        textInputEditText.strValue?.let { user?.updatePasswordAsync(it) }
-                        showToast(
-                            R.string.account_update_password_success_msg, Toast.LENGTH_SHORT
-                        )
-                        dialog.dismiss()
-                    } catch (e: Exception) {
-                        Log.e(
-                            TAG,
-                            "An error occurred when attempting to update the password",
-                            e
-                        )
-                    }
+                onProfileUpdate(
+                    successMsgRes = R.string.account_update_password_success_msg,
+                    updateTypeKeyValue = "password",
+                    onDismissRequest = dialog::dismiss
+                ) {
+                    inputText?.takeIf(String::isNotBlank)
+                        ?.let { authService.updatePassword(it) }
                 }
             }
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
+        }
+    }
+
+    @SuppressLint("DiscouragedApi") // For showSnackBar call that accepts a String
+    private fun onProfileUpdate(
+        @StringRes successMsgRes: Int,
+        updateTypeKeyValue: String,
+        onDismissRequest: () -> Unit,
+        updateFn: suspend () -> AuthService.UpdateProfileResult?
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            when (val result = updateFn() ?: return@launch run(onDismissRequest)) {
+                is AuthService.UpdateProfileResult.Error -> {
+                    Log.e(
+                        this@AccountFragment.TAG,
+                        "Could not update profile information:",
+                        result.error
+                    )
+                    crashlytics.recordException(result.error) {
+                        key("profile_update_type", updateTypeKeyValue)
+                    }
+                    result.error.localizedMessage?.let {
+                        showSnackBar(
+                            it,
+                            SnackBarData.Duration.Long
+                        )
+                    }
+                }
+
+                // This case should not happen, ideally...
+                AuthService.UpdateProfileResult.NotSignedIn -> {
+                    Log.w(
+                        this@AccountFragment.TAG,
+                        "User not signed in, unable to perform profile update ($updateTypeKeyValue)"
+                    )
+                }
+
+                AuthService.UpdateProfileResult.Success -> {
+                    showSnackBar(successMsgRes)
+                }
+            }
+            onDismissRequest()
         }
     }
 }
