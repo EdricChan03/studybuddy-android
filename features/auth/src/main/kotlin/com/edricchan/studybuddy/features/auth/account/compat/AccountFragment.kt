@@ -213,12 +213,11 @@ class AccountFragment :
     }
 
     private fun refreshCredentials() {
-        showSnackBar(
-            R.string.account_refresh_creds_start_msg,
-            SnackBarData.Duration.Short
-        )
-
         lifecycleScope.launch {
+            showSnackBar(
+                R.string.account_refresh_creds_start_msg,
+                SnackBarData.Duration.Short
+            ).join()
             try {
                 user?.reloadAsync()
             } catch (e: Exception) {
@@ -235,7 +234,7 @@ class AccountFragment :
                         text = getString(CommonR.string.dialog_action_retry),
                         onClick = ::refreshCredentials
                     )
-                )
+                ).join()
             }
         }
     }
