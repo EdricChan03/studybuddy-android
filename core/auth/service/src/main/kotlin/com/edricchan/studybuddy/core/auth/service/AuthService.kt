@@ -37,6 +37,7 @@ interface AuthService {
         credentialOptions: List<CredentialOption>
     ): Boolean
 
+    //#region Update operations
     /**
      * Interface used to represent the possible result of an update profile operation.
      * @see updateEmail
@@ -77,4 +78,15 @@ interface AuthService {
      * check [UpdateProfileResult.Error] accordingly.
      */
     suspend fun updateDisplayName(newName: String): UpdateProfileResult
+    //#endregion
+
+    //#region Nuclear operations
+    /**
+     * Requests for the user's account to be deleted.
+     *
+     * Note that reauthentication may be required to perform this operation -
+     * check [UpdateProfileResult.Error] accordingly.
+     */
+    suspend fun requestDelete(): UpdateProfileResult
+    //#endregion
 }

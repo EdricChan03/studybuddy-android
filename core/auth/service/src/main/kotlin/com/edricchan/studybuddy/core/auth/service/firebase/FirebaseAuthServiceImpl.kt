@@ -14,6 +14,7 @@ import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.currentUserFlow
+import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
 import com.edricchan.studybuddy.exts.firebase.auth.updateEmailAsync
 import com.edricchan.studybuddy.exts.firebase.auth.updatePasswordAsync
 import com.edricchan.studybuddy.exts.firebase.auth.updateProfileAsync
@@ -75,4 +76,8 @@ class FirebaseAuthServiceImpl @Inject constructor(
 
     override suspend fun updateDisplayName(newName: String): AuthService.UpdateProfileResult =
         updateProfile { it.updateProfileAsync { displayName = newName } }
+
+    override suspend fun requestDelete(): AuthService.UpdateProfileResult = updateProfile {
+        it.deleteAsync()
+    }
 }
