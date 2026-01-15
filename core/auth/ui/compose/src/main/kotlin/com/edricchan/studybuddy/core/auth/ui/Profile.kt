@@ -90,6 +90,7 @@ fun ProfileImage(
             modifier = modifier.clip(shape),
             model = model,
             placeholder = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
+            error = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
             contentDescription = stringResource(R.string.account_profile_content_desc, displayName),
             contentScale = ContentScale.Crop,
         )
