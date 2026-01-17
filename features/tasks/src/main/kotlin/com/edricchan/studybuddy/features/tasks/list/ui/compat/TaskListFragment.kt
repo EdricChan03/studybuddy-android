@@ -50,7 +50,6 @@ import com.edricchan.studybuddy.utils.dev.isDevMode
 import com.edricchan.studybuddy.utils.recyclerview.ItemTouchDirection
 import com.edricchan.studybuddy.utils.recyclerview.setItemTouchHelper
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.edricchan03.androidx.recyclerview.ktx.hasFixedSize
 import kotlinx.coroutines.delay
@@ -65,9 +64,6 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
 
     @Inject
     lateinit var auth: FirebaseAuth
-
-    @Inject
-    lateinit var firestore: FirebaseFirestore
 
     private val viewModel by viewModels<TasksListViewModel>()
 
