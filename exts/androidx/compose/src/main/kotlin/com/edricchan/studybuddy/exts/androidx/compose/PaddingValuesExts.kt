@@ -1,20 +1,16 @@
 package com.edricchan.studybuddy.exts.androidx.compose
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.runtime.Stable
+import androidx.compose.foundation.layout.plus as foundationPlus
 
 /** Adds the specified [other]'s [PaddingValues] to the receiver's [PaddingValues]. */
-@Composable
-operator fun PaddingValues.plus(other: PaddingValues): PaddingValues {
-    val direction = LocalLayoutDirection.current
-
-    return PaddingValues(
-        start = calculateStartPadding(direction) + other.calculateStartPadding(direction),
-        top = calculateTopPadding() + other.calculateTopPadding(),
-        end = calculateEndPadding(direction) + other.calculateEndPadding(direction),
-        bottom = calculateBottomPadding() + other.calculateBottomPadding(),
+@Deprecated(
+    "Use the extension function from Compose Foundation instead",
+    ReplaceWith(
+        "this + other",
+        "androidx.compose.foundation.layout.plus"
     )
-}
+)
+@Stable
+operator fun PaddingValues.plus(other: PaddingValues): PaddingValues = foundationPlus(other)
