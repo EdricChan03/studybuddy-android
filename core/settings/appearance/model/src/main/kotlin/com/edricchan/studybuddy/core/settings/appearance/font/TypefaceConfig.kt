@@ -5,7 +5,7 @@ package com.edricchan.studybuddy.core.settings.appearance.font
  * @property displayStyle Desired [TypefaceSetting] for heading-like text.
  * @property bodyStyle Desired [TypefaceSetting] for body text.
  */
-data class Typefaces(
+data class TypefaceConfig(
     val displayStyle: TypefaceSetting,
     val bodyStyle: TypefaceSetting
 )
