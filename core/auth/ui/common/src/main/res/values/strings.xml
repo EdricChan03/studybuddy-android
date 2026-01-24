@@ -6,6 +6,9 @@
     <!-- Content description for the user's profile picture. -->
     <string name="account_profile_content_desc">Profile photo for %1$s</string>
 
+    <!-- Content description for the anonymous user's profile picture. -->
+    <string name="account_anon_profile_content_desc">Profile photo</string>
+
     <!-- The user's display name if no user is signed in. -->
     <string name="account_anon_display_name">Anonymous/Not signed in</string>
 

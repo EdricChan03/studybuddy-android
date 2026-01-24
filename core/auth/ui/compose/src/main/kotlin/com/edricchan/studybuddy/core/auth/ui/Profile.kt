@@ -37,7 +37,7 @@ import me.saket.telephoto.zoomable.coil3.ZoomableAsyncImage
 fun ProfileImage(
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
-    displayName: String,
+    displayName: String?,
     photoUrl: String?,
     context: Context = LocalContext.current,
     isZoomable: Boolean = false,
@@ -67,12 +67,15 @@ fun ProfileImage(
 fun ProfileImage(
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
-    displayName: String,
+    displayName: String?,
     photoUri: Uri?,
     context: Context = LocalContext.current,
     isZoomable: Boolean = false,
     imageRequestInit: ImageRequest.Builder.() -> Unit = {}
 ) {
+    val contentDescription =
+        displayName?.let { stringResource(R.string.account_profile_content_desc, it) }
+            ?: stringResource(R.string.account_anon_profile_content_desc)
     val model = context.imageRequest {
         data(photoUri)
         crossfade(true)
@@ -81,7 +84,7 @@ fun ProfileImage(
     if (isZoomable) {
         ZoomableAsyncImage(
             model = model,
-            contentDescription = stringResource(R.string.account_profile_content_desc, displayName),
+            contentDescription = contentDescription,
             contentScale = ContentScale.Crop,
             modifier = modifier
         )
@@ -91,7 +94,7 @@ fun ProfileImage(
             model = model,
             placeholder = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
             error = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
-            contentDescription = stringResource(R.string.account_profile_content_desc, displayName),
+            contentDescription = contentDescription,
             contentScale = ContentScale.Crop,
         )
     }
