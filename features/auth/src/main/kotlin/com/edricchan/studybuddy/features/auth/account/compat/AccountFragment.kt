@@ -22,8 +22,6 @@ import com.edricchan.studybuddy.core.compat.navigation.CompatDestination.Auth.Ac
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
-import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
-import com.edricchan.studybuddy.exts.firebase.auth.reauthenticateAsync
 import com.edricchan.studybuddy.exts.firebase.auth.reloadAsync
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.auth.R
@@ -32,13 +30,9 @@ import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.recordException
 import dagger.hilt.android.AndroidEntryPoint
@@ -145,51 +139,13 @@ class AccountFragment :
         requireContext().showMaterialAlertDialog {
             setTitle(R.string.account_delete_account_dialog_title)
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
-            setPositiveButton(R.string.dialog_action_delete_account) { _, _ ->
-                lifecycleScope.launch {
-                    try {
-                        user?.deleteAsync()
-                        showToast(
-                            R.string.account_delete_account_success_msg,
-                            Toast.LENGTH_SHORT
-                        )
-                    } catch (e: Exception) {
-                        Log.e(
-                            TAG,
-                            "An error occurred when attempting to delete the current user.",
-                            e
-                        )
-                        when (e) {
-                            is FirebaseAuthRecentLoginRequiredException -> {
-                                val account =
-                                    GoogleSignIn.getLastSignedInAccount(requireContext())
-                                val credential =
-                                    GoogleAuthProvider.getCredential(account?.idToken, null)
-                                try {
-                                    user?.reauthenticateAsync(credential)
-                                    showToast(
-                                        R.string.account_delete_account_reauth_success_msg,
-                                        Toast.LENGTH_SHORT
-                                    )
-                                    showDeleteAccountDialog()
-                                } catch (e: Exception) {
-                                    Log.e(
-                                        TAG,
-                                        "An error occurred while attempting to reauthenticate:",
-                                        e
-                                    )
-                                }
-                            }
-
-                            is FirebaseAuthInvalidUserException -> {
-                                showToast(
-                                    R.string.account_delete_account_invalid_msg,
-                                    Toast.LENGTH_LONG
-                                )
-                            }
-                        }
-                    }
-                }
+            setPositiveButton(R.string.dialog_action_delete_account) { dialog, _ ->
+                onProfileUpdate(
+                    successMsgRes = R.string.account_delete_account_success_msg,
+                    updateTypeKeyValue = "delete_account",
+                    onDismissRequest = dialog::dismiss,
+                    updateFn = authService::requestDelete
+                )
             }
         }
     }
