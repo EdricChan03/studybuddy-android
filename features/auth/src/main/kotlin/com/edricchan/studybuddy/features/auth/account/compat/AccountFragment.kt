@@ -128,7 +128,7 @@ class AccountFragment :
             return when (menuItem.itemId) {
                 R.id.action_refresh_credentials -> {
                     refreshCredentials()
-                    return true
+                    true
                 }
 
                 else -> false
