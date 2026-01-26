@@ -34,7 +34,7 @@ dependencies {
     debugImplementation(libs.bundles.androidx.compose.tooling)
 
     api(libs.coil.compose)
-    implementation(libs.coil.zoomable)
+    api(libs.coil.zoomable)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

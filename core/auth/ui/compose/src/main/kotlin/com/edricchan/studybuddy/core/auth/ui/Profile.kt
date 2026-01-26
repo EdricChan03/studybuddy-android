@@ -20,17 +20,21 @@ import coil3.request.crossfade
 import com.edricchan.studybuddy.core.auth.common.R
 import com.edricchan.studybuddy.exts.coil.imageRequest
 import com.edricchan.studybuddy.utils.coil.compose.tintedPainter
+import me.saket.telephoto.zoomable.ZoomableImageState
 import me.saket.telephoto.zoomable.coil3.ZoomableAsyncImage
+import me.saket.telephoto.zoomable.rememberZoomableImageState
 
 /**
  * Displays a user's profile picture given the [photoUrl].
+ *
  * The image is [cropped][Modifier.clip] with the specified [shape].
+ *
+ * Use [ZoomableProfileImage] instead if the image should be made zoomable.
  * @param modifier Modifier to be passed to [AsyncImage].
  * @param shape The [Shape] to [crop][Modifier.clip] the contents to.
  * @param displayName The user's display name.
  * @param photoUrl URL to the profile picture as a [String].
  * @param context Context to be used to create an [ImageRequest].
- * @param isZoomable Whether the image should be [zoomable][ZoomableAsyncImage].
  * @param imageRequestInit Additional configuration to be passed to the [ImageRequest.Builder].
  */
 @Composable
@@ -40,7 +44,6 @@ fun ProfileImage(
     displayName: String?,
     photoUrl: String?,
     context: Context = LocalContext.current,
-    isZoomable: Boolean = false,
     imageRequestInit: ImageRequest.Builder.() -> Unit = {}
 ) = ProfileImage(
     modifier = modifier,
@@ -48,19 +51,20 @@ fun ProfileImage(
     displayName = displayName,
     photoUri = photoUrl?.toUri(),
     context = context,
-    isZoomable = isZoomable,
     imageRequestInit = imageRequestInit
 )
 
 /**
  * Displays a user's profile picture given the [photoUri].
+ *
  * The image is [cropped][Modifier.clip] with the specified [shape].
+ *
+ * Use [ZoomableProfileImage] instead if the image should be made zoomable.
  * @param modifier Modifier to be passed to [AsyncImage].
  * @param shape The [Shape] to [crop][Modifier.clip] the contents to.
  * @param displayName The user's display name.
  * @param photoUri URL to the profile picture as a [Uri].
  * @param context Context to be used to create an [ImageRequest].
- * @param isZoomable Whether the image should be [zoomable][ZoomableAsyncImage].
  * @param imageRequestInit Additional configuration to be passed to the [ImageRequest.Builder].
  */
 @Composable
@@ -70,7 +74,6 @@ fun ProfileImage(
     displayName: String?,
     photoUri: Uri?,
     context: Context = LocalContext.current,
-    isZoomable: Boolean = false,
     imageRequestInit: ImageRequest.Builder.() -> Unit = {}
 ) {
     val contentDescription =
@@ -81,21 +84,50 @@ fun ProfileImage(
         crossfade(true)
         imageRequestInit()
     }
-    if (isZoomable) {
-        ZoomableAsyncImage(
-            model = model,
-            contentDescription = contentDescription,
-            contentScale = ContentScale.Crop,
-            modifier = modifier
-        )
-    } else {
-        AsyncImage(
-            modifier = modifier.clip(shape),
-            model = model,
-            placeholder = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
-            error = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
-            contentDescription = contentDescription,
-            contentScale = ContentScale.Crop,
-        )
+
+    AsyncImage(
+        modifier = modifier.clip(shape),
+        model = model,
+        placeholder = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
+        error = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
+        contentDescription = contentDescription,
+        contentScale = ContentScale.Crop,
+    )
+}
+
+/**
+ * Displays a user's profile picture given the [photoUri], as a zoomable image.
+ *
+ * Use [ProfileImage] instead if only displaying the image with no zooming capabilities
+ * is desired.
+ * @param modifier Modifier to be passed to [ZoomableAsyncImage].
+ * @param displayName The user's display name.
+ * @param photoUri URL to the profile picture as a [Uri].
+ * @param context Context to be used to create an [ImageRequest].
+ * @param imageRequestInit Additional configuration to be passed to the [ImageRequest.Builder].
+ */
+@Composable
+fun ZoomableProfileImage(
+    modifier: Modifier = Modifier,
+    displayName: String?,
+    photoUri: Uri?,
+    imageState: ZoomableImageState = rememberZoomableImageState(),
+    context: Context = LocalContext.current,
+    imageRequestInit: ImageRequest.Builder.() -> Unit = {}
+) {
+    val contentDescription =
+        displayName?.let { stringResource(R.string.account_profile_content_desc, it) }
+            ?: stringResource(R.string.account_anon_profile_content_desc)
+    val model = context.imageRequest {
+        data(photoUri)
+        crossfade(true)
+        imageRequestInit()
     }
+
+    ZoomableAsyncImage(
+        modifier = modifier,
+        model = model,
+        contentDescription = contentDescription,
+        state = imageState
+    )
 }
