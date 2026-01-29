@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -29,6 +27,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.AccountCircle
 import com.edricchan.studybuddy.data.common.Result
 import com.edricchan.studybuddy.data.common.isSuccess
 import com.edricchan.studybuddy.data.common.runCatching
@@ -142,7 +142,7 @@ fun PreferenceCategoryScope.AccountInfoPreference(
     Preference(
         modifier = modifier,
         onClick = { isAcctInfoShown = true },
-        icon = { Icon(Icons.Outlined.AccountCircle, contentDescription = null) },
+        icon = { Icon(AppIcons.Outlined.AccountCircle, contentDescription = null) },
         title = { Text(text = stringResource(R.string.debug_activity_account_info_title)) },
         subtitle = { Text(text = stringResource(R.string.debug_activity_account_info_summary)) }
     )
