@@ -1,7 +1,5 @@
 package com.edricchan.studybuddy.core.auth.ui.dialog
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -12,6 +10,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.window.DialogProperties
 import com.edricchan.studybuddy.core.auth.common.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 
 /** Shows a sign-in dialog prompting the user to log in to continue. */
 @Composable
@@ -24,7 +24,7 @@ fun AuthRequiredDialog(
     modifier = modifier,
     properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false),
     onDismissRequest = onDismissRequest,
-    icon = { Icon(Icons.Outlined.Info, contentDescription = null) },
+    icon = { Icon(AppIcons.Outlined.Info, contentDescription = null) },
     title = {
         Text(
             text = stringResource(R.string.dialog_requires_auth_title),
