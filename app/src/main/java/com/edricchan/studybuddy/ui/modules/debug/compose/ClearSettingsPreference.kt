@@ -1,7 +1,5 @@
 package com.edricchan.studybuddy.ui.modules.debug.compose
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -17,6 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Delete
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 
@@ -58,7 +58,7 @@ fun PreferenceCategoryScope.ClearSettingsPreference(
     Preference(
         modifier = modifier,
         onClick = { isConfirmShown = true },
-        icon = { Icon(Icons.Outlined.Delete, contentDescription = null) },
+        icon = { Icon(AppIcons.Outlined.Delete, contentDescription = null) },
         title = { Text(text = stringResource(R.string.debug_activity_other_clear_app_settings_title)) },
     )
 
