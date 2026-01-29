@@ -23,6 +23,7 @@ android {
 dependencies {
     api(projects.core.auth.model)
     api(projects.core.auth.ui.common)
+    implementation(projects.core.resources.icons)
     implementation(projects.exts.coil)
     implementation(projects.ui.theming.compose)
     implementation(projects.utils.coil.compose)

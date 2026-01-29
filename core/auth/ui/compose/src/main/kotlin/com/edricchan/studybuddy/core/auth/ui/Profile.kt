@@ -3,8 +3,6 @@ package com.edricchan.studybuddy.core.auth.ui
 import android.content.Context
 import android.net.Uri
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,6 +16,8 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.edricchan.studybuddy.core.auth.common.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.AccountCircle
 import com.edricchan.studybuddy.exts.coil.imageRequest
 import com.edricchan.studybuddy.utils.coil.compose.tintedPainter
 import me.saket.telephoto.zoomable.ZoomableImageState
@@ -88,8 +88,8 @@ fun ProfileImage(
     AsyncImage(
         modifier = modifier.clip(shape),
         model = model,
-        placeholder = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
-        error = tintedPainter(rememberVectorPainter(Icons.Outlined.AccountCircle)),
+        placeholder = tintedPainter(rememberVectorPainter(AppIcons.Outlined.AccountCircle)),
+        error = tintedPainter(rememberVectorPainter(AppIcons.Outlined.AccountCircle)),
         contentDescription = contentDescription,
         contentScale = ContentScale.Crop,
     )
