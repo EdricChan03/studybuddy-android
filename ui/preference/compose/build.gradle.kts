@@ -21,6 +21,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.resources.icons)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.widgets.compose)
 
