@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.CalendarClock
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.date.TaskDateDefaults
@@ -56,7 +58,7 @@ fun TaskDueDateListItem(
 ) = ListItem(
     modifier = modifier,
     headlineContent = { Text(text = formatDate(dueDate)) },
-    leadingContent = { Icon(Icons.Outlined.DateRange, contentDescription = null) },
+    leadingContent = { Icon(AppIcons.Outlined.CalendarClock, contentDescription = null) },
     colors = colors
 )
 
