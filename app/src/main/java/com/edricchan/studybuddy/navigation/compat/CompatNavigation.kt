@@ -31,7 +31,6 @@ import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
-import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
 import com.edricchan.studybuddy.utils.android.fromApi
 import kotlin.reflect.typeOf
@@ -115,10 +114,6 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
     }
     fragment<DebugModalBottomSheetFragment, CompatDestination.DebugModalBottomSheet> {
         label = context.getString(R.string.title_activity_debug_modal_bottom_sheet)
-    }
-
-    fragment<FeatureFlagsSettingsFragment, CompatDestination.FeatureFlagsList> {
-        label = context.getString(R.string.debug_activity_feature_flags_title)
     }
 
     fragment<UpdatesFragment, CompatDestination.Updates> {

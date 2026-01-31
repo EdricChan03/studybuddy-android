@@ -13,9 +13,6 @@ object Constants {
     const val debugUseTestingJsonUrl = "debug_updates_use_testing_json_url"
     const val debugSetCustomJsonUrl = "debug_updates_custom_json_url"
 
-    // Feature flags
-    const val featureFlagsReset = "feature_flags_reset"
-
     // Actions
     const val actionNotificationsSettingsIntent =
         "com.edricchan.studybuddy.intent.ACTION_NOTIFICATIONS_SETTINGS_INTENT"

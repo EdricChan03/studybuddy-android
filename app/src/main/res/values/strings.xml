@@ -112,39 +112,6 @@
     </string>
     <string name="notification_updates_error_not_found_title">File not found</string>
 
-    <!-- Feature flags strings -->
-    <eat-comment />
-
-    <string name="feature_flags_about_title">About feature flags</string>
-    <string name="feature_flags_about_desc">Feature flags are features which can be enabled or
-        disabled. This allows for testing of certain unstable features which would not be normally
-        made available to the public.</string>
-    <string name="feature_flags_about_warning"><b>Warning:</b> The developer of this app is not
-        responsible for any data loss caused by enabling certain feature flags.
-        <b>You have been warned.</b></string>
-    <string name="feature_flags_reset_title">Reset feature flags</string>
-    <string name="feature_flags_confirm_reset_dialog_title">Reset feature flags?</string>
-    <string name="feature_flags_confirm_reset_dialog_msg">This cannot be undone!</string>
-    <string name="feature_flags_successfully_reset_toast_msg">Successfully reset feature
-        flags!</string>
-    <string name="feature_flags_opt_out_title">Opt out of feature flags</string>
-    <string name="feature_flags_prefer_remote_config_title">Prefer Firebase Remote Config</string>
-    <string name="feature_flags_prefer_remote_config_msg">Whether the feature flag values from
-        Firebase Remote Config should take precedence over the local preferences.</string>
-    <string name="feature_flags_category_options_title">Options</string>
-    <string name="feature_flags_category_appearance_title">Appearance</string>
-    <string name="feature_flags_category_appearance_desc">Feature flags that affect the design of
-        the application.</string>
-    <string name="feature_flags_calendar_enabled_title">Calendar UI</string>
-    <string name="feature_flags_calendar_enabled_summary">Enables support for a WIP Calendar
-        interface.</string>
-    <string name="feature_flags_interface_v2_enabled_title">App design v2</string>
-    <string name="feature_flags_interface_v2_enabled_summary">Revamps the UI with a fresh new
-        look.</string>
-    <string name="feature_flags_about_app_v2_enabled_title">About app UI v2</string>
-    <string name="feature_flags_about_app_v2_enabled_summary">Revamps the about app UI to show
-        more info about the app.</string>
-
     <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code
         available at https://github.com/EdricChan03/StudyBuddy
     </string>

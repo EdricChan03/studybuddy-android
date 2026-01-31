@@ -18,7 +18,6 @@
     <string name="debug_activity_device_sdk_info_dialog_title">Device SDK info</string>
     <string name="debug_activity_dynamic_theme_info_dialog_title">Dynamic theme info</string>
     <string name="debug_activity_dynamic_theme_info_dialog_toggle_btn">Toggle theme</string>
-    <string name="debug_activity_feature_flags_title">Feature flags</string>
     <string name="debug_activity_updates_set_custom_json_url_title">Set custom update JSON
         URL</string>
     <string name="debug_activity_updates_start_worker_title">Start check for updates worker</string>

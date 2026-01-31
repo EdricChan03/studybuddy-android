@@ -13,7 +13,6 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.databinding.ActivityFragNavHostBinding
 import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.modules.settings.fragment.featureflags.FeatureFlagsSettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,13 +44,8 @@ class DebugActivity : BaseActivity() {
         val navHost = binding.fragmentHostContainer.getFragment<NavHostFragment>()
         navHost.apply {
             navController.graph = navController.createGraph(CompatDestination.Debug) {
-                // DebugFragment only has a feature flag and bottom sheet destination, so
-                // we should be fine with just defining 3 destinations here
                 fragment<DebugFragment, CompatDestination.Debug> {
                     label = getString(R.string.title_activity_debug)
-                }
-                fragment<FeatureFlagsSettingsFragment, CompatDestination.FeatureFlagsList> {
-                    label = getString(R.string.debug_activity_feature_flags_title)
                 }
                 fragment<DebugModalBottomSheetFragment, CompatDestination.DebugModalBottomSheet> {
                     label = getString(R.string.title_activity_debug_modal_bottom_sheet)

@@ -49,8 +49,7 @@ fun DebugScreen(
     contentPadding: PaddingValues = PaddingValues(16.dp),
     viewModel: DebugViewModel = viewModel(),
     userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>,
-    onNavigateToDebugModalBottomSheet: () -> Unit,
-    onNavigateToFeatureFlagsList: () -> Unit
+    onNavigateToDebugModalBottomSheet: () -> Unit
 ) {
     val devModeEnabled by viewModel.devModeEnabled.asFlow()
         .collectAsStateWithLifecycle(initialValue = BuildConfig.DEBUG)
@@ -73,19 +72,6 @@ fun DebugScreen(
             ) {
                 MainSwitchBarDefaults.TitleText(text = stringResource(R.string.debug_activity_dev_mode_enabled_title))
             }
-        }
-
-        item {
-            Preference(
-                onClick = onNavigateToFeatureFlagsList,
-                title = { Text(text = stringResource(R.string.debug_activity_feature_flags_title)) },
-                icon = {
-                    Icon(
-                        painterResource(R.drawable.ic_flag_outline_24dp),
-                        contentDescription = null
-                    )
-                }
-            )
         }
 
         item {
