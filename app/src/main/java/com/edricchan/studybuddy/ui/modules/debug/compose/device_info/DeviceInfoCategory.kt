@@ -29,14 +29,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.common.dynamic.prefDynamicTheme
 import com.edricchan.studybuddy.core.resources.R as CoreResR
-import com.edricchan.studybuddy.features.settings.R as SettingsR
-
 
 private val String.orUnset get() = ifEmpty { "<Unset>" }
 private val Any?.orUnavailable get() = this?.toString() ?: "<Not available>"
@@ -273,7 +273,7 @@ private fun PreferenceCategoryScope.DeviceDynamicThemePreference(modifier: Modif
         title = { Text(text = stringResource(R.string.debug_activity_dynamic_theme_info_dialog_title)) },
         icon = {
             Icon(
-                painterResource(SettingsR.drawable.ic_auto_awesome_outline_24dp),
+                AppIcons.Outlined.Colorize,
                 contentDescription = null
             )
         },
