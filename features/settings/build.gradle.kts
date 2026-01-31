@@ -35,6 +35,7 @@ dependencies {
     implementation(projects.core.settings.updates.resources)
 
     implementation(projects.core.auth.ui.compose)
+    implementation(projects.core.resources.icons)
     implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.common)
