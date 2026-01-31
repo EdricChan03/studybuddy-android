@@ -15,7 +15,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,28 +38,6 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Check
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
-@Composable
-private fun switchBarSurfaceColor(
-    enabled: Boolean, checked: Boolean
-): Color = if (enabled) {
-    if (checked) MaterialTheme.colorScheme.primaryContainer
-    else MaterialTheme.colorScheme.surfaceContainer
-} else {
-    if (checked) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
-    else MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.6f)
-}
-
-@Composable
-private fun switchBarSurfaceContentColor(
-    enabled: Boolean, checked: Boolean
-): Color = if (enabled) {
-    if (checked) MaterialTheme.colorScheme.onPrimaryContainer
-    else MaterialTheme.colorScheme.onSurface
-} else {
-    if (checked) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f)
-    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-}
-
 /**
  * [Master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting)
  * switch, used to indicate that an entire feature can be turned on/off.
@@ -70,6 +50,8 @@ private fun switchBarSurfaceContentColor(
  * @param switch [Composable] used to indicate the bar's [checked] status.
  * [MainSwitchBarDefaults.Switch] can be used which provides a default [Switch] implementation.
  * @param enabled Whether the switch bar is enabled.
+ * @param colors Colour configuration for the switch-bar - see [MainSwitchBarColors] for additional
+ * information.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -79,17 +61,18 @@ fun MainSwitchBar(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     enabled: Boolean = true,
+    colors: MainSwitchBarColors = MainSwitchBarDefaults.colors(),
     switch: @Composable RowScope.() -> Unit = {
         MainSwitchBarDefaults.Switch(checked = checked, enabled = enabled)
     },
     text: @Composable RowScope.() -> Unit
 ) {
     val surfaceColor by animateColorAsState(
-        switchBarSurfaceColor(enabled = enabled, checked = checked),
+        colors.containerColor(enabled = enabled, checked = checked),
         label = "Surface colour"
     )
     val surfaceContentColor by animateColorAsState(
-        switchBarSurfaceContentColor(enabled = enabled, checked = checked),
+        colors.contentColor(enabled = enabled, checked = checked),
         label = "Surface content colour"
     )
 
@@ -117,6 +100,35 @@ fun MainSwitchBar(
             switch()
         }
     }
+}
+
+@Immutable
+data class MainSwitchBarColors(
+    val containerColorList: ColorStateList,
+    val contentColorList: ColorStateList
+) {
+    @Immutable
+    data class ColorStateList(
+        val baseColor: Color,
+        val checkedColor: Color,
+        val disabledColor: Color,
+        val disabledCheckedColor: Color
+    ) {
+        fun color(enabled: Boolean, checked: Boolean): Color = when {
+            enabled && checked -> checkedColor
+            !enabled && checked -> disabledCheckedColor
+            !enabled && !checked -> disabledColor
+            else -> baseColor
+        }
+    }
+
+    fun containerColor(enabled: Boolean, checked: Boolean): Color = containerColorList.color(
+        enabled = enabled, checked = checked
+    )
+
+    fun contentColor(enabled: Boolean, checked: Boolean): Color = contentColorList.color(
+        enabled = enabled, checked = checked
+    )
 }
 
 private data class MainSwitchBarPreviewData(
@@ -155,6 +167,10 @@ private fun MainSwitchBarInteractivePreview(
         )
     }
 }
+
+private const val DisabledAlpha = 0.38f
+
+private val Color.disabled: Color get() = copy(alpha = DisabledAlpha)
 
 /** Defaults for [MainSwitchBar]. */
 @Stable
@@ -204,4 +220,50 @@ object MainSwitchBarDefaults {
             thumbContent = icon
         )
     }
+
+    /**
+     * Creates a [MainSwitchBarColors] object with the given colours.
+     * @param containerColor Container colour when the switch-bar is enabled but not checked.
+     * @param contentColor Content colour when the switch-bar is enabled but not checked.
+     * @param containerCheckedColor Container colour when the switch-bar is enabled and checked.
+     * @param contentCheckedColor Content colour when the switch-bar is enabled and checked.
+     * @param disabledContainerColor Container colour when the switch-bar is disabled and unchecked.
+     * @param disabledContentColor Content colour when the switch-bar is disabled and unchecked.
+     * @param disabledContainerCheckedColor Container colour when the switch-bar is disabled but
+     * checked.
+     * @param disabledContentCheckedColor Content colour when the switch-bar is disabled but
+     * checked.
+     */
+    @Composable
+    fun colors(
+        containerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+        contentColor: Color = contentColorFor(containerColor),
+        containerCheckedColor: Color = MaterialTheme.colorScheme.primaryContainer,
+        contentCheckedColor: Color = contentColorFor(containerCheckedColor),
+        disabledContainerColor: Color = containerColor.disabled,
+        disabledContentColor: Color = contentColor.disabled,
+        disabledContainerCheckedColor: Color = containerCheckedColor.disabled,
+        disabledContentCheckedColor: Color = contentCheckedColor.disabled
+    ): MainSwitchBarColors = colors(
+        containerColorList = MainSwitchBarColors.ColorStateList(
+            baseColor = containerColor,
+            checkedColor = containerCheckedColor,
+            disabledColor = disabledContainerColor,
+            disabledCheckedColor = disabledContainerCheckedColor
+        ),
+        contentColorList = MainSwitchBarColors.ColorStateList(
+            baseColor = contentColor,
+            checkedColor = contentCheckedColor,
+            disabledColor = disabledContentColor,
+            disabledCheckedColor = disabledContentCheckedColor
+        )
+    )
+
+    fun colors(
+        containerColorList: MainSwitchBarColors.ColorStateList,
+        contentColorList: MainSwitchBarColors.ColorStateList
+    ): MainSwitchBarColors = MainSwitchBarColors(
+        containerColorList = containerColorList,
+        contentColorList = contentColorList
+    )
 }
