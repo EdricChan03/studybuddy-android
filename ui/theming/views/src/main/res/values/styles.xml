@@ -123,12 +123,6 @@
         </item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent
         </item>
-        <item name="editTextPreferenceStyle">
-            @style/Preference.DialogPreference.EditTextPreference.App
-        </item>
-        <item name="switchPreferenceCompatStyle">
-            @style/Preference.SwitchPreferenceCompat.Material.App
-        </item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
     <!-- Theme to be used for applying custom insets. -->
@@ -260,12 +254,6 @@
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
         </item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent
-        </item>
-        <item name="editTextPreferenceStyle">
-            @style/Preference.DialogPreference.EditTextPreference.App
-        </item>
-        <item name="switchPreferenceCompatStyle">
-            @style/Preference.SwitchPreferenceCompat.Material.App
         </item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>

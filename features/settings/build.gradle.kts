@@ -34,8 +34,6 @@ dependencies {
     implementation(projects.core.settings.updates)
     implementation(projects.core.settings.updates.resources)
 
-    api(projects.ui.preference)
-
     implementation(projects.core.auth.ui.compose)
     implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.preference)
