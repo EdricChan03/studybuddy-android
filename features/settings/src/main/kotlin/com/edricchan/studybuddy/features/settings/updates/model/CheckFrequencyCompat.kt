@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.features.settings.updates.model
 
 import androidx.annotation.StringRes
 import com.edricchan.studybuddy.core.settings.updates.resources.R
+import java.time.Duration
 
 private val hourToEnumMap = mapOf(
     CheckFrequencyCompat.Manual to 0,
@@ -30,3 +31,5 @@ enum class CheckFrequencyCompat(@field:StringRes val stringResource: Int) {
 
 val CheckFrequencyCompat.hourValue: Int
     get() = hourToEnumMap[this] ?: 0
+
+fun CheckFrequencyCompat.asDuration(): Duration = Duration.ofHours(hourValue.toLong())
