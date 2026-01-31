@@ -18,7 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.edricchan.studybuddy.features.settings.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Sort
 import com.edricchan.studybuddy.features.settings.task.model.TaskSortOptionCompat
 import com.edricchan.studybuddy.features.settings.task.vm.TaskSettingsViewModel
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
@@ -33,7 +34,7 @@ private fun TaskDefaultSortPreference(
 ) {
     ListDialogPreference(
         modifier = modifier,
-        icon = { Icon(painterResource(R.drawable.ic_sort_24dp), contentDescription = null) },
+        icon = { Icon(AppIcons.Outlined.Sort, contentDescription = null) },
         title = { Text(text = stringResource(TaskR.string.pref_task_default_sort_title)) },
         subtitle = { Text(text = stringResource(defaultSort.stringResource)) },
         values = TaskSortOptionCompat.entries,
