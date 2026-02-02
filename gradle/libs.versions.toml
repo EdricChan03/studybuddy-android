@@ -1,28 +1,28 @@
 [versions]
-aboutLibraries = "13.1.0"
+aboutLibraries = "13.2.1"
 accompanist = "0.37.3"
 android-desugar = "2.1.5"
 android-gradle = "8.13.2"
-androidx-activity = "1.12.2"
-androidx-compose = "1.11.0-alpha02"
-androidx-compose-material3 = "1.5.0-alpha11"
-androidx-compose-material3-adaptive = "1.3.0-alpha05"
+androidx-activity = "1.12.3"
+androidx-compose = "1.11.0-alpha04"
+androidx-compose-material3 = "1.5.0-alpha13"
+androidx-compose-material3-adaptive = "1.3.0-alpha07"
 androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.9"
 androidx-lifecycle = "2.10.0"
-androidx-navigation = "2.9.6"
-androidx-paging = "3.4.0-beta01"
+androidx-navigation = "2.9.7"
+androidx-paging = "3.4.0"
 coil = "3.3.0"
-dagger = "2.57.2"
-deep-link-dispatch = "6.2.2"
-firebase-bom = "34.7.0"
+dagger = "2.58"
+deep-link-dispatch = "7.2.2"
+firebase-bom = "34.8.0"
 gradle-versions = "0.53.0"
-kotest = "6.0.7"
+kotest = "6.1.2"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
-kotlinx-serialization = "1.9.0"
-ktor = "3.3.3"
-mockk = "1.14.7"
+kotlinx-serialization = "1.10.0"
+ktor = "3.4.0"
+mockk = "1.14.9"
 # TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
 #  is fixed
 protobuf = "4.26.1"
@@ -54,7 +54,7 @@ androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0"
 androidx-savedstate-ktx = "androidx.savedstate:savedstate-ktx:1.4.0"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.11.0"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.11.1"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
@@ -85,12 +85,12 @@ composeMarkdown = "io.github.boswelja.markdown:material3:1.1.5"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.14.0-alpha08"
+materialComponents = "com.google.android.material:material:1.14.0-alpha09"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
 androidx-credentials-playServices = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "androidx-credentials" }
-google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.1.1"
+google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.2.0"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
@@ -101,7 +101,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 # KTX artifacts have been merged into the main artifacts from Firebase BoM 32.4.0+
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth" }
-playServices-auth = "com.google.android.gms:play-services-auth:21.4.0"
+playServices-auth = "com.google.android.gms:play-services-auth:21.5.0"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore" }
 firebase-installations-ktx = { module = "com.google.firebase:firebase-installations" }
@@ -229,7 +229,7 @@ buildProperties = "com.novoda.build-properties:0.4.1"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-ksp = "com.google.devtools.ksp:2.3.2"
+ksp = "com.google.devtools.ksp:2.3.4"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.6"
 firebase-perf = "com.google.firebase.firebase-perf:2.0.2"
@@ -245,4 +245,4 @@ aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.re
 
 dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.5.1"
 
-testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.4.7"
+testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.5.0"
