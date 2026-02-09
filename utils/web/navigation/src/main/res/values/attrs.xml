@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTabsNavigator">
+        <!-- Colour to use for the custom tab's toolbar. -->
+        <attr name="ct_toolbarColor" format="color" />
+        <!-- Secondary colour to use for the custom tab's toolbar. -->
+        <attr name="ct_secondaryToolbarColor" format="color" />
+        <!-- Colour to use for the system navigation bar. -->
+        <attr name="ct_navigationBarColor" format="color" />
+        <!-- Divider colour to use for the system navigation bar. -->
+        <attr name="ct_navigationBarDividerColor" format="color" />
+        <!-- Sets the share state that should be applied to the custom tab. -->
+        <attr name="ct_shareState" format="enum">
+            <!-- Applies the default share settings depending on the browser.
+            (Note: `default` is not a valid resource name so `Share` is appended) -->
+            <enum name="defaultShare" value="0" />
+            <!-- Shows a share option in the tab. -->
+            <enum name="on" value="1" />
+            <!-- Explicitly does not show a share option in the tab. -->
+            <enum name="off" value="2" />
+        </attr>
+        <!-- Sets the color scheme that should be applied to the user interface in the
+        custom tab. -->
+        <attr name="ct_colorScheme" format="enum">
+            <!-- Applies either a light or dark colour scheme to the user interface in the
+            custom tab depending on the user's system settings. -->
+            <enum name="system" value="0" />
+            <!-- Applies a light colour scheme to the user interface in the custom tab. -->
+            <enum name="light" value="1" />
+            <!-- Applies a dark colour scheme to the user interface in the custom tab.
+            Colours set through `CustomTabsIntent.EXTRA_TOOLBAR_COLOR` may be darkened to
+            match user expectations. -->
+            <enum name="dark" value="2" />
+        </attr>
+        <!-- Sets the Custom Tab Activity's initial height in pixels and the desired resize
+        behavior. The Custom Tab will behave as a bottom sheet. -->
+        <attr name="ct_initialActivityHeightPx" format="dimension" />
+        <!-- Sets the resize behaviour for the custom tab activity. This attribute should be
+        used with `initialActivityHeightPx`. -->
+        <attr name="ct_activityHeightResizeBehavior" format="enum">
+            <!-- Applies the default height resize behavior for the Custom Tab Activity when
+            it behaves as a bottom sheet. (Note: `default` is not a valid resource name so
+            `Behavior` is appended) -->
+            <enum name="defaultBehavior" value="0" />
+            <!-- The Custom Tab Activity, when it behaves as a bottom sheet, can have its
+            height manually resized by the user. -->
+            <enum name="adjustable" value="1" />
+            <!-- The Custom Tab Activity, when it behaves as a bottom sheet, cannot have its
+            height manually resized by the user. -->
+            <enum name="fixed" value="2" />
+        </attr>
+        <!-- Sets the toolbar's top corner radii in dp. -->
+        <attr name="ct_toolbarCornerRadius" format="dimension" />
+        <!-- Sets the position of the close button. -->
+        <attr name="ct_closeButtonPosition" format="enum">
+            <!-- Same as `start`. (Note: `default` is not a valid resource name so
+            `Position` is appended) -->
+            <enum name="defaultPosition" value="0" />
+            <!-- Positions the close button at the start of the toolbar. -->
+            <enum name="start" value="1" />
+            <!-- Positions the close button at the end of the toolbar. -->
+            <enum name="end" value="2" />
+        </attr>
+        <!-- Sets whether the title should be shown in the custom tab. -->
+        <attr name="ct_showTitle" format="boolean" />
+    </declare-styleable>
+</resources>

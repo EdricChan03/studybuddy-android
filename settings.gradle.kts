@@ -135,6 +135,7 @@ include(
     ":utils:network",
     ":utils:recyclerview",
     ":utils:web",
+    ":utils:web:navigation",
     ":exts:android",
     ":exts:androidx:compose",
     ":exts:androidx:fragment",
