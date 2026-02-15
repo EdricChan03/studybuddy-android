@@ -21,6 +21,7 @@ kotest = "6.1.2"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.10.0"
+ktoml = "0.7.1"
 ktor = "3.4.0"
 mockk = "1.14.9"
 # TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
@@ -129,6 +130,9 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 # kotlinx-serialization
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+ktoml-core = { module = "com.akuleshov7:ktoml-core", version.ref = "ktoml" }
+ktoml-file = { module = "com.akuleshov7:ktoml-file", version.ref = "ktoml" }
 
 # Miscellaneous
 

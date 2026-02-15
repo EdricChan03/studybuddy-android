@@ -1,6 +1,8 @@
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
+    embeddedKotlin("jvm")
+    embeddedKotlin("plugin.serialization")
 }
 
 private fun Provider<PluginDependency>.text() =
@@ -29,6 +31,11 @@ dependencies {
     implementation(libs.plugins.ksp.text())
     implementation(libs.plugins.dagger.hilt.text())
     implementation(libs.plugins.kotlin.plugin.serialization.text())
+
+    api(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
+    api(libs.ktoml.core)
+    implementation(libs.ktoml.file)
 }
 
 gradlePlugin {
