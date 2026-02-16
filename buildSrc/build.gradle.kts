@@ -47,5 +47,12 @@ gradlePlugin {
             description =
                 "Adds additional support for reporting updated dependencies as a Markdown file"
         }
+
+        val appPlugin by registering {
+            id = "com.edricchan.studybuddy.application"
+            implementationClass = "com.edricchan.studybuddy.plugin.app.StudyBuddyAppPlugin"
+            displayName = "StudyBuddy Application plugin"
+            description = "Gradle plugin to configure AGP for the main application module"
+        }
     }
 }
