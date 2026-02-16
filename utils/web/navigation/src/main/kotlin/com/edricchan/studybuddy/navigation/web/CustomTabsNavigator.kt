@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.navigation.web
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
-import android.os.Bundle
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -12,6 +11,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsSession
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
@@ -38,27 +38,39 @@ class CustomTabsNavigator(
     private val applyAppDefaults: Boolean = true
 ) : Navigator<CustomTabsNavigator.Destination>() {
     override fun createDestination() = Destination(
-        context, applyAppDefaults, Uri.EMPTY, this
+        context, applyAppDefaults, { Uri.EMPTY }, this
     )
 
     override fun navigate(
-        destination: Destination,
-        args: Bundle?,
+        entries: List<NavBackStackEntry>,
         navOptions: NavOptions?,
         navigatorExtras: Extras?
-    ): NavDestination {
-        val intent = destination.buildCustomTabsIntent()
-        intent.launchUrl(context, destination.uri)
-        return destination
+    ) {
+        for (entry in entries) {
+            val destination = entry.destination as? Destination ?: continue
+            destination.buildCustomTabsIntent().launchUrl(context, destination.uriProvider(entry))
+        }
     }
 
     @NavDestination.ClassType(Activity::class)
     class Destination(
         private val context: Context,
         private val applyAppDefaults: Boolean = true,
-        internal val uri: Uri,
+        internal val uriProvider: (NavBackStackEntry) -> Uri,
         navigator: Navigator<out NavDestination>
     ) : NavDestination(navigator) {
+        constructor(
+            context: Context,
+            applyAppDefaults: Boolean = true,
+            uri: Uri,
+            navigator: Navigator<out NavDestination>
+        ) : this(
+            context = context,
+            applyAppDefaults = applyAppDefaults,
+            uriProvider = { uri },
+            navigator = navigator
+        )
+
         /**
          * Sets the custom tab's toolbar colour using a colour integer.
          * @see androidx.browser.customtabs.CustomTabColorSchemeParams.toolbarColor

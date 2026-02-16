@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.navigation.web
 
 import android.net.Uri
 import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -102,6 +103,33 @@ inline fun <T : Any> NavGraphBuilder.customTab(
  *
  * **Warning: This assumes that the [CustomTabsNavigator] has been added to the receiver's
  * [NavGraphBuilder.provider].**
+ * @param route Route for the destination.
+ * @param uriResolver The URI to be opened. The current [NavBackStackEntry] will be passed to this
+ * lambda, where the expected [Uri] is to be returned.
+ * @param builder Configures the [destination][CustomTabsNavigator.Destination].
+ * @see CustomTabsNavigatorDestinationBuilder
+ */
+inline fun <T : Any> NavGraphBuilder.customTab(
+    route: KClass<T>,
+    noinline uriResolver: (NavBackStackEntry) -> Uri,
+    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = mapOf(),
+    builder: CustomTabsNavigatorDestinationBuilder.() -> Unit = {}
+) {
+    destination(
+        CustomTabsNavigatorDestinationBuilder(
+            provider[CustomTabsNavigator::class],
+            route,
+            typeMap,
+            uriResolver
+        ).apply(builder)
+    )
+}
+
+/**
+ * Adds a [Custom Tab][androidx.browser.customtabs.CustomTabsIntent] to the [NavGraphBuilder].
+ *
+ * **Warning: This assumes that the [CustomTabsNavigator] has been added to the receiver's
+ * [NavGraphBuilder.provider].**
  * @param T Route for the destination.
  * @param uri The URI to be opened.
  * @param builder Configures the [destination][CustomTabsNavigator.Destination].
@@ -118,6 +146,32 @@ inline fun <reified T : Any> NavGraphBuilder.customTab(
             T::class,
             typeMap,
             uri
+        ).apply(builder)
+    )
+}
+
+/**
+ * Adds a [Custom Tab][androidx.browser.customtabs.CustomTabsIntent] to the [NavGraphBuilder].
+ *
+ * **Warning: This assumes that the [CustomTabsNavigator] has been added to the receiver's
+ * [NavGraphBuilder.provider].**
+ * @param T Route for the destination.
+ * @param uriResolver The URI to be opened. The current [NavBackStackEntry] will be passed to this
+ * lambda, where the expected [Uri] is to be returned.
+ * @param builder Configures the [destination][CustomTabsNavigator.Destination].
+ * @see CustomTabsNavigatorDestinationBuilder
+ */
+inline fun <reified T : Any> NavGraphBuilder.customTab(
+    noinline uriResolver: (NavBackStackEntry) -> Uri,
+    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = mapOf(),
+    builder: CustomTabsNavigatorDestinationBuilder.() -> Unit = {}
+) {
+    destination(
+        CustomTabsNavigatorDestinationBuilder(
+            provider[CustomTabsNavigator::class],
+            T::class,
+            typeMap,
+            uriResolver
         ).apply(builder)
     )
 }

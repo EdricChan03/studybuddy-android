@@ -7,6 +7,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestinationBuilder
 import androidx.navigation.NavDestinationDsl
 import androidx.navigation.NavType
@@ -20,14 +21,23 @@ import kotlin.reflect.KType
 @NavDestinationDsl
 class CustomTabsNavigatorDestinationBuilder :
     NavDestinationBuilder<CustomTabsNavigator.Destination> {
-    private val uri: Uri
+    private val uriResolver: (NavBackStackEntry) -> Uri
 
     constructor(
         navigator: CustomTabsNavigator,
         route: String,
         uri: Uri
     ) : super(navigator, route) {
-        this.uri = uri
+        this.uriResolver = { uri }
+        this.context = navigator.context
+    }
+
+    constructor(
+        navigator: CustomTabsNavigator,
+        route: String,
+        uriResolver: (NavBackStackEntry) -> Uri
+    ) : super(navigator, route) {
+        this.uriResolver = uriResolver
         this.context = navigator.context
     }
 
@@ -37,7 +47,17 @@ class CustomTabsNavigatorDestinationBuilder :
         typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
         uri: Uri
     ) : super(navigator, route, typeMap) {
-        this.uri = uri
+        this.uriResolver = { uri }
+        this.context = navigator.context
+    }
+
+    constructor(
+        navigator: CustomTabsNavigator,
+        route: KClass<*>?,
+        typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
+        uriResolver: (NavBackStackEntry) -> Uri
+    ) : super(navigator, route, typeMap) {
+        this.uriResolver = uriResolver
         this.context = navigator.context
     }
 
@@ -106,7 +126,7 @@ class CustomTabsNavigatorDestinationBuilder :
     /**
      * Sets the Custom Tab Activity's initial height in pixels and the desired resize behavior.
      * The Custom Tab will behave as a bottom sheet.
-     * @see androidx.browser.customtabs.CustomTabsIntent.Builder.setInitialActivityHeightPx
+     * @see CustomTabsIntent.Builder.setInitialActivityHeightPx
      */
     @Dimension(unit = Dimension.PX)
     var initialActivityHeightPx = 0
@@ -130,9 +150,15 @@ class CustomTabsNavigatorDestinationBuilder :
         configs += builderInit
     }
 
+    override fun instantiateDestination(): CustomTabsNavigator.Destination =
+        CustomTabsNavigator.Destination(
+            context = context,
+            uriProvider = uriResolver,
+            navigator = navigator
+        )
+
     override fun build(): CustomTabsNavigator.Destination {
         return super.build().also { destination ->
-//            destination.uri = uri
             destination.toolbarColor = toolbarColor
             destination.secondaryToolbarColor = secondaryToolbarColor
             destination.navigationBarColor = navigationBarColor
