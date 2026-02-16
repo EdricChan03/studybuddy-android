@@ -1,7 +1,3 @@
-import com.novoda.buildproperties.Entry
-import java.time.Instant
-import java.time.format.DateTimeFormatter
-
 plugins {
     com.android.application
     org.jetbrains.kotlin.android
@@ -11,8 +7,6 @@ plugins {
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.googleServices)
 
-    alias(libs.plugins.buildProperties)
-
     id("com.mikepenz.aboutlibraries.plugin.android")
 
     com.google.devtools.ksp
@@ -20,33 +14,8 @@ plugins {
 
     com.edricchan.studybuddy.library.common
     com.edricchan.studybuddy.common.`android-compose`
+    com.edricchan.studybuddy.application
 }
-
-buildProperties {
-    create("env") {
-        using(System.getenv() as Map<String, Any>?)
-    }
-    create("secrets") {
-        if (rootProject.file("secret_keys.properties").exists()) {
-            using(rootProject.file("secret_keys.properties"))
-        } else {
-            println(
-                "Secret keys properties file does not exist. Setting `secrets`" +
-                    "build property as empty."
-            )
-            using(mapOf())
-        }
-    }
-}
-
-val envProperties: Map<String, Entry> = buildProperties["env"].asMap()
-val secretsProperties: Map<String, Entry> = buildProperties["secrets"].asMap()
-
-val buildTimeString: String
-    get() {
-        val formatter = DateTimeFormatter.ISO_INSTANT
-        return formatter.format(Instant.now())
-    }
 
 kotlin {
     jvmToolchain(17)
@@ -66,12 +35,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    signingConfigs {
-        maybeCreate("release").apply {
-            storeFile = rootProject.file("studybuddy.jks")
-        }
-    }
-
     buildTypes {
         val debug by existing {
             isDebuggable = true // Allow app to be debuggable
@@ -86,7 +49,6 @@ android {
             isMinifyEnabled = true // Enable minification
             isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs["release"]
 
             // Can be accessed with BuildConfig.BUILD_TIME
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
@@ -97,7 +59,7 @@ android {
             initWith(release.get())
 
             applicationIdSuffix = ".nightly"
-            versionNameSuffix = "-NIGHTLY-$buildTimeString"
+            versionNameSuffix = studybuddyApp.metadata.buildInstant.map { "-NIGHTLY-$it" }.get()
 
             matchingFallbacks += listOf(release.name, debug.name)
         }
@@ -124,33 +86,6 @@ android {
 
     testOptions {
         unitTests.isIncludeAndroidResources = true
-    }
-
-    // GitHub Actions always sets GITHUB_ACTIONS to true when running the workflow.
-    // See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables#default-environment-variables
-    // for more info.
-    val isRunningOnActions = envProperties["GITHUB_ACTIONS"]?.boolean ?: false
-
-    lint {
-        textReport = isRunningOnActions
-        sarifReport = isRunningOnActions
-        abortOnError = false
-        baseline = file("lint-baseline.xml")
-    }
-
-    signingConfigs.getByName("release") {
-        if (isRunningOnActions && envProperties.isNotEmpty()) {
-            // Configure keystore
-            storePassword = envProperties["APP_KEYSTORE_PASSWORD"]?.string
-            keyAlias = envProperties["APP_KEYSTORE_ALIAS"]?.string
-            keyPassword = envProperties["APP_KEYSTORE_ALIAS_PASSWORD"]?.string
-        } else if (secretsProperties.isNotEmpty()) {
-            // Building locally
-            storePassword = secretsProperties["keystore_password"]?.string
-            keyAlias = secretsProperties["keystore_alias"]?.string
-            keyPassword =
-                secretsProperties["keystore_alias_password"]?.string
-        }
     }
 }
 

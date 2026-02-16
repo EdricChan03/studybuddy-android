@@ -228,8 +228,6 @@ ktor = [
 android-gradle-application = { id = "com.android.application", version.ref = "android-gradle" }
 android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
 
-buildProperties = "com.novoda.build-properties:0.4.1"
-
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
