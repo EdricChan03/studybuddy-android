@@ -71,7 +71,7 @@ class StudyBuddyAppPlugin : Plugin<Project> {
                     )
                 )
                 val secretsConfig =
-                    secretsFile.map { it.parseSecretsConfig() }
+                    secretsFile.map { it.parseSecretsConfigOrNull() }
                 val credentialsProperties = secretsConfig.map { it.signing }
                 storePassword.convention(
                     credentialsProperties.map(SigningConfigData::storePassword)
@@ -186,6 +186,13 @@ class StudyBuddyAppPlugin : Plugin<Project> {
         onVariants(callback = AllAction)
     }
 
-    private fun RegularFile.parseSecretsConfig(): SecretsConfig =
-        toml.decodeFromStream(asFile.inputStream())
+    private fun RegularFile.parseSecretsConfigOrNull(): SecretsConfig? =
+        asFile.let { file ->
+            runCatching { toml.decodeFromStream<SecretsConfig>(file.inputStream()) }.onFailure {
+                logger.warn(
+                    "Could not read configuration file at $file, defaulting to environment variables",
+                    it
+                )
+            }.getOrNull()
+        }
 }
