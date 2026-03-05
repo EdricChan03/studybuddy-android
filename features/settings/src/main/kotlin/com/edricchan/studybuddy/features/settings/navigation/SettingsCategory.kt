@@ -27,9 +27,9 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.filled.Settings
 import com.edricchan.studybuddy.core.resources.icons.filled.Task
 import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
+import com.edricchan.studybuddy.core.resources.icons.outlined.SystemUpdateAlt
 import com.edricchan.studybuddy.core.resources.icons.outlined.Task
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
-import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
 import com.edricchan.studybuddy.core.settings.tasks.resources.R as TaskR
 import com.edricchan.studybuddy.core.settings.updates.resources.R as UpdateR
@@ -66,7 +66,7 @@ enum class SettingsCategory(
         descResId = UpdateR.string.pref_header_updates_summary,
         icon = {
             Icon(
-                painterResource(R.drawable.ic_system_update_24dp),
+                AppIcons.Outlined.SystemUpdateAlt,
                 contentDescription = null
             )
         }

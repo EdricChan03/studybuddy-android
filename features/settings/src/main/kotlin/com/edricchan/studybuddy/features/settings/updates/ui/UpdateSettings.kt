@@ -22,6 +22,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.SystemUpdateAlt
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeTimeSpan
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
@@ -62,7 +64,7 @@ fun UpdateSettingsScreen(
     Preference(
         icon = {
             Icon(
-                painterResource(R.drawable.ic_system_update_24dp),
+                AppIcons.Outlined.SystemUpdateAlt,
                 contentDescription = null
             )
         },
