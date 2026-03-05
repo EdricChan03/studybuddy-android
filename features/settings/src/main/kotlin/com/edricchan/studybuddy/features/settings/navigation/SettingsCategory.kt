@@ -23,6 +23,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.filled.Task
+import com.edricchan.studybuddy.core.resources.icons.outlined.Task
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
@@ -50,7 +53,7 @@ enum class SettingsCategory(
         descResId = TaskR.string.pref_header_task_summary,
         icon = {
             Icon(
-                imageVector = if (it) Icons.Filled.CheckCircle else Icons.Outlined.CheckCircle,
+                imageVector = if (it) AppIcons.Filled.Task else AppIcons.Outlined.Task,
                 contentDescription = null
             )
         }
