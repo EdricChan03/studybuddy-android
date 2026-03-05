@@ -37,6 +37,12 @@ interface AuthService {
         credentialOptions: List<CredentialOption>
     ): Boolean
 
+    /**
+     * Registers a user with the given [email] and [password].
+     * @return Whether the operation was successful.
+     */
+    suspend fun register(email: String, password: String): Boolean
+
     //#region Update operations
     /**
      * Interface used to represent the possible result of an update profile operation.

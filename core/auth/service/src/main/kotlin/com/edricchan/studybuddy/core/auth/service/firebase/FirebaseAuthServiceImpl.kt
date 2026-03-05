@@ -58,6 +58,12 @@ class FirebaseAuthServiceImpl @Inject constructor(
         credentialOptions = credentialOptions
     ).user != null
 
+    override suspend fun register(email: String, password: String): Boolean =
+        auth.awaitCreateUserWithEmailAndPassword(
+            email = email,
+            password = password
+        ).user != null
+
     private inline fun updateProfile(updateFn: (FirebaseUser) -> Unit): AuthService.UpdateProfileResult {
         val user = auth.currentUser ?: return AuthService.UpdateProfileResult.NotSignedIn
 
