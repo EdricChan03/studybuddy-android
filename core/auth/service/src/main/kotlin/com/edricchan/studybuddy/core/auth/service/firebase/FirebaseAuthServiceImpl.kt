@@ -12,6 +12,7 @@ import com.edricchan.studybuddy.core.auth.model.User
 import com.edricchan.studybuddy.core.auth.model.firebase.toUser
 import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
+import com.edricchan.studybuddy.exts.firebase.auth.awaitCreateUserWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.currentUserFlow
 import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
