@@ -24,7 +24,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.filled.Settings
 import com.edricchan.studybuddy.core.resources.icons.filled.Task
+import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.core.resources.icons.outlined.Task
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.settings.R
@@ -42,7 +44,7 @@ enum class SettingsCategory(
         descResId = AppearanceR.string.pref_header_appearance_summary,
         icon = {
             Icon(
-                imageVector = if (it) Icons.Filled.Settings else Icons.Outlined.Settings,
+                imageVector = if (it) AppIcons.Filled.Settings else AppIcons.Outlined.Settings,
                 contentDescription = null
             )
         }
