@@ -23,9 +23,9 @@ enum class CheckFrequencyCompat(@field:StringRes val stringResource: Int) {
 
     companion object {
         fun fromHoursOrNull(hours: Int): CheckFrequencyCompat? =
-            hourToEnumMap.entries
-                .find { entry -> entry.value == hours }
-                ?.key
+            hourToEnumMap.firstNotNullOfOrNull { entry ->
+                entry.takeIf { it.value == hours }?.key
+            }
     }
 }
 
