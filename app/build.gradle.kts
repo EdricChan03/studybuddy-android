@@ -104,7 +104,7 @@ dependencies {
     implementation(projects.core.deeplink)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
-    implementation(projects.core.settings.tasks)
+    implementation(projects.core.settings.tasks.model)
     implementation(projects.core.settings.tasks.resources)
     implementation(projects.core.settings.tracking)
     implementation(projects.core.settings.updates)

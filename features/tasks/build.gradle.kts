@@ -31,7 +31,7 @@ dependencies {
     api(projects.features.tasks.data)
     api(projects.features.tasks.domain)
 
-    api(projects.core.settings.tasks)
+    api(projects.core.settings.tasks.model)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
     implementation(projects.core.resources.temporal)

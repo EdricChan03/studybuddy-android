@@ -119,7 +119,7 @@ include(
     ":core:settings:appearance:datastore-proto",
     ":core:settings:appearance:model",
     ":core:settings:appearance:resources",
-    ":core:settings:tasks",
+    ":core:settings:tasks:model",
     ":core:settings:tasks:resources",
     ":core:settings:tracking",
     ":core:settings:updates",
