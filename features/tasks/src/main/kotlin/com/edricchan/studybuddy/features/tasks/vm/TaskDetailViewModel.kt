@@ -7,8 +7,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.setCompletion
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleArchived
@@ -44,24 +42,7 @@ class TaskDetailViewModel @Inject constructor(
     private val detailData =
         detailDataFactory.create(selectedTaskId = routeData.taskId, coroutineScope = viewModelScope)
 
-    @Suppress("DEPRECATION") // Deprecation usage from FirestoreDetailData::currTaskFlow
-    @Deprecated(
-        "There is an ambiguity between having no such task item actually " +
-            "existing (represented by `null`) and the initial `null` value when the underlying " +
-            "flow has yet to start emitting values. Use the currentTaskStateFlow property " +
-            "instead which uses a sealed interface to differentiate between these 2 possible " +
-            "states. Note that the state class uses the domain-specific TaskItem data class " +
-            "which also provides access to the project-related information, if any."
-    )
-    override val currTaskFlow: StateFlow<TodoItem?> by detailData::currTaskFlow
     override val currentTaskStateFlow: StateFlow<TaskDetailState> by detailData::currentTaskStateFlow
-
-    @Suppress("DEPRECATION") // Deprecation usage from FirestoreDetailData::currTaskProjectFlow
-    @Deprecated(
-        "The project data is now available in the TaskItem domain class. " +
-            "To get the current task data, use the currentTaskStateFlow property"
-    )
-    override val currTaskProjectFlow: StateFlow<TodoProject?> by detailData::currTaskProjectFlow
 
     suspend fun toggleCompleted(item: TaskItem) {
         repo.toggleCompleted(item)
