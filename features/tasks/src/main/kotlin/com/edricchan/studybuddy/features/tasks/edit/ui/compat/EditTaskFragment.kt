@@ -14,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
-import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
 import com.edricchan.studybuddy.exts.material.picker.setCalendarConstraints
 import com.edricchan.studybuddy.exts.material.picker.setSelection
@@ -22,8 +21,8 @@ import com.edricchan.studybuddy.exts.material.picker.setStart
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.databinding.FragEditTaskBinding
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel
 import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel.TaskState
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
@@ -48,7 +47,7 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
     lateinit var auth: FirebaseAuth
 
     private var taskInstant: Instant? = null
-    private lateinit var todoItem: TodoItem
+    private lateinit var taskItem: TaskItem
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -126,12 +125,12 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
                     is TaskState.Success -> binding.apply {
                         progressBar.isVisible = false
                         scrollView.isVisible = true
-                        todoItem = state.item
-                        with(todoItem) {
-                            title?.let { textInputTitle.editText?.setText(it) }
+                        taskItem = state.item
+                        with(taskItem) {
+                            textInputTitle.editText?.setText(title)
                             content?.let { textInputContent.editText?.setText(it) }
-                            done?.let { checkboxMarkAsDone.isChecked = it }
-                            taskInstant = dueDate?.toInstant()
+                            checkboxMarkAsDone.isChecked = isCompleted
+                            taskInstant = dueDate
                             dueDate?.let {
                                 // We need to convert it to a LocalDateTime as Instants don't support
                                 // temporal units bigger than days - see the `Instant#isSupported` Javadocs
@@ -161,27 +160,27 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
 
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             if (menuItem.itemId == R.id.action_save) {
-                val taskItemUpdates = buildMap<TodoItem.Field, Any> {
+                val taskItemUpdates = buildMap<TaskItem.Field, Any> {
                     binding.also {
-                        if (it.textInputTitle.editTextStrValue != todoItem.title) {
-                            this[TodoItem.Field.Title] = it.textInputTitle.editTextStrValue
+                        if (it.textInputTitle.editTextStrValue != taskItem.title) {
+                            this[TaskItem.Field.Title] = it.textInputTitle.editTextStrValue
                         }
-                        if (it.textInputContent.editTextStrValue != todoItem.content) {
-                            this[TodoItem.Field.Content] = it.textInputContent.editTextStrValue
+                        if (it.textInputContent.editTextStrValue != taskItem.content) {
+                            this[TaskItem.Field.Content] = it.textInputContent.editTextStrValue
                         }
-                        this[TodoItem.Field.IsDone] = it.checkboxMarkAsDone.isChecked
-                        this[TodoItem.Field.Tags] = it.textInputTags.editTextStrValue.split(
+                        this[TaskItem.Field.IsCompleted] = it.checkboxMarkAsDone.isChecked
+                        this[TaskItem.Field.Tags] = it.textInputTags.editTextStrValue.split(
                             Regex("""\s*,\s*""")
                         ).filter(String::isNotBlank)
                     }
                     taskInstant?.let {
-                        if (todoItem.dueDate?.toInstant() != it) {
-                            this[TodoItem.Field.DueDate] = it.toTimestamp()
+                        if (taskItem.dueDate != it) {
+                            this[TaskItem.Field.DueDate] = it.toTimestamp()
                         }
                         // When taskInstant is set to null, this means that the user
                         // wants to clear the due-date of the item
                     } ?: run {
-                        this[TodoItem.Field.DueDate] = FieldValue.delete()
+                        this[TaskItem.Field.DueDate] = FieldValue.delete()
                     }
                 }
 

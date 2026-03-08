@@ -5,9 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
-import com.edricchan.studybuddy.features.tasks.data.repo.update
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -22,13 +21,13 @@ class EditTaskViewModel @Inject constructor(
 ) : ViewModel() {
     sealed interface TaskState {
         data object Loading : TaskState
-        data class Success(val item: TodoItem) : TaskState
+        data class Success(val item: TaskItem) : TaskState
         data object DoesNotExist : TaskState
     }
 
     val taskId = savedStateHandle.toRoute<CompatDestination.Task.Edit>().taskId
 
-    val taskDetail = repo.observeTask(taskId)
+    val taskDetail = repo.observeTaskById(taskId)
         .map {
             if (it == null) return@map TaskState.DoesNotExist
             TaskState.Success(it)
@@ -39,14 +38,12 @@ class EditTaskViewModel @Inject constructor(
         )
 
     fun updateTask(
-        data: Map<TodoItem.Field, Any>,
+        data: Map<TaskItem.Field, Any>,
         onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         viewModelScope.launch {
-            repo.runCatching {
-                repo.update(taskId, data)
-            }
+            repo.runCatching { updateTask(taskId, data) }
                 .onSuccess { onSuccess() }
                 .onFailure(onFailure)
         }
