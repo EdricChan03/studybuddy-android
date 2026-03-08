@@ -122,7 +122,7 @@ include(
     ":core:settings:tasks:model",
     ":core:settings:tasks:resources",
     ":core:settings:tracking",
-    ":core:settings:updates",
+    ":core:settings:updates:model",
     ":core:settings:updates:resources",
     ":data:common",
     ":data:common:compose",

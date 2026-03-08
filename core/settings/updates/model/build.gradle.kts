@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.core.settings.updates"
+    namespace = "com.edricchan.studybuddy.core.settings.updates.model"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
