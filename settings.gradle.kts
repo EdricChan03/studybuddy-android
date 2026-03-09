@@ -151,6 +151,7 @@ include(
     ":exts:firebase:temporal",
     ":exts:material",
     ":exts:material:date-picker",
+    ":exts:protobuf:temporal",
     ":features:help",
     ":features:auth",
     ":features:settings",
