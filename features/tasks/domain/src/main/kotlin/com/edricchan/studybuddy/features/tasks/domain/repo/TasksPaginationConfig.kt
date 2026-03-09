@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.features.tasks.domain.repo
 
+import com.edricchan.studybuddy.domain.common.paging.CommonPagingConfig
 import com.edricchan.studybuddy.domain.common.sorting.OrderSpec
 import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
@@ -16,12 +17,12 @@ import kotlinx.coroutines.CoroutineScope
  * applied sequentially in-order.
  */
 data class TasksPaginationConfig(
-    val cachedCoroutineScope: CoroutineScope,
+    override val cachedCoroutineScope: CoroutineScope,
     val includeArchived: Boolean = false,
     val excludeCompleted: Boolean = false,
-    val pageSize: Int = 30,
-    val orderByFields: Set<TaskOrderSpec> = setOf(TaskOrderSpec())
-) {
+    override val pageSize: Int = 30,
+    override val orderByFields: Set<TaskOrderSpec> = setOf(TaskOrderSpec())
+) : CommonPagingConfig<TasksPaginationConfig.TaskOrderSpec> {
     data class TaskOrderSpec(
         override val field: TaskItem.Field = TaskItem.Field.CreatedAt,
         override val direction: SortDirection = SortDirection.Descending
