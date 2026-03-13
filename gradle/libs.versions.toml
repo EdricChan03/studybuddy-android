@@ -3,21 +3,21 @@ aboutLibraries = "13.2.1"
 accompanist = "0.37.3"
 android-desugar = "2.1.5"
 android-gradle = "8.13.2"
-androidx-activity = "1.12.4"
-androidx-compose = "1.11.0-alpha06"
+androidx-activity = "1.13.0"
+androidx-compose = "1.11.0-beta01"
 androidx-compose-material3 = "1.5.0-alpha15"
 androidx-compose-material3-adaptive = "1.3.0-alpha09"
 androidx-credentials = "1.5.0"
 androidx-fragment = "1.8.9"
 androidx-lifecycle = "2.10.0"
 androidx-navigation = "2.9.7"
-androidx-paging = "3.4.1"
+androidx-paging = "3.4.2"
 coil = "3.4.0"
 dagger = "2.58"
 deep-link-dispatch = "7.2.2"
 firebase-bom = "34.10.0"
 gradle-versions = "0.53.0"
-kotest = "6.1.4"
+kotest = "6.1.6"
 kotlin = "2.3.10"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.10.0"
@@ -35,7 +35,7 @@ androidx-annotation = "androidx.annotation:annotation:1.9.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 androidx-browser = "androidx.browser:browser:1.9.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
-androidx-core-ktx = "androidx.core:core-ktx:1.17.0"
+androidx-core-ktx = "androidx.core:core-ktx:1.18.0"
 androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version.ref = "androidx-fragment" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "androidx-fragment" }
@@ -86,7 +86,7 @@ composeMarkdown = "io.github.boswelja.markdown:material3:1.1.5"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.14.0-alpha09"
+materialComponents = "com.google.android.material:material:1.14.0-alpha10"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
@@ -102,7 +102,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 # KTX artifacts have been merged into the main artifacts from Firebase BoM 32.4.0+
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth" }
-playServices-auth = "com.google.android.gms:play-services-auth:21.5.0"
+playServices-auth = "com.google.android.gms:play-services-auth:21.5.1"
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore" }
 firebase-installations-ktx = { module = "com.google.firebase:firebase-installations" }
