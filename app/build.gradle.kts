@@ -135,7 +135,6 @@ dependencies {
 
     // Test dependencies
     androidTestImplementation(libs.bundles.androidx.test)
-    testImplementation(libs.mockito.core)
     testImplementation(libs.junit)
 
     coreLibraryDesugaring(libs.android.desugar.nio)

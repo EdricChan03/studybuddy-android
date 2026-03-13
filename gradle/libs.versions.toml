@@ -165,7 +165,6 @@ androidx-test-runner = "androidx.test:runner:1.7.0"
 androidx-test-rules = "androidx.test:rules:1.7.0"
 junit = "junit:junit:4.13.2"
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-mockito-core = "org.mockito:mockito-core:5.22.0"
 mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 
