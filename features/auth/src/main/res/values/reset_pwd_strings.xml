@@ -11,7 +11,7 @@
 
     <!-- Body text for the forgot password screen. -->
     <string name="forgot_password_msg">Enter your email address in the input below and click
-        the "Reset password" button to reset your password.\nYou\'ll be sent an email with a
+        the \"Reset password\" button to reset your password.\nYou\'ll be sent an email with a
         link to reset your password.
     </string>
 
