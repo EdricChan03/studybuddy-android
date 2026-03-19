@@ -1,6 +1,7 @@
 [versions]
 aboutLibraries = "14.0.0-b03"
 accompanist = "0.37.3"
+android-compose-screenshotTest = "0.0.1-alpha13"
 android-desugar = "2.1.5"
 android-gradle = "9.0.1"
 androidx-activity = "1.13.0"
@@ -172,6 +173,9 @@ kotest-assertion-core = { module = "io.kotest:kotest-assertions-core", version.r
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 
+# Compose screenshot testing dependencies
+android-screenshot-validation-api = { module = "com.android.tools.screenshot:screenshot-validation-api", version.ref = "android-compose-screenshotTest" }
+
 # DI dependencies
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
@@ -225,6 +229,7 @@ ktor = [
 [plugins]
 android-gradle-application = { id = "com.android.application", version.ref = "android-gradle" }
 android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
+android-compose-screenshotTest = { id = "com.android.compose.screenshot", version.ref = "android-compose-screenshotTest" }
 
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 

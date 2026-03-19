@@ -27,6 +27,7 @@ dependencies {
     }
     implementation(libs.kotlin.gradle)
     implementation(libs.kotlin.composeCompiler.gradle)
+    implementation(libs.plugins.android.compose.screenshotTest.text())
     implementation(libs.plugins.wire.text())
     implementation(libs.plugins.ksp.text())
     implementation(libs.plugins.dagger.hilt.text())
@@ -53,6 +54,13 @@ gradlePlugin {
             implementationClass = "com.edricchan.studybuddy.plugin.app.StudyBuddyAppPlugin"
             displayName = "StudyBuddy Application plugin"
             description = "Gradle plugin to configure AGP for the main application module"
+        }
+
+        // Convention plugins
+        val screenshotTestingConventionPlugin by registering {
+            id = "com.edricchan.studybuddy.library.compose.android-screenshot-testing"
+            implementationClass =
+                "com.edricchan.studybuddy.library.compose.AndroidScreenshotTestingConventionPlugin"
         }
     }
 }
