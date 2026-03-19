@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.data.common
 
 import androidx.annotation.ColorInt
+import androidx.annotation.Discouraged
 import androidx.annotation.IntRange
 import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
@@ -116,7 +117,11 @@ fun Color(
     (alpha shl 24) or (red shl 16) or (green shl 8) or blue
 )
 
-/** Creates a [Color] using the specified hexadecimal string. */
+/** Creates a [Color] using the specified 6-digit hexadecimal string (in `#RRGGBB` format). */
+@Discouraged(
+    "Prefer using a colour integer instead of a hexadecimal colour, which " +
+        "can differ across platforms (e.g. web uses #RRGGBBAA while Android uses #AARRGGBB)"
+)
 fun Color(
     hexString: String
 ): Color = Color(
