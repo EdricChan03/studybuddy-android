@@ -24,9 +24,7 @@ kotlinx-serialization = "1.10.0"
 ktoml = "0.7.1"
 ktor = "3.4.1"
 mockk = "1.14.9"
-# TODO: Bump to 4.27.0 when https://github.com/firebase/firebase-android-sdk/issues/5997
-#  is fixed
-protobuf = "4.26.1"
+wire = "6.0.0"
 
 [libraries]
 # AndroidX dependencies
@@ -180,8 +178,7 @@ android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref =
 android-desugar-nio = { module = "com.android.tools:desugar_jdk_libs_nio", version.ref = "android-desugar" }
 
 # Protobuf dependencies
-protobuf-protoc = { module = "com.google.protobuf:protoc", version.ref = "protobuf" }
-protobuf-kotlin-lite = { module = " com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
+wire-runtime = { module = "com.squareup.wire:wire-runtime", version.ref = "wire" }
 
 [bundles]
 androidx-compose = [
@@ -240,7 +237,7 @@ gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-v
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
-protobuf = "com.google.protobuf:0.9.6"
+wire = { id = "com.squareup.wire", version.ref = "wire" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 

@@ -27,7 +27,7 @@ dependencies {
     }
     implementation(libs.kotlin.gradle)
     implementation(libs.kotlin.composeCompiler.gradle)
-    implementation(libs.plugins.protobuf.text())
+    implementation(libs.plugins.wire.text())
     implementation(libs.plugins.ksp.text())
     implementation(libs.plugins.dagger.hilt.text())
     implementation(libs.plugins.kotlin.plugin.serialization.text())
