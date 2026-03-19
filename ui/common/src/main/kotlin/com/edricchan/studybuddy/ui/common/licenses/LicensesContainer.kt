@@ -87,8 +87,6 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialog
 import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialogBody
 import com.mikepenz.aboutlibraries.ui.compose.m3.libraryColors
 import com.mikepenz.aboutlibraries.ui.compose.util.author
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -299,7 +297,7 @@ private fun LibraryItemPreview(
                 name = "Example Library with a lot of text that should cover more than the contents",
                 description = ipsum.take(1000),
                 website = "https://example.com",
-                developers = persistentListOf(
+                developers = listOf(
                     Developer(
                         name = "Dev A",
                         organisationUrl = null
@@ -313,7 +311,7 @@ private fun LibraryItemPreview(
                         organisationUrl = null
                     )
                 ),
-                licenses = persistentSetOf(
+                licenses = setOf(
                     License(
                         name = "MIT License",
                         url = null,
