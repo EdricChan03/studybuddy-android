@@ -129,5 +129,5 @@ fun Color(
         getWebHexFormat(
             minLength = 6
         )
-    )
+    ) or 0xff000000.toInt()
 )
