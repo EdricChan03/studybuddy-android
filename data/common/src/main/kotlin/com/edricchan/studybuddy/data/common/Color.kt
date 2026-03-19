@@ -93,24 +93,13 @@ value class Color(
      */
     operator fun component4(): Int = blue
 
-    /**
-     * Gets the ARGB hexadecimal string (i.e. `#AARRGGBB`) equivalent of this colour.
-     * @param withSignPrefix Whether the `"#"` prefix symbol should be included.
-     */
-    fun toArgbHexString(withSignPrefix: Boolean = true): String =
-        value.toHexString(format = getWebHexFormat(withSignPrefix = withSignPrefix, minLength = 8))
+    /** Returns the ARGB hexadecimal string (i.e. `#AARRGGBB`) equivalent of this colour. */
+    fun toArgbHexString(): String =
+        "#%08X".format(value and 0xFFFFFFFF.toInt())
 
-    /**
-     * Gets the RGB hexadecimal string (i.e. `#RRGGBB`) equivalent of this colour.
-     * @param withSignPrefix Whether the `"#"` prefix symbol should be included.
-     */
-    fun toRgbHexString(withSignPrefix: Boolean = true): String =
-        (value and 0xFFFFFF).toHexString(
-            format = getWebHexFormat(
-                withSignPrefix = withSignPrefix,
-                minLength = 6
-            )
-        )
+    /** Returns the RGB hexadecimal string (i.e. `#RRGGBB`) equivalent of this colour. */
+    fun toRgbHexString(): String =
+        "#%06X".format(value and 0xFFFFFF)
 }
 
 /** Creates a [Color] using the specified colour's components. */
