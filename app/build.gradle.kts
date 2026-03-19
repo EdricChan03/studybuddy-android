@@ -47,7 +47,10 @@ android {
         val release by existing {
             isMinifyEnabled = true // Enable minification
             isShrinkResources = true // Shrink resources to reduce APK size
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
             // Can be accessed with BuildConfig.BUILD_TIME
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
