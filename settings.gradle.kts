@@ -136,6 +136,7 @@ include(
     ":utils:recyclerview",
     ":utils:web",
     ":utils:web:navigation",
+    ":utils:wire:datastore",
     ":exts:android",
     ":exts:androidx:compose",
     ":exts:androidx:fragment",

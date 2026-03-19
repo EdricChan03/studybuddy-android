@@ -8,6 +8,7 @@ androidx-compose = "1.11.0-beta01"
 androidx-compose-material3 = "1.5.0-alpha15"
 androidx-compose-material3-adaptive = "1.3.0-alpha09"
 androidx-credentials = "1.5.0"
+androidx-datastore = "1.2.1"
 androidx-fragment = "1.8.9"
 androidx-lifecycle = "2.10.0"
 androidx-navigation = "2.9.7"
@@ -34,6 +35,7 @@ androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 androidx-browser = "androidx.browser:browser:1.9.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.18.0"
+androidx-datastore-typed = { module = "androidx.datastore:datastore", version.ref = "androidx-datastore" }
 androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version.ref = "androidx-fragment" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "androidx-fragment" }
