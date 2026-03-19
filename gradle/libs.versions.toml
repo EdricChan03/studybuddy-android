@@ -1,8 +1,8 @@
 [versions]
-aboutLibraries = "13.2.1"
+aboutLibraries = "14.0.0-b03"
 accompanist = "0.37.3"
 android-desugar = "2.1.5"
-android-gradle = "8.13.2"
+android-gradle = "9.0.1"
 androidx-activity = "1.13.0"
 androidx-compose = "1.11.0-beta01"
 androidx-compose-material3 = "1.5.0-alpha15"
@@ -14,7 +14,7 @@ androidx-lifecycle = "2.10.0"
 androidx-navigation = "2.9.7"
 androidx-paging = "3.4.2"
 coil = "3.4.0"
-dagger = "2.58"
+dagger = "2.59.2"
 deep-link-dispatch = "7.2.2"
 firebase-bom = "34.10.0"
 gradle-versions = "0.53.0"
@@ -226,7 +226,6 @@ ktor = [
 android-gradle-application = { id = "com.android.application", version.ref = "android-gradle" }
 android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
 
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 ksp = "com.google.devtools.ksp:2.3.4"
