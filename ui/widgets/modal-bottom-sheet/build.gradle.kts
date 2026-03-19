@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.utils.recyclerview)
 
     api(libs.androidx.fragment.ktx)
+    api(libs.androidx.lifecycle.viewmodel.savedstate)
     api(libs.androidx.recyclerview.core)
     api(libs.materialComponents)
 

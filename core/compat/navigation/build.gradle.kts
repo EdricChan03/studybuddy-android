@@ -24,4 +24,5 @@ android {
 dependencies {
     api(libs.androidx.navigation.common.ktx)
     api(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.core.ktx)
 }

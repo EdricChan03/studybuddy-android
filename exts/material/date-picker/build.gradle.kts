@@ -26,6 +26,7 @@ dependencies {
     api(libs.androidx.annotation)
     api(libs.materialComponents)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
