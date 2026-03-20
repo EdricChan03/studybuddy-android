@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.edricchan.studybuddy.exts.androidx.compose"
+    namespace = "com.edricchan.studybuddy.utils.androidx.compose"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")

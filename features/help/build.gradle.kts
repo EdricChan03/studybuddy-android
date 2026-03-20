@@ -38,11 +38,11 @@ dependencies {
     implementation(projects.core.di)
     implementation(projects.core.resources)
     implementation(projects.data.serialization.android)
-    implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.androidx.viewBinding)
     implementation(projects.exts.common)
     implementation(projects.exts.material)
+    implementation(projects.utils.androidx.compose)
     implementation(projects.utils.recyclerview)
     implementation(projects.utils.web)
 

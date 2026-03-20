@@ -36,13 +36,13 @@ dependencies {
 
     implementation(projects.core.auth.ui.compose)
     implementation(projects.core.resources.icons)
-    implementation(projects.exts.androidx.compose)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.common)
     implementation(projects.ui.common)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
     implementation(projects.ui.preference.compose)
+    implementation(projects.utils.androidx.compose)
     implementation(projects.utils.androidx.core)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
