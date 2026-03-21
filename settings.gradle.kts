@@ -139,6 +139,7 @@ include(
     ":utils:web:navigation",
     ":utils:wire:datastore",
     ":exts:android",
+    ":exts:android:metadata",
     ":exts:androidx:fragment",
     ":exts:androidx:lifecycle:view-model",
     ":exts:androidx:navigation-runtime",
