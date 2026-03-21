@@ -38,6 +38,7 @@ dependencies {
     implementation(projects.core.di)
     implementation(projects.core.resources)
     implementation(projects.data.serialization.android)
+    implementation(projects.exts.android.metadata)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.androidx.viewBinding)
     implementation(projects.exts.common)

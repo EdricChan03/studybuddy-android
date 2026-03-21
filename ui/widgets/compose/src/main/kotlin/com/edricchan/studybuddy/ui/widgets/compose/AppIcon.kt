@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.edricchan.studybuddy.core.resources.appIcon
+import com.edricchan.studybuddy.exts.android.metadata.appIcon
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.edricchan.studybuddy.core.resources.R as CoreResR
