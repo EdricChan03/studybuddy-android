@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.updates.proto;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+
+/* Update metadata, including when the app was last updated and the previous version's data. */
+message UpdateMetadata {
+  /* Metadata storing an app's version. */
+  message AppVersion {
+    /* The versionCode field of this specific version. */
+    int64 version_code = 1;
+    /* The versionName field of this specific version. */
+    string version_name = 2;
+    /* The installation source for this specific version. */
+    InstalledSource source = 10;
+
+    /* Possible sources that this specific version of the app was installed from. */
+    enum InstalledSource {
+      /* No metadata exists for this source. */
+      Unknown = 0;
+      /* Indicates that this specific version was installed directly from GitHub releases. */
+      GitHub = 1;
+      /* Indicates that this specific version was installed from F-Droid. */
+      FDroid = 2;
+      /* Indicates that this specific version was installed from the Google Play Store. */
+      PlayStore = 10;
+    }
+
+  }
+
+  /* Version metadata of the previous installed version. */
+  optional AppVersion previous_version = 1;
+  /* Version metadata of the current installed version. */
+  optional AppVersion current_version = 2;
+
+  /* The last time the app was updated. */
+  optional google.protobuf.Timestamp last_updated = 10;
+  /* The last time the app checked for updates. */
+  optional google.protobuf.Timestamp last_checked = 11;
+}

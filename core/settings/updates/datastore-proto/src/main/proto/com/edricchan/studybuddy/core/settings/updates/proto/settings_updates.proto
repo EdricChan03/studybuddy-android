@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.updates.proto;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+
+/* Update settings. */
+message UpdateSettings {
+  /* How often to check for updates. */
+  google.protobuf.Duration check_freq = 1;
+
+  /* Whether updates can be downloaded over a metered network. */
+  bool can_download_metered = 10;
+  /* Whether updates can only be downloaded when charging. */
+  bool only_download_charging = 11;
+}
