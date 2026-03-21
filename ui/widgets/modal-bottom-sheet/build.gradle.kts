@@ -53,9 +53,9 @@ dependencies {
     api(libs.materialComponents)
 
     //#region Compose dependencies
-    implementation(projects.exts.androidx.compose)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.widgets.compose)
+    implementation(projects.utils.androidx.compose)
 
     api(libs.bundles.androidx.compose)
     implementation(libs.androidx.fragment.compose)
