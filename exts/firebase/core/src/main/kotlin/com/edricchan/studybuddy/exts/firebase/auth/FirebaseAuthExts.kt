@@ -26,7 +26,7 @@ fun FirebaseUser?.getUserDocument(fs: FirebaseFirestore) =
 /**
  * Retrieves the user's Firestore document.
  */
-val FirebaseUser?.userDocument: DocumentReference
+inline val FirebaseUser?.userDocument: DocumentReference
     get() = this.getUserDocument(Firebase.firestore)
 
 /**
@@ -35,7 +35,7 @@ val FirebaseUser?.userDocument: DocumentReference
  * @return The result of the user creation request.
  * @see FirebaseAuth.createUserWithEmailAndPassword
  */
-suspend fun FirebaseAuth.awaitCreateUserWithEmailAndPassword(
+suspend inline fun FirebaseAuth.awaitCreateUserWithEmailAndPassword(
     email: String, password: String
 ): AuthResult = createUserWithEmailAndPassword(email, password).await()
 
@@ -45,7 +45,7 @@ suspend fun FirebaseAuth.awaitCreateUserWithEmailAndPassword(
  * @return The result of the sign in request.
  * @see FirebaseAuth.signInWithEmailAndPassword
  */
-suspend fun FirebaseAuth.awaitSignInWithEmailAndPassword(
+suspend inline fun FirebaseAuth.awaitSignInWithEmailAndPassword(
     email: String, password: String
 ): AuthResult = signInWithEmailAndPassword(email, password).await()
 
@@ -55,7 +55,7 @@ suspend fun FirebaseAuth.awaitSignInWithEmailAndPassword(
  * @see FirebaseAuth.signInWithCredential
  * @see GoogleAuthProvider
  */
-suspend fun FirebaseAuth.awaitSignInWithGoogle(account: GoogleSignInAccount): AuthResult {
+suspend inline fun FirebaseAuth.awaitSignInWithGoogle(account: GoogleSignInAccount): AuthResult {
     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
     return signInWithCredential(credential).await()
 }
@@ -67,13 +67,13 @@ suspend fun FirebaseAuth.awaitSignInWithGoogle(account: GoogleSignInAccount): Au
  * @see GoogleAuthProvider
  * @see GoogleIdTokenCredential
  */
-suspend fun FirebaseAuth.awaitSignInWithGoogle(credential: GoogleIdTokenCredential): AuthResult {
+suspend inline fun FirebaseAuth.awaitSignInWithGoogle(credential: GoogleIdTokenCredential): AuthResult {
     val firCredential = GoogleAuthProvider.getCredential(credential.idToken, null)
     return signInWithCredential(firCredential).await()
 }
 
 /** Gets the [currently signed-in user][FirebaseAuth.getCurrentUser] as a [Flow]. */
-val FirebaseAuth.currentUserFlow: Flow<FirebaseUser?>
+inline val FirebaseAuth.currentUserFlow: Flow<FirebaseUser?>
     get() = callbackFlow {
         val listener = FirebaseAuth.AuthStateListener { auth ->
             trySend(auth.currentUser)
