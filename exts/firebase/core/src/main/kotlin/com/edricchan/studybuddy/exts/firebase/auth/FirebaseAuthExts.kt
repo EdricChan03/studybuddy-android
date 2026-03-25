@@ -72,6 +72,15 @@ suspend inline fun FirebaseAuth.awaitSignInWithGoogle(credential: GoogleIdTokenC
     return signInWithCredential(firCredential).await()
 }
 
+/**
+ * Triggers the Firebase Authentication backend to send a password-reset email
+ * to the given email address, which must correspond to an existing user of your app.
+ * @see FirebaseAuth.sendPasswordResetEmail
+ */
+suspend inline fun FirebaseAuth.awaitSendPasswordResetEmail(email: String) {
+    sendPasswordResetEmail(email).await()
+}
+
 /** Gets the [currently signed-in user][FirebaseAuth.getCurrentUser] as a [Flow]. */
 inline val FirebaseAuth.currentUserFlow: Flow<FirebaseUser?>
     get() = callbackFlow {
