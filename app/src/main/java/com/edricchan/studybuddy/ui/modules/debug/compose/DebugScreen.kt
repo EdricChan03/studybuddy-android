@@ -8,13 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.BottomSheets
 import com.edricchan.studybuddy.ui.modules.debug.compose.device_info.DeviceInfoCategory
 import com.edricchan.studybuddy.ui.modules.debug.vm.DebugViewModel
 import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBar
@@ -35,7 +36,7 @@ private fun PreferenceCategoryScope.OpenDebugModalBottomSheetPreference(
         onClick = onClick,
         icon = {
             Icon(
-                painterResource(R.drawable.ic_bottom_sheets_24dp), contentDescription = null
+                AppIcons.Outlined.BottomSheets, contentDescription = null
             )
         },
         title = { Text(text = stringResource(R.string.debug_activity_other_modal_bottom_sheet_testing_title)) },
