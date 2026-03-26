@@ -31,6 +31,7 @@ import androidx.core.content.getSystemService
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
+import com.edricchan.studybuddy.core.resources.icons.outlined.MobileInfo
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
@@ -122,7 +123,7 @@ private fun PreferenceCategoryScope.DeviceSdkInfoPreference(modifier: Modifier =
         title = { Text(text = stringResource(R.string.debug_activity_device_sdk_info_dialog_title)) },
         icon = {
             Icon(
-                painterResource(R.drawable.ic_perm_device_information_outline_24dp),
+                AppIcons.Outlined.MobileInfo,
                 contentDescription = null
             )
         },
