@@ -22,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -32,6 +31,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
 import com.edricchan.studybuddy.core.resources.icons.outlined.MobileInfo
+import com.edricchan.studybuddy.core.resources.icons.outlined.NetworkCell
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
@@ -205,7 +205,7 @@ private fun PreferenceCategoryScope.DeviceNetworkInfoPreference(modifier: Modifi
         title = { Text(text = stringResource(R.string.debug_activity_connectivity_info_dialog_title)) },
         icon = {
             Icon(
-                painterResource(R.drawable.ic_network_cell_24dp),
+                AppIcons.Outlined.NetworkCell,
                 contentDescription = null
             )
         },
