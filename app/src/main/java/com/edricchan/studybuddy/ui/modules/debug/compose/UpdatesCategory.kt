@@ -16,13 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.toClipEntry
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.asFlow
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
+import com.edricchan.studybuddy.core.resources.icons.outlined.Link
 import com.edricchan.studybuddy.core.resources.icons.outlined.Refresh
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.exts.datetime.formatISO
@@ -102,7 +102,7 @@ fun UpdatesCategory(
             },
             subtitle = customJsonUrl.takeIf { it.isNotBlank() }
                 ?.letComposable { Text(text = it) },
-            icon = { Icon(painterResource(R.drawable.ic_link_24dp), contentDescription = null) },
+            icon = { Icon(AppIcons.Outlined.Link, contentDescription = null) },
             isValid = PatternsCompat.WEB_URL.toRegex().matches(customJsonUrlValue),
             onConfirm = {
                 onJsonUrlChange(customJsonUrlValue)
