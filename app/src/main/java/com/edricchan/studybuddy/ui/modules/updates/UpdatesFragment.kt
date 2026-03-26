@@ -24,9 +24,9 @@ import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
-import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
+import com.edricchan.studybuddy.core.settings.updates.keyPrefCanDownloadMetered
 import com.edricchan.studybuddy.databinding.FragUpdatesBinding
 import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted
 import com.edricchan.studybuddy.exts.android.showToast
@@ -124,7 +124,7 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
             // over cellular
             if (requireContext().isMeteredNetwork &&
                 (!ignoreMobileDataSetting && !preferences.getBoolean(
-                    Constants.prefUpdatesDownloadOverMetered,
+                    keyPrefCanDownloadMetered,
                     false
                 )) && showMobileDataWarning
             ) {

@@ -4,11 +4,6 @@ import android.net.Uri
 import androidx.core.net.toUri
 
 object Constants {
-    // Preferences > Updates
-    const val prefUpdatesFrequency = "pref_updates_frequency"
-    const val prefUpdatesDownloadOverMetered = "pref_updates_download_over_metered"
-    const val prefUpdatesDownloadOnlyWhenCharging = "pref_updates_download_only_when_charging"
-
     // Debug preferences
     const val debugUseTestingJsonUrl = "debug_updates_use_testing_json_url"
     const val debugSetCustomJsonUrl = "debug_updates_custom_json_url"

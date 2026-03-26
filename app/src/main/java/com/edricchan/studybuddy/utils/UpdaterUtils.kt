@@ -6,6 +6,9 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.Operation
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
+import com.edricchan.studybuddy.core.settings.updates.keyPrefCanDownloadMetered
+import com.edricchan.studybuddy.core.settings.updates.keyPrefOnlyDownloadCharging
+import com.edricchan.studybuddy.core.settings.updates.keyPrefUpdatesFrequency
 import com.edricchan.studybuddy.extensions.periodicWorkRequest
 import com.edricchan.studybuddy.extensions.workManager
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
@@ -51,13 +54,13 @@ fun Context.enqueueUniqueCheckForUpdatesWorker(): Operation? {
     val defaultInterval =
         resources.getInteger(UpdatesR.integer.pref_check_for_updates_frequency_default_value)
     val repeatInterval = sharedPreferences.getString(
-        Constants.prefUpdatesFrequency,
+        keyPrefUpdatesFrequency,
         defaultInterval.toString()
     )!!.toLong()
     val isMetered =
-        sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOverMetered, false)
+        sharedPreferences.getBoolean(keyPrefCanDownloadMetered, false)
     val requiresCharging =
-        sharedPreferences.getBoolean(Constants.prefUpdatesDownloadOnlyWhenCharging, false)
+        sharedPreferences.getBoolean(keyPrefOnlyDownloadCharging, false)
 
     return enqueueUniqueCheckForUpdatesWorker(
         repeatInterval.toDuration(ChronoUnit.HOURS),
