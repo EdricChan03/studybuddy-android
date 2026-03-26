@@ -14,6 +14,7 @@ import com.edricchan.studybuddy.utils.dev.isDevMode
 import com.edricchan.studybuddy.workers.CheckForUpdatesWorker
 import java.time.Duration
 import java.time.temporal.ChronoUnit
+import com.edricchan.studybuddy.core.settings.updates.resources.R as UpdatesR
 
 /** Constant used to uniquely identify the [update worker][CheckForUpdatesWorker]. */
 const val UPDATE_WORK_NAME = "workUpdater"
@@ -48,7 +49,7 @@ fun Context.getUpdateJsonUrl(forceDebugUrl: Boolean = false): String {
 fun Context.enqueueUniqueCheckForUpdatesWorker(): Operation? {
     val sharedPreferences = defaultSharedPreferences
     val defaultInterval =
-        resources.getInteger(R.integer.pref_check_for_updates_frequency_default_value)
+        resources.getInteger(UpdatesR.integer.pref_check_for_updates_frequency_default_value)
     val repeatInterval = sharedPreferences.getString(
         Constants.prefUpdatesFrequency,
         defaultInterval.toString()
