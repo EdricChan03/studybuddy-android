@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.utils
 import android.content.Context
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
 import androidx.work.Operation
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.Constants
@@ -84,8 +85,7 @@ fun Context.enqueueUniqueCheckForUpdatesWorker(
     // Check if the update frequency is set to manual/never
     if (repeatInterval <= Duration.ZERO) return null
 
-    val networkType =
-        if (isMetered) androidx.work.NetworkType.METERED else androidx.work.NetworkType.UNMETERED
+    val networkType = if (isMetered) NetworkType.METERED else NetworkType.UNMETERED
 
     val constraints = Constraints(
         requiredNetworkType = networkType,
