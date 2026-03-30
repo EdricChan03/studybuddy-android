@@ -6,22 +6,21 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
+import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragRecoveryBinding
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecoveryFragment :
     ViewBindingFragment<FragRecoveryBinding>(FragRecoveryBinding::inflate) {
     @Inject
-    lateinit var auth: FirebaseAuth
+    lateinit var authService: AuthService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,7 +37,7 @@ class RecoveryFragment :
                 progressBar.isVisible = true
                 lifecycleScope.launch {
                     try {
-                        auth.sendPasswordResetEmail(email).await()
+                        authService.requestPasswordReset(email)
                         mainViewModel.showSnackBar(
                             R.string.forgot_pwd_confirmed_msg,
                             SnackBarData.Duration.Long
