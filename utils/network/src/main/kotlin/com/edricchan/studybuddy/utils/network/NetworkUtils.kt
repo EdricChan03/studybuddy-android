@@ -47,7 +47,9 @@ val Context.isMeteredNetwork
  * @see ConnectivityManager.getActiveNetworkInfo
  */
 val Context.isNetworkConnected
-    get() = getSystemService<ConnectivityManager>()?.activeNetworkInfo?.isConnected ?: false
+    get() = getSystemService<ConnectivityManager>()?.run {
+        getNetworkCapabilities(activeNetwork)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
 
 /** Creates a [NetworkRequest] with the given [init] options passed to [NetworkRequest.Builder]. */
 fun networkRequest(init: NetworkRequest.Builder.() -> Unit): NetworkRequest =
