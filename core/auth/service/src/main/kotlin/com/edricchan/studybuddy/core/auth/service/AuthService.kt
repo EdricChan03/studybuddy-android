@@ -94,5 +94,8 @@ interface AuthService {
      * check [UpdateProfileResult.Error] accordingly.
      */
     suspend fun requestDelete(): UpdateProfileResult
+
+    /** Requests for a password reset for the given [email]. */
+    suspend fun requestPasswordReset(email: String)
     //#endregion
 }

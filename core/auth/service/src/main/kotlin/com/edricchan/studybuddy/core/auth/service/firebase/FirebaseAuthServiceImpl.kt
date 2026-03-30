@@ -13,6 +13,7 @@ import com.edricchan.studybuddy.core.auth.model.firebase.toUser
 import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitCreateUserWithEmailAndPassword
+import com.edricchan.studybuddy.exts.firebase.auth.awaitSendPasswordResetEmail
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.currentUserFlow
 import com.edricchan.studybuddy.exts.firebase.auth.deleteAsync
@@ -86,5 +87,9 @@ class FirebaseAuthServiceImpl @Inject constructor(
 
     override suspend fun requestDelete(): AuthService.UpdateProfileResult = updateProfile {
         it.deleteAsync()
+    }
+
+    override suspend fun requestPasswordReset(email: String) {
+        auth.awaitSendPasswordResetEmail(email)
     }
 }
