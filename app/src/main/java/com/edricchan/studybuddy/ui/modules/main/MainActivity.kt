@@ -10,17 +10,21 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.serialization.generateHashCode
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.savedstate.SavedState
+import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
@@ -47,7 +51,9 @@ import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
 import com.edricchan.studybuddy.utils.android.fromApi
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialSharedAxis
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,7 +63,7 @@ import javax.inject.Inject
 @WebDeepLink(["/"])
 @AppDeepLink(["/"])
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener {
     @Inject
     lateinit var auth: FirebaseAuth
 
@@ -87,6 +93,8 @@ class MainActivity : BaseActivity() {
         navController = navHost.navController
         navController.initNavGraph()
 
+        navController.addOnDestinationChangedListener(this)
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 
@@ -113,7 +121,9 @@ class MainActivity : BaseActivity() {
                         data.message.asString(this@MainActivity),
                         data.duration.value
                     ) {
-                        anchorView = binding.bottomAppBar
+                        binding.bottomAppBar.takeIf(BottomAppBar::isVisible)?.let {
+                            anchorView = it
+                        }
                     }.apply { show() }
                 }
         }
@@ -154,6 +164,36 @@ class MainActivity : BaseActivity() {
 
         // By default, subscribe to the "topic_all" topic
         messaging.subscribeToTopic("all")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        navController.removeOnDestinationChangedListener(this)
+    }
+
+    private val hideBottomNavigationRoutes = listOf(
+        CompatDestination.Auth.Login::class,
+        CompatDestination.Auth.Register::class,
+        CompatDestination.Auth.ResetPassword::class,
+    )
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: SavedState?
+    ) {
+        val showBottomAppBar = hideBottomNavigationRoutes.none {
+            destination.hasRoute(it)
+        }
+
+        TransitionManager.beginDelayedTransition(
+            binding.coordinatorLayoutMain,
+            MaterialSharedAxis(MaterialSharedAxis.Y, showBottomAppBar).apply {
+                addTarget(binding.bottomAppBar)
+            }
+        )
+        binding.bottomAppBar.isVisible = showBottomAppBar
     }
 
     private fun share() {
