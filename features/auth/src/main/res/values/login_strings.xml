@@ -6,6 +6,9 @@
     <!-- Title for the login screen. -->
     <string name="title_activity_login">Sign in</string>
 
+    <!-- Header title for the login authentication card. -->
+    <string name="login_sign_in_header_text">Sign in to StudyBuddy</string>
+
     <!-- Header text for the sign-in providers section. -->
     <string name="sign_in_providers_header">Sign in with the below providers:</string>
 

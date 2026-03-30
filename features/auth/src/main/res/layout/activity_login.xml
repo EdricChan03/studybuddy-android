@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@string/sign_in_providers_header"
+                android:text="@string/login_sign_in_header_text"
                 android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <com.google.android.gms.common.SignInButton
