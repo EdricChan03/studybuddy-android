@@ -84,18 +84,19 @@
 
             <Button
                 android:id="@+id/signInBtn"
-                style="@style/Widget.Material3.Button.TextButton"
+                style="?attr/borderlessButtonStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
                 android:text="@string/register_login_button_title" />
 
-            <ProgressBar
+            <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progressBar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center|bottom"
                 android:layout_marginBottom="20dp"
+                android:indeterminate="true"
                 android:visibility="gone" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
