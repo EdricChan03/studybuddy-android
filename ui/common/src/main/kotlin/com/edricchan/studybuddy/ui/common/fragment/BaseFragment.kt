@@ -1,5 +1,10 @@
 package com.edricchan.studybuddy.ui.common.fragment
 
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED
+import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED
+import android.net.NetworkRequest
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -9,14 +14,20 @@ import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
+import com.edricchan.studybuddy.utils.network.NetworkState
+import com.edricchan.studybuddy.utils.network.networkRequest
+import com.edricchan.studybuddy.utils.network.observeNetworkState
+import com.edricchan.studybuddy.utils.network.observeUnmeteredNetworkState
 import com.edricchan.studybuddy.utils.web.launchUri
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -96,4 +107,50 @@ abstract class BaseFragment : Fragment() {
     protected fun launchUri(uri: Uri) {
         requireContext().launchUri(uri)
     }
+
+    /**
+     * Gets a [StateFlow] of a network's [NetworkState] that has the
+     * [NET_CAPABILITY_INTERNET] and [NET_CAPABILITY_NOT_RESTRICTED] capabilities.
+     * @param owner [LifecycleOwner] to automatically register/unregister the underlying
+     * [ConnectivityManager.NetworkCallback] under.
+     */
+    protected fun observeNetworkState(owner: LifecycleOwner = viewLifecycleOwner): StateFlow<NetworkState> =
+        requireContext().observeNetworkState(owner)
+
+    /**
+     * Gets a [StateFlow] of the network's [NetworkState] that matches the given [request].
+     * @param owner [LifecycleOwner] to automatically register/unregister the underlying
+     * [ConnectivityManager.NetworkCallback] under.
+     * @param request [NetworkRequest] to filter the [ConnectivityManager.registerNetworkCallback]
+     * call by.
+     */
+    protected fun observeNetworkState(
+        owner: LifecycleOwner = viewLifecycleOwner,
+        request: NetworkRequest
+    ): StateFlow<NetworkState> = requireContext().observeNetworkState(owner, request)
+
+    /**
+     * Gets a [StateFlow] of a network's [NetworkState] that has the given [requestInit]
+     * options.
+     * @param owner [LifecycleOwner] to automatically register/unregister the underlying
+     * [ConnectivityManager.NetworkCallback] under.
+     * @param requestInit Options to be passed to [networkRequest], to filter the
+     * [ConnectivityManager.registerNetworkCallback] call by.
+     */
+    protected fun observeNetworkState(
+        owner: LifecycleOwner = viewLifecycleOwner,
+        requestInit: NetworkRequest.Builder.() -> Unit
+    ): StateFlow<NetworkState> = requireContext().observeNetworkState(owner, requestInit)
+
+    /**
+     * Gets a [StateFlow] of a network's [NetworkState] that has the
+     * [NET_CAPABILITY_INTERNET], and [NET_CAPABILITY_NOT_METERED] and
+     * [NET_CAPABILITY_NOT_RESTRICTED] capabilities.
+     * @param owner [LifecycleOwner] to automatically register/unregister the underlying
+     * [ConnectivityManager.NetworkCallback] under.
+     * @see observeNetworkState
+     */
+    protected fun observeUnmeteredNetworkState(
+        owner: LifecycleOwner = viewLifecycleOwner
+    ): StateFlow<NetworkState> = requireContext().observeUnmeteredNetworkState(owner)
 }

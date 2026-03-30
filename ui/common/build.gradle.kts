@@ -22,6 +22,7 @@ android {
 }
 
 dependencies {
+    api(projects.utils.network)
     implementation(projects.core.compat.navigation)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
