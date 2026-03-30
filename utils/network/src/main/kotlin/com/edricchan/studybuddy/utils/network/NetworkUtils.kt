@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.utils.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import androidx.core.content.getSystemService
 
 enum class NetworkType(
@@ -47,3 +48,9 @@ val Context.isMeteredNetwork
  */
 val Context.isNetworkConnected
     get() = getSystemService<ConnectivityManager>()?.activeNetworkInfo?.isConnected ?: false
+
+/** Creates a [NetworkRequest] with the given [init] options passed to [NetworkRequest.Builder]. */
+fun networkRequest(init: NetworkRequest.Builder.() -> Unit): NetworkRequest =
+    NetworkRequest.Builder()
+        .apply(init)
+        .build()
