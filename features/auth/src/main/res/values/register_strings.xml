@@ -6,6 +6,9 @@
     <!-- Title for the register screen. -->
     <string name="title_activity_register">Register</string>
 
+    <!-- Header title for the register authentication card. -->
+    <string name="register_sign_up_header_text">Create Account</string>
+
     <!-- Error text to be shown for the email text-field when no email is provided. -->
     <string name="edittext_errors_empty_email">Please enter an email address</string>
     <!-- Error text to be shown for the email text-field when an invalid email is provided. -->

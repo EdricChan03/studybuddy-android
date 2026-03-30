@@ -1,19 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <application>
-        <activity
-            android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.App.NoActionBar" />
-        <activity
-            android:name=".ui.RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:theme="@style/Theme.App.NoActionBar" />
-        <activity
-            android:name=".ui.ResetPasswordActivity"
-            android:label="@string/title_activity_reset_password"
-            android:theme="@style/Theme.App.NoActionBar" />
-    </application>
-
 </manifest>

@@ -17,9 +17,9 @@ import com.edricchan.studybuddy.core.compat.navigation.UriUpdates
 import com.edricchan.studybuddy.core.deeplink.AppPrefixUrls
 import com.edricchan.studybuddy.core.deeplink.WebPrefixUrls
 import com.edricchan.studybuddy.features.auth.account.compat.AccountFragment
-import com.edricchan.studybuddy.features.auth.ui.LoginActivity
-import com.edricchan.studybuddy.features.auth.ui.RegisterActivity
-import com.edricchan.studybuddy.features.auth.ui.ResetPasswordActivity
+import com.edricchan.studybuddy.features.auth.login.ui.compat.LoginFragment
+import com.edricchan.studybuddy.features.auth.recovery.ui.compat.RecoveryFragment
+import com.edricchan.studybuddy.features.auth.register.ui.compat.RegisterFragment
 import com.edricchan.studybuddy.features.help.compat.HelpListFragment
 import com.edricchan.studybuddy.features.settings.main.ui.compat.SettingsFragment
 import com.edricchan.studybuddy.features.tasks.compat.ui.fragment.TaskDetailFragment
@@ -34,6 +34,7 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
 import com.edricchan.studybuddy.utils.android.fromApi
 import kotlin.reflect.typeOf
+import com.edricchan.studybuddy.features.auth.R as AuthR
 
 fun NavGraphBuilder.aboutGraph(
     context: Context
@@ -63,16 +64,16 @@ fun NavGraphBuilder.authGraph(
         }
     }
 
-    activity<CompatDestination.Auth.ResetPassword> {
-        activityClass = ResetPasswordActivity::class
+    fragment<RecoveryFragment, CompatDestination.Auth.ResetPassword> {
+        label = context.getString(AuthR.string.title_activity_reset_password)
     }
 
-    activity<CompatDestination.Auth.Login> {
-        activityClass = LoginActivity::class
+    fragment<LoginFragment, CompatDestination.Auth.Login> {
+        label = context.getString(AuthR.string.title_activity_login)
     }
 
-    activity<CompatDestination.Auth.Register> {
-        activityClass = RegisterActivity::class
+    fragment<RegisterFragment, CompatDestination.Auth.Register> {
+        label = context.getString(AuthR.string.title_activity_register)
     }
 }
 

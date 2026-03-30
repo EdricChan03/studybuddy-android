@@ -1,68 +1,39 @@
-package com.edricchan.studybuddy.features.auth.ui
+package com.edricchan.studybuddy.features.auth.register.ui.compat
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.View
 import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.edricchan.studybuddy.core.deeplink.AppDeepLink
-import com.edricchan.studybuddy.core.deeplink.WebDeepLink
-import com.edricchan.studybuddy.exts.android.startActivity
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
+import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitCreateUserWithEmailAndPassword
-import com.edricchan.studybuddy.exts.material.snackbar.createSnackbar
-import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.auth.R
-import com.edricchan.studybuddy.features.auth.databinding.ActivityRegisterBinding
+import com.edricchan.studybuddy.features.auth.databinding.FragRegisterBinding
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
-import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
-import com.edricchan.studybuddy.utils.network.isNetworkConnected
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.Firebase
+import com.edricchan.studybuddy.ui.common.SnackBarData
+import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import com.edricchan.studybuddy.core.resources.R as CoreResR
+import javax.inject.Inject
 
-@WebDeepLink(["/register"])
-@AppDeepLink(["/register"])
-class RegisterActivity : BaseActivity() {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityRegisterBinding
+@AndroidEntryPoint
+class RegisterFragment : ViewBindingFragment<FragRegisterBinding>(FragRegisterBinding::inflate) {
+    @Inject
+    lateinit var auth: FirebaseAuth
 
-    override val isEdgeToEdgeEnabled = true
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater).apply {
-            setSupportActionBar(toolbar)
-            setContentView(root)
-        }
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        auth = Firebase.auth
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            v.updatePadding(
-                left = insets.left,
-                right = insets.right
-            )
-
-            windowInsets
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             signInBtn.setOnClickListener {
-                startActivity<LoginActivity>()
-                finish()
+                navController.navigateToLogin {
+                    popUpTo<CompatDestination.Auth.Login>()
+                }
             }
 
             signUpBtn.setOnClickListener {
@@ -133,13 +104,12 @@ class RegisterActivity : BaseActivity() {
         try {
             auth.awaitCreateUserWithEmailAndPassword(email, password)
             binding.progressBar.isVisible = false
-            finish()
+            navController.popBackStack()
         } catch (e: Exception) {
             // TODO: i18n message
-            showSnackbar(
-                binding.coordinatorLayoutRegister,
+            showSnackBar(
                 R.string.register_error_snackbar_text,
-                Snackbar.LENGTH_LONG
+                SnackBarData.Duration.Long
             )
             Log.e(TAG, "An error occurred while authenticating.", e)
         }
@@ -150,36 +120,19 @@ class RegisterActivity : BaseActivity() {
         binding.progressBar.isVisible = false
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private val noInternetSnackbar by lazy {
-        createSnackbar(
-            binding.coordinatorLayoutRegister,
-            R.string.register_internet_unavailable_snackbar_text,
-            Snackbar.LENGTH_INDEFINITE
-        ) {
-            behavior = NoSwipeBehavior()
-            setAction(CoreResR.string.dialog_action_retry) { checkNetwork() }
-        }
-    }
-
-    // TODO: Use NetworkCallback
     private fun checkNetwork() {
-        val isConnected = isNetworkConnected
-        setViewsEnabled(isConnected)
-
-        with(noInternetSnackbar) {
-            if (!isConnected) show()
-            else dismiss()
+        viewLifecycleOwner.lifecycleScope.launch {
+            observeNetworkState().flowWithLifecycle(lifecycle).collect {
+                setViewsEnabled(it.isOnline)
+                if (it.isOnline) {
+                    mainViewModel.dismissCurrentSnackBar()
+                    return@collect
+                }
+                mainViewModel.showSnackBar(
+                    R.string.register_internet_unavailable_snackbar_text,
+                    SnackBarData.Duration.Indefinite
+                )
+            }
         }
     }
 

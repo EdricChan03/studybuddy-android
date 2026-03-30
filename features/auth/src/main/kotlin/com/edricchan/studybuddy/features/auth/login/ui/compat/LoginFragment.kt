@@ -1,11 +1,9 @@
-package com.edricchan.studybuddy.features.auth.ui
+package com.edricchan.studybuddy.features.auth.login.ui.compat
 
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
-import androidx.core.content.getSystemService
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -16,52 +14,40 @@ import androidx.credentials.GetPasswordOption
 import androidx.credentials.PendingGetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.credentials.pendingGetCredentialRequest
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.auth.credentials.asGoogleIdTokenCredential
 import com.edricchan.studybuddy.core.auth.credentials.googleBtnOption
 import com.edricchan.studybuddy.core.auth.credentials.signInWithGoogleCredentials
-import com.edricchan.studybuddy.core.deeplink.AppDeepLink
-import com.edricchan.studybuddy.core.deeplink.WebDeepLink
+import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
+import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToResetPassword
 import com.edricchan.studybuddy.exts.android.showToast
-import com.edricchan.studybuddy.exts.android.startActivity
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithGoogle
-import com.edricchan.studybuddy.exts.material.snackbar.showSnackbar
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.auth.R
-import com.edricchan.studybuddy.features.auth.databinding.ActivityLoginBinding
-import com.edricchan.studybuddy.ui.common.BaseActivity
-import com.edricchan.studybuddy.ui.widget.NoSwipeBehavior
+import com.edricchan.studybuddy.features.auth.databinding.FragLoginBinding
+import com.edricchan.studybuddy.ui.common.SnackBarData
+import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.gms.common.SignInButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@WebDeepLink(["/login"])
-@AppDeepLink(["/login"])
 @AndroidEntryPoint
-class LoginActivity : BaseActivity() {
+class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::inflate) {
     @Inject
     lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityLoginBinding
 
-    override val isEdgeToEdgeEnabled = true
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater).apply {
-            setSupportActionBar(toolbar)
-        }.also { setContentView(it.root) }
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Check if there's already an authenticated user
         if (auth.currentUser != null) {
-            finish()
+            navController.popBackStack()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
@@ -82,9 +68,9 @@ class LoginActivity : BaseActivity() {
                 setOnClickListener { signInWithGoogle() }
             }
 
-            signUpBtn.setOnClickListener { startActivity<RegisterActivity>() }
+            signUpBtn.setOnClickListener { navController.navigateToRegister() }
 
-            resetPasswordBtn.setOnClickListener { startActivity<ResetPasswordActivity>() }
+            resetPasswordBtn.setOnClickListener { navController.navigateToResetPassword() }
 
             PendingGetCredentialRequest(
                 request = GetCredentialRequest(
@@ -126,17 +112,11 @@ class LoginActivity : BaseActivity() {
                 }
             }
         }
-
-        checkNetwork(null)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        android.R.id.home -> {
-            onBackPressedDispatcher.onBackPressed()
-            true
-        }
-
-        else -> super.onOptionsItemSelected(item)
+    override fun onStart() {
+        super.onStart()
+        checkNetwork()
     }
 
     private fun signInWithCredential(
@@ -152,8 +132,8 @@ class LoginActivity : BaseActivity() {
             try {
                 signIn {
                     auth.signInWithGoogleCredentials(
-                        this@LoginActivity,
-                        listOf(googleBtnOption)
+                        requireContext(),
+                        listOf(requireContext().googleBtnOption)
                     )
                 }
             } catch (e: GetCredentialException) {
@@ -163,21 +143,19 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    private fun checkNetwork(snackbar: Snackbar?) {
-        val connectivityManager = getSystemService<ConnectivityManager>()
-        Log.d(TAG, "isNetworkAvailable: " + connectivityManager?.activeNetworkInfo?.isConnected)
-        if (connectivityManager?.activeNetworkInfo?.isConnected == true) {
-            setViewsEnabled(true)
-            snackbar?.dismiss()
-        } else {
-            setViewsEnabled(false)
-            showSnackbar(
-                binding.coordinatorLayoutLogin,
-                R.string.snackbar_internet_unavailable_login,
-                Snackbar.LENGTH_INDEFINITE
-            ) {
-                behavior = NoSwipeBehavior()
-                setAction(R.string.snackbar_internet_unavailable_action) { checkNetwork(this) }
+
+    private fun checkNetwork() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            observeNetworkState().flowWithLifecycle(lifecycle).collect {
+                setViewsEnabled(it.isOnline)
+                if (it.isOnline) {
+                    mainViewModel.dismissCurrentSnackBar()
+                    return@collect
+                }
+                mainViewModel.showSnackBar(
+                    R.string.snackbar_internet_unavailable_login,
+                    SnackBarData.Duration.Indefinite
+                )
             }
         }
     }
@@ -209,7 +187,7 @@ class LoginActivity : BaseActivity() {
                 getString(R.string.snackbar_user_login, result.user?.email),
                 Toast.LENGTH_LONG
             )
-            finish()
+            navController.popBackStack()
         } catch (e: Exception) {
             // If sign in fails, display a message to the user.
             Log.e(
