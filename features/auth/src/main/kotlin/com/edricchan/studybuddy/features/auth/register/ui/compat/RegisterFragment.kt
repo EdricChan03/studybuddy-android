@@ -105,7 +105,7 @@ class RegisterFragment : ViewBindingFragment<FragRegisterBinding>(FragRegisterBi
             binding.progressBar.isVisible = false
             navController.navigateToLogin()
         } catch (e: Exception) {
-            showSnackBar(
+            mainViewModel.showSnackBar(
                 R.string.register_error_snackbar_text,
                 SnackBarData.Duration.Long
             )
