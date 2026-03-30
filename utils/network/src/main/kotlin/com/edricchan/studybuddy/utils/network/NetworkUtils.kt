@@ -8,13 +8,10 @@ import androidx.core.content.getSystemService
 enum class NetworkType(
     private val transportType: Int
 ) {
-    @Suppress("DEPRECATION")
     WiFi(NetworkCapabilities.TRANSPORT_WIFI),
 
-    @Suppress("DEPRECATION")
     Cellular(NetworkCapabilities.TRANSPORT_CELLULAR),
 
-    @Suppress("DEPRECATION")
     Ethernet(NetworkCapabilities.TRANSPORT_ETHERNET);
 
     fun isCurrentType(manager: ConnectivityManager): Boolean {
