@@ -1,10 +1,8 @@
 package com.edricchan.studybuddy.ui.common
 
-import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import com.edricchan.studybuddy.ui.common.content.TextContent
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -14,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
  * @property duration How long the snack-bar should be shown for.
  */
 data class SnackBarData(
-    val message: Text,
+    val message: TextContent,
     val action: Action?,
     val duration: Duration
 ) {
@@ -23,7 +21,7 @@ data class SnackBarData(
         action: Action?,
         duration: Duration
     ) : this(
-        message = Text.Str(message),
+        message = TextContent.Str(message),
         action = action,
         duration = duration
     )
@@ -34,27 +32,10 @@ data class SnackBarData(
         action: Action?,
         duration: Duration
     ) : this(
-        message = Text.Res(messageRes),
+        message = TextContent.Res(messageRes),
         action = action,
         duration = duration
     )
-
-    sealed interface Text {
-        @JvmInline
-        value class Str(val value: String) : Text {
-            override fun asString(context: Context): String = value
-        }
-
-        @JvmInline
-        value class Res(@field:StringRes val stringRes: Int) : Text {
-            override fun asString(context: Context): String = context.getString(stringRes)
-        }
-
-        fun asString(context: Context): String
-
-        @Composable
-        fun asString(): String = asString(LocalContext.current)
-    }
 
     /**
      * The snack-bar's action button data.
@@ -62,14 +43,14 @@ data class SnackBarData(
      * @property onClick Lambda to be invoked when the action button is clicked.
      */
     data class Action(
-        val text: Text,
+        val text: TextContent,
         val onClick: () -> Unit
     ) {
         constructor(
             text: String,
             onClick: () -> Unit
         ) : this(
-            text = Text.Str(text),
+            text = TextContent.Str(text),
             onClick = onClick
         )
 
@@ -78,7 +59,7 @@ data class SnackBarData(
             textRes: Int,
             onClick: () -> Unit
         ) : this(
-            text = Text.Res(textRes),
+            text = TextContent.Res(textRes),
             onClick = onClick
         )
     }
