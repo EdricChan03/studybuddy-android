@@ -105,7 +105,6 @@ class RegisterFragment : ViewBindingFragment<FragRegisterBinding>(FragRegisterBi
             binding.progressBar.isVisible = false
             navController.popBackStack()
         } catch (e: Exception) {
-            // TODO: i18n message
             showSnackBar(
                 R.string.register_error_snackbar_text,
                 SnackBarData.Duration.Long
