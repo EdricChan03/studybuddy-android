@@ -56,4 +56,7 @@ interface SnackBarController {
             )
         )
     }
+
+    /** Dismisses the currently shown snack-bar, if any. */
+    suspend fun dismissCurrentSnackBar()
 }

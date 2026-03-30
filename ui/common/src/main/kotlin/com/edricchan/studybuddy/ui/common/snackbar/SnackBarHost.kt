@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.ui.common.snackbar
 
 import com.edricchan.studybuddy.ui.common.SnackBarData
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -25,5 +26,15 @@ class SnackBarHost : SnackBarController {
         data: SnackBarData
     ) {
         _snackBarData.emit(data)
+    }
+
+    /**
+     * [Channel] consisting of any dismissal requests to be made on the currently shown
+     * snack-bar, if any.
+     */
+    val dismissChannel: Channel<Unit> = Channel()
+
+    override suspend fun dismissCurrentSnackBar() {
+        dismissChannel.send(Unit)
     }
 }

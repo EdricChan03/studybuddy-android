@@ -47,6 +47,7 @@ import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
 import com.edricchan.studybuddy.utils.android.fromApi
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,6 +70,8 @@ class MainActivity : BaseActivity() {
     private lateinit var navHost: NavHostFragment
 
     private val viewModel by viewModels<MainViewModel>()
+
+    private var snackBar: Snackbar? = null
 
     override val isEdgeToEdgeEnabled = true
 
@@ -104,15 +107,21 @@ class MainActivity : BaseActivity() {
         lifecycleScope.launch {
             viewModel.snackBarData
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    showSnackbar(
+                .collect { data ->
+                    snackBar = createSnackbar(
                         binding.coordinatorLayoutMain,
-                        it.message.asString(this@MainActivity),
-                        it.duration.value
+                        data.message.asString(this@MainActivity),
+                        data.duration.value
                     ) {
                         anchorView = binding.bottomAppBar
-                    }
+                    }.apply { show() }
                 }
+        }
+        lifecycleScope.launch {
+            for (_request in viewModel.dismissSnackBarChannel) {
+                snackBar?.dismiss()
+                snackBar = null
+            }
         }
 
         setupFabController(binding.fab, binding.bottomAppBar, navHost)

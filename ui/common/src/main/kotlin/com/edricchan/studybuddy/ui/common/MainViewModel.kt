@@ -12,4 +12,6 @@ class MainViewModel @Inject constructor(
 ) : ViewModel(), SnackBarController by host {
     /** The [SnackBarData] to be shown, if any. */
     val snackBarData = host.snackBarData
+
+    val dismissSnackBarChannel = host.dismissChannel
 }
