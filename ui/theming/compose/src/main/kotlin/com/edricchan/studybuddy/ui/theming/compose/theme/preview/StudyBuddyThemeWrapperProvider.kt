@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.ui.theming.compose.theme
+package com.edricchan.studybuddy.ui.theming.compose.theme.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewWrapperProvider
