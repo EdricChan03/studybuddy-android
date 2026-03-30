@@ -19,8 +19,10 @@ import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.auth.credentials.asGoogleIdTokenCredential
 import com.edricchan.studybuddy.core.auth.credentials.googleBtnOption
 import com.edricchan.studybuddy.core.auth.credentials.signInWithGoogleCredentials
+import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToResetPassword
+import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskRoot
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
@@ -187,7 +189,9 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
                 getString(R.string.snackbar_user_login, result.user?.email),
                 Toast.LENGTH_LONG
             )
-            navController.popBackStack()
+            navController.navigateToTaskRoot {
+                popUpTo<CompatDestination.Task.Root>()
+            }
         } catch (e: Exception) {
             // If sign in fails, display a message to the user.
             Log.e(

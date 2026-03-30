@@ -103,7 +103,7 @@ class RegisterFragment : ViewBindingFragment<FragRegisterBinding>(FragRegisterBi
         try {
             authService.register(email = email, password = password)
             binding.progressBar.isVisible = false
-            navController.popBackStack()
+            navController.navigateToLogin()
         } catch (e: Exception) {
             showSnackBar(
                 R.string.register_error_snackbar_text,
