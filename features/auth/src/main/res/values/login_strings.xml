@@ -26,9 +26,13 @@
     <!-- Action text for the no internet connection snackbar. -->
     <string name="snackbar_internet_unavailable_action">Retry</string>
     <!-- Text for the no internet connection snackbar. -->
-    <string name="snackbar_internet_unavailable_login">An internet connection is required to
+    <string name="login_internet_unavailable_snackbar_text">An internet connection is required to
         login.</string>
-    <!-- Text for the logged-in snackbar. -->
-    <string name="snackbar_user_login">Signed in as %s</string>
+    <!-- Text for the logged-in snackbar. This string takes a single format argument,
+    which should be the user's display name. -->
+    <string name="login_success_snackbar_text">Signed in as %s</string>
+    <!-- Text for the snack-bar that is shown when attempting to log-in results in an error. -->
+    <string name="login_error_snackbar_text">An error occurred while logging in.
+        Please try again later.</string>
 
 </resources>

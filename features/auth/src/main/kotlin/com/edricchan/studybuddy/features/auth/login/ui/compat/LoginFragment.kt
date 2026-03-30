@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.features.auth.login.ui.compat
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -23,7 +22,6 @@ import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToResetPassword
 import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskRoot
-import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithGoogle
@@ -140,7 +138,10 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
                 }
             } catch (e: GetCredentialException) {
                 Log.w(TAG, "Could not get credentials:", e)
-                showToast(e.errorMessage!!, Toast.LENGTH_LONG)
+                mainViewModel.showSnackBar(
+                    e.errorMessage!!.toString(),
+                    SnackBarData.Duration.Long
+                )
             }
         }
     }
@@ -155,7 +156,7 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
                     return@collect
                 }
                 mainViewModel.showSnackBar(
-                    R.string.snackbar_internet_unavailable_login,
+                    R.string.login_internet_unavailable_snackbar_text,
                     SnackBarData.Duration.Indefinite
                 )
             }
@@ -185,9 +186,9 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
             val result = signInFn()
             // Sign in success, update UI with the signed-in user's information
             Log.d(TAG, "Successfully signed in!")
-            showToast(
-                getString(R.string.snackbar_user_login, result.user?.email),
-                Toast.LENGTH_LONG
+            mainViewModel.showSnackBar(
+                getString(R.string.login_success_snackbar_text, result.user?.email),
+                SnackBarData.Duration.Long
             )
             navController.navigateToTaskRoot {
                 popUpTo<CompatDestination.Task.Root>()
@@ -199,7 +200,10 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
                 "An error occurred while attempting to sign in with Google:",
                 e
             )
-            showToast("Authentication failed.", Toast.LENGTH_SHORT)
+            mainViewModel.showSnackBar(
+                R.string.login_error_snackbar_text,
+                SnackBarData.Duration.Short
+            )
         } finally {
             binding.progressBar.isVisible = false
         }
