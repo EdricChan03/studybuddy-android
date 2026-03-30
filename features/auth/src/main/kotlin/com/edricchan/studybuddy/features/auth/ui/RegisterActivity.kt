@@ -138,7 +138,7 @@ class RegisterActivity : BaseActivity() {
             // TODO: i18n message
             showSnackbar(
                 binding.coordinatorLayoutRegister,
-                "An error occurred while authenticating. Please try again later.",
+                R.string.register_error_snackbar_text,
                 Snackbar.LENGTH_LONG
             )
             Log.e(TAG, "An error occurred while authenticating.", e)
@@ -164,8 +164,7 @@ class RegisterActivity : BaseActivity() {
     private val noInternetSnackbar by lazy {
         createSnackbar(
             binding.coordinatorLayoutRegister,
-            // TODO: i18n message
-            "No internet connection available. Some actions are disabled",
+            R.string.register_internet_unavailable_snackbar_text,
             Snackbar.LENGTH_INDEFINITE
         ) {
             behavior = NoSwipeBehavior()

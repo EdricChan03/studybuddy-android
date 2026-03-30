@@ -21,4 +21,11 @@
 
     <!-- The text of the login button in the register activity's menu. -->
     <string name="register_login_button_title">I already have an account</string>
+
+    <!-- Text for the no internet connection snack-bar. -->
+    <string name="register_internet_unavailable_snackbar_text">An internet connection is required to
+        create an account.</string>
+    <!-- Text for the snack-bar that is shown when an account creation results in an error. -->
+    <string name="register_error_snackbar_text">An error occurred while creating an account.
+        Please try again later.</string>
 </resources>
