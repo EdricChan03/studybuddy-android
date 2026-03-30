@@ -38,7 +38,7 @@ fun Context.isNetworkAvailable(types: Set<NetworkType> = NetworkType.entries.toS
  * Checks if the current internet connection is on a metered network.
  * @see ConnectivityManager.isActiveNetworkMetered
  */
-val Context.isMeteredNetwork
+val Context.isMeteredNetwork: Boolean
     get() = getSystemService<ConnectivityManager>()?.isActiveNetworkMetered ?: false
 
 /**
@@ -46,10 +46,10 @@ val Context.isMeteredNetwork
  * @see android.net.NetworkInfo.isConnected
  * @see ConnectivityManager.getActiveNetworkInfo
  */
-val Context.isNetworkConnected
+val Context.isNetworkConnected: Boolean
     get() = getSystemService<ConnectivityManager>()?.run {
         getNetworkCapabilities(activeNetwork)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
+    } ?: false
 
 /** Creates a [NetworkRequest] with the given [init] options passed to [NetworkRequest.Builder]. */
 fun networkRequest(init: NetworkRequest.Builder.() -> Unit): NetworkRequest =
