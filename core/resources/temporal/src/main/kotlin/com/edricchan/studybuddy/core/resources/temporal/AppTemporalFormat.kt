@@ -38,12 +38,22 @@ val Context.appDateTimeFormatter: DateTimeFormatter
     get() = AppDateTimeFormatter
 
 /**
- * Formats the receiver [TemporalAccessor] using the application-default
- * format pattern.
- * @return The formatted [TemporalAccessor] as specified by [AppDateTimeFormatter].
+ * Returns the formatted receiver [TemporalAccessor] using the application-default
+ * format pattern, performing any conversions to the appropriate temporal objects
+ * if required.
  * @see AppDateTimeFormatter
+ * @see AppDateFormatter
+ * @see AppTimeFormatter
  */
-fun TemporalAccessor.appFormat() = format(AppDateTimeFormatter)
+fun TemporalAccessor.appFormat(): String {
+    // Instants don't have the DayOfWeek field, which FormatStyle.MEDIUM uses
+    if (this is Instant) return toLocalDateTime().format(AppDateTimeFormatter)
+
+    return runCatching { format(AppDateTimeFormatter) }
+        .recoverCatching { format(AppDateFormatter) }
+        .recoverCatching { format(AppTimeFormatter) }
+        .getOrThrow()
+}
 
 /**
  * Formats the receiver [TemporalAccessor] using the application-default
