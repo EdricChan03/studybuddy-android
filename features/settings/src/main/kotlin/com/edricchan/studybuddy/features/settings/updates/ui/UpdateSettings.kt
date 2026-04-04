@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.MobileCharge
 import com.edricchan.studybuddy.core.resources.icons.outlined.SystemUpdateAlt
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeTimeSpan
 import com.edricchan.studybuddy.features.settings.R
@@ -110,7 +111,7 @@ fun UpdateSettingsScreen(
         SwitchPreference(
             icon = {
                 Icon(
-                    painterResource(R.drawable.ic_battery_charging_outline_24dp),
+                    AppIcons.Outlined.MobileCharge,
                     contentDescription = null
                 )
             },
