@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
+import com.edricchan.studybuddy.core.resources.icons.outlined.OpenInBrowser
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.general.vm.GeneralSettingsViewModel
@@ -77,7 +78,7 @@ fun GeneralSettingsScreen(
         SwitchPreference(
             icon = {
                 Icon(
-                    painterResource(R.drawable.ic_open_in_browser_24dp),
+                    AppIcons.Outlined.OpenInBrowser,
                     contentDescription = null
                 )
             },
