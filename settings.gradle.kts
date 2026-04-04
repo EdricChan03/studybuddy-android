@@ -122,6 +122,7 @@ include(
     ":core:settings:tasks:model",
     ":core:settings:tasks:resources",
     ":core:settings:tracking",
+    ":core:settings:updates:datastore",
     ":core:settings:updates:datastore-proto",
     ":core:settings:updates:model",
     ":core:settings:updates:resources",
