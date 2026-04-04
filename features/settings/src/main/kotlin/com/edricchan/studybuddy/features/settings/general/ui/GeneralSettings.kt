@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
+import com.edricchan.studybuddy.core.resources.icons.outlined.DarkMode
 import com.edricchan.studybuddy.core.resources.icons.outlined.OpenInBrowser
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.features.settings.R
@@ -96,7 +97,7 @@ fun GeneralSettingsScreen(
         ListDialogPreference(
             icon = {
                 Icon(
-                    painterResource(R.drawable.ic_dark_mode_outline_24dp),
+                    AppIcons.Outlined.DarkMode,
                     contentDescription = null
                 )
             },
