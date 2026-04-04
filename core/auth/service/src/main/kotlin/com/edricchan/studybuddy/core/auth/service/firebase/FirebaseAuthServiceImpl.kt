@@ -22,15 +22,25 @@ import com.edricchan.studybuddy.exts.firebase.auth.updatePasswordAsync
 import com.edricchan.studybuddy.exts.firebase.auth.updateProfileAsync
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 /** Implementation of [AuthService] backed by [FirebaseAuth]. */
 class FirebaseAuthServiceImpl @Inject constructor(
     private val auth: FirebaseAuth
 ) : AuthService {
+    @Deprecated(
+        "Use getCurrentUserFlow instead for a global StateFlow of the user data"
+    )
     override val userFlow: Flow<User?> = auth.currentUserFlow.map { user -> user?.toUser() }
+    override fun getCurrentUserFlow(scope: CoroutineScope): StateFlow<User?> =
+        auth.currentUserFlow.map { user -> user?.toUser() }
+            .stateIn(scope, SharingStarted.WhileSubscribed(), currentUser)
 
     override val currentUser: User?
         get() = auth.currentUser?.toUser()
@@ -45,7 +55,8 @@ class FirebaseAuthServiceImpl @Inject constructor(
         } catch (e: ClearCredentialException) {
             Log.e(
                 this@FirebaseAuthServiceImpl.TAG,
-                "Couldn't clear user credentials: ${e.localizedMessage}"
+                "Couldn't clear user credentials: ${e.localizedMessage}",
+                e
             )
         }
     }

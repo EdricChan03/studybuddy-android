@@ -4,11 +4,22 @@ import android.content.Context
 import androidx.annotation.UiContext
 import androidx.credentials.CredentialOption
 import com.edricchan.studybuddy.core.auth.model.User
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface AuthService {
     /** The currently signed-in [User] data as an observable [Flow], or `null` if not signed in. */
+    @Deprecated(
+        "Use getCurrentUserFlow instead for a global StateFlow of the user data"
+    )
     val userFlow: Flow<User?>
+
+    /**
+     * The currently signed-in [User] data (or `null` if not signed in) as
+     * an observable [StateFlow].
+     */
+    fun getCurrentUserFlow(scope: CoroutineScope): StateFlow<User?>
 
     /** The current signed-in [User] data, or `null` if not signed in. */
     val currentUser: User?
