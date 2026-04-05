@@ -21,7 +21,7 @@ data class TasksPaginationConfig(
     val includeArchived: Boolean = false,
     val excludeCompleted: Boolean = false,
     override val pageSize: Int = 30,
-    override val orderByFields: Set<TaskOrderSpec> = setOf(TaskOrderSpec())
+    override val orderByFields: LinkedHashSet<TaskOrderSpec> = linkedSetOf(TaskOrderSpec())
 ) : CommonPagingConfig<TasksPaginationConfig.TaskOrderSpec> {
     data class TaskOrderSpec(
         override val field: TaskItem.Field = TaskItem.Field.CreatedAt,

@@ -15,5 +15,5 @@ interface CommonPagingConfig<OS : OrderSpec<*>> {
     val pageSize: Int
 
     /** The set of [OS] configurations to order the resulting data by, */
-    val orderByFields: Set<OS>
+    val orderByFields: LinkedHashSet<OS>
 }
