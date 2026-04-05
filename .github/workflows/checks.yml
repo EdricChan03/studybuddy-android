@@ -35,7 +35,9 @@ jobs:
           upload-name: Unit test results
           upload-path: ./**/build/reports/tests/
 
+  # FIXME: Re-enable when CME is fixed, see https://github.com/EdricChan03/studybuddy-android/issues/927
   dependencies:
+    if: false
     name: Check for dependency updates
     runs-on: ubuntu-latest
     permissions:
