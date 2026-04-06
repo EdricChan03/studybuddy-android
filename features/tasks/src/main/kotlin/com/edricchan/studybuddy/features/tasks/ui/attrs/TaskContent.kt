@@ -8,9 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.ui.utils.SampleMarkdownText
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.markdown.MarkdownViewer
 
 /**
@@ -81,10 +82,9 @@ fun TaskContentListItem(
 
 @Preview(showBackground = true)
 @Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 private fun TaskContentListItemPreview() {
-    StudyBuddyTheme {
-        TaskContentListItem(
-            content = SampleMarkdownText
-        )
-    }
+    TaskContentListItem(
+        content = SampleMarkdownText
+    )
 }

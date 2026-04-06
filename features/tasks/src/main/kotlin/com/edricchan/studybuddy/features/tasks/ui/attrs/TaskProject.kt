@@ -15,12 +15,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.ui.utils.composeColor
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
  * Displays a [CircleShape] surface with the specified [color].
@@ -104,11 +105,10 @@ fun TaskProjectListItem(
 
 @Preview(showBackground = true)
 @Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 private fun TaskProjectRowPreview() {
-    StudyBuddyTheme {
-        TaskProjectListItem(
-            color = Color(red = 0xFF, green = 0xFF, blue = 0x00),
-            name = "StudyBuddy - Compose Rewrite"
-        )
-    }
+    TaskProjectListItem(
+        color = Color(red = 0xFF, green = 0xFF, blue = 0x00),
+        name = "StudyBuddy - Compose Rewrite"
+    )
 }

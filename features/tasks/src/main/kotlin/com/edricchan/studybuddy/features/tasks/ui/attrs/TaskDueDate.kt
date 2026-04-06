@@ -10,12 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.CalendarClock
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.date.TaskDateDefaults
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import java.time.Instant
 import java.time.LocalDateTime
 
@@ -63,8 +64,7 @@ fun TaskDueDateListItem(
 
 @Preview
 @Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 private fun TaskDueDateListItemPreview() {
-    StudyBuddyTheme {
-        TaskDueDateListItem(dueDate = Instant.now())
-    }
+    TaskDueDateListItem(dueDate = Instant.now())
 }

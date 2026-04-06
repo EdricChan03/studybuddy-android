@@ -12,9 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
  * Composable that displays the list of [TodoItem]'s [TodoItem.tags].
@@ -59,25 +60,23 @@ fun TaskTagsListItem(
 
 @Preview(showBackground = true)
 @Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 private fun TaskTagsListItemPreview() {
-    StudyBuddyTheme {
-        TaskTagsListItem(
-            tags = setOf(
-                "compose",
-                "studybuddy",
-                "tasks",
-                "    " // Test isBlank check
-            )
+    TaskTagsListItem(
+        tags = setOf(
+            "compose",
+            "studybuddy",
+            "tasks",
+            "    " // Test isBlank check
         )
-    }
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 private fun TaskTagsListItemManyTagsPreview() {
-    StudyBuddyTheme {
-        TaskTagsListItem(
-            tags = (0..100).map { "Item $it" }.toSet()
-        )
-    }
+    TaskTagsListItem(
+        tags = (0..100).map { "Item $it" }.toSet()
+    )
 }

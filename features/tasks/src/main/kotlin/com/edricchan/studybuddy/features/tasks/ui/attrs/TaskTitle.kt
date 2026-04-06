@@ -17,8 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
  * Composable to display a [TodoItem]'s title. The title is truncated to
@@ -116,22 +117,21 @@ fun TaskTitleWithCheckboxListItem(
 
 @Preview(showBackground = true)
 @Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 private fun TaskTitleWithCheckboxListItemPreview() {
     var isDone by remember { mutableStateOf(false) }
     var isDone2 by remember { mutableStateOf(true) }
-    StudyBuddyTheme {
-        Column {
-            TaskTitleWithCheckboxListItem(
-                title = "Finish Compose tasks rewrite",
-                isDone = isDone,
-                onDoneChange = { isDone = it }
-            )
-            TaskTitleWithCheckboxListItem(
-                title = "Add project data",
-                isDone = isDone2,
-                isArchived = true,
-                onDoneChange = { isDone2 = it }
-            )
-        }
+    Column {
+        TaskTitleWithCheckboxListItem(
+            title = "Finish Compose tasks rewrite",
+            isDone = isDone,
+            onDoneChange = { isDone = it }
+        )
+        TaskTitleWithCheckboxListItem(
+            title = "Add project data",
+            isDone = isDone2,
+            isArchived = true,
+            onDoneChange = { isDone2 = it }
+        )
     }
 }
