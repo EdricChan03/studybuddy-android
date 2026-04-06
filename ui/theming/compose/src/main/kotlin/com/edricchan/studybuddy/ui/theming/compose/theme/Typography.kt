@@ -5,6 +5,7 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import com.edricchan.studybuddy.ui.theming.compose.theme.font.FontFamilyConfig
 import com.edricchan.studybuddy.ui.theming.common.R as ThemingR
 
 val funnelDisplayFamily = FontFamily(
@@ -67,6 +68,17 @@ fun StudyBuddyTypography(
     displayFontFamily: FontFamily,
     bodyFontFamily: FontFamily
 ) = Typography().defaultFontFamily(displayFontFamily, bodyFontFamily)
+
+/**
+ * Creates the [Typography] styles for the app with the font-families set for the relevant styles.
+ * @param fontFamilyConfig The [FontFamilyConfig] to use, which contains the
+ * [FontFamilyConfig.displayFontFamily] and [FontFamilyConfig.bodyFontFamily] families.
+ */
+fun StudyBuddyTypography(
+    fontFamilyConfig: FontFamilyConfig
+) = Typography().defaultFontFamily(
+    fontFamilyConfig.displayFontFamily, fontFamilyConfig.bodyFontFamily
+)
 
 /**
  * The default [Typography] style to use, where the [Funnel Display][funnelDisplayFamily] and
