@@ -11,12 +11,12 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
-import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Label
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
@@ -39,7 +39,7 @@ fun TaskTagsListItem(
         ListItem(
             modifier = modifier,
             leadingContent = {
-                Icon(painterResource(R.drawable.ic_label_outline_24dp), contentDescription = null)
+                Icon(AppIcons.Outlined.Label, contentDescription = null)
             },
             headlineContent = {
                 FlowRow(
