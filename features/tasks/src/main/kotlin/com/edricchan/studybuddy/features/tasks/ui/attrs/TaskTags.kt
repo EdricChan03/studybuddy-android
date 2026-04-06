@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,19 +17,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
- * Composable that displays the list of [TodoItem]'s [TodoItem.tags].
+ * Composable that displays the list of [TaskItem.tags] of a [TaskItem].
  * @param modifier [Modifier] for the [ListItem].
  * @param [tags] The list of tags to be displayed. Tags that are blank
  * will be filtered out.
+ * @param colors [ListItemColors] to be passed to [ListItem].
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TaskTagsListItem(
     modifier: Modifier = Modifier,
-    tags: Set<String>
+    tags: Set<String>,
+    colors: ListItemColors = ListItemDefaults.colors()
 ) {
     val displayTags = tags.filter(String::isNotBlank)
     if (displayTags.isNotEmpty()) {
@@ -53,7 +58,8 @@ fun TaskTagsListItem(
                         )
                     }
                 }
-            }
+            },
+            colors = colors
         )
     }
 }
