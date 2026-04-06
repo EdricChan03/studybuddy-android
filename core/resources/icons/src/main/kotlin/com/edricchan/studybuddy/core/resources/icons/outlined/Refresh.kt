@@ -7,6 +7,10 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
+/**
+ * Outlined `refresh` icon from the
+ * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:refresh:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=refresh&icon.size=24&icon.color=%23e3e3e3)
+ */
 val AppIcons.Outlined.Refresh: ImageVector by lazy(LazyThreadSafetyMode.NONE) {
     ImageVector.Builder(
         name = "Outlined.Refresh",
