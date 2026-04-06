@@ -135,6 +135,7 @@ include(
     ":utils:androidx:compose",
     ":utils:androidx:core",
     ":utils:coil:compose",
+    ":utils:coroutines",
     ":utils:dev-mode",
     ":utils:network",
     ":utils:recyclerview",
