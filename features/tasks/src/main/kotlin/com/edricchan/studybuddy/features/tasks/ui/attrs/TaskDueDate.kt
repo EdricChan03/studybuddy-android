@@ -9,7 +9,6 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.CalendarClock
@@ -32,7 +31,7 @@ fun TaskDueDateListItem(
     modifier: Modifier = Modifier,
     dueDate: LocalDateTime,
     formatDate: @Composable (LocalDateTime) -> String = {
-        it.appFormat(LocalContext.current)
+        it.appFormat()
     },
     colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
