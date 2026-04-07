@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.data.common.proto;
+
+option java_multiple_files = true;
+
+enum SortDirection {
+  /* Sort the field in descending order (highest to lowest) . */
+  Descending = 0;
+  /* Sort the field in ascending order (lowest to highest). */
+  Ascending = 1;
+}

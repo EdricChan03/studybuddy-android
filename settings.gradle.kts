@@ -129,6 +129,7 @@ include(
     ":core:settings:updates:resources",
     ":data:common",
     ":data:common:compose",
+    ":data:common:protobuf",
     ":data:paging:firestore",
     ":data:serialization:android",
     ":utils:android",
