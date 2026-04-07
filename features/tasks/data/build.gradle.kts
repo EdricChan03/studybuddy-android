@@ -1,6 +1,7 @@
 plugins {
     com.edricchan.studybuddy.library.android
     com.edricchan.studybuddy.library.`android-hilt`
+    com.edricchan.studybuddy.library.testing.`kotest-junit5`
 }
 
 android {
@@ -44,7 +45,6 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.desugar)
 
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }

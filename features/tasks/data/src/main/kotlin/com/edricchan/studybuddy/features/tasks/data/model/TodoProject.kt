@@ -1,8 +1,9 @@
 package com.edricchan.studybuddy.features.tasks.data.model
 
-import android.graphics.Color
 import androidx.annotation.ColorInt
+import androidx.annotation.IntRange
 import androidx.annotation.Keep
+import com.edricchan.studybuddy.data.common.Color
 import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
@@ -13,20 +14,32 @@ import com.google.firebase.firestore.ServerTimestamp
 
 /**
  * A task project.
- * @property color The colour of this project as a hexadecimal value.
+ * @property color The colour of this project as a web-safe hexadecimal string. This should
+ * be a 6-digit hexadecimal colour, in the format `#RRGGBB`.
+ * @property colorInt Colour to be used when this project data is displayed in
+ * the user interface, which may be themed accordingly.
  * @property name The name of this project.
  */
 @IgnoreExtraProperties
 @Keep
 data class TodoProject(
     @DocumentId override val id: String = "",
+    @Deprecated(
+        "Use colorValue where preferable, which stores the colour data as a " +
+            "more typical colour integer rather than as a hexadecimal string which can be " +
+            "represented differently across platforms (e.g. Android uses #AARRGGBB, web " +
+            "uses #RRGGBBAA)"
+    )
     val color: String? = null,
+    @field:ColorInt
+    val colorInt: Int? = null,
     val name: String? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
     @ServerTimestamp override val lastModified: Timestamp? = null
 ) : DtoModel, HasId, HasTimestampMetadata {
     private constructor(builder: Builder) : this(
-        color = builder.color,
+        color = builder.colorValue?.toRgbHexString(),
+        colorInt = builder.colorValue?.value,
         name = builder.name,
         createdAt = builder.createdAt,
         lastModified = builder.lastModified
@@ -42,9 +55,23 @@ data class TodoProject(
 
     class Builder {
         /**
-         * The project's colour/color as a hexadecimal color
+         * Desired colour to be used when this project data is displayed in the user interface,
+         * which may be themed accordingly for contrast.
          */
-        var color: String? = null
+        var colorValue: Color? = null
+
+        /** The project's colour as a hexadecimal colour in `#RRGGBB` form. */
+        @Deprecated(
+            "Use colorValue where preferable, which stores the colour data as a " +
+                "more typical colour integer rather than as a hexadecimal string which can be " +
+                "represented differently across platforms (e.g. Android uses #AARRGGBB, web " +
+                "uses #RRGGBBAA)"
+        )
+        var color: String?
+            get() = colorValue?.toRgbHexString()
+            set(value) {
+                colorValue = value?.let { Color(hexString = it) }
+            }
 
         /**
          * The project's ID
@@ -84,60 +111,48 @@ data class TodoProject(
         }
 
         /**
-         * Converts a color from its integer representation to a hexadecimal color
+         * Sets the colour of this project
          *
-         * @param color The color to convert
-         * @return The color in hexadecimal form
-         */
-        private fun convertColorToHex(@ColorInt color: Int): String {
-            return String.format("#%06X", 0xFFFFFF and color)
-        }
-
-        /**
-         * Converts a RGB color to a hexadecimal color
-         *
-         * @param r The red value
-         * @param g The green value
-         * @param b The blue value
-         * @return The color in hexadecimal form
-         */
-        private fun convertRGBtoHex(r: Int, g: Int, b: Int): String {
-            return String.format("#%02x%02x%02x", r, g, b)
-        }
-
-        /**
-         * Sets the color of this project
-         *
-         * @param color A hexadecimal color
+         * @param color A hexadecimal colour
          * @return The builder object to allow for chaining of methods
          */
+        @Deprecated(
+            "Use colorValue where preferable, which stores the colour data as a " +
+                "more typical colour integer rather than as a hexadecimal string which can be " +
+                "represented differently across platforms (e.g. Android uses #AARRGGBB, web " +
+                "uses #RRGGBBAA)"
+        )
         fun setColor(color: String): Builder {
-            try {
-                Color.parseColor(color)
-                // The color is valid
-                this.color = color
-            } catch (iae: IllegalArgumentException) {
-                // This color string is not valid
-                throw IllegalArgumentException("Please supply a valid hexadecimal color!")
-            }
-
+            colorValue = Color(hexString = color)
             return this
         }
 
         /**
-         * Sets the color of this project
+         * Sets the colour of this project
          *
-         * @param r The red value
-         * @param g The green value
-         * @param b The blue value
+         * @param r The red component - this value must be in the range `0..255`.
+         * @param g The green component - this value must be in the range `0..255`.
+         * @param b The blue component - this value must be in the range `0..255`.
          * @return The builder object to allow for chaining of methods
          */
-        fun setColor(r: Int, g: Int, b: Int): Builder {
+        fun setColor(
+            @IntRange(from = 0, to = 255)
+            r: Int,
+            @IntRange(from = 0, to = 255)
+            g: Int,
+            @IntRange(from = 0, to = 255)
+            b: Int
+        ): Builder {
             require(checkValidRGBCode(r)) { "Please supply a valid RGB red code!" }
             require(checkValidRGBCode(g)) { "Please supply a valid RGB green code!" }
             require(checkValidRGBCode(b)) { "Please supply a valid RGB blue code!" }
 
-            this.color = this.convertRGBtoHex(r, g, b)
+            colorValue = Color(
+                alpha = 255,
+                red = r,
+                green = g,
+                blue = b
+            )
             return this
         }
 
@@ -156,7 +171,7 @@ data class TodoProject(
          * @return The builder object to allow for chaining of methods
          */
         fun setColor(@ColorInt color: Int): Builder {
-            this.color = this.convertColorToHex(color)
+            colorValue = Color(color)
             return this
         }
 
