@@ -51,7 +51,7 @@ runs:
         distribution: adopt
     # See https://github.com/actions/runner-images/issues/6283
     - name: Set up Homebrew
-      uses: Homebrew/actions/setup-homebrew@266845213695c3047d210b2e8fbc42ecdaf45802
+      uses: Homebrew/actions/setup-homebrew@fc695c54c2032716dd4cedd007489c8e32fc8a5d
     - name: Install Homebrew dependencies
       run: brew bundle
       shell: bash
