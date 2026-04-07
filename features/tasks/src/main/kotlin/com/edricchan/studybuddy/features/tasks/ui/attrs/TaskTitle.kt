@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.features.tasks.ui.attrs
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -91,6 +92,7 @@ fun TaskTitleListItem(
  * @param isArchived Whether the [Checkbox] should be disabled.
  * @param colors Colours to be used for the [ListItem].
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskTitleWithCheckboxListItem(
     modifier: Modifier = Modifier,
@@ -102,14 +104,14 @@ fun TaskTitleWithCheckboxListItem(
     colors: ListItemColors = ListItemDefaults.colors(),
 ) = ListItem(
     modifier = modifier,
-    headlineContent = {
-        SelectionContainer {
-            TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
-        }
+    checked = isDone,
+    onCheckedChange = onDoneChange,
+    content = {
+        TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
     },
     leadingContent = {
         Checkbox(
-            checked = isDone, onCheckedChange = onDoneChange, enabled = !isArchived
+            checked = isDone, onCheckedChange = null, enabled = !isArchived
         )
     },
     colors = colors
