@@ -17,15 +17,19 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFile
 import org.gradle.api.logging.Logging
+import org.gradle.api.problems.ProblemReporter
+import org.gradle.api.problems.Problems
+import org.gradle.api.problems.Severity
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import java.time.Instant
+import javax.inject.Inject
 
 /** Gradle Plugin which should be applied to the `:app` module. */
-class StudyBuddyAppPlugin : Plugin<Project> {
+abstract class StudyBuddyAppPlugin : Plugin<Project> {
     companion object {
         private val logger = Logging.getLogger(StudyBuddyAppPlugin::class.java)
     }
@@ -35,6 +39,11 @@ class StudyBuddyAppPlugin : Plugin<Project> {
     private val nowInstant = Instant.now()
 
     private val toml = Toml
+
+    @get:Inject
+    protected abstract val problems: Problems
+
+    private val reporter: ProblemReporter get() = problems.reporter
 
     override fun apply(target: Project) {
         with(target) {
@@ -189,10 +198,13 @@ class StudyBuddyAppPlugin : Plugin<Project> {
     private fun RegularFile.parseSecretsConfigOrNull(): SecretsConfig? =
         asFile.let { file ->
             runCatching { toml.decodeFromStream<SecretsConfig>(file.inputStream()) }.onFailure {
-                logger.warn(
-                    "Could not read configuration file at $file, defaulting to environment variables",
-                    it
-                )
+                reporter.report(StudyBuddyAppProblemIds.MissingSecretsConfig) {
+                    details("The requested secrets configuration file at $file is missing or could not be read")
+                    solution("Create a secrets-config.toml file at the specified directory, or ensure that you have the relevant read permissions")
+                    severity(Severity.WARNING)
+                    fileLocation(file.path)
+                    withException(it)
+                }
             }.getOrNull()
         }
 }
