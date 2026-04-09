@@ -1,74 +1,44 @@
 package com.edricchan.studybuddy.features.settings.updates.vm
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
-import com.edricchan.studybuddy.core.settings.updates.keyPrefCanDownloadMetered
-import com.edricchan.studybuddy.core.settings.updates.keyPrefOnlyDownloadCharging
-import com.edricchan.studybuddy.core.settings.updates.keyPrefUpdatesFrequency
-import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import androidx.lifecycle.viewModelScope
+import com.edricchan.studybuddy.core.metadata.updates.source.UpdateMetadataDataSource
+import com.edricchan.studybuddy.core.settings.updates.source.UpdateSettingsDataSource
 import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
-import com.edricchan.studybuddy.features.settings.updates.model.hourValue
-import com.fredporciuncula.flow.preferences.FlowSharedPreferences
-import com.fredporciuncula.flow.preferences.Preference
-import com.fredporciuncula.flow.preferences.map
+import com.edricchan.studybuddy.features.settings.updates.model.asDuration
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
 class UpdateSettingsViewModel @Inject constructor(
-    @ApplicationContext context: Context
+    metadataSource: UpdateMetadataDataSource,
+    private val settingsSource: UpdateSettingsDataSource
 ) : ViewModel() {
-    private val updateInfoPreferences = FlowSharedPreferences(
-        context.getSharedPreferences(
-            UpdateInfoPrefConstants.FILE_UPDATE_INFO,
-            Context.MODE_PRIVATE
-        )
-    )
+    val prefCheckFrequency: Flow<Duration> = settingsSource.checkFrequency
+    fun setPrefCheckFrequency(frequency: Duration) = viewModelScope.launch {
+        settingsSource.setCheckFrequency(frequency)
+    }
 
-    private val appPreferences = FlowSharedPreferences(
-        context.defaultSharedPreferences
-    )
+    fun setPrefCheckFrequency(frequency: CheckFrequencyCompat) = viewModelScope.launch {
+        setPrefCheckFrequency(frequency.asDuration())
+    }
 
-    val prefCheckFrequency: Preference<CheckFrequencyCompat> = appPreferences
-        // ListPreference uses a string to persist its data, see
-        // https://stackoverflow.com/q/11346916
-        .getString(
-            keyPrefUpdatesFrequency,
-            defaultValue = CheckFrequencyCompat.SixHours.hourValue.toString()
-        ).map(
-            mapper = {
-                CheckFrequencyCompat.Companion.fromHoursOrNull(it.toInt())
-                    ?: CheckFrequencyCompat.SixHours
-            },
-            reverse = { it.hourValue.toString() }
-        )
+    val prefCanDownloadMetered: Flow<Boolean> = settingsSource.canDownloadMetered
 
-    val prefCanDownloadMetered: Preference<Boolean> =
-        appPreferences.getBoolean(keyPrefCanDownloadMetered)
+    fun setPrefCanDownloadMetered(value: Boolean) = viewModelScope.launch {
+        settingsSource.setCanDownloadMetered(value)
+    }
 
-    val prefOnlyDownloadCharging: Preference<Boolean> =
-        appPreferences.getBoolean(keyPrefOnlyDownloadCharging)
+    val prefOnlyDownloadCharging: Flow<Boolean> = settingsSource.onlyDownloadCharging
+    fun setPrefOnlyDownloadCharging(value: Boolean) = viewModelScope.launch {
+        settingsSource.setOnlyDownloadCharging(value)
+    }
 
-    val lastChecked: Preference<Instant?> = updateInfoPreferences.getLong(
-        UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
-        Long.MIN_VALUE
-    ).map(
-        mapper = { valLong ->
-            valLong.takeIf { it >= Instant.EPOCH.toEpochMilli() }?.let { Instant.ofEpochMilli(it) }
-        },
-        reverse = { it?.toEpochMilli() ?: Long.MIN_VALUE }
-    )
+    val lastChecked: Flow<Instant?> = metadataSource.lastChecked
 
-    val lastUpdated: Preference<Instant?> = updateInfoPreferences.getLong(
-        UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
-        Long.MIN_VALUE
-    ).map(
-        mapper = { valLong ->
-            valLong.takeIf { it >= Instant.EPOCH.toEpochMilli() }?.let { Instant.ofEpochMilli(it) }
-        },
-        reverse = { it?.toEpochMilli() ?: Long.MIN_VALUE }
-    )
+    val lastUpdated: Flow<Instant?> = metadataSource.lastUpdated
 }

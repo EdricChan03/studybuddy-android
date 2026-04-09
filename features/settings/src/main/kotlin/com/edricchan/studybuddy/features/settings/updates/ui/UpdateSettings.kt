@@ -24,8 +24,10 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.MobileCharge
 import com.edricchan.studybuddy.core.resources.icons.outlined.NetworkCell
 import com.edricchan.studybuddy.core.resources.icons.outlined.Refresh
 import com.edricchan.studybuddy.core.resources.icons.outlined.SystemUpdateAlt
+import com.edricchan.studybuddy.core.resources.temporal.duration.format
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeTimeSpan
 import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
+import com.edricchan.studybuddy.features.settings.updates.model.asDuration
 import com.edricchan.studybuddy.features.settings.updates.vm.UpdateSettingsViewModel
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.Preference
@@ -43,14 +45,23 @@ private fun Instant.formatRelativeTimeSpan(
 ): String = context.formatRelativeTimeSpan(time = this, now = now)
 
 @Composable
+private fun Duration.formatFrequency(
+    context: Context = LocalContext.current,
+    manualText: String = stringResource(UpdateR.string.pref_check_for_update_freq_manual)
+): String = remember(this) {
+    if (this <= Duration.ZERO) return@remember manualText
+    format(context)
+}
+
+@Composable
 fun UpdateSettingsScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     onUpdatesClick: () -> Unit,
     lastUpdated: Instant?,
     lastChecked: Instant?,
-    checkFrequency: CheckFrequencyCompat,
-    onCheckFrequencyChange: (CheckFrequencyCompat) -> Unit,
+    checkFrequency: Duration,
+    onCheckFrequencyChange: (Duration) -> Unit,
     canDownloadMetered: Boolean,
     onCanDownloadMeteredChange: (Boolean) -> Unit,
     onlyDownloadCharging: Boolean,
@@ -85,12 +96,14 @@ fun UpdateSettingsScreen(
     PreferenceCategory(
         title = { Text(text = stringResource(UpdateR.string.pref_updates_options_title)) }
     ) {
+        // TODO: Create a more versatile version that allows for an arbitrary duration
+        //  to be set
         ListDialogPreference(
             icon = { Icon(AppIcons.Outlined.Refresh, contentDescription = null) },
             title = { Text(text = stringResource(UpdateR.string.pref_check_for_update_frequency_title)) },
-            subtitle = { Text(text = stringResource(checkFrequency.stringResource)) },
-            values = CheckFrequencyCompat.entries,
-            valueLabel = { Text(text = stringResource(it.stringResource)) },
+            subtitle = { Text(text = checkFrequency.formatFrequency()) },
+            values = CheckFrequencyCompat.entries.map(CheckFrequencyCompat::asDuration),
+            valueLabel = { Text(text = it.formatFrequency()) },
             value = checkFrequency,
             onValueChanged = onCheckFrequencyChange
         )
@@ -128,19 +141,19 @@ fun UpdateSettingsScreen(
     viewModel: UpdateSettingsViewModel,
     onUpdatesClick: () -> Unit
 ) {
-    val checkFrequency by viewModel.prefCheckFrequency.asFlow()
-        .collectAsStateWithLifecycle(initialValue = CheckFrequencyCompat.SixHours)
+    val checkFrequency by viewModel.prefCheckFrequency
+        .collectAsStateWithLifecycle(initialValue = CheckFrequencyCompat.SixHours.asDuration())
 
-    val canDownloadMetered by viewModel.prefCanDownloadMetered.asFlow()
+    val canDownloadMetered by viewModel.prefCanDownloadMetered
         .collectAsStateWithLifecycle(initialValue = false)
 
-    val onlyDownloadCharging by viewModel.prefOnlyDownloadCharging.asFlow()
+    val onlyDownloadCharging by viewModel.prefOnlyDownloadCharging
         .collectAsStateWithLifecycle(initialValue = false)
 
-    val lastChecked by viewModel.lastChecked.asFlow()
+    val lastChecked by viewModel.lastChecked
         .collectAsStateWithLifecycle(initialValue = null)
 
-    val lastUpdated by viewModel.lastUpdated.asFlow()
+    val lastUpdated by viewModel.lastUpdated
         .collectAsStateWithLifecycle(initialValue = null)
 
     UpdateSettingsScreen(
@@ -150,18 +163,18 @@ fun UpdateSettingsScreen(
         lastChecked = lastChecked,
         lastUpdated = lastUpdated,
         checkFrequency = checkFrequency,
-        onCheckFrequencyChange = viewModel.prefCheckFrequency::set,
+        onCheckFrequencyChange = viewModel::setPrefCheckFrequency,
         canDownloadMetered = canDownloadMetered,
-        onCanDownloadMeteredChange = viewModel.prefCanDownloadMetered::set,
+        onCanDownloadMeteredChange = viewModel::setPrefCanDownloadMetered,
         onlyDownloadCharging = onlyDownloadCharging,
-        onOnlyDownloadCharging = viewModel.prefOnlyDownloadCharging::set
+        onOnlyDownloadCharging = viewModel::setPrefOnlyDownloadCharging
     )
 }
 
 @Preview
 @Composable
 private fun UpdateSettingsScreenPreview() {
-    var checkFrequency by remember { mutableStateOf(CheckFrequencyCompat.Manual) }
+    var checkFrequency by remember { mutableStateOf(Duration.ofHours(6)) }
     var canDownloadMetered by remember { mutableStateOf(false) }
     var onlyDownloadCharging by remember { mutableStateOf(false) }
 
