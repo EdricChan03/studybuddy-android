@@ -19,13 +19,12 @@ import androidx.activity.result.launch
 import androidx.activity.result.registerForActivityResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
+import androidx.fragment.app.viewModels
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
-import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.core.settings.updates.keyPrefCanDownloadMetered
 import com.edricchan.studybuddy.databinding.FragUpdatesBinding
 import com.edricchan.studybuddy.exts.android.perms.checkPermissionGranted
@@ -36,6 +35,7 @@ import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
+import com.edricchan.studybuddy.ui.modules.updates.vm.UpdatesViewModel
 import com.edricchan.studybuddy.utils.androidx.core.menuProvider
 import com.edricchan.studybuddy.utils.getUpdateJsonUrl
 import com.edricchan.studybuddy.utils.network.isMeteredNetwork
@@ -43,15 +43,17 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
+import dagger.hilt.android.AndroidEntryPoint
+import java.time.Instant
 
+@AndroidEntryPoint
 class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBinding::inflate) {
     // Whether the user has pressed the "check for updates" menu item
     private var isChecking = false
     private lateinit var appUpdate: Update
     private lateinit var preferences: SharedPreferences
 
-    // SharedPreferences used for the storing of info on when the app was last updated
-    private lateinit var updateInfoPreferences: SharedPreferences
+    private val viewModel by viewModels<UpdatesViewModel>()
 
     private val requestWriteExternalStoragePermissionLauncher =
         registerForActivityResult(
@@ -70,11 +72,6 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
         super.onViewCreated(view, savedInstanceState)
 
         preferences = requireContext().defaultSharedPreferences
-        updateInfoPreferences =
-            requireContext().getSharedPreferences(
-                UpdateInfoPrefConstants.FILE_UPDATE_INFO,
-                Context.MODE_PRIVATE
-            )
 
         binding.emptyStateCtaBtn.setOnClickListener { checkForUpdates() }
     }
@@ -223,12 +220,7 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
             )
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        updateInfoPreferences.edit {
-            putLong(
-                UpdateInfoPrefConstants.PREF_LAST_UPDATED_DATE,
-                System.currentTimeMillis()
-            )
-        }
+        viewModel.setLastUpdated(Instant.now())
     }
 
     private fun installUpdate(fileName: String) {
@@ -308,13 +300,7 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
 
     private fun checkForUpdates() {
         // Save last updated status
-        updateInfoPreferences.edit {
-            Log.d(TAG, "Setting last checked for updates date...")
-            putLong(
-                UpdateInfoPrefConstants.PREF_LAST_CHECKED_FOR_UPDATES_DATE,
-                System.currentTimeMillis()
-            )
-        }
+        viewModel.setLastChecked(Instant.now())
         isChecking = true
         requireActivity().invalidateMenu()
         AppUpdaterUtils(requireContext())

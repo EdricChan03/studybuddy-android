@@ -109,6 +109,7 @@ dependencies {
     implementation(projects.core.settings.tasks.model)
     implementation(projects.core.settings.tasks.resources)
     implementation(projects.core.settings.tracking)
+    implementation(projects.core.settings.updates.datastore)
     implementation(projects.core.settings.updates.model)
     implementation(projects.core.settings.updates.resources)
     implementation(projects.data.common)
