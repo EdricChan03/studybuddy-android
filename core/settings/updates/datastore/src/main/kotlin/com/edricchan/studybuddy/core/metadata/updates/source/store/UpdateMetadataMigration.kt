@@ -7,7 +7,7 @@ import com.edricchan.studybuddy.core.settings.updates.UpdateInfoPrefConstants
 import com.edricchan.studybuddy.core.settings.updates.proto.UpdateMetadata
 import java.time.Instant
 
-private val UnsetValue = -1L
+private const val UnsetValue = -1L
 
 private fun migrateUpdateMetadata(
     view: SharedPreferencesView, metadata: UpdateMetadata
