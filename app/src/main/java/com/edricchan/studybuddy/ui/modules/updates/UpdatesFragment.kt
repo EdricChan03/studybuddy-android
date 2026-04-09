@@ -115,68 +115,7 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
 
         // Check if the user wants to redownload the APK file or if the user does not have the APK
         // already downloaded
-        if (downloadAgain || !getDownloadFile(fileName).exists()) {
-            // Check if the user has clicked on "download anyway" on the dialog that showed, or
-            // check if the user is using a cellular network and has disabled downloading updates
-            // over cellular
-            if (requireContext().isMeteredNetwork &&
-                (!ignoreMobileDataSetting && !preferences.getBoolean(
-                    keyPrefCanDownloadMetered,
-                    false
-                )) && showMobileDataWarning
-            ) {
-                // Show a dialog warning the user that cellular network is on as the user has
-                // disabled downloading updates over cellular
-                requireContext().showMaterialAlertDialog {
-                    setTitle(R.string.update_activity_cannot_download_cellular_dialog_title)
-                    setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg)
-                    setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    setPositiveButton(R.string.update_activity_cannot_download_cellular_dialog_positive_btn) { dialog, _ ->
-                        dialog.dismiss()
-                        // Call the function again, but skip the mobile data warning
-                        downloadUpdate(
-                            downloadUrl,
-                            version,
-                            ignoreMobileDataSetting = true,
-                            showMobileDataWarning = true,
-                            downloadAgain = false
-                        )
-                    }
-                }
-            } else {
-                // Construct a request to download from a URI
-                val request = DownloadManager.Request(downloadUrl.toUri()).apply {
-                    // Don't download over roaming
-                    // TODO: Add setting for this
-                    setAllowedOverRoaming(false)
-                    setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-                    // Set the file type so that the package installer can open the file
-                    setMimeType(MimeTypeConstants.appPackageArchiveMime)
-                }
-
-                val manager = requireContext().getSystemService<DownloadManager>()
-                manager?.enqueue(request)
-
-                // Create a receiver to intercept when the download is complete
-                val downloadCompleteReceiver = object : BroadcastReceiver() {
-                    override fun onReceive(context: Context?, intent: Intent?) {
-                        Log.d(TAG, "Download complete!")
-                        context?.showToast("Download complete!", Toast.LENGTH_SHORT)
-                        installUpdate(fileName)
-                    }
-                }
-
-                // Lastly, register the receiver with the intents that it accepts
-                ContextCompat.registerReceiver(
-                    requireContext(),
-                    downloadCompleteReceiver,
-                    IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
-                    ContextCompat.RECEIVER_NOT_EXPORTED
-                )
-            }
-        } else {
+        if (!downloadAgain && getDownloadFile(fileName).exists()) {
             requireContext().showMaterialAlertDialog {
                 setTitle(R.string.update_activity_update_already_downloaded_dialog_title)
                 setMessage(R.string.update_activity_update_already_downloaded_dialog_msg)
@@ -204,7 +143,70 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
                     }
                 }
             }
+            return
         }
+
+        // Check if the user has clicked on "download anyway" on the dialog that showed, or
+        // check if the user is using a cellular network and has disabled downloading updates
+        // over cellular
+        if (requireContext().isMeteredNetwork &&
+            (!ignoreMobileDataSetting && !preferences.getBoolean(
+                keyPrefCanDownloadMetered,
+                false
+            )) && showMobileDataWarning
+        ) {
+            // Show a dialog warning the user that cellular network is on as the user has
+            // disabled downloading updates over cellular
+            requireContext().showMaterialAlertDialog {
+                setTitle(R.string.update_activity_cannot_download_cellular_dialog_title)
+                setMessage(R.string.update_activity_cannot_download_cellular_dialog_msg)
+                setNegativeButton(R.string.dialog_action_cancel) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                setPositiveButton(R.string.update_activity_cannot_download_cellular_dialog_positive_btn) { dialog, _ ->
+                    dialog.dismiss()
+                    // Call the function again, but skip the mobile data warning
+                    downloadUpdate(
+                        downloadUrl,
+                        version,
+                        ignoreMobileDataSetting = true,
+                        showMobileDataWarning = true,
+                        downloadAgain = false
+                    )
+                }
+            }
+            return
+        }
+
+        // Construct a request to download from a URI
+        val request = DownloadManager.Request(downloadUrl.toUri()).apply {
+            // Don't download over roaming
+            // TODO: Add setting for this
+            setAllowedOverRoaming(false)
+            setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+            // Set the file type so that the package installer can open the file
+            setMimeType(MimeTypeConstants.appPackageArchiveMime)
+        }
+
+        val manager = requireContext().getSystemService<DownloadManager>()
+        manager?.enqueue(request)
+
+        // Create a receiver to intercept when the download is complete
+        val downloadCompleteReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                Log.d(TAG, "Download complete!")
+                context?.showToast("Download complete!", Toast.LENGTH_SHORT)
+                installUpdate(fileName)
+            }
+        }
+
+        // Lastly, register the receiver with the intents that it accepts
+        ContextCompat.registerReceiver(
+            requireContext(),
+            downloadCompleteReceiver,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
     }
 
     private fun startInstallIntent(fileName: String) {
