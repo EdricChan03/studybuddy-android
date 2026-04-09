@@ -21,6 +21,8 @@ android {
 }
 
 dependencies {
+    api(projects.core.resources.icons.common)
+
     api(libs.androidx.annotation)
     api(libs.androidx.compose.ui)
 

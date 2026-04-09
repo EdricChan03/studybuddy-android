@@ -114,6 +114,7 @@ include(
     ":core:deeplink",
     ":core:di",
     ":core:resources",
+    ":core:resources:icons:common",
     ":core:resources:icons",
     ":core:resources:temporal",
     ":core:settings:appearance:datastore-proto",
