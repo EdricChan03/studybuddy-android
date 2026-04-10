@@ -56,9 +56,9 @@ fun DebugScreen(
         .collectAsStateWithLifecycle(initialValue = BuildConfig.DEBUG)
     val customJsonUrl by viewModel.customUpdateJsonUrl.asFlow()
         .collectAsStateWithLifecycle(initialValue = "")
-    val lastCheckedInstant by viewModel.lastCheckedUpdates.asFlow()
+    val lastCheckedInstant by viewModel.lastCheckedUpdates
         .collectAsStateWithLifecycle(initialValue = null)
-    val lastUpdatedInstant by viewModel.lastUpdated.asFlow()
+    val lastUpdatedInstant by viewModel.lastUpdated
         .collectAsStateWithLifecycle(initialValue = null)
 
     val user by userFlow.collectAsStateWithLifecycle(null)
