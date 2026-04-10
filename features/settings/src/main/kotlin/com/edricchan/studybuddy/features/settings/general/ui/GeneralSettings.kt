@@ -14,12 +14,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.BugReport
 import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
 import com.edricchan.studybuddy.core.resources.icons.outlined.DarkMode
 import com.edricchan.studybuddy.core.resources.icons.outlined.OpenInBrowser
@@ -64,7 +64,7 @@ fun GeneralSettingsScreen(
         SwitchPreference(
             icon = {
                 Icon(
-                    painterResource(R.drawable.ic_bug_report_outline_24dp),
+                    AppIcons.Outlined.BugReport,
                     contentDescription = null
                 )
             },
