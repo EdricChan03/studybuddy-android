@@ -25,6 +25,8 @@ android {
 dependencies {
     api(projects.exts.datetime)
     api(projects.core.resources)
+    implementation(projects.utils.android)
+
     implementation(libs.androidx.core.ktx)
 
     testImplementation(libs.junit)

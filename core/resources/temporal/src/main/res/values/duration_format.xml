@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Strings for formatting durations.
+    Intended for backwards compatibility; use ICU APIs where applicable -->
+    <eat-comment />
+
+    <!-- Indicates the specified duration is negative (i.e. in the past if represented on a
+    timeline). This string expects a format argument where the formatted duration is specified. -->
+    <string name="duration_format_negative">%s ago</string>
+
+    <!-- Text to be shown for the "seconds" portion of a duration. -->
+    <plurals name="duration_format_secs">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+
+    <!-- Human-readable unit to be used for seconds in a duration. -->
+    <plurals name="duration_unit_secs">
+        <item quantity="one">second</item>
+        <item quantity="other">seconds</item>
+    </plurals>
+
+    <!-- User interface text for the action of adding a second to the duration. -->
+    <string name="action_add_duration_unit_sec">Add one second</string>
+    <!-- User interface text for the action of removing a second from the duration. -->
+    <string name="action_subtract_duration_unit_sec">Subtract one second</string>
+
+    <!-- Text to be shown for the "minutes" portion of a duration. -->
+    <plurals name="duration_format_mins">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+
+    <!-- Human-readable unit to be used for minutes in a duration. -->
+    <plurals name="duration_unit_mins">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+
+    <!-- User interface text for the action of adding a minute to the duration. -->
+    <string name="action_add_duration_unit_min">Add one minute</string>
+    <!-- User interface text for the action of removing a minute from the duration. -->
+    <string name="action_subtract_duration_unit_min">Subtract one minute</string>
+
+    <!-- Text to be shown for the "hours" portion of a duration. -->
+    <plurals name="duration_format_hrs">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+
+    <!-- Human-readable unit to be used for hours in a duration. -->
+    <plurals name="duration_unit_hrs">
+        <item quantity="one">hour</item>
+        <item quantity="other">hours</item>
+    </plurals>
+
+    <!-- User interface text for the action of adding an hour to the duration. -->
+    <string name="action_add_duration_unit_hr">Add one hour</string>
+    <!-- User interface text for the action of removing an hour from the duration. -->
+    <string name="action_subtract_duration_unit_hr">Subtract one hour</string>
+
+    <!-- Text to be shown for the "days" portion of a duration. -->
+    <plurals name="duration_format_days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <!-- Human-readable unit to be used for days in a duration. -->
+    <plurals name="duration_unit_days">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+
+    <!-- User interface text for the action of adding a day to the duration. -->
+    <string name="action_add_duration_unit_day">Add one day</string>
+    <!-- User interface text for the action of removing a day from the duration. -->
+    <string name="action_subtract_duration_unit_day">Subtract one day</string>
+</resources>
