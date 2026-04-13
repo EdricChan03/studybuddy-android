@@ -38,7 +38,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
@@ -48,7 +47,6 @@ const val ActionDividerTestTag = "Preference:ActionDivider"
 
 internal val PrefsHorizontalPadding = 16.dp
 internal val PrefsVerticalPadding = 16.dp
-internal val TitleFontSize = 16.sp
 
 @Composable
 internal fun PreferenceSurface(
@@ -203,7 +201,7 @@ private fun PreferenceContent(
                 .then(reservedSpaceModifier),
         ) {
             ProvideTextStyle(
-                value = MaterialTheme.typography.titleMedium,
+                value = MaterialTheme.typography.bodyLarge,
                 content = title
             )
             ProvideTextStyle(
