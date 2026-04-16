@@ -174,7 +174,7 @@ private fun ExpListItemContent(
                 overlineContent?.invoke()
             }
             ProvideTextStyle(
-                value = MaterialTheme.typography.titleMedium,
+                value = MaterialTheme.typography.bodyLarge,
                 content = headlineContent
             )
             ProvideTextStyle(
