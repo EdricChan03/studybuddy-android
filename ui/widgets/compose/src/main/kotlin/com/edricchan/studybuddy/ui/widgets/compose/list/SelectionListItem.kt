@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -39,6 +40,7 @@ fun RadioButtonRow(
     text()
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun RadioButtonListItem(
     modifier: Modifier = Modifier,
@@ -52,12 +54,12 @@ fun RadioButtonListItem(
     overlineContent: @Composable (() -> Unit)? = null,
     text: @Composable () -> Unit
 ) = ListItem(
-    modifier = modifier.selectable(
-        selected = selected, enabled = enabled, onClick = onSelected,
-        role = Role.RadioButton
-    ),
-    colors = colors.withDisabledColors(enabled),
-    headlineContent = text,
+    modifier = modifier,
+    selected = selected,
+    enabled = enabled,
+    onClick = onSelected,
+    colors = colors,
+    content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
     leadingContent = {
@@ -71,6 +73,7 @@ fun RadioButtonListItem(
     trailingContent = trailingContent
 )
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TrailingRadioButtonListItem(
     modifier: Modifier = Modifier,
@@ -84,12 +87,12 @@ fun TrailingRadioButtonListItem(
     overlineContent: @Composable (() -> Unit)? = null,
     text: @Composable () -> Unit
 ) = ListItem(
-    modifier = modifier.selectable(
-        selected = selected, enabled = enabled, onClick = onSelected,
-        role = Role.RadioButton
-    ),
-    colors = colors.withDisabledColors(enabled),
-    headlineContent = text,
+    modifier = modifier,
+    selected = selected,
+    enabled = enabled,
+    onClick = onSelected,
+    colors = colors,
+    content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
     trailingContent = {
@@ -130,6 +133,7 @@ fun CheckboxRow(
     text()
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun CheckboxListItem(
     modifier: Modifier = Modifier,
@@ -143,14 +147,12 @@ fun CheckboxListItem(
     overlineContent: @Composable (() -> Unit)? = null,
     text: @Composable () -> Unit
 ) = ListItem(
-    modifier = modifier.toggleable(
-        value = checked,
-        onValueChange = onCheckedChange,
-        role = Role.Checkbox,
-        enabled = enabled
-    ),
-    colors = colors.withDisabledColors(enabled),
-    headlineContent = text,
+    modifier = modifier,
+    enabled = enabled,
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    colors = colors,
+    content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
     leadingContent = {
@@ -164,6 +166,7 @@ fun CheckboxListItem(
     trailingContent = trailingContent
 )
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TrailingCheckboxListItem(
     modifier: Modifier = Modifier,
@@ -177,14 +180,12 @@ fun TrailingCheckboxListItem(
     overlineContent: @Composable (() -> Unit)? = null,
     text: @Composable () -> Unit
 ) = ListItem(
-    modifier = modifier.toggleable(
-        value = checked,
-        onValueChange = onCheckedChange,
-        role = Role.Checkbox,
-        enabled = enabled
-    ),
-    colors = colors.withDisabledColors(enabled),
-    headlineContent = text,
+    modifier = modifier,
+    enabled = enabled,
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    colors = colors,
+    content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
     trailingContent = {
