@@ -26,10 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.IntSize
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
+import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.BooleanPreviewParameterProvider
 
 /**
  * List group that can be collapsed/expanded to reveal a list of grouped items.
@@ -221,15 +223,18 @@ fun CollapsibleListHeader(
 }
 
 @Composable
-private fun CollapsibleListSample(modifier: Modifier = Modifier) {
-    var isExpanded by rememberSaveable { mutableStateOf(false) }
+internal fun CollapsibleListSample(
+    modifier: Modifier = Modifier,
+    isExpanded: Boolean,
+    onExpansionChange: (Boolean) -> Unit
+) {
     CollapsibleListColumn(
         modifier = modifier,
         isExpanded = isExpanded,
         header = {
             CollapsibleListHeader(
                 isExpanded = isExpanded,
-                onExpansionChange = { isExpanded = it },
+                onExpansionChange = onExpansionChange,
                 colors = CollapsibleListDefaults.primaryHeaderColors(),
                 leadingContent = {
                     Icon(Icons.Outlined.Build, contentDescription = null)
@@ -259,8 +264,17 @@ private fun CollapsibleListSample(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun CollapsibleListPreview() {
+private fun CollapsibleListPreview(
+    @PreviewParameter(BooleanPreviewParameterProvider ::class) initialExpanded: Boolean
+) {
+    var isExpanded by rememberSaveable(initialExpanded) {
+        mutableStateOf(initialExpanded)
+    }
+
     StudyBuddyTheme {
-        CollapsibleListSample()
+        CollapsibleListSample(
+            isExpanded = isExpanded,
+            onExpansionChange = { isExpanded = it }
+        )
     }
 }
