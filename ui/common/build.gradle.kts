@@ -26,6 +26,7 @@ dependencies {
     implementation(projects.core.compat.navigation)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
+    implementation(projects.exts.android.metadata)
     implementation(projects.exts.androidx.viewBinding)
     implementation(projects.exts.material)
     implementation(projects.ui.theming.compose)
