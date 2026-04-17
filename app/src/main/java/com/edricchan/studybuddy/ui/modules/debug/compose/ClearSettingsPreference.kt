@@ -1,12 +1,13 @@
 package com.edricchan.studybuddy.ui.modules.debug.compose
 
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,6 +21,7 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Delete
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun ConfirmClearSettingsDialog(
     modifier: Modifier = Modifier,
@@ -31,17 +33,21 @@ private fun ConfirmClearSettingsDialog(
     title = { Text(text = stringResource(R.string.debug_activity_confirm_clear_app_settings_dialog_title)) },
     text = { Text(text = stringResource(R.string.debug_activity_confirm_clear_app_settings_dialog_msg)) },
     dismissButton = {
-        TextButton(onClick = onDismissRequest) {
+        OutlinedButton(
+            onClick = onDismissRequest,
+            shapes = ButtonDefaults.shapes()
+        ) {
             Text(text = stringResource(android.R.string.cancel))
         }
     },
     confirmButton = {
-        FilledTonalButton(
+        Button(
             onClick = onConfirmClick,
-            colors = ButtonDefaults.filledTonalButtonColors(
-                containerColor = MaterialTheme.colorScheme.errorContainer,
-                contentColor = MaterialTheme.colorScheme.onErrorContainer,
-            )
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.error,
+                contentColor = MaterialTheme.colorScheme.onError,
+            ),
+            shapes = ButtonDefaults.shapes()
         ) {
             Text(text = stringResource(R.string.dialog_action_clear))
         }
