@@ -1,9 +1,9 @@
 [versions]
-aboutLibraries = "14.0.0-b03"
+aboutLibraries = "14.0.1"
 accompanist = "0.37.3"
 android-compose-screenshotTest = "0.0.1-alpha14"
 android-desugar = "2.1.5"
-android-gradle = "9.1.0"
+android-gradle = "9.1.1"
 androidx-activity = "1.13.0"
 androidx-compose = "1.11.0-rc01"
 androidx-compose-material3 = "1.5.0-alpha17"
@@ -23,7 +23,7 @@ gradle-versions = "0.53.0"
 kotest = "6.1.11"
 kotlin = "2.3.20"
 kotlinx-coroutines = "1.10.2"
-kotlinx-serialization = "1.10.0"
+kotlinx-serialization = "1.11.0"
 ktoml = "0.7.1"
 ktor = "3.4.2"
 mockk = "1.14.9"
@@ -250,6 +250,6 @@ wire = { id = "com.squareup.wire", version.ref = "wire" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.6.1"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.7.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.5.0"
