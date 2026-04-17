@@ -51,9 +51,9 @@ fun TaskProject.toDto(): TodoProject = TodoProject(
 
 @Suppress("DEPRECATION") // For deprecated color property
 @SuppressLint("NewApi") // For Timestamp#toInstant
-fun TodoProject.toDomain(): TaskProject = TaskProject(
+fun TodoProject.toDomain(defaultName: String = name.orEmpty()): TaskProject = TaskProject(
     id = id,
-    name = name.orEmpty(),
+    name = name ?: defaultName,
     color = colorInt?.let(::Color) ?: color?.let(::Color),
     createdAt = createdAt?.toInstant() ?: Instant.now(),
     lastModified = lastModified?.toInstant() ?: Instant.now()
