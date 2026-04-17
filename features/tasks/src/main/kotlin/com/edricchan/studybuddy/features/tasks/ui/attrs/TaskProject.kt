@@ -7,9 +7,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,7 +40,7 @@ fun TaskProjectCircle(
     border: BorderStroke? = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
 ) = Surface(
     modifier = modifier.size(16.dp),
-    shape = CircleShape,
+    shape = MaterialShapes.Clover4Leaf.toShape(),
     color = color ?: MaterialTheme.colorScheme.surface,
     border = border,
     content = {}
