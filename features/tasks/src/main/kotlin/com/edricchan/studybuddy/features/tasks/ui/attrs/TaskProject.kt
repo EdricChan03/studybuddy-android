@@ -21,10 +21,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.data.common.compose.toComposeColor
 import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
-import com.edricchan.studybuddy.features.tasks.ui.utils.composeColor
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
@@ -100,14 +103,34 @@ fun TaskProjectListItem(
  * will be used if the project does not specify one.
  */
 @Composable
+@Deprecated("Use the overload which accepts the domain TaskProject model instead")
 fun TaskProjectListItem(
     modifier: Modifier = Modifier,
     project: TodoProject
 ) = TaskProjectListItem(
     modifier = modifier,
-    color = project.color?.composeColor,
-    // TODO: Remove default name when the project's name is required
-    name = project.name ?: stringResource(R.string.task_attr_project_name_default)
+    project = project.toDomain(
+        defaultName = stringResource(R.string.task_attr_project_name_default)
+    )
+)
+
+/**
+ * Composable which displays a [TaskItem]'s [TaskItem.project] as a [ListItem].
+ *
+ * This variant allows for a [TaskProject] to be used.
+ * @param modifier [Modifier] to be used for the [ListItem].
+ * @param project The [TaskProject] to display.
+ */
+@Composable
+fun TaskProjectListItem(
+    modifier: Modifier = Modifier,
+    project: TaskProject,
+    colors: ListItemColors = ListItemDefaults.colors()
+) = TaskProjectListItem(
+    modifier = modifier,
+    color = project.color?.toComposeColor(),
+    name = project.name,
+    colors = colors
 )
 
 @Preview(showBackground = true)
