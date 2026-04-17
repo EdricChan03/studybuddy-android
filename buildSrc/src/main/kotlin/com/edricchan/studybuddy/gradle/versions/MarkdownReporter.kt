@@ -53,7 +53,7 @@ class MarkdownReporter(
     ) {
         companion object {
             /** The default order of the Markdown sections. */
-            val DEFAULT_SECTIONS = MarkdownSection.values().toList()
+            val DEFAULT_SECTIONS = MarkdownSection.entries
         }
     }
 
