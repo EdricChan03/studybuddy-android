@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -67,12 +69,14 @@ fun TaskProjectText(
  * @param color The [TodoProject.color] as a Compose [Color].
  * This value is used for the [ListItem]'s trailing [TaskProjectCircle].
  * @param name The [TodoProject]'s [TodoProject.name].
+ * @param colors Colours to be used for the [ListItem] - see [ListItemColors].
  */
 @Composable
 fun TaskProjectListItem(
     modifier: Modifier = Modifier,
     color: Color? = null,
-    name: String
+    name: String,
+    colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
     modifier = modifier,
     leadingContent = {
@@ -81,7 +85,8 @@ fun TaskProjectListItem(
     headlineContent = {
         TaskProjectText(text = name)
     },
-    trailingContent = { TaskProjectCircle(color = color) }
+    trailingContent = { TaskProjectCircle(color = color) },
+    colors = colors,
 )
 
 /**
