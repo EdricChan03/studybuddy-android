@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.appearance.proto;
+
+import "com/edricchan/studybuddy/core/settings/appearance/proto/settings_appearance_theme.proto";
+import "com/edricchan/studybuddy/core/settings/appearance/proto/settings_appearance_dark_mode.proto";
+import "com/edricchan/studybuddy/core/settings/appearance/proto/settings_appearance_typeface.proto";
+
+option java_multiple_files = true;
+
+message AppearanceSettings {
+  /** The theme to use. */
+  AppThemeSettingProto theme = 1;
+  /* Whether to enable dark mode. */
+  DarkModeSettingProto dark_mode = 2;
+  /* The typeface to use for display styles (headers). */
+  TypefaceSettingProto display_typeface = 3;
+  /* The typeface to use for body text. */
+  TypefaceSettingProto body_typeface = 4;
+}
