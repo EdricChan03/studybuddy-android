@@ -20,8 +20,8 @@ import com.google.firebase.firestore.DocumentReference
  * @see FirestoreDataSource
  * @see FlowableFirestoreDataSource
  */
-sealed interface IFirestoreDataSource<T, Batch : FirestoreDataSource.FirestoreCrudBatch<T>> :
-    DataSource<T, String, DocumentReference, Map<String, Any?>>,
+sealed interface IFirestoreDataSource<T, CreateDto : Any, Batch : FirestoreDataSource.FirestoreCrudBatch<T>> :
+    DataSource<T, String, DocumentReference, CreateDto, Map<String, Any?>>,
     HasQueryOperations<T, QueryMapper>,
     HasBatchOperations<Batch>,
     Countable<Long>
@@ -34,6 +34,6 @@ sealed interface IFirestoreDataSource<T, Batch : FirestoreDataSource.FirestoreCr
  * Generic Firestore-backed [DataSource] with a default [CrudBatch] type.
  * @see IFirestoreDataSource
  */
-sealed interface IDefaultFirestoreDataSource<T> :
-    IFirestoreDataSource<T, FirestoreDataSource.FirestoreCrudBatch<T>>
+sealed interface IDefaultFirestoreDataSource<T, CreateDto : Any> :
+    IFirestoreDataSource<T, CreateDto, FirestoreDataSource.FirestoreCrudBatch<T>>
     where T : HasId, T : DtoModel

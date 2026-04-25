@@ -9,14 +9,14 @@ import kotlin.reflect.KClass
  * Implementation of [FirestoreDataSource] which does not require a `Batch` to be specified.
  * @see FirestoreDataSource
  */
-open class DefaultFirestoreDataSource<T>(
+open class DefaultFirestoreDataSource<T, CreateDto : Any>(
     collectionRef: CollectionReference,
     klass: KClass<T>
-) : FirestoreDataSource<T, FirestoreDataSource.FirestoreCrudBatch<T>>(
+) : FirestoreDataSource<T, CreateDto, FirestoreDataSource.FirestoreCrudBatch<T>>(
     collectionRef = collectionRef,
     klass = klass,
     batchFactory = {
         FirestoreCrudBatch(collectionRef = it)
     }
-), IDefaultFirestoreDataSource<T>
+), IDefaultFirestoreDataSource<T, CreateDto>
     where T : HasId, T : DtoModel

@@ -11,14 +11,14 @@ import kotlin.reflect.KClass
  * Variant of [FlowableFirestoreDataSource] with a default `Batch` being used.
  * @see FlowableFirestoreDataSource
  */
-open class DefaultFlowableFirestoreDataSource<T>(
+open class DefaultFlowableFirestoreDataSource<T, CreateDto : Any>(
     collectionRefFlow: Flow<CollectionReference>,
     klass: KClass<T>
-) : FlowableFirestoreDataSource<T, FirestoreCrudBatch<T>>(
+) : FlowableFirestoreDataSource<T, CreateDto, FirestoreCrudBatch<T>>(
     collectionRefFlow = collectionRefFlow,
     klass = klass,
     batchFactory = {
         FirestoreCrudBatch(collectionRef = it)
     }
-), IDefaultFirestoreDataSource<T>
+), IDefaultFirestoreDataSource<T, CreateDto>
     where T : HasId, T : DtoModel

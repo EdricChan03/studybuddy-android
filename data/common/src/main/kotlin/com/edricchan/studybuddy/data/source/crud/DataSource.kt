@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
  * representation of a [T] class from the database.
  * @param UpdateDto Type representing the class to be used for the [update] operation.
  */
-interface DataSource<T, Id, Reference, UpdateDto> {
+interface DataSource<T, Id, Reference, CreateDto : Any, UpdateDto> {
     //#region Read operations
     /** Retrieves all data from this repository as a [Flow]. */
     val items: Flow<List<T>>
@@ -39,7 +39,7 @@ interface DataSource<T, Id, Reference, UpdateDto> {
 
     //#region Create operations
     /** Adds the given [item] to the data source. The resulting added document is returned. */
-    suspend fun add(item: T): Reference
+    suspend fun add(item: CreateDto): Reference
     //#endregion
 
     //#region Delete operations
@@ -61,7 +61,7 @@ interface DataSource<T, Id, Reference, UpdateDto> {
  *
  * This variant allows for DSL syntax for the data, similar to that of [buildMap].
  */
-suspend fun <Id> DataSource<*, Id, *, Map<String, Any?>>.update(
+suspend fun <Id> DataSource<*, Id, *, *, Map<String, Any?>>.update(
     id: Id,
     dataAction: MutableMap<String, Any?>.() -> Unit
 ) {

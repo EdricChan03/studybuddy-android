@@ -14,7 +14,10 @@ import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
+import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
+import com.edricchan.studybuddy.features.tasks.data.model.create.toDto
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
+import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
 import com.google.firebase.firestore.DocumentReference
@@ -28,8 +31,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
-    private val source: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoItem>,
-    private val projectsSource: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoProject>
+    private val source: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoItem, CreateTaskItemDto>,
+    private val projectsSource: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoProject, TodoProject>
 ) : ITaskRepository {
     /** Retrieves the user's list of tasks as a [Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -50,7 +53,8 @@ class TaskRepository @Inject constructor(
 
     /** Adds the specified [task]. */
     @Deprecated("Use the variant of addTask which takes the domain TaskItem model")
-    suspend fun addTask(task: TodoItem): DocumentReference = source.add(task)
+    suspend fun addTask(task: TodoItem): DocumentReference =
+        source.add(CreateTaskItemDto.fromDto(task))
 
     /** Removes the specified [task]. */
     @Deprecated(
@@ -146,8 +150,8 @@ class TaskRepository @Inject constructor(
         )
     }
 
-    override suspend fun addTask(task: TaskItem) {
-        source.add(task.toDto { projectsSource.getRef(it.id) })
+    override suspend fun addTask(input: CreateTaskItemInput) {
+        source.add(input.toDto { projectsSource.getRef(it) })
     }
 
     override suspend fun updateTask(id: String, valueMap: Map<TaskItem.Field, Any?>) {

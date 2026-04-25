@@ -11,7 +11,7 @@ import javax.inject.Inject
 class TaskProjectDataSource @Inject constructor(
     firestore: FirebaseFirestore,
     userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>
-) : DefaultFlowableFirestoreDataSource<TodoProject>(
+) : DefaultFlowableFirestoreDataSource<TodoProject, TodoProject>(
     collectionRefFlow = userFlow
         .mapNotNull { user ->
             user?.let { firestore.collection("/users/${it.uid}/todoProjects") }

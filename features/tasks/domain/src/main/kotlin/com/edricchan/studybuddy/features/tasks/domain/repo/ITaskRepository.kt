@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.features.tasks.domain.repo
 
 import androidx.paging.PagingData
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
+import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import kotlinx.coroutines.flow.Flow
 
 /** Repository interface for CRUD operations related to the tasks feature. */
@@ -19,7 +20,7 @@ interface ITaskRepository {
     ): Flow<PagingData<TaskItem>>
 
     /** Adds the specified task to the database. */
-    suspend fun addTask(task: TaskItem)
+    suspend fun addTask(input: CreateTaskItemInput)
 
     /** Updates the specified task with the given [valueMap]. */
     suspend fun updateTask(id: String, valueMap: Map<TaskItem.Field, Any?>)

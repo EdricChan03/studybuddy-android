@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.features.tasks.data.source
 
 import com.edricchan.studybuddy.data.source.firestore.DefaultFlowableFirestoreDataSource
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,7 @@ import javax.inject.Inject
 class TaskDataSource @Inject constructor(
     firestore: FirebaseFirestore,
     userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>,
-) : DefaultFlowableFirestoreDataSource<TodoItem>(
+) : DefaultFlowableFirestoreDataSource<TodoItem, CreateTaskItemDto>(
     collectionRefFlow = userFlow
         .mapNotNull { user ->
             user?.let { firestore.collection("/users/${it.uid}/todos") }

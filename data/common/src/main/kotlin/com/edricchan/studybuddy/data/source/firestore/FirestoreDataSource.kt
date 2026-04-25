@@ -25,11 +25,11 @@ import kotlin.reflect.KClass
  * @see DataSource
  * @see HasQueryOperations
  */
-open class FirestoreDataSource<T, Batch : FirestoreDataSource.FirestoreCrudBatch<T>>(
+open class FirestoreDataSource<T, CreateDto : Any, Batch : FirestoreDataSource.FirestoreCrudBatch<T>>(
     private val collectionRef: CollectionReference,
     private val klass: KClass<T>,
     private val batchFactory: (CollectionReference) -> Batch
-) : IFirestoreDataSource<T, Batch> where T : HasId, T : DtoModel {
+) : IFirestoreDataSource<T, CreateDto, Batch> where T : HasId, T : DtoModel {
     override suspend fun getCollectionRef(): CollectionReference = collectionRef
 
     /**
@@ -53,7 +53,7 @@ open class FirestoreDataSource<T, Batch : FirestoreDataSource.FirestoreCrudBatch
     override suspend fun count(): Long =
         collectionRef.count()[AggregateSource.SERVER].await().count
 
-    override suspend fun add(item: T): DocumentReference =
+    override suspend fun add(item: CreateDto): DocumentReference =
         collectionRef.add(item).await()
 
     override suspend fun remove(item: T) = removeById(item.id)
