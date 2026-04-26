@@ -15,6 +15,7 @@ import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
+import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskProjectDto
 import com.edricchan.studybuddy.features.tasks.data.model.create.toDto
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
@@ -32,7 +33,7 @@ import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
     private val source: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoItem, CreateTaskItemDto>,
-    private val projectsSource: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoProject, TodoProject>
+    private val projectsSource: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoProject, CreateTaskProjectDto>
 ) : ITaskRepository {
     /** Retrieves the user's list of tasks as a [Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)

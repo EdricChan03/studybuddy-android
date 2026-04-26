@@ -4,6 +4,7 @@ import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSourc
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
+import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskProjectDto
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.source.TaskDataSource
@@ -25,7 +26,7 @@ abstract class TaskDataModule {
     @Binds
     abstract fun bindTaskProjectDataSource(
         source: TaskProjectDataSource
-    ): IDefaultFirestoreDataSource<TodoProject, TodoProject>
+    ): IDefaultFirestoreDataSource<TodoProject, CreateTaskProjectDto>
 
     @Binds
     abstract fun bindTaskRepository(
