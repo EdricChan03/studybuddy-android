@@ -25,7 +25,7 @@ import com.google.firebase.firestore.ServerTimestamp
 data class TodoProject(
     @DocumentId override val id: String = "",
     @Deprecated(
-        "Use colorValue where preferable, which stores the colour data as a " +
+        "Use colorInt where preferable, which stores the colour data as a " +
             "more typical colour integer rather than as a hexadecimal string which can be " +
             "represented differently across platforms (e.g. Android uses #AARRGGBB, web " +
             "uses #RRGGBBAA)"
