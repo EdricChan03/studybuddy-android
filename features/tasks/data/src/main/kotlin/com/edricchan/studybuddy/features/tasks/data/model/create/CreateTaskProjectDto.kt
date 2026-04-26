@@ -7,10 +7,13 @@ import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskPro
 data class CreateTaskProjectDto(
     val name: String,
     @field:ColorInt
-    val colorInt: Int
+    val colorInt: Int,
+    @Deprecated("Kept for backwards compatibility, use colorInt where preferable")
+    val color: String = "#%06X".format(colorInt and 0xFFFFFF)
 ) : DtoModel
 
 fun CreateTaskProjectInput.toDto(): CreateTaskProjectDto = CreateTaskProjectDto(
     name = name,
-    colorInt = color.value
+    colorInt = color.value,
+    color = color.toRgbHexString()
 )
