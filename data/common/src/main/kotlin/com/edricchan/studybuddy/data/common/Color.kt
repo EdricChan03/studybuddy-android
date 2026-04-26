@@ -22,7 +22,7 @@ private fun getWebHexFormat(
 /**
  * Value class for a colour integer.
  *
- * The internal [value] is an ARGB colour representation; to get its components,
+ * The internal [value] is an ARGB colour representation - to get its components,
  * the desired [alpha], [red], [green] and [blue] properties can be used.
  */
 @JvmInline
