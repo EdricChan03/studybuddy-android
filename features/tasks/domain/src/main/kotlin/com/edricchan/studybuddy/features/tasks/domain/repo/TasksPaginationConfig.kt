@@ -26,8 +26,5 @@ data class TasksPaginationConfig(
     data class TaskOrderSpec(
         override val field: TaskItem.Field = TaskItem.Field.CreatedAt,
         override val direction: SortDirection = SortDirection.Descending
-    ) : OrderSpec<TaskItem.Field>(
-        field = field,
-        direction = direction
-    )
+    ) : OrderSpec<TaskItem.Field>
 }

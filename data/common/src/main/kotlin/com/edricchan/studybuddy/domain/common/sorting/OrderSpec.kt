@@ -7,10 +7,10 @@ import com.google.firebase.firestore.Query
  * @property field Desired field to order the data by.
  * @property direction Desired sorting direction.
  */
-open class OrderSpec<F>(
-    open val field: F,
-    open val direction: SortDirection = SortDirection.Descending
-)
+interface OrderSpec<F> {
+    val field: F
+    val direction: SortDirection
+}
 
 /** Desired sorting direction for a given field. */
 enum class SortDirection {
