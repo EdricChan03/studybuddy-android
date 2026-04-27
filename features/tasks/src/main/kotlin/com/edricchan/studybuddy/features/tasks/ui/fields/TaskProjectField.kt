@@ -1,18 +1,26 @@
 package com.edricchan.studybuddy.features.tasks.ui.fields
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
 
 @Composable
 fun TaskProjectIconSurface(
     color: Color?,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit = { TaskProjectFieldDefaults.DefaultSurfaceIcon() }
 ) {
     Surface(
         shape = MaterialShapes.Circle.toShape(),
@@ -20,5 +28,23 @@ fun TaskProjectIconSurface(
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         content()
+    }
+}
+
+@Stable
+object TaskProjectFieldDefaults {
+    @Composable
+    fun DefaultSurfaceIcon(
+        modifier: Modifier = Modifier,
+        iconPadding: PaddingValues = PaddingValues(8.dp),
+        icon: ImageVector = AppIcons.Outlined.Assignment,
+        contentDescription: String? = null
+    ) {
+        Icon(
+            modifier = modifier
+                .padding(iconPadding),
+            imageVector = icon,
+            contentDescription = contentDescription
+        )
     }
 }
