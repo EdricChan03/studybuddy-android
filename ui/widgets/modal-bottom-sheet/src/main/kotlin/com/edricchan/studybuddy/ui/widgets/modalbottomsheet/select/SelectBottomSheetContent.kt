@@ -36,7 +36,7 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionB
 
 // TODO: Move to compose module
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun <Id> CheckboxBottomSheetItem(
     modifier: Modifier = Modifier,
@@ -61,7 +61,7 @@ private fun <Id> CheckboxBottomSheetItem(
     enabled = enabled
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun <Id> RadioBottomSheetItem(
     modifier: Modifier = Modifier,
