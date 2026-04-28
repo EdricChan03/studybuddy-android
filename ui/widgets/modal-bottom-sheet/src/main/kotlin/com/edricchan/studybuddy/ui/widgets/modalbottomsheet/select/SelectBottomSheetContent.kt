@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ButtonDefaults
@@ -18,6 +18,7 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -41,14 +42,13 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionB
 private fun <Id> CheckboxBottomSheetItem(
     modifier: Modifier = Modifier,
     item: OptionBottomSheetItem<Id>,
+    shapes: ListItemShapes,
     isSelected: Boolean,
     enabled: Boolean,
     onCheckedChange: (Boolean) -> Unit
 ) = TrailingCheckboxListItem(
     modifier = modifier,
-    colors = ListItemDefaults.colors(
-        containerColor = BottomSheetDefaults.ContainerColor,
-    ),
+    shapes = shapes,
     text = { Text(text = item.title) },
     leadingContent = item.icon?.letComposable {
         Icon(
@@ -66,6 +66,7 @@ private fun <Id> CheckboxBottomSheetItem(
 private fun <Id> RadioBottomSheetItem(
     modifier: Modifier = Modifier,
     item: OptionBottomSheetItem<Id>,
+    shapes: ListItemShapes,
     isSelected: Boolean,
     enabled: Boolean,
     onClick: () -> Unit
@@ -74,6 +75,7 @@ private fun <Id> RadioBottomSheetItem(
     colors = ListItemDefaults.colors(
         containerColor = BottomSheetDefaults.ContainerColor,
     ),
+    shapes = shapes,
     text = { Text(text = item.title) },
     leadingContent = item.icon?.letComposable {
         Icon(
@@ -123,11 +125,11 @@ private fun SelectBottomSheetHeaderText(
     style = MaterialTheme.typography.titleMedium
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun <Id : Any> SelectBottomSheetContent(
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
+    contentPadding: PaddingValues = PaddingValues(8.dp),
     headerTitle: String?,
     hideDragHandle: Boolean = false,
     itemsList: OptionBottomSheetGroup<Id>,
@@ -153,12 +155,20 @@ fun <Id : Any> SelectBottomSheetContent(
         modifier = Modifier
             .weight(1f, fill = false)
             .selectableGroup(),
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
+        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
     ) {
-        items(itemsList.items, key = { it.id }) { item ->
+        itemsIndexed(
+            items = itemsList.items,
+            key = { _, item -> item.id }
+        ) { i, item ->
             when (itemsList.checkableBehavior) {
                 CheckableBehavior.Single -> RadioBottomSheetItem(
                     item = item,
+                    shapes = ListItemDefaults.segmentedShapes(
+                        index = i,
+                        count = itemsList.items.size
+                    ),
                     isSelected = itemsList.isChecked(item),
                     onClick = {
                         onItemClick(item, true)
@@ -168,6 +178,10 @@ fun <Id : Any> SelectBottomSheetContent(
 
                 CheckableBehavior.Multi -> CheckboxBottomSheetItem(
                     item = item,
+                    shapes = ListItemDefaults.segmentedShapes(
+                        index = i,
+                        count = itemsList.items.size
+                    ),
                     isSelected = itemsList.isChecked(item),
                     onCheckedChange = {
                         onItemClick(item, it)
