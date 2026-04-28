@@ -9,6 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,6 +47,7 @@ fun RadioButtonListItem(
     modifier: Modifier = Modifier,
     radioButtonModifier: Modifier = Modifier,
     colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes(),
     selected: Boolean,
     onSelected: () -> Unit,
     enabled: Boolean = true,
@@ -59,6 +61,7 @@ fun RadioButtonListItem(
     enabled = enabled,
     onClick = onSelected,
     colors = colors,
+    shapes = shapes,
     content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
@@ -79,6 +82,7 @@ fun TrailingRadioButtonListItem(
     modifier: Modifier = Modifier,
     radioButtonModifier: Modifier = Modifier,
     colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes(),
     selected: Boolean,
     onSelected: () -> Unit,
     enabled: Boolean = true,
@@ -92,6 +96,7 @@ fun TrailingRadioButtonListItem(
     enabled = enabled,
     onClick = onSelected,
     colors = colors,
+    shapes = shapes,
     content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
@@ -139,6 +144,7 @@ fun CheckboxListItem(
     modifier: Modifier = Modifier,
     checkboxModifier: Modifier = Modifier,
     colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes(),
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     enabled: Boolean = true,
@@ -152,6 +158,7 @@ fun CheckboxListItem(
     checked = checked,
     onCheckedChange = onCheckedChange,
     colors = colors,
+    shapes = shapes,
     content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
@@ -172,6 +179,7 @@ fun TrailingCheckboxListItem(
     modifier: Modifier = Modifier,
     checkboxModifier: Modifier = Modifier,
     colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes(),
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     enabled: Boolean = true,
@@ -185,6 +193,7 @@ fun TrailingCheckboxListItem(
     checked = checked,
     onCheckedChange = onCheckedChange,
     colors = colors,
+    shapes = shapes,
     content = text,
     supportingContent = supportingContent,
     overlineContent = overlineContent,
