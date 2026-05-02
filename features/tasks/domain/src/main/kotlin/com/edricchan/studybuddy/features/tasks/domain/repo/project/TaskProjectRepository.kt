@@ -5,7 +5,7 @@ import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskProjectInput
 import kotlinx.coroutines.flow.Flow
 
-interface ITaskProjectRepository {
+interface TaskProjectRepository {
     /** Gets the project by its [id] as a [Flow]. */
     fun observeProjectById(id: String): Flow<TaskProject?>
 
