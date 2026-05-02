@@ -45,6 +45,20 @@ data class TodoProject(
         lastModified = builder.lastModified
     )
 
+    enum class Field(val fieldName: String) {
+        @Deprecated(
+            "Use ColorInt where preferable, which stores the colour data as a " +
+                "more typical colour integer rather than as a hexadecimal string which can be " +
+                "represented differently across platforms (e.g. Android uses #AARRGGBB, web " +
+                "uses #RRGGBBAA)"
+        )
+        Color(fieldName = "color"),
+        ColorInt(fieldName = "colorInt"),
+        Name(fieldName = "name"),
+        CreatedAt(fieldName = "createdAt"),
+        LastModified(fieldName = "lastModified")
+    }
+
     companion object {
         /**
          * Creates a [TodoItem] using a [Builder] (with support for inlined setting of variables)

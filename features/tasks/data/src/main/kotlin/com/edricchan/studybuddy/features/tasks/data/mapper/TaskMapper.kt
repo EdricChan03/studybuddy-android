@@ -82,3 +82,17 @@ fun TaskItem.Field.toDto(): TodoItem.Field = when (this) {
     TaskItem.Field.CreatedAt -> TodoItem.Field.CreatedAt
     TaskItem.Field.LastModified -> TodoItem.Field.LastModified
 }
+
+fun TodoProject.Field.toDomain(): TaskProject.Field = when (this) {
+    TodoProject.Field.Color, TodoProject.Field.ColorInt -> TaskProject.Field.Color
+    TodoProject.Field.Name -> TaskProject.Field.Name
+    TodoProject.Field.CreatedAt -> TaskProject.Field.CreatedAt
+    TodoProject.Field.LastModified -> TaskProject.Field.LastModified
+}
+
+fun TaskProject.Field.toDto(): TodoProject.Field = when (this) {
+    TaskProject.Field.Name -> TodoProject.Field.Name
+    TaskProject.Field.Color -> TodoProject.Field.ColorInt
+    TaskProject.Field.CreatedAt -> TodoProject.Field.CreatedAt
+    TaskProject.Field.LastModified -> TodoProject.Field.LastModified
+}
