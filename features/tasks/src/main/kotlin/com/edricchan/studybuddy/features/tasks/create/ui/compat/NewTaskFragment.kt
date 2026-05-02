@@ -14,15 +14,14 @@ import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
-import com.edricchan.studybuddy.exts.firebase.toTimestamp
 import com.edricchan.studybuddy.exts.material.picker.setCalendarConstraints
 import com.edricchan.studybuddy.exts.material.picker.setSelection
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.create.vm.NewTaskViewModel
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.databinding.FragNewTaskBinding
+import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -120,17 +119,19 @@ class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBindi
                         }
 
                         taskTitleTextInputLayout.isErrorEnabled = false
-                        val taskItem = TodoItem.build {
-                            title = taskTitleTextInputLayout.editTextStrValue
-                            content = taskContentTextInputLayout.editTextStrValue
-                                .takeIf { it.isNotBlank() }
+                        val taskItem = CreateTaskItemInput(
+                            title = taskTitleTextInputLayout.editTextStrValue,
+                            description = taskContentTextInputLayout.editTextStrValue
+                                .takeIf { it.isNotBlank() },
                             tags = taskTagsTextInputLayout.editTextStrValue
                                 .takeIf { it.isNotBlank() }
                                 ?.split(Regex("""\s*,\s*"""))
                                 ?.filter { it.isNotBlank() }
-                            dueDate = taskInstant?.toTimestamp()
-                            done = taskIsDoneCheckbox.isChecked
-                        }
+                                ?.map { it.trim() }
+                                .orEmpty().toSet(),
+                            dueDate = taskInstant,
+                            isCompleted = taskIsDoneCheckbox.isChecked
+                        )
                         viewModel.submitTask(
                             item = taskItem,
                             onSuccess = {

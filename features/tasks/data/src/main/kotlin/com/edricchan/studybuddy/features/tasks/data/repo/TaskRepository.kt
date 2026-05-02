@@ -21,7 +21,6 @@ import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
-import com.google.firebase.firestore.DocumentReference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -51,11 +50,6 @@ class TaskRepository @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     @Deprecated("Use the observeTaskById method instead which returns the domain TaskItem model")
     fun observeTask(id: String): Flow<TodoItem?> = source[id]
-
-    /** Adds the specified [task]. */
-    @Deprecated("Use the variant of addTask which takes the domain TaskItem model")
-    suspend fun addTask(task: TodoItem): DocumentReference =
-        source.add(CreateTaskItemDto.fromDto(task))
 
     /** Removes the specified [task]. */
     @Deprecated(

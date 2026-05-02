@@ -2,9 +2,8 @@ package com.edricchan.studybuddy.features.tasks.create.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
-import com.google.firebase.firestore.DocumentReference
+import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,13 +13,13 @@ class NewTaskViewModel @Inject constructor(
     private val repository: TaskRepository
 ) : ViewModel() {
     fun submitTask(
-        item: TodoItem,
-        onSuccess: (DocumentReference) -> Unit,
+        item: CreateTaskItemInput,
+        onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         viewModelScope.launch {
             repository.runCatching { addTask(item) }
-                .onSuccess(onSuccess)
+                .onSuccess { onSuccess() }
                 .onFailure(onFailure)
         }
     }
