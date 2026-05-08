@@ -122,7 +122,9 @@ private fun DependencyUnresolved.toTableRow(useSimpleDependencyNotation: Boolean
     )
 }
 
-private fun Dependency.toTableRow(useSimpleDependencyNotation: Boolean): TableRow {
+// This is named separately from the other toTableRow methods as otherwise this method
+// always appears to be called first rather than the other overloads in the toTable method
+private fun Dependency.defaultToTableRow(useSimpleDependencyNotation: Boolean): TableRow {
     // Dependency contains the following:
     // group, name, version, projectUrl, userReason
     return if (useSimpleDependencyNotation) listOf(
@@ -136,6 +138,15 @@ private fun Dependency.toTableRow(useSimpleDependencyNotation: Boolean): TableRo
         projectUrl.formattedUrl,
         userReason ?: "(No reason specified)"
     )
+}
+
+private fun <T : Dependency> T.toTableRow(useSimpleDependencyNotation: Boolean): TableRow {
+    return when (this) {
+        is DependencyLatest -> toTableRow(useSimpleDependencyNotation)
+        is DependencyOutdated -> toTableRow(useSimpleDependencyNotation)
+        is DependencyUnresolved -> toTableRow(useSimpleDependencyNotation)
+        else -> defaultToTableRow(useSimpleDependencyNotation)
+    }
 }
 
 // Retrieve the table header given the dependency class
