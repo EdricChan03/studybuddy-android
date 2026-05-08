@@ -7,8 +7,10 @@ import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemD
 import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskProjectDto
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
+import com.edricchan.studybuddy.features.tasks.data.repo.project.FirebaseTaskProjectRepositoryImpl
 import com.edricchan.studybuddy.features.tasks.data.source.TaskDataSource
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
+import com.edricchan.studybuddy.features.tasks.domain.repo.project.TaskProjectRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -32,4 +34,9 @@ abstract class TaskDataModule {
     abstract fun bindTaskRepository(
         repo: TaskRepository
     ): ITaskRepository
+
+    @Binds
+    abstract fun bindTaskProjectRepository(
+        repo: FirebaseTaskProjectRepositoryImpl
+    ): TaskProjectRepository
 }
