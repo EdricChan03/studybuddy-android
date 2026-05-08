@@ -24,6 +24,7 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskProjectIconSurface(
     color: Color?,
