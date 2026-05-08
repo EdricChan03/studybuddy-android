@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
  * @param Id Type representing the POJO's `id` field. Usually a [String].
  * @param Reference Type representing a class which can be used to retrieve the underlying
  * representation of a [T] class from the database.
+ * @param CreateDto Type representing the class to be used for the [add] operation.
  * @param UpdateDto Type representing the class to be used for the [update] operation.
  */
 interface DataSource<T, Id, Reference, CreateDto : Any, UpdateDto> {
