@@ -1,23 +1,23 @@
 [versions]
-aboutLibraries = "14.0.1"
+aboutLibraries = "14.2.0"
 accompanist = "0.37.3"
 android-compose-screenshotTest = "0.0.1-alpha14"
 android-desugar = "2.1.5"
 android-gradle = "9.2.0"
 androidx-activity = "1.13.0"
-androidx-compose = "1.12.0-alpha01"
-androidx-compose-material3 = "1.5.0-alpha18"
-androidx-compose-material3-adaptive = "1.3.0-alpha10"
+androidx-compose = "1.12.0-alpha02"
+androidx-compose-material3 = "1.5.0-alpha19"
+androidx-compose-material3-adaptive = "1.3.0-beta01"
 androidx-credentials = "1.6.0"
 androidx-datastore = "1.2.1"
 androidx-fragment = "1.8.9"
 androidx-lifecycle = "2.10.0"
 androidx-navigation = "2.9.8"
-androidx-paging = "3.4.2"
+androidx-paging = "3.5.0"
 coil = "3.4.0"
 dagger = "2.59.2"
 deep-link-dispatch = "7.2.2"
-firebase-bom = "34.12.0"
+firebase-bom = "34.13.0"
 gradle-versions = "0.54.0"
 kotest = "6.1.11"
 kotlin = "2.3.21"
@@ -88,7 +88,7 @@ composeMarkdown = "io.github.boswelja.markdown:material3:1.1.5"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.14.0-beta01"
+materialComponents = "com.google.android.material:material:1.14.0-rc01"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
@@ -249,6 +249,6 @@ wire = { id = "com.squareup.wire", version.ref = "wire" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.9.0"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.10.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.5.0"
