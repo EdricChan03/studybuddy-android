@@ -1,22 +1,24 @@
 package com.edricchan.studybuddy.features.settings.main.ui.list
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +30,7 @@ import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
 import com.edricchan.studybuddy.features.settings.navigation.SettingsListItem
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SettingsListScreen(
     modifier: Modifier = Modifier,
@@ -38,9 +41,13 @@ fun SettingsListScreen(
     onNavigateToAccount: () -> Unit,
     onNavigateToAbout: () -> Unit
 ) {
+    // Count is added by one to account for the "About" item
+    val entryCount = remember { SettingsCategory.entries.size + 1 }
+
     LazyColumn(
         modifier = modifier.selectableGroup(),
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
+        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
     ) {
         currentUser?.let {
             item {
@@ -51,26 +58,34 @@ fun SettingsListScreen(
             }
         }
 
-        items(SettingsCategory.entries) {
-            it.SettingsListItem(
-                onClick = { onNavigateToDetail(it) },
-                selected = selectedItem == it
+        itemsIndexed(SettingsCategory.entries) { i, item ->
+            item.SettingsListItem(
+                onClick = { onNavigateToDetail(item) },
+                selected = selectedItem == item,
+                shapes = ListItemDefaults.segmentedShapes(
+                    index = i,
+                    count = entryCount
+                )
             )
         }
 
         // About item
         item {
-            ListItem(
-                modifier = Modifier
-                    .clip(CardDefaults.outlinedShape)
-                    .clickable(onClick = onNavigateToAbout),
-                headlineContent = { Text(text = stringResource(R.string.pref_header_about_title)) },
+            SegmentedListItem(
+                onClick = onNavigateToAbout,
+                shapes = ListItemDefaults.segmentedShapes(
+                    // Last index of the entries is added by one to account for the "About" item
+                    index = SettingsCategory.entries.lastIndex + 1,
+                    count = entryCount
+                ),
+                content = { Text(text = stringResource(R.string.pref_header_about_title)) },
                 leadingContent = { Icon(Icons.Outlined.Info, contentDescription = null) }
             )
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun AccountListItem(
     modifier: Modifier = Modifier,
@@ -80,7 +95,7 @@ private fun AccountListItem(
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = 16.dp),
+            .padding(bottom = 16.dp - ListItemDefaults.SegmentedGap),
         onClick = onNavigateToAccount,
         shape = CardDefaults.outlinedShape,
         border = CardDefaults.outlinedCardBorder()

@@ -1,20 +1,16 @@
 package com.edricchan.studybuddy.features.settings.navigation
 
 import androidx.annotation.StringRes
-import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateInt
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ListItemShapes
+import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -67,42 +63,31 @@ enum class SettingsCategory(
     )
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SettingsCategory.SettingsListItem(
     modifier: Modifier = Modifier,
+    shapes: ListItemShapes,
+    selected: Boolean = false,
     onClick: () -> Unit,
-    selected: Boolean = false
 ) {
     val transition = updateTransition(selected, label = "Settings list item selection state")
-    val containerColor by transition.animateColor(label = "Settings list item container colour") {
-        if (it) MaterialTheme.colorScheme.secondaryContainer else ListItemDefaults.containerColor
-    }
-    val contentColor by transition.animateColor(label = "Settings list item content colour") {
-        if (it) MaterialTheme.colorScheme.onSecondaryContainer else ListItemDefaults.contentColor
-    }
     val fontWeight by transition.animateInt(label = "Settings list item font weight") {
         if (it) 600 else 400
     }
 
-    ListItem(
-        modifier = modifier
-            .clip(CardDefaults.outlinedShape)
-            .selectable(selected = selected, onClick = onClick),
-        headlineContent = {
+    SegmentedListItem(
+        modifier = modifier,
+        shapes = shapes,
+        selected = selected,
+        onClick = onClick,
+        content = {
             Text(
                 text = stringResource(nameResId),
                 fontWeight = FontWeight(fontWeight)
             )
         },
         supportingContent = descResId?.letComposable { Text(text = stringResource(it)) },
-        leadingContent = { icon(selected) },
-        colors = ListItemDefaults.colors(
-            containerColor = containerColor,
-            headlineColor = contentColor,
-            leadingIconColor = contentColor,
-            trailingIconColor = contentColor,
-            overlineColor = contentColor,
-            supportingColor = contentColor
-        )
+        leadingContent = { icon(selected) }
     )
 }
