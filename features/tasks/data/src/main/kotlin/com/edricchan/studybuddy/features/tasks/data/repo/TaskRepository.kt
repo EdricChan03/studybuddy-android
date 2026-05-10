@@ -46,11 +46,6 @@ class TaskRepository @Inject constructor(
     )
     fun observeQueryTasks(query: QueryMapper): Flow<List<TodoItem>> = source.findAll(query)
 
-    /** Retrieves the task given its [id] as a [Flow]. */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Deprecated("Use the observeTaskById method instead which returns the domain TaskItem model")
-    fun observeTask(id: String): Flow<TodoItem?> = source[id]
-
     /** Removes the specified [task]. */
     @Deprecated(
         "Use deleteTask instead, which takes the domain TaskItem model",
