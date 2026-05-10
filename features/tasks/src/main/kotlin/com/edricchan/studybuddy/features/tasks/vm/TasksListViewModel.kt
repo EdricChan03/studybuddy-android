@@ -1,8 +1,5 @@
-@file:SuppressLint("StaticFieldLeak")
-
 package com.edricchan.studybuddy.features.tasks.vm
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.core.content.edit
@@ -10,13 +7,15 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edricchan.studybuddy.data.common.QueryMapper
+import com.edricchan.studybuddy.domain.common.sorting.SortDirection
+import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleCompleted
-import com.google.firebase.firestore.Query
+import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig.TaskOrderSpec
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,10 +40,22 @@ class TasksListViewModel @Inject constructor(
     // TODO: Remove when migrated to new UI for sorting preferences
     private val sortCompatMap = mapOf(
         TodoSortValues.NONE to null,
-        TodoSortValues.TITLE_ASC to ("title" to Query.Direction.ASCENDING),
-        TodoSortValues.TITLE_DESC to ("title" to Query.Direction.DESCENDING),
-        TodoSortValues.DUE_DATE_NEW_TO_OLD to ("dueDate" to Query.Direction.DESCENDING),
-        TodoSortValues.DUE_DATE_OLD_TO_NEW to ("dueDate" to Query.Direction.ASCENDING)
+        TodoSortValues.TITLE_ASC to TaskOrderSpec(
+            field = TaskItem.Field.Title,
+            direction = SortDirection.Ascending
+        ),
+        TodoSortValues.TITLE_DESC to TaskOrderSpec(
+            field = TaskItem.Field.Title,
+            direction = SortDirection.Descending
+        ),
+        TodoSortValues.DUE_DATE_NEW_TO_OLD to TaskOrderSpec(
+            field = TaskItem.Field.DueDate,
+            direction = SortDirection.Descending
+        ),
+        TodoSortValues.DUE_DATE_OLD_TO_NEW to TaskOrderSpec(
+            field = TaskItem.Field.DueDate,
+            direction = SortDirection.Ascending
+        )
     )
 
     // A MutableStateFlow but without strict equality comparisons
@@ -88,7 +99,7 @@ class TasksListViewModel @Inject constructor(
         val sortBy = sortCompatMap[value]
         setQuery(
             sortBy?.let { (field, dir) ->
-                { it.orderBy(field, dir) }
+                { it.orderBy(field.toDto().fieldName, dir.toFirestoreDirection()) }
             } ?: run {
                 Log.w(TAG, "Unrecognised sort option $value was specified")
                 // Reset the query used
