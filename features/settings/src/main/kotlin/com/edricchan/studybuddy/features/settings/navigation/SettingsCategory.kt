@@ -1,11 +1,13 @@
 package com.edricchan.studybuddy.features.settings.navigation
 
 import androidx.annotation.StringRes
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateInt
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItemShapes
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -88,6 +90,12 @@ fun SettingsCategory.SettingsListItem(
             )
         },
         supportingContent = descResId?.letComposable { Text(text = stringResource(it)) },
-        leadingContent = { icon(selected) }
+        leadingContent = {
+            Crossfade(
+                selected,
+                animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec(),
+                content = icon
+            )
+        }
     )
 }
