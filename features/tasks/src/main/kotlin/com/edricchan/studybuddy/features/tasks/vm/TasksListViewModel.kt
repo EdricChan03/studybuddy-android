@@ -12,9 +12,11 @@ import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
+import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleCompleted
+import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig.TaskOrderSpec
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
