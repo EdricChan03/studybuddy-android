@@ -49,6 +49,7 @@ private fun <Id> CheckboxBottomSheetItem(
 ) = TrailingCheckboxListItem(
     modifier = modifier,
     shapes = shapes,
+    colors = ListItemDefaults.segmentedColors(),
     text = { Text(text = item.title) },
     leadingContent = item.icon?.letComposable {
         Icon(
@@ -72,10 +73,8 @@ private fun <Id> RadioBottomSheetItem(
     onClick: () -> Unit
 ) = TrailingRadioButtonListItem(
     modifier = modifier,
-    colors = ListItemDefaults.colors(
-        containerColor = BottomSheetDefaults.ContainerColor,
-    ),
     shapes = shapes,
+    colors = ListItemDefaults.segmentedColors(),
     text = { Text(text = item.title) },
     leadingContent = item.icon?.letComposable {
         Icon(
