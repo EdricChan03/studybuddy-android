@@ -26,6 +26,12 @@
     <string name="task_adapter_mark_as_undone_btn_text">Mark as undone</string>
     <!-- Text for the "Delete task" button. -->
     <string name="task_adapter_delete_task_btn_text">Delete task</string>
+    <!-- Title for the "Confirm delete task" dialog. -->
+    <string name="confirm_delete_task_dialog_title">Delete "%1$s"?</string>
+    <!-- Title for the "Confirm delete task" dialog if the task has no title. -->
+    <string name="confirm_delete_task_dialog_title_no_title">Delete task?</string>
+    <!-- Content for the "Confirm delete task" dialog. -->
+    <string name="confirm_delete_task_dialog_content">This action cannot be undone!</string>
 
     <!-- View task strings -->
     <eat-comment />
