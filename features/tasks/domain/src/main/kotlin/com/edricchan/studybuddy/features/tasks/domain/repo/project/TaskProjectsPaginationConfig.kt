@@ -6,9 +6,8 @@ import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import kotlinx.coroutines.CoroutineScope
 
-
 /**
- * Configuration options for [ITaskProjectRepository.observeProjects].
+ * Configuration options for [TaskProjectRepository.observeProjects].
  * @property cachedCoroutineScope Desired [CoroutineScope] to cache the paging data in
  * (see [androidx.paging.cachedIn] for more info).
  * @property pageSize Number of projects to be shown per page.
