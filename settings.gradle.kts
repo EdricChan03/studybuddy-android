@@ -118,6 +118,7 @@ include(
     ":core:resources:icons",
     ":core:resources:icons:animated",
     ":core:resources:temporal",
+    ":core:settings:appearance:datastore",
     ":core:settings:appearance:datastore-proto",
     ":core:settings:appearance:model",
     ":core:settings:appearance:resources",
