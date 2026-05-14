@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.ui.theming.compose
 
 import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,26 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBudd
 import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
 
 /**
+ * Default implementation for [StudyBuddyTheme]'s `colors` parameter, if not overridden
+ * by a custom theme.
+ */
+@Composable
+fun studyBuddyColors(
+    context: Context = LocalContext.current,
+    enableDarkTheme: Boolean = isSystemInDarkTheme(),
+    useDynamicTheme: Boolean,
+): ColorScheme = when {
+    // useDynamicTheme doesn't imply that the Android device is actually running on
+    // Android 12+, so an additional check is required
+    useDynamicTheme && supportsDynamicColor ->
+        if (enableDarkTheme) dynamicDarkColorScheme(context)
+        else dynamicLightColorScheme(context)
+
+    enableDarkTheme -> StudyBuddyExpressiveDarkColors
+    else -> StudyBuddyExpressiveLightColors
+}
+
+/**
  * Sets the [MaterialTheme] for all of the Composables in [content].
  *
  * On Android 12+, the system-wide dynamic colours will be used.
@@ -30,6 +51,7 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
  * @param enableDarkTheme Whether dark theme should be enabled.
  * @param useDynamicTheme Whether the system's wallpaper colour should be used. This defaults to
  * `true` for supported devices (Android 12+), or `false` otherwise.
+ * @param colors Desired [ColorScheme] to use - see [studyBuddyColors].
  * @param typography The [Typography] to use.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -38,21 +60,14 @@ fun StudyBuddyTheme(
     context: Context = LocalContext.current,
     enableDarkTheme: Boolean = isSystemInDarkTheme(),
     useDynamicTheme: Boolean,
+    colors: ColorScheme = studyBuddyColors(
+        context = context,
+        useDynamicTheme = useDynamicTheme,
+        enableDarkTheme = enableDarkTheme
+    ),
     typography: Typography = StudyBuddyTypography,
     content: @Composable () -> Unit
 ) {
-    // Dynamic color is available on Android 12+
-    val colors = when {
-        // useDynamicTheme doesn't imply that the Android device is actually running on
-        // Android 12+, so an additional check is required
-        useDynamicTheme && supportsDynamicColor ->
-            if (enableDarkTheme) dynamicDarkColorScheme(context)
-            else dynamicLightColorScheme(context)
-
-        enableDarkTheme -> StudyBuddyExpressiveDarkColors
-        else -> StudyBuddyExpressiveLightColors
-    }
-
     MaterialExpressiveTheme(
         colorScheme = colors,
         typography = typography,
