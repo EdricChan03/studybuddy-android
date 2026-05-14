@@ -7,6 +7,8 @@ android {
 }
 
 dependencies {
+    api(projects.data.common.protobuf)
+
     api(libs.androidx.annotation)
 
     implementation(platform(libs.firebase.bom))
