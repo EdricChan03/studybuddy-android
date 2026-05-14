@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.LocalRippleThemeConfiguration
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MotionScheme
+import androidx.compose.material3.RippleDefaults
 import androidx.compose.material3.Typography
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -68,12 +71,16 @@ fun StudyBuddyTheme(
     typography: Typography = StudyBuddyTypography,
     content: @Composable () -> Unit
 ) {
-    MaterialExpressiveTheme(
-        colorScheme = colors,
-        typography = typography,
-        content = content,
-        motionScheme = MotionScheme.expressive()
-    )
+    CompositionLocalProvider(
+        LocalRippleThemeConfiguration provides RippleDefaults.InsetFocusRingRippleThemeConfiguration
+    ) {
+        MaterialExpressiveTheme(
+            colorScheme = colors,
+            typography = typography,
+            content = content,
+            motionScheme = MotionScheme.expressive()
+        )
+    }
 }
 
 /**
