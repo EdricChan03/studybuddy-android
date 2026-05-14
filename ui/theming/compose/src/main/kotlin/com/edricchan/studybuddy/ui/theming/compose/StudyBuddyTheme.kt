@@ -17,6 +17,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.ui.theming.common.ThemePreferences
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
@@ -25,6 +26,7 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.StudyBuddyTypography
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveDarkColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveLightColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
+import com.edricchan.studybuddy.ui.theming.compose.theme.toAppColorScheme
 
 /**
  * Default implementation for [StudyBuddyTheme]'s `colors` parameter, if not overridden
@@ -114,5 +116,29 @@ fun StudyBuddyTheme(
         useDynamicTheme = dynamicTheme,
         typography = typography,
         content = content
+    )
+}
+
+/**
+ * Sets the [MaterialTheme] for all the Composables in [content] based on the specified [appTheme].
+ * @param enableDarkTheme Whether the dark theme variant of the desired [appTheme] should be used.
+ * @param appTheme The desired [AppThemeSetting] to be used - see [toAppColorScheme] for more info.
+ * @param typography Desired [typographical][Typography] styles to be used.
+ */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun StudyBuddyTheme(
+    enableDarkTheme: Boolean = isSystemInDarkTheme(),
+    appTheme: AppThemeSetting,
+    typography: Typography = StudyBuddyTypography,
+    content: @Composable () -> Unit
+) {
+    StudyBuddyTheme(
+        enableDarkTheme = enableDarkTheme,
+        // TODO: Remove useDynamicTheme option when we switch all implementations to this overload
+        useDynamicTheme = appTheme == AppThemeSetting.Monet,
+        colors = appTheme.toAppColorScheme().getColorScheme(enableDarkTheme),
+        typography = typography,
+        content = content,
     )
 }
