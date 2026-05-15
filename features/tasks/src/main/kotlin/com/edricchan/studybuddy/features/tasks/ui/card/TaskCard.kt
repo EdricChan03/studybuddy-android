@@ -45,6 +45,7 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -60,7 +61,7 @@ import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskContentListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskCreatedAtOverline
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleListItem
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -235,10 +236,11 @@ private fun TaskCardSelectionIndicator(modifier: Modifier = Modifier, selected: 
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun TaskCardPreview(
     @PreviewParameter(LoremIpsum::class) text: String
-) = StudyBuddyTheme {
+) {
     TaskCard(
         title = "This is a task item",
         content = text,
@@ -250,15 +252,53 @@ private fun TaskCardPreview(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun DoneTaskCardPreview(
     @PreviewParameter(LoremIpsum::class) text: String
-) = StudyBuddyTheme {
+) {
     TaskCard(
         title = "This is a task item",
         content = text,
         dueDate = LocalDateTime.now(),
         isDone = true,
+        onClick = {},
+        onMarkAsDoneClick = {},
+        onDeleteClick = {}
+    )
+}
+
+@Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
+private fun SelectedTaskCardPreview(
+    @PreviewParameter(LoremIpsum::class) text: String
+) {
+    TaskCard(
+        title = "This is a task item",
+        content = text,
+        dueDate = LocalDateTime.now(),
+        isDone = true,
+        inSelectionMode = true,
+        selected = true,
+        onClick = {},
+        onMarkAsDoneClick = {},
+        onDeleteClick = {}
+    )
+}
+
+@Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
+private fun UnselectedTaskCardPreview(
+    @PreviewParameter(LoremIpsum::class) text: String
+) {
+    TaskCard(
+        title = "This is a task item",
+        content = text,
+        dueDate = LocalDateTime.now(),
+        isDone = true,
+        inSelectionMode = true,
         onClick = {},
         onMarkAsDoneClick = {},
         onDeleteClick = {}
