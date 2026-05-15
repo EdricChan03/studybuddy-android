@@ -44,7 +44,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -53,6 +52,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.CheckCircle
+import com.edricchan.studybuddy.core.resources.icons.outlined.Circle
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.features.tasks.R
@@ -216,7 +216,7 @@ fun TaskCard(
                         )
                     } else {
                         Icon(
-                            painterResource(R.drawable.ic_radio_button_unchecked_outline_24dp),
+                            AppIcons.Outlined.Circle,
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                             contentDescription = null,
                             modifier = Modifier.padding(16.dp)
