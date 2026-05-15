@@ -2,10 +2,10 @@ package com.edricchan.studybuddy.ui.widgets.compose.textfield
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +31,26 @@ private fun OutlinedTextFieldBoxContent(
 ) = ListItem(
     modifier = modifier,
     headlineContent = headlineText,
+    supportingContent = supportingText,
+    leadingContent = leadingIcon,
+    trailingContent = trailingIcon
+)
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun OutlinedTextFieldBoxContent(
+    modifier: Modifier,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+    headlineText: @Composable () -> Unit,
+    supportingText: (@Composable () -> Unit)?,
+    leadingIcon: @Composable (() -> Unit)?,
+    trailingIcon: @Composable (() -> Unit)?,
+) = ListItem(
+    modifier = modifier,
+    enabled = enabled,
+    onClick = onClick,
+    content = headlineText,
     supportingContent = supportingText,
     leadingContent = leadingIcon,
     trailingContent = trailingIcon
@@ -87,9 +107,9 @@ fun OutlinedTextFieldBox(
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
 ) = OutlinedTextFieldBoxContent(
-    modifier = modifier
-        .border(border, shape)
-        .clickable(enabled = enabled, onClick = onClick),
+    modifier = modifier.border(border, shape),
+    enabled = enabled,
+    onClick = onClick,
     headlineText = headlineText,
     supportingText = supportingText,
     leadingIcon = leadingIcon,
