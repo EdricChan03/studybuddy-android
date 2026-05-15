@@ -17,4 +17,9 @@ message AppearanceSettings {
   TypefaceSettingProto display_typeface = 3;
   /* The typeface to use for body text. */
   TypefaceSettingProto body_typeface = 4;
+
+  // Temporal-related settings
+
+  /* Whether to use relative timestamps. */
+  bool use_relative_timestamps = 100;
 }

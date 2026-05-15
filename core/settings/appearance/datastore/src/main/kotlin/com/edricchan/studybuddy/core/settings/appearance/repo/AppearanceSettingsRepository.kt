@@ -12,6 +12,7 @@ import javax.inject.Inject
  * This includes:
  * * [AppearanceSettingsDataStore.darkMode]
  * * [AppearanceSettingsDataStore.appTheme]
+ * * [AppearanceSettingsDataStore.useRelativeTimestamps]
  */
 class AppearanceSettingsRepository @Inject constructor(
     private val dataStore: AppearanceSettingsDataStore
@@ -44,5 +45,10 @@ class AppearanceSettingsRepository @Inject constructor(
         bodyStyle: TypefaceSetting
     ) {
         dataStore.setTypefaceConfig(displayStyle, bodyStyle)
+    }
+
+    val useRelativeTimestamps by dataStore::useRelativeTimestamps
+    suspend fun setUseRelativeTimestamps(shouldUse: Boolean) {
+        dataStore.setUseRelativeTimestamps(shouldUse)
     }
 }

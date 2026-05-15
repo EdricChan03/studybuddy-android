@@ -66,4 +66,13 @@ interface AppearanceSettingsDataStore {
         setDisplayTypeface(displayStyle)
         setBodyTypeface(bodyStyle)
     }
+
+    /** Whether to use relative timestamps. */
+    val useRelativeTimestamps: Flow<Boolean>
+
+    /**
+     * Sets the [useRelativeTimestamps] value to be used.
+     * @param shouldUse Whether relative timestamps should be used.
+     */
+    suspend fun setUseRelativeTimestamps(shouldUse: Boolean)
 }
