@@ -242,8 +242,9 @@ private fun TaskCardPreview(
     @PreviewParameter(LoremIpsum::class) text: String
 ) {
     TaskCard(
-        title = "This is a task item",
-        content = text,
+        title = "Jetpack Compose rewrite",
+        content = "Rewrite StudyBuddy to use **Jetpack Compose**, ideally at some point :)",
+        createdAt = LocalDateTime.now(),
         dueDate = LocalDateTime.now(),
         onClick = {},
         onMarkAsDoneClick = {},
