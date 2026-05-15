@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.data.serialization
 import android.net.Uri
 import androidx.core.net.toUri
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
@@ -18,3 +19,5 @@ object UriSerializer : KSerializer<Uri> {
         encoder.encodeString(value.toString())
     }
 }
+
+typealias SerializableUri = @Serializable(with = UriSerializer::class) Uri
