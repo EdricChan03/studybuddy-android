@@ -7,6 +7,7 @@ import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import kotlinx.serialization.Serializable
 
 private fun getWebHexFormat(
     withSignPrefix: Boolean = true,
@@ -25,6 +26,7 @@ private fun getWebHexFormat(
  * The internal [value] is an ARGB colour representation - to get its components,
  * the desired [alpha], [red], [green] and [blue] properties can be used.
  */
+@Serializable
 @JvmInline
 value class Color(
     @field:ColorInt
