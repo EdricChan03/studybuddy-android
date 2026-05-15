@@ -195,34 +195,41 @@ fun TaskCard(
                     animationSpec = MaterialTheme.motionScheme.defaultSpatialSpec()
                 )
             ) {
-                Crossfade(
-                    targetState = selected,
-                    label = "selected icon crossfade",
-                    animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
-                ) {
-                    if (it) {
-                        Surface(
-                            modifier = Modifier.padding(8.dp),
-                            shape = MaterialShapes.Cookie9Sided.toShape(),
-                            color = MaterialTheme.colorScheme.secondary,
-                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-                        ) {
-                            Icon(
-                                AppIcons.Outlined.CheckCircle,
-                                contentDescription = null,
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                    } else {
-                        Icon(
-                            AppIcons.Outlined.Circle,
-                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                            contentDescription = null,
-                            modifier = Modifier.padding(16.dp)
-                        )
-                    }
-                }
+                TaskCardSelectionIndicator(selected = selected)
             }
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+private fun TaskCardSelectionIndicator(modifier: Modifier = Modifier, selected: Boolean) {
+    Crossfade(
+        modifier = modifier,
+        targetState = selected,
+        label = "selected icon crossfade",
+        animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
+    ) {
+        if (it) {
+            Surface(
+                modifier = Modifier.padding(8.dp),
+                shape = MaterialShapes.Cookie9Sided.toShape(),
+                color = MaterialTheme.colorScheme.secondary,
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+            ) {
+                Icon(
+                    AppIcons.Outlined.CheckCircle,
+                    contentDescription = null,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+        } else {
+            Icon(
+                AppIcons.Outlined.Circle,
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                contentDescription = null,
+                modifier = Modifier.padding(16.dp)
+            )
         }
     }
 }
