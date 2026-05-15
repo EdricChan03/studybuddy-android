@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate.NightMode as NightModeAnnotation
 /** Preference key used for the dark theme preference. */
 const val PREF_DARK_THEME = "pref_dark_theme"
 
-enum class NightMode(@NightModeAnnotation val modeId: Int) {
+enum class NightMode(@field:NightModeAnnotation val modeId: Int) {
     Yes(AppCompatDelegate.MODE_NIGHT_YES),
     No(AppCompatDelegate.MODE_NIGHT_NO),
 
