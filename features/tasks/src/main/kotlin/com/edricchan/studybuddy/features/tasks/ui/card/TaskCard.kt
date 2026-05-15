@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -52,6 +51,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.CheckCircle
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.features.tasks.R
@@ -204,7 +205,7 @@ fun TaskCard(
                     if (it) {
                         val bgColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
                         Icon(
-                            Icons.Outlined.CheckCircle,
+                            AppIcons.Outlined.CheckCircle,
                             tint = MaterialTheme.colorScheme.primary,
                             contentDescription = null,
                             modifier = Modifier
