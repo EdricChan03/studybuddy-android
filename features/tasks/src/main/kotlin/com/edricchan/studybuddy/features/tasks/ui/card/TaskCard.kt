@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.CheckCircle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Circle
+import com.edricchan.studybuddy.exts.datetime.toInstant
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.features.tasks.R
@@ -63,7 +64,6 @@ import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleListItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -134,7 +134,7 @@ fun TaskCard(
                 modifier = Modifier
                     .padding(16.dp)
             ) {
-                createdAt?.let { TaskCreatedAtOverline(createdAt = it.toInstant(ZoneOffset.UTC)) }
+                createdAt?.let { TaskCreatedAtOverline(createdAt = it.toInstant()) }
                 TaskTitleListItem(
                     textModifier = titleTextModifier,
                     title = title ?: stringResource(R.string.task_adapter_empty_title),
