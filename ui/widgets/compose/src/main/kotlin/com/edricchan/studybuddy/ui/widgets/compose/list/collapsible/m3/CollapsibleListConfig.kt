@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.ui.widgets.compose.list.collapsible.m3
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -376,5 +377,13 @@ object CollapsibleListDefaults {
      */
     @Composable
     fun headerShape(isExpanded: Boolean): Shape =
-        if (isExpanded) ExpListItemDefaults.firstItemShape else ExpListItemDefaults.baseShape
+        if (isExpanded) expandedHeaderShape else collapsedHeaderShape
+
+    /** The default header [CornerBasedShape] to use when the controlling list is expanded. */
+    @get:Composable
+    val expandedHeaderShape: CornerBasedShape get() = ExpListItemDefaults.firstItemShape
+
+    /** The default header [CornerBasedShape] to use when the controlling list is collapsed. */
+    @get:Composable
+    val collapsedHeaderShape: CornerBasedShape get() = ExpListItemDefaults.baseShape
 }
