@@ -1,5 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`kotlinx-serialization`
 }
 
 android {
@@ -24,6 +25,7 @@ android {
 
 dependencies {
     api(projects.data.common)
+    implementation(projects.data.serialization.android)
 
     api(libs.androidx.paging.common)
 

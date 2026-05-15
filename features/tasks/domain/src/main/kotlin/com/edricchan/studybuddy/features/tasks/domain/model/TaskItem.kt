@@ -1,7 +1,9 @@
 package com.edricchan.studybuddy.features.tasks.domain.model
 
 import com.edricchan.studybuddy.data.common.HasId
+import com.edricchan.studybuddy.data.serialization.jtime.SerializableInstant
 import com.edricchan.studybuddy.domain.common.WithTimestampMetadata
+import kotlinx.serialization.Serializable
 import java.time.Instant
 
 /**
@@ -14,17 +16,18 @@ import java.time.Instant
  * @property tags A list of tags applied to this task, if any.
  * @property project A project that this task is assigned to, if any.
  */
+@Serializable
 data class TaskItem(
     override val id: String,
     val title: String,
     val content: String? = null,
-    val dueDate: Instant? = null,
+    val dueDate: SerializableInstant? = null,
     val isCompleted: Boolean = false,
     val isArchived: Boolean = false,
     val tags: Set<String>? = null,
     val project: TaskProject? = null,
-    override val createdAt: Instant,
-    override val lastModified: Instant
+    override val createdAt: SerializableInstant,
+    override val lastModified: SerializableInstant
 ) : HasId, WithTimestampMetadata {
     enum class Field {
         Title,
@@ -38,6 +41,7 @@ data class TaskItem(
         LastModified
     }
 
+    @Serializable
     sealed class FieldValue<T>(
         val field: Field,
         open val value: T

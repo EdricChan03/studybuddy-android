@@ -1,8 +1,9 @@
 package com.edricchan.studybuddy.features.tasks.domain.model
 
 import com.edricchan.studybuddy.data.common.HasId
+import com.edricchan.studybuddy.data.serialization.jtime.SerializableInstant
 import com.edricchan.studybuddy.domain.common.WithTimestampMetadata
-import java.time.Instant
+import kotlinx.serialization.Serializable
 import com.edricchan.studybuddy.data.common.Color as ColorValue
 
 /**
@@ -10,12 +11,13 @@ import com.edricchan.studybuddy.data.common.Color as ColorValue
  * @property name The name of this project.
  * @property color The colour of this project.
  */
+@Serializable
 data class TaskProject(
     override val id: String,
     val name: String,
     val color: ColorValue? = null,
-    override val createdAt: Instant,
-    override val lastModified: Instant
+    override val createdAt: SerializableInstant,
+    override val lastModified: SerializableInstant
 ) : HasId, WithTimestampMetadata {
     enum class Field {
         Name,
@@ -24,6 +26,7 @@ data class TaskProject(
         LastModified
     }
 
+    @Serializable
     sealed class FieldValue<T>(
         val field: Field,
         open val value: T
