@@ -8,8 +8,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -27,12 +25,14 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
@@ -40,7 +40,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.stringResource
@@ -202,17 +201,18 @@ fun TaskCard(
                     animationSpec = MaterialTheme.motionScheme.defaultEffectsSpec()
                 ) {
                     if (it) {
-                        val bgColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
-                        Icon(
-                            AppIcons.Outlined.CheckCircle,
-                            tint = MaterialTheme.colorScheme.primary,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .border(2.dp, bgColor, CircleShape)
-                                .clip(CircleShape)
-                                .background(bgColor)
-                        )
+                        Surface(
+                            modifier = Modifier.padding(8.dp),
+                            shape = MaterialShapes.Cookie9Sided.toShape(),
+                            color = MaterialTheme.colorScheme.secondary,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+                        ) {
+                            Icon(
+                                AppIcons.Outlined.CheckCircle,
+                                contentDescription = null,
+                                modifier = Modifier.padding(8.dp)
+                            )
+                        }
                     } else {
                         Icon(
                             AppIcons.Outlined.Circle,
