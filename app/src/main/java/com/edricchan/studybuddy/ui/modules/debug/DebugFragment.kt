@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.plus
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
@@ -17,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.compose.content
 import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebugModalBottomSheet
-import com.edricchan.studybuddy.exts.androidx.compose.plus
 import com.edricchan.studybuddy.ui.modules.debug.compose.DebugScreen
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.google.firebase.auth.FirebaseUser
