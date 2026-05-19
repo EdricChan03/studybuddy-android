@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.theming.common.night
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.core.settings.appearance.proto.DarkModeSettingProto
 
@@ -37,6 +38,15 @@ fun Context.shouldApplyDarkTheme(
  * @param themeSetting The current [DarkModeSetting].
  * @param isSystemInDarkTheme Whether the system is using dark theme.
  */
+@Deprecated(
+    "Use the overload which takes the domain DarkModeSetting enum class instead",
+    ReplaceWith(
+        "shouldApplyDarkTheme(" +
+            "themeSetting = DarkModeSetting.fromProto(themeSetting), " +
+            "isSystemInDarkTheme = isSystemInDarkTheme)",
+        "com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting"
+    )
+)
 fun shouldApplyDarkTheme(
     themeSetting: DarkModeSettingProto,
     isSystemInDarkTheme: Boolean
@@ -44,5 +54,18 @@ fun shouldApplyDarkTheme(
     DarkModeSettingProto.AlwaysOff -> false
     DarkModeSettingProto.AlwaysOn -> true
     DarkModeSettingProto.FollowSystem -> isSystemInDarkTheme
-    else -> true
+}
+
+/**
+ * Whether dark theme should be applied based on the value of [themeSetting].
+ * @param themeSetting The current [DarkModeSetting].
+ * @param isSystemInDarkTheme Whether the system is using dark theme.
+ */
+fun shouldApplyDarkTheme(
+    themeSetting: DarkModeSetting,
+    isSystemInDarkTheme: Boolean
+): Boolean = when (themeSetting) {
+    DarkModeSetting.AlwaysOff -> false
+    DarkModeSetting.AlwaysOn -> true
+    DarkModeSetting.FollowSystem -> isSystemInDarkTheme
 }
