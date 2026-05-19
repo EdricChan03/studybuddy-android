@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION") // For Compat icon accessors
+
 package com.edricchan.studybuddy.core.resources.icons.compat
 
 import androidx.annotation.DrawableRes
