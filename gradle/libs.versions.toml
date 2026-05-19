@@ -19,6 +19,7 @@ dagger = "2.59.2"
 deep-link-dispatch = "7.2.2"
 firebase-bom = "34.13.0"
 gradle-versions = "0.54.0"
+hilt = "1.3.0"
 kotest = "6.1.11"
 kotlin = "2.3.21"
 kotlinx-coroutines = "1.10.2"
@@ -145,6 +146,7 @@ aboutLibraries-compose-material3 = { module = "com.mikepenz:aboutlibraries-compo
 appUpdater = "com.github.AleP04:AppUpdater:2.7.2"
 flowPreferences = "com.fredporciuncula:flow-preferences:1.9.1"
 migration = "io.github.boswelja.migration:migration-core:2.1.4"
+semver = "io.github.z4kn4fein:semver:3.1.0"
 
 # Gradle Versions (declared here as a library and not as a plugin
 # such that it can be used in a custom reporter)
@@ -179,6 +181,8 @@ kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref 
 android-screenshot-validation-api = { module = "com.android.tools.screenshot:screenshot-validation-api", version.ref = "android-compose-screenshotTest" }
 
 # DI dependencies
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 

@@ -130,6 +130,7 @@ include(
     ":core:settings:updates:datastore-proto",
     ":core:settings:updates:model",
     ":core:settings:updates:resources",
+    ":core:updater",
     ":data:common",
     ":data:common:compose",
     ":data:common:protobuf",
