@@ -89,7 +89,7 @@ composeMarkdown = "io.github.boswelja.markdown:material3:1.1.5"
 
 # Other dependencies
 
-materialComponents = "com.google.android.material:material:1.14.0-rc01"
+materialComponents = "com.google.android.material:material:1.14.0"
 
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
