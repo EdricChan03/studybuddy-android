@@ -55,7 +55,7 @@ androidx-paging-common = { module = "androidx.paging:paging-common", version.ref
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0"
-androidx-savedstate-ktx = "androidx.savedstate:savedstate-ktx:1.4.0"
+androidx-savedstate-ktx = "androidx.savedstate:savedstate-ktx:1.5.0"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0"
 androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.11.2"
 
