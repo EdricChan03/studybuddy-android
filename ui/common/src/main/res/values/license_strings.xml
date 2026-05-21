@@ -9,4 +9,6 @@
     <string name="licenses_search_filtered_results_empty_text_title">No results found</string>
     <string name="licenses_search_filtered_results_empty_text_suggestion">Try a different search
         query</string>
+
+    <string name="licenses_action_clear_filters">Clear search filters</string>
 </resources>

@@ -3,24 +3,35 @@ package com.edricchan.studybuddy.ui.common.licenses
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.fragment.app.viewModels
+import com.edricchan.studybuddy.ui.common.R
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
-import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.util.withContext
+import com.edricchan.studybuddy.ui.common.licenses.vm.LicensesViewModel
+import com.edricchan.studybuddy.utils.androidx.core.menuProvider
+import dagger.hilt.android.AndroidEntryPoint
 
-@Deprecated("Use the LibrariesContainer composable instead")
+@AndroidEntryPoint
+@Deprecated("Use the OssLicensesListScreen screen composable instead")
 class OssLicensesFragment : ComposableFragment() {
+    private val viewModel by viewModels<LicensesViewModel>()
+
+    override val menuProvider = menuProvider(
+        R.menu.menu_oss_licenses
+    ) {
+        if (it.itemId == R.id.action_reset_filters) {
+            viewModel.clearFilters()
+            return@menuProvider true
+        }
+        false
+    }
+
     @Composable
     override fun Content(modifier: Modifier) {
-        val context = LocalContext.current
-        val libs = remember { Libs.Builder().withContext(context).build() }
-
         Surface(
             color = MaterialTheme.colorScheme.background
         ) {
-            LicensesContainer(modifier = modifier, libs = libs)
+            OssLicensesListScreen(modifier = modifier, viewModel = viewModel)
         }
     }
 }

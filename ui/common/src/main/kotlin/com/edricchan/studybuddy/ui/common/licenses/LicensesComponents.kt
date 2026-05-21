@@ -1,46 +1,40 @@
 package com.edricchan.studybuddy.ui.common.licenses
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.plus
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Badge
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -50,16 +44,16 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SearchBarState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLocaleList
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
@@ -70,30 +64,84 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Check
 import com.edricchan.studybuddy.core.resources.icons.outlined.Code
 import com.edricchan.studybuddy.core.resources.icons.outlined.Link
 import com.edricchan.studybuddy.ui.common.R
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.widgets.compose.IconButtonWithTooltip
-import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.entity.Developer
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.entity.Scm
-import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
-import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialog
-import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialogBody
-import com.mikepenz.aboutlibraries.ui.compose.m3.libraryColors
 import com.mikepenz.aboutlibraries.ui.compose.util.author
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.mapLatest
-import kotlin.time.Duration.Companion.milliseconds
+import java.text.Collator
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+
+@Composable
+fun LicenseChipsRow(
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues,
+    licenseCounts: Map<License, Int>,
+    selectedLicenses: Set<License> = licenseCounts.keys,
+    onSelectLicenses: (Set<License>) -> Unit
+) {
+    val collator = Collator.getInstance(LocalLocaleList.current[0].platformLocale)
+    val licenses = licenseCounts.entries.sortedWith(compareBy(collator) { it.key.name })
+
+    fun onToggleLicense(license: License) {
+        if (license in selectedLicenses) onSelectLicenses(selectedLicenses - license)
+        else onSelectLicenses(selectedLicenses + license)
+    }
+
+    LazyRow(
+        modifier = modifier,
+        contentPadding = contentPadding,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        items(
+            items = licenses,
+            key = { it.key.hash }
+        ) { (license, count) ->
+            val isSelected = license in selectedLicenses
+            FilterChip(
+                modifier = Modifier.animateContentSize(),
+                selected = isSelected,
+                onClick = { onToggleLicense(license) },
+                leadingIcon = {
+                    AnimatedVisibility(
+                        visible = isSelected,
+                        enter = fadeIn(
+                            MaterialTheme.motionScheme.fastEffectsSpec()
+                        ) + scaleIn(
+                            MaterialTheme.motionScheme.fastSpatialSpec()
+                        ),
+                        exit = fadeOut(
+                            MaterialTheme.motionScheme.fastEffectsSpec()
+                        ) + scaleOut(
+                            MaterialTheme.motionScheme.fastSpatialSpec()
+                        )
+                    ) {
+                        Icon(AppIcons.Outlined.Check, contentDescription = null)
+                    }
+                },
+                label = {
+                    Text(text = license.name)
+                },
+                trailingIcon = {
+                    Badge(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    ) {
+                        Text(text = count.toString())
+                    }
+                },
+                shapes = FilterChipDefaults.shapes()
+            )
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -350,7 +398,6 @@ fun LicensesSearchBar(
     SearchBar(
         modifier = modifier,
         state = state,
-        shadowElevation = 1.dp,
         inputField = {
             SearchBarDefaults.InputField(
                 textFieldState = textFieldState,
@@ -402,16 +449,43 @@ fun LicensesSearchBar(
     )
 }
 
-private fun Library.matchesQuery(query: String): Boolean {
-    return name.contains(query, ignoreCase = true) ||
-        (description?.contains(query, ignoreCase = true) == true) ||
-        licenses.any { name.contains(query, ignoreCase = true) } ||
-        developers.any { name.contains(query, ignoreCase = true) } ||
-        (organization?.name?.contains(query, ignoreCase = true) == true)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LicensesFilterOptions(
+    modifier: Modifier = Modifier,
+    color: Color,
+    contentColor: Color = contentColorFor(color),
+    searchTextFieldState: TextFieldState,
+    licenseCounts: Map<License, Int>,
+    selectedLicenses: Set<License>,
+    onSelectLicenses: (Set<License>) -> Unit
+) {
+    Surface(
+        modifier = modifier,
+        color = color,
+        contentColor = contentColor
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            LicensesSearchBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp, start = 8.dp, end = 8.dp),
+                textFieldState = searchTextFieldState
+            )
+            LicenseChipsRow(
+                contentPadding = PaddingValues(8.dp),
+                licenseCounts = licenseCounts,
+                selectedLicenses = selectedLicenses,
+                onSelectLicenses = onSelectLicenses
+            )
+        }
+    }
 }
 
 @Composable
-private fun FilteredLicensesEmptyState(modifier: Modifier = Modifier) {
+internal fun FilteredLicensesEmptyState(modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
         shape = MaterialTheme.shapes.large,
@@ -434,83 +508,5 @@ private fun FilteredLicensesEmptyState(modifier: Modifier = Modifier) {
                 text = stringResource(R.string.licenses_search_filtered_results_empty_text_suggestion)
             )
         }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class, FlowPreview::class, ExperimentalCoroutinesApi::class)
-@Composable
-fun LicensesContainer(
-    modifier: Modifier = Modifier,
-    libs: Libs,
-    lazyListState: LazyListState = rememberLazyListState(),
-    contentPadding: PaddingValues = WindowInsets.navigationBars.only(WindowInsetsSides.Bottom)
-        .asPaddingValues() + PaddingValues(16.dp),
-    showSearchBar: Boolean = true
-) {
-    var openedLib by remember { mutableStateOf<Library?>(null) }
-
-    val searchBarTextFieldState = rememberTextFieldState()
-    val filteredLibs by remember {
-        snapshotFlow { searchBarTextFieldState.text }
-            .debounce(100.milliseconds)
-            .mapLatest { query ->
-                libs.libraries.filter { it.matchesQuery(query = query.toString()) }
-            }
-    }.collectAsStateWithLifecycle(initialValue = libs.libraries)
-
-    val padding = if (filteredLibs.isEmpty()) PaddingValues(16.dp)
-    else contentPadding
-
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = padding,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        state = lazyListState
-    ) {
-        if (showSearchBar) {
-            stickyHeader {
-                LicensesSearchBar(
-                    modifier = Modifier
-                        .fillParentMaxWidth()
-                        .padding(top = 8.dp),
-                    textFieldState = searchBarTextFieldState
-                )
-            }
-        }
-        items(items = filteredLibs, key = { it.uniqueId }) {
-            LibraryItem(
-                modifier = Modifier.animateItem(),
-                lib = it,
-                onClick = {
-                    openedLib = it
-                }
-            )
-        }
-        if (filteredLibs.isEmpty()) {
-            item {
-                Box(
-                    modifier = Modifier.fillParentMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    FilteredLicensesEmptyState()
-                }
-            }
-        }
-    }
-
-    openedLib?.let {
-        LicenseDialog(
-            library = it,
-            body = { lib, modifier ->
-                LicenseDialogBody(
-                    library = lib,
-                    modifier = modifier,
-                    colors = LibraryDefaults.libraryColors()
-                )
-            },
-            onDismiss = {
-                openedLib = null
-            }
-        )
     }
 }

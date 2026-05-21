@@ -34,6 +34,7 @@ dependencies {
     implementation(projects.ui.widgets.compose)
     implementation(projects.ui.widgets.compose)
     implementation(projects.utils.androidx.compose)
+    implementation(projects.utils.androidx.core)
     implementation(projects.utils.web)
 
     api(libs.androidx.fragment.ktx)
