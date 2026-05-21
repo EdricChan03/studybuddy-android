@@ -56,6 +56,22 @@ gradlePlugin {
             description = "Gradle plugin to configure AGP for the main application module"
         }
 
+        val appPropertiesPlugin by registering {
+            id = "com.edricchan.studybuddy.properties"
+            implementationClass =
+                "com.edricchan.studybuddy.plugin.properties.StudyBuddyPropertiesConsumerPlugin"
+            displayName = "StudyBuddy Properties consumer plugin"
+            description = "Gradle plugin to configure AGP BuildConfig values"
+        }
+        val appPropertiesProducerPlugin by registering {
+            id = "com.edricchan.studybuddy.properties-producer"
+            implementationClass =
+                "com.edricchan.studybuddy.plugin.properties.StudyBuddyPropertiesProducerPlugin"
+            displayName = "StudyBuddy Properties producer plugin"
+            description =
+                "Gradle plugin to write the app's properties for use by com.edricchan.studybuddy.properties"
+        }
+
         // Convention plugins
         val screenshotTestingConventionPlugin by registering {
             id = "com.edricchan.studybuddy.library.compose.android-screenshot-testing"
