@@ -453,7 +453,7 @@ fun LicensesSearchBar(
 @Composable
 fun LicensesFilterOptions(
     modifier: Modifier = Modifier,
-    color: Color,
+    color: Color = MaterialTheme.colorScheme.surfaceContainer,
     contentColor: Color = contentColorFor(color),
     searchTextFieldState: TextFieldState,
     licenseCounts: Map<License, Int>,
