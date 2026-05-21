@@ -17,6 +17,7 @@ plugins {
     com.edricchan.studybuddy.`dependency-updates`
     alias(libs.plugins.testAggregation.results)
     alias(libs.plugins.aboutLibraries) apply false
+    com.edricchan.studybuddy.`properties-producer`
 }
 
 tasks {

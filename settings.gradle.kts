@@ -117,6 +117,7 @@ include(
     ":core:resources:icons:common",
     ":core:resources:icons",
     ":core:resources:icons:animated",
+    ":core:resources:metadata",
     ":core:resources:temporal",
     ":core:settings:appearance:datastore",
     ":core:settings:appearance:datastore-proto",
