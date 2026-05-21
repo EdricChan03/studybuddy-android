@@ -183,6 +183,8 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
                     }
                 )
             }
+
+            lifecycleTasks.registerPreBuild(project.rootProject.tasks.named("writeStudyBuddyMetadata"))
         }
 
         extension.buildTypesSigning.getOrElse(emptySet()).forEach {
