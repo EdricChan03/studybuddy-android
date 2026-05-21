@@ -1,7 +1,7 @@
 [versions]
 aboutLibraries = "14.2.0"
 accompanist = "0.37.3"
-android-compose-screenshotTest = "0.0.1-alpha14"
+android-compose-screenshotTest = "0.0.1-alpha15"
 android-desugar = "2.1.5"
 android-gradle = "9.2.1"
 androidx-activity = "1.13.0"
