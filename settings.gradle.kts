@@ -169,5 +169,6 @@ include(
     ":features:tasks",
     ":features:tasks:data",
     ":features:tasks:domain",
+    ":features:tasks:domain-proto",
     ":app"
 )

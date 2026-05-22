@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.features.tasks.proto;
+
+import "google/protobuf/any.proto";
+import "com/edricchan/studybuddy/data/common/proto/sort_direction.proto";
+
+option java_multiple_files = true;
+
+enum TaskField {
+  /* The task's title field. */
+  Title = 0;
+  /* The task's description field. */
+  Description = 1;
+  /* The task's completion field. (Use CompletedDate instead) */
+  IsCompleted = 2 [deprecated = true];
+  /* The task's archived field. (Use ArchivedDate instead) */
+  IsArchived = 3 [deprecated = true];
+  /** The task's priority field. */
+  Priority = 4;
+  /** The task's labels field. */
+  Labels = 5;
+
+  // Date fields
+  /* The task's due-date field. */
+  DueDate = 100;
+  /* The task's created date field. */
+  CreatedDate = 101;
+  /* The task's completion date field. */
+  CompletedDate = 102;
+  /* The task's archived date field. */
+  ArchivedDate = 103;
+  /* The task's deleted date field. */
+  DeletedDate = 104;
+}
+
+/* Specifies how a task field should be sorted. */
+message TaskSortEntry {
+  /* The task field. */
+  TaskField field = 1;
+  /* The direction to sort the task field by. */
+  com.edricchan.studybuddy.data.common.proto.SortDirection direction = 2;
+}
+
+/* Class which emulates a key-value data structure. */
+message TaskFieldEntry {
+  /** The entry's key. */
+  TaskField key = 1;
+  /** The entry's value. */
+  google.protobuf.Any value = 2;
+}
