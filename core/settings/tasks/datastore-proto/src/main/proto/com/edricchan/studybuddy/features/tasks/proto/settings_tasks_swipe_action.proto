@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.features.tasks.proto;
+
+option java_multiple_files = true;
+
+enum TasksSettingsSwipeAction {
+  /* No action should be shown. */
+  None = 0;
+  /* A mark as complete action should be shown, which would toggle its completion status. */
+  MarkComplete = 1;
+  /* An archive action should be shown, which would toggle its archival status. */
+  Archive = 2;
+  /* A delete action should be shown, which would allow the item to be deleted. */
+  Delete = 3;
+  /* An edit action should be shown, which would allow the item to be edited. */
+  Edit = 4;
+  /* A snooze action should be shown, which would allow the item's due date to be postponed. */
+  Snooze = 5;
+}
