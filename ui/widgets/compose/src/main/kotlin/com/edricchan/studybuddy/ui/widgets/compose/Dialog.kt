@@ -8,8 +8,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -33,6 +31,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Close
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
@@ -196,7 +196,7 @@ object DialogDefaults {
         leadingIcon = leadingIcon,
         trailingIcon = if (showClearButton && value.isNotEmpty()) ({
             IconButton(onClick = { onValueChange("") }) {
-                Icon(Icons.Outlined.Clear, contentDescription = "Clear button")
+                Icon(AppIcons.Outlined.Close, contentDescription = "Clear button")
             }
         }) else trailingIcon,
         supportingText = supportingText,
