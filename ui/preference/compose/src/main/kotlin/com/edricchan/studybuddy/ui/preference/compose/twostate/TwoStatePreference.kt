@@ -2,8 +2,6 @@ package com.edricchan.studybuddy.ui.preference.compose.twostate
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
@@ -21,6 +19,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceColors
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceDefaults
@@ -181,7 +181,7 @@ private fun SwitchPreferencePreview(
                 subtitle = { Text(text = "Switch preference subtitle") },
                 icon = {
                     Icon(
-                        Icons.Outlined.Settings,
+                        AppIcons.Outlined.Settings,
                         contentDescription = "Icon content description"
                     )
                 },
@@ -220,7 +220,7 @@ private fun CheckboxPreferencePreview(
                 subtitle = { Text(text = "Checkbox preference subtitle") },
                 icon = {
                     Icon(
-                        Icons.Outlined.Settings,
+                        AppIcons.Outlined.Settings,
                         contentDescription = "Icon content description"
                     )
                 },
