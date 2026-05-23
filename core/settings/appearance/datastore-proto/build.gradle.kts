@@ -1,27 +1,3 @@
 plugins {
-    com.edricchan.studybuddy.library.`android-protobuf`
-}
-
-android {
-    namespace = "com.edricchan.studybuddy.core.settings.appearance.datastore.proto"
-
-    defaultConfig {
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-}
-
-dependencies {
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
+    com.edricchan.studybuddy.library.`jvm-protobuf`
 }
