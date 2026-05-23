@@ -1,7 +1,5 @@
 package com.edricchan.studybuddy.features.tasks.ui.attrs
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
@@ -38,7 +36,7 @@ fun TaskDueDateListItem(
 ) = ListItem(
     modifier = modifier,
     headlineContent = { Text(text = formatDate(dueDate)) },
-    leadingContent = { Icon(Icons.Outlined.DateRange, contentDescription = null) },
+    leadingContent = { Icon(AppIcons.Outlined.CalendarClock, contentDescription = null) },
     colors = colors
 )
 
