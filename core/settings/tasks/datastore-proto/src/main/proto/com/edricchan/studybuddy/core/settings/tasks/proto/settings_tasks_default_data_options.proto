@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.tasks.proto;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+
+/* Default data to be used when creating a new task. */
+message TasksDefaultDataOptions {
+  /* Default task title to use, if any. */
+  optional string title = 1;
+  /* Default task description to use, if any. */
+  optional string description = 2;
+  /* Whether the task should be initially marked as completed. */
+  optional bool is_completed = 3;
+  /* Whether the task should be initially archived. */
+  optional bool is_archived = 4;
+  /* Default task priority to use, if any. */
+  optional int32 priority = 5;
+  /* Default task labels to use, if any. */
+  repeated string labels = 6;
+
+  /* Default due date to use, if any. */
+  oneof due_date {
+    /* No default due date should be specified. (This is a marker field; its value will be ignored) */
+    bool due_date_no_default = 100;
+    /* Default due date as a fixed instant, if any. */
+    google.protobuf.Timestamp due_date_fixed_instant = 101;
+    /* Default due date in the future as specified by the duration, if any. */
+    google.protobuf.Duration due_date_future_duration = 102;
+  }
+}
