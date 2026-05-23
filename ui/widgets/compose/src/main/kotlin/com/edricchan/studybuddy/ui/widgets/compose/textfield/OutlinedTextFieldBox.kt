@@ -2,9 +2,6 @@ package com.edricchan.studybuddy.ui.widgets.compose.textfield
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -19,6 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.CheckCircle
+import com.edricchan.studybuddy.core.resources.icons.outlined.Edit
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
 @Composable
@@ -125,8 +125,8 @@ private fun OutlinedTextFieldBoxPreview() {
     StudyBuddyTheme {
         OutlinedTextFieldBox(
             headlineText = { Text(text = "Example content goes here") },
-            leadingIcon = { Icon(Icons.Outlined.CheckCircle, contentDescription = null) },
-            trailingIcon = { Icon(Icons.Outlined.Favorite, contentDescription = null) }
+            leadingIcon = { Icon(AppIcons.Outlined.CheckCircle, contentDescription = null) },
+            trailingIcon = { Icon(AppIcons.Outlined.Edit, contentDescription = null) }
         )
     }
 }
