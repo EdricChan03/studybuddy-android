@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Schedule
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeTimeSpan
 import com.edricchan.studybuddy.features.tasks.R
@@ -72,7 +73,7 @@ fun TaskCreatedAtListItem(
     modifier = modifier,
     leadingContent = {
         Icon(
-            painterResource(R.drawable.ic_access_time_outline_24dp),
+            AppIcons.Outlined.Schedule,
             contentDescription = stringResource(
                 R.string.view_task_created_at_content_desc
             )
@@ -105,7 +106,7 @@ fun TaskCreatedAtOverline(
     verticalAlignment = Alignment.CenterVertically
 ) {
     Icon(
-        painterResource(R.drawable.ic_access_time_outline_24dp),
+        AppIcons.Outlined.Schedule,
         contentDescription = stringResource(
             R.string.view_task_created_at_content_desc
         )
