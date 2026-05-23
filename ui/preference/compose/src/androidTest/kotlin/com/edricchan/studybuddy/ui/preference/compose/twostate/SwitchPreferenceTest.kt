@@ -1,7 +1,5 @@
 package com.edricchan.studybuddy.ui.preference.compose.twostate
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
@@ -17,6 +15,8 @@ import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import org.junit.Rule
 import kotlin.test.Test
 
@@ -38,7 +38,7 @@ class SwitchPreferenceTest {
                     icon = {
                         Icon(
                             modifier = Modifier.testTag(iconTag),
-                            imageVector = Icons.Outlined.Info,
+                            imageVector = AppIcons.Outlined.Info,
                             contentDescription = null
                         )
                     },
