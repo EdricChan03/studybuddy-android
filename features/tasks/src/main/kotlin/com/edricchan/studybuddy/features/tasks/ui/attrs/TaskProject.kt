@@ -16,12 +16,13 @@ import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
 import com.edricchan.studybuddy.data.common.compose.toComposeColor
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
@@ -87,7 +88,7 @@ fun TaskProjectListItem(
 ) = ListItem(
     modifier = modifier,
     leadingContent = {
-        Icon(painterResource(R.drawable.ic_checklist_outline_24dp), contentDescription = null)
+        Icon(AppIcons.Outlined.Assignment, contentDescription = null)
     },
     headlineContent = {
         TaskProjectText(text = name)
