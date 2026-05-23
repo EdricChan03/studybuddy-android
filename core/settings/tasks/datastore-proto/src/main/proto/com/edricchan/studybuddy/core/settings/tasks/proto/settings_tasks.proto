@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.tasks.proto;
+
+import "google/protobuf/any.proto";
+
+import "com/edricchan/studybuddy/core/settings/tasks/proto/settings_tasks_confirmation_options.proto";
+import "com/edricchan/studybuddy/core/settings/tasks/proto/settings_tasks_default_data_options.proto";
+import "com/edricchan/studybuddy/core/settings/tasks/proto/settings_tasks_filter_options.proto";
+import "com/edricchan/studybuddy/core/settings/tasks/proto/settings_tasks_swipe_action.proto";
+
+option java_multiple_files = true;
+
+/* Tasks settings. */
+message TasksSettings {
+  /* Filter options. */
+  com.edricchan.studybuddy.core.settings.tasks.proto.TasksFilterOptions filter_options = 1;
+  /* Swipe action options. */
+  com.edricchan.studybuddy.core.settings.tasks.proto.TasksSwipeActionOptions swipe_action_options = 2;
+  /* Confirmation options. */
+  com.edricchan.studybuddy.core.settings.tasks.proto.TasksConfirmationOptions confirm_options = 3;
+
+  /* The default data to be used for new tasks. */
+  optional com.edricchan.studybuddy.core.settings.tasks.proto.TasksDefaultDataOptions default_new_task_data = 10;
+}
