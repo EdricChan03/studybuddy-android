@@ -18,3 +18,11 @@ enum TasksSettingsSwipeAction {
   /* A snooze action should be shown, which would allow the item's due date to be postponed. */
   Snooze = 5;
 }
+
+/* Swipe actions to be shown when swiping a task item in a list. */
+message TasksSwipeActionOptions {
+  /* Swipe action to be shown when swiping towards the end. (Defaults to None) */
+  TasksSettingsSwipeAction towards_end = 1;
+  /* Swipe action to be shown when swiping towards the start. (Defaults to None) */
+  TasksSettingsSwipeAction towards_start = 2;
+}
