@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -25,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.auth.LocalCurrentUser
 import com.edricchan.studybuddy.core.auth.model.User
 import com.edricchan.studybuddy.core.auth.ui.AccountInfoRow
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
 import com.edricchan.studybuddy.features.settings.navigation.SettingsListItem
@@ -79,7 +79,7 @@ fun SettingsListScreen(
                     count = entryCount
                 ),
                 content = { Text(text = stringResource(R.string.pref_header_about_title)) },
-                leadingContent = { Icon(Icons.Outlined.Info, contentDescription = null) }
+                leadingContent = { Icon(AppIcons.Outlined.Info, contentDescription = null) }
             )
         }
     }
