@@ -1,7 +1,5 @@
 package com.edricchan.studybuddy.ui.widgets.compose
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -12,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.ArrowBack
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
 /**
@@ -45,7 +45,7 @@ fun BackIconButton(
     },
     icon = {
         Icon(
-            Icons.AutoMirrored.Outlined.ArrowBack,
+            AppIcons.Outlined.ArrowBack,
             contentDescription = stringResource(R.string.back_btn_tooltip_text)
         )
     },
