@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,6 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.MoreVert
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
 /**
@@ -46,7 +46,7 @@ fun MoreActionsIconButton(
             Text(text = stringResource(R.string.more_actions_btn_tooltip_text))
         }
     },
-    icon = { Icon(Icons.Outlined.MoreVert, contentDescription = null) },
+    icon = { Icon(AppIcons.Outlined.MoreVert, contentDescription = null) },
     enabled = enabled,
     onClick = onClick
 )
