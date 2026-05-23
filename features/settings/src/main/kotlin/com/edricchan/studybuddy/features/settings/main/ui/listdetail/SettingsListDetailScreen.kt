@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.general.ui.GeneralSettingsScreen
@@ -114,7 +114,7 @@ fun SettingsDetailEmptyState(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     modifier = Modifier.size(72.dp),
-                    imageVector = Icons.Outlined.Info,
+                    imageVector = AppIcons.Outlined.Info,
                     contentDescription = null
                 )
                 Text(
