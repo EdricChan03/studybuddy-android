@@ -38,6 +38,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
@@ -161,7 +163,7 @@ fun Preference(
 }
 
 @Composable
-private fun PreferenceContent(
+internal fun PreferenceContent(
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)?,
     iconSpaceReserved: Boolean,
@@ -448,4 +450,16 @@ object PreferenceDefaults {
         disabledContentColor = disabledContentColor,
         disabledIconColor = disabledIconColor
     )
+
+    @Composable
+    fun InfoIcon(
+        modifier: Modifier = Modifier,
+        contentDescription: String?
+    ) {
+        Icon(
+            modifier = modifier,
+            imageVector = AppIcons.Outlined.Info,
+            contentDescription = contentDescription
+        )
+    }
 }

@@ -205,6 +205,7 @@ fun PreferenceCategoryTitle(
  * it should ideally be a [Preference] or its variants ([ListDialogPreference],
  * [InputDialogPreference], [CheckboxPreference] or [SwitchPreference]).
  * @param title [Composable] for the category's title.
+ * @param info [Composable] for additional information to be shown under the category's title.
  * @param iconSpaceReserved Whether an additional horizontal padding of `56.dp`
  * should be added to the [title] composable and its contents.
  * @param enabled Whether the contents of this category should be enabled.
@@ -216,6 +217,7 @@ fun PreferenceCategoryTitle(
 fun PreferenceCategory(
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
+    info: @Composable (PreferenceCategoryScope.() -> Unit)? = null,
     iconSpaceReserved: Boolean = true,
     enabled: Boolean = true,
     listShape: Shape = PreferenceDefaults.itemShape,
@@ -229,6 +231,7 @@ fun PreferenceCategory(
             modifier = modifier.fillMaxWidth()
         ) {
             title?.let { PreferenceCategoryTitle(title = it, withPadding = iconSpaceReserved) }
+            info?.invoke(scope(this))
             Surface(shape = listShape) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(PreferenceCategoryItemsSpacing)
