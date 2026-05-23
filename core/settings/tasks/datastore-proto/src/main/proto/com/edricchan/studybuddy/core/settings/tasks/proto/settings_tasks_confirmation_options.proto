@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.tasks.proto;
+
+option java_multiple_files = true;
+
+/* Confirmation options when performing actions for a task(s). */
+message TasksConfirmationOptions {
+  /* Whether to show a confirmation dialog before deleting a task. (Defaults to true) */
+  optional bool show_confirm_delete_dialog = 1;
+  /* Whether to show a confirmation dialog before archiving a task. (Defaults to false) */
+  optional bool show_confirm_archive_dialog = 2;
+  /* Whether to show a confirmation dialog before marking a task as completed. (Defaults to false) */
+  optional bool show_confirm_complete_dialog = 3;
+}
