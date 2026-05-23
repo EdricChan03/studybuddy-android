@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.edricchan.studybuddy.features.tasks.proto;
+package com.edricchan.studybuddy.core.settings.tasks.proto;
 
 import "com/edricchan/studybuddy/features/tasks/domain/proto/tasks_fields.proto";
 
@@ -9,7 +9,7 @@ option java_multiple_files = true;
 /* The currently set filters to be used for the list of tasks to be displayed. */
 message TasksFilterOptions {
   /* List of task fields to sort by. */
-  repeated TaskSortEntry order_by_fields = 1;
+  repeated com.edricchan.studybuddy.features.tasks.proto.TaskSortEntry order_by_fields = 1;
   /* Whether to include completed tasks. */
   bool include_completed = 2;
   /* Whether to include archived tasks. */

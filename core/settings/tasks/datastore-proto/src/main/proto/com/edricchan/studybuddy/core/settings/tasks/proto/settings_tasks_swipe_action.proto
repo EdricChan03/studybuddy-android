@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.edricchan.studybuddy.features.tasks.proto;
+package com.edricchan.studybuddy.core.settings.tasks.proto;
 
 option java_multiple_files = true;
 
