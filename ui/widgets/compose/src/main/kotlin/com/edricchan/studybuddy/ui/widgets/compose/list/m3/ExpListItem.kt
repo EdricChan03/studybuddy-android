@@ -10,8 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.Badge
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -36,6 +34,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
+import com.edricchan.studybuddy.core.resources.icons.outlined.Info
+import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 
 internal val ListItemHorizontalPadding = 16.dp
@@ -617,7 +619,7 @@ private fun ExpListItemPreview() {
     StudyBuddyTheme {
         ExpListItem(
             leadingContent = {
-                Icon(Icons.Outlined.Build, contentDescription = null)
+                Icon(AppIcons.Outlined.Assignment, contentDescription = null)
             },
             overlineContent = {
                 Text(text = "Overline")
@@ -647,7 +649,7 @@ private fun ExpListItemLazyColumnPreview() {
             items(count) {
                 ExpListItem(
                     leadingContent = {
-                        Icon(Icons.Outlined.Build, contentDescription = null)
+                        Icon(AppIcons.Outlined.Info, contentDescription = null)
                     },
                     headlineContent = {
                         Text(text = "Example $it")
@@ -668,7 +670,7 @@ private fun ExpListItemLoremIpsumPreview(@PreviewParameter(LoremIpsum::class) lo
     StudyBuddyTheme {
         ExpListItem(
             leadingContent = {
-                Icon(Icons.Outlined.Build, contentDescription = null)
+                Icon(AppIcons.Outlined.Settings, contentDescription = null)
             },
             headlineContent = {
                 Text(text = lorem)
