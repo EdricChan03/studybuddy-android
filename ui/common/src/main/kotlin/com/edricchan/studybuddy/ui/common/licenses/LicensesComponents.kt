@@ -24,7 +24,6 @@ import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Badge
 import androidx.compose.material3.ButtonDefaults
@@ -68,6 +67,7 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Check
 import com.edricchan.studybuddy.core.resources.icons.outlined.Code
 import com.edricchan.studybuddy.core.resources.icons.outlined.Link
+import com.edricchan.studybuddy.core.resources.icons.outlined.Search
 import com.edricchan.studybuddy.ui.common.R
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.widgets.compose.IconButtonWithTooltip
@@ -403,7 +403,7 @@ fun LicensesSearchBar(
                 textFieldState = textFieldState,
                 searchBarState = state,
                 leadingIcon = {
-                    Icon(Icons.Outlined.Search, contentDescription = null)
+                    Icon(AppIcons.Outlined.Search, contentDescription = null)
                 },
                 placeholder = {
                     Text(text = stringResource(R.string.licenses_search_bar_placeholder_text))
