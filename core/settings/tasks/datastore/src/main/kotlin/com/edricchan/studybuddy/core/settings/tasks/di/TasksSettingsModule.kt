@@ -7,10 +7,13 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.dataStoreFile
 import com.edricchan.studybuddy.core.settings.tasks.proto.TasksSettings
+import com.edricchan.studybuddy.core.settings.tasks.source.LocalTasksSettingsDataSource
+import com.edricchan.studybuddy.core.settings.tasks.source.TasksSettingsDataSource
 import com.edricchan.studybuddy.core.settings.tasks.source.store.TaskDataStoreFileName
 import com.edricchan.studybuddy.core.settings.tasks.source.store.TasksSettingsSerializer
 import com.edricchan.studybuddy.core.settings.tasks.source.store.tasksPrefsMigration
 import com.edricchan.studybuddy.core.settings.tasks.source.store.tasksPrefsOldMigration
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +24,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal abstract class TasksSettingsModule {
+    @Singleton
+    @Binds
+    abstract fun bindTaskSettingsDataSource(
+        impl: LocalTasksSettingsDataSource
+    ): TasksSettingsDataSource
+
     internal companion object {
         @Singleton
         @Provides
