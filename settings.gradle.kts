@@ -123,6 +123,7 @@ include(
     ":core:settings:appearance:datastore-proto",
     ":core:settings:appearance:model",
     ":core:settings:appearance:resources",
+    ":core:settings:tasks:datastore",
     ":core:settings:tasks:datastore-proto",
     ":core:settings:tasks:model",
     ":core:settings:tasks:resources",
