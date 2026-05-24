@@ -21,6 +21,9 @@ android {
 }
 
 dependencies {
+    api(projects.core.settings.tasks.datastoreProto)
+    api(projects.data.common)
+
     api(libs.androidx.annotation)
 
     testImplementation(libs.junit)
