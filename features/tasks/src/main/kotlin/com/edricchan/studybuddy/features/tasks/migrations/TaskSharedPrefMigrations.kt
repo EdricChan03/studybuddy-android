@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.edricchan.studybuddy.features.tasks.migrations
 
 import android.content.Context
@@ -15,8 +17,10 @@ import kotlin.io.path.moveTo
 private const val oldSharedPrefsFile = "TodoFragPrefs"
 private const val TAG = "TaskSharedPrefMigrations"
 
+@Deprecated("Migrations are now handled by the ProtoBuf-backed DataStore")
 fun Context.shouldMigrateTaskSharedPrefFile() = sharedPreferencesFileExists(oldSharedPrefsFile)
 
+@Deprecated("Migrations are now handled by the ProtoBuf-backed DataStore")
 suspend fun Context.migrateTaskSharedPrefFile(): Boolean = withContext(Dispatchers.IO) {
     Log.d(TAG, "Migrating shared preference file...")
     // Rename existing file to new file
@@ -42,10 +46,12 @@ private val Context.taskOptionsPrefs
         Context.MODE_PRIVATE
     )
 
+@Deprecated("Migrations are now handled by the ProtoBuf-backed DataStore")
 @Suppress("Deprecation")
 fun Context.shouldMigrateTaskOptsPrefs() =
     TodoOptionsPrefConstants.PREF_DEFAULT_SORT_OLD in taskOptionsPrefs
 
+@Deprecated("Migrations are now handled by the ProtoBuf-backed DataStore")
 @Suppress("Deprecation")
 suspend fun Context.migrateTaskOptsPrefs(): Boolean = withContext(Dispatchers.IO) {
     return@withContext try {
@@ -65,12 +71,14 @@ suspend fun Context.migrateTaskOptsPrefs(): Boolean = withContext(Dispatchers.IO
     }
 }
 
+@Deprecated("Migrations are now handled by the ProtoBuf-backed DataStore")
 val Context.TaskSharedPrefFileMigration
     get() = conditionalMigration(
         onShouldMigrate = { shouldMigrateTaskSharedPrefFile() },
         onMigrate = ::migrateTaskSharedPrefFile
     )
 
+@Deprecated("Migrations are now handled by the ProtoBuf-backed DataStore")
 val Context.TaskSharedPrefValuesMigration
     get() = conditionalMigration(
         onShouldMigrate = { shouldMigrateTaskOptsPrefs() },

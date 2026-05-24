@@ -6,6 +6,7 @@ import com.boswelja.migration.Migrator
 import com.edricchan.studybuddy.exts.common.TAG
 
 // TODO: Add versioning logic
+@Deprecated("Migrations are now handled by the ProtoBuf-backed DataStore")
 class TasksMigrator(
     context: Context,
     private val onMigrated: (version: Int) -> Unit = {}
