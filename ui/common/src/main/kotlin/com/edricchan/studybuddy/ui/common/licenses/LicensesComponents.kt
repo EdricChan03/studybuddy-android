@@ -21,9 +21,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Badge
 import androidx.compose.material3.ButtonDefaults
@@ -65,7 +62,9 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Check
+import com.edricchan.studybuddy.core.resources.icons.outlined.Close
 import com.edricchan.studybuddy.core.resources.icons.outlined.Code
+import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.core.resources.icons.outlined.Link
 import com.edricchan.studybuddy.core.resources.icons.outlined.Search
 import com.edricchan.studybuddy.ui.common.R
@@ -431,7 +430,7 @@ fun LicensesSearchBar(
                             },
                             icon = {
                                 Icon(
-                                    Icons.Outlined.Clear,
+                                    AppIcons.Outlined.Close,
                                     contentDescription = stringResource(R.string.licenses_search_bar_action_clear_input)
                                 )
                             },
@@ -498,7 +497,7 @@ internal fun FilteredLicensesEmptyState(modifier: Modifier = Modifier) {
         ) {
             Icon(
                 modifier = Modifier.size(48.dp),
-                imageVector = Icons.Outlined.Info, contentDescription = null
+                imageVector = AppIcons.Outlined.Info, contentDescription = null
             )
             Text(
                 text = stringResource(R.string.licenses_search_filtered_results_empty_text_title),
