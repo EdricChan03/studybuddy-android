@@ -9,7 +9,9 @@ import com.edricchan.studybuddy.features.tasks.proto.TaskSortEntry as TaskSortEn
 data class TaskSortEntry(
     val field: TaskField,
     val direction: SortDirection
-)
+) {
+    fun asPair(): Pair<TaskField, SortDirection> = field to direction
+}
 
 fun TaskSortEntry.toProto(): TaskSortEntryProto = TaskSortEntryProto(
     field_ = field.protoValue,
