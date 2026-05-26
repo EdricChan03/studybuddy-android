@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.features.tasks.proto;
+
+import "google/protobuf/any.proto";
+import "com/edricchan/studybuddy/data/common/proto/sort_direction.proto";
+
+option java_multiple_files = true;
+
+enum TaskProjectField {
+  /* The task project's name field. */
+  Name = 0;
+  /* The task project's description field. */
+  Description = 1;
+  /* The task project's colour field. */
+  Color = 2;
+
+  /* The task project's creation date field. */
+  CreatedDate = 100;
+  /* The task project's last modified date field. */
+  LastModifiedDate = 101;
+}
+
+/* Specifies how a task project field should be sorted. */
+message TaskProjectSortEntry {
+  /* The task project field. */
+  TaskProjectField field = 1;
+  /* The direction to sort the task project field by. */
+  com.edricchan.studybuddy.data.common.proto.SortDirection direction = 2;
+}
+
+/* Class which emulates a key-value data structure. */
+message TaskProjectFieldEntry {
+  /** The entry's key. */
+  TaskProjectField key = 1;
+  /** The entry's value. */
+  google.protobuf.Any value = 2;
+}
