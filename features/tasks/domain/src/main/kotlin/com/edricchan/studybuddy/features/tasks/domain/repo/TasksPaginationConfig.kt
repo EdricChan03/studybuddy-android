@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.features.tasks.domain.repo
 
 import com.edricchan.studybuddy.domain.common.paging.CommonPagingConfig
-import com.edricchan.studybuddy.domain.common.sorting.OrderSpec
 import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
  * @property includeArchived Whether archived tasks should be included in the list.
  * @property excludeCompleted Whether completed tasks should be excluded from the list.
  * @property pageSize Number of tasks to be shown per page.
- * @property orderByFields The set of [TaskOrderSpec] configurations to order the resulting data by,
+ * @property orderByFields The set of ordering configurations to order the resulting data by,
  * applied sequentially in-order.
  */
 data class TasksPaginationConfig(
@@ -21,10 +20,7 @@ data class TasksPaginationConfig(
     val includeArchived: Boolean = false,
     val excludeCompleted: Boolean = false,
     override val pageSize: Int = 30,
-    override val orderByFields: LinkedHashSet<TaskOrderSpec> = linkedSetOf(TaskOrderSpec())
-) : CommonPagingConfig<TasksPaginationConfig.TaskOrderSpec> {
-    data class TaskOrderSpec(
-        override val field: TaskItem.Field = TaskItem.Field.CreatedAt,
-        override val direction: SortDirection = SortDirection.Descending
-    ) : OrderSpec<TaskItem.Field>
-}
+    override val orderByFields: LinkedHashMap<TaskItem.Field, SortDirection> = linkedMapOf(
+        TaskItem.Field.CreatedAt to SortDirection.Descending
+    )
+) : CommonPagingConfig<TaskItem.Field>

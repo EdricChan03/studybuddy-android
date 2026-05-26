@@ -42,22 +42,10 @@ class TasksListViewModel @Inject constructor(
     // TODO: Remove when migrated to new UI for sorting preferences
     private val sortCompatMap = mapOf(
         TodoSortValues.NONE to null,
-        TodoSortValues.TITLE_ASC to TaskOrderSpec(
-            field = TaskItem.Field.Title,
-            direction = SortDirection.Ascending
-        ),
-        TodoSortValues.TITLE_DESC to TaskOrderSpec(
-            field = TaskItem.Field.Title,
-            direction = SortDirection.Descending
-        ),
-        TodoSortValues.DUE_DATE_NEW_TO_OLD to TaskOrderSpec(
-            field = TaskItem.Field.DueDate,
-            direction = SortDirection.Descending
-        ),
-        TodoSortValues.DUE_DATE_OLD_TO_NEW to TaskOrderSpec(
-            field = TaskItem.Field.DueDate,
-            direction = SortDirection.Ascending
-        )
+        TodoSortValues.TITLE_ASC to (TaskItem.Field.Title to SortDirection.Ascending),
+        TodoSortValues.TITLE_DESC to (TaskItem.Field.Title to SortDirection.Descending),
+        TodoSortValues.DUE_DATE_NEW_TO_OLD to (TaskItem.Field.DueDate to SortDirection.Descending),
+        TodoSortValues.DUE_DATE_OLD_TO_NEW to (TaskItem.Field.DueDate to SortDirection.Ascending)
     )
 
     // A MutableStateFlow but without strict equality comparisons
