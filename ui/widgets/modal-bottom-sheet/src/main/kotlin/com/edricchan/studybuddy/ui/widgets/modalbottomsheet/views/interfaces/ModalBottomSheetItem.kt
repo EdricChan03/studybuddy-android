@@ -79,12 +79,12 @@ data class ModalBottomSheetItem(
      * To retrieve the icon as a [Bitmap], use [asBitmap].
      */
     @Parcelize
-    sealed class Icon : Parcelable {
+    sealed interface Icon : Parcelable {
         /** Converts this [Icon] to its [Drawable] form given the [context]. */
-        abstract fun asBitmap(context: Context): Bitmap
+        fun asBitmap(context: Context): Bitmap
 
         /** An [Icon] which takes a [drawable resource][iconRes]. */
-        data class Resource(@field:DrawableRes val iconRes: Int) : Icon() {
+        data class Resource(@field:DrawableRes val iconRes: Int) : Icon {
             /**
              * Loads the [iconRes] resource from the specified [context],
              * or throws an [IllegalArgumentException] if no such resource was found.
@@ -99,7 +99,7 @@ data class ModalBottomSheetItem(
 
         /** An [Icon] which takes a [raw bitmap][Bitmap]. */
         // We use a Bitmap instead of a Drawable as it's parcelable
-        data class Raw(val bitmap: Bitmap) : Icon() {
+        data class Raw(val bitmap: Bitmap) : Icon {
             /** Returns the [bitmap]. */
             override fun asBitmap(context: Context): Bitmap = bitmap
         }
