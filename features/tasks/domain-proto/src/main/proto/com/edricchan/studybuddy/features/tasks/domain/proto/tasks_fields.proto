@@ -32,6 +32,12 @@ enum TaskField {
   ArchivedDate = 103;
   /* The task's deleted date field. */
   DeletedDate = 104;
+
+  // Note: LastModifiedDate was originally not checked in, so the constants are already released;
+  // this would've been after CreatedDate otherwise
+
+  /* The task's last modified date field. */
+  LastModifiedDate = 110;
 }
 
 /* Specifies how a task field should be sorted. */
