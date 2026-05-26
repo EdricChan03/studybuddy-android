@@ -3,8 +3,6 @@ package com.edricchan.studybuddy.ui.widgets.compose.list.collapsible.m3
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
@@ -21,6 +19,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.KeyboardArrowDown
 import com.edricchan.studybuddy.ui.widgets.compose.list.collapsible.m3.CollapsibleListDefaults.headerColors
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemColors
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
@@ -365,7 +365,7 @@ object CollapsibleListDefaults {
         ) {
             Icon(
                 modifier = Modifier.padding(4.dp),
-                imageVector = Icons.Outlined.KeyboardArrowDown,
+                imageVector = AppIcons.Outlined.KeyboardArrowDown,
                 contentDescription = null
             )
         }
