@@ -16,19 +16,19 @@ private val oldSortToNewMap = mapOf(
     TodoSortValues.NONE to null,
     TodoSortValues.UNSET to null,
     TodoSortValues.TITLE_ASC to TaskSortEntry(
-        field_ = TaskField.Title,
+        field_ = TaskField.Task_Title,
         direction = SortDirection.Ascending
     ),
     TodoSortValues.TITLE_DESC to TaskSortEntry(
-        field_ = TaskField.Title,
+        field_ = TaskField.Task_Title,
         direction = SortDirection.Descending
     ),
     TodoSortValues.DUE_DATE_NEW_TO_OLD to TaskSortEntry(
-        field_ = TaskField.DueDate,
+        field_ = TaskField.Task_DueDate,
         direction = SortDirection.Descending
     ),
     TodoSortValues.DUE_DATE_OLD_TO_NEW to TaskSortEntry(
-        field_ = TaskField.DueDate,
+        field_ = TaskField.Task_DueDate,
         direction = SortDirection.Ascending
     ),
 )

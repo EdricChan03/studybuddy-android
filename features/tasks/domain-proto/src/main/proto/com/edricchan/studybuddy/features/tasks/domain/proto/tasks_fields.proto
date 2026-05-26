@@ -9,35 +9,35 @@ option java_multiple_files = true;
 
 enum TaskField {
   /* The task's title field. */
-  Title = 0;
+  Task_Title = 0;
   /* The task's description field. */
-  Description = 1;
+  Task_Description = 1;
   /* The task's completion field. (Use CompletedDate instead) */
-  IsCompleted = 2 [deprecated = true];
+  Task_IsCompleted = 2 [deprecated = true];
   /* The task's archived field. (Use ArchivedDate instead) */
-  IsArchived = 3 [deprecated = true];
+  Task_IsArchived = 3 [deprecated = true];
   /** The task's priority field. */
-  Priority = 4;
+  Task_Priority = 4;
   /** The task's labels field. */
-  Labels = 5;
+  Task_Labels = 5;
 
   // Date fields
   /* The task's due-date field. */
-  DueDate = 100;
+  Task_DueDate = 100;
   /* The task's created date field. */
-  CreatedDate = 101;
+  Task_CreatedDate = 101;
   /* The task's completion date field. */
-  CompletedDate = 102;
+  Task_CompletedDate = 102;
   /* The task's archived date field. */
-  ArchivedDate = 103;
+  Task_ArchivedDate = 103;
   /* The task's deleted date field. */
-  DeletedDate = 104;
+  Task_DeletedDate = 104;
 
   // Note: LastModifiedDate was originally not checked in, so the constants are already released;
   // this would've been after CreatedDate otherwise
 
   /* The task's last modified date field. */
-  LastModifiedDate = 110;
+  Task_LastModifiedDate = 110;
 }
 
 /* Specifies how a task field should be sorted. */

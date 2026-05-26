@@ -9,16 +9,16 @@ option java_multiple_files = true;
 
 enum TaskProjectField {
   /* The task project's name field. */
-  Name = 0;
+  TaskProject_Name = 0;
   /* The task project's description field. */
-  Description = 1;
+  TaskProject_Description = 1;
   /* The task project's colour field. */
-  Color = 2;
+  TaskProject_Color = 2;
 
   /* The task project's creation date field. */
-  CreatedDate = 100;
+  TaskProject_CreatedDate = 100;
   /* The task project's last modified date field. */
-  LastModifiedDate = 101;
+  TaskProject_LastModifiedDate = 101;
 }
 
 /* Specifies how a task project field should be sorted. */
