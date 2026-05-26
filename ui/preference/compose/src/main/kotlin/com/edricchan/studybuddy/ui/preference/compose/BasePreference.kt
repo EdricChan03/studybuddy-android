@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.Icon
@@ -40,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
+import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
@@ -323,18 +322,18 @@ private fun PreferencePreview() {
             // Base
             Preference(
                 title = { Text(text = "Title text") },
-                icon = { Icon(Icons.Outlined.Build, contentDescription = null) }
+                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) }
             )
             // With subtitle
             Preference(
                 title = { Text(text = "Title text") },
                 subtitle = { Text(text = "Subtitle text") },
-                icon = { Icon(Icons.Outlined.Build, contentDescription = null) }
+                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) }
             )
             // With action (switch)
             Preference(
                 title = { Text(text = "Title text") },
-                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
                 showActionDivider = true,
                 action = {
                     Switch(
@@ -346,7 +345,7 @@ private fun PreferencePreview() {
             // With action (checkbox)
             Preference(
                 title = { Text(text = "Title text") },
-                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
                 showActionDivider = true,
                 action = {
                     Checkbox(
@@ -359,7 +358,7 @@ private fun PreferencePreview() {
             Preference(
                 title = { Text(text = "Title text") },
                 subtitle = { Text(text = "Subtitle text") },
-                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
                 showActionDivider = true,
                 action = {
                     Switch(
@@ -372,7 +371,7 @@ private fun PreferencePreview() {
             Preference(
                 title = { Text(text = "Title text") },
                 subtitle = { Text(text = "Subtitle text") },
-                icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
                 showActionDivider = true,
                 action = {
                     Checkbox(
