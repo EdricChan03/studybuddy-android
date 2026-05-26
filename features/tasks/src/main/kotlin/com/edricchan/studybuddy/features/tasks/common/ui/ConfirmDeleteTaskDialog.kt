@@ -23,6 +23,8 @@ private const val ConfirmDeleteDialogMaxTitleLength = 50
 private val String.truncated: String
     get() {
         val maxWidth = ConfirmDeleteDialogMaxTitleLength
+        if (length <= maxWidth) return this
+
         val correctedMaxWidth: Int =
             if (this[maxWidth].isLowSurrogate()) maxWidth - 1 else maxWidth
         return take(
