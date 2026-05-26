@@ -10,6 +10,13 @@ data class TaskSortEntry(
     val field: TaskField,
     val direction: SortDirection
 ) {
+    constructor(
+        pair: Pair<TaskField, SortDirection>
+    ) : this(
+        field = pair.first,
+        direction = pair.second
+    )
+
     fun asPair(): Pair<TaskField, SortDirection> = field to direction
 }
 

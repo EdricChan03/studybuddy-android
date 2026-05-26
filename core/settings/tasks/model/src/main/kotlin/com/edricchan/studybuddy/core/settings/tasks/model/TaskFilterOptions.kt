@@ -8,22 +8,24 @@ import com.edricchan.studybuddy.core.settings.tasks.proto.TasksFilterOptions
 import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 
 data class TaskFilterOptions(
-    // LinkedHashSet (unlike a regular Set) preserves insertion order
-    val orderByFields: LinkedHashSet<TaskSortEntry> = linkedSetOf(
-        TaskSortEntry(field = TaskField.CreatedDate, direction = SortDirection.Descending)
+    val orderByFields: LinkedHashMap<TaskField, SortDirection> = linkedMapOf(
+        TaskField.CreatedDate to SortDirection.Descending
     ),
     val includeCompleted: Boolean = false,
     val includeArchived: Boolean = false
 )
 
 fun TasksFilterOptions.toDomain(): TaskFilterOptions = TaskFilterOptions(
-    orderByFields = order_by_fields.map { it.toDomain() }.toCollection(LinkedHashSet()),
+    orderByFields = order_by_fields.map { it.toDomain() }
+        .associate { it.field to it.direction }
+        .toMap(LinkedHashMap()),
     includeCompleted = include_completed,
     includeArchived = include_archived
 )
 
 fun TaskFilterOptions.toProto(): TasksFilterOptions = TasksFilterOptions(
-    order_by_fields = orderByFields.map { it.toProto() },
+    order_by_fields = orderByFields.map { TaskSortEntry(it.toPair()).toProto() }
+        .toList(),
     include_completed = includeCompleted,
     include_archived = includeArchived
 )
