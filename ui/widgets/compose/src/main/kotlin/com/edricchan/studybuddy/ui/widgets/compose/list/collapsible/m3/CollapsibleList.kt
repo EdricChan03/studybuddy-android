@@ -10,8 +10,6 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +26,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.IntSize
+import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Build
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
@@ -237,7 +237,7 @@ internal fun CollapsibleListSample(
                 onExpansionChange = onExpansionChange,
                 colors = CollapsibleListDefaults.primaryHeaderColors(),
                 leadingContent = {
-                    Icon(Icons.Outlined.Build, contentDescription = null)
+                    Icon(AppIcons.Outlined.Build, contentDescription = null)
                 },
                 overlineContent = {
                     Text(text = "Overline")
@@ -265,7 +265,7 @@ internal fun CollapsibleListSample(
 @Preview
 @Composable
 private fun CollapsibleListPreview(
-    @PreviewParameter(BooleanPreviewParameterProvider ::class) initialExpanded: Boolean
+    @PreviewParameter(BooleanPreviewParameterProvider::class) initialExpanded: Boolean
 ) {
     var isExpanded by rememberSaveable(initialExpanded) {
         mutableStateOf(initialExpanded)
