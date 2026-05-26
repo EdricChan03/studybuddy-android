@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import com.edricchan.studybuddy.core.settings.tasks.resources.R
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
 
+@Deprecated("Use the orderByFields setting in TaskSettings.filterOptions instead")
 enum class TaskSortOptionCompat(
     @field:StringRes val stringResource: Int,
     val value: String
