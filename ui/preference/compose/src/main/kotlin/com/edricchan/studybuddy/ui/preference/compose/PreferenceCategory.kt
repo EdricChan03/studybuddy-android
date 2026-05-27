@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
@@ -22,8 +21,15 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 
-private fun Modifier.categoryPadding(withPadding: Boolean) =
-    if (withPadding) padding(horizontal = 56.dp) else this
+private fun Modifier.categoryPadding(
+    withHorizontalPadding: Boolean,
+    hasInfoContent: Boolean
+) = padding(
+    top = 22.dp,
+    start = if (withHorizontalPadding) 56.dp else 0.dp,
+    end = if (withHorizontalPadding) 56.dp else 0.dp,
+    bottom = if (hasInfoContent) 0.dp else 22.dp
+)
 
 /** Desired spacing between items in a [PreferenceCategory]. */
 val PreferenceCategoryItemsSpacing: Dp = 2.dp
@@ -179,18 +185,23 @@ fun PreferenceCategoryScope.Preference(
  *
  * This composable is exposed for reusability outside of a [PreferenceCategory].
  * @param title Title [Composable] to be used.
- * @param withPadding Whether a horizontal padding of `56.dp` should be
+ * @param withHorizontalPadding Whether a horizontal padding of `56.dp` should be
  * added to the layout.
+ * @param hasInfoContent Whether the bottom padding of `22.dp` should be set on
+ * the layout.
  */
 @Composable
 fun PreferenceCategoryTitle(
     title: @Composable () -> Unit,
-    withPadding: Boolean = true
+    withHorizontalPadding: Boolean = true,
+    hasInfoContent: Boolean
 ) = Box(
     modifier = Modifier
         .fillMaxWidth()
-        .height(64.dp)
-        .categoryPadding(withPadding = withPadding),
+        .categoryPadding(
+            withHorizontalPadding = withHorizontalPadding,
+            hasInfoContent = hasInfoContent
+        ),
     contentAlignment = Alignment.CenterStart
 ) {
     val primary = MaterialTheme.colorScheme.primary
@@ -230,7 +241,13 @@ fun PreferenceCategory(
         Column(
             modifier = modifier.fillMaxWidth()
         ) {
-            title?.let { PreferenceCategoryTitle(title = it, withPadding = iconSpaceReserved) }
+            title?.let {
+                PreferenceCategoryTitle(
+                    title = it,
+                    withHorizontalPadding = iconSpaceReserved,
+                    hasInfoContent = info != null
+                )
+            }
             info?.invoke(scope(this))
             Surface(shape = listShape) {
                 Column(
