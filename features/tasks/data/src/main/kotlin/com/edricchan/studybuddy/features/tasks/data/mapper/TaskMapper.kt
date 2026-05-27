@@ -17,8 +17,8 @@ inline fun TaskItem.toDto(
     title = title,
     content = content,
     dueDate = dueDate?.toTimestamp(),
-    done = isCompleted,
-    archived = isArchived,
+    completedDate = completedDate?.toTimestamp(),
+    archivedDate = archivedDate?.toTimestamp(),
     tags = tags?.toList(),
     project = project?.let(projectMapper),
     createdAt = createdAt.toTimestamp(),
@@ -33,8 +33,8 @@ fun TodoItem.toDomain(
     title = title.orEmpty(),
     content = content,
     dueDate = dueDate?.toInstant(),
-    isCompleted = done ?: false,
-    isArchived = archived ?: false,
+    completedDate = completedDate?.toInstant(),
+    archivedDate = archivedDate?.toInstant(),
     project = project,
     tags = tags?.toSet(),
     createdAt = createdAt?.toInstant() ?: Instant.now(),
@@ -70,6 +70,8 @@ fun TodoItem.Field.toDomain(): TaskItem.Field = when (this) {
     TodoItem.Field.IsArchived -> TaskItem.Field.IsArchived
     TodoItem.Field.CreatedAt -> TaskItem.Field.CreatedAt
     TodoItem.Field.LastModified -> TaskItem.Field.LastModified
+    TodoItem.Field.CompletedDate -> TaskItem.Field.CompletedDate
+    TodoItem.Field.ArchivedDate -> TaskItem.Field.ArchivedDate
 }
 
 fun TaskItem.Field.toDto(): TodoItem.Field = when (this) {
@@ -82,6 +84,8 @@ fun TaskItem.Field.toDto(): TodoItem.Field = when (this) {
     TaskItem.Field.IsArchived -> TodoItem.Field.IsArchived
     TaskItem.Field.CreatedAt -> TodoItem.Field.CreatedAt
     TaskItem.Field.LastModified -> TodoItem.Field.LastModified
+    TaskItem.Field.CompletedDate -> TodoItem.Field.CompletedDate
+    TaskItem.Field.ArchivedDate -> TodoItem.Field.ArchivedDate
 }
 
 fun TodoProject.Field.toDomain(): TaskProject.Field = when (this) {

@@ -17,39 +17,47 @@ import java.time.LocalDateTime
 /**
  * Specifies a task (in the old format)
  * @property id The document's ID of this task
+ * @property title The title of this task
  * @property content The contents of this task
- * @property dueDate The due date of this task
+ * @property completedDate Timestamp when the task was marked as completed.
+ * @property archivedDate Timestamp when the task was archived.
  * @property done Whether the task is initially marked as done
  * @property archived Whether the task has been archived
  * @property project The project assigned to this task as a document reference
  * @property tags A list of tags assigned to this task
- * @property title The title of this task
+ * @property dueDate The due date of this task
  */
 @IgnoreExtraProperties
 @Keep
 data class TodoItem(
     @DocumentId override val id: String = "",
+    val title: String? = null,
     val content: String? = null,
-    val dueDate: Timestamp? = null,
+    val completedDate: Timestamp? = null,
+    val archivedDate: Timestamp? = null,
     // Note: Firestore converts isDone to done when added to the database
-    val done: Boolean? = false,
+    @Deprecated("Use completedDate instead")
+    val done: Boolean? = completedDate != null,
     // Note: Firestore converts isArchived to archived when added to the database
-    val archived: Boolean? = false,
+    @Deprecated("Use archivedDate instead")
+    val archived: Boolean? = archivedDate != null,
     val project: DocumentReference? = null,
     val tags: List<String>? = null,
-    val title: String? = null,
+    val dueDate: Timestamp? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
     @ServerTimestamp override val lastModified: Timestamp? = null
 ) : DtoModel, HasId, HasTimestampMetadata {
 
     private constructor(builder: Builder) : this(
+        title = builder.title,
         content = builder.content,
-        dueDate = builder.dueDate,
         done = builder.done,
         archived = builder.archived,
+        completedDate = if (builder.done) Timestamp.now() else null,
+        archivedDate = if (builder.archived) Timestamp.now() else null,
         project = builder.project,
         tags = builder.tags,
-        title = builder.title,
+        dueDate = builder.dueDate,
         createdAt = builder.createdAt,
         lastModified = builder.lastModified
     )
@@ -174,24 +182,40 @@ data class TodoItem(
          * The `done` field.
          * This field is a [Boolean] value, and defaults to `false` if not specified.
          */
+        @Deprecated("Use CompletedDate instead")
         IsDone("done"),
 
         /**
          * The `archived` field.
          * This field is a [Boolean] value, and defaults to `false` if not specified.
          */
+        @Deprecated("Use ArchivedDate instead")
         IsArchived("archived"),
 
         /**
+         * The `completedDate` field.
+         * This field is a nullable [Timestamp] value, and defaults to `null`
+         * if not specified.
+         */
+        CompletedDate("completedDate"),
+
+        /**
+         * The `archivedDate` field.
+         * This field is a nullable [Timestamp] value, and defaults to `null`
+         * if not specified.
+         */
+        ArchivedDate("archivedDate"),
+
+        /**
          * The `createdAt` field.
-         * This field is a `timestamp` value, and defaults to the server timestamp
+         * This field is a [Timestamp] value, and defaults to the server timestamp
          * if not specified.
          */
         CreatedAt("createdAt"),
 
         /**
          * The `lastModified` field.
-         * This field is a `timestamp` value, and defaults to the server timestamp
+         * This field is a [Timestamp] value, and defaults to the server timestamp
          * if not specified.
          */
         LastModified("lastModified");

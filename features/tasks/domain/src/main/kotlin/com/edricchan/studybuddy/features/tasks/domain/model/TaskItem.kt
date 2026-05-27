@@ -11,8 +11,8 @@ import java.time.Instant
  * @property title The title of this task.
  * @property content The contents of this task.
  * @property dueDate The due date of this task.
- * @property isCompleted Whether the task is completed.
- * @property isArchived Whether the task has been archived.
+ * @property completedDate Timestamp when the task was last marked as completed.
+ * @property archivedDate Timestamp when the task was last archived.
  * @property tags A list of tags applied to this task, if any.
  * @property project A project that this task is assigned to, if any.
  */
@@ -22,23 +22,35 @@ data class TaskItem(
     val title: String,
     val content: String? = null,
     val dueDate: SerializableInstant? = null,
-    val isCompleted: Boolean = false,
-    val isArchived: Boolean = false,
+    val completedDate: SerializableInstant? = null,
+    val archivedDate: SerializableInstant? = null,
     val tags: Set<String>? = null,
     val project: TaskProject? = null,
     override val createdAt: SerializableInstant,
     override val lastModified: SerializableInstant
 ) : HasId, WithTimestampMetadata {
+    /** Whether the task was marked as completed. */
+    val isCompleted: Boolean = completedDate != null
+
+    /** Whether the task was archived. */
+    val isArchived: Boolean = archivedDate != null
+
     enum class Field {
         Title,
         Content,
         DueDate,
+
+        @Deprecated("Use CompletedDate instead")
         IsCompleted,
+
+        @Deprecated("Use ArchivedDate instead")
         IsArchived,
         Tags,
         Project,
         CreatedAt,
-        LastModified
+        LastModified,
+        CompletedDate,
+        ArchivedDate
     }
 
     @Serializable
@@ -68,6 +80,16 @@ data class TaskItem(
 
         data class IsArchived(override val value: Boolean) : FieldValue<Boolean>(
             field = Field.IsArchived,
+            value = value
+        )
+
+        data class CompletedDate(override val value: Instant?) : FieldValue<Instant?>(
+            field = Field.CompletedDate,
+            value = value
+        )
+
+        data class ArchivedDate(override val value: Instant?) : FieldValue<Instant?>(
+            field = Field.ArchivedDate,
             value = value
         )
 
