@@ -158,22 +158,6 @@ class TaskRepository @Inject constructor(
     //#endregion
 }
 
-@Deprecated("Use the overload which takes the domain-specific TaskItem.Field enum")
-suspend fun TaskRepository.update(
-    id: String,
-    data: Map<TodoItem.Field, Any?>
-) {
-    updateTask(id, valueMap = data.mapKeys { it.key.toDomain() })
-}
-
-@Deprecated("Use the overload which takes the domain-specific TaskItem.Field enum")
-suspend fun TaskRepository.update(
-    id: String,
-    dataAction: MutableMap<TodoItem.Field, Any?>.() -> Unit
-) {
-    updateTask(id, valueMap = buildMap(dataAction).mapKeys { it.key.toDomain() })
-}
-
 /** Sets the item's [completion status][TodoItem.done] to the new [isCompleted] value. */
 suspend fun TaskRepository.setCompletion(id: String, isCompleted: Boolean) =
     updateTask(id, TaskItem.FieldValue.IsCompleted(isCompleted))
@@ -190,11 +174,6 @@ suspend fun TaskRepository.toggleCompleted(item: TaskItem) =
 /** Sets the item's [archival status][TaskItem.isArchived] to the new [isArchived] value. */
 suspend fun TaskRepository.setArchival(id: String, isArchived: Boolean) =
     updateTask(id, TaskItem.FieldValue.IsArchived(isArchived))
-
-/** Toggles the [item]'s [archival status][TodoItem.archived]. */
-@Deprecated("Use the overload which takes the domain-specific TaskItem class")
-suspend fun TaskRepository.toggleArchived(item: TodoItem) =
-    setArchival(item.id, !(item.archived ?: false))
 
 /** Toggles the [item]'s [archival status][TodoItem.archived]. */
 suspend fun TaskRepository.toggleArchived(item: TaskItem) =
