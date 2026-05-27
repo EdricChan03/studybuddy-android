@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.features.tasks.data.model
 
+import androidx.annotation.IntRange
 import androidx.annotation.Keep
 import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
@@ -25,7 +26,9 @@ import java.time.LocalDateTime
  * @property archived Whether the task has been archived
  * @property project The project assigned to this task as a document reference
  * @property tags A list of tags assigned to this task
+ * @property priority Priority of this task - lower numbers indicate a higher priority.
  * @property dueDate The due date of this task
+ * @property deletedDate Timestamp when the task was soft-deleted.
  */
 @IgnoreExtraProperties
 @Keep
@@ -43,7 +46,9 @@ data class TodoItem(
     val archived: Boolean? = archivedDate != null,
     val project: DocumentReference? = null,
     val tags: List<String>? = null,
+    val priority: Int? = null,
     val dueDate: Timestamp? = null,
+    val deletedDate: Timestamp? = null,
     @ServerTimestamp override val createdAt: Timestamp? = null,
     @ServerTimestamp override val lastModified: Timestamp? = null
 ) : DtoModel, HasId, HasTimestampMetadata {
@@ -57,7 +62,9 @@ data class TodoItem(
         archivedDate = if (builder.archived) Timestamp.now() else null,
         project = builder.project,
         tags = builder.tags,
+        priority = builder.priority,
         dueDate = builder.dueDate,
+        deletedDate = if (builder.isSoftDeleted) Timestamp.now() else null,
         createdAt = builder.createdAt,
         lastModified = builder.lastModified
     )
@@ -108,6 +115,13 @@ data class TodoItem(
          * Whether the task has been archived
          */
         var archived: Boolean = false
+
+        /** Whether the task has been soft-deleted. */
+        var isSoftDeleted: Boolean = false
+
+        /** The task's priority. Lower numbers resemble higher priority. */
+        @field:IntRange(from = 0)
+        var priority: Int = 1
 
         /**
          * The timestamp the task was created at
@@ -169,6 +183,9 @@ data class TodoItem(
         /** The `dueDate` field. This field contains a `timestamp` value. */
         DueDate("dueDate"),
 
+        /** The `priority` field. This field contains a non-null positive [Int] field. */
+        Priority("priority"),
+
         /** The `tags` field. This field consists of a list of [String]s. */
         Tags("tags"),
 
@@ -205,6 +222,13 @@ data class TodoItem(
          * if not specified.
          */
         ArchivedDate("archivedDate"),
+
+        /**
+         * The `deletedDate` field.
+         * This field is a nullable [Timestamp] value, and defaults to `null`
+         * if not specified.
+         */
+        DeletedDate("deletedDate"),
 
         /**
          * The `createdAt` field.

@@ -63,8 +63,9 @@ fun TodoProject.toDomain(defaultName: String = name.orEmpty()): TaskProject = Ta
 fun TodoItem.Field.toDomain(): TaskItem.Field = when (this) {
     TodoItem.Field.Title -> TaskItem.Field.Title
     TodoItem.Field.Content -> TaskItem.Field.Content
-    TodoItem.Field.DueDate -> TaskItem.Field.DueDate
+    TodoItem.Field.Priority -> TaskItem.Field.Priority
     TodoItem.Field.Tags -> TaskItem.Field.Tags
+    TodoItem.Field.DueDate -> TaskItem.Field.DueDate
     TodoItem.Field.Project -> TaskItem.Field.Project
     TodoItem.Field.IsDone -> TaskItem.Field.IsCompleted
     TodoItem.Field.IsArchived -> TaskItem.Field.IsArchived
@@ -72,13 +73,15 @@ fun TodoItem.Field.toDomain(): TaskItem.Field = when (this) {
     TodoItem.Field.LastModified -> TaskItem.Field.LastModified
     TodoItem.Field.CompletedDate -> TaskItem.Field.CompletedDate
     TodoItem.Field.ArchivedDate -> TaskItem.Field.ArchivedDate
+    TodoItem.Field.DeletedDate -> TaskItem.Field.DeletedDate
 }
 
 fun TaskItem.Field.toDto(): TodoItem.Field = when (this) {
     TaskItem.Field.Title -> TodoItem.Field.Title
     TaskItem.Field.Content -> TodoItem.Field.Content
-    TaskItem.Field.DueDate -> TodoItem.Field.DueDate
+    TaskItem.Field.Priority -> TodoItem.Field.Priority
     TaskItem.Field.Tags -> TodoItem.Field.Tags
+    TaskItem.Field.DueDate -> TodoItem.Field.DueDate
     TaskItem.Field.Project -> TodoItem.Field.Project
     TaskItem.Field.IsCompleted -> TodoItem.Field.IsDone
     TaskItem.Field.IsArchived -> TodoItem.Field.IsArchived
@@ -86,6 +89,7 @@ fun TaskItem.Field.toDto(): TodoItem.Field = when (this) {
     TaskItem.Field.LastModified -> TodoItem.Field.LastModified
     TaskItem.Field.CompletedDate -> TodoItem.Field.CompletedDate
     TaskItem.Field.ArchivedDate -> TodoItem.Field.ArchivedDate
+    TaskItem.Field.DeletedDate -> TodoItem.Field.DeletedDate
 }
 
 fun TodoProject.Field.toDomain(): TaskProject.Field = when (this) {
