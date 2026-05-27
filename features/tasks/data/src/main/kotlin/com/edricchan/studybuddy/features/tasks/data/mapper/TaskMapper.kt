@@ -45,6 +45,7 @@ fun TaskProject.toDto(): TodoProject = TodoProject(
     id = id,
     name = name,
     color = color?.toRgbHexString(),
+    colorInt = color?.value,
     createdAt = createdAt.toTimestamp(),
     lastModified = lastModified.toTimestamp()
 )
