@@ -17,7 +17,6 @@ import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleCompleted
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
-import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig.TaskOrderSpec
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
