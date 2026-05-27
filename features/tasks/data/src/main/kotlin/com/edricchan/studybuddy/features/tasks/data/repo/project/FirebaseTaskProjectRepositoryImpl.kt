@@ -34,10 +34,10 @@ class FirebaseTaskProjectRepositoryImpl @Inject constructor(
     override fun observeProjects(config: TaskProjectsPaginationConfig): Flow<PagingData<TaskProject>> =
         flow {
             val query = source.getCollectionRef().let {
-                config.distinctOrderByFields.fold(it as Query) { query, spec ->
+                config.orderByFields.entries.fold(it as Query) { query, (field, direction) ->
                     query.orderBy(
-                        spec.field.toDto().fieldName,
-                        spec.direction.toFirestoreDirection()
+                        field.toDto().fieldName,
+                        direction.toFirestoreDirection()
                     )
                 }
             }

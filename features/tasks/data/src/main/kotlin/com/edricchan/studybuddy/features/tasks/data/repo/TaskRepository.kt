@@ -112,8 +112,8 @@ class TaskRepository @Inject constructor(
                 false
             ) else it
         }.let {
-            config.distinctOrderByFields.fold(it) { query, spec ->
-                query.orderBy(spec.field.toDto().fieldName, spec.direction.toFirestoreDirection())
+            config.orderByFields.entries.fold(it) { query, (field, direction) ->
+                query.orderBy(field.toDto().fieldName, direction.toFirestoreDirection())
             }
         }
 
