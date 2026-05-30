@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Error text to be shown for required text fields. -->
+    <string name="text_field_error_required">This field is required.</string>
+</resources>

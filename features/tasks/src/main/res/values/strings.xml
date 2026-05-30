@@ -44,7 +44,4 @@
 
     <!-- Title for the task title text field. -->
     <string name="text_field_task_title_label">Task title</string>
-
-    <!-- Error text to be shown for required text fields. -->
-    <string name="text_field_error_required">This field is required.</string>
 </resources>

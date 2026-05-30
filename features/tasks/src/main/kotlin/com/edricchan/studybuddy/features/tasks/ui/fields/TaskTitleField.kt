@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.features.tasks.R
 import kotlinx.coroutines.flow.map
+import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -34,7 +35,7 @@ fun TaskTitleTextField(
         .collectAsStateWithLifecycle(
             initialValue = isInvalidPredicate(state.text)
         )
-    val requiredMsg = stringResource(R.string.text_field_error_required)
+    val requiredMsg = stringResource(CoreResR.string.text_field_error_required)
 
     OutlinedTextField(
         modifier = modifier.semantics {
