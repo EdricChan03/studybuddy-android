@@ -1,69 +1,87 @@
 package com.edricchan.studybuddy.features.tasks.ui.fields
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
+import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.edricchan.studybuddy.exts.androidx.compose.material3.TextFieldAnimations
 import com.edricchan.studybuddy.features.tasks.R
-import kotlinx.coroutines.flow.map
 import com.edricchan.studybuddy.core.resources.R as CoreResR
+
+const val TaskTitleMaxLength = 5000
+
+private enum class TaskTitleFieldErrorType(
+    @field:StringRes
+    val messageRes: Int
+) {
+    Required(CoreResR.string.text_field_error_required),
+    MaxLengthExceeded(CoreResR.string.text_field_error_max_limit_exceeded) {
+        @Composable
+        override fun getMessage(input: CharSequence): String =
+            stringResource(messageRes, TaskTitleMaxLength, input.length)
+    };
+
+    @Composable
+    open fun getMessage(input: CharSequence): String {
+        return stringResource(messageRes)
+    }
+}
+
+private fun getErrorType(input: CharSequence): TaskTitleFieldErrorType? {
+    if (input.isBlank()) return TaskTitleFieldErrorType.Required
+    if (input.length > TaskTitleMaxLength) return TaskTitleFieldErrorType.MaxLengthExceeded
+
+    return null
+}
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskTitleTextField(
     modifier: Modifier = Modifier,
-    state: TextFieldState,
-    isInvalidPredicate: (CharSequence) -> Boolean = CharSequence::isBlank
+    state: TextFieldState
 ) {
-    val isError by snapshotFlow(state::text)
-        .map(isInvalidPredicate)
-        .collectAsStateWithLifecycle(
-            initialValue = isInvalidPredicate(state.text)
-        )
     val requiredMsg = stringResource(CoreResR.string.text_field_error_required)
+
+    val errorType = remember(state.text) { getErrorType(state.text) }
+    val errorSemanticsMsg = errorType?.getMessage(state.text)
+
+    val counterText = stringResource(
+        CoreResR.string.text_field_limit,
+        state.text.length, TaskTitleMaxLength
+    )
 
     OutlinedTextField(
         modifier = modifier.semantics {
-            if (isError) error(requiredMsg)
+            errorSemanticsMsg?.let { error(it) }
+            maxTextLength = TaskTitleMaxLength
         },
         state = state,
         label = {
             Text(text = stringResource(R.string.text_field_task_title_label))
         },
         supportingText = {
-            AnimatedVisibility(
-                label = "Task title error message animated visibility",
-                visible = isError,
-                enter = fadeIn(
-                    animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()
-                ) + expandVertically(
-                    animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
-                ),
-                exit = fadeOut(
-                    animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()
-                ) + shrinkVertically(
-                    animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
-                )
+            AnimatedContent(
+                label = "Task title form field supporting text",
+                targetState = errorType,
+                transitionSpec = TextFieldAnimations.supportingTextTransitionSpec()
             ) {
-                Text(text = requiredMsg)
+                Text(
+                    text = if (it == TaskTitleFieldErrorType.Required) requiredMsg
+                    else counterText
+                )
             }
         },
-        isError = isError,
+        isError = errorType != null,
         lineLimits = TextFieldLineLimits.SingleLine
     )
 }
