@@ -218,6 +218,8 @@ private fun ExpListItemContent(
  * @param colors Desired [ExpListItemColors] to be used for this layout. Use
  * [ExpListItemDefaults.colors] to retrieve the default colours.
  */
+// TODO: Deprecate this composable when https://issuetracker.google.com/issues/491760377 is
+//  fixed
 @Composable
 fun ExpListItem(
     modifier: Modifier = Modifier,
@@ -271,6 +273,18 @@ fun ExpListItem(
  * [ExpListItemDefaults.colors] to retrieve the default colours.
  */
 @Composable
+@Deprecated(
+    "Use the expressive ListItem/SegmentedListItem APIs from compose-material3 instead",
+    ReplaceWith(
+        "ListItem(" +
+            "modifier = modifier, enabled = enabled, onClick = onClick, " +
+            "leadingContent = leadingContent, overlineContent = overlineContent, " +
+            "content = headlineContent, supportingContent = supportingContent, " +
+            "trailingContent = trailingContent, shapes = ListItemDefaults.shapes())",
+        "androidx.compose.material3.ListItem",
+        "androidx.compose.material3.ListItemDefaults"
+    )
+)
 fun ExpListItem(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -328,6 +342,19 @@ fun ExpListItem(
  * [ExpListItemDefaults.colors] to retrieve the default colours.
  */
 @Composable
+@Deprecated(
+    "Use the expressive ListItem/SegmentedListItem APIs from compose-material3 instead",
+    ReplaceWith(
+        "ListItem(" +
+            "modifier = modifier, enabled = enabled, checked = checked, " +
+            "onCheckedChange = onCheckedChange, leadingContent = leadingContent, " +
+            "overlineContent = overlineContent, content = headlineContent, " +
+            "supportingContent = supportingContent, trailingContent = trailingContent, " +
+            "shapes = ListItemDefaults.shapes())",
+        "androidx.compose.material3.ListItem",
+        "androidx.compose.material3.ListItemDefaults"
+    )
+)
 fun ExpListItem(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -386,6 +413,19 @@ fun ExpListItem(
  * [ExpListItemDefaults.colors] to retrieve the default colours.
  */
 @Composable
+@Deprecated(
+    "Use the expressive ListItem/SegmentedListItem APIs from compose-material3 instead",
+    ReplaceWith(
+        "ListItem(" +
+            "modifier = modifier, enabled = enabled, selected = selected, " +
+            "onClick = onClick, leadingContent = leadingContent, " +
+            "overlineContent = overlineContent, content = headlineContent, " +
+            "supportingContent = supportingContent, trailingContent = trailingContent, " +
+            "shapes = ListItemDefaults.shapes())",
+        "androidx.compose.material3.ListItem",
+        "androidx.compose.material3.ListItemDefaults"
+    )
+)
 fun ExpListItem(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -490,6 +530,13 @@ object ExpListItemDefaults {
     val categoryCornerDp: Dp = 2.dp
 
     /** Desired spacing to be used between each [ExpListItem] when used in a group. */
+    @Deprecated(
+        "Use ListItemDefaults.SegmentedGap instead",
+        ReplaceWith(
+            "ListItemDefaults.SegmentedGap",
+            "androidx.compose.material3.ListItemDefaults"
+        )
+    )
     val groupedItemsSpacing: Dp = 2.dp
 
     private val categoryCornerSize = CornerSize(categoryCornerDp)
