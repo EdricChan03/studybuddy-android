@@ -18,8 +18,11 @@ data object StudyBuddyMetadata {
     /** The commit SHA of HEAD when the app was built. */
     const val GitCommitSha: String = BuildConfig.GIT_COMMIT_SHA
 
+    /** URL pointing to the author of the project. */
+    const val GitHubAuthorUrl: String = "https://github.com/EdricChan03"
+
     /** URL pointing to the GitHub repository. */
-    const val GitHubRepoUrl: String = "https://github.com/EdricChan03/studybuddy-android"
+    const val GitHubRepoUrl: String = "$GitHubAuthorUrl/studybuddy-android"
 
     /** URL pointing to the specific GitHub commit of [GitCommitSha]. */
     const val GitHubCommitUrl: String = "$GitHubRepoUrl/$GitCommitSha"
