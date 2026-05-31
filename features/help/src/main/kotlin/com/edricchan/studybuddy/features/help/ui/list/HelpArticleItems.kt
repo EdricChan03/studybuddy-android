@@ -6,13 +6,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SegmentedListItem
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
@@ -25,7 +29,6 @@ import com.edricchan.studybuddy.features.help.R
 import com.edricchan.studybuddy.features.help.data.model.HelpArticle
 import com.edricchan.studybuddy.features.help.data.sample.sampleHelpArticles
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 
 /**
@@ -34,18 +37,21 @@ import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
  * @param description The [HelpArticle]'s [description][HelpArticle.description].
  * @param onClick Lambda that is invoked when the item is clicked on.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HelpArticleItem(
     modifier: Modifier = Modifier,
-    shape: Shape,
+    shapes: ListItemShapes,
+    colors: ListItemColors = ListItemDefaults.segmentedColors(),
     title: String,
     description: String? = null,
     onClick: () -> Unit
-) = ExpListItem(
+) = ListItem(
     modifier = modifier,
     onClick = onClick,
-    shape = shape,
-    headlineContent = { Text(text = title) },
+    shapes = shapes,
+    colors = colors,
+    content = { Text(text = title) },
     supportingContent = description?.letComposable { Text(text = it) },
     leadingContent = {
         Surface(
@@ -61,26 +67,30 @@ fun HelpArticleItem(
     }
 )
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HelpArticleItem(
     modifier: Modifier = Modifier,
-    shape: Shape,
+    shapes: ListItemShapes,
+    colors: ListItemColors = ListItemDefaults.colors(),
     article: HelpArticle,
     onClick: () -> Unit
 ) = HelpArticleItem(
     modifier = modifier,
-    shape = shape,
+    shapes = shapes,
+    colors = colors,
     title = article.title,
     description = article.description,
     onClick = onClick
 )
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Preview
 @Composable
 private fun HelpArticleItemPreview() {
     StudyBuddyTheme {
         HelpArticleItem(
-            shape = ExpListItemDefaults.baseShape,
+            shapes = ListItemDefaults.shapes(),
             title = "Title goes here",
             description = "Description goes here",
             onClick = {}
@@ -108,6 +118,7 @@ private fun HelpArticleItemsPreview() {
  * @param articles The list of articles to be displayed.
  * @param onItemClick Lambda that is invoked when an item is clicked on.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 fun LazyListScope.helpArticlesList(
     itemModifier: Modifier = Modifier,
     articles: List<HelpArticle>,
@@ -118,7 +129,7 @@ fun LazyListScope.helpArticlesList(
 ) { i, item ->
     HelpArticleItem(
         modifier = itemModifier.animateItem(),
-        shape = ExpListItemDefaults.itemShape(i, articles.size),
+        shapes = ListItemDefaults.segmentedShapes(index = i, count = articles.size),
         title = item.title,
         description = item.description,
         onClick = { onItemClick(item) }
