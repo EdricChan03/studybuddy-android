@@ -46,7 +46,7 @@ fun HelpArticleItem(
     title: String,
     description: String? = null,
     onClick: () -> Unit
-) = ListItem(
+) = SegmentedListItem(
     modifier = modifier,
     onClick = onClick,
     shapes = shapes,
