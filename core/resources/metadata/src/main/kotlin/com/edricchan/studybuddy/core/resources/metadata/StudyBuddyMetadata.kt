@@ -1,10 +1,10 @@
 package com.edricchan.studybuddy.core.resources.metadata
 
-import com.edricchan.studybuddy.core.resources.metadata.AppMetadata.BuildTime
-import com.edricchan.studybuddy.core.resources.metadata.AppMetadata.GitCommitSha
+import com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata.BuildTime
+import com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata.GitCommitSha
 import java.time.Instant
 
-data object AppMetadata {
+data object StudyBuddyMetadata {
     /**
      * Timestamp when the app was built, in milliseconds.
      *
