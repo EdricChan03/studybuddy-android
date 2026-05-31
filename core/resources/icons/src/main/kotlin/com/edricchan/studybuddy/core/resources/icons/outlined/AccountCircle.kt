@@ -7,6 +7,10 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
+/**
+ * Outlined `account_circle` icon from the
+ * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:account_circle:FILL@0;wght@400;GRAD@0;opsz@24).
+ */
 val AppIcons.Outlined.AccountCircle: ImageVector by lazy(LazyThreadSafetyMode.NONE) {
     ImageVector.Builder(
         name = "Outlined.AccountCircle",

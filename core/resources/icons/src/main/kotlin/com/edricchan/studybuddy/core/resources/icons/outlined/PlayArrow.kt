@@ -7,6 +7,10 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
+/**
+ * Outlined `play_arrow` icon from the
+ * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:play_arrow:FILL@0;wght@400;GRAD@0;opsz@24).
+ */
 val AppIcons.Outlined.PlayArrow: ImageVector by lazy(LazyThreadSafetyMode.NONE) {
     ImageVector.Builder(
         name = "Outlined.PlayArrow",

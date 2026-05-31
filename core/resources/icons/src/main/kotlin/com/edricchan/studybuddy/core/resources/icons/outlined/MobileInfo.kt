@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
 /**
- * `mobile_info` from the
+ * Outlined `mobile_info` icon from the
  * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:mobile_info:FILL@0;wght@400;GRAD@0;opsz@24).
  */
 val AppIcons.Outlined.MobileInfo: ImageVector by lazy(LazyThreadSafetyMode.NONE) {

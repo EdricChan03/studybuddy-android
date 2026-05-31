@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
 /**
- * `open_in_new` from the
+ * Outlined `open_in_new` icon from the
  * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:open_in_new:FILL@0;wght@400;GRAD@0;opsz@24).
  */
 val AppIcons.Outlined.OpenInNew: ImageVector by lazy(LazyThreadSafetyMode.NONE) {

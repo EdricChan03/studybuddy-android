@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
 /**
- * `network_cell` from the
+ * Outlined `network_cell` icon from the
  * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:network_cell:FILL@0;wght@400;GRAD@0;opsz@24).
  */
 val AppIcons.Outlined.NetworkCell: ImageVector by lazy(LazyThreadSafetyMode.NONE) {

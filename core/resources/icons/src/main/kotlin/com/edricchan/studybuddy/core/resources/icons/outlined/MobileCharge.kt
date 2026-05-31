@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
 /**
- * `mobile_charge` from the
+ * Outlined `mobile_charge` icon from the
  * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:mobile_charge:FILL@0;wght@400;GRAD@0;opsz@24).
  */
 val AppIcons.Outlined.MobileCharge: ImageVector by lazy(LazyThreadSafetyMode.NONE) {

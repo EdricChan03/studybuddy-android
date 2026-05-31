@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
 /**
- * `open_in_browser` from the
+ * Outlined `open_in_browser` icon from the
  * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:open_in_browser:FILL@0;wght@400;GRAD@0;opsz@24).
  */
 val AppIcons.Outlined.OpenInBrowser: ImageVector by lazy(LazyThreadSafetyMode.NONE) {

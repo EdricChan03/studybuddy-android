@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
 /**
- * `article` from the
+ * Outlined `article` icon from the
  * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:article:FILL@0;wght@400;GRAD@0;opsz@24).
  */
 val AppIcons.Outlined.Article: ImageVector by lazy(LazyThreadSafetyMode.NONE) {

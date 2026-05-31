@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 
 /**
- * `dark_mode` from the
+ * Outlined `dark_mode` icon from the
  * [Material Symbols icon font](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:dark_mode:FILL@0;wght@400;GRAD@0;opsz@24).
  */
 val AppIcons.Outlined.DarkMode: ImageVector by lazy(LazyThreadSafetyMode.NONE) {
