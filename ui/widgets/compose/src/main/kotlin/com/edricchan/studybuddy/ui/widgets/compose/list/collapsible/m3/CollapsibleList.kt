@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -57,9 +58,7 @@ import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.Boolea
 fun CollapsibleListColumn(
     modifier: Modifier = Modifier,
     shape: Shape = ExpListItemDefaults.baseShape,
-    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(
-        ExpListItemDefaults.groupedItemsSpacing
-    ),
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(ListItemDefaults.SegmentedGap),
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     isExpanded: Boolean,
     header: @Composable ColumnScope.() -> Unit,
