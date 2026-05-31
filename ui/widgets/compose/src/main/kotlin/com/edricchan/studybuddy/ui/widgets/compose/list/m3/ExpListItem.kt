@@ -545,7 +545,7 @@ object ExpListItemDefaults {
 
     /** The default [ExpListItemColors.containerColor] value if not specified. */
     @get:Composable
-    val itemContainerColor: Color get() = MaterialTheme.colorScheme.surfaceContainerHigh
+    val itemContainerColor: Color get() = MaterialTheme.colorScheme.surfaceContainer
 
     /** The default [ExpListItemColors.contentColor] value if not specified. */
     @get:Composable
