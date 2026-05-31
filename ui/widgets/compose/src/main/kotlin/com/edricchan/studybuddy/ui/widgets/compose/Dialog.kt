@@ -33,7 +33,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Close
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 /**
@@ -92,7 +91,7 @@ fun <T> ListDialog(
         text = {
             LazyColumn(
                 modifier = Modifier.selectableGroup(),
-                verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
+                verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
             ) {
                 itemsIndexed(items) { i, item ->
                     val isSelected = item == dialogSelectedItem
