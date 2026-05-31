@@ -22,7 +22,6 @@ class ModalBottomSheetBuilder {
         ModalBottomSheetItemBuilder().apply(init).build().also { items += it }
 
     /** Adds a new item to the bottom sheet and returns the created item. */
-    @ModalBottomSheetDsl
     fun item(title: String, init: ModalBottomSheetItemBuilder.() -> Unit = {}) = item {
         this.title = title
         init()
@@ -107,11 +106,9 @@ fun ModalBottomSheetItem.copy(
 ) = ModalBottomSheetItemBuilder(this).apply(buildInit).build()
 
 /** Creates a [ModalBottomSheetItem] using DSL syntax. */
-@ModalBottomSheetDsl
 inline fun item(init: ModalBottomSheetItemBuilder.() -> Unit) =
     ModalBottomSheetItemBuilder().apply(init).build()
 
 /** Creates a list of [ModalBottomSheetItem]s using DSL syntax. */
-@ModalBottomSheetDsl
 inline fun items(init: ModalBottomSheetBuilder.() -> Unit) =
     ModalBottomSheetBuilder().apply(init).build()
