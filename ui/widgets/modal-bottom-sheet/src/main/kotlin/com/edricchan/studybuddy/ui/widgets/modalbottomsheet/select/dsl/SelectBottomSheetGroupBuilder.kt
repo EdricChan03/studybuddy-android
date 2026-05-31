@@ -40,7 +40,6 @@ class SelectBottomSheetItemBuilder<Id>(
  * @param init Options for the [OptionBottomSheetItem].
  * @see SelectBottomSheetItemBuilder
  */
-@SelectableBottomSheetDsl
 fun <Id> item(
     id: Id,
     title: String,
