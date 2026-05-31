@@ -255,4 +255,4 @@ aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.re
 
 dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.13.0"
 
-testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.5.0"
+testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.5.1"
