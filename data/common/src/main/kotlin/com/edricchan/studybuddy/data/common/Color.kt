@@ -164,6 +164,23 @@ fun Color(
     (alpha shl 24) or (red shl 16) or (green shl 8) or blue
 )
 
+/** Creates a [Color] using the specified colour's components. */
+fun Color(
+    @FloatRange(from = 0.0, to = 1.0)
+    red: Float,
+    @FloatRange(from = 0.0, to = 1.0)
+    green: Float,
+    @FloatRange(from = 0.0, to = 1.0)
+    blue: Float,
+    @FloatRange(from = 0.0, to = 1.0)
+    alpha: Float = 1f
+): Color = Color(
+    red = red.coerceIn(0.0f, 1.0f).roundToInt(),
+    green = green.coerceIn(0.0f, 1.0f).roundToInt(),
+    blue = blue.coerceIn(0.0f, 1.0f).roundToInt(),
+    alpha = alpha.coerceIn(0.0f, 1.0f).roundToInt(),
+)
+
 /** Creates a [Color] using the specified 6-digit hexadecimal string (in `#RRGGBB` format). */
 @Discouraged(
     "Prefer using a colour integer instead of a hexadecimal colour, which " +
