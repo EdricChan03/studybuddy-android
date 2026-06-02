@@ -18,12 +18,12 @@ import androidx.compose.ui.window.PopupPositionProvider
  * An icon button Composable that has a tooltip.
  * @param modifier Modifier to be passed to the [IconButton]
  * @param tooltipModifier Modifier to be passed to the [TooltipBox] tooltip
+ * @param onClick Function that is invoked when the icon button is clicked
+ * @param enabled Whether the icon button is enabled
  * @param tooltip Composable to be used for the tooltip's content. The tooltip should be
  * enclosed in a [androidx.compose.material3.PlainTooltip] or
  * [androidx.compose.material3.RichTooltip].
  * @param icon Composable to be used for the icon button's icon
- * @param enabled Whether the icon button is enabled
- * @param onClick Function that is invoked when the icon button is clicked
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -34,10 +34,10 @@ fun IconButtonWithTooltip(
         positioning = TooltipAnchorPosition.Below
     ),
     state: TooltipState = rememberTooltipState(),
-    tooltip: @Composable TooltipScope.() -> Unit,
-    icon: @Composable () -> Unit,
+    onClick: () -> Unit,
     enabled: Boolean = true,
-    onClick: () -> Unit
+    tooltip: @Composable TooltipScope.() -> Unit,
+    icon: @Composable () -> Unit
 ) = TooltipBox(
     modifier = tooltipModifier,
     tooltip = tooltip,
