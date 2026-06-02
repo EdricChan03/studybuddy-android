@@ -107,7 +107,6 @@ value class Color(
     companion object {
         /** Generates a random colour with the red, green and blue channels set to random values. */
         fun random(): Color = Color(
-            alpha = 255,
             red = (0..255).random(),
             green = (0..255).random(),
             blue = (0..255).random(),
@@ -118,7 +117,6 @@ value class Color(
          * seeded by the `random` argument.
          */
         fun random(random: Random): Color = Color(
-            alpha = 255,
             red = (0..255).random(random),
             green = (0..255).random(random),
             blue = (0..255).random(random),
@@ -131,10 +129,10 @@ value class Color(
          * If the alpha channel being randomised is not desired, consider using [random] instead.
          */
         fun randomArgb(): Color = Color(
-            alpha = (0..255).random(),
             red = (0..255).random(),
             green = (0..255).random(),
             blue = (0..255).random(),
+            alpha = (0..255).random(),
         )
 
         /**
@@ -144,10 +142,10 @@ value class Color(
          * If the alpha channel being randomised is not desired, consider using [random] instead.
          */
         fun randomArgb(random: Random): Color = Color(
-            alpha = (0..255).random(random),
             red = (0..255).random(random),
             green = (0..255).random(random),
             blue = (0..255).random(random),
+            alpha = (0..255).random(random),
         )
     }
 }
@@ -155,13 +153,13 @@ value class Color(
 /** Creates a [Color] using the specified colour's components. */
 fun Color(
     @IntRange(from = 0, to = 255)
-    alpha: Int,
-    @IntRange(from = 0, to = 255)
     red: Int,
     @IntRange(from = 0, to = 255)
     green: Int,
     @IntRange(from = 0, to = 255)
     blue: Int,
+    @IntRange(from = 0, to = 255)
+    alpha: Int = 255
 ): Color = Color(
     (alpha shl 24) or (red shl 16) or (green shl 8) or blue
 )
