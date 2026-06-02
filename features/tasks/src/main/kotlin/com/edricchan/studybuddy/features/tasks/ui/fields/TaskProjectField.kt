@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
+import com.edricchan.studybuddy.utils.compose.graphics.contrastingColor
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -31,8 +32,9 @@ fun TaskProjectIconSurface(
     content: @Composable () -> Unit = { TaskProjectFieldDefaults.DefaultSurfaceIcon() }
 ) {
     Surface(
-        shape = MaterialShapes.Circle.toShape(),
+        shape = MaterialShapes.Cookie4Sided.toShape(),
         color = color ?: MaterialTheme.colorScheme.surfaceContainer,
+        contentColor = color?.contrastingColor ?: MaterialTheme.colorScheme.onSurface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         content()
