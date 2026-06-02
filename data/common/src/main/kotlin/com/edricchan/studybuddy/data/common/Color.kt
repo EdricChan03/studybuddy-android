@@ -103,6 +103,53 @@ value class Color(
     /** Returns the RGB hexadecimal string (i.e. `#RRGGBB`) equivalent of this colour. */
     fun toRgbHexString(): String =
         "#%06X".format(value and 0xFFFFFF)
+
+    companion object {
+        /** Generates a random colour with the red, green and blue channels set to random values. */
+        fun random(): Color = Color(
+            alpha = 255,
+            red = (0..255).random(),
+            green = (0..255).random(),
+            blue = (0..255).random(),
+        )
+
+        /**
+         * Generates a random colour with the red, green and blue channels set to random values as
+         * seeded by the `random` argument.
+         */
+        fun random(random: Random): Color = Color(
+            alpha = 255,
+            red = (0..255).random(random),
+            green = (0..255).random(random),
+            blue = (0..255).random(random),
+        )
+
+        /**
+         * Generates a random colour with the alpha, red, green and blue channels set to random
+         * values.
+         *
+         * If the alpha channel being randomised is not desired, consider using [random] instead.
+         */
+        fun randomArgb(): Color = Color(
+            alpha = (0..255).random(),
+            red = (0..255).random(),
+            green = (0..255).random(),
+            blue = (0..255).random(),
+        )
+
+        /**
+         * Generates a random colour with the alpha, red, green and blue channels set to random
+         * values as seeded by the `random` argument.
+         *
+         * If the alpha channel being randomised is not desired, consider using [random] instead.
+         */
+        fun randomArgb(random: Random): Color = Color(
+            alpha = (0..255).random(random),
+            red = (0..255).random(random),
+            green = (0..255).random(random),
+            blue = (0..255).random(random),
+        )
+    }
 }
 
 /** Creates a [Color] using the specified colour's components. */
