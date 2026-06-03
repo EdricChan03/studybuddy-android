@@ -135,3 +135,57 @@ fun LazyListScope.helpArticlesList(
         onClick = { onItemClick(item) }
     )
 }
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun HelpArticlesListLoadingState(
+    modifier: Modifier = Modifier
+) = Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
+) {
+    ContainedLoadingIndicator()
+    Text(
+        text = stringResource(R.string.help_articles_empty_state_loading),
+        style = MaterialTheme.typography.titleLarge
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HelpArticlesListLoadingStatePreview() {
+    StudyBuddyTheme {
+        HelpArticlesListLoadingState()
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun HelpArticlesListEmptyState(
+    modifier: Modifier = Modifier,
+    onRetryClick: () -> Unit
+) = Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
+) {
+    Text(
+        text = stringResource(R.string.help_articles_empty_state),
+        style = MaterialTheme.typography.titleLarge
+    )
+    ElevatedButton(
+        onClick = onRetryClick,
+        shapes = ButtonDefaults.shapes()
+    ) {
+        Text(text = stringResource(R.string.help_articles_empty_state_cta_action_refresh))
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HelpListEmptyStatePreview() {
+    StudyBuddyTheme {
+        HelpArticlesListEmptyState(onRetryClick = {})
+    }
+}
