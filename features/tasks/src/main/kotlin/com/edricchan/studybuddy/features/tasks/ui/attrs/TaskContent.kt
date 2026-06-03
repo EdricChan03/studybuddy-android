@@ -10,9 +10,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.ui.utils.SampleMarkdownText
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.markdown.MarkdownViewer
+import com.edricchan.studybuddy.ui.widgets.compose.markdown.SampleMarkdownText
 
 /**
  * Composable to display a [TodoItem]'s content. The content is truncated to
