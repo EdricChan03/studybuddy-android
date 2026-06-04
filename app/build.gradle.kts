@@ -176,6 +176,7 @@ dependencies {
     implementation(libs.migration)
 
     // Dagger dependencies
+    ksp(libs.kotlinx.metadata.jvm)
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
 

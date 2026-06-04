@@ -16,6 +16,7 @@ plugins {
 private val libs = versionCatalogs.named("libs")
 
 dependencies {
+    ksp(libs.findLibrary("kotlinx-metadata-jvm").get())
     api(libs.findLibrary("dagger-hilt-android").get())
     ksp(libs.findLibrary("dagger-hilt-compiler").get())
 }
