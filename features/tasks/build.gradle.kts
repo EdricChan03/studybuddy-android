@@ -73,6 +73,12 @@ dependencies {
     implementation(libs.androidx.recyclerview.selection)
     implementation(libs.materialComponents)
 
+    // Jetpack Navigation
+    api(libs.androidx.navigation.common.ktx)
+    api(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.fragment.ktx)
+
     // Compose
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.bundles.androidx.compose)
