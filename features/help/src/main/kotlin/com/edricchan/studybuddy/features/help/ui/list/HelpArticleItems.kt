@@ -36,7 +36,6 @@ import com.edricchan.studybuddy.features.help.R
 import com.edricchan.studybuddy.features.help.data.model.HelpArticle
 import com.edricchan.studybuddy.features.help.data.sample.sampleHelpArticles
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 
 /**
  * Composable which displays a given [HelpArticle]'s metadata.
@@ -105,6 +104,7 @@ private fun HelpArticleItemPreview() {
     )
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Preview
 @PreviewLightDark
 @PreviewDynamicColors
@@ -112,7 +112,7 @@ private fun HelpArticleItemPreview() {
 @Composable
 private fun HelpArticleItemsPreview() {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
+        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
     ) {
         helpArticlesList(articles = sampleHelpArticles) {}
     }
