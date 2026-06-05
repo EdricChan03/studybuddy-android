@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
 
 /**
- * Navigates to the [tasksGraph]'s [TaskDestination.TaskGraphRoot] route.
+ * Navigates to the [TaskDestination.TaskGraphRoot] route.
  *
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
  * behaviour is undesired, [builder] should be specified.
