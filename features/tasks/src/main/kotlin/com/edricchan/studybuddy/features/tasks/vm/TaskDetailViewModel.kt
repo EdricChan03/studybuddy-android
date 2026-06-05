@@ -5,7 +5,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.setCompletion
@@ -15,6 +14,7 @@ import com.edricchan.studybuddy.features.tasks.detail.data.TaskDetailData
 import com.edricchan.studybuddy.features.tasks.detail.data.impl.FirestoreTaskDetailData
 import com.edricchan.studybuddy.features.tasks.detail.data.state.TaskDetailState
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
+import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.snackbar.SnackBarController
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +35,7 @@ class TaskDetailViewModel @Inject constructor(
         private const val TAG = "TaskDetailViewModel"
     }
 
-    private val routeData = savedState.toRoute<CompatDestination.Task.View>()
+    private val routeData = savedState.toRoute<TaskDestination.ViewTask>()
 
     override val currentTaskId: String = routeData.taskId
 

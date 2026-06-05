@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
+import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -25,7 +25,7 @@ class EditTaskViewModel @Inject constructor(
         data object DoesNotExist : TaskState
     }
 
-    val taskId = savedStateHandle.toRoute<CompatDestination.Task.Edit>().taskId
+    val taskId = savedStateHandle.toRoute<TaskDestination.EditTask>().taskId
 
     val taskDetail = repo.observeTaskById(taskId)
         .map {

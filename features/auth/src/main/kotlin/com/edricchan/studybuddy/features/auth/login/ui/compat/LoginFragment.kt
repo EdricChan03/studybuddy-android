@@ -18,16 +18,16 @@ import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.auth.credentials.asGoogleIdTokenCredential
 import com.edricchan.studybuddy.core.auth.credentials.googleBtnOption
 import com.edricchan.studybuddy.core.auth.credentials.signInWithGoogleCredentials
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToResetPassword
-import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskRoot
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithGoogle
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragLoginBinding
+import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToTaskGraph
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.google.android.gms.common.SignInButton
@@ -190,8 +190,8 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
                 getString(R.string.login_success_snackbar_text, result.user?.email),
                 SnackBarData.Duration.Long
             )
-            navController.navigateToTaskRoot {
-                popUpTo<CompatDestination.Task.Root>()
+            navController.navigateToTaskGraph {
+                popUpTo<TaskDestination.TaskGraphRoot>()
             }
         } catch (e: Exception) {
             // If sign in fails, display a message to the user.

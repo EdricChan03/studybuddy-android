@@ -43,6 +43,7 @@ import com.edricchan.studybuddy.databinding.ActivityMainBinding
 import com.edricchan.studybuddy.exts.android.startChooser
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.material.snackbar.createSnackbar
+import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
 import com.edricchan.studybuddy.navigation.compat.compatGraphs
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.MainViewModel
@@ -240,7 +241,7 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
     private val navViewIdsMap = mapOf(
         CompatDestination.Calendar::class to R.id.navigation_calendar,
-        CompatDestination.Task.List::class to R.id.navigation_todos
+        TaskDestination.TaskGraphRoot::class to R.id.navigation_todos
     )
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -311,7 +312,7 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
     @SuppressLint("RestrictedApi") // For generateHashCode
     private fun NavController.initNavGraph() {
         graph = createGraph(
-            if (auth.currentUser != null) CompatDestination.Task.Root
+            if (auth.currentUser != null) TaskDestination.TaskGraphRoot
             else CompatDestination.Auth.Login
         ) {
             compatGraphs(context = this@MainActivity)
@@ -319,7 +320,7 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = listOf(
-                CompatDestination.Task.Root.serializer(),
+                TaskDestination.TaskGraphRoot.serializer(),
                 CompatDestination.Calendar.serializer()
             ).map { it.generateHashCode() }.toSet()
         )
