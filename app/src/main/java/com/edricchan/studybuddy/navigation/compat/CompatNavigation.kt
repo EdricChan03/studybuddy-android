@@ -73,20 +73,6 @@ fun NavGraphBuilder.authGraph(
     }
 }
 
-@Deprecated(
-    message = "Use taskGraph from the feature module",
-    level = DeprecationLevel.ERROR,
-    replaceWith = ReplaceWith(
-        "this.taskGraph(context)",
-        "com.edricchan.studybuddy.features.tasks.navgraph.taskGraph"
-    )
-)
-fun NavGraphBuilder.taskGraph(
-    context: Context
-) = context(context) {
-    taskGraph()
-}
-
 /**
  * Navigation graph for destinations that have yet to be migrated to
  * Jetpack Compose.
