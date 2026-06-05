@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -30,7 +31,7 @@ import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
 
 
@@ -172,6 +173,7 @@ fun GeneralSettingsScreen(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun GeneralSettingsScreenPreview() {
     var enableUserTracking by remember { mutableStateOf(false) }
@@ -179,16 +181,14 @@ private fun GeneralSettingsScreenPreview() {
     var useDarkTheme: DarkThemeValue.Version2 by remember { mutableStateOf(DarkThemeValue.V2FollowSystem) }
     var enableDynamicTheme by remember { mutableStateOf(true) }
 
-    StudyBuddyTheme {
-        GeneralSettingsScreen(
-            enableUserTracking = enableUserTracking,
-            onEnableUserTrackingChange = { enableUserTracking = it },
-            useCustomTabs = useCustomTabs,
-            onUseCustomTabsChange = { useCustomTabs = it },
-            useDarkTheme = useDarkTheme,
-            onDarkThemeChange = { useDarkTheme = it },
-            enableDynamicTheme = enableDynamicTheme,
-            onDynamicThemeChange = { enableDynamicTheme = it }
-        )
-    }
+    GeneralSettingsScreen(
+        enableUserTracking = enableUserTracking,
+        onEnableUserTrackingChange = { enableUserTracking = it },
+        useCustomTabs = useCustomTabs,
+        onUseCustomTabsChange = { useCustomTabs = it },
+        useDarkTheme = useDarkTheme,
+        onDarkThemeChange = { useDarkTheme = it },
+        enableDynamicTheme = enableDynamicTheme,
+        onDynamicThemeChange = { enableDynamicTheme = it }
+    )
 }

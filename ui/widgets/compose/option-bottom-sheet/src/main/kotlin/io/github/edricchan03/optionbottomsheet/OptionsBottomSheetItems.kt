@@ -32,7 +32,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOption
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup.CheckableBehavior
@@ -198,17 +199,16 @@ private class BooleanPreviewParameterProvider : PreviewParameterProvider<Boolean
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun OptionsBottomSheetItemPreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class) enabled: Boolean
 ) {
-    StudyBuddyTheme {
-        OptionsBottomSheetItem(
-            title = "Settings",
-            icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
-            enabled = enabled
-        )
-    }
+    OptionsBottomSheetItem(
+        title = "Settings",
+        icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+        enabled = enabled
+    )
 }
 
 /**
@@ -271,24 +271,24 @@ fun OptionsBottomSheetCheckableItem(
 )
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun OptionsBottomSheetCheckableItemPreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class) enabled: Boolean
 ) {
     var checked by remember { mutableStateOf(true) }
 
-    StudyBuddyTheme {
-        OptionsBottomSheetCheckableItem(
-            title = "Debug mode",
-            icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
-            enabled = enabled,
-            checked = checked,
-            onCheckedChange = { checked = it }
-        )
-    }
+    OptionsBottomSheetCheckableItem(
+        title = "Debug mode",
+        icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+        enabled = enabled,
+        checked = checked,
+        onCheckedChange = { checked = it }
+    )
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun OptionsBottomSheetCheckableItemGroupPreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class) enabled: Boolean
@@ -299,19 +299,17 @@ private fun OptionsBottomSheetCheckableItemGroupPreview(
         }
     }
 
-    StudyBuddyTheme {
-        LazyColumn(modifier = Modifier.selectableGroup()) {
-            items(
-                selectedOptions.entries.sortedBy { (index, _) -> index }
-            ) { (index, checked) ->
-                OptionsBottomSheetCheckableItem(
-                    title = "Option $index",
-                    icon = { Icon(Icons.Outlined.FavoriteBorder, contentDescription = null) },
-                    enabled = enabled,
-                    checked = checked,
-                    onCheckedChange = { selectedOptions[index] = it }
-                )
-            }
+    LazyColumn(modifier = Modifier.selectableGroup()) {
+        items(
+            selectedOptions.entries.sortedBy { (index, _) -> index }
+        ) { (index, checked) ->
+            OptionsBottomSheetCheckableItem(
+                title = "Option $index",
+                icon = { Icon(Icons.Outlined.FavoriteBorder, contentDescription = null) },
+                enabled = enabled,
+                checked = checked,
+                onCheckedChange = { selectedOptions[index] = it }
+            )
         }
     }
 }
@@ -377,49 +375,47 @@ fun OptionsBottomSheetSelectableItem(
 )
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun OptionsBottomSheetSelectableItemPreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class) enabled: Boolean
 ) {
     var checked by remember { mutableStateOf(true) }
 
-    StudyBuddyTheme {
-        OptionsBottomSheetSelectableItem(
-            title = "Option 1",
-            icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
-            enabled = enabled,
-            selected = checked,
-            onClick = { checked = !checked }
-        )
-    }
+    OptionsBottomSheetSelectableItem(
+        title = "Option 1",
+        icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
+        enabled = enabled,
+        selected = checked,
+        onClick = { checked = !checked }
+    )
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun OptionsBottomSheetSelectableItemGroupPreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class) enabled: Boolean
 ) {
     var selectedOption by remember { mutableIntStateOf(0) }
 
-    StudyBuddyTheme {
-        LazyColumn(modifier = Modifier.selectableGroup()) {
-            items(50) { index ->
-                val selected = remember(selectedOption) { selectedOption == index }
-                OptionsBottomSheetSelectableItem(
-                    title = "Option $index",
-                    icon = {
-                        AnimatedContent(targetState = selected, label = "Favourite icon toggle") {
-                            Icon(
-                                if (it) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
-                                contentDescription = null
-                            )
-                        }
-                    },
-                    enabled = enabled,
-                    selected = selected,
-                    onClick = { selectedOption = index }
-                )
-            }
+    LazyColumn(modifier = Modifier.selectableGroup()) {
+        items(50) { index ->
+            val selected = remember(selectedOption) { selectedOption == index }
+            OptionsBottomSheetSelectableItem(
+                title = "Option $index",
+                icon = {
+                    AnimatedContent(targetState = selected, label = "Favourite icon toggle") {
+                        Icon(
+                            if (it) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                            contentDescription = null
+                        )
+                    }
+                },
+                enabled = enabled,
+                selected = selected,
+                onClick = { selectedOption = index }
+            )
         }
     }
 }

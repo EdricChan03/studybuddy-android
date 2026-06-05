@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -38,7 +39,7 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 internal val ListItemHorizontalPadding = 16.dp
 internal val ListItemVerticalPadding = 16.dp
@@ -661,74 +662,72 @@ object ExpListItemDefaults {
 
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun ExpListItemPreview() {
-    StudyBuddyTheme {
-        ExpListItem(
-            leadingContent = {
-                Icon(AppIcons.Outlined.Assignment, contentDescription = null)
-            },
-            overlineContent = {
-                Text(text = "Overline")
-            },
-            headlineContent = {
-                Text(text = "Example")
-            },
-            supportingContent = {
-                Text(text = "Content")
-            },
-            trailingContent = {
-                Badge { Text(text = "100") }
-            },
-            shape = ExpListItemDefaults.baseShape
-        )
-    }
+    ExpListItem(
+        leadingContent = {
+            Icon(AppIcons.Outlined.Assignment, contentDescription = null)
+        },
+        overlineContent = {
+            Text(text = "Overline")
+        },
+        headlineContent = {
+            Text(text = "Example")
+        },
+        supportingContent = {
+            Text(text = "Content")
+        },
+        trailingContent = {
+            Badge { Text(text = "100") }
+        },
+        shape = ExpListItemDefaults.baseShape
+    )
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun ExpListItemLazyColumnPreview() {
     val count = remember { 100 }
-    StudyBuddyTheme {
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
-        ) {
-            items(count) {
-                ExpListItem(
-                    leadingContent = {
-                        Icon(AppIcons.Outlined.Info, contentDescription = null)
-                    },
-                    headlineContent = {
-                        Text(text = "Example $it")
-                    },
-                    supportingContent = {
-                        Text(text = "Content")
-                    },
-                    shape = ExpListItemDefaults.itemShape(it, count)
-                )
-            }
+
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
+    ) {
+        items(count) {
+            ExpListItem(
+                leadingContent = {
+                    Icon(AppIcons.Outlined.Info, contentDescription = null)
+                },
+                headlineContent = {
+                    Text(text = "Example $it")
+                },
+                supportingContent = {
+                    Text(text = "Content")
+                },
+                shape = ExpListItemDefaults.itemShape(it, count)
+            )
         }
     }
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun ExpListItemLoremIpsumPreview(@PreviewParameter(LoremIpsum::class) lorem: String) {
-    StudyBuddyTheme {
-        ExpListItem(
-            leadingContent = {
-                Icon(AppIcons.Outlined.Settings, contentDescription = null)
-            },
-            headlineContent = {
-                Text(text = lorem)
-            },
-            supportingContent = {
-                Text(text = lorem)
-            },
-            trailingContent = {
-                Badge { Text(text = "100") }
-            },
-            shape = ExpListItemDefaults.baseShape
-        )
-    }
+    ExpListItem(
+        leadingContent = {
+            Icon(AppIcons.Outlined.Settings, contentDescription = null)
+        },
+        headlineContent = {
+            Text(text = lorem)
+        },
+        supportingContent = {
+            Text(text = lorem)
+        },
+        trailingContent = {
+            Badge { Text(text = "100") }
+        },
+        shape = ExpListItemDefaults.baseShape
+    )
 }

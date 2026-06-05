@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -33,7 +34,7 @@ import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import java.time.Duration
 import java.time.Instant
 import com.edricchan.studybuddy.core.settings.updates.resources.R as UpdateR
@@ -172,6 +173,7 @@ fun UpdateSettingsScreen(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun UpdateSettingsScreenPreview() {
     var checkFrequency by remember { mutableStateOf(Duration.ofHours(6)) }
@@ -180,17 +182,15 @@ private fun UpdateSettingsScreenPreview() {
 
     val now = Instant.now()
 
-    StudyBuddyTheme {
-        UpdateSettingsScreen(
-            onUpdatesClick = {},
-            lastUpdated = now - Duration.ofDays(2),
-            lastChecked = now,
-            checkFrequency = checkFrequency,
-            onCheckFrequencyChange = { checkFrequency = it },
-            canDownloadMetered = canDownloadMetered,
-            onCanDownloadMeteredChange = { canDownloadMetered = it },
-            onlyDownloadCharging = onlyDownloadCharging,
-            onOnlyDownloadCharging = { onlyDownloadCharging = it },
-        )
-    }
+    UpdateSettingsScreen(
+        onUpdatesClick = {},
+        lastUpdated = now - Duration.ofDays(2),
+        lastChecked = now,
+        checkFrequency = checkFrequency,
+        onCheckFrequencyChange = { checkFrequency = it },
+        canDownloadMetered = canDownloadMetered,
+        onCanDownloadMeteredChange = { canDownloadMetered = it },
+        onlyDownloadCharging = onlyDownloadCharging,
+        onOnlyDownloadCharging = { onlyDownloadCharging = it },
+    )
 }

@@ -58,6 +58,7 @@ import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -68,7 +69,7 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.core.resources.icons.outlined.Link
 import com.edricchan.studybuddy.core.resources.icons.outlined.Search
 import com.edricchan.studybuddy.ui.common.R
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.IconButtonWithTooltip
 import com.mikepenz.aboutlibraries.entity.Developer
 import com.mikepenz.aboutlibraries.entity.Library
@@ -331,55 +332,54 @@ fun LibraryItem(
 
 @OptIn(ExperimentalUuidApi::class)
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun LibraryItemPreview(
     @PreviewParameter(LoremIpsum::class)
     ipsum: String
 ) {
-    StudyBuddyTheme {
-        LibraryItem(
-            lib = Library(
-                uniqueId = Uuid.random().toString(),
-                artifactVersion = "1.0.0",
-                name = "Example Library with a lot of text that should cover more than the contents",
-                description = ipsum.take(1000),
-                website = "https://example.com",
-                developers = listOf(
-                    Developer(
-                        name = "Dev A",
-                        organisationUrl = null
-                    ),
-                    Developer(
-                        name = "Dev B",
-                        organisationUrl = null
-                    ),
-                    Developer(
-                        name = "Dev C",
-                        organisationUrl = null
-                    )
+    LibraryItem(
+        lib = Library(
+            uniqueId = Uuid.random().toString(),
+            artifactVersion = "1.0.0",
+            name = "Example Library with a lot of text that should cover more than the contents",
+            description = ipsum.take(1000),
+            website = "https://example.com",
+            developers = listOf(
+                Developer(
+                    name = "Dev A",
+                    organisationUrl = null
                 ),
-                licenses = setOf(
-                    License(
-                        name = "MIT License",
-                        url = null,
-                        hash = "abc"
-                    ),
-                    License(
-                        name = "GPL 3.0",
-                        url = null,
-                        hash = "def"
-                    )
+                Developer(
+                    name = "Dev B",
+                    organisationUrl = null
                 ),
-                organization = null,
-                scm = Scm(
-                    connection = "https://github.com",
-                    developerConnection = "https://github.com",
-                    url = "https://github.com",
+                Developer(
+                    name = "Dev C",
+                    organisationUrl = null
                 )
             ),
-            onClick = {}
-        )
-    }
+            licenses = setOf(
+                License(
+                    name = "MIT License",
+                    url = null,
+                    hash = "abc"
+                ),
+                License(
+                    name = "GPL 3.0",
+                    url = null,
+                    hash = "def"
+                )
+            ),
+            organization = null,
+            scm = Scm(
+                connection = "https://github.com",
+                developerConnection = "https://github.com",
+                url = "https://github.com",
+            )
+        ),
+        onClick = {}
+    )
 }
 
 @OptIn(

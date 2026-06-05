@@ -18,7 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.core.auth.common.R as CommonR
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -70,17 +71,15 @@ fun GoogleSignInButton(
 
 @PreviewFontScale
 @PreviewLightDark
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun GoogleSignInButtonPreview() {
-    StudyBuddyTheme {
-        GoogleSignInButton(onClick = {})
-    }
+    GoogleSignInButton(onClick = {})
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun GoogleSignInButtonNeutralPreview() {
-    StudyBuddyTheme {
-        GoogleSignInButton(theme = GoogleSignInButtonTheme.Neutral, onClick = {})
-    }
+    GoogleSignInButton(theme = GoogleSignInButtonTheme.Neutral, onClick = {})
 }

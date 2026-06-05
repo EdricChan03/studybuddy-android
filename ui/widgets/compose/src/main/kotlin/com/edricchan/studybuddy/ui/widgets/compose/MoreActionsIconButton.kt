@@ -21,11 +21,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.MoreVert
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
  * Icon button composable which should show more actions when clicked on.
@@ -111,14 +112,13 @@ fun OverflowIconButton(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun OverflowIconButtonPreview() {
-    StudyBuddyTheme {
-        Surface {
-            Box(modifier = Modifier.padding(72.dp)) {
-                OverflowIconButton {
-                    DropdownMenuItem(text = { Text(text = "Settings") }, onClick = ::hideMenu)
-                }
+    Surface {
+        Box(modifier = Modifier.padding(72.dp)) {
+            OverflowIconButton {
+                DropdownMenuItem(text = { Text(text = "Settings") }, onClick = ::hideMenu)
             }
         }
     }

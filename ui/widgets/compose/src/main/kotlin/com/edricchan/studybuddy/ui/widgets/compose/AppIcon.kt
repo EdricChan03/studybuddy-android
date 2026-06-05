@@ -10,8 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.exts.android.metadata.appIcon
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
@@ -56,9 +57,8 @@ fun AppIcon(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun AppIconPreview() {
-    StudyBuddyTheme {
-        AppIcon()
-    }
+    AppIcon()
 }

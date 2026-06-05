@@ -35,13 +35,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.ui.preference.compose.twostate.CheckboxPreference
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /** Test tag for the [Preference]'s `actionDivider` composable. */
 const val ActionDividerTestTag = "Preference:ActionDivider"
@@ -312,75 +313,74 @@ fun Preference(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun PreferencePreview() {
     var checked by remember { mutableStateOf(false) }
-    StudyBuddyTheme {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            // Base
-            Preference(
-                title = { Text(text = "Title text") },
-                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) }
-            )
-            // With subtitle
-            Preference(
-                title = { Text(text = "Title text") },
-                subtitle = { Text(text = "Subtitle text") },
-                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) }
-            )
-            // With action (switch)
-            Preference(
-                title = { Text(text = "Title text") },
-                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
-                showActionDivider = true,
-                action = {
-                    Switch(
-                        checked = checked,
-                        onCheckedChange = { checked = it }
-                    )
-                }
-            )
-            // With action (checkbox)
-            Preference(
-                title = { Text(text = "Title text") },
-                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
-                showActionDivider = true,
-                action = {
-                    Checkbox(
-                        checked = checked,
-                        onCheckedChange = { checked = it }
-                    )
-                }
-            )
-            // With subtitle + action (switch)
-            Preference(
-                title = { Text(text = "Title text") },
-                subtitle = { Text(text = "Subtitle text") },
-                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
-                showActionDivider = true,
-                action = {
-                    Switch(
-                        checked = checked,
-                        onCheckedChange = { checked = it }
-                    )
-                }
-            )
-            // With subtitle + action (checkbox)
-            Preference(
-                title = { Text(text = "Title text") },
-                subtitle = { Text(text = "Subtitle text") },
-                icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
-                showActionDivider = true,
-                action = {
-                    Checkbox(
-                        checked = checked,
-                        onCheckedChange = { checked = it }
-                    )
-                }
-            )
-        }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        // Base
+        Preference(
+            title = { Text(text = "Title text") },
+            icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) }
+        )
+        // With subtitle
+        Preference(
+            title = { Text(text = "Title text") },
+            subtitle = { Text(text = "Subtitle text") },
+            icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) }
+        )
+        // With action (switch)
+        Preference(
+            title = { Text(text = "Title text") },
+            icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
+            showActionDivider = true,
+            action = {
+                Switch(
+                    checked = checked,
+                    onCheckedChange = { checked = it }
+                )
+            }
+        )
+        // With action (checkbox)
+        Preference(
+            title = { Text(text = "Title text") },
+            icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
+            showActionDivider = true,
+            action = {
+                Checkbox(
+                    checked = checked,
+                    onCheckedChange = { checked = it }
+                )
+            }
+        )
+        // With subtitle + action (switch)
+        Preference(
+            title = { Text(text = "Title text") },
+            subtitle = { Text(text = "Subtitle text") },
+            icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
+            showActionDivider = true,
+            action = {
+                Switch(
+                    checked = checked,
+                    onCheckedChange = { checked = it }
+                )
+            }
+        )
+        // With subtitle + action (checkbox)
+        Preference(
+            title = { Text(text = "Title text") },
+            subtitle = { Text(text = "Subtitle text") },
+            icon = { Icon(AppIcons.Outlined.Settings, contentDescription = null) },
+            showActionDivider = true,
+            action = {
+                Checkbox(
+                    checked = checked,
+                    onCheckedChange = { checked = it }
+                )
+            }
+        )
     }
 }
 

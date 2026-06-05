@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -36,7 +37,7 @@ import com.edricchan.studybuddy.features.settings.main.ui.list.SettingsListScree
 import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
 import com.edricchan.studybuddy.features.settings.task.ui.TaskSettingsScreen
 import com.edricchan.studybuddy.features.settings.updates.ui.UpdateSettingsScreen
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
@@ -132,11 +133,10 @@ fun SettingsDetailEmptyState(modifier: Modifier = Modifier) {
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun SettingsDetailEmptyStatePreview() {
-    StudyBuddyTheme {
-        SettingsDetailEmptyState()
-    }
+    SettingsDetailEmptyState()
 }
 
 @Composable

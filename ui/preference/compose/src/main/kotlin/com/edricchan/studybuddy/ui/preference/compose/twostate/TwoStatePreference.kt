@@ -19,12 +19,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceColors
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceDefaults
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /** Test tag for the [SwitchPreference]'s [Switch] action. */
 const val ActionSwitchTestTag = "SwitchPreference:SwitchAction"
@@ -154,80 +155,80 @@ private class BooleanPreviewParameterProvider : PreviewParameterProvider<Boolean
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun SwitchPreferencePreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class)
     enabled: Boolean
 ) {
     val (checked, onChecked) = remember { mutableStateOf(false) }
-    StudyBuddyTheme {
-        Column {
-            SwitchPreference(
-                enabled = enabled,
-                title = { Text(text = "Switch preference title") },
-                checked = checked,
-                onCheckedChange = onChecked
-            )
-            SwitchPreference(
-                enabled = enabled,
-                title = { Text(text = "Switch preference title") },
-                subtitle = { Text(text = "Switch preference subtitle") },
-                checked = !checked,
-                onCheckedChange = onChecked
-            )
-            SwitchPreference(
-                enabled = enabled,
-                title = { Text(text = "Switch preference title") },
-                subtitle = { Text(text = "Switch preference subtitle") },
-                icon = {
-                    Icon(
-                        AppIcons.Outlined.Settings,
-                        contentDescription = "Icon content description"
-                    )
-                },
-                checked = checked,
-                onCheckedChange = onChecked
-            )
-        }
+
+    Column {
+        SwitchPreference(
+            enabled = enabled,
+            title = { Text(text = "Switch preference title") },
+            checked = checked,
+            onCheckedChange = onChecked
+        )
+        SwitchPreference(
+            enabled = enabled,
+            title = { Text(text = "Switch preference title") },
+            subtitle = { Text(text = "Switch preference subtitle") },
+            checked = !checked,
+            onCheckedChange = onChecked
+        )
+        SwitchPreference(
+            enabled = enabled,
+            title = { Text(text = "Switch preference title") },
+            subtitle = { Text(text = "Switch preference subtitle") },
+            icon = {
+                Icon(
+                    AppIcons.Outlined.Settings,
+                    contentDescription = "Icon content description"
+                )
+            },
+            checked = checked,
+            onCheckedChange = onChecked
+        )
     }
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun CheckboxPreferencePreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class)
     enabled: Boolean
 ) {
     val (checked, onChecked) = remember { mutableStateOf(false) }
-    StudyBuddyTheme {
-        Column {
-            CheckboxPreference(
-                enabled = enabled,
-                title = { Text(text = "Checkbox preference title") },
-                checked = checked,
-                onCheckedChange = onChecked
-            )
-            CheckboxPreference(
-                enabled = enabled,
-                title = { Text(text = "Checkbox preference title") },
-                subtitle = { Text(text = "Checkbox preference subtitle") },
-                checked = !checked,
-                onCheckedChange = onChecked
-            )
-            CheckboxPreference(
-                enabled = enabled,
-                title = { Text(text = "Checkbox preference title") },
-                subtitle = { Text(text = "Checkbox preference subtitle") },
-                icon = {
-                    Icon(
-                        AppIcons.Outlined.Settings,
-                        contentDescription = "Icon content description"
-                    )
-                },
-                checked = checked,
-                onCheckedChange = onChecked
-            )
-        }
+
+    Column {
+        CheckboxPreference(
+            enabled = enabled,
+            title = { Text(text = "Checkbox preference title") },
+            checked = checked,
+            onCheckedChange = onChecked
+        )
+        CheckboxPreference(
+            enabled = enabled,
+            title = { Text(text = "Checkbox preference title") },
+            subtitle = { Text(text = "Checkbox preference subtitle") },
+            checked = !checked,
+            onCheckedChange = onChecked
+        )
+        CheckboxPreference(
+            enabled = enabled,
+            title = { Text(text = "Checkbox preference title") },
+            subtitle = { Text(text = "Checkbox preference subtitle") },
+            icon = {
+                Icon(
+                    AppIcons.Outlined.Settings,
+                    contentDescription = "Icon content description"
+                )
+            },
+            checked = checked,
+            onCheckedChange = onChecked
+        )
     }
 }
 

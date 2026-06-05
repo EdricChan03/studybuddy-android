@@ -26,10 +26,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.IntSize
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Build
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.BooleanPreviewParameterProvider
@@ -262,6 +263,7 @@ internal fun CollapsibleListSample(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun CollapsibleListPreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class) initialExpanded: Boolean
@@ -270,10 +272,8 @@ private fun CollapsibleListPreview(
         mutableStateOf(initialExpanded)
     }
 
-    StudyBuddyTheme {
-        CollapsibleListSample(
-            isExpanded = isExpanded,
-            onExpansionChange = { isExpanded = it }
-        )
-    }
+    CollapsibleListSample(
+        isExpanded = isExpanded,
+        onExpansionChange = { isExpanded = it }
+    )
 }

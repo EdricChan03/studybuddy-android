@@ -32,11 +32,12 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Check
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
  * [Master setting](https://source.android.com/docs/core/settings/settings-guidelines#master_setting)
@@ -153,19 +154,19 @@ private class MainSwitchBarParameterProvider : PreviewParameterProvider<MainSwit
 @PreviewLightDark
 @PreviewDynamicColors
 @PreviewFontScale
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun MainSwitchBarInteractivePreview(
     @PreviewParameter(MainSwitchBarParameterProvider::class) data: MainSwitchBarPreviewData
 ) {
     var checked by remember { mutableStateOf(data.checked) }
-    StudyBuddyTheme {
-        MainSwitchBar(
-            text = { Text(text = "Example switch") },
-            checked = checked,
-            onCheckedChange = { checked = it },
-            enabled = data.enabled
-        )
-    }
+
+    MainSwitchBar(
+        text = { Text(text = "Example switch") },
+        checked = checked,
+        onCheckedChange = { checked = it },
+        enabled = data.enabled
+    )
 }
 
 private const val DisabledAlpha = 0.38f

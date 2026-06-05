@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Article
@@ -34,7 +35,7 @@ import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.help.R
 import com.edricchan.studybuddy.features.help.data.model.HelpArticle
 import com.edricchan.studybuddy.features.help.data.sample.sampleHelpArticles
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 
 /**
@@ -93,29 +94,27 @@ fun HelpArticleItem(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun HelpArticleItemPreview() {
-    StudyBuddyTheme {
-        HelpArticleItem(
-            shapes = ListItemDefaults.shapes(),
-            title = "Title goes here",
-            description = "Description goes here",
-            onClick = {}
-        )
-    }
+    HelpArticleItem(
+        shapes = ListItemDefaults.shapes(),
+        title = "Title goes here",
+        description = "Description goes here",
+        onClick = {}
+    )
 }
 
 @Preview
 @PreviewLightDark
 @PreviewDynamicColors
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun HelpArticleItemsPreview() {
-    StudyBuddyTheme {
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
-        ) {
-            helpArticlesList(articles = sampleHelpArticles) {}
-        }
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(ExpListItemDefaults.groupedItemsSpacing)
+    ) {
+        helpArticlesList(articles = sampleHelpArticles) {}
     }
 }
 
@@ -160,11 +159,10 @@ fun HelpArticlesListLoadingState(
 }
 
 @Preview(showBackground = true)
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun HelpArticlesListLoadingStatePreview() {
-    StudyBuddyTheme {
-        HelpArticlesListLoadingState()
-    }
+    HelpArticlesListLoadingState()
 }
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -190,9 +188,8 @@ fun HelpArticlesListEmptyState(
 }
 
 @Preview(showBackground = true)
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun HelpListEmptyStatePreview() {
-    StudyBuddyTheme {
-        HelpArticlesListEmptyState(onRetryClick = {})
-    }
+    HelpArticlesListEmptyState(onRetryClick = {})
 }

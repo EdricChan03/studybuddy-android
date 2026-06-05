@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.auth.LocalCurrentUser
 import com.edricchan.studybuddy.core.auth.model.User
@@ -28,7 +29,7 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
 import com.edricchan.studybuddy.features.settings.navigation.SettingsListItem
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -105,14 +106,13 @@ private fun AccountListItem(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun SettingsListScreenPreview() {
-    StudyBuddyTheme {
-        SettingsListScreen(
-            selectedItem = SettingsCategory.General,
-            onNavigateToDetail = {},
-            onNavigateToAccount = {},
-            onNavigateToAbout = {}
-        )
-    }
+    SettingsListScreen(
+        selectedItem = SettingsCategory.General,
+        onNavigateToDetail = {},
+        onNavigateToAccount = {},
+        onNavigateToAbout = {}
+    )
 }

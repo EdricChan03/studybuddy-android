@@ -14,11 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.auth.common.R
 import com.edricchan.studybuddy.core.auth.model.User
 import com.edricchan.studybuddy.core.auth.preview.UserPreviewParameterProvider
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 @Composable
 fun AccountInfoRow(
@@ -128,12 +129,11 @@ fun AccountInfoRow(
 )
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun AccountInfoRowPreview(@PreviewParameter(UserPreviewParameterProvider::class) user: User) {
-    StudyBuddyTheme {
-        AccountInfoRow(
-            modifier = Modifier.padding(16.dp),
-            user = user
-        )
-    }
+    AccountInfoRow(
+        modifier = Modifier.padding(16.dp),
+        user = user
+    )
 }

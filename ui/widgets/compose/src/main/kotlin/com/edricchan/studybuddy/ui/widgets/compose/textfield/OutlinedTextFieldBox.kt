@@ -16,10 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.CheckCircle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Edit
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 @Composable
 private fun OutlinedTextFieldBoxContent(
@@ -120,15 +121,14 @@ fun OutlinedTextFieldBox(
 @PreviewDynamicColors
 @PreviewLightDark
 @PreviewFontScale
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun OutlinedTextFieldBoxPreview() {
-    StudyBuddyTheme {
-        OutlinedTextFieldBox(
-            headlineText = { Text(text = "Example content goes here") },
-            leadingIcon = { Icon(AppIcons.Outlined.CheckCircle, contentDescription = null) },
-            trailingIcon = { Icon(AppIcons.Outlined.Edit, contentDescription = null) }
-        )
-    }
+    OutlinedTextFieldBox(
+        headlineText = { Text(text = "Example content goes here") },
+        leadingIcon = { Icon(AppIcons.Outlined.CheckCircle, contentDescription = null) },
+        trailingIcon = { Icon(AppIcons.Outlined.Edit, contentDescription = null) }
+    )
 }
 
 /** Defaults to be applied to [OutlinedTextFieldBox] if not specified. */

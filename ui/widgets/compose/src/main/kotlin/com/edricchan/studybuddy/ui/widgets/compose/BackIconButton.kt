@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.ArrowBack
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
  * An icon button with a back icon Composable that has a tooltip.
@@ -55,14 +56,13 @@ fun BackIconButton(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun BackIconButtonPreview() {
-    StudyBuddyTheme {
-        TopAppBar(
-            title = { Text(text = "My screen") },
-            navigationIcon = {
-                BackIconButton(onClick = {})
-            }
-        )
-    }
+    TopAppBar(
+        title = { Text(text = "My screen") },
+        navigationIcon = {
+            BackIconButton(onClick = {})
+        }
+    )
 }
