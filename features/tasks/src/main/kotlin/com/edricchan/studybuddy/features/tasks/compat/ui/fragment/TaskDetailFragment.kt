@@ -15,7 +15,6 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskEdit
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
@@ -24,6 +23,7 @@ import com.edricchan.studybuddy.features.tasks.databinding.FragTaskDetailBinding
 import com.edricchan.studybuddy.features.tasks.detail.data.mapCurrentTask
 import com.edricchan.studybuddy.features.tasks.detail.data.state.TaskDetailState
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToEditTask
 import com.edricchan.studybuddy.features.tasks.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
@@ -40,6 +40,10 @@ class TaskDetailFragment :
     ViewBindingFragment<FragTaskDetailBinding>(FragTaskDetailBinding::inflate) {
 
     private val viewModel by viewModels<TaskDetailViewModel>()
+
+    private fun onNavigateToEditTask(taskId: String = viewModel.currentTaskId) {
+        navController.navigateToEditTask(taskId)
+    }
 
     override val menuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -60,7 +64,7 @@ class TaskDetailFragment :
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             return when (menuItem.itemId) {
                 R.id.action_edit -> {
-                    navController.navigateToTaskEdit(viewModel.currentTaskId)
+                    onNavigateToEditTask()
                     true
                 }
 
@@ -94,9 +98,7 @@ class TaskDetailFragment :
     override val fabConfig = FabConfig(
         iconRes = R.drawable.ic_edit_outline_24dp,
         contentDescriptionRes = R.string.action_edit_task,
-        onClick = {
-            navController.navigateToTaskEdit(viewModel.currentTaskId)
-        },
+        onClick = ::onNavigateToEditTask,
         alignment = BottomAppBar.FAB_ALIGNMENT_MODE_END
     )
 

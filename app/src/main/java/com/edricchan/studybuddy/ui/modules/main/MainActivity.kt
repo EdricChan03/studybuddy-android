@@ -35,7 +35,6 @@ import com.edricchan.studybuddy.core.compat.navigation.navigateToCalendar
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
 import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
 import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
-import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTasksList
 import com.edricchan.studybuddy.core.deeplink.AppDeepLink
 import com.edricchan.studybuddy.core.deeplink.WebDeepLink
 import com.edricchan.studybuddy.core.settings.tracking.keyPrefEnableUserTracking
@@ -44,6 +43,7 @@ import com.edricchan.studybuddy.exts.android.startChooser
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.material.snackbar.createSnackbar
 import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToTasksList
 import com.edricchan.studybuddy.navigation.compat.compatGraphs
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.MainViewModel

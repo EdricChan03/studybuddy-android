@@ -21,8 +21,6 @@ import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
 import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
 import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
-import com.edricchan.studybuddy.core.compat.navigation.task.navigateToCreateTask
-import com.edricchan.studybuddy.core.compat.navigation.task.navigateToTaskView
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.compat.BugReport
 import com.edricchan.studybuddy.core.resources.icons.compat.Help
@@ -38,6 +36,8 @@ import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptions
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.databinding.FragTodoBinding
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToCreateTask
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToViewTask
 import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.dialogs.showAuthRequiredDialog
@@ -69,7 +69,7 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
 
     private val itemListener = itemListener(
         onItemClick = { item, _ ->
-            navController.navigateToTaskView(item.id)
+            navController.navigateToViewTask(item.id)
         },
         onDeleteButtonClick = { item, _ ->
             requireContext().showMaterialAlertDialog {
