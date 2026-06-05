@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.navgraph
+package com.edricchan.studybuddy.features.tasks.navigation.graph
 
 import android.content.Context
 import androidx.navigation.NavGraphBuilder

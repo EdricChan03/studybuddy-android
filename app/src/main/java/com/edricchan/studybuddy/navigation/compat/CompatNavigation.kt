@@ -21,7 +21,7 @@ import com.edricchan.studybuddy.features.auth.recovery.ui.compat.RecoveryFragmen
 import com.edricchan.studybuddy.features.auth.register.ui.compat.RegisterFragment
 import com.edricchan.studybuddy.features.help.compat.HelpListFragment
 import com.edricchan.studybuddy.features.settings.main.ui.compat.SettingsFragment
-import com.edricchan.studybuddy.features.tasks.navgraph.taskGraph
+import com.edricchan.studybuddy.features.tasks.navigation.graph.taskGraph
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
