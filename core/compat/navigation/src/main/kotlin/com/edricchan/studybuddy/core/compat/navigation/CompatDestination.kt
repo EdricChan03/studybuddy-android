@@ -123,17 +123,39 @@ sealed interface CompatDestination {
     }
 
     /** Destinations related to the tasks feature. */
+    @Deprecated("Use TaskDestination instead")
     @Serializable
     sealed interface Task : CompatDestination {
         /** Top-level entry-point for the tasks feature. */
+        @Deprecated(
+            "Use TaskDestination.TaskGraphRoot instead",
+            ReplaceWith(
+                "TaskDestination.TaskGraphRoot",
+                "com.edricchan.studybuddy.features.tasks.navigation.TaskDestination"
+            )
+        )
         @Serializable
         data object Root : Task
 
         /** Typed destination for the new task entry-point. */
+        @Deprecated(
+            "Use TaskDestination.NewTask instead",
+            ReplaceWith(
+                "TaskDestination.NewTask",
+                "com.edricchan.studybuddy.features.tasks.navigation.TaskDestination"
+            )
+        )
         @Serializable
         data object New : Task
 
         /** Typed destination for the task list entry-point. */
+        @Deprecated(
+            "Use TaskDestination.ListTasks instead",
+            ReplaceWith(
+                "TaskDestination.ListTasks",
+                "com.edricchan.studybuddy.features.tasks.navigation.TaskDestination"
+            )
+        )
         @Serializable
         data object List : Task
 
@@ -142,10 +164,24 @@ sealed interface CompatDestination {
         }
 
         /** Typed destination for the edit task entry-point. */
+        @Deprecated(
+            "Use TaskDestination.EditTask instead",
+            ReplaceWith(
+                "TaskDestination.EditTask(taskId = taskId)",
+                "com.edricchan.studybuddy.features.tasks.navigation.TaskDestination"
+            )
+        )
         @Serializable
         data class Edit(override val taskId: String) : Task, Detail
 
         /** Typed destination for the view task entry-point. */
+        @Deprecated(
+            "Use TaskDestination.ViewTask instead",
+            ReplaceWith(
+                "TaskDestination.ViewTask(taskId = taskId)",
+                "com.edricchan.studybuddy.features.tasks.navigation.TaskDestination"
+            )
+        )
         @Serializable
         data class View(override val taskId: String) : Task, Detail
     }

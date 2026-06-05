@@ -4,6 +4,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.DefaultNavOptionsBuilder
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToCreateTask
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToEditTask
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToTaskGraph
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToTasksList
+import com.edricchan.studybuddy.features.tasks.navigation.navigateToViewTask
 
 /**
  * Navigates to the [CompatDestination.Task.Root] route.
@@ -11,9 +16,15 @@ import com.edricchan.studybuddy.core.compat.navigation.DefaultNavOptionsBuilder
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
  * behaviour is undesired, [builder] should be specified.
  */
+@Deprecated(
+    "Use navigateToTaskGraph from the tasks feature module", ReplaceWith(
+        "this.navigateToTaskGraph(builder = builder)",
+        "com.edricchan.studybuddy.features.tasks.navigation.navigateToTaskGraph"
+    )
+)
 fun NavController.navigateToTaskRoot(
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(CompatDestination.Task.Root, builder)
+) = navigateToTaskGraph(builder = builder)
 
 /**
  * Navigates to the [CompatDestination.Task.List] route.
@@ -21,9 +32,16 @@ fun NavController.navigateToTaskRoot(
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
  * behaviour is undesired, [builder] should be specified.
  */
+@Deprecated(
+    "Use navigateToTasksList from the tasks feature module",
+    ReplaceWith(
+        "this.navigateToTasksList(builder = builder)",
+        "com.edricchan.studybuddy.features.tasks.navigation.navigateToTasksList"
+    )
+)
 fun NavController.navigateToTasksList(
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(CompatDestination.Task.List, builder)
+) = navigateToTasksList(builder = builder)
 
 /**
  * Navigates to the [CompatDestination.Task.New] route.
@@ -31,9 +49,16 @@ fun NavController.navigateToTasksList(
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
  * behaviour is undesired, [builder] should be specified.
  */
+@Deprecated(
+    "Use navigateToCreateTask from the tasks feature module",
+    ReplaceWith(
+        "this.navigateToCreateTask(builder = builder)",
+        "com.edricchan.studybuddy.features.tasks.navigation.navigateToCreateTask"
+    )
+)
 fun NavController.navigateToCreateTask(
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(CompatDestination.Task.New, builder)
+) = navigateToCreateTask(builder = builder)
 
 /**
  * Navigates to the [CompatDestination.Task.View] route.
@@ -41,10 +66,17 @@ fun NavController.navigateToCreateTask(
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
  * behaviour is undesired, [builder] should be specified.
  */
+@Deprecated(
+    "Use navigateToViewTask from the tasks feature module",
+    ReplaceWith(
+        "this.navigateToViewTask(taskId = taskId, builder = builder)",
+        "com.edricchan.studybuddy.features.tasks.navigation.navigateToViewTask"
+    )
+)
 fun NavController.navigateToTaskView(
     taskId: String,
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(CompatDestination.Task.View(taskId), builder)
+) = navigateToViewTask(taskId = taskId, builder = builder)
 
 /**
  * Navigates to the [CompatDestination.Task.Edit] route.
@@ -52,7 +84,14 @@ fun NavController.navigateToTaskView(
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
  * behaviour is undesired, [builder] should be specified.
  */
+@Deprecated(
+    "Use navigateToEditTask from the tasks feature module",
+    ReplaceWith(
+        "this.navigateToEditTask(taskId = taskId, builder = builder)",
+        "com.edricchan.studybuddy.features.tasks.navigation.navigateToEditTask"
+    )
+)
 fun NavController.navigateToTaskEdit(
     taskId: String,
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(CompatDestination.Task.Edit(taskId), builder)
+) = navigateToEditTask(taskId = taskId, builder = builder)

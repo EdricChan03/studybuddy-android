@@ -8,7 +8,6 @@ import androidx.core.net.toUri
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.activity
 import androidx.navigation.fragment.fragment
-import androidx.navigation.navigation
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
@@ -22,10 +21,7 @@ import com.edricchan.studybuddy.features.auth.recovery.ui.compat.RecoveryFragmen
 import com.edricchan.studybuddy.features.auth.register.ui.compat.RegisterFragment
 import com.edricchan.studybuddy.features.help.compat.HelpListFragment
 import com.edricchan.studybuddy.features.settings.main.ui.compat.SettingsFragment
-import com.edricchan.studybuddy.features.tasks.compat.ui.fragment.TaskDetailFragment
-import com.edricchan.studybuddy.features.tasks.create.ui.compat.NewTaskFragment
-import com.edricchan.studybuddy.features.tasks.edit.ui.compat.EditTaskFragment
-import com.edricchan.studybuddy.features.tasks.list.ui.compat.TaskListFragment
+import com.edricchan.studybuddy.features.tasks.navgraph.taskGraph
 import com.edricchan.studybuddy.ui.common.licenses.OssLicensesFragment
 import com.edricchan.studybuddy.ui.modules.about.fragment.AboutFragment
 import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
@@ -77,30 +73,18 @@ fun NavGraphBuilder.authGraph(
     }
 }
 
+@Deprecated(
+    message = "Use taskGraph from the feature module",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
+        "this.taskGraph(context)",
+        "com.edricchan.studybuddy.features.tasks.navgraph.taskGraph"
+    )
+)
 fun NavGraphBuilder.taskGraph(
     context: Context
-) = navigation<CompatDestination.Task.Root>(
-    startDestination = CompatDestination.Task.List
-) {
-    fragment<EditTaskFragment, CompatDestination.Task.Edit> {
-        label = context.getString(R.string.title_activity_edit_task)
-    }
-
-    fragment<NewTaskFragment, CompatDestination.Task.New> {
-        deepLink {
-            action = NewTaskFragment.ACTION_NEW_TASK_SHORTCUT
-        }
-
-        label = context.getString(R.string.title_activity_new_task)
-    }
-
-    fragment<TaskDetailFragment, CompatDestination.Task.View> {
-        label = context.getString(R.string.title_activity_view_task)
-    }
-
-    fragment<TaskListFragment, CompatDestination.Task.List> {
-        label = context.getString(R.string.bottom_nav_todos)
-    }
+) = context(context) {
+    taskGraph()
 }
 
 /**
@@ -128,7 +112,9 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
 
     aboutGraph(context = context)
     authGraph(context = context)
-    taskGraph(context = context)
+    context(context) {
+        taskGraph()
+    }
 
     fragment<CalendarFragment, CompatDestination.Calendar> {
         label = context.getString(R.string.bottom_nav_calendar)
