@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Label for the list tasks destination. -->
+    <string name="nav_tasks_dest_list_label">Tasks</string>
+    <!-- Label for the edit task destination. -->
+    <string name="nav_tasks_dest_edit_label">Edit task</string>
+    <!-- Label for the task details destination. -->
+    <string name="nav_tasks_dest_view_label">Task details</string>
+    <!-- Label for the new task destination. -->
+    <string name="nav_tasks_dest_new_label">New task</string>
+</resources>
