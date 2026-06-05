@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation(projects.core.compat.navigation)
+    implementation(projects.features.tasks.navigation)
 
     api(projects.core.deeplink)
     implementation(projects.core.auth.credentials)
