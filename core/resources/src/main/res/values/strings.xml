@@ -12,7 +12,7 @@
     <eat-comment />
 
     <!-- Text for a cancel button in a dialog. -->
-    <string name="dialog_action_cancel">Cancel</string>
+    <string name="dialog_action_cancel">@android:string/cancel</string>
 
     <!-- Text for a dismiss button in a dialog. -->
     <string name="dialog_action_dismiss">Dismiss</string>
