@@ -75,7 +75,6 @@ import com.edricchan.studybuddy.exts.datetime.toInstant
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskContentListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskCreatedAtOverline
@@ -463,38 +462,6 @@ fun TaskCard(
     dueDate = task.dueDate?.toLocalDateTime(),
     createdAt = task.createdAt.toLocalDateTime(),
     isDone = task.isCompleted,
-    onClick = onClick,
-    onLongClick = onLongClick,
-    onLongClickLabel = onLongClickLabel,
-    onMarkAsDoneClick = onMarkAsDoneClick,
-    onDeleteClick = onDeleteClick
-)
-
-// TODO: Remove this overload which takes the DTO model
-@Composable
-fun TaskCard(
-    modifier: Modifier = Modifier,
-    colors: TaskCardColors = TaskCardDefaults.colors(),
-    inSelectionMode: Boolean = false,
-    selected: Boolean = false,
-    onSelectedChange: (Boolean) -> Unit = {},
-    task: TodoItem,
-    onClick: () -> Unit,
-    onLongClick: (() -> Unit)? = null,
-    onLongClickLabel: String? = null,
-    onMarkAsDoneClick: () -> Unit,
-    onDeleteClick: () -> Unit
-) = TaskCard(
-    modifier = modifier,
-    colors = colors,
-    inSelectionMode = inSelectionMode,
-    selected = selected,
-    onSelectedChange = onSelectedChange,
-    title = task.title,
-    content = task.content,
-    dueDate = task.dueDate?.toLocalDateTime(),
-    createdAt = task.createdAt?.toLocalDateTime(),
-    isDone = task.done ?: false,
     onClick = onClick,
     onLongClick = onLongClick,
     onLongClickLabel = onLongClickLabel,
