@@ -30,11 +30,9 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Surface
@@ -73,10 +71,10 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Delete
 import com.edricchan.studybuddy.core.resources.icons.outlined.Undo
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
-import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskContentListItem
+import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskContentMarkdownText
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskCreatedAtOverline
-import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateListItem
-import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleListItem
+import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateChip
+import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleText
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.BooleanPreviewParameterProvider
 import java.time.Duration
@@ -86,7 +84,6 @@ import java.time.Instant
 @Composable
 fun TaskCard(
     modifier: Modifier = Modifier,
-    titleTextModifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: TaskCardColors = TaskCardDefaults.colors(),
     borderColors: TaskCardBorderColors = TaskCardDefaults.borderColors(),
@@ -99,6 +96,7 @@ fun TaskCard(
     content: String? = null,
     isDone: Boolean = false,
     dueDate: Instant? = null,
+    isOverdue: () -> Boolean = { dueDate?.isBefore(Instant.now()) ?: false },
     createdAt: Instant? = null,
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
@@ -148,30 +146,22 @@ fun TaskCard(
         Box {
             // Task details
             Column(
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 createdAt?.let { TaskCreatedAtOverline(createdAt = it) }
-                TaskTitleListItem(
-                    textModifier = titleTextModifier,
-                    title = title ?: stringResource(R.string.task_adapter_empty_title),
-                    isDone = isDone,
-                    colors = ListItemDefaults.colors(
-                        containerColor = Color.Transparent
-                    )
+                TaskTitleText(
+                    text = title?.takeUnless(String::isBlank)
+                        ?: stringResource(R.string.task_adapter_empty_title),
+                    isDone = isDone
                 )
-                TaskContentListItem(
-                    content = content ?: stringResource(R.string.task_adapter_empty_content),
-                    colors = ListItemDefaults.colors(
-                        containerColor = Color.Transparent
-                    )
-                )
+                content?.takeUnless(String::isBlank)?.let {
+                    TaskContentMarkdownText(text = it)
+                }
                 dueDate?.let {
-                    TaskDueDateListItem(
+                    TaskDueDateChip(
                         dueDate = it,
-                        colors = ListItemDefaults.colors(
-                            containerColor = Color.Transparent
-                        )
+                        isOverdue = isOverdue
                     )
                 }
 
