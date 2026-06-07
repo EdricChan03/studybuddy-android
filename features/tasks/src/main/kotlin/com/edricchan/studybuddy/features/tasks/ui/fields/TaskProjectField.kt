@@ -28,17 +28,18 @@ import com.edricchan.studybuddy.utils.compose.graphics.contrastingColor
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskProjectIconSurface(
+    modifier: Modifier = Modifier,
     color: Color?,
     content: @Composable () -> Unit = { TaskProjectFieldDefaults.DefaultSurfaceIcon() }
 ) {
     Surface(
+        modifier = modifier,
         shape = MaterialShapes.Cookie4Sided.toShape(),
         color = color ?: MaterialTheme.colorScheme.surfaceContainer,
         contentColor = color?.contrastingColor ?: MaterialTheme.colorScheme.onSurface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
-    ) {
-        content()
-    }
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        content = content
+    )
 }
 
 @Stable
