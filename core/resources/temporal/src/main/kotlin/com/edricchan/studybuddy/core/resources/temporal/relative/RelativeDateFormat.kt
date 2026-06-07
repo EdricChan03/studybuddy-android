@@ -49,3 +49,23 @@ fun Context.formatRelativeTimeSpan(time: Instant, now: Instant = Instant.now()):
             .toString()
     }
 }
+
+/**
+ * Formats the receiver [Instant] as a time-span relative to the [toInstant] value.
+ * @param toInstant The time to compare against.
+ * @param context [Context] to retrieve the years and months plurals resources from.
+ * @see formatRelativeTimeSpan
+ */
+context(context: Context)
+fun Instant.formatRelativeTo(toInstant: Instant): String =
+    context.formatRelativeTimeSpan(
+        time = this, now = toInstant
+    )
+
+/**
+ * Formats the receiver [Instant] as a time-span relative to [Instant.now].
+ * @param context [Context] to retrieve the years and months plurals resources from.
+ * @see formatRelativeTo
+ */
+context(context: Context)
+fun Instant.formatRelativeToNow(): String = formatRelativeTo(Instant.now())
