@@ -78,6 +78,7 @@ import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskCreatedAtOverline
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleListItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
+import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.BooleanPreviewParameterProvider
 import java.time.Duration
 import java.time.Instant
 
@@ -369,13 +370,14 @@ private fun TaskCardActions(
 @PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun TaskCardPreview(
-    @PreviewParameter(LoremIpsum::class) text: String
+    @PreviewParameter(BooleanPreviewParameterProvider::class) isCompleted: Boolean
 ) {
     TaskCard(
         title = "Jetpack Compose rewrite",
         content = "Rewrite StudyBuddy to use **Jetpack Compose**, ideally at some point :)",
         createdAt = Instant.now(),
         dueDate = Instant.now() + Duration.ofDays(1),
+        isDone = isCompleted,
         onClick = {},
         onMarkAsDoneClick = {},
         onDeleteClick = {}
