@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,15 +39,14 @@ fun TaskTitleText(
     text: String,
     isDone: Boolean = false
 ) {
-    val style = MaterialTheme.typography.titleLarge
+    val color = LocalContentColor.current
     Text(
         modifier = modifier,
         text = text,
-        style = style.copy(
-            color = style.color.copy(alpha = if (isDone) 0.37f else style.color.alpha),
-            textDecoration = if (isDone)
-                TextDecoration.LineThrough else TextDecoration.None
-        ),
+        style = MaterialTheme.typography.titleLarge,
+        color = color.copy(alpha = if (isDone) 0.38f else color.alpha),
+        textDecoration = if (isDone)
+            TextDecoration.LineThrough else TextDecoration.None,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis
     )
