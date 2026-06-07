@@ -39,6 +39,9 @@
     <!-- Content description to indicate the task's created at timestamp. -->
     <string name="view_task_created_at_content_desc">This task is created at:</string>
 
+    <!-- Content description to indicate the task's due date timestamp. -->
+    <string name="view_task_due_date_content_desc">This task is due:</string>
+
     <!-- Text-field strings -->
     <eat-comment />
 
