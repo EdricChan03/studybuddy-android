@@ -37,16 +37,20 @@ fun TaskTitleText(
     modifier: Modifier = Modifier,
     text: String,
     isDone: Boolean = false
-) = Text(
-    modifier = modifier,
-    text = text,
-    style = MaterialTheme.typography.titleLarge.copy(
-        textDecoration = if (isDone)
-            TextDecoration.LineThrough else TextDecoration.None
-    ),
-    maxLines = 2,
-    overflow = TextOverflow.Ellipsis
-)
+) {
+    val style = MaterialTheme.typography.titleLarge
+    Text(
+        modifier = modifier,
+        text = text,
+        style = style.copy(
+            color = style.color.copy(alpha = if (isDone) 0.37f else style.color.alpha),
+            textDecoration = if (isDone)
+                TextDecoration.LineThrough else TextDecoration.None
+        ),
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis
+    )
+}
 
 /**
  * Composable which displays a [TodoItem]'s title using a [ListItem] and [TaskTitleText].
