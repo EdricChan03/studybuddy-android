@@ -4,7 +4,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialShapes
@@ -38,6 +40,33 @@ fun TaskProjectIconSurface(
         color = color ?: MaterialTheme.colorScheme.surfaceContainer,
         contentColor = color?.contrastingColor ?: MaterialTheme.colorScheme.onSurface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        content = content
+    )
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun TaskProjectIconButton(
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    color: Color?,
+    onClick: () -> Unit,
+    content: @Composable () -> Unit = { TaskProjectFieldDefaults.DefaultSurfaceIcon() }
+) {
+    val containerColor = color ?: MaterialTheme.colorScheme.surfaceContainer
+    val contentColor = color?.contrastingColor ?: MaterialTheme.colorScheme.onSurface
+
+    FilledIconButton(
+        modifier = modifier,
+        enabled = enabled,
+        onClick = onClick,
+        colors = IconButtonDefaults.filledIconButtonColors(
+            containerColor = containerColor,
+            contentColor = contentColor,
+            disabledContainerColor = containerColor.copy(alpha = 0.1f),
+            disabledContentColor = contentColor.copy(0.38f)
+        ),
+        shapes = IconButtonDefaults.shapes(),
         content = content
     )
 }
