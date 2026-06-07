@@ -26,4 +26,7 @@ data object StudyBuddyMetadata {
 
     /** URL pointing to the specific GitHub commit of [GitCommitSha]. */
     const val GitHubCommitUrl: String = "$GitHubRepoUrl/$GitCommitSha"
+
+    /** URL pointing to the GitHub repository's contributors graph. */
+    const val GitHubContributorsUrl: String = "$GitHubRepoUrl/graphs/contributors"
 }
