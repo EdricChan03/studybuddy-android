@@ -71,9 +71,6 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.CheckCircle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Circle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Delete
 import com.edricchan.studybuddy.core.resources.icons.outlined.Undo
-import com.edricchan.studybuddy.exts.datetime.toInstant
-import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
-import com.edricchan.studybuddy.exts.firebase.toLocalDateTime
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskContentListItem
@@ -81,7 +78,8 @@ import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskCreatedAtOverline
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleListItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
-import java.time.LocalDateTime
+import java.time.Duration
+import java.time.Instant
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -99,8 +97,8 @@ fun TaskCard(
     title: String? = null,
     content: String? = null,
     isDone: Boolean = false,
-    dueDate: LocalDateTime? = null,
-    createdAt: LocalDateTime? = null,
+    dueDate: Instant? = null,
+    createdAt: Instant? = null,
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
     onLongClickLabel: String? = null,
@@ -152,7 +150,7 @@ fun TaskCard(
                 modifier = Modifier
                     .padding(16.dp)
             ) {
-                createdAt?.let { TaskCreatedAtOverline(createdAt = it.toInstant()) }
+                createdAt?.let { TaskCreatedAtOverline(createdAt = it) }
                 TaskTitleListItem(
                     textModifier = titleTextModifier,
                     title = title ?: stringResource(R.string.task_adapter_empty_title),
@@ -376,8 +374,8 @@ private fun TaskCardPreview(
     TaskCard(
         title = "Jetpack Compose rewrite",
         content = "Rewrite StudyBuddy to use **Jetpack Compose**, ideally at some point :)",
-        createdAt = LocalDateTime.now(),
-        dueDate = LocalDateTime.now(),
+        createdAt = Instant.now(),
+        dueDate = Instant.now() + Duration.ofDays(1),
         onClick = {},
         onMarkAsDoneClick = {},
         onDeleteClick = {}
@@ -393,7 +391,7 @@ private fun DoneTaskCardPreview(
     TaskCard(
         title = "This is a task item",
         content = text,
-        dueDate = LocalDateTime.now(),
+        dueDate = Instant.now(),
         isDone = true,
         onClick = {},
         onMarkAsDoneClick = {},
@@ -410,7 +408,7 @@ private fun SelectedTaskCardPreview(
     TaskCard(
         title = "This is a task item",
         content = text,
-        dueDate = LocalDateTime.now(),
+        dueDate = Instant.now(),
         isDone = true,
         inSelectionMode = true,
         selected = true,
@@ -429,7 +427,7 @@ private fun UnselectedTaskCardPreview(
     TaskCard(
         title = "This is a task item",
         content = text,
-        dueDate = LocalDateTime.now(),
+        dueDate = Instant.now(),
         isDone = true,
         inSelectionMode = true,
         onClick = {},
@@ -459,8 +457,8 @@ fun TaskCard(
     onSelectedChange = onSelectedChange,
     title = task.title,
     content = task.content,
-    dueDate = task.dueDate?.toLocalDateTime(),
-    createdAt = task.createdAt.toLocalDateTime(),
+    dueDate = task.dueDate,
+    createdAt = task.createdAt,
     isDone = task.isCompleted,
     onClick = onClick,
     onLongClick = onLongClick,
@@ -534,11 +532,7 @@ object TaskCardDefaults {
         contentColor: Color = contentColorFor(containerColor),
         disabledContainerColor: Color = MaterialTheme.colorScheme.surfaceVariant
             .copy(alpha = 0.38f)
-            .compositeOver(
-                MaterialTheme.colorScheme.surfaceColorAtElevation(
-                    0.dp
-                )
-            ),
+            .compositeOver(MaterialTheme.colorScheme.surfaceColorAtElevation(0.dp)),
         disabledContentColor: Color = contentColorFor(containerColor).copy(alpha = 0.38f),
         selectedContainerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
         selectedContentColor: Color = contentColorFor(selectedContainerColor),
