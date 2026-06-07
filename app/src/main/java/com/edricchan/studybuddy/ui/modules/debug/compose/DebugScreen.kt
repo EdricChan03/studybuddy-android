@@ -10,8 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -48,7 +48,7 @@ private fun PreferenceCategoryScope.OpenDebugModalBottomSheetPreference(
 fun DebugScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(16.dp),
-    viewModel: DebugViewModel = viewModel(),
+    viewModel: DebugViewModel = hiltViewModel(),
     userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>,
     onNavigateToDebugModalBottomSheet: () -> Unit
 ) {

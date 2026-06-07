@@ -121,7 +121,7 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
         ) { innerPadding ->
             LazyColumn(
                 modifier = Modifier.consumeWindowInsets(innerPadding),
-                contentPadding = innerPadding + PaddingValues(horizontal = 16.dp),
+                contentPadding = innerPadding + PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
             ) {
                 itemsIndexed(demos) { i, item ->

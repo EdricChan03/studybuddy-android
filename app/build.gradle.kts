@@ -99,6 +99,7 @@ dependencies {
     implementation(projects.ui.theming.views)
     implementation(projects.ui.preference.compose)
     implementation(projects.ui.widgets.compose)
+    implementation(projects.ui.widgets.compose.navigation)
     implementation(projects.ui.widgets.views)
     implementation(projects.ui.widgets.modalBottomSheet)
     implementation(projects.core.auth.gms)
@@ -157,7 +158,15 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
 
     // Compose dependencies
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.fragment.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.bundles.androidx.compose)
+
+    // Compose Tooling dependencies
+    debugImplementation(libs.bundles.androidx.compose.tooling)
 
     // Firebase dependencies
     implementation(platform(libs.firebase.bom))
@@ -179,6 +188,8 @@ dependencies {
     ksp(libs.kotlinx.metadata.jvm)
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
+
+    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
 
     // DeepLinkDispatch dependencies
     implementation(libs.deepLinkDispatch.core)
