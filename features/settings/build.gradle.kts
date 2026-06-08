@@ -25,6 +25,8 @@ android {
 
 dependencies {
     implementation(projects.core.compat.navigation)
+    implementation(projects.features.auth.navigation)
+
     implementation(projects.core.resources.temporal)
     implementation(projects.core.settings.appearance.resources)
     implementation(projects.core.settings.appearance.model)

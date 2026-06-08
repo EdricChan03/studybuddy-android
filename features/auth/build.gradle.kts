@@ -46,6 +46,12 @@ dependencies {
     implementation(projects.ui.widgets.views)
     implementation(projects.utils.network)
 
+    // Jetpack Navigation
+    api(libs.androidx.navigation.common.ktx)
+    api(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.fragment.ktx)
+
     implementation(libs.materialComponents)
 
     // Firebase
