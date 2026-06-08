@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- FIXME: Restructure this file -->
 <resources>
-    <plurals name="cab_subtitle">
-        <item quantity="zero">None selected</item>
-        <item quantity="other">%d selected</item>
-    </plurals>
-
     <!-- The countdown message to indicate the number of user taps left to enable dev mode. -->
     <plurals name="dev_mode_countdown">
         <item quantity="one">You are now %d more step away from being a developer!</item>
@@ -23,12 +18,6 @@
     <!-- The dialog's message to confirm whether to enable developer mode. -->
     <string name="dev_mode_confirm_enable_dialog_msg">Note: This can be turned off later in Settings
         &gt; Developer Options &gt; Developer Mode.</string>
-    <!-- The dialog's title to confirm whether to disable developer mode. -->
-    <string name="dev_mode_confirm_disable_dialog_title">Disable developer mode?</string>
-    <!-- The dialog's message to confirm whether to disable developer mode. -->
-    <string name="dev_mode_confirm_disable_dialog_msg">This cannot be reversed!</string>
-    <!-- The title of the developer options activity. -->
-    <string name="pref_header_dev_mode_opts_title">Developer options</string>
 
     <!-- About fragment strings -->
     <eat-comment />
@@ -65,8 +54,6 @@
 
     <!-- The title of the share this app menu item in the main activity's menu. -->
     <string name="menu_main_share_app_title">Share this app</string>
-
-    <string name="action_version">Version</string>
 
     <string name="app_desc">Study Buddy is an app that aids students with their studies.</string>
 
