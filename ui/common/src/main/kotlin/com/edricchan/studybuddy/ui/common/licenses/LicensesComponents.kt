@@ -243,7 +243,10 @@ fun LibraryItem(
                                 OutlinedButton(
                                     modifier = Modifier
                                         .weight(1f)
-                                        .animateWidth(interactionSource),
+                                        .animateWidth(
+                                            interactionSource = interactionSource,
+                                            compressionLimit = ButtonDefaults.ButtonWithIconContentPadding
+                                        ),
                                     shapes = ButtonDefaults.shapes(),
                                     onClick = { onLinkClick(it) },
                                     interactionSource = interactionSource
@@ -280,7 +283,10 @@ fun LibraryItem(
                                 OutlinedButton(
                                     modifier = Modifier
                                         .weight(1f)
-                                        .animateWidth(interactionSource),
+                                        .animateWidth(
+                                            interactionSource = interactionSource,
+                                            compressionLimit = ButtonDefaults.ButtonWithIconContentPadding
+                                        ),
                                     shapes = ButtonDefaults.shapes(),
                                     onClick = { onLinkClick(it) },
                                     interactionSource = interactionSource
