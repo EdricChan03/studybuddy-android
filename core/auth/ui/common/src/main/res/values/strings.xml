@@ -4,7 +4,7 @@
     <eat-comment />
 
     <!-- Content description for the user's profile picture. -->
-    <string name="account_profile_content_desc">Profile photo for %1$s</string>
+    <string name="account_profile_content_desc">Profile photo for %s</string>
 
     <!-- Content description for the anonymous user's profile picture. -->
     <string name="account_anon_profile_content_desc">Profile photo</string>
