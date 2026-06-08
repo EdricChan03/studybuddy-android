@@ -110,23 +110,9 @@ fun LicenseChipsRow(
                 modifier = Modifier.animateContentSize(),
                 selected = isSelected,
                 onClick = { onToggleLicense(license) },
-                leadingIcon = {
-                    AnimatedVisibility(
-                        visible = isSelected,
-                        enter = fadeIn(
-                            MaterialTheme.motionScheme.fastEffectsSpec()
-                        ) + scaleIn(
-                            MaterialTheme.motionScheme.fastSpatialSpec()
-                        ),
-                        exit = fadeOut(
-                            MaterialTheme.motionScheme.fastEffectsSpec()
-                        ) + scaleOut(
-                            MaterialTheme.motionScheme.fastSpatialSpec()
-                        )
-                    ) {
-                        Icon(AppIcons.Outlined.Check, contentDescription = null)
-                    }
-                },
+                leadingIcon = if (isSelected)
+                    ({ Icon(AppIcons.Outlined.Check, contentDescription = null) })
+                else null,
                 label = {
                     Text(text = license.name)
                 },
