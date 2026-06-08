@@ -3,9 +3,9 @@ package com.edricchan.studybuddy.ui.common.dialogs
 import android.content.Context
 import android.content.DialogInterface
 import androidx.navigation.NavController
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.features.auth.navigation.navigateToLogin
+import com.edricchan.studybuddy.features.auth.navigation.navigateToRegister
 import com.edricchan.studybuddy.ui.common.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.edricchan.studybuddy.core.resources.R as CoreResR

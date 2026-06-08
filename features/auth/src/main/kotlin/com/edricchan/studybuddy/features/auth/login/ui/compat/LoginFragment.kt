@@ -18,14 +18,14 @@ import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.auth.credentials.asGoogleIdTokenCredential
 import com.edricchan.studybuddy.core.auth.credentials.googleBtnOption
 import com.edricchan.studybuddy.core.auth.credentials.signInWithGoogleCredentials
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToResetPassword
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithGoogle
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragLoginBinding
+import com.edricchan.studybuddy.features.auth.navigation.navigateToRecovery
+import com.edricchan.studybuddy.features.auth.navigation.navigateToRegister
 import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
 import com.edricchan.studybuddy.features.tasks.navigation.navigateToTaskGraph
 import com.edricchan.studybuddy.ui.common.SnackBarData
@@ -70,7 +70,7 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
 
             signUpBtn.setOnClickListener { navController.navigateToRegister() }
 
-            resetPasswordBtn.setOnClickListener { navController.navigateToResetPassword() }
+            resetPasswordBtn.setOnClickListener { navController.navigateToRecovery() }
 
             PendingGetCredentialRequest(
                 request = GetCredentialRequest(

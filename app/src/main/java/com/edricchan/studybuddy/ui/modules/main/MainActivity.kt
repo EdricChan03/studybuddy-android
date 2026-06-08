@@ -30,7 +30,6 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.about.navigateToAbout
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToAccountInfo
 import com.edricchan.studybuddy.core.compat.navigation.navigateToCalendar
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
 import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
@@ -42,6 +41,8 @@ import com.edricchan.studybuddy.databinding.ActivityMainBinding
 import com.edricchan.studybuddy.exts.android.startChooser
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
 import com.edricchan.studybuddy.exts.material.snackbar.createSnackbar
+import com.edricchan.studybuddy.features.auth.navigation.AuthDestination
+import com.edricchan.studybuddy.features.auth.navigation.navigateToAccountInfo
 import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
 import com.edricchan.studybuddy.features.tasks.navigation.navigateToTasksList
 import com.edricchan.studybuddy.navigation.compat.compatGraphs
@@ -174,9 +175,9 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
     }
 
     private val hideBottomNavigationRoutes = listOf(
-        CompatDestination.Auth.Login::class,
-        CompatDestination.Auth.Register::class,
-        CompatDestination.Auth.ResetPassword::class,
+        AuthDestination.Login::class,
+        AuthDestination.Register::class,
+        AuthDestination.Recovery::class,
     )
 
     override fun onDestinationChanged(
@@ -220,7 +221,7 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
         val routesMap = mapOf(
             CompatDestination.Settings::class to R.id.action_settings,
-            CompatDestination.Auth.Account::class to R.id.action_account,
+            AuthDestination.AccountInfo::class to R.id.action_account,
             CompatDestination.About.AppAbout::class to R.id.action_about,
             CompatDestination.Help::class to R.id.action_help,
         )
@@ -311,13 +312,14 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
     @SuppressLint("RestrictedApi") // For generateHashCode
     private fun NavController.initNavGraph() {
+        val isLoggedIn = auth.currentUser != null
         graph = createGraph(
-            if (auth.currentUser != null) TaskDestination.TaskGraphRoot
-            else CompatDestination.Auth.Login
+            if (isLoggedIn) TaskDestination.TaskGraphRoot
+            else AuthDestination.Login
         ) {
             compatGraphs(
                 context = this@MainActivity,
-                isLoggedIn = auth.currentUser != null
+                isLoggedIn = isLoggedIn
             )
         }
 

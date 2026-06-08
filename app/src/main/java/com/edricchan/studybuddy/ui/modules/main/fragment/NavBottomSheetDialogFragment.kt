@@ -13,11 +13,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil3.load
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToAccountInfo
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetBinding
 import com.edricchan.studybuddy.databinding.FragBottomappbarBottomsheetHeaderBinding
 import com.edricchan.studybuddy.exts.android.getParcelableCompat
 import com.edricchan.studybuddy.exts.androidx.viewbinding.viewInflateBinding
+import com.edricchan.studybuddy.features.auth.navigation.navigateToAccountInfo
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView

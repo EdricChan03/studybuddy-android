@@ -7,13 +7,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.auth.service.AuthService
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragRegisterBinding
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
+import com.edricchan.studybuddy.features.auth.navigation.AuthDestination
+import com.edricchan.studybuddy.features.auth.navigation.navigateToLogin
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +31,7 @@ class RegisterFragment : ViewBindingFragment<FragRegisterBinding>(FragRegisterBi
         binding.apply {
             signInBtn.setOnClickListener {
                 navController.navigateToLogin {
-                    popUpTo<CompatDestination.Auth.Login>()
+                    popUpTo<AuthDestination.Login>()
                 }
             }
 

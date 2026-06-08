@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation(projects.core.compat.navigation)
+    implementation(projects.features.auth.navigation)
 
     api(projects.features.tasks.data)
     api(projects.features.tasks.domain)

@@ -9,8 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
@@ -18,6 +16,8 @@ import com.edricchan.studybuddy.exts.material.picker.setCalendarConstraints
 import com.edricchan.studybuddy.exts.material.picker.setSelection
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
 import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.features.auth.navigation.AuthDestination
+import com.edricchan.studybuddy.features.auth.navigation.navigateToLogin
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.create.vm.NewTaskViewModel
 import com.edricchan.studybuddy.features.tasks.databinding.FragNewTaskBinding
@@ -51,7 +51,7 @@ class NewTaskFragment : ViewBindingFragment<FragNewTaskBinding>(FragNewTaskBindi
         if (auth.currentUser == null) {
             showToast("Please sign in before continuing", Toast.LENGTH_SHORT)
             navController.navigateToLogin {
-                popUpTo<CompatDestination.Auth.Login>()
+                popUpTo<AuthDestination.Login>()
             }
             return
         }

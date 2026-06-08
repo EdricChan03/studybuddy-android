@@ -17,9 +17,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.toRoute
 import coil3.load
 import com.edricchan.studybuddy.core.auth.service.AuthService
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
-import com.edricchan.studybuddy.core.compat.navigation.CompatDestination.Auth.Account.AccountAction
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.reloadAsync
@@ -27,6 +24,9 @@ import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragAccountInfoBinding
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
+import com.edricchan.studybuddy.features.auth.navigation.AuthDestination
+import com.edricchan.studybuddy.features.auth.navigation.AuthDestination.AccountInfo.AccountAction
+import com.edricchan.studybuddy.features.auth.navigation.navigateToLogin
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
@@ -85,8 +85,8 @@ class AccountFragment :
         // We can use this fragment without navigating to it via Jetpack Nav (in SettingsFragment),
         // so getBackStackEntry throws an IllegalArgumentException which we have to catch
         val action = runCatching {
-            navController.getBackStackEntry<CompatDestination.Auth.Account>()
-                .toRoute<CompatDestination.Auth.Account>()
+            navController.getBackStackEntry<AuthDestination.AccountInfo>()
+                .toRoute<AuthDestination.AccountInfo>()
                 .action
         }.getOrNull()
         action?.let {

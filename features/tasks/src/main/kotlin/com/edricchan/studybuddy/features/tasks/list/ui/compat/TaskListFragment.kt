@@ -16,8 +16,6 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToLogin
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToRegister
 import com.edricchan.studybuddy.core.compat.navigation.navigateToDebug
 import com.edricchan.studybuddy.core.compat.navigation.navigateToHelp
 import com.edricchan.studybuddy.core.compat.navigation.navigateToSettings
@@ -29,6 +27,8 @@ import com.edricchan.studybuddy.core.resources.icons.compat.Refresh
 import com.edricchan.studybuddy.core.resources.icons.compat.Settings
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.material.dialog.showMaterialAlertDialog
+import com.edricchan.studybuddy.features.auth.navigation.navigateToLogin
+import com.edricchan.studybuddy.features.auth.navigation.navigateToRegister
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.TodosAdapter
 import com.edricchan.studybuddy.features.tasks.compat.ui.adapter.itemListener

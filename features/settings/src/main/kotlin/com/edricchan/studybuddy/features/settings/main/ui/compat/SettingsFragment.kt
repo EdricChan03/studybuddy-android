@@ -8,8 +8,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.edricchan.studybuddy.core.auth.ProvideCurrentUser
 import com.edricchan.studybuddy.core.compat.navigation.about.navigateToAbout
-import com.edricchan.studybuddy.core.compat.navigation.auth.navigateToAccountInfo
 import com.edricchan.studybuddy.core.compat.navigation.navigateToUpdates
+import com.edricchan.studybuddy.features.auth.navigation.navigateToAccountInfo
 import com.edricchan.studybuddy.features.settings.main.ui.listdetail.SettingsListDetailScreen
 import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
