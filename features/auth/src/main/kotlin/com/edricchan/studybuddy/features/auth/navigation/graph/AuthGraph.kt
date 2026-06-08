@@ -9,6 +9,7 @@ import com.edricchan.studybuddy.features.auth.login.ui.compat.LoginFragment
 import com.edricchan.studybuddy.features.auth.navigation.AuthDestination
 import com.edricchan.studybuddy.features.auth.recovery.ui.compat.RecoveryFragment
 import com.edricchan.studybuddy.features.auth.register.ui.compat.RegisterFragment
+import kotlin.reflect.typeOf
 import com.edricchan.studybuddy.features.auth.navigation.R as NavR
 
 /**
@@ -22,7 +23,9 @@ fun NavGraphBuilder.authGraph(
 ) = navigation<AuthDestination.AuthGraphRoot>(
     startDestination = if (isLoggedIn) AuthDestination.AccountInfo else AuthDestination.Login
 ) {
-    fragment<AccountFragment, AuthDestination.AccountInfo> {
+    fragment<AccountFragment, AuthDestination.AccountInfo>(
+        typeMap = mapOf(typeOf<AuthDestination.AccountInfo.AccountAction>() to AuthDestination.AccountInfo.AccountAction.NavType)
+    ) {
         label = context.getString(NavR.string.nav_auth_dest_account_info_label)
     }
 
