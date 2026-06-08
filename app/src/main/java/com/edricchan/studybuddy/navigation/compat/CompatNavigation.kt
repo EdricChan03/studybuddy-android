@@ -13,12 +13,7 @@ import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.UriSettings
 import com.edricchan.studybuddy.core.compat.navigation.UriUpdates
-import com.edricchan.studybuddy.core.deeplink.AppPrefixUrls
-import com.edricchan.studybuddy.core.deeplink.WebPrefixUrls
-import com.edricchan.studybuddy.features.auth.account.compat.AccountFragment
-import com.edricchan.studybuddy.features.auth.login.ui.compat.LoginFragment
-import com.edricchan.studybuddy.features.auth.recovery.ui.compat.RecoveryFragment
-import com.edricchan.studybuddy.features.auth.register.ui.compat.RegisterFragment
+import com.edricchan.studybuddy.features.auth.navigation.graph.authGraph
 import com.edricchan.studybuddy.features.help.compat.HelpListFragment
 import com.edricchan.studybuddy.features.settings.main.ui.compat.SettingsFragment
 import com.edricchan.studybuddy.features.tasks.navigation.graph.taskGraph
@@ -29,8 +24,6 @@ import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
 import com.edricchan.studybuddy.utils.android.fromApi
-import kotlin.reflect.typeOf
-import com.edricchan.studybuddy.features.auth.R as AuthR
 
 fun NavGraphBuilder.aboutGraph(
     context: Context
@@ -47,39 +40,16 @@ fun NavGraphBuilder.aboutGraph(
     }
 }
 
-fun NavGraphBuilder.authGraph(
-    context: Context
-) {
-    fragment<AccountFragment, CompatDestination.Auth.Account>(
-        typeMap = mapOf(typeOf<CompatDestination.Auth.Account.AccountAction>() to CompatDestination.Auth.Account.AccountAction.NavType)
-    ) {
-        label = context.getString(R.string.title_activity_account)
-
-        (AppPrefixUrls + WebPrefixUrls).forEach {
-            deepLink<CompatDestination.Auth.Account>(basePath = "$it/account")
-        }
-    }
-
-    fragment<RecoveryFragment, CompatDestination.Auth.ResetPassword> {
-        label = context.getString(AuthR.string.title_activity_reset_password)
-    }
-
-    fragment<LoginFragment, CompatDestination.Auth.Login> {
-        label = context.getString(AuthR.string.title_activity_login)
-    }
-
-    fragment<RegisterFragment, CompatDestination.Auth.Register> {
-        label = context.getString(AuthR.string.title_activity_register)
-    }
-}
-
 /**
  * Navigation graph for destinations that have yet to be migrated to
  * Jetpack Compose.
  * @see CompatDestination
  */
 // TODO: Migrate destinations to Jetpack Compose
-fun NavGraphBuilder.compatGraphs(context: Context) {
+fun NavGraphBuilder.compatGraphs(
+    context: Context,
+    isLoggedIn: Boolean
+) {
     activity<CompatDestination.Debug> {
         activityClass = DebugActivity::class
     }
@@ -97,8 +67,8 @@ fun NavGraphBuilder.compatGraphs(context: Context) {
     }
 
     aboutGraph(context = context)
-    authGraph(context = context)
     context(context) {
+        authGraph(isLoggedIn = isLoggedIn)
         taskGraph()
     }
 

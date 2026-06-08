@@ -315,7 +315,10 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
             if (auth.currentUser != null) TaskDestination.TaskGraphRoot
             else CompatDestination.Auth.Login
         ) {
-            compatGraphs(context = this@MainActivity)
+            compatGraphs(
+                context = this@MainActivity,
+                isLoggedIn = auth.currentUser != null
+            )
         }
 
         val appBarConfiguration = AppBarConfiguration(
