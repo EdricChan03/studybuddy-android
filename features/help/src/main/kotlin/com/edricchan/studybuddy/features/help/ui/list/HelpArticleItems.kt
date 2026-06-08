@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.features.help.ui.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -104,20 +105,6 @@ private fun HelpArticleItemPreview() {
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Preview
-@PreviewLightDark
-@PreviewDynamicColors
-@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
-@Composable
-private fun HelpArticleItemsPreview() {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
-    ) {
-        helpArticlesList(articles = sampleHelpArticles) {}
-    }
-}
-
 /**
  * Displays the given list of [articles] in the receiver [LazyListScope].
  * @param itemModifier [Modifier] to be passed to [HelpArticleItem].
@@ -139,6 +126,39 @@ fun LazyListScope.helpArticlesList(
         title = item.title,
         description = item.description,
         onClick = { onItemClick(item) }
+    )
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun HelpArticlesLazyColumn(
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues.Zero,
+    articles: List<HelpArticle>,
+    onItemClick: (HelpArticle) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding,
+        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
+    ) {
+        helpArticlesList(
+            articles = articles,
+            onItemClick = onItemClick,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Preview
+@PreviewLightDark
+@PreviewDynamicColors
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
+private fun HelpArticleItemsPreview() {
+    HelpArticlesLazyColumn(
+        articles = sampleHelpArticles,
+        onItemClick = {}
     )
 }
 
