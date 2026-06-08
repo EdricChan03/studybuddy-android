@@ -11,7 +11,50 @@ sealed interface AuthDestination {
 
     /** Destination to view the currently signed-in user's information. */
     @Serializable
-    data object AccountInfo : AuthDestination
+    data class AccountInfo(val action: AccountAction? = null) : AuthDestination {
+        /** The requested account action to perform, if any. */
+        @Keep
+        enum class AccountAction(val kebabId: String) {
+            DeleteAccount("delete-account"),
+            SignOut("sign-out"),
+            UpdateEmail("update-email"),
+            UpdateName("update-name"),
+            UpdatePassword("update-password");
+
+            companion object {
+                // SerializableType has a runtime check to assert that Enums are not passed,
+                // and EnumType is not extendable, so we have to make do with our own
+                // NavType
+                val NavType =
+                    object : NavType<AccountAction>(isNullableAllowed = true) {
+                        override fun get(
+                            bundle: SavedState,
+                            key: String
+                        ): AccountAction? {
+                            return BundleCompat.getSerializable(
+                                bundle,
+                                key,
+                                AccountAction::class.java
+                            )
+                        }
+
+                        override fun put(
+                            bundle: SavedState,
+                            key: String,
+                            value: AccountAction
+                        ) {
+                            bundle.putSerializable(key, value)
+                        }
+
+                        override fun parseValue(value: String): AccountAction =
+                            AccountAction.entries.first {
+                                it.name.equals(value, ignoreCase = true) ||
+                                    it.kebabId.equals(value, ignoreCase = true)
+                            }
+                    }
+            }
+        }
+    }
 
     /** Destination to sign in to the application. */
     @Serializable
