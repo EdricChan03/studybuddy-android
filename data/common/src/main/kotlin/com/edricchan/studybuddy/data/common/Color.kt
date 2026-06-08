@@ -105,9 +105,23 @@ value class Color(
     fun toArgbHexString(): String =
         "#%08X".format(value and 0xFFFFFFFF.toInt())
 
+    /**
+     * Returns the raw ARGB hexadecimal string (i.e. `AARRGGBB`) equivalent of this colour.
+     *
+     * To get a prefixed `#` version, use [toArgbHexString].
+     */
+    fun toRawArgbHexString(): String = "%08X".format(value and 0xFFFFFFFF.toInt())
+
     /** Returns the RGB hexadecimal string (i.e. `#RRGGBB`) equivalent of this colour. */
     fun toRgbHexString(): String =
         "#%06X".format(value and 0xFFFFFF)
+
+    /**
+     * Returns the raw RGB hexadecimal string (i.e. `RRGGBB`) equivalent of this colour.
+     *
+     * To get a prefixed `#` version, use [toRgbHexString].
+     */
+    fun toRawRgbHexString(): String = "%06X".format(value and 0xFFFFFF)
 
     companion object {
         //#region HSV/HSL operations
