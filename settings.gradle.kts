@@ -166,6 +166,7 @@ include(
     ":exts:material:date-picker",
     ":features:about",
     ":features:auth",
+    ":features:auth:navigation",
     ":features:help",
     ":features:settings",
     ":features:tasks",

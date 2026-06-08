@@ -26,6 +26,7 @@ android {
 }
 
 dependencies {
+    api(projects.features.auth.navigation)
     implementation(projects.core.compat.navigation)
     implementation(projects.features.tasks.navigation)
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Label for the account information destination. -->
+    <string name="nav_auth_dest_account_info_label">Your Account</string>
+    <!-- Label for the login destination. -->
+    <string name="nav_auth_dest_login_label">Login</string>
+    <!-- Label for the register destination. -->
+    <string name="nav_auth_dest_register_label">Create an account</string>
+    <!-- Label for the recover account destination. -->
+    <string name="nav_auth_dest_recover_account_label">Recover your account</string>
+</resources>
