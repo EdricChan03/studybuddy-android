@@ -24,6 +24,8 @@ android {
 dependencies {
     api(libs.androidx.navigation.common.ktx)
     api(libs.androidx.navigation.runtime.ktx)
+    api(libs.androidx.annotation)
+    implementation(libs.androidx.core.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

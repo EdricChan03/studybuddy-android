@@ -1,5 +1,9 @@
 package com.edricchan.studybuddy.features.auth.navigation
 
+import androidx.annotation.Keep
+import androidx.core.os.BundleCompat
+import androidx.navigation.NavType
+import androidx.savedstate.SavedState
 import kotlinx.serialization.Serializable
 
 /** Type-safe destinations for the authentication feature. */
