@@ -13,6 +13,7 @@ import com.edricchan.studybuddy.features.tasks.navigation.R as NavR
 
 /**
  * Adds the tasks feature's NavGraph to the receiver [NavGraphBuilder].
+ * @param context [Context] to be used to retrieve the label string resources from.
  * @see TaskDestination
  */
 context(context: Context)
