@@ -5,6 +5,8 @@
 
     <!-- Label text for the email text field. -->
     <string name="account_email_field_label">Email</string>
+    <!-- Error text when an invalid email address is entered into the email text field. -->
+    <string name="account_email_field_error_invalid_text">Please enter a valid email address.</string>
     <!-- Label text for the password text field. -->
     <string name="account_password_field_label">Password</string>
 

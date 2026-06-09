@@ -1,5 +1,5 @@
 plugins {
-    com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`android-compose`
     com.edricchan.studybuddy.library.`android-hilt`
 }
 
@@ -35,6 +35,8 @@ dependencies {
     implementation(projects.core.auth.gms)
     implementation(projects.core.di)
     implementation(projects.core.resources)
+    implementation(projects.core.resources.icons)
+    implementation(projects.data.forms.compose)
     implementation(projects.exts.android)
     implementation(projects.exts.common)
     implementation(projects.exts.firebase.core)
@@ -44,6 +46,7 @@ dependencies {
         because("We need XML theming for the activity manifest declaration")
     }
     implementation(projects.ui.widgets.views)
+    implementation(projects.utils.androidx.compose)
     implementation(projects.utils.network)
 
     // Jetpack Navigation
@@ -53,6 +56,14 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
 
     implementation(libs.materialComponents)
+
+    // Compose
+    api(libs.bundles.androidx.compose)
+    implementation(libs.androidx.compose.animation.graphics)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+    // Compose Tooling
+    debugImplementation(libs.bundles.androidx.compose.tooling)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
