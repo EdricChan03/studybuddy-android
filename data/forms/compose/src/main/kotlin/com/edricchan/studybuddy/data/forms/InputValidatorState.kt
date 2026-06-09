@@ -29,3 +29,23 @@ fun <ValidationError : InputValidationError> TextFieldState.validationErrorAsSta
         .debounce(debounceTimeout)
         .map(validator::validate)
 }.collectAsStateWithLifecycle(null)
+
+/**
+ * Collects and returns whether there were any validation errors for the
+ * receiver [TextFieldState]'s text as a Compose [State].
+ * @param debounceTimeout Timeout to be passed to the [debounce] operator.
+ * @param initialValue Initial value for the Compose [State].
+ * @param validator Validator to be used to validate the [TextFieldState]'s text with.
+ * @see validationErrorAsState
+ */
+@OptIn(FlowPreview::class)
+@Composable
+fun <ValidationError : InputValidationError> TextFieldState.isValidState(
+    debounceTimeout: Duration = 200.milliseconds,
+    initialValue: Boolean = false,
+    validator: InputValidator<ValidationError>
+): State<Boolean> = remember {
+    snapshotFlow { text }
+        .debounce(debounceTimeout)
+        .map(validator::hasValidationError)
+}.collectAsStateWithLifecycle(initialValue)
