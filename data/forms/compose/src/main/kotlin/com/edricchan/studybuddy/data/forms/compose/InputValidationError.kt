@@ -22,7 +22,27 @@ interface InputValidationError {
      * arguments, if any.
      */
     @Composable
-    fun getMessage(input: CharSequence): String {
-        return stringResource(messageRes)
-    }
+    fun getMessage(input: CharSequence): String = stringResource(messageRes)
+
+    /**
+     * String resource for the semantics error message to be used for this particular
+     * error type.
+     *
+     * Defaults to [messageRes] if not specified.
+     *
+     * [getSemanticsMessage] should be used to retrieve the desired message to be displayed.
+     */
+    @get:StringRes
+    val semanticsMessageRes: Int get() = messageRes
+
+    /**
+     * Retrieves the desired formatted semantics error message to be used given the
+     * current [user input][input].
+     *
+     * Subclasses may override this method to format the message resource with
+     * additional arguments, if any.
+     * @see androidx.compose.ui.semantics.error
+     */
+    @Composable
+    fun getSemanticsMessage(input: CharSequence): String = stringResource(semanticsMessageRes)
 }
