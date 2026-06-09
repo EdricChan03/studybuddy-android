@@ -41,40 +41,35 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        val dependencyUpdatePlugin by registering {
-            id = "com.edricchan.studybuddy.dependency-updates"
+        register("com.edricchan.studybuddy.dependency-updates") {
             implementationClass = "com.edricchan.studybuddy.gradle.versions.DependencyUpdatesPlugin"
             displayName = "Dependency Updates plugin"
             description =
                 "Adds additional support for reporting updated dependencies as a Markdown file"
         }
 
-        val appPlugin by registering {
-            id = "com.edricchan.studybuddy.application"
+        register("com.edricchan.studybuddy.application") {
             implementationClass = "com.edricchan.studybuddy.plugin.app.StudyBuddyAppPlugin"
             displayName = "StudyBuddy Application plugin"
             description = "Gradle plugin to configure AGP for the main application module"
         }
 
-        val appPropertiesPlugin by registering {
-            id = "com.edricchan.studybuddy.properties"
+        register("com.edricchan.studybuddy.properties") {
             implementationClass =
                 "com.edricchan.studybuddy.plugin.properties.StudyBuddyPropertiesConsumerPlugin"
             displayName = "StudyBuddy Properties consumer plugin"
             description = "Gradle plugin to configure AGP BuildConfig values"
         }
-        val appPropertiesProducerPlugin by registering {
-            id = "com.edricchan.studybuddy.properties-producer"
+        register("com.edricchan.studybuddy.properties-producer") {
             implementationClass =
                 "com.edricchan.studybuddy.plugin.properties.StudyBuddyPropertiesProducerPlugin"
             displayName = "StudyBuddy Properties producer plugin"
-            description =
-                "Gradle plugin to write the app's properties for use by com.edricchan.studybuddy.properties"
+            description = "Gradle plugin to write the app's properties for use by " +
+                "com.edricchan.studybuddy.properties"
         }
 
         // Convention plugins
-        val screenshotTestingConventionPlugin by registering {
-            id = "com.edricchan.studybuddy.library.compose.android-screenshot-testing"
+        register("com.edricchan.studybuddy.library.compose.android-screenshot-testing") {
             implementationClass =
                 "com.edricchan.studybuddy.library.compose.AndroidScreenshotTestingConventionPlugin"
         }

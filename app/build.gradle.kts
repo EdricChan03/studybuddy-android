@@ -35,7 +35,7 @@ android {
     }
 
     buildTypes {
-        val debug by existing {
+        val debug = named("debug") {
             isDebuggable = true // Allow app to be debuggable
             applicationIdSuffix = ".debug"
 
@@ -44,7 +44,7 @@ android {
             buildConfigField("Long", "BUILD_TIME", "0L")
         }
 
-        val release by existing {
+        val release = named("release") {
             isMinifyEnabled = true // Enable minification
             isShrinkResources = true // Shrink resources to reduce APK size
             proguardFiles(
@@ -56,7 +56,7 @@ android {
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
         }
 
-        val nightly by registering {
+        register("nightly") {
             // Nightly releases
             initWith(release.get())
 
@@ -66,7 +66,7 @@ android {
             matchingFallbacks += listOf(release.name, debug.name)
         }
 
-        val benchmark by registering {
+        register("benchmark") {
             initWith(release.get())
 
             applicationIdSuffix = ".benchmark"

@@ -21,7 +21,8 @@ plugins {
 }
 
 tasks {
-    val clean by registering(Delete::class) {
+    register<Delete>("clean") {
+        description = "Deletes the root project's build directory"
         delete(rootProject.layout.buildDirectory)
     }
 }
