@@ -26,7 +26,7 @@ private enum class TaskTitleValidationError(
     override val messageRes: Int
 ) : InputValidationError {
     Required(CoreResR.string.text_field_error_required),
-    MaxLengthExceeded(CoreResR.string.text_field_error_max_limit_exceeded) {
+    MaxLengthExceeded(CoreResR.string.text_field_error_semantics_max_limit_exceeded) {
         @Composable
         override fun getMessage(input: CharSequence): String =
             stringResource(messageRes, TaskTitleMaxLength, input.length)

@@ -6,7 +6,7 @@
     <!-- Helper text to be shown for text fields that have a limit. -->
     <string name="text_field_limit">Limit: %1$d / %2$d</string>
     <!-- Error semantics text to be used when the text field's max length has been exceeded. -->
-    <string name="text_field_error_max_limit_exceeded">This field should not have more than %1$d
+    <string name="text_field_error_semantics_max_limit_exceeded">This field should not have more than %1$d
         characters, but %2$d characters were entered.
     </string>
 </resources>
