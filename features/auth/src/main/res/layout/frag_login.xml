@@ -53,7 +53,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email_hint"
+                    android:hint="@string/account_email_field_label"
                     android:inputType="textEmailAddress"
                     android:isCredential="true"
                     tools:targetApi="upside_down_cake" />
@@ -69,7 +69,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password_hint"
+                    android:hint="@string/account_password_field_label"
                     android:inputType="textPassword"
                     android:isCredential="true"
                     tools:targetApi="upside_down_cake" />

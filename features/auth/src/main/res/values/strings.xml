@@ -3,11 +3,10 @@
     <!-- Common auth strings -->
     <eat-comment />
 
-    <!-- Hint text for the email text-field. -->
-    <string name="email_hint">Email</string>
-
-    <!-- Hint text for the password text-field. -->
-    <string name="password_hint">Password</string>
+    <!-- Label text for the email text field. -->
+    <string name="account_email_field_label">Email</string>
+    <!-- Label text for the password text field. -->
+    <string name="account_password_field_label">Password</string>
 
     <!-- Error text to be shown for the password text-field when the minimum length criteria isn't met. -->
     <string name="minimum_password">The password that you entered is too short, please enter a
