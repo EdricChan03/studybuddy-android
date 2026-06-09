@@ -136,6 +136,7 @@ include(
     ":data:common",
     ":data:common:compose",
     ":data:common:protobuf",
+    ":data:forms:compose",
     ":data:paging:firestore",
     ":data:serialization:android",
     ":utils:android",
