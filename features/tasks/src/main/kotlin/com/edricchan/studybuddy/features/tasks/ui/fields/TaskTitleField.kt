@@ -14,32 +14,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
+import com.edricchan.studybuddy.data.forms.compose.InputValidationError
 import com.edricchan.studybuddy.exts.androidx.compose.material3.TextFieldAnimations
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 const val TaskTitleMaxLength = 5000
 
-private enum class TaskTitleFieldErrorType(
+private enum class TaskTitleValidationError(
     @field:StringRes
-    val messageRes: Int
-) {
+    override val messageRes: Int
+) : InputValidationError {
     Required(CoreResR.string.text_field_error_required),
     MaxLengthExceeded(CoreResR.string.text_field_error_max_limit_exceeded) {
         @Composable
         override fun getMessage(input: CharSequence): String =
             stringResource(messageRes, TaskTitleMaxLength, input.length)
-    };
-
-    @Composable
-    open fun getMessage(input: CharSequence): String {
-        return stringResource(messageRes)
     }
 }
 
-private fun getErrorType(input: CharSequence): TaskTitleFieldErrorType? {
-    if (input.isBlank()) return TaskTitleFieldErrorType.Required
-    if (input.length > TaskTitleMaxLength) return TaskTitleFieldErrorType.MaxLengthExceeded
+private fun getErrorType(input: CharSequence): TaskTitleValidationError? {
+    if (input.isBlank()) return TaskTitleValidationError.Required
+    if (input.length > TaskTitleMaxLength) return TaskTitleValidationError.MaxLengthExceeded
 
     return null
 }
@@ -76,7 +72,7 @@ fun TaskTitleTextField(
                 transitionSpec = TextFieldAnimations.supportingTextTransitionSpec()
             ) {
                 Text(
-                    text = if (it == TaskTitleFieldErrorType.Required) requiredMsg
+                    text = if (it == TaskTitleValidationError.Required) requiredMsg
                     else counterText
                 )
             }

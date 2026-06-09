@@ -39,6 +39,7 @@ dependencies {
     implementation(projects.core.resources.temporal)
     implementation(projects.data.common)
     implementation(projects.data.common.compose)
+    implementation(projects.data.forms.compose)
     implementation(projects.exts.android)
     implementation(projects.exts.androidx.preferenceFiles)
     implementation(projects.exts.common)
