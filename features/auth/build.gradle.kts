@@ -36,6 +36,7 @@ dependencies {
     implementation(projects.core.di)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
+    implementation(projects.core.resources.icons.animated)
     implementation(projects.data.forms.compose)
     implementation(projects.exts.android)
     implementation(projects.exts.common)
