@@ -9,4 +9,7 @@
     <string name="text_field_error_semantics_max_limit_exceeded">This field should not have more than %1$d
         characters, but %2$d characters were entered.
     </string>
+    <!-- Error text to be used when the text field's max length has been exceeded. -->
+    <string name="text_field_error_max_limit_exceeded">A maximum of %d characters can be entered.
+    </string>
 </resources>

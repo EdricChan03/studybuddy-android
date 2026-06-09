@@ -23,12 +23,21 @@ const val TaskTitleMaxLength = 5000
 
 private enum class TaskTitleValidationError(
     @field:StringRes
-    override val messageRes: Int
+    override val messageRes: Int,
+    @field:StringRes
+    override val semanticsMessageRes: Int = messageRes
 ) : InputValidationError {
     Required(CoreResR.string.text_field_error_required),
-    MaxLengthExceeded(CoreResR.string.text_field_error_semantics_max_limit_exceeded) {
+    MaxLengthExceeded(
+        messageRes = CoreResR.string.text_field_error_max_limit_exceeded,
+        semanticsMessageRes = CoreResR.string.text_field_error_semantics_max_limit_exceeded,
+    ) {
         @Composable
         override fun getMessage(input: CharSequence): String =
+            stringResource(messageRes, input.length)
+
+        @Composable
+        override fun getSemanticsMessage(input: CharSequence): String =
             stringResource(messageRes, TaskTitleMaxLength, input.length)
     }
 }
@@ -49,7 +58,7 @@ fun TaskTitleTextField(
     val requiredMsg = stringResource(CoreResR.string.text_field_error_required)
 
     val errorType = remember(state.text) { getErrorType(state.text) }
-    val errorSemanticsMsg = errorType?.getMessage(state.text)
+    val errorSemanticsMsg = errorType?.getSemanticsMessage(state.text)
 
     val counterText = stringResource(
         CoreResR.string.text_field_limit,
