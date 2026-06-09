@@ -12,4 +12,12 @@
     <!-- Error text to be used when the text field's max length has been exceeded. -->
     <string name="text_field_error_max_limit_exceeded">A maximum of %d characters can be entered.
     </string>
+
+    <!-- Error semantics text to be used when the text field's min length has not been reached. -->
+    <string name="text_field_error_semantics_min_limit_required">This field should not have less than %1$d
+        characters, but %2$d characters were entered.
+    </string>
+    <!-- Error text to be used when the text field's min length has not been reached. -->
+    <string name="text_field_error_min_limit_required">A minimum of %d characters is required.
+    </string>
 </resources>

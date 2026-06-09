@@ -15,4 +15,13 @@
         minimum of 6 characters!
     </string>
 
+    <!-- Action text to be shown for the toggle password button when in a shown state. -->
+    <string name="password_toggle_visibility_action_hide_text">Hide password</string>
+    <!-- Action text to be shown for the toggle password button when in a hidden state. -->
+    <string name="password_toggle_visibility_action_show_text">Show password</string>
+
+    <!-- State description to be used when the toggle password button is in a shown state. -->
+    <string name="password_toggle_visibility_state_desc_shown">Password is shown</string>
+    <!-- State description to be used when the toggle password button is in a hidden state. -->
+    <string name="password_toggle_visibility_state_desc_hidden">Password is hidden</string>
 </resources>
