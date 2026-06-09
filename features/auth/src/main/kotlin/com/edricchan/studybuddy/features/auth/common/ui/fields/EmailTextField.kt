@@ -11,25 +11,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.autofill.contentType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Mail
 import com.edricchan.studybuddy.data.forms.InputValidator
 import com.edricchan.studybuddy.data.forms.compose.InputValidationError
+import com.edricchan.studybuddy.data.forms.validationErrorAsState
 import com.edricchan.studybuddy.exts.androidx.compose.material3.TextFieldAnimations
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.map
-import kotlin.time.Duration.Companion.milliseconds
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @Composable
@@ -85,11 +80,7 @@ fun EmailTextField(
     },
     emailValidator: InputValidator<EmailValidationError> = EmailValidator
 ) {
-    val validationError by remember {
-        snapshotFlow { state.text }
-            .debounce(200.milliseconds)
-            .map(emailValidator::validate)
-    }.collectAsStateWithLifecycle(initialValue = null)
+    val validationError by state.validationErrorAsState(validator = emailValidator)
 
     EmailTextField(
         modifier = modifier,
