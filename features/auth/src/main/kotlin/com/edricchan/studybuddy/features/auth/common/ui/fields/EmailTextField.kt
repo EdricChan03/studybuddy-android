@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.autofill.contentType
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Mail
@@ -82,8 +84,12 @@ fun EmailTextField(
 ) {
     val validationError by state.validationErrorAsState(validator = emailValidator)
 
+    val errorSemantics = validationError?.getSemanticsMessage(state.text)
+
     EmailTextField(
-        modifier = modifier,
+        modifier = modifier.semantics {
+            errorSemantics?.let(::error)
+        },
         state = state,
         enabled = enabled,
         readOnly = readOnly,
