@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.data.repo
+package com.edricchan.studybuddy.features.tasks.data.repo.source
 
 import com.edricchan.studybuddy.data.source.firestore.DefaultFlowableFirestoreDataSource
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapNotNull
 import javax.inject.Inject
 
-class TaskProjectDataSource @Inject constructor(
+class FirestoreTaskProjectDataSource @Inject constructor(
     firestore: FirebaseFirestore,
     userFlow: Flow<@JvmSuppressWildcards FirebaseUser?>
 ) : DefaultFlowableFirestoreDataSource<TodoProject, CreateTaskProjectDto>(

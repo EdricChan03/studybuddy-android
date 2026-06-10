@@ -6,7 +6,7 @@ import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
 import com.edricchan.studybuddy.exts.firebase.toTimestamp
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskProjectDataSource
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
@@ -307,7 +307,7 @@ data class TodoItem(
              * @param source The data-source to retrieve the [DocumentReference] from.
              */
             suspend fun toProject(
-                source: TaskProjectDataSource
+                source: FirestoreTaskProjectDataSource
             ) = Project(value?.let { source.getRef(it) })
         }
 

@@ -5,10 +5,10 @@ import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
 import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskProjectDto
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.project.FirebaseTaskProjectRepositoryImpl
-import com.edricchan.studybuddy.features.tasks.data.source.TaskDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.project.TaskProjectRepository
 import dagger.Binds
@@ -22,12 +22,12 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class TaskDataModule {
     @Binds
     abstract fun bindTaskDataSource(
-        source: TaskDataSource
+        source: FirestoreTaskDataSource
     ): IDefaultFirestoreDataSource<TodoItem, CreateTaskItemDto>
 
     @Binds
     abstract fun bindTaskProjectDataSource(
-        source: TaskProjectDataSource
+        source: FirestoreTaskProjectDataSource
     ): IDefaultFirestoreDataSource<TodoProject, CreateTaskProjectDto>
 
     @Binds
