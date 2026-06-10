@@ -10,6 +10,7 @@ data class CreateTaskItemInput(
     val dueDate: SerializableInstant? = null,
     val isCompleted: Boolean = false,
     val isArchived: Boolean = false,
+    val isSoftDeleted: Boolean = false,
     val tags: Set<String> = setOf(),
     val projectId: String? = null
 )

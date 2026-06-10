@@ -14,7 +14,10 @@ data class CreateTaskItemDto(
     val content: String? = null,
     val dueDate: Timestamp? = null,
     val done: Boolean = false,
+    val completedDate: Timestamp? = if (done) Timestamp.now() else null,
     val archived: Boolean = false,
+    val archivedDate: Timestamp? = if (done) Timestamp.now() else null,
+    val deletedDate: Timestamp? = null,
     val tags: List<String> = listOf(),
     val projectRef: DocumentReference? = null,
     @get:ServerTimestamp
@@ -44,6 +47,7 @@ inline fun CreateTaskItemInput.toDto(
     dueDate = dueDate?.toTimestamp(),
     done = isCompleted,
     archived = isArchived,
+    deletedDate = if (isSoftDeleted) Timestamp.now() else null,
     tags = tags.toList(),
     projectRef = projectId?.let(projectIdMapper)
 )
