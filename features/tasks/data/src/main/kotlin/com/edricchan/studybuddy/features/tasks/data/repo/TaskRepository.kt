@@ -8,15 +8,13 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.paging.firestore.firestorePagingSource
-import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSource
 import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
-import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
-import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskProjectDto
 import com.edricchan.studybuddy.features.tasks.data.model.create.toDto
+import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
@@ -31,8 +29,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
-    private val source: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoItem, CreateTaskItemDto>,
-    private val projectsSource: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoProject, CreateTaskProjectDto>
+    private val source: TaskDataSource,
+    private val projectsSource: TaskProjectDataSource
 ) : ITaskRepository {
     /** Retrieves the user's list of tasks as a [Flow] of updates. */
     @OptIn(ExperimentalCoroutinesApi::class)

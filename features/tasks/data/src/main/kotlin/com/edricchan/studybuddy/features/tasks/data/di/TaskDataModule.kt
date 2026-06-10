@@ -1,14 +1,11 @@
 package com.edricchan.studybuddy.features.tasks.data.di
 
-import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSource
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
-import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
-import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskProjectDto
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.project.FirebaseTaskProjectRepositoryImpl
 import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskProjectDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.project.TaskProjectRepository
 import dagger.Binds
@@ -23,12 +20,12 @@ abstract class TaskDataModule {
     @Binds
     abstract fun bindTaskDataSource(
         source: FirestoreTaskDataSource
-    ): IDefaultFirestoreDataSource<TodoItem, CreateTaskItemDto>
+    ): TaskDataSource
 
     @Binds
     abstract fun bindTaskProjectDataSource(
         source: FirestoreTaskProjectDataSource
-    ): IDefaultFirestoreDataSource<TodoProject, CreateTaskProjectDto>
+    ): TaskProjectDataSource
 
     @Binds
     abstract fun bindTaskRepository(

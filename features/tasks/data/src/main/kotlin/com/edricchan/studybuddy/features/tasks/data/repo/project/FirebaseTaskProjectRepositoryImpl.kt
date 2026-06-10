@@ -6,13 +6,12 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.edricchan.studybuddy.data.paging.firestore.firestorePagingSource
-import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSource
 import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
-import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskProjectDto
 import com.edricchan.studybuddy.features.tasks.data.model.create.toDto
+import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskProjectInput
 import com.edricchan.studybuddy.features.tasks.domain.repo.project.TaskProjectRepository
@@ -25,7 +24,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FirebaseTaskProjectRepositoryImpl @Inject constructor(
-    private val source: IDefaultFirestoreDataSource<@JvmSuppressWildcards TodoProject, CreateTaskProjectDto>
+    private val source: TaskProjectDataSource
 ) : TaskProjectRepository {
     override fun observeProjectById(id: String): Flow<TaskProject?> {
         return source[id].map { it?.toDomain() }

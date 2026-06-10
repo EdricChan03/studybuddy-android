@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.features.tasks.data.repo.source
 
 import com.edricchan.studybuddy.data.source.firestore.DefaultFlowableFirestoreDataSource
+import com.edricchan.studybuddy.data.source.firestore.IDefaultFirestoreDataSource
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.create.CreateTaskItemDto
 import com.google.firebase.auth.FirebaseUser
@@ -19,3 +20,5 @@ class FirestoreTaskDataSource @Inject constructor(
         },
     klass = TodoItem::class
 )
+
+typealias TaskDataSource = IDefaultFirestoreDataSource<TodoItem, CreateTaskItemDto>
