@@ -2,11 +2,7 @@ package com.edricchan.studybuddy.features.tasks.compat.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -28,6 +24,7 @@ import com.edricchan.studybuddy.features.tasks.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
+import com.edricchan.studybuddy.utils.androidx.core.menuProvider
 import com.edricchan.studybuddy.utils.dev.isDevMode
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.chip.Chip
@@ -45,24 +42,17 @@ class TaskDetailFragment :
         navController.navigateToEditTask(taskId)
     }
 
-    override val menuProvider = object : MenuProvider {
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            menu.clear()
-            menuInflater.inflate(R.menu.menu_view_task, menu)
-        }
-
-        override fun onPrepareMenu(menu: Menu) {
-            super.onPrepareMenu(menu)
-
+    override val menuProvider = menuProvider(
+        menuResId = R.menu.menu_view_task,
+        onPrepareMenu = { menu ->
             viewLifecycleOwner.lifecycleScope.launch {
                 val hasArchived = viewModel.mapCurrentTask { it.isArchived }
                 menu.findItem(R.id.action_unarchive)?.isVisible = hasArchived
                 menu.findItem(R.id.action_archive)?.isVisible = !hasArchived
             }
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            return when (menuItem.itemId) {
+        },
+        onMenuItemSelected = {
+            when (it.itemId) {
                 R.id.action_edit -> {
                     onNavigateToEditTask()
                     true
@@ -93,7 +83,7 @@ class TaskDetailFragment :
                 else -> false
             }
         }
-    }
+    )
 
     override val fabConfig = FabConfig(
         iconRes = R.drawable.ic_edit_outline_24dp,

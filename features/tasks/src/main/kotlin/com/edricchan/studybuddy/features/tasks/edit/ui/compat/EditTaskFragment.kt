@@ -2,12 +2,8 @@ package com.edricchan.studybuddy.features.tasks.edit.ui.compat
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +22,7 @@ import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel
 import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel.TaskState
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
+import com.edricchan.studybuddy.utils.androidx.core.menuProvider
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -150,65 +147,58 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
         }
     }
 
-    override val menuProvider = object : MenuProvider {
-        override fun onCreateMenu(
-            menu: Menu,
-            menuInflater: MenuInflater
-        ) {
-            menuInflater.inflate(R.menu.menu_edit_task, menu)
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            if (menuItem.itemId == R.id.action_save) {
-                val taskItemUpdates = buildMap<TaskItem.Field, Any> {
-                    binding.also {
-                        if (it.textInputTitle.editTextStrValue != taskItem.title) {
-                            this[TaskItem.Field.Title] = it.textInputTitle.editTextStrValue
-                        }
-                        if (it.textInputContent.editTextStrValue != taskItem.content) {
-                            this[TaskItem.Field.Content] = it.textInputContent.editTextStrValue
-                        }
-                        this[TaskItem.Field.IsCompleted] = it.checkboxMarkAsDone.isChecked
-                        this[TaskItem.Field.Tags] = it.textInputTags.editTextStrValue.split(
-                            Regex("""\s*,\s*""")
-                        ).filter(String::isNotBlank)
+    override val menuProvider = menuProvider(
+        menuResId = R.menu.menu_edit_task,
+    ) {
+        if (it.itemId == R.id.action_save) {
+            val taskItemUpdates = buildMap<TaskItem.Field, Any> {
+                binding.also {
+                    if (it.textInputTitle.editTextStrValue != taskItem.title) {
+                        this[TaskItem.Field.Title] = it.textInputTitle.editTextStrValue
                     }
-                    taskInstant?.let {
-                        if (taskItem.dueDate != it) {
-                            this[TaskItem.Field.DueDate] = it.toTimestamp()
-                        }
-                        // When taskInstant is set to null, this means that the user
-                        // wants to clear the due-date of the item
-                    } ?: run {
-                        this[TaskItem.Field.DueDate] = FieldValue.delete()
+                    if (it.textInputContent.editTextStrValue != taskItem.content) {
+                        this[TaskItem.Field.Content] = it.textInputContent.editTextStrValue
                     }
+                    this[TaskItem.Field.IsCompleted] = it.checkboxMarkAsDone.isChecked
+                    this[TaskItem.Field.Tags] = it.textInputTags.editTextStrValue.split(
+                        Regex("""\s*,\s*""")
+                    ).filter(String::isNotBlank)
                 }
-
-                viewModel.updateTask(
-                    taskItemUpdates,
-                    onSuccess = {
-                        Log.d(
-                            TAG,
-                            "Successfully updated task item with ID ${viewModel.taskId}!"
-                        )
-                        showToast(
-                            "Successfully updated task item!",
-                            Toast.LENGTH_SHORT
-                        )
-                        navController.navigateUp()
-                    },
-                    onFailure = {
-                        Log.e(TAG, "Could not update task item", it)
-                        showToast(
-                            "An error occurred while attempting to update the task item. Please try again later.",
-                            Toast.LENGTH_LONG
-                        )
+                taskInstant?.let {
+                    if (taskItem.dueDate != it) {
+                        this[TaskItem.Field.DueDate] = it.toTimestamp()
                     }
-                )
-                return true
+                    // When taskInstant is set to null, this means that the user
+                    // wants to clear the due-date of the item
+                } ?: run {
+                    this[TaskItem.Field.DueDate] = FieldValue.delete()
+                }
             }
 
-            return false
+            viewModel.updateTask(
+                taskItemUpdates,
+                onSuccess = {
+                    Log.d(
+                        TAG,
+                        "Successfully updated task item with ID ${viewModel.taskId}!"
+                    )
+                    showToast(
+                        "Successfully updated task item!",
+                        Toast.LENGTH_SHORT
+                    )
+                    navController.navigateUp()
+                },
+                onFailure = {
+                    Log.e(TAG, "Could not update task item", it)
+                    showToast(
+                        "An error occurred while attempting to update the task item. Please try again later.",
+                        Toast.LENGTH_LONG
+                    )
+                }
+            )
+            return@menuProvider true
         }
+
+        false
     }
 }

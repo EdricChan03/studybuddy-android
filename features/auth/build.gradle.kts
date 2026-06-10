@@ -42,6 +42,7 @@ dependencies {
     implementation(projects.exts.common)
     implementation(projects.exts.firebase.core)
     implementation(projects.exts.material)
+    implementation(projects.utils.androidx.core)
     implementation(projects.ui.common)
     implementation(projects.ui.theming.views) {
         because("We need XML theming for the activity manifest declaration")

@@ -49,6 +49,7 @@ dependencies {
     implementation(projects.exts.material)
     implementation(projects.exts.material.datePicker)
     implementation(projects.utils.androidx.compose)
+    implementation(projects.utils.androidx.core)
     implementation(projects.utils.devMode)
     implementation(projects.utils.recyclerview)
     implementation(projects.ui.common)

@@ -4,13 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +27,7 @@ import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.ui.widget.prompt.showMaterialPromptDialog
 import com.google.android.material.textfield.TextInputLayout
+import com.edricchan.studybuddy.utils.androidx.core.menuProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -110,23 +107,16 @@ class AccountFragment :
         auth.removeAuthStateListener(this)
     }
 
-    override val menuProvider = object : MenuProvider {
-        override fun onCreateMenu(
-            menu: Menu,
-            menuInflater: MenuInflater
-        ) {
-            menuInflater.inflate(R.menu.menu_account, menu)
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            return when (menuItem.itemId) {
-                R.id.action_refresh_credentials -> {
-                    refreshCredentials()
-                    true
-                }
-
-                else -> false
+    override val menuProvider = menuProvider(
+        menuResId = R.menu.menu_account,
+    ) {
+        when (it.itemId) {
+            R.id.action_refresh_credentials -> {
+                refreshCredentials()
+                true
             }
+
+            else -> false
         }
     }
 
