@@ -22,10 +22,12 @@ fun NavController.navigateToAuthGraph(
  *
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
  * behaviour is undesired, [builder] should be specified.
+ * @param action The initial [AuthDestination.AccountInfo.AccountAction] to be shown, if any.
  */
 fun NavController.navigateToAccountInfo(
+    action: AuthDestination.AccountInfo.AccountAction? = null,
     builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
-) = navigate(AuthDestination.AccountInfo, builder)
+) = navigate(AuthDestination.AccountInfo(action), builder)
 
 /**
  * Navigates to the [AuthDestination.Login] route.
