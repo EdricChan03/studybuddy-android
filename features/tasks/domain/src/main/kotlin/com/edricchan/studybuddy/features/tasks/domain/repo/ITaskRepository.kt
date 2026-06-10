@@ -23,12 +23,11 @@ interface ITaskRepository {
     suspend fun addTask(input: CreateTaskItemInput)
 
     /** Updates the specified task with the given [valueMap]. */
+    @Deprecated("Use the type-safe overload which uses FieldValue rather than a Map")
     suspend fun updateTask(id: String, valueMap: Map<TaskItem.Field, Any?>)
 
     /** Updates the specified task with the given list of [values]. */
-    suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>) {
-        updateTask(id = id, valueMap = values.associate { it.field to it.value })
-    }
+    suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>)
 
     /** Deletes the specified task from the database. */
     suspend fun deleteTaskById(id: String)

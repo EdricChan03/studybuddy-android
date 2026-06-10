@@ -142,8 +142,20 @@ class TaskRepository @Inject constructor(
         source.add(input.toDto { projectsSource.getRef(it) })
     }
 
+    @Deprecated("Use the type-safe overload which uses FieldValue rather than a Map")
     override suspend fun updateTask(id: String, valueMap: Map<TaskItem.Field, Any?>) {
         source.update(id, valueMap.mapKeys { it.key.toDto().fieldName })
+    }
+
+    override suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>) {
+        source.update(
+            id = id,
+            data = values.fold(emptyMap()) { acc, fieldValue ->
+                context(source, projectsSource) {
+                    acc + fieldValue.toDto().toMap()
+                }
+            }
+        )
     }
 
     override suspend fun deleteTaskById(id: String) {

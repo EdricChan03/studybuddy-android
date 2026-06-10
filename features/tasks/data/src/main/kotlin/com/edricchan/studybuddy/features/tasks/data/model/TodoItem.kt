@@ -5,15 +5,13 @@ import androidx.annotation.Keep
 import com.edricchan.studybuddy.data.common.DtoModel
 import com.edricchan.studybuddy.data.common.HasId
 import com.edricchan.studybuddy.data.common.HasTimestampMetadata
-import com.edricchan.studybuddy.exts.firebase.toTimestamp
-import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskProjectDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskDataSource
+import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskProjectDataSource
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
-import java.time.Instant
-import java.time.LocalDateTime
 
 /**
  * Specifies a task (in the old format)
@@ -132,38 +130,12 @@ data class TodoItem(
         var createdAt: Timestamp? = null
 
         /**
-         * The timestamp the task was created at.
-         *
-         * If left null, this field will be replaced with a server-generated timestamp.
-         *
-         * This variant allows for a [LocalDateTime] to be specified.
-         * @see ServerTimestamp
-         * @see createdAt
-         */
-        fun setCreatedAt(dateTime: LocalDateTime?) {
-            createdAt = dateTime?.toTimestamp()
-        }
-
-        /**
          * The timestamp the task was last modified
          *
          * If left null, this field will be replaced with a server-generated timestamp
          * @see ServerTimestamp
          */
         var lastModified: Timestamp? = null
-
-        /**
-         * The timestamp the task was last modified.
-         *
-         * If left null, this field will be replaced with a server-generated timestamp.
-         *
-         * This variant allows for a [LocalDateTime] to be specified.
-         * @see ServerTimestamp
-         * @see lastModified
-         */
-        fun setLastModified(dateTime: LocalDateTime?) {
-            lastModified = dateTime?.toTimestamp()
-        }
 
         /**
          * Returns the created [TodoItem]
@@ -248,9 +220,24 @@ data class TodoItem(
     sealed class FieldValue<T>(val field: Field, open val value: T) {
         val fieldName by field::fieldName
 
+        @Deprecated("FieldValues may now serialise to multiple pairs, so this serves no purpose")
         fun toPair() = field to value
 
+        @Deprecated("FieldValues may now serialise to multiple pairs, so this serves no purpose")
         fun toFieldNamePair() = fieldName to value
+
+        context(
+            taskDataSource: TaskDataSource,
+            projectDataSource: TaskProjectDataSource
+        )
+        open suspend fun toFieldMap(): Map<Field, Any?> = mapOf(field to value)
+
+        context(
+            taskDataSource: TaskDataSource,
+            projectDataSource: TaskProjectDataSource
+        )
+        open suspend fun toMap(): Map<String, Any?> =
+            toFieldMap().mapKeys { it.key.fieldName }
 
         /** [FieldValue] for the [Field.Title] field. */
         data class Title(override val value: String) :
@@ -262,19 +249,7 @@ data class TodoItem(
 
         /** [FieldValue] for the [Field.DueDate] field. */
         data class DueDate(override val value: Timestamp?) :
-            FieldValue<Timestamp?>(field = Field.DueDate, value = value) {
-            /**
-             * Creates a [DueDate] with the given [dateTime],
-             * which will be converted to its [Timestamp] equivalent.
-             */
-            constructor(dateTime: LocalDateTime?) : this(dateTime?.toTimestamp())
-
-            /**
-             * Creates a [DueDate] with the given [instant],
-             * which will be converted to its [Timestamp] equivalent.
-             */
-            constructor(instant: Instant?) : this(instant?.toTimestamp())
-        }
+            FieldValue<Timestamp?>(field = Field.DueDate, value = value)
 
         /** [FieldValue] for the [Field.Tags] field. */
         data class Tags(override val value: Set<String>) :
@@ -307,36 +282,84 @@ data class TodoItem(
              * @param source The data-source to retrieve the [DocumentReference] from.
              */
             suspend fun toProject(
-                source: FirestoreTaskProjectDataSource
+                source: TaskProjectDataSource
             ) = Project(value?.let { source.getRef(it) })
+
+            context(
+                taskDataSource: TaskDataSource,
+                projectDataSource: TaskProjectDataSource
+            )
+            override suspend fun toFieldMap() = mapOf(
+                Field.Project to value?.let { projectDataSource.getRef(it) }
+            )
         }
+
+        /** [FieldValue] for the [Field.Priority] field. */
+        data class Priority(override val value: Int?) :
+            FieldValue<Int?>(field = Field.Priority, value = value)
 
         /** [FieldValue] for the [Field.IsDone] field. */
         data class IsDone(override val value: Boolean) :
-            FieldValue<Boolean>(field = Field.IsDone, value = value)
+            FieldValue<Boolean>(field = Field.IsDone, value = value) {
+            context(
+                taskDataSource: TaskDataSource,
+                projectDataSource: TaskProjectDataSource
+            )
+            override suspend fun toFieldMap(): Map<Field, Any?> = mapOf(
+                Field.IsDone to value,
+                Field.CompletedDate to if (value) Timestamp.now() else null
+            )
+        }
 
         /** [FieldValue] for the [Field.IsArchived] field. */
         data class IsArchived(override val value: Boolean) :
-            FieldValue<Boolean>(field = Field.IsArchived, value = value)
+            FieldValue<Boolean>(field = Field.IsArchived, value = value) {
+            context(
+                taskDataSource: TaskDataSource,
+                projectDataSource: TaskProjectDataSource
+            )
+            override suspend fun toFieldMap(): Map<Field, Any?> = mapOf(
+                Field.IsArchived to value,
+                Field.ArchivedDate to if (value) Timestamp.now() else null
+            )
+        }
+
+        /** [FieldValue] for the [Field.CompletedDate] field. */
+        data class CompletedDate(override val value: Timestamp?) :
+            FieldValue<Timestamp?>(field = Field.CompletedDate, value = value) {
+            context(
+                taskDataSource: TaskDataSource,
+                projectDataSource: TaskProjectDataSource
+            )
+            override suspend fun toFieldMap(): Map<Field, Any?> = mapOf(
+                Field.IsDone to (value != null),
+                Field.CompletedDate to value
+            )
+        }
+
+        /** [FieldValue] for the [Field.ArchivedDate] field. */
+        data class ArchivedDate(override val value: Timestamp?) :
+            FieldValue<Timestamp?>(field = Field.ArchivedDate, value = value) {
+            context(
+                taskDataSource: TaskDataSource,
+                projectDataSource: TaskProjectDataSource
+            )
+            override suspend fun toFieldMap(): Map<Field, Any?> = mapOf(
+                Field.IsArchived to (value != null),
+                Field.ArchivedDate to value
+            )
+        }
+
+        /** [FieldValue] for the [Field.DeletedDate] field. */
+        data class DeletedDate(override val value: Timestamp?) :
+            FieldValue<Timestamp?>(field = Field.DeletedDate, value = value)
 
         /** [FieldValue] for the [Field.CreatedAt] field. */
         data class CreatedAt(override val value: Timestamp?) :
-            FieldValue<Timestamp?>(field = Field.CreatedAt, value = value) {
-            /**
-             * Creates a [CreatedAt] with the given [LocalDateTime],
-             * which will be converted to its [Timestamp] equivalent.
-             */
-            constructor(dateTime: LocalDateTime?) : this(dateTime?.toTimestamp())
-        }
+            FieldValue<Timestamp?>(field = Field.CreatedAt, value = value)
 
         /** [FieldValue] for the [Field.LastModified] field. */
         data class LastModified(override val value: Timestamp?) :
-            FieldValue<Timestamp?>(field = Field.LastModified, value = value) {
-            /**
-             * Creates a [LastModified] with the given [LocalDateTime],
-             * which will be converted to its [Timestamp] equivalent.
-             */
-            constructor(dateTime: LocalDateTime?) : this(dateTime?.toTimestamp())
-        }
+            FieldValue<Timestamp?>(field = Field.LastModified, value = value)
     }
 }
