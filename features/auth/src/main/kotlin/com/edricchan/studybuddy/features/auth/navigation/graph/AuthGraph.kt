@@ -21,7 +21,7 @@ context(context: Context)
 fun NavGraphBuilder.authGraph(
     isLoggedIn: Boolean
 ) = navigation<AuthDestination.AuthGraphRoot>(
-    startDestination = if (isLoggedIn) AuthDestination.AccountInfo else AuthDestination.Login
+    startDestination = if (isLoggedIn) AuthDestination.AccountInfo() else AuthDestination.Login
 ) {
     fragment<AccountFragment, AuthDestination.AccountInfo>(
         typeMap = mapOf(typeOf<AuthDestination.AccountInfo.AccountAction>() to AuthDestination.AccountInfo.AccountAction.NavType)
