@@ -17,8 +17,7 @@ data class TaskFilterOptions(
 
 fun TasksFilterOptions.toDomain(): TaskFilterOptions = TaskFilterOptions(
     orderByFields = order_by_fields.map { it.toDomain() }
-        .associate { it.field to it.direction }
-        .toMap(LinkedHashMap()),
+        .associateTo(LinkedHashMap()) { it.field to it.direction },
     includeCompleted = include_completed,
     includeArchived = include_archived
 )
