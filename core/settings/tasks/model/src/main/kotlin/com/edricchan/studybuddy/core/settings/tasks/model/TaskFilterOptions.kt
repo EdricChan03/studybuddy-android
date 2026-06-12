@@ -9,10 +9,12 @@ import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 
 typealias TaskOrderMap = LinkedHashMap<TaskField, SortDirection>
 
+val DefaultTaskOrdering: TaskOrderMap = linkedMapOf(
+    TaskField.CreatedDate to SortDirection.Descending
+)
+
 data class TaskFilterOptions(
-    val orderByFields: TaskOrderMap = linkedMapOf(
-        TaskField.CreatedDate to SortDirection.Descending
-    ),
+    val orderByFields: TaskOrderMap = DefaultTaskOrdering,
     val includeCompleted: Boolean = false,
     val includeArchived: Boolean = false
 )
