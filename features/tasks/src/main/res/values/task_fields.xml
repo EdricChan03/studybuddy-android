@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Task field strings -->
+    <eat-comment />
+
+    <!-- Human-readable label text for a task's title field. -->
+    <string name="task_field_title_label">Title</string>
+
+    <!-- Human-readable label text for a task's description field. -->
+    <string name="task_field_description_label">Description</string>
+
+    <!-- Human-readable label text for a task's due-date field. -->
+    <string name="task_field_due_date_label">Due date</string>
+
+    <!-- Human-readable label text for a task's tags field. -->
+    <string name="task_field_tags_label">Tags</string>
+
+    <!-- Human-readable label text for a project's tags field. -->
+    <string name="task_field_project_label">Project</string>
+
+    <!-- Human-readable label text for a task's is completed field. -->
+    <string name="task_field_completed_label">Is completed</string>
+
+    <!-- Human-readable label text for a task's completed date field. -->
+    <string name="task_field_completed_date_label">Completed date</string>
+
+    <!-- Human-readable label text for a task's is archived field. -->
+    <string name="task_field_archived_label">Is archived</string>
+
+    <!-- Human-readable label text for a task's archival date field. -->
+    <string name="task_field_archived_date_label">Archived date</string>
+
+    <!-- Human-readable label text for a task's is soft deleted field. -->
+    <string name="task_field_deleted_label">Is deleted</string>
+
+    <!-- Human-readable label text for a task's soft deletion date field. -->
+    <string name="task_field_deleted_date_label">Deleted date</string>
+
+    <!-- Human-readable label text for a task's priority field. -->
+    <string name="task_field_priority_label">Priority</string>
+
+    <!-- Human-readable label text for a task's creation date field. -->
+    <string name="task_field_created_date_label">Creation date</string>
+
+    <!-- Human-readable label text for a task's last modified date field. -->
+    <string name="task_field_last_modified_date_label">Last modified date</string>
+</resources>

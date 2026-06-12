@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Task project field strings -->
+    <eat-comment />
+
+    <!-- Human-readable label text for the task project's name field. -->
+    <string name="task_project_field_name_label">Name</string>
+
+    <!-- Human-readable label text for the task project's colour field. -->
+    <string name="task_project_field_color_label">Colour</string>
+
+    <!-- Human-readable label text for the task project's created date field. -->
+    <string name="task_project_field_created_date_label">Creation date</string>
+
+    <!-- Human-readable label text for the task project's last modified date field. -->
+    <string name="task_project_field_last_modified_date_label">Last modified date</string>
+</resources>
