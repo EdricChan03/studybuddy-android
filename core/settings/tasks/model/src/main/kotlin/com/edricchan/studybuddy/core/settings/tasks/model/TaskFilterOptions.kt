@@ -7,8 +7,10 @@ import com.edricchan.studybuddy.core.settings.tasks.model.sort.toProto
 import com.edricchan.studybuddy.core.settings.tasks.proto.TasksFilterOptions
 import com.edricchan.studybuddy.domain.common.sorting.SortDirection
 
+typealias TaskOrderMap = LinkedHashMap<TaskField, SortDirection>
+
 data class TaskFilterOptions(
-    val orderByFields: LinkedHashMap<TaskField, SortDirection> = linkedMapOf(
+    val orderByFields: TaskOrderMap = linkedMapOf(
         TaskField.CreatedDate to SortDirection.Descending
     ),
     val includeCompleted: Boolean = false,
