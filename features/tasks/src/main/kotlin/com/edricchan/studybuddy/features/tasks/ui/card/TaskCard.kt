@@ -30,6 +30,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
@@ -46,6 +47,7 @@ import androidx.compose.material3.rememberTooltipState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -153,12 +155,18 @@ fun TaskCard(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                createdAt?.let { TaskCreatedAtOverline(createdAt = it) }
-                TaskTitleText(
-                    text = title?.takeUnless(String::isBlank)
-                        ?: stringResource(R.string.task_adapter_empty_title),
-                    isDone = isDone
-                )
+                createdAt?.let {
+                    CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.secondary) {
+                        TaskCreatedAtOverline(createdAt = it)
+                    }
+                }
+                CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.primary) {
+                    TaskTitleText(
+                        text = title?.takeUnless(String::isBlank)
+                            ?: stringResource(R.string.task_adapter_empty_title),
+                        isDone = isDone
+                    )
+                }
                 content?.takeUnless(String::isBlank)?.let {
                     TaskContentMarkdownText(text = it)
                 }
