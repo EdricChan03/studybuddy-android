@@ -53,7 +53,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -85,6 +87,7 @@ import java.time.Instant
 fun TaskCard(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    shape: Shape = TaskCardDefaults.shape,
     colors: TaskCardColors = TaskCardDefaults.colors(),
     borderColors: TaskCardBorderColors = TaskCardDefaults.borderColors(),
     elevation: CardElevation = TaskCardDefaults.cardElevation(),
@@ -131,7 +134,8 @@ fun TaskCard(
     val borderColor by borderColors.borderColor(enabled = enabled, selected = isSelected)
 
     OutlinedCard(
-        modifier = modifier then selectionModifier,
+        modifier = modifier.clip(shape) then selectionModifier,
+        shape = shape,
         colors = CardDefaults.outlinedCardColors(
             containerColor = containerColor,
             contentColor = contentColor,
@@ -591,4 +595,8 @@ object TaskCardDefaults {
         draggedElevation = draggedElevation,
         disabledElevation = disabledElevation
     )
+
+    /** Default shape for a [TaskCard]. */
+    @get:Composable
+    val shape get() = CardDefaults.outlinedShape
 }
