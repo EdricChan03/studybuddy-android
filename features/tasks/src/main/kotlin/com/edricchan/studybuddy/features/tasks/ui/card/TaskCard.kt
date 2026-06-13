@@ -62,6 +62,9 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewFontScale
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -369,6 +372,9 @@ private fun TaskCardActions(
 }
 
 @Preview
+@PreviewDynamicColors
+@PreviewLightDark
+@PreviewFontScale
 @PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun TaskCardPreview(
