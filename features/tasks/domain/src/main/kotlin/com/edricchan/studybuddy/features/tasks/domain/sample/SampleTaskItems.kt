@@ -41,12 +41,12 @@ val SampleTaskItems: List<TaskItem> = listOf(
     generateTask(
         title = "Generate sample task data",
         content = "There should be an easy way of previewing the task data",
-        dueDate = Instant.now().plus(Duration.ofDays(14)),
+        dueDate = Instant.now() + Duration.ofDays(14),
         project = SampleTaskProjects.first { it.name == "StudyBuddy rewrite" }
     ),
     generateTask(
         title = "Learn about organic chemicals",
-        dueDate = Instant.now().plus(Duration.ofDays(28)),
+        dueDate = Instant.now() + Duration.ofDays(28),
         isArchived = true,
         tags = setOf("chemistry", "organic chemicals"),
         project = SampleTaskProjects.first { it.name == "Chemistry" }
