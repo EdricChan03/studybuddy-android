@@ -1,6 +1,8 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl
 
+import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
 
@@ -97,6 +99,30 @@ sealed class SelectBottomSheetGroupBuilder<Id, T : OptionBottomSheetGroup<Id>> {
         itemInit: SelectBottomSheetItemBuilder<Id>.() -> Unit = {}
     ): OptionBottomSheetItem<Id> {
         return addItem(selected, item(id, title, itemInit))
+    }
+
+    /**
+     * Adds an item to this group with the specified arguments.
+     *
+     * @param context [Context] to use to resolve the [titleRes] parameter with.
+     * @param id Unique ID for this item. The value should be [android.os.Parcelable].
+     * @param titleRes Title to be displayed for this item in the user interface as a
+     * string resource.
+     * @param selected Whether this item should be initially marked as selected.
+     * If `null` is specified, [isSelected] will be used to determine its selection
+     * state, or `false` otherwise.
+     * @param itemInit Additional options for the specified item.
+     * @return The added item.
+     */
+    context(context: Context)
+    open fun addItem(
+        id: Id,
+        @StringRes
+        titleRes: Int,
+        selected: Boolean? = false,
+        itemInit: SelectBottomSheetItemBuilder<Id>.() -> Unit = {}
+    ): OptionBottomSheetItem<Id> {
+        return addItem(selected, item(id, context.getString(titleRes), itemInit))
     }
 
     /**
