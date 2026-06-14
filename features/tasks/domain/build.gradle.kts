@@ -25,6 +25,7 @@ android {
 
 dependencies {
     api(projects.data.common)
+    api(projects.features.tasks.domainProto)
     implementation(projects.data.serialization.android)
 
     api(libs.androidx.paging.common)
