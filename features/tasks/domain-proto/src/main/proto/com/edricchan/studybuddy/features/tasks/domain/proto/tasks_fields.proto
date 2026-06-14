@@ -20,6 +20,8 @@ enum TaskField {
   Task_Priority = 4;
   /** The task's labels field. */
   Task_Labels = 5;
+  /** The task's assigned project field. */
+  Task_Project = 6;
 
   // Date fields
   /* The task's due-date field. */
