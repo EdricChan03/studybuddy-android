@@ -72,6 +72,13 @@ fun TaskDueDateListItem(
     colors = colors
 )
 
+@Preview
+@Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+private fun TaskDueDateListItemPreview() {
+    TaskDueDateListItem(dueDate = Instant.now())
+}
+
 /**
  * Composable to display a [TaskItem]'s due-date as a chip.
  * @param modifier [Modifier] to be passed to the outer [Surface].
@@ -106,12 +113,4 @@ fun TaskDueDateChip(
             )
         }
     }
-}
-
-
-@Preview
-@Composable
-@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
-private fun TaskDueDateListItemPreview() {
-    TaskDueDateListItem(dueDate = Instant.now())
 }
