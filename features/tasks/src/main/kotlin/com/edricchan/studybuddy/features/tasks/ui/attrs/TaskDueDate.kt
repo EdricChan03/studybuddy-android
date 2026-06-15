@@ -27,6 +27,7 @@ import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.date.TaskDateDefaults
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 
@@ -113,4 +114,18 @@ fun TaskDueDateChip(
             )
         }
     }
+}
+
+@Preview
+@Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+private fun TaskDueDateChipPreview() {
+    TaskDueDateChip(dueDate = Instant.now() + Duration.ofDays(1))
+}
+
+@Preview
+@Composable
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+private fun TaskDueDateOverdueChipPreview() {
+    TaskDueDateChip(dueDate = Instant.now() - Duration.ofDays(1))
 }
