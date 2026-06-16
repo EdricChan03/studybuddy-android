@@ -52,6 +52,8 @@ androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fr
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime", version.ref = "androidx-navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui", version.ref = "androidx-navigation" }
 androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "androidx-paging" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "androidx-paging" }
 androidx-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
 androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0"

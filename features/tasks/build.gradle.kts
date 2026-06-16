@@ -54,6 +54,7 @@ dependencies {
     implementation(projects.utils.recyclerview)
     implementation(projects.ui.common)
     implementation(projects.ui.theming.compose)
+    implementation(projects.ui.widgets.compose)
     implementation(projects.ui.widgets.compose.markdownViewer)
     implementation(projects.ui.widgets.views.markdownViewer)
 
@@ -69,11 +70,13 @@ dependencies {
     }
 
     // AndroidX
+    api(libs.androidx.paging.compose)
+    api(libs.androidx.paging.runtime)
+    api(libs.androidx.recyclerview.core)
+    api(libs.androidx.recyclerview.selection)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.recyclerview.core)
-    implementation(libs.androidx.recyclerview.selection)
     implementation(libs.materialComponents)
 
     // Jetpack Navigation

@@ -47,4 +47,9 @@
 
     <!-- Title for the task title text field. -->
     <string name="text_field_task_title_label">Task title</string>
+
+    <!-- Title for the create task project button. -->
+    <string name="text_field_choose_task_project_action_create_project">Create project</string>
+    <!-- None option for the task project text field. -->
+    <string name="text_field_task_project_option_none">(None)</string>
 </resources>
