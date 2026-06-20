@@ -37,6 +37,8 @@ dependencies {
 
     api(libs.bundles.ktor)
 
+    api(libs.kotlinx.coroutines.android)
+
     api(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
 
