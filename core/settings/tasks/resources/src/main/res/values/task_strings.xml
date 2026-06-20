@@ -20,4 +20,22 @@
     <string name="pref_task_default_sort_entry_title_desc">Title (Z to A)</string>
     <string name="pref_task_default_sort_entry_due_date_new_to_old">Due Date (Newest to Oldest)</string>
     <string name="pref_task_default_sort_entry_due_date_old_to_new">Due Date (Oldest to Newest)</string>
+
+    <!-- Task action confirmation strings -->
+    <eat-comment />
+
+    <!-- Title for the task action confirmation settings category. -->
+    <string name="pref_category_task_confirmations_title">Confirmations</string>
+    <!-- Info text for the task action confirmation settings category. -->
+    <string name="pref_category_task_confirmations_info_subtitle">Show a confirmation message
+        before performing the following actions on a task:</string>
+
+    <!-- Title for the task action confirmation on delete setting. -->
+    <string name="pref_category_task_confirmation_on_delete_title">Confirm before deleting</string>
+
+    <!-- Title for the task action confirmation on archive setting. -->
+    <string name="pref_category_task_confirmation_on_archive_title">Confirm before archival</string>
+
+    <!-- Title for the task action confirmation on completion setting. -->
+    <string name="pref_category_task_confirmation_on_completion_title">Confirm before completion</string>
 </resources>
