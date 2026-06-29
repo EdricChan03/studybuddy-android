@@ -5,29 +5,29 @@ android-compose-screenshotTest = "0.0.1-alpha15"
 android-desugar = "2.1.5"
 android-gradle = "9.2.1"
 androidx-activity = "1.13.0"
-androidx-compose = "1.12.0-alpha03"
-androidx-compose-material3 = "1.5.0-alpha21"
-androidx-compose-material3-adaptive = "1.3.0-beta02"
+androidx-compose = "1.12.0-beta01"
+androidx-compose-material3 = "1.5.0-alpha22"
+androidx-compose-material3-adaptive = "1.3.0-rc01"
 androidx-credentials = "1.6.0"
 androidx-datastore = "1.2.1"
-androidx-fragment = "1.8.9"
-androidx-lifecycle = "2.10.0"
+androidx-fragment = "1.9.0-alpha01"
+androidx-lifecycle = "2.11.0"
 androidx-navigation = "2.9.8"
 androidx-paging = "3.5.0"
-coil = "3.4.0"
-dagger = "2.59.2"
+coil = "3.5.0"
+dagger = "2.60"
 deep-link-dispatch = "7.2.2"
-firebase-bom = "34.14.0"
+firebase-bom = "34.15.0"
 gradle-versions = "0.54.0"
 hilt = "1.3.0"
-kotest = "6.1.11"
+kotest = "6.2.1"
 kotlin = "2.4.0"
 kotlinx-coroutines = "1.11.0"
 kotlinx-serialization = "1.11.0"
 ktoml = "0.7.1"
-ktor = "3.5.0"
+ktor = "3.5.1"
 mockk = "1.14.11"
-wire = "6.4.0"
+wire = "6.4.1"
 
 [libraries]
 # AndroidX dependencies
@@ -247,7 +247,7 @@ ksp = "com.google.devtools.ksp:2.3.9"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.7"
 firebase-perf = "com.google.firebase.firebase-perf:2.0.2"
-googleServices = "com.google.gms.google-services:4.4.4"
+googleServices = "com.google.gms.google-services:4.5.0"
 
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 
@@ -257,6 +257,6 @@ wire = { id = "com.squareup.wire", version.ref = "wire" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.14.1"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.16.0"
 
 testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.5.1"
