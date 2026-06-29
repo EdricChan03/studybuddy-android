@@ -31,6 +31,9 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialog
 import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialogBody
 import com.mikepenz.aboutlibraries.ui.compose.m3.libraryColors
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3LicenseHueResolver
+import com.mikepenz.aboutlibraries.ui.compose.m3.style.m3VariantColors
+import com.mikepenz.aboutlibraries.ui.compose.style.librariesStyle
 
 @Composable
 fun OssLicensesListScreen(
@@ -121,7 +124,10 @@ fun OssLicensesListScreen(
             },
             onDismiss = {
                 onRequestShowLibrary(null)
-            }
+            },
+            style = LibraryDefaults.librariesStyle(
+                colors = LibraryDefaults.m3VariantColors(licenseHueResolver = m3LicenseHueResolver())
+            )
         )
     }
 }
