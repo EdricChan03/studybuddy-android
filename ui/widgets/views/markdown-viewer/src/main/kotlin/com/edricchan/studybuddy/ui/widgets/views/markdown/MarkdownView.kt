@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.LinkInteractionListener
 import androidx.compose.ui.unit.dp
 import androidx.core.content.withStyledAttributes
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
@@ -292,17 +293,33 @@ class MarkdownView @JvmOverloads constructor(
 
     private val linkClickListeners = mutableListOf<(LinkAnnotation) -> Unit>()
 
+    /** The [LinkInteractionListener] to be invoked when a [LinkAnnotation] is clicked. */
+    var linkInteractionListener: LinkInteractionListener? = null
+
+    private val listener: LinkInteractionListener?
+        get() {
+            linkInteractionListener?.let { return it }
+            return linkClickListeners.takeIf { it.isNotEmpty() }?.let { listeners ->
+                LinkInteractionListener { annotation ->
+                    listeners.forEach { it(annotation) }
+                }
+            }
+        }
+
     /** Adds a listener to be invoked when a [LinkAnnotation] is clicked. */
+    @Deprecated("Use linkInteractionListener instead")
     fun addOnLinkClickListener(listener: (LinkAnnotation) -> Unit) {
         linkClickListeners += listener
     }
 
     /** Removes the given listener to be invoked when a [LinkAnnotation] is clicked. */
+    @Deprecated("Use linkInteractionListener instead")
     fun removeOnLinkClickListener(listener: (LinkAnnotation) -> Unit) {
         linkClickListeners -= listener
     }
 
     /** Clears the list of listeners that are invoked when a [LinkAnnotation] is clicked. */
+    @Deprecated("Use linkInteractionListener instead")
     fun clearOnLinkClickListeners() {
         linkClickListeners.clear()
     }
@@ -340,10 +357,7 @@ class MarkdownView @JvmOverloads constructor(
             modifier = modifier.padding(contentPadding),
             markdownText = markdownText,
             linkContentColor = linkContentColor,
-            onLinkClick = { annotation ->
-                println("Link clicked: $annotation, listeners: $linkClickListeners")
-                linkClickListeners.forEach { it(annotation) }
-            }
+            linkInteractionListener = listener
         )
     }
 

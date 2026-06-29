@@ -87,7 +87,7 @@ androidxtra-recyclerview-ktx = "io.github.edricchan03.androidx.recyclerview:recy
 accompanist-drawablePainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
 
 # Other Compose dependencies
-composeMarkdown = "io.github.boswelja.markdown:material3:1.1.5"
+composeMarkdown = "io.github.boswelja.markdown:material3:1.3.0"
 
 # Other dependencies
 
