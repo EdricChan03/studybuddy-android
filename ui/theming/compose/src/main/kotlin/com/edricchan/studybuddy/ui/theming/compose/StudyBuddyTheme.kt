@@ -49,7 +49,7 @@ fun studyBuddyColors(
 }
 
 /**
- * Sets the [MaterialTheme] for all of the Composables in [content].
+ * Sets the [MaterialTheme] for all the Composables in [content].
  *
  * On Android 12+, the system-wide dynamic colours will be used.
  * @param context The [Context] to be used to retrieve the dynamic colour (Android 12+).
@@ -86,7 +86,7 @@ fun StudyBuddyTheme(
 }
 
 /**
- * Sets the [MaterialTheme] for all of the Composables in [content].
+ * Sets the [MaterialTheme] for all the Composables in [content].
  *
  * On Android 12+, the system-wide dynamic colours will be used.
  *
