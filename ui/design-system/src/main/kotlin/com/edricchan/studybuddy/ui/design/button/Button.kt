@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonShapes
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalButton
@@ -21,6 +22,7 @@ fun Button(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
+    shapes: ButtonShapes = ButtonDefaults.shapes(),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit,
@@ -32,7 +34,7 @@ fun Button(
         content = content,
         onClick = onClick,
         colors = colors,
-        shapes = ButtonDefaults.shapes(),
+        shapes = shapes,
         contentPadding = contentPadding,
         interactionSource = interactionSource
     )
@@ -44,6 +46,7 @@ fun OutlinedButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.outlinedButtonColors(),
+    shapes: ButtonShapes = ButtonDefaults.shapes(),
     border: BorderStroke = ButtonDefaults.outlinedButtonBorder(enabled),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
@@ -56,7 +59,7 @@ fun OutlinedButton(
         content = content,
         onClick = onClick,
         colors = colors,
-        shapes = ButtonDefaults.shapes(),
+        shapes = shapes,
         border = border,
         contentPadding = contentPadding,
         interactionSource = interactionSource
@@ -69,6 +72,7 @@ fun FilledTonalButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+    shapes: ButtonShapes = ButtonDefaults.shapes(),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit,
@@ -80,7 +84,7 @@ fun FilledTonalButton(
         content = content,
         onClick = onClick,
         colors = colors,
-        shapes = ButtonDefaults.shapes(),
+        shapes = shapes,
         contentPadding = contentPadding,
         interactionSource = interactionSource
     )
@@ -92,6 +96,7 @@ fun TextButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.textButtonColors(),
+    shapes: ButtonShapes = ButtonDefaults.shapes(),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit,
@@ -103,7 +108,7 @@ fun TextButton(
         content = content,
         onClick = onClick,
         colors = colors,
-        shapes = ButtonDefaults.shapes(),
+        shapes = shapes,
         contentPadding = contentPadding,
         interactionSource = interactionSource
     )
@@ -115,6 +120,7 @@ fun ElevatedButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.elevatedButtonColors(),
+    shapes: ButtonShapes = ButtonDefaults.shapes(),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit,
@@ -126,7 +132,7 @@ fun ElevatedButton(
         content = content,
         onClick = onClick,
         colors = colors,
-        shapes = ButtonDefaults.shapes(),
+        shapes = shapes,
         contentPadding = contentPadding,
         interactionSource = interactionSource
     )
