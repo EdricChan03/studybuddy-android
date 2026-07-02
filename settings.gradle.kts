@@ -92,6 +92,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":ui:common",
+    ":ui:design-system",
     ":ui:insets",
     ":ui:preference:compose",
     ":ui:theming:common",
