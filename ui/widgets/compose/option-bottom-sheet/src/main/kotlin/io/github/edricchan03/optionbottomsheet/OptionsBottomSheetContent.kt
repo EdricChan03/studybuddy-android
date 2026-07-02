@@ -7,67 +7,6 @@ import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup
 
 /**
  * The content of [OptionsModalBottomSheet].
- * @param onDismissBottomSheetRequest Lambda that is invoked to indicate a request to dismiss
- * the parent [OptionsModalBottomSheet]. The [BottomSheetOption] that was clicked on is passed
- * as the `item` parameter.
- * @param group The option group to display.
- */
-@Deprecated(
-    "Use the overload which takes a header composable instead",
-    ReplaceWith(
-        "OptionsBottomSheetContent(modifier = modifier, " +
-            "onDismissBottomSheetRequest = onDismissBottomSheetRequest, group = group)",
-        "io.github.edricchan03.optionbottomsheet.OptionsBottomSheetContent"
-    )
-)
-@Composable
-fun OptionsBottomSheetContent(
-    modifier: Modifier = Modifier,
-    headerModifier: Modifier,
-    onDismissBottomSheetRequest: (item: BottomSheetOption) -> Unit,
-    group: BottomSheetOptionGroup
-) {
-    group.title?.let { OptionsBottomSheetDefaults.Header(modifier = headerModifier, title = it) }
-    OptionsBottomSheetList(
-        modifier = modifier,
-        group = group,
-        onDismissBottomSheetRequest = onDismissBottomSheetRequest
-    )
-}
-
-/**
- * The content of [OptionsModalBottomSheet].
- * @param onDismissBottomSheetRequest Lambda that is invoked to indicate a request to dismiss
- * the parent [OptionsModalBottomSheet]. The [BottomSheetOption] that was clicked on is passed
- * as the `item` parameter.
- * @param title The header title.
- * @param items The list of options to display.
- */
-@Deprecated(
-    "Use the overload which takes a header composable instead",
-    ReplaceWith(
-        "OptionsBottomSheetContent(modifier = modifier, " +
-            "onDismissBottomSheetRequest = onDismissBottomSheetRequest, title = title, " +
-            "items = items)",
-        "io.github.edricchan03.optionbottomsheet.OptionsBottomSheetContent"
-    )
-)
-@Composable
-fun OptionsBottomSheetContent(
-    modifier: Modifier = Modifier,
-    headerModifier: Modifier,
-    onDismissBottomSheetRequest: (item: BottomSheetOption) -> Unit,
-    title: String? = null,
-    items: List<BottomSheetOption>
-) = OptionsBottomSheetContent(
-    modifier = modifier,
-    headerModifier = headerModifier,
-    group = BottomSheetOptionGroup(title = title, items = items),
-    onDismissBottomSheetRequest = onDismissBottomSheetRequest
-)
-
-/**
- * The content of [OptionsModalBottomSheet].
  * @param group The [BottomSheetOptionGroup] to display.
  * @param header The header composable to display.
  * Defaults to [OptionsBottomSheetDefaults.Header] with the value of

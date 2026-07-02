@@ -87,7 +87,7 @@ class OptionsBottomSheetContentTest {
             setContent {
                 StudyBuddyTheme {
                     OptionsBottomSheetContent(
-                        headerModifier = Modifier.testTag(headerTag),
+                        header = null,
                         onDismissBottomSheetRequest = {}, // No-op
                         group = BottomSheetOptionGroup(
                             title = null,
