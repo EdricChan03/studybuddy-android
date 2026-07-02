@@ -149,8 +149,8 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
 
     override val menuProvider = menuProvider(
         menuResId = R.menu.menu_edit_task,
-    ) {
-        if (it.itemId == R.id.action_save) {
+    ) { item ->
+        if (item.itemId == R.id.action_save) {
             val taskItemUpdates = buildMap<TaskItem.Field, Any> {
                 binding.also {
                     if (it.textInputTitle.editTextStrValue != taskItem.title) {
