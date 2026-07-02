@@ -8,6 +8,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -75,23 +76,26 @@ fun TaskProjectText(
  * This value is used for the [ListItem]'s trailing [TaskProjectCircle].
  * @param name The [TodoProject]'s [TodoProject.name].
  * @param colors Colours to be used for the [ListItem] - see [ListItemColors].
+ * @param shapes [ListItemShapes] to be used for the [ListItem].
  */
 @Composable
 fun TaskProjectListItem(
     modifier: Modifier = Modifier,
     color: Color? = null,
     name: String,
-    colors: ListItemColors = ListItemDefaults.colors()
+    colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes()
 ) = ListItem(
     modifier = modifier,
     leadingContent = {
         Icon(AppIcons.Outlined.Assignment, contentDescription = null)
     },
-    headlineContent = {
+    content = {
         TaskProjectText(text = name)
     },
     trailingContent = { TaskProjectCircle(color = color) },
     colors = colors,
+    shapes = shapes
 )
 
 /**
@@ -105,12 +109,14 @@ fun TaskProjectListItem(
 fun TaskProjectListItem(
     modifier: Modifier = Modifier,
     project: TaskProject,
-    colors: ListItemColors = ListItemDefaults.colors()
+    colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes()
 ) = TaskProjectListItem(
     modifier = modifier,
     color = project.color?.toComposeColor(),
     name = project.name,
-    colors = colors
+    colors = colors,
+    shapes = shapes
 )
 
 @Preview(showBackground = true)
