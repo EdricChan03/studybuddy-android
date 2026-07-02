@@ -27,7 +27,7 @@ kotlinx-serialization = "1.11.0"
 ktoml = "0.7.1"
 ktor = "3.5.1"
 mockk = "1.14.11"
-wire = "6.4.1"
+wire = "6.4.5"
 
 [libraries]
 # AndroidX dependencies
