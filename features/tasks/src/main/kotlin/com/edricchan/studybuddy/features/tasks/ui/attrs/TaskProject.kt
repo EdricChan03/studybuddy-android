@@ -16,7 +16,6 @@ import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
@@ -24,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
 import com.edricchan.studybuddy.data.common.compose.toComposeColor
-import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
@@ -95,26 +92,6 @@ fun TaskProjectListItem(
     },
     trailingContent = { TaskProjectCircle(color = color) },
     colors = colors,
-)
-
-/**
- * Composable which displays a [TodoItem]'s [TodoItem.project] as a [ListItem].
- *
- * This variant allows for a [TodoProject] to be used.
- * @param modifier [Modifier] to be used for the [ListItem].
- * @param project The [TodoProject] to display. A default [name][TodoProject.name]
- * will be used if the project does not specify one.
- */
-@Composable
-@Deprecated("Use the overload which accepts the domain TaskProject model instead")
-fun TaskProjectListItem(
-    modifier: Modifier = Modifier,
-    project: TodoProject
-) = TaskProjectListItem(
-    modifier = modifier,
-    project = project.toDomain(
-        defaultName = stringResource(R.string.task_attr_project_name_default)
-    )
 )
 
 /**
