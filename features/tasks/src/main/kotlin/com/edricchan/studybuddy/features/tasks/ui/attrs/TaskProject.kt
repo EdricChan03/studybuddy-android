@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Assignment
 import com.edricchan.studybuddy.data.common.compose.toComposeColor
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.model.TodoProject
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
@@ -51,7 +49,7 @@ fun TaskProjectCircle(
 )
 
 /**
- * Composable which displays a [TodoProject]'s [name][TodoProject.name].
+ * Composable which displays a [TaskProject]'s [name][TaskProject.name].
  *
  * The title is truncated to a maximum of 2 lines - text after this limit
  * are truncated by [ellipses][TextOverflow.Ellipsis].
@@ -70,11 +68,11 @@ fun TaskProjectText(
 )
 
 /**
- * Composable which displays a [TodoItem]'s [TodoItem.project] as a [ListItem].
+ * Composable which displays a [TaskItem]'s [TaskItem.project] as a [ListItem].
  * @param modifier [Modifier] to be used for the [ListItem].
- * @param color The [TodoProject.color] as a Compose [Color].
+ * @param color The [TaskProject.color] as a Compose [Color].
  * This value is used for the [ListItem]'s trailing [TaskProjectCircle].
- * @param name The [TodoProject]'s [TodoProject.name].
+ * @param name The [TaskProject]'s [TaskProject.name].
  * @param colors Colours to be used for the [ListItem] - see [ListItemColors].
  * @param shapes [ListItemShapes] to be used for the [ListItem].
  */
