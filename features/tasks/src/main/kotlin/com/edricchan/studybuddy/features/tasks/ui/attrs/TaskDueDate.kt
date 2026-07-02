@@ -48,7 +48,7 @@ fun TaskDueDateListItem(
     colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
     modifier = modifier,
-    headlineContent = { Text(text = formatDate(dueDate)) },
+    content = { Text(text = formatDate(dueDate)) },
     leadingContent = { Icon(AppIcons.Outlined.CalendarClock, contentDescription = null) },
     colors = colors
 )
@@ -68,7 +68,7 @@ fun TaskDueDateListItem(
     colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
     modifier = modifier,
-    headlineContent = { Text(text = formatDate(dueDate)) },
+    content = { Text(text = formatDate(dueDate)) },
     leadingContent = { Icon(AppIcons.Outlined.CalendarClock, contentDescription = null) },
     colors = colors
 )
