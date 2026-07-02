@@ -219,8 +219,18 @@ private fun ExpListItemContent(
  * @param colors Desired [ExpListItemColors] to be used for this layout. Use
  * [ExpListItemDefaults.colors] to retrieve the default colours.
  */
-// TODO: Deprecate this composable when https://issuetracker.google.com/issues/491760377 is
-//  fixed
+@Deprecated(
+    "Use the expressive ListItem/SegmentedListItem APIs from compose-material3 instead",
+    ReplaceWith(
+        "ListItem(" +
+            "modifier = modifier, enabled = enabled, " +
+            "leadingContent = leadingContent, overlineContent = overlineContent, " +
+            "content = headlineContent, supportingContent = supportingContent, " +
+            "trailingContent = trailingContent, shapes = ListItemDefaults.shapes())",
+        "androidx.compose.material3.ListItem",
+        "androidx.compose.material3.ListItemDefaults"
+    )
+)
 @Composable
 fun ExpListItem(
     modifier: Modifier = Modifier,
