@@ -13,7 +13,6 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 // Adapted from
@@ -43,20 +42,19 @@ class NetworkMonitor(
         connectivityManager.unregisterNetworkCallback(this)
     }
 
-    private val _networkState =
-        MutableStateFlow(
+    val networkState: StateFlow<NetworkState>
+        field = MutableStateFlow(
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
                 ?.let(::NetworkState)
                 ?: NetworkState(isOnline = false, isMetered = false)
         )
-    val networkState = _networkState.asStateFlow()
 
     override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
-        _networkState.update { NetworkState(networkCapabilities = networkCapabilities) }
+        networkState.update { NetworkState(networkCapabilities = networkCapabilities) }
     }
 
     override fun onLost(network: Network) {
-        _networkState.update { NetworkState(isOnline = false, isMetered = false) }
+        networkState.update { NetworkState(isOnline = false, isMetered = false) }
     }
 }
 
