@@ -14,6 +14,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
@@ -36,11 +37,11 @@ class LicensesViewModel @Inject constructor(
 
     val searchBarState = TextFieldState()
 
-    private val _selectedLicenses = MutableStateFlow(initialLibs.licenses)
-    val selectedLicenses = _selectedLicenses.asStateFlow()
+    val selectedLicenses: StateFlow<Set<License>>
+        field = MutableStateFlow(initialLibs.licenses)
 
     fun setSelectedLicenses(licenses: Set<License>) {
-        _selectedLicenses.value = licenses
+        selectedLicenses.value = licenses
     }
 
     private fun Library.matchesQuery(query: String): Boolean {
@@ -75,7 +76,7 @@ class LicensesViewModel @Inject constructor(
     }
 
     fun clearFilters() {
-        _selectedLicenses.value = licenses
+        selectedLicenses.value = licenses
         searchBarState.edit { delete(0, length) }
     }
 }
