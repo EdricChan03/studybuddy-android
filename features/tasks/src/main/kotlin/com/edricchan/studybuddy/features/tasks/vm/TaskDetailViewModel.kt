@@ -20,7 +20,6 @@ import com.edricchan.studybuddy.ui.common.snackbar.SnackBarController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -75,8 +74,8 @@ class TaskDetailViewModel @Inject constructor(
         }
     }
 
-    private val _pendingDelete = MutableStateFlow(false)
-    val pendingDelete = _pendingDelete.asStateFlow()
+    val pendingDelete: StateFlow<Boolean>
+        field = MutableStateFlow(false)
 
     suspend fun deleteTask() {
         repo.deleteTaskById(currentTaskId)
@@ -90,7 +89,7 @@ class TaskDetailViewModel @Inject constructor(
                 // setTaskData method would have triggered immediately with an emitted NoData
                 // state after the task is deleted, which would navigate away before it
                 // could ever trigger
-                _pendingDelete.value = true
+                pendingDelete.value = true
                 deleteTask()
             } catch (e: Exception) {
                 showSnackBar(
