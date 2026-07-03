@@ -15,7 +15,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import javax.inject.Inject
@@ -68,11 +67,11 @@ class LicensesViewModel @Inject constructor(
         }
     }
 
-    private val _selectedLibrary = MutableStateFlow<Library?>(null)
-    val selectedLibrary = _selectedLibrary.asStateFlow()
+    val selectedLibrary: StateFlow<Library?>
+        field = MutableStateFlow<Library?>(null)
 
     fun setSelectedLibrary(library: Library?) {
-        _selectedLibrary.value = library
+        selectedLibrary.value = library
     }
 
     fun clearFilters() {
