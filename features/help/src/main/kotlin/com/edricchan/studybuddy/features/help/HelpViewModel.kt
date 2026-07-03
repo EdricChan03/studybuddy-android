@@ -8,6 +8,7 @@ import com.edricchan.studybuddy.features.help.ui.HelpArticlesState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,10 +18,9 @@ import javax.inject.Inject
 class HelpViewModel @Inject constructor(
     private val repository: HelpRepository
 ) : ViewModel() {
-    private val _helpArticles = MutableStateFlow<HelpArticlesState>(HelpArticlesState.Loading)
-
     /** The current list of help articles. */
-    val helpArticles = _helpArticles.asStateFlow()
+    val helpArticles: StateFlow<HelpArticlesState>
+        field = MutableStateFlow<HelpArticlesState>(HelpArticlesState.Loading)
 
     init {
         viewModelScope.launch {
@@ -30,9 +30,9 @@ class HelpViewModel @Inject constructor(
 
     /** Refreshes the list of help articles. */
     suspend fun refreshHelpArticles() {
-        _helpArticles.value = HelpArticlesState.Loading
+        helpArticles.value = HelpArticlesState.Loading
         withContext(Dispatchers.IO) {
-            _helpArticles.value = try {
+            helpArticles.value = try {
                 HelpArticlesState.Success(
                     repository.fetchHelpArticles().filterNot { it.isHidden }
                 )
