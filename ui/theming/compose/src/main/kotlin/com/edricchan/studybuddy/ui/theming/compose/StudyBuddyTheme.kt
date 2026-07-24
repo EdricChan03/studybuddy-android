@@ -132,6 +132,7 @@ fun StudyBuddyTheme(
  * Sets the [MaterialTheme] for all the Composables in [content] based on the specified [appTheme].
  * @param enableDarkTheme Whether the dark theme variant of the desired [appTheme] should be used.
  * @param appTheme The desired [AppThemeSetting] to be used - see [toAppColorScheme] for more info.
+ * @param baseSpacing Base spacing for the [SpacingTokens] to be used.
  * @param typography Desired [typographical][Typography] styles to be used.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -139,6 +140,7 @@ fun StudyBuddyTheme(
 fun StudyBuddyTheme(
     enableDarkTheme: Boolean = isSystemInDarkTheme(),
     appTheme: AppThemeSetting,
+    baseSpacing: Dp = SpacingTokens.BaseSpacing,
     typography: Typography = StudyBuddyTypography,
     content: @Composable () -> Unit
 ) {
@@ -147,6 +149,7 @@ fun StudyBuddyTheme(
         // TODO: Remove useDynamicTheme option when we switch all implementations to this overload
         useDynamicTheme = appTheme == AppThemeSetting.Monet,
         colors = appTheme.toAppColorScheme().getColorScheme(enableDarkTheme),
+        baseSpacing = baseSpacing,
         typography = typography,
         content = content,
     )
