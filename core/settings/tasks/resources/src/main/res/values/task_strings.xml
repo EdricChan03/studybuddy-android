@@ -21,6 +21,25 @@
     <string name="pref_task_default_sort_entry_due_date_new_to_old">Due Date (Newest to Oldest)</string>
     <string name="pref_task_default_sort_entry_due_date_old_to_new">Due Date (Oldest to Newest)</string>
 
+    <!-- Task swipe action strings -->
+    <eat-comment />
+
+    <!-- Title for the task swipe actions settings category. -->
+    <string name="pref_category_task_swipe_actions_title">Swipe actions</string>
+
+    <!-- Title for the task swipe towards start setting. -->
+    <string name="pref_task_swipe_towards_start_title">On swipe left</string>
+
+    <!-- Title for the task swipe towards end setting. -->
+    <string name="pref_task_swipe_towards_end_title">On swipe right</string>
+
+    <string name="pref_task_swipe_action_entry_none">(None)</string>
+    <string name="pref_task_swipe_action_entry_mark_complete">Mark as completed/incomplete</string>
+    <string name="pref_task_swipe_action_entry_archive">Archive/unarchive</string>
+    <string name="pref_task_swipe_action_entry_delete">Delete</string>
+    <string name="pref_task_swipe_action_entry_edit">Edit</string>
+    <string name="pref_task_swipe_action_entry_snooze">Snooze</string>
+
     <!-- Task action confirmation strings -->
     <eat-comment />
 
