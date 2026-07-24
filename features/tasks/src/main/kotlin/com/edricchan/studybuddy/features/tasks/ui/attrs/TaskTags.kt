@@ -8,6 +8,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,13 +27,15 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyTheme
  * @param [tags] The list of tags to be displayed. Tags that are blank
  * will be filtered out.
  * @param colors [ListItemColors] to be passed to [ListItem].
+ * @param shapes [ListItemShapes] to be passed to [ListItem].
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TaskTagsListItem(
     modifier: Modifier = Modifier,
     tags: Set<String>,
-    colors: ListItemColors = ListItemDefaults.colors()
+    colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes()
 ) {
     val displayTags = tags.filter(String::isNotBlank)
     if (displayTags.isNotEmpty()) {
@@ -41,7 +44,7 @@ fun TaskTagsListItem(
             leadingContent = {
                 Icon(AppIcons.Outlined.Label, contentDescription = null)
             },
-            headlineContent = {
+            content = {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
@@ -59,7 +62,8 @@ fun TaskTagsListItem(
                     }
                 }
             },
-            colors = colors
+            colors = colors,
+            shapes = shapes
         )
     }
 }
