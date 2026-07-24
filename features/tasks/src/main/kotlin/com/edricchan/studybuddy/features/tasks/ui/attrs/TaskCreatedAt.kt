@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,8 +72,12 @@ fun TaskCreatedAtListItem(
     formatDate: @Composable (Instant) -> String = {
         LocalContext.current.formatRelativeTimeSpan(it)
     },
+    shapes: ListItemShapes,
+    colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
     modifier = modifier,
+    shapes = shapes,
+    colors = colors,
     leadingContent = {
         Icon(
             AppIcons.Outlined.Schedule,
@@ -79,7 +86,7 @@ fun TaskCreatedAtListItem(
             )
         )
     },
-    headlineContent = {
+    content = {
         TaskCreatedAtText(modifier = textModifier, text = formatDate(createdAt))
     }
 )
