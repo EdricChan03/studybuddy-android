@@ -16,12 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.ui.theming.common.ThemePreferences
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.night.shouldApplyDarkTheme
+import com.edricchan.studybuddy.ui.theming.compose.spacing.LocalThemeSpacing
+import com.edricchan.studybuddy.ui.theming.compose.spacing.SpacingTokens
 import com.edricchan.studybuddy.ui.theming.compose.theme.StudyBuddyTypography
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveDarkColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveLightColors
@@ -57,6 +60,9 @@ fun studyBuddyColors(
  * @param useDynamicTheme Whether the system's wallpaper colour should be used. This defaults to
  * `true` for supported devices (Android 12+), or `false` otherwise.
  * @param colors Desired [ColorScheme] to use - see [studyBuddyColors].
+ * @param baseSpacing Base spacing for [spacingTokens]. Note that setting this has no effect
+ * when [spacingTokens] is manually specified.
+ * @param spacingTokens The [SpacingTokens] to use.
  * @param typography The [Typography] to use.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -70,11 +76,14 @@ fun StudyBuddyTheme(
         useDynamicTheme = useDynamicTheme,
         enableDarkTheme = enableDarkTheme
     ),
+    baseSpacing: Dp = SpacingTokens.BaseSpacing,
+    spacingTokens: SpacingTokens = SpacingTokens(base = baseSpacing),
     typography: Typography = StudyBuddyTypography,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
-        LocalRippleThemeConfiguration provides RippleDefaults.InsetFocusRingRippleThemeConfiguration
+        LocalRippleThemeConfiguration provides RippleDefaults.InsetFocusRingRippleThemeConfiguration,
+        LocalThemeSpacing provides spacingTokens,
     ) {
         MaterialExpressiveTheme(
             colorScheme = colors,
