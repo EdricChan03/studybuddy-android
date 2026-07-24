@@ -45,12 +45,7 @@ android {
         }
 
         val release = named("release") {
-            isMinifyEnabled = true // Enable minification
-            isShrinkResources = true // Shrink resources to reduce APK size
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            optimization.enable = true
 
             // Can be accessed with BuildConfig.BUILD_TIME
             buildConfigField("long", "BUILD_TIME", "${System.currentTimeMillis()}L")
@@ -71,10 +66,6 @@ android {
 
             applicationIdSuffix = ".benchmark"
             matchingFallbacks += release.name
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-benchmark-rules.pro"
-            )
             isDebuggable = false
         }
     }
