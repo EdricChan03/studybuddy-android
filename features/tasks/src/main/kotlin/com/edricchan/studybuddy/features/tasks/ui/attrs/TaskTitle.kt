@@ -17,10 +17,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
@@ -110,20 +114,27 @@ fun TaskTitleWithCheckboxListItem(
     onDoneChange: (Boolean) -> Unit,
     isArchived: Boolean = false,
     colors: ListItemColors = ListItemDefaults.colors(),
-) = ListItem(
-    modifier = modifier,
-    checked = isDone,
-    onCheckedChange = onDoneChange,
-    content = {
-        TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
-    },
-    leadingContent = {
-        Checkbox(
-            checked = isDone, onCheckedChange = null, enabled = !isArchived
-        )
-    },
-    colors = colors
-)
+) {
+    val stateCompleted = stringResource(R.string.view_task_done_content_desc)
+    val stateIncomplete = stringResource(R.string.view_task_undone_content_desc)
+
+    ListItem(
+        modifier = modifier.semantics {
+            stateDescription = if (isDone) stateCompleted else stateIncomplete
+        },
+        checked = isDone,
+        onCheckedChange = onDoneChange,
+        content = {
+            TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
+        },
+        leadingContent = {
+            Checkbox(
+                checked = isDone, onCheckedChange = null, enabled = !isArchived
+            )
+        },
+        colors = colors
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
