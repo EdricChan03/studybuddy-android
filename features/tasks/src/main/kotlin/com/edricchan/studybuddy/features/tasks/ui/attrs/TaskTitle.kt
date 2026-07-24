@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -62,6 +63,7 @@ fun TaskTitleText(
  * @param isDone Whether the task was marked as done. See [TaskTitleText]'s `isDone`
  * parameter for more info.
  * @param colors Colours to be used for the [ListItem].
+ * @param shapes [ListItemShapes] to be used for the [ListItem].
  */
 @Composable
 fun TaskTitleListItem(
@@ -70,10 +72,11 @@ fun TaskTitleListItem(
     title: String,
     isDone: Boolean = false,
     colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes(),
     isTextSelectable: Boolean = false
 ) = ListItem(
     modifier = modifier,
-    headlineContent = {
+    content = {
         if (isTextSelectable) {
             SelectionContainer {
                 TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
@@ -82,7 +85,8 @@ fun TaskTitleListItem(
             TaskTitleText(modifier = textModifier, text = title, isDone = isDone)
         }
     },
-    colors = colors
+    colors = colors,
+    shapes = shapes
 )
 
 /**
