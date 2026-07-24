@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.card
+package com.edricchan.studybuddy.features.tasks.common.ui.card
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
