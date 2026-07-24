@@ -29,7 +29,7 @@ plugins {
     id("com.gradle.develocity") version "4.4.1"
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 
-    id("com.android.settings") version "9.2.1"
+    id("com.android.settings") version "9.3.1"
 }
 
 val isCi = !System.getenv("CI").isNullOrEmpty()
