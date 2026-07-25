@@ -16,10 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.filled.MobileArrowDown
 import com.edricchan.studybuddy.core.resources.icons.filled.Settings
 import com.edricchan.studybuddy.core.resources.icons.filled.Task
+import com.edricchan.studybuddy.core.resources.icons.outlined.MobileArrowDown
 import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
-import com.edricchan.studybuddy.core.resources.icons.outlined.SystemUpdateAlt
 import com.edricchan.studybuddy.core.resources.icons.outlined.Task
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
@@ -58,7 +59,7 @@ enum class SettingsCategory(
         descResId = UpdateR.string.pref_header_updates_summary,
         icon = {
             Icon(
-                AppIcons.Outlined.SystemUpdateAlt,
+                if (it) AppIcons.Filled.MobileArrowDown else AppIcons.Outlined.MobileArrowDown,
                 contentDescription = null
             )
         }
