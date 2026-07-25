@@ -75,6 +75,14 @@ class LocalAppearanceSettingsDataStore @Inject constructor(
         }
     }
 
+    override val baseSpacing: Flow<Int> = dataStore.data.map { it.base_spacing }
+
+    override suspend fun setBaseSpacing(value: Int) {
+        dataStore.updateData {
+            it.copy(base_spacing = value)
+        }
+    }
+
     override val useRelativeTimestamps = dataStore.data.map { it.use_relative_timestamps }
 
     override suspend fun setUseRelativeTimestamps(shouldUse: Boolean) {

@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.core.settings.appearance.repo.source
 
+import androidx.annotation.IntRange
 import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.font.TypefaceConfig
@@ -66,6 +67,17 @@ interface AppearanceSettingsDataStore {
         setDisplayTypeface(displayStyle)
         setBodyTypeface(bodyStyle)
     }
+
+    /** The base spacing value to use across the app. */
+    val baseSpacing: Flow<Int>
+
+    /**
+     * Sets the [baseSpacing] value to be used.
+     * @param value The new [baseSpacing] value. This must be a positive integer.
+     *
+     * (Note that there is no maximum limit but ideally this should not be too large UX-wise)
+     */
+    suspend fun setBaseSpacing(@IntRange(from = 0) value: Int)
 
     /** Whether to use relative timestamps. */
     val useRelativeTimestamps: Flow<Boolean>

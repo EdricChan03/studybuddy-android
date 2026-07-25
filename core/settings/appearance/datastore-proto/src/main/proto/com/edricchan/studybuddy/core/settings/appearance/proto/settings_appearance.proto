@@ -17,6 +17,12 @@ message AppearanceSettings {
   TypefaceSettingProto display_typeface = 3;
   /* The typeface to use for body text. */
   TypefaceSettingProto body_typeface = 4;
+  /*
+    The desired base spacing value to use.
+    Note: Consumers should provide a more intuitive user interface (for example, a preset list of
+    possible values) when setting this value from the user's end.
+  */
+  int32 base_spacing = 5;
 
   // Temporal-related settings
 

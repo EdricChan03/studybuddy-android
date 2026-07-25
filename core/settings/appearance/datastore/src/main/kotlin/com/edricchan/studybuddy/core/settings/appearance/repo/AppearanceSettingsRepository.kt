@@ -47,6 +47,11 @@ class AppearanceSettingsRepository @Inject constructor(
         dataStore.setTypefaceConfig(displayStyle, bodyStyle)
     }
 
+    val baseSpacing by dataStore::baseSpacing
+    suspend fun setBaseSpacing(spacing: Int) {
+        dataStore.setBaseSpacing(spacing)
+    }
+
     val useRelativeTimestamps by dataStore::useRelativeTimestamps
     suspend fun setUseRelativeTimestamps(shouldUse: Boolean) {
         dataStore.setUseRelativeTimestamps(shouldUse)
