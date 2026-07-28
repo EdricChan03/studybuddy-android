@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: 17
-          distribution: adopt
+          distribution: temurin
       # See https://github.com/actions/runner-images/issues/6283
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@266845213695c3047d210b2e8fbc42ecdaf45802
