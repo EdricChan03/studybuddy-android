@@ -51,7 +51,7 @@ runs:
         distribution: temurin
     # See https://github.com/actions/runner-images/issues/6283
     - name: Set up Homebrew
-      uses: Homebrew/actions/setup-homebrew@fc695c54c2032716dd4cedd007489c8e32fc8a5d
+      uses: Homebrew/actions/setup-homebrew@1f8e202ffddf94def7f42f6fa3a482e821489f9c
     - name: Install Homebrew dependencies
       run: brew bundle
       shell: bash
