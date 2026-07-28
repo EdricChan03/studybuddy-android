@@ -18,6 +18,7 @@
 # Android builds
 /build
 */build
+**/build
 /captures
 .externalNativeBuild
 

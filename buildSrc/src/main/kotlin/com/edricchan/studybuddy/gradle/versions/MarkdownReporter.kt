@@ -10,7 +10,6 @@ import com.edricchan.studybuddy.gradle.versions.reporter.writeUnresolved
 import com.edricchan.studybuddy.gradle.versions.reporter.writeUpToDate
 import com.github.benmanes.gradle.versions.reporter.AbstractReporter
 import com.github.benmanes.gradle.versions.reporter.result.Result
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import java.io.OutputStream
 import java.io.PrintStream
 
@@ -18,9 +17,12 @@ import java.io.PrintStream
 @Suppress("HardCodedStringLiteral", "LongLine")
 @OptIn(InternalMarkdownApi::class)
 class MarkdownReporter(
-    task: DependencyUpdatesTask,
+    private val projectName: String,
+    projectPath: String,
+    revision: String,
+    gradleReleaseChannel: String,
     private val options: MarkdownReporterOptions = MarkdownReporterOptions()
-) : AbstractReporter(task.project, task.revision, task.gradleReleaseChannel) {
+) : AbstractReporter(projectPath, revision, gradleReleaseChannel) {
     data class MarkdownReporterOptions(
         /**
          * Whether to use [simple dependency notation](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.DependencyHandler.html#N16F60).
@@ -142,7 +144,7 @@ class MarkdownReporter(
 
     override fun write(printStream: OutputStream, result: Result) {
         PrintStream(printStream).apply {
-            if (options.shouldWriteHeader) writeHeader(project.name)
+            if (options.shouldWriteHeader) writeHeader(projectName)
             if (result.count == 0) this.println("No dependencies found.")
             else options.sections.forEach { it.write(this@MarkdownReporter, this, result) }
         }

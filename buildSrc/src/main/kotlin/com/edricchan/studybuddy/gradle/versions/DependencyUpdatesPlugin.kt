@@ -13,37 +13,49 @@ import java.io.PrintStream
 
 class DependencyUpdatesPlugin : Plugin<Project> {
     override fun apply(target: Project) {
+        val projectPath = target.path
+        val projectName = target.name
+        val layout = target.layout
+
         // Add the Markdown reporter
         target.tasks.withType<DependencyUpdatesTask>().configureEach {
             outputFormatter {
                 // (Logic from https://github.com/ben-manes/gradle-versions-plugin/blob/fba92314f34b24bf93fc3fb4f2243e2e887ed12f/src/main/groovy/com/github/benmanes/gradle/versions/updates/DependencyUpdatesReporter.groovy#L114-L124)
 
                 // Ensure that the output directory already exists
-                target.file(outputDir).mkdirs()
+                File(outputDir).mkdirs()
 
                 val reporters = mapOf(
                     // Generate console output
                     null to getReporter {
                         PlainTextReporter(
-                            it.project,
+                            projectPath,
                             it.revision,
                             it.gradleReleaseChannel
                         )
                     },
                     // Generate JSON file
-                    project.file(File(outputDir, "$reportfileName.json")) to getReporter {
+                    layout.projectDirectory.file(
+                        File(
+                            outputDir,
+                            "$reportfileName.json"
+                        ).path
+                    ) to getReporter {
                         JsonReporter(
-                            it.project,
+                            projectPath,
                             it.revision,
                             it.gradleReleaseChannel
                         )
                     },
                     // Generate Markdown file
-                    project.file(File(outputDir, "$reportfileName.md"))
+                    layout.projectDirectory.file(File(outputDir, "$reportfileName.md").path)
                         to getReporter {
                         MarkdownReporter(
-                            it,
-                            MarkdownReporter.MarkdownReporterOptions(
+                            projectName = projectName,
+                            projectPath = projectPath,
+                            revision = it.revision,
+                            gradleReleaseChannel = it.gradleReleaseChannel,
+                            options = MarkdownReporter.MarkdownReporterOptions(
                                 useSimpleDependencyNotation = false,
                                 sections = listOf(
                                     MarkdownSection.DEPENDENCIES_OUTDATED,
@@ -59,18 +71,17 @@ class DependencyUpdatesPlugin : Plugin<Project> {
                 )
 
                 reporters.forEach { (output, reporter) ->
-                    if (output == null)
-                        project.logger.debug(
-                            "\nNo output file was specified for " +
-                                "the reporter ${reporter.javaClass.simpleName}. " +
-                                "Assuming write to standard output"
-                        )
+                    if (output == null) logger.debug(
+                        "\nNo output file was specified for " +
+                            "the reporter ${reporter.javaClass.simpleName}. " +
+                            "Assuming write to standard output"
+                    )
                     // Note: The PrintWriter must be closed to persist writes,
                     // otherwise it doesn't write
-                    output?.let { PrintStream(it) }.use {
+                    output?.asFile?.let { PrintStream(it) }.use {
                         reporter.write(it ?: System.out, this)
                     }
-                    if (output != null) project.logger.lifecycle("\nGenerated report file $output")
+                    if (output != null) logger.lifecycle("\nGenerated report file $output")
                 }
             }
         }
@@ -78,6 +89,5 @@ class DependencyUpdatesPlugin : Plugin<Project> {
 
     private fun DependencyUpdatesTask.getReporter(
         reporterFn: (DependencyUpdatesTask) -> Reporter
-    ) =
-        reporterFn(this)
+    ) = reporterFn(this)
 }
