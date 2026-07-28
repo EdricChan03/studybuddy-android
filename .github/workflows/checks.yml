@@ -12,6 +12,7 @@ permissions:
   # For generating attestations
   id-token: write
   attestations: write
+  artifact-metadata: write
   # For Code Scanning
   security-events: write
 
@@ -42,6 +43,7 @@ jobs:
       # For generating attestations
       id-token: write
       attestations: write
+      artifact-metadata: write
       # For generating checks
       checks: write
     steps:

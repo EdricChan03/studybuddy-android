@@ -8,6 +8,7 @@ permissions:
   # For generating attestations
   id-token: write
   attestations: write
+  artifact-metadata: write
 
 jobs:
   build-nightly:

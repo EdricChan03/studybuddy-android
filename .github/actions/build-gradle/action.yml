@@ -86,7 +86,7 @@ runs:
         APP_KEYSTORE_ALIAS_PASSWORD: ${{ inputs.app-keystore-alias-password }}
     - name: Attest artifacts
       if: ${{ !(inputs.skip-attestation == 'true') }}
-      uses: actions/attest-build-provenance@v1
+      uses: actions/attest@v4
       with:
         subject-path: ${{ inputs.upload-path }}
     - name: Upload artifacts
