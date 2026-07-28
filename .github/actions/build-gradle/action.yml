@@ -19,6 +19,9 @@ inputs:
   upload-path:
     description: "The path to the artifact to upload."
     required: true
+  upload-archive:
+    description: "Whether the file should be compressed into a zip file."
+    default: "true"
   # Secrets
   skip-signing:
     description: "Whether to skip APK signing."
@@ -88,8 +91,9 @@ runs:
         subject-path: ${{ inputs.upload-path }}
     - name: Upload artifacts
       if: ${{ !(inputs.skip-upload == 'true') }}
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ inputs.upload-name }}
         path: ${{ inputs.upload-path }}
+        archive: ${{ inputs.upload-archive }}
         if-no-files-found: ignore

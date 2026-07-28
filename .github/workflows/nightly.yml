@@ -25,6 +25,7 @@ jobs:
           gradle-arguments: :app:assembleNightly
           upload-name: app-nightly.apk
           upload-path: app/build/outputs/apk/nightly/app-nightly.apk
+          upload-archive: false
           transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
           transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
           app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
