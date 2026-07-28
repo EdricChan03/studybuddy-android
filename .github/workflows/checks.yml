@@ -51,9 +51,8 @@ jobs:
       - name: Run dependencyUpdates task
         uses: ./.github/actions/build-gradle
         with:
-          # TODO: Remove --no-parallel flag (see also https://github.com/ben-manes/gradle-versions-plugin/issues/966)
-          # TODO: Also remove --no-configuration-cache flag
-          gradle-arguments: dependencyUpdates --no-parallel --no-configuration-cache
+          # TODO: Remove --no-configuration-cache flag when we migrate the versions plugin to v0.55.0+
+          gradle-arguments: dependencyUpdates --no-configuration-cache
           upload-name: dependency-updates
           # Dependency update info is available at build/dependencyUpdates/report.<filetype>
           upload-path: build/dependencyUpdates/
