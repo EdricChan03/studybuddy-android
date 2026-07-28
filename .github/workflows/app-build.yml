@@ -21,12 +21,12 @@ jobs:
 
     strategy:
       matrix:
-        app-build-types: [debug, nightly, release]
+        app-build-types: [ debug, nightly, release ]
 
     name: Build app (${{ matrix.app-build-types }})
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Capitalise build type
         id: capitalise-build-type
         # See https://linuxhint.com/bash_lowercase_uppercase_strings/
