@@ -109,13 +109,6 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
                             }
                         }
                     }
-                    item(context.getString(R.string.menu_frag_task_sort_by_title)) {
-                        requestDismissOnClick = false
-                        setIcon(R.drawable.ic_sort_24dp)
-                        setItemClickListener {
-                            showSortByOptions()
-                        }
-                    }
                     item(context.getString(CoreResR.string.menu_settings_title)) {
                         setIcon(AppIcons.Compat.Settings.iconRes)
                         setItemClickListener {
@@ -271,56 +264,6 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
                     e
                 )
                 onFail(e)
-            }
-        }
-    }
-
-    // TODO: Use a more appropriate UI, see tracking issue
-    //  https://github.com/EdricChan03/studybuddy-android/issues/639
-    private fun showSortByOptions() {
-        showSingleSelectBottomSheet(
-            headerTitleRes = R.string.task_sort_dialog_header_title,
-            onConfirm = {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewModel.updateSort(value = it.id)
-                }
-            }
-        ) {
-            val context = requireContext()
-
-            isSelected = { item, _ ->
-                viewModel.compatQuery.value == item.id
-            }
-
-            addItem(
-                id = TodoSortValues.NONE,
-                title = context.getString(R.string.sort_by_bottomsheet_none_title)
-            ) {
-                iconRes = R.drawable.ic_close_24dp
-            }
-            addItem(
-                id = TodoSortValues.TITLE_ASC,
-                title = context.getString(R.string.sort_by_bottomsheet_title_asc_title)
-            ) {
-                iconRes = R.drawable.ic_sort_ascending_24dp
-            }
-            addItem(
-                id = TodoSortValues.TITLE_DESC,
-                title = context.getString(R.string.sort_by_bottomsheet_title_desc_title)
-            ) {
-                iconRes = R.drawable.ic_sort_descending_24dp
-            }
-            addItem(
-                id = TodoSortValues.DUE_DATE_NEW_TO_OLD,
-                title = context.getString(R.string.sort_by_bottomsheet_due_date_newest_title)
-            ) {
-                iconRes = R.drawable.ic_sort_descending_24dp
-            }
-            addItem(
-                id = TodoSortValues.DUE_DATE_OLD_TO_NEW,
-                title = context.getString(R.string.sort_by_bottomsheet_due_date_oldest_title)
-            ) {
-                iconRes = R.drawable.ic_sort_ascending_24dp
             }
         }
     }

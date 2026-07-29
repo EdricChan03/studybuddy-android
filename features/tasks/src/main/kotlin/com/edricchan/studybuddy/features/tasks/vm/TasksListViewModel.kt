@@ -8,11 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.domain.common.sorting.SortDirection
-import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants
 import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.TodoSortValues
-import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.toggleCompleted
@@ -33,20 +31,6 @@ class TasksListViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val savedState: SavedStateHandle
 ) : ViewModel() {
-    private val taskOptionsPrefs = context.getSharedPreferences(
-        TodoOptionsPrefConstants.FILE_TODO_OPTIONS,
-        Context.MODE_PRIVATE
-    )
-
-    // TODO: Remove when migrated to new UI for sorting preferences
-    private val sortCompatMap = mapOf(
-        TodoSortValues.NONE to null,
-        TodoSortValues.TITLE_ASC to (TaskItem.Field.Title to SortDirection.Ascending),
-        TodoSortValues.TITLE_DESC to (TaskItem.Field.Title to SortDirection.Descending),
-        TodoSortValues.DUE_DATE_NEW_TO_OLD to (TaskItem.Field.DueDate to SortDirection.Descending),
-        TodoSortValues.DUE_DATE_OLD_TO_NEW to (TaskItem.Field.DueDate to SortDirection.Ascending)
-    )
-
     // A MutableStateFlow but without strict equality comparisons
     private val _query =
         MutableSharedFlow<QueryMapper?>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -62,39 +46,6 @@ class TasksListViewModel @Inject constructor(
     /** Resets the current Firestore query. */
     suspend fun resetQuery() {
         setQuery(null)
-    }
-
-    /** The (compat) Firestore query to use, in its [TodoSortValues] form. */
-    val compatQuery = savedState.getStateFlow(
-        KEY_COMPAT_QUERY,
-        taskOptionsPrefs.getString(
-            TodoOptionsPrefConstants.PREF_DEFAULT_SORT, TodoSortValues.NONE
-        )
-    )
-
-    /** Updates the current Firestore query with the new sorting option to use. */
-    @Deprecated("For backwards compatibility with existing shared prefs")
-    suspend fun updateSort(value: String) {
-        // Persist updated data
-        taskOptionsPrefs.edit {
-            putString(
-                TodoOptionsPrefConstants.PREF_DEFAULT_SORT,
-                value
-            )
-        }
-        savedState[KEY_COMPAT_QUERY] = value
-
-        // Update the query
-        val sortBy = sortCompatMap[value]
-        setQuery(
-            sortBy?.let { (field, dir) ->
-                { it.orderBy(field.toDto().fieldName, dir.toFirestoreDirection()) }
-            } ?: run {
-                Log.w(TAG, "Unrecognised sort option $value was specified")
-                // Reset the query used
-                null
-            }
-        )
     }
 
     /** The current list of tasks to be shown. */
@@ -127,16 +78,5 @@ class TasksListViewModel @Inject constructor(
         viewModelScope.launch {
             resetQuery()
         }
-    }
-
-    companion object {
-        /**
-         * Saved-state key used to store the current query.
-         *
-         * Its saved-state value represents the compat version as used in the
-         * task settings UI.
-         * @see TodoSortValues
-         */
-        const val KEY_COMPAT_QUERY = "tasks:compatQuery"
     }
 }
