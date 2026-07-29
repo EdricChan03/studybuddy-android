@@ -278,11 +278,11 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
     // TODO: Use a more appropriate UI, see tracking issue
     //  https://github.com/EdricChan03/studybuddy-android/issues/639
     private fun showSortByOptions() {
-        showSingleSelectBottomSheet<String>(
+        showSingleSelectBottomSheet(
             headerTitleRes = R.string.task_sort_dialog_header_title,
             onConfirm = {
                 viewLifecycleOwner.lifecycleScope.launch {
-                    viewModel.updateSort(it.id)
+                    viewModel.updateSort(value = it.id)
                 }
             }
         ) {
