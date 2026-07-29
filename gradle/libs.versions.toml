@@ -88,6 +88,7 @@ accompanist-drawablePainter = { module = "com.google.accompanist:accompanist-dra
 
 # Other Compose dependencies
 composeMarkdown = "io.github.boswelja.markdown:material3:1.3.0"
+composeShimmer = "com.valentinilk.shimmer:compose-shimmer:1.5.0"
 
 # Other dependencies
 

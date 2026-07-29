@@ -89,6 +89,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.bundles.androidx.compose)
 
+    implementation(libs.composeShimmer)
+
     // Compose Tooling
     debugImplementation(libs.bundles.androidx.compose.tooling)
 
