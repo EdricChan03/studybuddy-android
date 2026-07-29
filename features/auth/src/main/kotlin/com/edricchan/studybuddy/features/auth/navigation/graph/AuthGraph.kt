@@ -18,26 +18,30 @@ import com.edricchan.studybuddy.features.auth.navigation.R as NavR
  * @see AuthDestination
  */
 context(context: Context)
-fun NavGraphBuilder.authGraph(
-    isLoggedIn: Boolean
-) = navigation<AuthDestination.AuthGraphRoot>(
-    startDestination = if (isLoggedIn) AuthDestination.AccountInfo() else AuthDestination.Login
-) {
-    fragment<AccountFragment, AuthDestination.AccountInfo>(
-        typeMap = mapOf(typeOf<AuthDestination.AccountInfo.AccountAction>() to AuthDestination.AccountInfo.AccountAction.NavType)
+fun NavGraphBuilder.authGraph() {
+    navigation<AuthDestination.AuthGraphRoot>(
+        startDestination = AuthDestination.AccountInfo()
     ) {
-        label = context.getString(NavR.string.nav_auth_dest_account_info_label)
+        fragment<AccountFragment, AuthDestination.AccountInfo>(
+            typeMap = mapOf(typeOf<AuthDestination.AccountInfo.AccountAction>() to AuthDestination.AccountInfo.AccountAction.NavType)
+        ) {
+            label = context.getString(NavR.string.nav_auth_dest_account_info_label)
+        }
     }
 
-    fragment<LoginFragment, AuthDestination.Login> {
-        label = context.getString(NavR.string.nav_auth_dest_login_label)
-    }
+    navigation<AuthDestination.AuthGatewayGraphRoot>(
+        startDestination = AuthDestination.Login
+    ) {
+        fragment<LoginFragment, AuthDestination.Login> {
+            label = context.getString(NavR.string.nav_auth_dest_login_label)
+        }
 
-    fragment<RegisterFragment, AuthDestination.Register> {
-        label = context.getString(NavR.string.nav_auth_dest_register_label)
-    }
+        fragment<RegisterFragment, AuthDestination.Register> {
+            label = context.getString(NavR.string.nav_auth_dest_register_label)
+        }
 
-    fragment<RecoveryFragment, AuthDestination.Recovery> {
-        label = context.getString(NavR.string.nav_auth_dest_recover_account_label)
+        fragment<RecoveryFragment, AuthDestination.Recovery> {
+            label = context.getString(NavR.string.nav_auth_dest_recover_account_label)
+        }
     }
 }

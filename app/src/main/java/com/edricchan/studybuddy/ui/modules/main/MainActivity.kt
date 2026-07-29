@@ -315,11 +315,10 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         val isLoggedIn = auth.currentUser != null
         graph = createGraph(
             if (isLoggedIn) TaskDestination.TaskGraphRoot
-            else AuthDestination.Login
+            else AuthDestination.AuthGatewayGraphRoot
         ) {
             compatGraphs(
-                context = this@MainActivity,
-                isLoggedIn = isLoggedIn
+                context = this@MainActivity
             )
         }
 

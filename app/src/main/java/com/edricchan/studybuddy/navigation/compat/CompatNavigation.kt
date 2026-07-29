@@ -47,8 +47,7 @@ fun NavGraphBuilder.aboutGraph(
  */
 // TODO: Migrate destinations to Jetpack Compose
 fun NavGraphBuilder.compatGraphs(
-    context: Context,
-    isLoggedIn: Boolean
+    context: Context
 ) {
     activity<CompatDestination.Debug> {
         activityClass = DebugActivity::class
@@ -68,7 +67,7 @@ fun NavGraphBuilder.compatGraphs(
 
     aboutGraph(context = context)
     context(context) {
-        authGraph(isLoggedIn = isLoggedIn)
+        authGraph()
         taskGraph()
     }
 

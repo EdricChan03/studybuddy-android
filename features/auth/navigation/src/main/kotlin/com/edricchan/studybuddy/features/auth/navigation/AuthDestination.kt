@@ -13,6 +13,10 @@ sealed interface AuthDestination {
     @Serializable
     data object AuthGraphRoot : AuthDestination
 
+    /** Root destination for all gateway-related destinations in the authentication graph. */
+    @Serializable
+    data object AuthGatewayGraphRoot : AuthDestination
+
     /** Destination to view the currently signed-in user's information. */
     @Serializable
     data class AccountInfo(val action: AccountAction? = null) : AuthDestination {

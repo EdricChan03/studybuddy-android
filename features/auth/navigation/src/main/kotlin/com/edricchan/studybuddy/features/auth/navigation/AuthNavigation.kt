@@ -18,6 +18,16 @@ fun NavController.navigateToAuthGraph(
 ) = navigate(AuthDestination.AuthGraphRoot, builder)
 
 /**
+ * Navigates to the [AuthDestination.AuthGatewayGraphRoot] route.
+ *
+ * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
+ * behaviour is undesired, [builder] should be specified.
+ */
+fun NavController.navigateToAuthGatewayGraph(
+    builder: NavOptionsBuilder.() -> Unit = DefaultNavOptionsBuilder
+) = navigate(AuthDestination.AuthGatewayGraphRoot, builder)
+
+/**
  * Navigates to the [AuthDestination.AccountInfo] route.
  *
  * By default, [NavOptionsBuilder.launchSingleTop] is set to `true`. If this
