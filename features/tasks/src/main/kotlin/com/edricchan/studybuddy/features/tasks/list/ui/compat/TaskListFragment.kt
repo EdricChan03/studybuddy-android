@@ -110,6 +110,7 @@ class TaskListFragment : ViewBindingFragment<FragTodoBinding>(FragTodoBinding::i
                         }
                     }
                     item(context.getString(R.string.menu_frag_task_sort_by_title)) {
+                        requestDismissOnClick = false
                         setIcon(R.drawable.ic_sort_24dp)
                         setItemClickListener {
                             showSortByOptions()
