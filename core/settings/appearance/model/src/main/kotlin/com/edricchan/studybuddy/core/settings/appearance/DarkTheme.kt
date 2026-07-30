@@ -54,8 +54,10 @@ object DarkThemePrefValues {
 sealed interface DarkThemeValue {
     val value: String
 
+    @Deprecated("Use DarkModeSetting instead")
     sealed class Version1(override val value: String) : DarkThemeValue
 
+    @Deprecated("Use DarkModeSetting instead")
     sealed class Version2(override val value: String) : DarkThemeValue {
         companion object {
             // by lazy is needed for https://youtrack.jetbrains.com/issue/KT-59723
