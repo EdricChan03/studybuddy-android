@@ -26,6 +26,7 @@ android {
 dependencies {
     api(projects.ui.theming.common)
 
+    api(libs.composeShimmer)
     api(libs.androidx.compose.material3)
     api(libs.androidx.compose.ui.tooling.preview)
 

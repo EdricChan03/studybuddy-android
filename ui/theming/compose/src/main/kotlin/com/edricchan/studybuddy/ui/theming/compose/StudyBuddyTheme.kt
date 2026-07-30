@@ -1,6 +1,10 @@
 package com.edricchan.studybuddy.ui.theming.compose
 
 import android.content.Context
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -30,6 +34,9 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBudd
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveLightColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
 import com.edricchan.studybuddy.ui.theming.compose.theme.toAppColorScheme
+import com.valentinilk.shimmer.LocalShimmerTheme
+import com.valentinilk.shimmer.ShimmerTheme
+import com.valentinilk.shimmer.defaultShimmerTheme
 
 /**
  * Default implementation for [StudyBuddyTheme]'s `colors` parameter, if not overridden
@@ -51,6 +58,26 @@ fun studyBuddyColors(
     else -> StudyBuddyExpressiveLightColors
 }
 
+@Composable
+fun studyBuddyShimmerTheme(): ShimmerTheme {
+    val surfaceVariant = MaterialTheme.colorScheme.surfaceVariant
+    return defaultShimmerTheme.copy(
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = 800,
+                easing = LinearEasing,
+                delayMillis = 250,
+            ),
+            repeatMode = RepeatMode.Restart,
+        ),
+        shaderColors = listOf(
+            surfaceVariant.copy(alpha = 0.25f),
+            surfaceVariant.copy(alpha = 0.50f),
+            surfaceVariant.copy(alpha = 0.25f),
+        ),
+    )
+}
+
 /**
  * Sets the [MaterialTheme] for all the Composables in [content].
  *
@@ -60,6 +87,8 @@ fun studyBuddyColors(
  * @param useDynamicTheme Whether the system's wallpaper colour should be used. This defaults to
  * `true` for supported devices (Android 12+), or `false` otherwise.
  * @param colors Desired [ColorScheme] to use - see [studyBuddyColors].
+ * @param shimmerTheme Desired [ShimmerTheme] to use for the [com.valentinilk.shimmer.shimmer]
+ * modifier.
  * @param baseSpacing Base spacing for [spacingTokens]. Note that setting this has no effect
  * when [spacingTokens] is manually specified.
  * @param spacingTokens The [SpacingTokens] to use.
@@ -76,6 +105,7 @@ fun StudyBuddyTheme(
         useDynamicTheme = useDynamicTheme,
         enableDarkTheme = enableDarkTheme
     ),
+    shimmerTheme: ShimmerTheme = studyBuddyShimmerTheme(),
     baseSpacing: Dp = SpacingTokens.BaseSpacing,
     spacingTokens: SpacingTokens = SpacingTokens(base = baseSpacing),
     typography: Typography = StudyBuddyTypography,
@@ -84,6 +114,7 @@ fun StudyBuddyTheme(
     CompositionLocalProvider(
         LocalRippleThemeConfiguration provides RippleDefaults.InsetFocusRingRippleThemeConfiguration,
         LocalThemeSpacing provides spacingTokens,
+        LocalShimmerTheme provides shimmerTheme
     ) {
         MaterialExpressiveTheme(
             colorScheme = colors,
