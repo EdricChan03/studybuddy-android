@@ -13,7 +13,7 @@ buildscript {
 
 plugins {
     alias(libs.plugins.dependencyAnalysis)
-    com.github.`ben-manes`.versions
+    io.github.`ben-manes`.versions
     com.edricchan.studybuddy.`dependency-updates`
     alias(libs.plugins.testAggregation.results)
     alias(libs.plugins.aboutLibraries) apply false
