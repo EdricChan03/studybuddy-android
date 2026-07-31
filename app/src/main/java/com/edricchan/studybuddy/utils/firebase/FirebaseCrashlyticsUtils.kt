@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.utils.firebase
 
+import com.edricchan.studybuddy.core.auth.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -16,4 +17,16 @@ fun FirebaseUser.setCrashlyticsTracking(
     enabled: Boolean
 ) {
     crashlytics.setUserId(if (enabled) uid else "")
+}
+
+/**
+ * Enables Firebase Crashlytics user tracking for the currently logged-in user.
+ * @param crashlytics The instance of [FirebaseCrashlytics].
+ * @param enabled Whether to enable user tracking.
+ */
+fun User.enableCrashlyticsTracking(
+    crashlytics: FirebaseCrashlytics = Firebase.crashlytics,
+    enabled: Boolean
+) {
+    crashlytics.setUserId(if (enabled) id else "")
 }
