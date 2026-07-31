@@ -32,7 +32,8 @@ import javax.inject.Inject
 
 /** Implementation of [AuthService] backed by [FirebaseAuth]. */
 class FirebaseAuthServiceImpl @Inject constructor(
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
+    private val credentialManager: CredentialManager
 ) : AuthService {
     @Deprecated(
         "Use getCurrentUserFlow instead for a global StateFlow of the user data"
@@ -47,11 +48,11 @@ class FirebaseAuthServiceImpl @Inject constructor(
 
     override val isSignedInFlow: Flow<Boolean> = userFlow.map { it != null }
 
-    override suspend fun Context.signOut() {
+    override suspend fun signOut() {
         auth.signOut()
         try {
             val clearRequest = ClearCredentialStateRequest()
-            CredentialManager.create(this).clearCredentialState(clearRequest)
+            credentialManager.clearCredentialState(clearRequest)
         } catch (e: ClearCredentialException) {
             Log.e(
                 this@FirebaseAuthServiceImpl.TAG,
@@ -68,7 +69,8 @@ class FirebaseAuthServiceImpl @Inject constructor(
         credentialOptions: List<CredentialOption>
     ): Boolean = auth.signInWithGoogleCredentials(
         context = this,
-        credentialOptions = credentialOptions
+        credentialOptions = credentialOptions,
+        credentialManager = credentialManager
     ).user != null
 
     override suspend fun register(email: String, password: String): Boolean =

@@ -193,11 +193,9 @@ class AccountFragment :
             setTitle(R.string.account_sign_out_dialog_title)
             setNegativeButton(CommonR.string.dialog_action_cancel) { dialog, _ -> dialog.dismiss() }
             setPositiveButton(R.string.dialog_action_sign_out) { dialog, _ ->
-                with(authService) {
-                    lifecycleScope.launch {
-                        requireContext().signOut()
-                        showToast(R.string.account_log_out_success_msg, Toast.LENGTH_SHORT)
-                    }
+                lifecycleScope.launch {
+                    authService.signOut()
+                    showToast(R.string.account_log_out_success_msg, Toast.LENGTH_SHORT)
                 }
                 dialog.dismiss()
             }

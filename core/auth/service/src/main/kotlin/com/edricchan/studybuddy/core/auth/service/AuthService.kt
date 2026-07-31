@@ -30,8 +30,8 @@ interface AuthService {
     /** Whether the user is signed in, as a observable [Flow]. */
     val isSignedInFlow: Flow<Boolean>
 
-    /** Signs out the user with the receiver [Context]. */
-    suspend fun Context.signOut()
+    /** Signs out the current user. */
+    suspend fun signOut()
 
     /**
      * Signs in the user with the given [email] and [password].
