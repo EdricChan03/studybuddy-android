@@ -28,6 +28,7 @@ import androidx.transition.TransitionManager
 import com.edricchan.studybuddy.BuildConfig
 import com.edricchan.studybuddy.R
 import com.edricchan.studybuddy.constants.MimeTypeConstants
+import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.core.compat.navigation.CompatDestination
 import com.edricchan.studybuddy.core.compat.navigation.about.navigateToAbout
 import com.edricchan.studybuddy.core.compat.navigation.navigateToCalendar
@@ -52,11 +53,10 @@ import com.edricchan.studybuddy.ui.common.fab.setupFabController
 import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
 import com.edricchan.studybuddy.utils.android.fromApi
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
-import com.edricchan.studybuddy.utils.firebase.setCrashlyticsTracking
+import com.edricchan.studybuddy.utils.firebase.enableCrashlyticsTracking
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -67,10 +67,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener {
     @Inject
-    lateinit var auth: FirebaseAuth
+    lateinit var messaging: FirebaseMessaging
 
     @Inject
-    lateinit var messaging: FirebaseMessaging
+    lateinit var authService: AuthService
 
     private lateinit var binding: ActivityMainBinding
 
@@ -153,15 +153,15 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
     override fun onStart() {
         super.onStart()
-        auth.currentUser?.let { user ->
+        authService.currentUser?.let { user ->
             val crashlyticsTrackingEnabled = defaultSharedPreferences
                 .getBoolean(keyPrefEnableUserTracking, false) &&
                 !BuildConfig.DEBUG
-            user.setCrashlyticsTracking(
+            user.enableCrashlyticsTracking(
                 enabled = crashlyticsTrackingEnabled
             )
             // User-specific topic
-            messaging.subscribeToTopic("user_${user.uid}")
+            messaging.subscribeToTopic("user_${user.id}")
         }
 
         // By default, subscribe to the "topic_all" topic
@@ -297,11 +297,11 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
                 }
             }
 
-            auth.currentUser?.let {
+            authService.currentUser?.let {
                 isLoggedIn = true
                 displayName = it.displayName
                 email = it.email
-                photoUrl = it.photoUrl
+                photoUrl = it.photoUri
             }
 
             navigationViewCheckedItemId = navViewIdsMap.entries
@@ -312,7 +312,7 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
     @SuppressLint("RestrictedApi") // For generateHashCode
     private fun NavController.initNavGraph() {
-        val isLoggedIn = auth.currentUser != null
+        val isLoggedIn = authService.currentUser != null
         graph = createGraph(
             if (isLoggedIn) TaskDestination.TaskGraphRoot
             else AuthDestination.AuthGatewayGraphRoot
