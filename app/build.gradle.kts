@@ -96,6 +96,7 @@ dependencies {
     implementation(projects.core.auth.gms)
     implementation(projects.core.compat.navigation)
     implementation(projects.core.deeplink)
+    implementation(projects.core.di)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
     implementation(projects.core.settings.tasks.model)
