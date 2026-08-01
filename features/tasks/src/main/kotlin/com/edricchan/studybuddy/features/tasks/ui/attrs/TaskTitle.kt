@@ -103,6 +103,7 @@ fun TaskTitleListItem(
  * parameter for more info.
  * @param isArchived Whether the [Checkbox] should be disabled.
  * @param colors Colours to be used for the [ListItem].
+ * @param shapes [ListItemShapes] to be used for the [ListItem].
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -114,6 +115,7 @@ fun TaskTitleWithCheckboxListItem(
     onDoneChange: (Boolean) -> Unit,
     isArchived: Boolean = false,
     colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes()
 ) {
     val stateCompleted = stringResource(R.string.view_task_done_content_desc)
     val stateIncomplete = stringResource(R.string.view_task_undone_content_desc)
@@ -132,7 +134,8 @@ fun TaskTitleWithCheckboxListItem(
                 checked = isDone, onCheckedChange = null, enabled = !isArchived
             )
         },
-        colors = colors
+        colors = colors,
+        shapes = shapes
     )
 }
 
