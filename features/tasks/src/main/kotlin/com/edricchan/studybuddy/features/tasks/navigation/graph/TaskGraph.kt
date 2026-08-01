@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.fragment.fragment
 import androidx.navigation.navigation
-import com.edricchan.studybuddy.features.tasks.compat.ui.fragment.TaskDetailFragment
 import com.edricchan.studybuddy.features.tasks.create.ui.compat.NewTaskFragment
+import com.edricchan.studybuddy.features.tasks.detail.ui.compat.TaskDetailFragment
 import com.edricchan.studybuddy.features.tasks.edit.ui.compat.EditTaskFragment
 import com.edricchan.studybuddy.features.tasks.list.ui.compat.TaskListFragment
 import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination

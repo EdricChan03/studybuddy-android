@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.vm
+package com.edricchan.studybuddy.features.tasks.detail.vm
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle

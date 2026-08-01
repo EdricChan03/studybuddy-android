@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.compat.ui.fragment
+package com.edricchan.studybuddy.features.tasks.detail.ui.compat
 
 import android.os.Bundle
 import android.util.Log
@@ -18,9 +18,9 @@ import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.databinding.FragTaskDetailBinding
 import com.edricchan.studybuddy.features.tasks.detail.data.mapCurrentTask
 import com.edricchan.studybuddy.features.tasks.detail.data.state.TaskDetailState
+import com.edricchan.studybuddy.features.tasks.detail.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.edricchan.studybuddy.features.tasks.navigation.navigateToEditTask
-import com.edricchan.studybuddy.features.tasks.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
