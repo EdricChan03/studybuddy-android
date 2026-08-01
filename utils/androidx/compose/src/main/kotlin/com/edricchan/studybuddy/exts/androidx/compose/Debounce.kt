@@ -19,10 +19,10 @@ import kotlin.time.Duration.Companion.milliseconds
  * @return Wrapped lambda to be used in code where a lambda is expected.
  */
 @Composable
-inline fun debounced(
+fun debounced(
     debounceTime: Duration = 500.milliseconds,
-    crossinline getElapsedRealTimeMillis: () -> Long = SystemClock::elapsedRealtime,
-    crossinline onClick: () -> Unit
+    getElapsedRealTimeMillis: () -> Long = SystemClock::elapsedRealtime,
+    onClick: () -> Unit
 ): () -> Unit {
     var lastClickTime by remember { mutableLongStateOf(getElapsedRealTimeMillis()) }
     return {
