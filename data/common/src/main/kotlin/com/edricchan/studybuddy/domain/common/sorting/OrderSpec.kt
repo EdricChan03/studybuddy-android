@@ -18,7 +18,7 @@ fun SortDirection.toFirestoreDirection(): Query.Direction = when (this) {
 }
 
 /** Returns the inverse of the receiver [SortDirection]. */
-fun SortDirection.inverse(): SortDirection = when (this) {
+fun SortDirection.reversed(): SortDirection = when (this) {
     SortDirection.Descending -> SortDirection.Ascending
     SortDirection.Ascending -> SortDirection.Descending
 }
