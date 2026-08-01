@@ -7,6 +7,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,6 +37,7 @@ import java.time.LocalDateTime
  * @param dueDate The [TaskItem]'s due-date as a [LocalDateTime].
  * @param formatDate Lambda used to format the [dueDate] to its string form.
  * @param colors Colours to be used for the [ListItem].
+ * @param shapes [ListItemShapes] to be used for the [ListItem].
  */
 @Composable
 fun TaskDueDateListItem(
@@ -44,12 +46,14 @@ fun TaskDueDateListItem(
     formatDate: @Composable (LocalDateTime) -> String = {
         it.appFormat()
     },
-    colors: ListItemColors = ListItemDefaults.colors()
+    colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes()
 ) = ListItem(
     modifier = modifier,
     content = { Text(text = formatDate(dueDate)) },
     leadingContent = { Icon(AppIcons.Outlined.CalendarClock, contentDescription = null) },
-    colors = colors
+    colors = colors,
+    shapes = shapes
 )
 
 /**
@@ -58,18 +62,21 @@ fun TaskDueDateListItem(
  * @param dueDate The [TaskItem]'s due-date as an [Instant].
  * @param formatDate Lambda used to format the [dueDate] to its string form.
  * @param colors Colours to be used for the [ListItem].
+ * @param shapes [ListItemShapes] to be used for the [ListItem].
  */
 @Composable
 fun TaskDueDateListItem(
     modifier: Modifier = Modifier,
     dueDate: Instant,
     formatDate: (Instant) -> String = TaskDateDefaults.FormatInstantFn,
-    colors: ListItemColors = ListItemDefaults.colors()
+    colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes()
 ) = ListItem(
     modifier = modifier,
     content = { Text(text = formatDate(dueDate)) },
     leadingContent = { Icon(AppIcons.Outlined.CalendarClock, contentDescription = null) },
-    colors = colors
+    colors = colors,
+    shapes = shapes
 )
 
 @Preview
