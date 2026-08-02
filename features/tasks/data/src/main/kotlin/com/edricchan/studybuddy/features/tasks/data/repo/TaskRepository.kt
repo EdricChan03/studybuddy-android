@@ -60,13 +60,6 @@ class TaskRepository @Inject constructor(
         source.removeById(id)
     }
 
-    /** Updates the list of tasks (given by [ids]) with the specified [data]. */
-    suspend fun updateTasks(ids: Set<String>, data: Map<String, Any?>) {
-        source.runBatch {
-            updateAll(ids, data)
-        }
-    }
-
     //#region New ITaskRepository interface implementations
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun observeTaskById(id: String): Flow<TaskItem?> {
@@ -134,15 +127,26 @@ class TaskRepository @Inject constructor(
         source.update(id, valueMap.mapKeys { it.key.toDto().fieldName })
     }
 
+    private suspend fun Array<out TaskItem.FieldValue<*>>.toUpdateDto(): Map<String, Any?> =
+        fold(emptyMap()) { acc, fieldValue ->
+            context(source, projectsSource) {
+                acc + fieldValue.toDto().toMap()
+            }
+        }
+
     override suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>) {
         source.update(
             id = id,
-            data = values.fold(emptyMap()) { acc, fieldValue ->
-                context(source, projectsSource) {
-                    acc + fieldValue.toDto().toMap()
-                }
-            }
+            data = values.toUpdateDto()
         )
+    }
+
+    override suspend fun updateTasks(ids: Set<String>, vararg values: TaskItem.FieldValue<*>) {
+        val updatedData = values.toUpdateDto()
+
+        source.runBatch {
+            updateAll(ids, updatedData)
+        }
     }
 
     override suspend fun deleteTaskById(id: String) {

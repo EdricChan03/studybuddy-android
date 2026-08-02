@@ -29,6 +29,9 @@ interface ITaskRepository {
     /** Updates the specified task with the given list of [values]. */
     suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>)
 
+    /** Update the specified tasks with the given list of [values]. */
+    suspend fun updateTasks(ids: Set<String>, vararg values: TaskItem.FieldValue<*>)
+
     /** Deletes the specified task from the database. */
     suspend fun deleteTaskById(id: String)
 
