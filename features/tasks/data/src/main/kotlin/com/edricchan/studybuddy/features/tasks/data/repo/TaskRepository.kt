@@ -60,13 +60,6 @@ class TaskRepository @Inject constructor(
         source.removeById(id)
     }
 
-    /** Bulk removes the specified list of tasks by their [ids]. */
-    suspend fun removeTasks(ids: Set<String>) {
-        source.runBatch {
-            deleteAll(ids)
-        }
-    }
-
     /** Updates the list of tasks (given by [ids]) with the specified [data]. */
     suspend fun updateTasks(ids: Set<String>, data: Map<String, Any?>) {
         source.runBatch {
@@ -157,7 +150,9 @@ class TaskRepository @Inject constructor(
     }
 
     override suspend fun deleteTasksById(taskIds: Set<String>) {
-        removeTasks(taskIds)
+        source.runBatch {
+            deleteAll(taskIds)
+        }
     }
     //#endregion
 }
