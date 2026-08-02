@@ -67,12 +67,6 @@ class TaskRepository @Inject constructor(
         }
     }
 
-    /** Update the task (given its [id]) with the specified [data]. */
-    @JvmName("updateTaskRawKeys")
-    suspend fun updateTask(id: String, data: Map<String, Any?>) {
-        source.update(id, data)
-    }
-
     /** Updates the list of tasks (given by [ids]) with the specified [data]. */
     suspend fun updateTasks(ids: Set<String>, data: Map<String, Any?>) {
         source.runBatch {
