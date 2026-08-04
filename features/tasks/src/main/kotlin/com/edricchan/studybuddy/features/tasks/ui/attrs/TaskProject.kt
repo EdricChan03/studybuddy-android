@@ -19,6 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -27,6 +30,7 @@ import com.edricchan.studybuddy.data.common.compose.toComposeColor
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
+import com.edricchan.studybuddy.utils.compose.graphics.preview.ColorPreviewParameterProvider
 
 /**
  * Displays a [CircleShape] surface with the specified [color].
@@ -118,11 +122,25 @@ fun TaskProjectListItem(
 )
 
 @Preview(showBackground = true)
-@Composable
+@PreviewDynamicColors
+@PreviewLightDark
 @PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
 private fun TaskProjectRowPreview() {
     TaskProjectListItem(
         color = Color(red = 0xFF, green = 0xFF, blue = 0x00),
+        name = "StudyBuddy - Compose Rewrite"
+    )
+}
+
+@Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
+private fun TaskProjectColorsPreview(
+    @PreviewParameter(ColorPreviewParameterProvider::class) color: Color
+) {
+    TaskProjectListItem(
+        color = color,
         name = "StudyBuddy - Compose Rewrite"
     )
 }
