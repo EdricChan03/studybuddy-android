@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.features.tasks.ui.attrs
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -57,6 +58,8 @@ fun TaskContentMarkdownText(
  * @param content The task's content.
  * @param shouldRenderAsMarkdown Whether the [TaskContentMarkdownText] composable should be used
  * to render the [content].
+ * @param colors [ListItemColors] for the [ListItem].
+ * @param shapes [ListItemShapes] for the [ListItem].
  */
 @Composable
 fun TaskContentListItem(
@@ -64,10 +67,11 @@ fun TaskContentListItem(
     textModifier: Modifier = Modifier,
     content: String,
     shouldRenderAsMarkdown: Boolean = true,
-    colors: ListItemColors = ListItemDefaults.colors()
+    colors: ListItemColors = ListItemDefaults.colors(),
+    shapes: ListItemShapes = ListItemDefaults.shapes()
 ) = ListItem(
     modifier = modifier,
-    headlineContent = {
+    content = {
         if (shouldRenderAsMarkdown) {
             TaskContentMarkdownText(
                 modifier = textModifier,
@@ -77,7 +81,8 @@ fun TaskContentListItem(
             TaskContentRawText(modifier = textModifier, text = content)
         }
     },
-    colors = colors
+    colors = colors,
+    shapes = shapes
 )
 
 @Preview(showBackground = true)
