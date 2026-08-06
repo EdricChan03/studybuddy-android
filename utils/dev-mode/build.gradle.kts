@@ -1,5 +1,5 @@
 plugins {
-    com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`android-compose`
 }
 
 android {
@@ -10,6 +10,9 @@ android {
 
 dependencies {
     implementation(projects.exts.androidx.preference)
+
+    api(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.ui)
 
     implementation(libs.androidx.core.ktx)
     api(libs.flowPreferences)
