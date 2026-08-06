@@ -10,12 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
-import com.edricchan.studybuddy.exts.firebase.toTimestamp
 import com.edricchan.studybuddy.exts.material.picker.setCalendarConstraints
 import com.edricchan.studybuddy.exts.material.picker.setSelection
 import com.edricchan.studybuddy.exts.material.picker.setStart
 import com.edricchan.studybuddy.exts.material.picker.showMaterialDatePicker
-import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.exts.material.textfield.inputValue
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.databinding.FragEditTaskBinding
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
@@ -25,7 +24,6 @@ import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.utils.androidx.core.menuProvider
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -151,27 +149,19 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
         menuResId = R.menu.menu_edit_task,
     ) { item ->
         if (item.itemId == R.id.action_save) {
-            val taskItemUpdates = buildMap<TaskItem.Field, Any> {
-                binding.also {
-                    if (it.textInputTitle.editTextStrValue != taskItem.title) {
-                        this[TaskItem.Field.Title] = it.textInputTitle.editTextStrValue
-                    }
-                    if (it.textInputContent.editTextStrValue != taskItem.content) {
-                        this[TaskItem.Field.Content] = it.textInputContent.editTextStrValue
-                    }
-                    this[TaskItem.Field.IsCompleted] = it.checkboxMarkAsDone.isChecked
-                    this[TaskItem.Field.Tags] = it.textInputTags.editTextStrValue.split(
-                        Regex("""\s*,\s*""")
-                    ).filter(String::isNotBlank)
-                }
-                taskInstant?.let {
-                    if (taskItem.dueDate != it) {
-                        this[TaskItem.Field.DueDate] = it.toTimestamp()
-                    }
-                    // When taskInstant is set to null, this means that the user
-                    // wants to clear the due-date of the item
-                } ?: run {
-                    this[TaskItem.Field.DueDate] = FieldValue.delete()
+            val taskItemUpdates = buildList {
+                binding.textInputTitle.inputValue.takeIf { it != taskItem.title }
+                    ?.let { this += TaskItem.FieldValue.Title(it) }
+                binding.textInputContent.inputValue.takeIf { it != taskItem.content }
+                    ?.let { this += TaskItem.FieldValue.Content(it) }
+                binding.checkboxMarkAsDone.isChecked.takeIf { it != taskItem.isCompleted }
+                    ?.let { this += TaskItem.FieldValue.IsCompleted(it) }
+                binding.textInputTags.inputValue?.split(Regex("""\s*,\s*"""))
+                    ?.filter(String::isNotBlank)
+                    ?.takeIf { it != taskItem.tags }
+                    ?.let { this += TaskItem.FieldValue.Tags(it.toSet()) }
+                taskInstant?.takeIf { it != taskItem.dueDate }?.let {
+                    this += TaskItem.FieldValue.DueDate(it)
                 }
             }
 

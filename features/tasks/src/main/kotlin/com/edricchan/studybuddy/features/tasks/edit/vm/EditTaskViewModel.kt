@@ -38,12 +38,12 @@ class EditTaskViewModel @Inject constructor(
         )
 
     fun updateTask(
-        data: Map<TaskItem.Field, Any>,
+        data: List<TaskItem.FieldValue<*>>,
         onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         viewModelScope.launch {
-            repo.runCatching { updateTask(taskId, data) }
+            repo.runCatching { updateTask(taskId, *data.toTypedArray()) }
                 .onSuccess { onSuccess() }
                 .onFailure(onFailure)
         }
