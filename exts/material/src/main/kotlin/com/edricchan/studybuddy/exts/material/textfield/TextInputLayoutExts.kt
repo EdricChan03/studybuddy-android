@@ -11,9 +11,17 @@ var TextInputLayout.editTextValue: Editable?
     }
 
 /** The [TextInputLayout]'s [android.widget.EditText] value as a [String]. */
+@Deprecated("Use the inputText extension variable instead")
 var TextInputLayout.editTextStrValue: String
     // TODO: Remove orEmpty() when usages have migrated to nullable String
     get() = this.editText?.text?.toString().orEmpty()
+    set(value) {
+        this.editText?.setText(value)
+    }
+
+/** The [TextInputLayout]'s value as a nullable [String]. */
+var TextInputLayout.inputValue: String?
+    get() = this.editText?.text?.toString()
     set(value) {
         this.editText?.setText(value)
     }
