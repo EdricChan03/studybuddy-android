@@ -30,6 +30,7 @@ import com.edricchan.studybuddy.utils.dev.DevModePrefConstants
 import com.edricchan.studybuddy.utils.web.launchUri
 import java.time.Instant
 import kotlin.properties.Delegates
+import com.edricchan.studybuddy.utils.dev.R as DevR
 
 internal fun MaterialAboutCard(init: MaterialAboutCard.Builder.() -> Unit): MaterialAboutCard =
     MaterialAboutCard.Builder().apply(init).build()
@@ -133,8 +134,8 @@ class AboutFragment : MaterialAboutFragment() {
                 // Add 1 count back
                 devHitCountdown++
                 requireContext().showMaterialAlertDialog {
-                    setTitle(R.string.dev_mode_confirm_enable_dialog_title)
-                    setMessage(R.string.dev_mode_confirm_enable_dialog_msg)
+                    setTitle(DevR.string.dev_mode_confirm_enable_dialog_title)
+                    setMessage(DevR.string.dev_mode_confirm_enable_dialog_msg)
                     setNeutralButton(R.string.dialog_action_cancel, null)
                     setNegativeButton(R.string.dialog_action_disable) { dialog, _ ->
                         devModeOptions.edit {
@@ -143,7 +144,7 @@ class AboutFragment : MaterialAboutFragment() {
                                 false
                             )
                             showToast(
-                                R.string.dev_mode_disabled,
+                                DevR.string.dev_mode_disabled,
                                 Toast.LENGTH_SHORT
                             )
                         }
@@ -156,7 +157,7 @@ class AboutFragment : MaterialAboutFragment() {
                                 true
                             )
                             showToast(
-                                R.string.dev_mode_on,
+                                DevR.string.dev_mode_on,
                                 Toast.LENGTH_SHORT
                             )
                         }
@@ -166,14 +167,14 @@ class AboutFragment : MaterialAboutFragment() {
             } else if (devHitCountdown > 0 && devHitCountdown < (tapsToDev - 2)) {
                 showToast(
                     requireContext().resources.getQuantityString(
-                        R.plurals.dev_mode_countdown, devHitCountdown,
+                        DevR.plurals.dev_mode_countdown, devHitCountdown,
                         devHitCountdown
                     ), Toast.LENGTH_SHORT
                 )
             }
         } else if (devHitCountdown < 0) {
             showToast(
-                R.string.dev_mode_already,
+                DevR.string.dev_mode_already,
                 Toast.LENGTH_LONG
             )
         }
