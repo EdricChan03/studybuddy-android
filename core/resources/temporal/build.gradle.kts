@@ -1,5 +1,5 @@
 plugins {
-    com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`android-compose`
 }
 
 android {
@@ -26,6 +26,8 @@ dependencies {
     api(projects.exts.datetime)
     api(projects.core.resources)
     implementation(projects.utils.android)
+
+    api(libs.androidx.compose.runtime)
 
     implementation(libs.androidx.core.ktx)
 
