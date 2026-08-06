@@ -102,6 +102,9 @@ dependencies {
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
+    // Dagger
+    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
+
     // Migration
     implementation(libs.migration)
 
