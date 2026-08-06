@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Content description for the loading indicator when a task's details are being loaded. -->
+    <string name="task_detail_status_loading_content_desc">Loading task\'s contents…</string>
+
+    <!-- Title text to be shown when a task's details could not be loaded as an error occurred. -->
+    <string name="task_detail_status_error_title">Could not load task details</string>
+    <!-- Subtitle text to be shown when a task's details could not be loaded as an error occurred. -->
+    <string name="task_detail_status_error_subtitle">There was a problem trying to load the task\'s details. Try again later</string>
+    <!-- Title text to be shown when no such task exists. -->
+    <string name="task_detail_status_no_data_title">Task not found</string>
+    <!-- Subtitle text to be shown when no such task exists. -->
+    <string name="task_detail_status_no_data_subtitle">The task you are trying to view does not exist</string>
+</resources>
