@@ -50,6 +50,7 @@ import com.edricchan.studybuddy.ui.widgets.compose.markdown.SampleMarkdownText
 import com.edricchan.studybuddy.utils.compose.graphics.preview.LightColors
 import com.edricchan.studybuddy.utils.compose.material3.list.SegmentedListColumn
 import com.edricchan.studybuddy.utils.dev.compose.isAppDevMode
+import java.time.Duration
 import java.time.Instant
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
@@ -226,7 +227,7 @@ private fun TaskDetailColumnPreview() {
         projectName = "StudyBuddy Compose Rewrite",
         projectColor = LightColors.first(),
         tags = setOf("compose", "rewrite", "studybuddy"),
-        dueDate = Instant.now(),
+        dueDate = Instant.now() + Duration.ofDays(7),
         isCompleted = isCompleted,
         onCompletedChange = setCompleted,
         createdAt = Instant.now(),
