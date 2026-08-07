@@ -104,6 +104,7 @@ include(
     ":ui:widgets:compose:markdown-viewer",
     ":ui:widgets:compose:navigation",
     ":ui:widgets:compose:option-bottom-sheet",
+    ":ui:widgets:compose:segmented-list",
     ":ui:widgets:modal-bottom-sheet",
     ":core:auth:model",
     ":core:auth:ui:common",

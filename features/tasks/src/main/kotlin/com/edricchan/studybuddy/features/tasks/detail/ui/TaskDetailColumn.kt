@@ -46,9 +46,9 @@ import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTagsListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleWithCheckboxListItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.IconButtonWithTooltip
+import com.edricchan.studybuddy.ui.widgets.compose.list.segmented.SegmentedListColumn
 import com.edricchan.studybuddy.ui.widgets.compose.markdown.SampleMarkdownText
 import com.edricchan.studybuddy.utils.compose.graphics.preview.LightColors
-import com.edricchan.studybuddy.utils.compose.material3.list.SegmentedListColumn
 import com.edricchan.studybuddy.utils.dev.compose.isAppDevMode
 import java.time.Duration
 import java.time.Instant

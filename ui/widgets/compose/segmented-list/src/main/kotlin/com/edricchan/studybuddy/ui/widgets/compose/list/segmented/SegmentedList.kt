@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.utils.compose.material3.list
+package com.edricchan.studybuddy.ui.widgets.compose.list.segmented
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,8 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.edricchan.studybuddy.utils.compose.material3.list.SegmentedListItemPosition
+import com.edricchan.studybuddy.utils.compose.material3.list.segmentedShapes
 
 private sealed interface SegmentedItemData {
     @Composable
