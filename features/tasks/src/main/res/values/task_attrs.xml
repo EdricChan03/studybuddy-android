@@ -8,4 +8,7 @@
     (TODO: Remove when the `name` field is required)
     -->
     <string name="task_attr_project_name_default">&lt;No project name&gt;</string>
+
+    <!-- Default title to use for tasks that do not have a title. -->
+    <string name="task_attr_title_name_default">&lt;No title&gt;</string>
 </resources>
