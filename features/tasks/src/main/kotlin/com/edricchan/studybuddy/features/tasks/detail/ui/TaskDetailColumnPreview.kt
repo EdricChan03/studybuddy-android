@@ -36,6 +36,7 @@ private fun TaskColumnPreview(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
+        taskId = "testing",
         title = "Finish Compose rewrite",
         content = SampleMarkdownText,
         projectName = "StudyBuddy Compose Rewrite",
@@ -43,6 +44,9 @@ private fun TaskColumnPreview(
         tags = setOf("compose", "rewrite", "studybuddy"),
         dueDate = Instant.now(),
         isCompleted = isCompleted,
-        onCompletedChange = setCompleted
+        onCompletedChange = setCompleted,
+        createdAt = Instant.now(),
+        lastModifiedAt = Instant.now(),
+        onRequestCopyText = { /* no-op */ }
     )
 }

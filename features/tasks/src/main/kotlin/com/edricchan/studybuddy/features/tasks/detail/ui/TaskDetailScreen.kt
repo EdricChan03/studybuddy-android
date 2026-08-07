@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.features.tasks.detail.ui
 
+import android.content.ClipData
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -19,8 +20,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -37,6 +41,7 @@ import com.edricchan.studybuddy.features.tasks.detail.data.state.TaskDetailState
 import com.edricchan.studybuddy.features.tasks.detail.vm.TaskDetailViewModel
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.utils.compose.foundation.layout.CenteredBox
+import kotlinx.coroutines.launch
 
 @Composable
 fun TaskDetailScreen(
@@ -46,6 +51,14 @@ fun TaskDetailScreen(
     state: TaskDetailState,
     onCompletedChange: (Boolean) -> Unit
 ) {
+    val clipboard = LocalClipboard.current
+    val scope = rememberCoroutineScope()
+    fun onCopyText(text: String) {
+        scope.launch {
+            clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(text, text)))
+        }
+    }
+
     Crossfade(
         modifier = modifier,
         targetState = state
@@ -72,7 +85,8 @@ fun TaskDetailScreen(
                         .windowInsetsPadding(windowInsets),
                     task = state.item,
                     project = state.item.project,
-                    onCompletedChange = onCompletedChange
+                    onCompletedChange = onCompletedChange,
+                    onRequestCopyText = ::onCopyText
                 )
             }
         }

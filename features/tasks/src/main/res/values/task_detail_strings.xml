@@ -11,4 +11,8 @@
     <string name="task_detail_status_no_data_title">Task not found</string>
     <!-- Subtitle text to be shown when no such task exists. -->
     <string name="task_detail_status_no_data_subtitle">The task you are trying to view does not exist</string>
+
+    <!-- Text for a task's timestamp metadata list item.
+    This string resource takes in two arguments: the creation date and last modified date. -->
+    <string name="task_detail_timestamp_metadata_item_text">Created at: %1$s\nLast modified at: %2$s</string>
 </resources>
