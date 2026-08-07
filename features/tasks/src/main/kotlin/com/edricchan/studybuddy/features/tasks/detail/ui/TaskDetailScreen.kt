@@ -110,7 +110,7 @@ private fun TaskDetailScreenLoadingState(
     BoxWithConstraints(
         modifier = Modifier.padding(contentPadding)
     ) {
-        val indicatorSize = (maxWidth * 0.2f)
+        val indicatorSize = (maxWidth * 0.15f)
             .coerceIn(32.dp, 144.dp)
 
         val indicatorDesc = stringResource(R.string.task_detail_status_loading_content_desc)
