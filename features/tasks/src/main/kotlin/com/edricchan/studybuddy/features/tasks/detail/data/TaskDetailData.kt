@@ -24,6 +24,16 @@ interface TaskDetailData {
         return currentTaskStateFlow.filterIsInstance<TaskDetailState.Success>()
             .first().item
     }
+
+    /**
+     * Retrieves the current [TaskItem] or `null` if the current
+     * [currentTaskStateFlow] is not [TaskDetailState.Success].
+     */
+    val currentTaskOrNull: TaskItem?
+        get() = when (val state = currentTaskStateFlow.value) {
+            is TaskDetailState.Success -> state.item
+            else -> null
+        }
 }
 
 /**
