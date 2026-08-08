@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "713563449638-gggnni9rfc1t3uqlgig8k2gpqjlnvhhp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edricchan.studybuddy",
+            "certificate_hash": "df7410b7def2c99803b8b92cf2e0ac07af7580bd"
+          }
+        },
+        {
           "client_id": "713563449638-sc1up855asm687s55f8qi4bdrh0u18tc.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -36,7 +44,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "713563449638-nkd6qqv4tp2ps34fhre3de9rvn4ra7mr.apps.googleusercontent.com",
+              "client_id": "713563449638-ls1bh6e8a2jsf05v9dg62cmg2697tilb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -81,7 +89,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "713563449638-nkd6qqv4tp2ps34fhre3de9rvn4ra7mr.apps.googleusercontent.com",
+              "client_id": "713563449638-ls1bh6e8a2jsf05v9dg62cmg2697tilb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -96,6 +104,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "713563449638-42j2ierljat0bjpjkiq1e2tvoh4sq9dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edricchan.studybuddy.debug",
+            "certificate_hash": "0a1873a45353f78b407b791640aab7d242f76426"
+          }
+        },
         {
           "client_id": "713563449638-gfnl8u2s2ttgm1ksiasr2abd34unu9h8.apps.googleusercontent.com",
           "client_type": 1,
@@ -126,7 +142,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "713563449638-nkd6qqv4tp2ps34fhre3de9rvn4ra7mr.apps.googleusercontent.com",
+              "client_id": "713563449638-ls1bh6e8a2jsf05v9dg62cmg2697tilb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -163,7 +179,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "713563449638-nkd6qqv4tp2ps34fhre3de9rvn4ra7mr.apps.googleusercontent.com",
+              "client_id": "713563449638-ls1bh6e8a2jsf05v9dg62cmg2697tilb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
