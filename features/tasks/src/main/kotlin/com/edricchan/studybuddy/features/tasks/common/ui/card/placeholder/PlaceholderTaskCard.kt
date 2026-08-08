@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
-import com.valentinilk.shimmer.shimmer
 
 /**
  * [TaskCard][com.edricchan.studybuddy.features.tasks.common.ui.card.TaskCard] composable for
@@ -32,7 +31,7 @@ import com.valentinilk.shimmer.shimmer
 @Composable
 internal fun PlaceholderTaskCard(modifier: Modifier = Modifier) {
     OutlinedCard(
-        modifier = modifier.shimmer()
+        modifier = modifier
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
