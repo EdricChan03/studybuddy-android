@@ -29,7 +29,7 @@ jobs:
           distribution: temurin
       # See https://github.com/actions/runner-images/issues/6283
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@1f8e202ffddf94def7f42f6fa3a482e821489f9c
+        uses: Homebrew/actions/setup-homebrew@9af03b7ae3f9e2ae5c174f659d5c3909f7e7dbac
       - name: Install Homebrew dependencies
         run: brew bundle
         shell: bash
