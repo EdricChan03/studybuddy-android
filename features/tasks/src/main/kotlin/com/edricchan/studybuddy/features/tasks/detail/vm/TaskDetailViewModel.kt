@@ -1,6 +1,9 @@
 package com.edricchan.studybuddy.features.tasks.detail.vm
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +21,6 @@ import com.edricchan.studybuddy.features.tasks.navigation.TaskDestination
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.snackbar.SnackBarController
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -74,8 +76,8 @@ class TaskDetailViewModel @Inject constructor(
         }
     }
 
-    val pendingDelete: StateFlow<Boolean>
-        field = MutableStateFlow(false)
+    var hasPendingDelete by mutableStateOf(false)
+        private set
 
     suspend fun deleteTask() {
         repo.deleteTaskById(currentTaskId)
@@ -89,7 +91,7 @@ class TaskDetailViewModel @Inject constructor(
                 // setTaskData method would have triggered immediately with an emitted NoData
                 // state after the task is deleted, which would navigate away before it
                 // could ever trigger
-                pendingDelete.value = true
+                hasPendingDelete = true
                 deleteTask()
             } catch (e: Exception) {
                 showSnackBar(
@@ -128,4 +130,17 @@ class TaskDetailViewModel @Inject constructor(
             }
         }
     }
+
+    //#region UI state logic
+    var isConfirmDeleteDialogShown by mutableStateOf(false)
+        private set
+
+    fun showConfirmDeleteDialog() {
+        isConfirmDeleteDialogShown = true
+    }
+
+    fun dismissConfirmDeleteDialog() {
+        isConfirmDeleteDialogShown = false
+    }
+    //#endregion
 }
