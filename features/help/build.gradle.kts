@@ -29,6 +29,7 @@ android {
 
 dependencies {
     // Project dependencies
+    api(projects.core.di.qualifiers)
     implementation(projects.ui.common)
     implementation(projects.ui.widgets.compose)
     implementation(projects.ui.theming.compose)

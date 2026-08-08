@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.core.di.coroutines.qualifier
+package com.edricchan.studybuddy.core.di.qualifiers.coroutines
 
 import javax.inject.Qualifier
 

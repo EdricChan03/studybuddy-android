@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.core.di
 
 import android.content.Context
+import com.edricchan.studybuddy.core.di.qualifiers.http.ContentNegotiationJsonHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,11 +14,6 @@ import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.cache.storage.FileStorage
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
-import javax.inject.Qualifier
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class ContentNegotiationJsonHttpClient
 
 val Context.defaultCacheStorage get() = FileStorage(cacheDir.resolve("ktor"))
 

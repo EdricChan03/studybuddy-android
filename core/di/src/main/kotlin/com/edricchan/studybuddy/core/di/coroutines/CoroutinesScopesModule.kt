@@ -1,7 +1,7 @@
 package com.edricchan.studybuddy.core.di.coroutines
 
-import com.edricchan.studybuddy.core.di.coroutines.qualifier.ApplicationScope
-import com.edricchan.studybuddy.core.di.coroutines.qualifier.DefaultDispatcher
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.ApplicationScope
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.DefaultDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

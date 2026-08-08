@@ -1,9 +1,9 @@
 package com.edricchan.studybuddy.core.di.coroutines
 
-import com.edricchan.studybuddy.core.di.coroutines.qualifier.DefaultDispatcher
-import com.edricchan.studybuddy.core.di.coroutines.qualifier.IoDispatcher
-import com.edricchan.studybuddy.core.di.coroutines.qualifier.MainDispatcher
-import com.edricchan.studybuddy.core.di.coroutines.qualifier.MainImmediateDispatcher
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.DefaultDispatcher
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.IoDispatcher
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.MainDispatcher
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.MainImmediateDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

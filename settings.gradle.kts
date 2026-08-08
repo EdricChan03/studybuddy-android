@@ -115,6 +115,7 @@ include(
     ":core:compat:navigation",
     ":core:deeplink",
     ":core:di",
+    ":core:di:qualifiers",
     ":core:resources",
     ":core:resources:icons:common",
     ":core:resources:icons",

@@ -1,6 +1,6 @@
 package com.edricchan.studybuddy.features.help.data.api
 
-import com.edricchan.studybuddy.core.di.ContentNegotiationJsonHttpClient
+import com.edricchan.studybuddy.core.di.qualifiers.http.ContentNegotiationJsonHttpClient
 import com.edricchan.studybuddy.features.help.constants.urlHelpFeatured
 import com.edricchan.studybuddy.features.help.data.model.HelpArticle
 import com.edricchan.studybuddy.features.help.data.model.HelpArticles

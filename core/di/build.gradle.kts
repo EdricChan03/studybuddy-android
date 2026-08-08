@@ -26,6 +26,7 @@ android {
 }
 
 dependencies {
+    api(projects.core.di.qualifiers)
     implementation(projects.exts.androidx.preference)
     implementation(projects.exts.firebase.core)
 
