@@ -1,5 +1,6 @@
 package com.edricchan.studybuddy.core.settings.tasks.repo
 
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.ApplicationScope
 import com.edricchan.studybuddy.core.settings.tasks.model.DefaultTaskOrdering
 import com.edricchan.studybuddy.core.settings.tasks.model.TaskConfirmationOptions
 import com.edricchan.studybuddy.core.settings.tasks.model.TaskDefaultDataOptions
@@ -10,13 +11,21 @@ import com.edricchan.studybuddy.core.settings.tasks.model.TaskSwipeActionOptions
 import com.edricchan.studybuddy.core.settings.tasks.model.field.TaskField
 import com.edricchan.studybuddy.core.settings.tasks.source.TasksSettingsDataSource
 import com.edricchan.studybuddy.domain.common.sorting.SortDirection
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class TasksSettingsRepository @Inject constructor(
-    private val dataSource: TasksSettingsDataSource
+    private val dataSource: TasksSettingsDataSource,
+    @ApplicationScope private val coroutineScope: CoroutineScope
 ) {
-    val filterOptions: Flow<TaskFilterOptions> by dataSource::filterOptions
+    val filterOptions: StateFlow<TaskFilterOptions> = dataSource.filterOptions.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = TaskFilterOptions()
+    )
 
     suspend fun setFilterOptions(options: TaskFilterOptions) {
         dataSource.setFilterOptions(options)
@@ -76,7 +85,13 @@ class TasksSettingsRepository @Inject constructor(
         setOrdering(DefaultTaskOrdering)
     }
 
-    val swipeActionOptions: Flow<TaskSwipeActionOptions> by dataSource::swipeActionOptions
+    val swipeActionOptions: StateFlow<TaskSwipeActionOptions> =
+        dataSource.swipeActionOptions.stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = TaskSwipeActionOptions()
+        )
+
     suspend fun setSwipeActionOptions(options: TaskSwipeActionOptions) {
         dataSource.setSwipeActionOptions(options)
     }
@@ -99,7 +114,12 @@ class TasksSettingsRepository @Inject constructor(
         updateSwipeActionOptions { it.copy(towardsStart = towardsStart, towardsEnd = towardsEnd) }
     }
 
-    val confirmOptions: Flow<TaskConfirmationOptions> by dataSource::confirmOptions
+    val confirmOptions: StateFlow<TaskConfirmationOptions> = dataSource.confirmOptions.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = TaskConfirmationOptions()
+    )
+
     suspend fun setConfirmOptions(options: TaskConfirmationOptions) {
         dataSource.setConfirmOptions(options)
     }
@@ -122,7 +142,13 @@ class TasksSettingsRepository @Inject constructor(
         )
     }
 
-    val defaultNewDataOptions: Flow<TaskDefaultDataOptions> by dataSource::defaultNewDataOptions
+    val defaultNewDataOptions: StateFlow<TaskDefaultDataOptions> = dataSource.defaultNewDataOptions
+        .stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = TaskDefaultDataOptions()
+        )
+
     suspend fun setDefaultNewDataOptions(options: TaskDefaultDataOptions) {
         dataSource.setDefaultNewDataOptions(options)
     }
