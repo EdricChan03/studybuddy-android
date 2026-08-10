@@ -33,6 +33,7 @@ dependencies {
     api(projects.features.tasks.domain)
     api(projects.features.tasks.navigation)
     api(projects.features.tasks.components.taskFormFields)
+    api(projects.features.tasks.components.taskMetadata)
 
     api(projects.core.settings.tasks.model)
     implementation(projects.core.resources)

@@ -78,11 +78,11 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Circle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Delete
 import com.edricchan.studybuddy.core.resources.icons.outlined.Undo
 import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.features.tasks.components.metadata.title.TaskTitleText
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskContentMarkdownText
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskCreatedAtOverline
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateChip
-import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTitleText
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.BooleanPreviewParameterProvider
 import java.time.Duration

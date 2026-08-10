@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.attrs
+package com.edricchan.studybuddy.features.tasks.components.metadata.title
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -24,12 +24,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
-import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.components.metadata.R
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
- * Composable to display a [TodoItem]'s title. The title is truncated to
+ * Composable to display a task's title. The title is truncated to
  * a maximum of 2 lines - text after this limit are truncated by
  * [ellipses][TextOverflow.Ellipsis].
  *
@@ -58,7 +57,7 @@ fun TaskTitleText(
 }
 
 /**
- * Composable which displays a [TodoItem]'s title using a [ListItem] and [TaskTitleText].
+ * Composable which displays a task's title using a [ListItem] and [TaskTitleText].
  *
  * To display a checkbox as well, use [TaskTitleWithCheckboxListItem].
  * @param modifier [Modifier] to be passed to the [ListItem].
@@ -94,7 +93,7 @@ fun TaskTitleListItem(
 )
 
 /**
- * Composable which displays a [TodoItem]'s title using a [ListItem] and [TaskTitleText].
+ * Composable which displays a task's title using a [ListItem] and [TaskTitleText].
  * A [Checkbox] will be shown as the leading content.
  * @param modifier [Modifier] to be passed to the [ListItem].
  * @param textModifier [Modifier] to be passed to the inner [TaskTitleText].
@@ -117,8 +116,8 @@ fun TaskTitleWithCheckboxListItem(
     colors: ListItemColors = ListItemDefaults.colors(),
     shapes: ListItemShapes = ListItemDefaults.shapes()
 ) {
-    val stateCompleted = stringResource(R.string.view_task_done_content_desc)
-    val stateIncomplete = stringResource(R.string.view_task_undone_content_desc)
+    val stateCompleted = stringResource(R.string.task_state_completed_desc)
+    val stateIncomplete = stringResource(R.string.task_state_incomplete_desc)
 
     ListItem(
         modifier = modifier.semantics {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- State description to indicate that the task is completed. -->
+    <string name="task_state_completed_desc">This task is marked as completed</string>
+    <!-- State description to indicate that the task is incomplete. -->
+    <string name="task_state_incomplete_desc">This task is not marked as complete</string>
+</resources>
