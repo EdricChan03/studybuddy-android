@@ -182,5 +182,6 @@ include(
     ":features:tasks:domain",
     ":features:tasks:domain-proto",
     ":features:tasks:navigation",
+    ":features:tasks:components:task-form-fields",
     ":app"
 )
