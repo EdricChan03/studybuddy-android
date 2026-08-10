@@ -8,20 +8,22 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
+import com.edricchan.studybuddy.data.forms.InputValidator
 import com.edricchan.studybuddy.data.forms.compose.InputValidationError
+import com.edricchan.studybuddy.data.forms.validationErrorAsState
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 const val TaskTitleMaxLength = 5000
 
-private enum class TaskTitleValidationError(
+enum class TaskTitleValidationError(
     @field:StringRes
     override val messageRes: Int,
     @field:StringRes
@@ -42,23 +44,26 @@ private enum class TaskTitleValidationError(
     }
 }
 
-private fun getErrorType(input: CharSequence): TaskTitleValidationError? {
-    if (input.isBlank()) return TaskTitleValidationError.Required
-    if (input.length > TaskTitleMaxLength) return TaskTitleValidationError.MaxLengthExceeded
-
-    return null
+fun CharSequence.validateTaskTitle(): TaskTitleValidationError? = when {
+    isBlank() -> TaskTitleValidationError.Required
+    length > TaskTitleMaxLength -> TaskTitleValidationError.MaxLengthExceeded
+    else -> null
 }
+
+val TaskTitleValidator: InputValidator<TaskTitleValidationError> =
+    InputValidator(CharSequence::validateTaskTitle)
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskTitleTextField(
     modifier: Modifier = Modifier,
-    state: TextFieldState
+    state: TextFieldState,
+    validator: InputValidator<TaskTitleValidationError> = TaskTitleValidator
 ) {
     val requiredMsg = stringResource(CoreResR.string.text_field_error_required)
 
-    val errorType = remember(state.text) { getErrorType(state.text) }
-    val errorSemanticsMsg = errorType?.getSemanticsMessage(state.text)
+    val validationError by state.validationErrorAsState(validator = validator)
+    val errorSemanticsMsg = validationError?.getSemanticsMessage(state.text)
 
     val counterText = stringResource(
         CoreResR.string.text_field_limit,
@@ -77,7 +82,7 @@ fun TaskTitleTextField(
         supportingText = {
             AnimatedContent(
                 label = "Task title form field supporting text",
-                targetState = errorType,
+                targetState = validationError,
                 transitionSpec = TextFieldAnimations.supportingTextTransitionSpec()
             ) {
                 Text(
@@ -86,7 +91,7 @@ fun TaskTitleTextField(
                 )
             }
         },
-        isError = errorType != null,
+        isError = validationError != null,
         lineLimits = TextFieldLineLimits.SingleLine
     )
 }
