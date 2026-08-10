@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.features.tasks.components.form.title
 
-import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
@@ -15,43 +14,13 @@ import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
 import com.edricchan.studybuddy.data.forms.InputValidator
-import com.edricchan.studybuddy.data.forms.compose.InputValidationError
 import com.edricchan.studybuddy.data.forms.validationErrorAsState
 import com.edricchan.studybuddy.features.tasks.components.form.R
+import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleMaxLength
+import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleValidationError
+import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleValidator
 import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations
 import com.edricchan.studybuddy.core.resources.R as CoreResR
-
-const val TaskTitleMaxLength = 5000
-
-enum class TaskTitleValidationError(
-    @field:StringRes
-    override val messageRes: Int,
-    @field:StringRes
-    override val semanticsMessageRes: Int = messageRes
-) : InputValidationError {
-    Required(CoreResR.string.text_field_error_required),
-    MaxLengthExceeded(
-        messageRes = CoreResR.string.text_field_error_max_limit_exceeded,
-        semanticsMessageRes = CoreResR.string.text_field_error_semantics_max_limit_exceeded,
-    ) {
-        @Composable
-        override fun getMessage(input: CharSequence): String =
-            stringResource(messageRes, input.length)
-
-        @Composable
-        override fun getSemanticsMessage(input: CharSequence): String =
-            stringResource(messageRes, TaskTitleMaxLength, input.length)
-    }
-}
-
-fun CharSequence.validateTaskTitle(): TaskTitleValidationError? = when {
-    isBlank() -> TaskTitleValidationError.Required
-    length > TaskTitleMaxLength -> TaskTitleValidationError.MaxLengthExceeded
-    else -> null
-}
-
-val TaskTitleValidator: InputValidator<TaskTitleValidationError> =
-    InputValidator(CharSequence::validateTaskTitle)
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
