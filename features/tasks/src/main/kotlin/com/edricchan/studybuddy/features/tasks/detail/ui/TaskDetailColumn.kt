@@ -37,10 +37,10 @@ import com.edricchan.studybuddy.core.resources.temporal.compose.formatWithDateTi
 import com.edricchan.studybuddy.data.common.compose.toComposeColor
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.features.tasks.components.metadata.description.TaskContentMarkdownText
 import com.edricchan.studybuddy.features.tasks.components.metadata.title.TaskTitleWithCheckboxListItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
-import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskContentMarkdownText
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskDueDateListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskProjectListItem
 import com.edricchan.studybuddy.features.tasks.ui.attrs.TaskTagsListItem

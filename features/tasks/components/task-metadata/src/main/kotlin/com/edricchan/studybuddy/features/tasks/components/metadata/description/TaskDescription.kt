@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.attrs
+package com.edricchan.studybuddy.features.tasks.components.metadata.description
 
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
@@ -10,13 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.markdown.MarkdownViewer
 import com.edricchan.studybuddy.ui.widgets.compose.markdown.SampleMarkdownText
 
 /**
- * Composable to display a [TodoItem]'s content. The content is truncated to
+ * Composable to display a task's content. The content is truncated to
  * a maximum of 5 lines - text after this limit are truncated by
  * [ellipses][TextOverflow.Ellipsis].
  *
@@ -37,7 +36,7 @@ fun TaskContentRawText(
 )
 
 /**
- * Composable to display a [TodoItem]'s content as markdown. The text
+ * Composable to display a task's content as Markdown. The text
  * is rendered using [MarkdownViewer].
  *
  * To display the [text] as-is, use [TaskContentRawText] instead.
@@ -51,7 +50,7 @@ fun TaskContentMarkdownText(
 ) = MarkdownViewer(modifier = modifier, markdownText = text)
 
 /**
- * Composable which displays the [TodoItem]'s `content` field in a [ListItem].
+ * Composable which displays a task's `content` field in a [ListItem].
  * @param modifier [Modifier] to be passed to the [ListItem].
  * @param textModifier [Modifier] to be passed to the [TaskContentMarkdownText] or
  * [TaskContentRawText].

@@ -22,6 +22,7 @@ android {
 
 dependencies {
     implementation(projects.ui.theming.compose)
+    implementation(projects.ui.widgets.compose.markdownViewer)
 
     api(libs.bundles.androidx.compose)
 
