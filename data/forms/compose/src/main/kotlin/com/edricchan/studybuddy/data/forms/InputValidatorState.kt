@@ -22,8 +22,8 @@ import kotlin.time.Duration.Companion.milliseconds
 @OptIn(FlowPreview::class)
 @Composable
 fun <ValidationError : InputValidationError> TextFieldState.validationErrorAsState(
-    debounceTimeout: Duration = 200.milliseconds,
-    validator: InputValidator<ValidationError>
+    validator: InputValidator<ValidationError>,
+    debounceTimeout: Duration = 200.milliseconds
 ): State<ValidationError?> = remember {
     snapshotFlow { text }
         .debounce(debounceTimeout)
