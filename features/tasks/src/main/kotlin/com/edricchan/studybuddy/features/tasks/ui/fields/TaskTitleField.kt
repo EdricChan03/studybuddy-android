@@ -15,8 +15,8 @@ import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
 import com.edricchan.studybuddy.data.forms.compose.InputValidationError
-import com.edricchan.studybuddy.exts.androidx.compose.material3.TextFieldAnimations
 import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 const val TaskTitleMaxLength = 5000

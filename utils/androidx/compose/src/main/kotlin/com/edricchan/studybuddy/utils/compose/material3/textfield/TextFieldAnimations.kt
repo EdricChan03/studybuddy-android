@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.exts.androidx.compose.material3
+package com.edricchan.studybuddy.utils.compose.material3.textfield
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ContentTransform
