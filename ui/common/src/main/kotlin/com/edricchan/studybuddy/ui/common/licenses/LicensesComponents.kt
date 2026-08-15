@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -49,6 +50,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalLocaleList
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
@@ -140,6 +142,10 @@ fun LibraryItem(
     val labelViewLicense = stringResource(R.string.licenses_action_view_license_text_url)
     val labelViewScm = stringResource(R.string.licenses_action_view_scm_url)
     val labelViewWebsite = stringResource(R.string.licenses_action_view_website_url)
+
+    val compressionLimit = ButtonDefaults.ButtonWithIconContentPadding.calculateEndPadding(
+        LocalLayoutDirection.current
+    )
 
     Surface(
         modifier = modifier.semantics {
@@ -245,7 +251,7 @@ fun LibraryItem(
                                         .weight(1f)
                                         .animateWidth(
                                             interactionSource = interactionSource,
-                                            compressionLimit = ButtonDefaults.ButtonWithIconContentPadding
+                                            compressionLimit = compressionLimit
                                         ),
                                     shapes = ButtonDefaults.shapes(),
                                     onClick = { onLinkClick(it) },
@@ -285,7 +291,7 @@ fun LibraryItem(
                                         .weight(1f)
                                         .animateWidth(
                                             interactionSource = interactionSource,
-                                            compressionLimit = ButtonDefaults.ButtonWithIconContentPadding
+                                            compressionLimit = compressionLimit
                                         ),
                                     shapes = ButtonDefaults.shapes(),
                                     onClick = { onLinkClick(it) },
