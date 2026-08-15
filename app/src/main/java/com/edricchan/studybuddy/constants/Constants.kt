@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.constants
 
 import android.net.Uri
 import androidx.core.net.toUri
+import com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata
 
 object Constants {
     // Debug preferences
@@ -28,16 +29,62 @@ object Constants {
     val uriHelpFeatured: Uri = urlHelpFeatured.toUri()
     const val urlAuthorWebsite = "https://edricchan03.github.io"
     val uriAuthorWebsite: Uri = urlAuthorWebsite.toUri()
-    const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy-android"
-    val uriSrcCode: Uri = urlSrcCode.toUri()
-    const val urlSrcBugTracker = "$urlSrcCode/issues"
-    val uriSrcBugTracker: Uri = urlSrcBugTracker.toUri()
-    const val urlSrcContributors = "$urlSrcCode/graph/contributors"
-    val uriSrcContributors: Uri = urlSrcContributors.toUri()
+
+    @Deprecated(
+        "Use StudyBuddyMetadata.GitHubRepoUrl instead",
+        ReplaceWith(
+            "StudyBuddyMetadata.GitHubRepoUrl",
+            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
+        )
+    )
+    const val urlSrcCode = StudyBuddyMetadata.GitHubRepoUrl
+
+    @Deprecated(
+        "Use StudyBuddyMetadata.GitHubRepoUri instead",
+        ReplaceWith(
+            "StudyBuddyMetadata.GitHubRepoUri",
+            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
+        )
+    )
+    val uriSrcCode: Uri = StudyBuddyMetadata.GitHubRepoUri
+
+    @Deprecated(
+        "Use StudyBuddyMetadata.GitHubIssuesUrl instead",
+        ReplaceWith(
+            "StudyBuddyMetadata.GitHubIssuesUrl",
+            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
+        )
+    )
+    const val urlSrcBugTracker = StudyBuddyMetadata.GitHubIssuesUrl
+
+    @Deprecated(
+        "Use StudyBuddyMetadata.GitHubIssuesUri instead",
+        ReplaceWith(
+            "StudyBuddyMetadata.GitHubIssuesUri",
+            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
+        )
+    )
+    val uriSrcBugTracker: Uri = StudyBuddyMetadata.GitHubIssuesUri
+
+    @Deprecated(
+        "Use StudyBuddyMetadata.GitHubContributorsUrl instead",
+        ReplaceWith(
+            "StudyBuddyMetadata.GitHubContributorsUrl",
+            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
+        )
+    )
+    const val urlSrcContributors = StudyBuddyMetadata.GitHubContributorsUrl
+
+    @Deprecated(
+        "Use StudyBuddyMetadata.GitHubContributorsUri instead",
+        ReplaceWith(
+            "StudyBuddyMetadata.GitHubContributorsUri",
+            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
+        )
+    )
+    val uriSrcContributors: Uri = StudyBuddyMetadata.GitHubContributorsUri
     const val urlSendFeedback = "https://forms.gle/S6SY7aAgTyQUuKRw6"
     val uriSendFeedback: Uri = urlSendFeedback.toUri()
     const val urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92"
     val uriSubmitTip: Uri = urlSubmitTip.toUri()
-    const val urlWiki = "https://github.com/EdricChan03/StudyBuddy-android/wiki"
-    val uriWiki: Uri = urlWiki.toUri()
 }
