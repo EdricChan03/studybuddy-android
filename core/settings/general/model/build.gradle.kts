@@ -23,6 +23,7 @@ android {
 dependencies {
     api(projects.core.settings.general.datastoreProto)
     api(projects.core.settings.general.resources)
+    implementation(projects.data.common)
 
     api(libs.androidx.annotation)
 
