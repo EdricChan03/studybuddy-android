@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedToggleButton
+import androidx.compose.material3.ElevatedToggleButtonDefaults
+import androidx.compose.material3.FilledTonalToggleButton
+import androidx.compose.material3.FilledTonalToggleButtonDefaults
 import androidx.compose.material3.OutlinedToggleButton
+import androidx.compose.material3.OutlinedToggleButtonDefaults
 import androidx.compose.material3.ToggleButton
 import androidx.compose.material3.ToggleButtonColors
 import androidx.compose.material3.ToggleButtonDefaults
 import androidx.compose.material3.ToggleButtonShapes
-import androidx.compose.material3.TonalToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -47,7 +50,7 @@ fun OutlinedToggleButton(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     shapes: ToggleButtonShapes = ToggleButtonDefaults.shapesFor(ButtonDefaults.MinHeight),
-    colors: ToggleButtonColors = ToggleButtonDefaults.outlinedToggleButtonColors(),
+    colors: ToggleButtonColors = OutlinedToggleButtonDefaults.outlinedToggleButtonColors(),
     border: BorderStroke = ButtonDefaults.outlinedButtonBorder(enabled),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
@@ -68,18 +71,18 @@ fun OutlinedToggleButton(
 }
 
 @Composable
-fun TonalToggleButton(
+fun FilledTonalToggleButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     shapes: ToggleButtonShapes = ToggleButtonDefaults.shapesFor(ButtonDefaults.MinHeight),
-    colors: ToggleButtonColors = ToggleButtonDefaults.tonalToggleButtonColors(),
+    colors: ToggleButtonColors = FilledTonalToggleButtonDefaults.filledTonalToggleButtonColors(),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
-    TonalToggleButton(
+    FilledTonalToggleButton(
         modifier = modifier,
         enabled = enabled,
         checked = checked,
@@ -99,7 +102,7 @@ fun ElevatedToggleButton(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     shapes: ToggleButtonShapes = ToggleButtonDefaults.shapesFor(ButtonDefaults.MinHeight),
-    colors: ToggleButtonColors = ToggleButtonDefaults.elevatedToggleButtonColors(),
+    colors: ToggleButtonColors = ElevatedToggleButtonDefaults.elevatedToggleButtonColors(),
     contentPadding: PaddingValues = ButtonDefaults.contentPaddingFor(ButtonDefaults.MinHeight),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable RowScope.() -> Unit,
