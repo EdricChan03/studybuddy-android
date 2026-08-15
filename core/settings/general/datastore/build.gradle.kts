@@ -22,6 +22,7 @@ android {
 }
 
 dependencies {
+    api(projects.core.di.qualifiers)
     api(projects.core.settings.general.datastoreProto)
     api(projects.core.settings.general.model)
     api(projects.utils.wire.datastore)
