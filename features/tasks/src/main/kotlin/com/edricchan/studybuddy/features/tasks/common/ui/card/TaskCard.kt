@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
@@ -60,6 +61,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -276,6 +278,10 @@ private fun TaskCardActions(
     )
     val labelRequestDelete = stringResource(R.string.task_adapter_delete_task_btn_text)
 
+    val compressionLimit = ButtonDefaults.ButtonWithIconContentPadding.calculateEndPadding(
+        LocalLayoutDirection.current
+    )
+
     ButtonGroup(
         // Prevent the navigation to these individual buttons when using tab navigation -
         // there will be custom accessibility actions specified
@@ -297,7 +303,7 @@ private fun TaskCardActions(
                         .weight(1f)
                         .animateWidth(
                             interactionSource = interactionSource,
-                            compressionLimit = ButtonDefaults.ButtonWithIconContentPadding
+                            compressionLimit = compressionLimit
                         )
                         .clearAndSetSemantics {},
                     checked = isCompleted,
