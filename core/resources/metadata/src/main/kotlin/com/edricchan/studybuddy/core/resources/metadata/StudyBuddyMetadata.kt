@@ -43,6 +43,18 @@ data object StudyBuddyMetadata {
     val GitHubRepoUri: Uri = GitHubRepoUrl.toUri()
 
     /**
+     * URL pointing to the GitHub repository's issues list.
+     * @see StudyBuddyMetadata.GitHubIssuesUri
+     */
+    const val GitHubIssuesUrl: String = "$GitHubRepoUrl/issues"
+
+    /**
+     * [Uri] pointing to the GitHub repository's issues list.
+     * @see StudyBuddyMetadata.GitHubIssuesUrl
+     */
+    val GitHubIssuesUri: Uri = GitHubIssuesUrl.toUri()
+
+    /**
      * URL pointing to the specific GitHub commit metadata for [StudyBuddyMetadata.GitCommitSha].
      * @see StudyBuddyMetadata.GitHubCommitUri
      */
