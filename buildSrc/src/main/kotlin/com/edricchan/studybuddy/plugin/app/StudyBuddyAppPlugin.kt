@@ -134,8 +134,6 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
         finalizeDsl { androidAppExt ->
             with(androidAppExt) {
                 lint {
-                    textReport = isCi
-                    sarifReport = isCi
                     abortOnError = false
                     baseline = project.file("lint-baseline.xml")
                 }
@@ -203,7 +201,6 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
                 reporter.report(StudyBuddyAppProblemIds.MissingSecretsConfig) {
                     details("The requested secrets configuration file at $file is missing or could not be read")
                     solution("Create a secrets-config.toml file at the specified directory, or ensure that you have the relevant read permissions")
-                    severity(Severity.WARNING)
                     fileLocation(file.path)
                     withException(it)
                 }
