@@ -1,10 +1,21 @@
 package com.edricchan.studybuddy.core.settings.appearance.repo
 
+import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
+import com.edricchan.studybuddy.core.di.qualifiers.coroutines.ApplicationScope
 import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.font.TypefaceSetting
 import com.edricchan.studybuddy.core.settings.appearance.repo.source.AppearanceSettingsDataStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+
+/** Whether dynamic colour theming is supported. */
+@get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+private val supportsDynamicColor get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
 /**
  * Repository for settings related to the general category.
@@ -12,29 +23,53 @@ import javax.inject.Inject
  * This includes:
  * * [AppearanceSettingsDataStore.darkMode]
  * * [AppearanceSettingsDataStore.appTheme]
+ * * [AppearanceSettingsDataStore.displayTypeface]
+ * * [AppearanceSettingsDataStore.bodyTypeface]
+ * * [AppearanceSettingsDataStore.baseSpacing]
  * * [AppearanceSettingsDataStore.useRelativeTimestamps]
  */
 class AppearanceSettingsRepository @Inject constructor(
-    private val dataStore: AppearanceSettingsDataStore
+    private val dataStore: AppearanceSettingsDataStore,
+    @ApplicationScope private val coroutineScope: CoroutineScope
 ) {
-    val darkMode by dataStore::darkMode
+    val darkMode: StateFlow<DarkModeSetting> = dataStore.darkMode.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = DarkModeSetting.FollowSystem
+    )
+
     suspend fun setDarkMode(value: DarkModeSetting) {
         dataStore.setDarkMode(value)
     }
 
-    val appTheme by dataStore::appTheme
+    val appTheme: StateFlow<AppThemeSetting> = dataStore.appTheme.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = if (supportsDynamicColor) AppThemeSetting.Monet else AppThemeSetting.StudyBuddy
+    )
+
     suspend fun setAppTheme(value: AppThemeSetting) {
         dataStore.setAppTheme(value)
     }
 
     // Display settings
 
-    val displayTypeface by dataStore::displayTypeface
+    val displayTypeface: StateFlow<TypefaceSetting> = dataStore.displayTypeface.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = TypefaceSetting.FunnelDisplay
+    )
+
     suspend fun setDisplayTypeface(style: TypefaceSetting) {
         dataStore.setDisplayTypeface(style)
     }
 
-    val bodyTypeface by dataStore::bodyTypeface
+    val bodyTypeface: StateFlow<TypefaceSetting> = dataStore.bodyTypeface.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = TypefaceSetting.Baloo2
+    )
+
     suspend fun setBodyTypeface(style: TypefaceSetting) {
         dataStore.setBodyTypeface(style)
     }
@@ -47,12 +82,22 @@ class AppearanceSettingsRepository @Inject constructor(
         dataStore.setTypefaceConfig(displayStyle, bodyStyle)
     }
 
-    val baseSpacing by dataStore::baseSpacing
+    val baseSpacing: StateFlow<Int> = dataStore.baseSpacing.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = 8
+    )
+
     suspend fun setBaseSpacing(spacing: Int) {
         dataStore.setBaseSpacing(spacing)
     }
 
-    val useRelativeTimestamps by dataStore::useRelativeTimestamps
+    val useRelativeTimestamps: StateFlow<Boolean> = dataStore.useRelativeTimestamps.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = true
+    )
+
     suspend fun setUseRelativeTimestamps(shouldUse: Boolean) {
         dataStore.setUseRelativeTimestamps(shouldUse)
     }
