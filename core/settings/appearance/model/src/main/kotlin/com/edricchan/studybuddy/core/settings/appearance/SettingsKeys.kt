@@ -6,6 +6,7 @@ package com.edricchan.studybuddy.core.settings.appearance
  * The preference's value is a [Boolean] which determines whether
  * Chrome Custom Tabs should be used when opening links.
  */
+@Deprecated("This property has moved to the general module")
 const val keyPrefUseCustomTabs = "pref_use_custom_tabs"
 
 /**
