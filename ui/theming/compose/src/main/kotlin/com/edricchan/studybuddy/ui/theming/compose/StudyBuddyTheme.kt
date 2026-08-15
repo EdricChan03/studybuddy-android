@@ -112,7 +112,7 @@ fun StudyBuddyTheme(
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
-        LocalRippleThemeConfiguration provides RippleDefaults.InsetFocusRingRippleThemeConfiguration,
+        LocalRippleThemeConfiguration provides RippleDefaults.InsetFocusRingThemeConfiguration,
         LocalThemeSpacing provides spacingTokens,
         LocalShimmerTheme provides shimmerTheme
     ) {
