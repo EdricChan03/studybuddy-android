@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.data.common.temporal.proto;
+
+option java_multiple_files = true;
+
+enum DayOfWeek {
+  /* No value was set. */
+  DOW_Unspecified = 0;
+  /* Monday. */
+  DOW_Monday = 1;
+  /* Tuesday. */
+  DOW_Tuesday = 2;
+  /* Wednesday. */
+  DOW_Wednesday = 3;
+  /* Thursday. */
+  DOW_Thursday = 4;
+  /* Friday. */
+  DOW_Friday = 5;
+  /* Saturday. */
+  DOW_Saturday = 6;
+  /* Sunday. */
+  DOW_Sunday = 7;
+}
