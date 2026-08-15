@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package com.edricchan.studybuddy.core.settings.general.proto;
+
+import "com/edricchan/studybuddy/data/common/temporal/proto/day_of_week.proto";
+
+option java_multiple_files = true;
+
+enum HourCycle {
+  /* Follow the system's hour cycle. */
+  HrCycle_System = 0;
+  /* Use a 12-hour cycle, suffixing times with AM/PM for morning and afternoon respectively. */
+  HrCycle_Hour12 = 1;
+  /* Use a 24-hour cycle. */
+  HrCycle_Hour24 = 2;
+}
+
+message LocaleSettings {
+  /* Language options. */
+  oneof lang_option {
+    /* Whether the system language should be used. */
+    bool use_system_lang = 1;
+    /* The selected language code in ISO639 form. */
+    string lang_code = 2;
+  }
+
+  /* Format to use for times. */
+  HourCycle hour_format = 10;
+  /* The day to be used as the first day of a week. */
+  oneof first_week_day {
+    /* Whether the system's "first week day" setting should be used. */
+    bool use_system_first_week_day = 11;
+    /* The day to be used as the first day of a week. */
+    com.edricchan.studybuddy.data.common.temporal.proto.DayOfWeek first_day_of_week = 12;
+  }
+}
