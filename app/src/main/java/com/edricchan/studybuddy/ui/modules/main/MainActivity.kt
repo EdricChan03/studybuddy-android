@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.ui.modules.main
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -51,7 +50,6 @@ import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.fab.setupFabController
 import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
-import com.edricchan.studybuddy.utils.android.fromApi
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.enableCrashlyticsTracking
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -109,9 +107,7 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         }
 
         // Create notification channels
-        fromApi(Build.VERSION_CODES.O) {
-            createNotificationChannelsCompat()
-        }
+        createNotificationChannelsCompat()
 
         // Subscribe to snack-bar data
         lifecycleScope.launch {

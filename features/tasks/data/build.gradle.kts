@@ -20,8 +20,6 @@ android {
             )
         }
     }
-
-    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -42,8 +40,6 @@ dependencies {
 
     // Kotlinx.serialization
     implementation(libs.kotlinx.serialization.json)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)

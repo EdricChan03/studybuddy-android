@@ -1,18 +1,12 @@
 package com.edricchan.studybuddy.exts.androidx.preference
 
 import android.content.Context
-import android.os.Build
 import java.nio.file.Path
-import kotlin.io.path.Path
 import kotlin.io.path.div
 import kotlin.io.path.exists
 
 private val Context.dataDirCompat
-    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        dataDir.toPath()
-    } else {
-        Path(applicationInfo.dataDir)
-    }
+    get() = dataDir.toPath()
 
 /**
  * Retrieves the shared preferences file given the [fileName] as a [Path].

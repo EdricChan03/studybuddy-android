@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
@@ -227,9 +226,9 @@ class UpdatesFragment : ViewBindingFragment<FragUpdatesBinding>(FragUpdatesBindi
 
     private fun installUpdate(fileName: String) {
         // See https://android-developers.googleblog.com/2017/08/making-it-safer-to-get-apps-on-android-o.html
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O ||
-            requireContext().packageManager.canRequestPackageInstalls()
-        ) return startInstallIntent(fileName)
+        if (requireContext().packageManager.canRequestPackageInstalls()) return startInstallIntent(
+            fileName
+        )
 
         // User has not allowed the app as an unknown app source
         requireContext().showMaterialAlertDialog {

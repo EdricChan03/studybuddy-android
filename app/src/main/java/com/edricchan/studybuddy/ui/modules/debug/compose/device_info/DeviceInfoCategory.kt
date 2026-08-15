@@ -57,11 +57,7 @@ private fun DeviceSdkInfoDialog(
             Device SDK: ${Build.VERSION.SDK_INT} (${
             fromApi(Build.VERSION_CODES.R) { Build.VERSION.RELEASE_OR_CODENAME }
         })
-            Preview SDK: ${
-            fromApi(Build.VERSION_CODES.M) {
-                Build.VERSION.PREVIEW_SDK_INT
-            }
-        }
+            Preview SDK: ${Build.VERSION.PREVIEW_SDK_INT}
             Build fingerprint: ${Build.FINGERPRINT.orUnset}
             Model: ${Build.MODEL.orUnset}
             Board: ${Build.BOARD.orUnset}

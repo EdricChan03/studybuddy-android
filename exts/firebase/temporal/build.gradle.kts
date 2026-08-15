@@ -4,8 +4,6 @@ plugins {
 
 android {
     namespace = "com.edricchan.studybuddy.exts.firebase.temporal"
-
-    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -19,6 +17,4 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.playServices)
-
-    coreLibraryDesugaring(libs.android.desugar)
 }

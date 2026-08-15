@@ -21,8 +21,6 @@ android {
     }
 
     buildFeatures.viewBinding = true
-
-    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -81,8 +79,6 @@ dependencies {
 
     // CoIL
     implementation(libs.coil)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

@@ -85,7 +85,7 @@ develocity.buildScan {
 android {
     buildToolsVersion = "37.0.0"
     compileSdk = 37
-    minSdk = 23
+    minSdk = 26
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

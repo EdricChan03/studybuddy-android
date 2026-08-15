@@ -2,9 +2,7 @@ package com.edricchan.studybuddy.core.resources.temporal.relative
 
 import android.content.Context
 import android.icu.text.RelativeDateTimeFormatter
-import android.os.Build
 import android.text.format.DateUtils
-import com.edricchan.studybuddy.core.resources.temporal.R
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
 import java.time.Instant
 import java.time.temporal.ChronoUnit
@@ -26,22 +24,13 @@ fun Context.formatRelativeTimeSpan(time: Instant, now: Instant = Instant.now()):
     return if (months > 0) {
         val years = months / 12
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            val (timeFormat, timeMs) = if (years > 0) {
-                RelativeDateTimeFormatter.RelativeUnit.YEARS to years
-            } else {
-                RelativeDateTimeFormatter.RelativeUnit.MONTHS to months
-            }
-            RelativeDateTimeFormatter.getInstance()
-                .format(timeMs.toDouble(), RelativeDateTimeFormatter.Direction.LAST, timeFormat)
+        val (timeFormat, timeMs) = if (years > 0) {
+            RelativeDateTimeFormatter.RelativeUnit.YEARS to years
         } else {
-            val (timeAgoRes, timeMs) = if (years > 0) {
-                R.plurals.relative_years_ago to years
-            } else {
-                R.plurals.relative_months_ago to months
-            }
-            resources.getQuantityString(timeAgoRes, timeMs.toInt(), timeMs)
+            RelativeDateTimeFormatter.RelativeUnit.MONTHS to months
         }
+        RelativeDateTimeFormatter.getInstance()
+            .format(timeMs.toDouble(), RelativeDateTimeFormatter.Direction.LAST, timeFormat)
     } else {
         val weeks = date.until(nowDateTime, ChronoUnit.WEEKS)
         val minResolution = if (weeks > 0) DateUtils.WEEK_IN_MILLIS else 0L

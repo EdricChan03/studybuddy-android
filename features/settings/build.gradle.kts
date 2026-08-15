@@ -19,8 +19,6 @@ android {
             )
         }
     }
-
-    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -68,6 +66,4 @@ dependencies {
 
     // Compose rule support
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-
-    coreLibraryDesugaring(libs.android.desugar)
 }

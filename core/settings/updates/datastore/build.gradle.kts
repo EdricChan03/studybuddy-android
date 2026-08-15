@@ -19,8 +19,6 @@ android {
             )
         }
     }
-
-    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -35,8 +33,6 @@ dependencies {
     api(libs.androidx.datastore.typed)
 
     api(libs.kotlinx.coroutines.android)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

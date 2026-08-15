@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.navigation.compat
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.provider.Settings
 import androidx.core.net.toUri
 import androidx.navigation.NavGraphBuilder
@@ -23,7 +22,6 @@ import com.edricchan.studybuddy.ui.modules.calendar.fragment.CalendarFragment
 import com.edricchan.studybuddy.ui.modules.debug.DebugActivity
 import com.edricchan.studybuddy.ui.modules.debug.DebugModalBottomSheetFragment
 import com.edricchan.studybuddy.ui.modules.updates.UpdatesFragment
-import com.edricchan.studybuddy.utils.android.fromApi
 
 fun NavGraphBuilder.aboutGraph(
     context: Context
@@ -76,10 +74,8 @@ fun NavGraphBuilder.compatGraphs(
     }
 
     fragment<SettingsFragment, CompatDestination.Settings> {
-        fromApi(Build.VERSION_CODES.N) {
-            deepLink {
-                action = Intent.ACTION_APPLICATION_PREFERENCES
-            }
+        deepLink {
+            action = Intent.ACTION_APPLICATION_PREFERENCES
         }
         deepLink(UriSettings)
         label = context.getString(R.string.title_activity_settings)

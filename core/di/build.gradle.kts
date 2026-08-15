@@ -21,8 +21,6 @@ android {
             )
         }
     }
-
-    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -46,6 +44,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
-
-    coreLibraryDesugaring(libs.android.desugar)
 }

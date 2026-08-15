@@ -19,8 +19,6 @@ android {
             )
         }
     }
-
-    compileOptions.isCoreLibraryDesugaringEnabled = true
 }
 
 dependencies {
@@ -32,8 +30,6 @@ dependencies {
 
     // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.android)
-
-    coreLibraryDesugaring(libs.android.desugar)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
