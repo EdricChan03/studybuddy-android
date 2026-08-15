@@ -23,6 +23,7 @@ android {
 dependencies {
     api(projects.exts.datetime)
     api(projects.core.resources)
+    implementation(projects.exts.android)
     implementation(projects.utils.android)
 
     api(libs.androidx.compose.runtime)

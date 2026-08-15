@@ -4,26 +4,56 @@ import android.content.Context
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
+import android.os.Build
+import com.edricchan.studybuddy.utils.android.ifApi
 import java.time.Duration
 import java.util.Locale
 
 private fun Int.takeIfPositive(): Int? = takeIf { it > 0 }
 private fun Long.takeIfPositive(): Long? = takeIf { it > 0L }
 
+private val Duration.daysPart: Long
+    get() = ifApi(
+        Build.VERSION_CODES.S,
+        ifTrue = { toDaysPart() },
+        ifFalse = { seconds / 86_400 }
+    )
+
+private val Duration.hoursPart: Int
+    get() = ifApi(
+        Build.VERSION_CODES.S,
+        ifTrue = { toHoursPart() },
+        ifFalse = { (toHours() % 24).toInt() }
+    )
+
+private val Duration.minutesPart: Int
+    get() = ifApi(
+        Build.VERSION_CODES.S,
+        ifTrue = { toMinutesPart() },
+        ifFalse = { (toMinutes() % 60).toInt() }
+    )
+
+private val Duration.secondsPart: Int
+    get() = ifApi(
+        Build.VERSION_CODES.S,
+        ifTrue = { toSecondsPart() },
+        ifFalse = { (seconds % 60).toInt() }
+    )
+
 private fun Duration.toHumanReadableIcu(
     locale: Locale = Locale.getDefault()
 ): String {
     val measures = buildList {
-        toDaysPart().takeIfPositive()?.let {
+        daysPart.takeIfPositive()?.let {
             this += Measure(it, MeasureUnit.DAY)
         }
-        toHoursPart().takeIfPositive()?.let {
+        hoursPart.takeIfPositive()?.let {
             this += Measure(it, MeasureUnit.HOUR)
         }
-        toMinutesPart().takeIfPositive()?.let {
+        minutesPart.takeIfPositive()?.let {
             this += Measure(it, MeasureUnit.MINUTE)
         }
-        toSecondsPart().takeIf { it > 0 || isEmpty() }?.let {
+        secondsPart.takeIf { it > 0 || isEmpty() }?.let {
             this += Measure(it, MeasureUnit.SECOND)
         }
     }
