@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.ui.preference.compose.twostate
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxColors
@@ -21,6 +22,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
+import com.edricchan.studybuddy.core.resources.icons.outlined.Check
+import com.edricchan.studybuddy.core.resources.icons.outlined.Close
 import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceColors
@@ -29,6 +32,25 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyTheme
 
 /** Test tag for the [SwitchPreference]'s [Switch] action. */
 const val ActionSwitchTestTag = "SwitchPreference:SwitchAction"
+
+object TwoStatePreferenceDefaults {
+    /**
+     * Default value for `thumbContent` for the [SwitchPreference] composable
+     * if not specified. It renders a checked icon if the [checked] value is `true`,
+     * and a close icon otherwise.
+     */
+    @Composable
+    fun SwitchThumbContent(
+        modifier: Modifier = Modifier,
+        checked: Boolean
+    ) {
+        Icon(
+            modifier = modifier.size(SwitchDefaults.IconSize),
+            imageVector = if (checked) AppIcons.Outlined.Check else AppIcons.Outlined.Close,
+            contentDescription = null
+        )
+    }
+}
 
 /**
  * A [Preference] which displays a [Switch] as its `action`.
@@ -62,7 +84,11 @@ fun SwitchPreference(
     subtitle: (@Composable () -> Unit)? = null,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    thumbContent: (@Composable () -> Unit)? = null,
+    thumbContent: (@Composable () -> Unit)? = {
+        TwoStatePreferenceDefaults.SwitchThumbContent(
+            checked = checked
+        )
+    },
     switchColors: SwitchColors = SwitchDefaults.colors(),
     shape: Shape = PreferenceDefaults.itemShape,
     colors: PreferenceColors = PreferenceDefaults.colors()

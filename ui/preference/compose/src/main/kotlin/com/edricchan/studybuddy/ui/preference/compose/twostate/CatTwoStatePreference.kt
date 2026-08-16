@@ -87,7 +87,11 @@ fun PreferenceCategoryScope.SwitchPreference(
     subtitle: (@Composable () -> Unit)? = null,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    thumbContent: (@Composable () -> Unit)? = null,
+    thumbContent: (@Composable () -> Unit)? = {
+        TwoStatePreferenceDefaults.SwitchThumbContent(
+            checked = checked
+        )
+    },
     switchColors: SwitchColors = SwitchDefaults.colors(),
     shape: Shape = PreferenceDefaults.categoryItemShape,
     colors: PreferenceColors = PreferenceDefaults.colors()
