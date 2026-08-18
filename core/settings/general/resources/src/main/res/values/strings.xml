@@ -2,4 +2,13 @@
 <resources>
     <!-- Title for the open links in app setting. -->
     <string name="pref_general_open_links_in_app_title">Open web links in-app</string>
+
+    <!-- Temporal formatting settings -->
+    <eat-comment />
+
+    <!-- Title for the use relative timestamps setting. -->
+    <string name="pref_use_relative_timestamps_title">Relative timestamps</string>
+    <!-- Subtitle for the use relative timestamps setting. The first format argument
+        passed is today's date. -->
+    <string name="pref_use_relative_timestamps_subtitle">"Today" instead of "%s"</string>
 </resources>
