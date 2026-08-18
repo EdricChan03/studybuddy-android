@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.features.settings.general.ui
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -21,25 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.BugReport
-import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
-import com.edricchan.studybuddy.core.resources.icons.outlined.DarkMode
-import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.general.vm.GeneralSettingsViewModel
-import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
-import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
-import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
-
-@get:StringRes
-val DarkThemeValue.Version2.labelResource
-    get() = when (this) {
-        DarkThemeValue.V2Always -> AppearanceR.string.pref_dark_theme_entry_always
-        DarkThemeValue.V2Never -> AppearanceR.string.pref_dark_theme_entry_never
-        DarkThemeValue.V2FollowSystem -> AppearanceR.string.pref_dark_theme_entry_system
-    }
 
 @Composable
 fun GeneralSettingsScreen(
@@ -48,12 +33,7 @@ fun GeneralSettingsScreen(
     enableUserTracking: Boolean,
     onEnableUserTrackingChange: (Boolean) -> Unit,
     openLinksInApp: Boolean,
-    onOpenLinksInAppChange: (Boolean) -> Unit,
-    useDarkTheme: DarkThemeValue.Version2,
-    onDarkThemeChange: (DarkThemeValue.Version2) -> Unit,
-    enableDynamicTheme: Boolean,
-    onDynamicThemeChange: (Boolean) -> Unit,
-    isDynamicThemeAvailable: Boolean = isDynamicColorAvailable
+    onOpenLinksInAppChange: (Boolean) -> Unit
 ) = Column(
     modifier = modifier
         .verticalScroll(rememberScrollState())
@@ -80,64 +60,18 @@ fun GeneralSettingsScreen(
             onOpenLinksInAppChange = onOpenLinksInAppChange
         )
     }
-
-    PreferenceCategory(
-        title = { Text(text = stringResource(AppearanceR.string.pref_category_theming_title)) }
-    ) {
-        ListDialogPreference(
-            icon = {
-                Icon(
-                    AppIcons.Outlined.DarkMode,
-                    contentDescription = null
-                )
-            },
-            title = { Text(text = stringResource(AppearanceR.string.pref_dark_theme_title)) },
-            subtitle = {
-                Text(text = stringResource(useDarkTheme.labelResource))
-            },
-            values = DarkThemeValue.Version2.entries,
-            value = useDarkTheme,
-            onValueChanged = onDarkThemeChange,
-            valueLabel = { value ->
-                Text(text = stringResource(value.labelResource))
-            }
-        )
-
-        if (isDynamicThemeAvailable) {
-            SwitchPreference(
-                icon = {
-                    Icon(
-                        AppIcons.Outlined.Colorize,
-                        contentDescription = null
-                    )
-                },
-                title = { Text(text = stringResource(AppearanceR.string.pref_dynamic_theme_title)) },
-                subtitle = { Text(text = stringResource(AppearanceR.string.pref_dynamic_theme_subtitle)) },
-                checked = enableDynamicTheme,
-                onCheckedChange = onDynamicThemeChange
-            )
-        }
-    }
 }
 
 @Composable
 fun GeneralSettingsScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    viewModel: GeneralSettingsViewModel,
-    onDynamicThemeChange: (Boolean) -> Unit = {},
-    onDarkThemeChange: (DarkThemeValue) -> Unit = {}
+    viewModel: GeneralSettingsViewModel
 ) {
     val enableUserTracking by viewModel.prefEnableUserTracking.asFlow().collectAsStateWithLifecycle(
         initialValue = false
     )
     val openLinksInApp by viewModel.openLinksInApp.collectAsStateWithLifecycle()
-    val useDarkTheme by viewModel.prefDarkTheme.asFlow().collectAsStateWithLifecycle(
-        initialValue = DarkThemeValue.V2FollowSystem
-    )
-    val enableDynamicTheme by viewModel.prefEnableDynamicTheme.asFlow().collectAsStateWithLifecycle(
-        initialValue = isDynamicColorAvailable
-    )
 
     GeneralSettingsScreen(
         modifier = modifier,
@@ -145,17 +79,7 @@ fun GeneralSettingsScreen(
         enableUserTracking = enableUserTracking,
         onEnableUserTrackingChange = viewModel.prefEnableUserTracking::set,
         openLinksInApp = openLinksInApp,
-        onOpenLinksInAppChange = viewModel::setOpenLinksInApp,
-        useDarkTheme = useDarkTheme,
-        onDarkThemeChange = {
-            viewModel.prefDarkTheme.set(it)
-            onDarkThemeChange(it)
-        },
-        enableDynamicTheme = enableDynamicTheme,
-        onDynamicThemeChange = {
-            viewModel.prefEnableDynamicTheme.set(it)
-            onDynamicThemeChange(it)
-        }
+        onOpenLinksInAppChange = viewModel::setOpenLinksInApp
     )
 }
 
@@ -165,17 +89,11 @@ fun GeneralSettingsScreen(
 private fun GeneralSettingsScreenPreview() {
     var enableUserTracking by remember { mutableStateOf(false) }
     var useCustomTabs by remember { mutableStateOf(true) }
-    var useDarkTheme: DarkThemeValue.Version2 by remember { mutableStateOf(DarkThemeValue.V2FollowSystem) }
-    var enableDynamicTheme by remember { mutableStateOf(true) }
 
     GeneralSettingsScreen(
         enableUserTracking = enableUserTracking,
         onEnableUserTrackingChange = { enableUserTracking = it },
         openLinksInApp = useCustomTabs,
-        onOpenLinksInAppChange = { useCustomTabs = it },
-        useDarkTheme = useDarkTheme,
-        onDarkThemeChange = { useDarkTheme = it },
-        enableDynamicTheme = enableDynamicTheme,
-        onDynamicThemeChange = { enableDynamicTheme = it }
+        onOpenLinksInAppChange = { useCustomTabs = it }
     )
 }
