@@ -1,12 +1,11 @@
 package io.github.edricchan03.optionbottomsheet
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Favorite
@@ -15,8 +14,8 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,8 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -51,84 +48,56 @@ fun OptionsBottomSheetList(
     onDismissBottomSheetRequest: (item: BottomSheetOption) -> Unit,
     group: BottomSheetOptionGroup
 ) {
-    LazyColumn(modifier = modifier.selectableGroup()) {
-        items(
-            group.itemsSelectionMap.filterKeys { it.visible }.entries.toList(),
-            contentType = { group.checkableBehavior }
-        ) { (item, checked) ->
+    val groupItems = remember(
+        group,
+        group.itemsSelectionMap
+    ) { group.itemsSelectionMap.filterKeys { it.visible }.entries.toList() }
+
+    LazyColumn(
+        modifier = modifier.selectableGroup(),
+        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
+    ) {
+        itemsIndexed(
+            items = groupItems,
+            key = { _, (item, _) -> item.id },
+            contentType = { _, _ -> group.checkableBehavior }
+        ) { index, (item, checked) ->
             when (group.checkableBehavior) {
                 CheckableBehavior.None -> OptionsBottomSheetItem(
                     item = item,
                     onDismissBottomSheetRequest = {
                         onDismissBottomSheetRequest(item)
-                    }
+                    },
+                    shapes = ListItemDefaults.segmentedShapes(
+                        index = index,
+                        count = groupItems.size
+                    )
                 )
 
                 CheckableBehavior.All -> OptionsBottomSheetCheckableItem(
                     item = item,
                     checked = checked,
-                    onCheckedChange = { group.onCheckedChange(item, it) }
+                    onCheckedChange = { group.onCheckedChange(item, it) },
+                    shapes = ListItemDefaults.segmentedShapes(
+                        index = index,
+                        count = groupItems.size
+                    )
                 )
 
                 CheckableBehavior.Single -> OptionsBottomSheetSelectableItem(
                     item = item,
                     selected = checked,
-                    onSelectClick = { group.onCheckedChange(item, checked) }
+                    onSelectClick = { group.onCheckedChange(item, checked) },
+                    shapes = ListItemDefaults.segmentedShapes(
+                        index = index,
+                        count = groupItems.size
+                    )
                 )
             }
 
         }
     }
 }
-
-// https://issuetracker.google.com/issues/280480132
-private fun ListItemColors.withDisabledColors(enabled: Boolean) = ListItemColors(
-    containerColor = containerColor,
-    headlineColor = if (enabled) headlineColor else disabledHeadlineColor,
-    leadingIconColor = if (enabled) leadingIconColor else disabledLeadingIconColor,
-    overlineColor = overlineColor,
-    supportingTextColor = supportingTextColor,
-    trailingIconColor = if (enabled) trailingIconColor else disabledTrailingIconColor,
-    disabledHeadlineColor = disabledHeadlineColor,
-    disabledLeadingIconColor = disabledLeadingIconColor,
-    disabledTrailingIconColor = disabledTrailingIconColor
-)
-
-@Composable
-private fun BaseOptionBottomSheetItem(
-    modifier: Modifier,
-    title: @Composable () -> Unit,
-    icon: @Composable (() -> Unit)?,
-    trailingContent: @Composable (() -> Unit)? = null,
-    visible: Boolean = true,
-    enabled: Boolean = true
-) {
-    if (visible) {
-        ListItem(
-            modifier = modifier,
-            headlineContent = title,
-            leadingContent = icon,
-            trailingContent = trailingContent,
-            colors = ListItemDefaults.colors(
-                containerColor = Color.Transparent
-            ).withDisabledColors(enabled)
-        )
-    }
-}
-
-@Composable
-private fun BaseOptionBottomSheetItem(
-    modifier: Modifier,
-    item: BottomSheetOption,
-    trailingContent: @Composable (() -> Unit)? = null,
-) = BaseOptionBottomSheetItem(
-    modifier = modifier,
-    title = { Text(text = item.title) },
-    icon = item.icon,
-    trailingContent = trailingContent,
-    visible = item.visible,
-    enabled = item.enabled
-)
 
 /**
  * Displays a clickable item to be rendered in a [OptionsModalBottomSheet].
@@ -144,13 +113,17 @@ private fun BaseOptionBottomSheetItem(
 fun OptionsBottomSheetItem(
     modifier: Modifier = Modifier,
     title: String,
+    onClick: () -> Unit,
     icon: (@Composable () -> Unit)? = null,
     enabled: Boolean = true,
-    onClick: () -> Unit = {}
-) = BaseOptionBottomSheetItem(
-    modifier = modifier.clickable(enabled = enabled, onClick = onClick),
-    title = { Text(text = title) },
-    icon = icon
+    shapes: ListItemShapes
+) = ListItem(
+    modifier = modifier,
+    enabled = enabled,
+    onClick = onClick,
+    content = { Text(text = title) },
+    leadingContent = icon,
+    shapes = shapes
 )
 
 /**
@@ -163,10 +136,15 @@ fun OptionsBottomSheetItem(
 @Composable
 fun OptionsBottomSheetItem(
     modifier: Modifier = Modifier,
-    item: BottomSheetOption
-) = BaseOptionBottomSheetItem(
-    modifier = modifier.clickable(enabled = item.enabled, onClick = item.onClick),
-    item = item
+    item: BottomSheetOption,
+    shapes: ListItemShapes
+) = OptionsBottomSheetItem(
+    modifier = modifier,
+    title = item.title,
+    icon = item.icon,
+    enabled = item.enabled,
+    onClick = item.onClick,
+    shapes = shapes
 )
 
 /**
@@ -186,12 +164,14 @@ fun OptionsBottomSheetItem(
 fun OptionsBottomSheetItem(
     modifier: Modifier = Modifier,
     onDismissBottomSheetRequest: () -> Unit,
-    item: BottomSheetOption
+    item: BottomSheetOption,
+    shapes: ListItemShapes
 ) = OptionsBottomSheetItem(
     modifier = modifier,
     item = item.copy(onClick = {
         item.onClick(); if (item.requestDismissOnClick) onDismissBottomSheetRequest()
-    })
+    }),
+    shapes = shapes
 )
 
 private class BooleanPreviewParameterProvider : PreviewParameterProvider<Boolean> {
@@ -207,7 +187,9 @@ private fun OptionsBottomSheetItemPreview(
     OptionsBottomSheetItem(
         title = "Settings",
         icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
-        enabled = enabled
+        onClick = {},
+        enabled = enabled,
+        shapes = ListItemDefaults.shapes()
     )
 }
 
@@ -229,20 +211,18 @@ fun OptionsBottomSheetCheckableItem(
     title: String,
     icon: (@Composable () -> Unit)? = null,
     enabled: Boolean = true,
-    checked: Boolean = false,
-    onCheckedChange: (Boolean) -> Unit = {}
-) = BaseOptionBottomSheetItem(
-    modifier = modifier.toggleable(
-        enabled = enabled,
-        role = Role.Checkbox,
-        value = checked,
-        onValueChange = onCheckedChange
-    ),
-    title = { Text(text = title) },
-    icon = icon,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    shapes: ListItemShapes
+) = ListItem(
+    modifier = modifier,
+    enabled = enabled,
+    content = { Text(text = title) },
+    leadingContent = icon,
     trailingContent = {
         Checkbox(enabled = enabled, checked = checked, onCheckedChange = null)
-    }
+    },
+    shapes = shapes
 )
 
 /**
@@ -260,14 +240,16 @@ fun OptionsBottomSheetCheckableItem(
     modifier: Modifier = Modifier,
     item: BottomSheetOption,
     checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+    onCheckedChange: (Boolean) -> Unit,
+    shapes: ListItemShapes
 ) = OptionsBottomSheetCheckableItem(
     modifier = modifier,
     title = item.title,
     icon = item.icon,
     enabled = item.enabled,
     checked = checked,
-    onCheckedChange = onCheckedChange
+    onCheckedChange = onCheckedChange,
+    shapes = shapes
 )
 
 @Preview
@@ -283,7 +265,8 @@ private fun OptionsBottomSheetCheckableItemPreview(
         icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
         enabled = enabled,
         checked = checked,
-        onCheckedChange = { checked = it }
+        onCheckedChange = { checked = it },
+        shapes = ListItemDefaults.shapes()
     )
 }
 
@@ -299,7 +282,10 @@ private fun OptionsBottomSheetCheckableItemGroupPreview(
         }
     }
 
-    LazyColumn(modifier = Modifier.selectableGroup()) {
+    LazyColumn(
+        modifier = Modifier.selectableGroup(),
+        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
+    ) {
         items(
             selectedOptions.entries.sortedBy { (index, _) -> index }
         ) { (index, checked) ->
@@ -308,7 +294,11 @@ private fun OptionsBottomSheetCheckableItemGroupPreview(
                 icon = { Icon(Icons.Outlined.FavoriteBorder, contentDescription = null) },
                 enabled = enabled,
                 checked = checked,
-                onCheckedChange = { selectedOptions[index] = it }
+                onCheckedChange = { selectedOptions[index] = it },
+                shapes = ListItemDefaults.segmentedShapes(
+                    index = index,
+                    count = selectedOptions.size
+                )
             )
         }
     }
@@ -331,22 +321,20 @@ fun OptionsBottomSheetSelectableItem(
     title: String,
     icon: (@Composable () -> Unit)? = null,
     enabled: Boolean = true,
-    selected: Boolean = false,
-    onClick: () -> Unit
-) = BaseOptionBottomSheetItem(
-    modifier = modifier.selectable(
-        enabled = enabled,
-        selected = selected,
-        role = Role.RadioButton,
-        onClick = onClick
-    ),
-    title = { Text(text = title) },
-    icon = icon,
+    selected: Boolean,
+    onClick: () -> Unit,
+    shapes: ListItemShapes
+) = ListItem(
+    modifier = modifier,
+    enabled = enabled,
+    content = { Text(text = title) },
+    leadingContent = icon,
     trailingContent = {
         RadioButton(
             enabled = enabled, selected = selected, onClick = null
         )
-    }
+    },
+    shapes = shapes
 )
 
 /**
@@ -364,14 +352,16 @@ fun OptionsBottomSheetSelectableItem(
     modifier: Modifier = Modifier,
     item: BottomSheetOption,
     selected: Boolean = false,
-    onSelectClick: () -> Unit
+    onSelectClick: () -> Unit,
+    shapes: ListItemShapes
 ) = OptionsBottomSheetSelectableItem(
     modifier = modifier,
     title = item.title,
     icon = item.icon,
     enabled = item.enabled,
     selected = selected,
-    onClick = { item.onClick(); onSelectClick() }
+    onClick = { item.onClick(); onSelectClick() },
+    shapes = shapes
 )
 
 @Preview
@@ -387,7 +377,8 @@ private fun OptionsBottomSheetSelectableItemPreview(
         icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
         enabled = enabled,
         selected = checked,
-        onClick = { checked = !checked }
+        onClick = { checked = !checked },
+        shapes = ListItemDefaults.shapes()
     )
 }
 
@@ -398,9 +389,13 @@ private fun OptionsBottomSheetSelectableItemGroupPreview(
     @PreviewParameter(BooleanPreviewParameterProvider::class) enabled: Boolean
 ) {
     var selectedOption by remember { mutableIntStateOf(0) }
+    val count = 50
 
-    LazyColumn(modifier = Modifier.selectableGroup()) {
-        items(50) { index ->
+    LazyColumn(
+        modifier = Modifier.selectableGroup(),
+        verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
+    ) {
+        items(count) { index ->
             val selected = remember(selectedOption) { selectedOption == index }
             OptionsBottomSheetSelectableItem(
                 title = "Option $index",
@@ -414,7 +409,11 @@ private fun OptionsBottomSheetSelectableItemGroupPreview(
                 },
                 enabled = enabled,
                 selected = selected,
-                onClick = { selectedOption = index }
+                onClick = { selectedOption = index },
+                shapes = ListItemDefaults.segmentedShapes(
+                    index = index,
+                    count = count
+                )
             )
         }
     }
