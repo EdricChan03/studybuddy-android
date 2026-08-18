@@ -12,6 +12,9 @@
     <!-- Title for the theming settings category. -->
     <string name="pref_category_theming_title">Theming</string>
 
+    <!-- Title for the app theme setting. -->
+    <string name="pref_app_theme_title">App theme</string>
+
     <!-- Title for the dark theme setting. -->
     <string name="pref_dark_theme_title">Dark theme</string>
 
