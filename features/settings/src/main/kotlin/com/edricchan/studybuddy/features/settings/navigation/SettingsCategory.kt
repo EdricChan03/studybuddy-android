@@ -17,9 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.filled.MobileArrowDown
+import com.edricchan.studybuddy.core.resources.icons.filled.Palette
 import com.edricchan.studybuddy.core.resources.icons.filled.Settings
 import com.edricchan.studybuddy.core.resources.icons.filled.Task
 import com.edricchan.studybuddy.core.resources.icons.outlined.MobileArrowDown
+import com.edricchan.studybuddy.core.resources.icons.outlined.Palette
 import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.core.resources.icons.outlined.Task
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
@@ -38,6 +40,17 @@ enum class SettingsCategory(
         icon = {
             Icon(
                 imageVector = if (it) AppIcons.Filled.Settings else AppIcons.Outlined.Settings,
+                contentDescription = null
+            )
+        }
+    ),
+
+    Appearance(
+        nameResId = AppearanceR.string.pref_header_appearance_title,
+        descResId = AppearanceR.string.pref_header_appearance_summary,
+        icon = {
+            Icon(
+                imageVector = if (it) AppIcons.Filled.Palette else AppIcons.Outlined.Palette,
                 contentDescription = null
             )
         }

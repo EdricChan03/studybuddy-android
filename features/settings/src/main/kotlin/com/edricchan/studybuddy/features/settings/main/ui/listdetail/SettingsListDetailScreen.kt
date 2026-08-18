@@ -32,6 +32,7 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.features.settings.R
+import com.edricchan.studybuddy.features.settings.appearance.ui.AppearanceSettingsScreen
 import com.edricchan.studybuddy.features.settings.general.ui.GeneralSettingsScreen
 import com.edricchan.studybuddy.features.settings.main.ui.list.SettingsListScreen
 import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
@@ -152,10 +153,13 @@ private fun SettingsDetailScreen(
         when (it) {
             SettingsCategory.General -> GeneralSettingsScreen(
                 modifier = modifier,
-                contentPadding = contentPadding,
-                viewModel = viewModel(),
-                onDynamicThemeChange = onDynamicThemeChange,
-                onDarkThemeChange = onDarkThemeChange
+                contentPadding = padding,
+                viewModel = hiltViewModel()
+            )
+
+            SettingsCategory.Appearance -> AppearanceSettingsScreen(
+                modifier = modifier,
+                contentPadding = padding
             )
 
             SettingsCategory.Task -> TaskSettingsScreen(

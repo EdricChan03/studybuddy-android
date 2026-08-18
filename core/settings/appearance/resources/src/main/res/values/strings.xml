@@ -6,8 +6,7 @@
     <!-- Title for the general settings header. -->
     <string name="pref_header_appearance_title">Appearance</string>
     <!-- Summary for the appearance settings header. -->
-    <string name="pref_header_appearance_summary">Language, in-app browser, dark theme
-    </string>
+    <string name="pref_header_appearance_summary">App theme, dark mode, font styles</string>
 
     <!-- Title for the theming settings category. -->
     <string name="pref_category_theming_title">Theming</string>
