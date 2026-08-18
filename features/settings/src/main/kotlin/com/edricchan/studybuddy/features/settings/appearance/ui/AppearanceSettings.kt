@@ -12,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
@@ -60,7 +59,7 @@ fun AppearanceSettingsScreen(
 fun AppearanceSettingsScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    viewModel: AppearanceSettingsViewModel = hiltViewModel()
+    viewModel: AppearanceSettingsViewModel
 ) {
     val darkTheme by viewModel.darkMode.collectAsStateWithLifecycle()
     val appTheme by viewModel.appTheme.collectAsStateWithLifecycle()

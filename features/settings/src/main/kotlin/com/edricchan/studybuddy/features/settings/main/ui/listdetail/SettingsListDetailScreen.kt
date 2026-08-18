@@ -27,7 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
@@ -153,25 +153,26 @@ private fun SettingsDetailScreen(
         when (it) {
             SettingsCategory.General -> GeneralSettingsScreen(
                 modifier = modifier,
-                contentPadding = padding,
+                contentPadding = contentPadding,
                 viewModel = hiltViewModel()
             )
 
             SettingsCategory.Appearance -> AppearanceSettingsScreen(
                 modifier = modifier,
-                contentPadding = padding
+                contentPadding = contentPadding,
+                viewModel = hiltViewModel()
             )
 
             SettingsCategory.Task -> TaskSettingsScreen(
                 modifier = modifier,
                 contentPadding = contentPadding,
-                viewModel = viewModel()
+                viewModel = hiltViewModel()
             )
 
             SettingsCategory.Updates -> UpdateSettingsScreen(
                 modifier = modifier,
                 contentPadding = contentPadding,
-                viewModel = viewModel(),
+                viewModel = hiltViewModel(),
                 onUpdatesClick = onNavigateToUpdates
             )
 
