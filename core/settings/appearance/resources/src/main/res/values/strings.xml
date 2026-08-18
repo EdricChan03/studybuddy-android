@@ -9,9 +9,6 @@
     <string name="pref_header_appearance_summary">Language, in-app browser, dark theme
     </string>
 
-    <!-- Title for the custom tabs setting. -->
-    <string name="pref_use_custom_tabs_title">Open web links in-app</string>
-
     <!-- Title for the theming settings category. -->
     <string name="pref_category_theming_title">Theming</string>
 

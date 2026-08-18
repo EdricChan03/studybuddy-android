@@ -26,8 +26,11 @@ dependencies {
     implementation(projects.features.auth.navigation)
 
     implementation(projects.core.resources.temporal)
-    implementation(projects.core.settings.appearance.resources)
     implementation(projects.core.settings.appearance.model)
+    implementation(projects.core.settings.appearance.resources)
+    implementation(projects.core.settings.general.datastore)
+    implementation(projects.core.settings.general.model)
+    implementation(projects.core.settings.general.resources)
     implementation(projects.core.settings.tasks.model)
     implementation(projects.core.settings.tasks.resources)
     implementation(projects.core.settings.tracking)

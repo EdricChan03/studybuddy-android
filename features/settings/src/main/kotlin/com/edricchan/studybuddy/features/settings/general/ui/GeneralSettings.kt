@@ -23,7 +23,6 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.BugReport
 import com.edricchan.studybuddy.core.resources.icons.outlined.Colorize
 import com.edricchan.studybuddy.core.resources.icons.outlined.DarkMode
-import com.edricchan.studybuddy.core.resources.icons.outlined.OpenInBrowser
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.general.vm.GeneralSettingsViewModel
@@ -33,7 +32,6 @@ import com.edricchan.studybuddy.ui.preference.compose.twostate.SwitchPreference
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
-
 
 @get:StringRes
 val DarkThemeValue.Version2.labelResource
@@ -49,8 +47,8 @@ fun GeneralSettingsScreen(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     enableUserTracking: Boolean,
     onEnableUserTrackingChange: (Boolean) -> Unit,
-    useCustomTabs: Boolean,
-    onUseCustomTabsChange: (Boolean) -> Unit,
+    openLinksInApp: Boolean,
+    onOpenLinksInAppChange: (Boolean) -> Unit,
     useDarkTheme: DarkThemeValue.Version2,
     onDarkThemeChange: (DarkThemeValue.Version2) -> Unit,
     enableDynamicTheme: Boolean,
@@ -77,18 +75,9 @@ fun GeneralSettingsScreen(
             onCheckedChange = onEnableUserTrackingChange
         )
 
-        SwitchPreference(
-            icon = {
-                Icon(
-                    AppIcons.Outlined.OpenInBrowser,
-                    contentDescription = null
-                )
-            },
-            title = {
-                Text(text = stringResource(AppearanceR.string.pref_use_custom_tabs_title))
-            },
-            checked = useCustomTabs,
-            onCheckedChange = onUseCustomTabsChange
+        InAppLinksPreference(
+            openLinksInApp = openLinksInApp,
+            onOpenLinksInAppChange = onOpenLinksInAppChange
         )
     }
 
@@ -142,9 +131,7 @@ fun GeneralSettingsScreen(
     val enableUserTracking by viewModel.prefEnableUserTracking.asFlow().collectAsStateWithLifecycle(
         initialValue = false
     )
-    val useCustomTabs by viewModel.prefUseCustomTabs.asFlow().collectAsStateWithLifecycle(
-        initialValue = true
-    )
+    val openLinksInApp by viewModel.openLinksInApp.collectAsStateWithLifecycle()
     val useDarkTheme by viewModel.prefDarkTheme.asFlow().collectAsStateWithLifecycle(
         initialValue = DarkThemeValue.V2FollowSystem
     )
@@ -157,8 +144,8 @@ fun GeneralSettingsScreen(
         contentPadding = contentPadding,
         enableUserTracking = enableUserTracking,
         onEnableUserTrackingChange = viewModel.prefEnableUserTracking::set,
-        useCustomTabs = useCustomTabs,
-        onUseCustomTabsChange = viewModel.prefUseCustomTabs::set,
+        openLinksInApp = openLinksInApp,
+        onOpenLinksInAppChange = viewModel::setOpenLinksInApp,
         useDarkTheme = useDarkTheme,
         onDarkThemeChange = {
             viewModel.prefDarkTheme.set(it)
@@ -184,8 +171,8 @@ private fun GeneralSettingsScreenPreview() {
     GeneralSettingsScreen(
         enableUserTracking = enableUserTracking,
         onEnableUserTrackingChange = { enableUserTracking = it },
-        useCustomTabs = useCustomTabs,
-        onUseCustomTabsChange = { useCustomTabs = it },
+        openLinksInApp = useCustomTabs,
+        onOpenLinksInAppChange = { useCustomTabs = it },
         useDarkTheme = useDarkTheme,
         onDarkThemeChange = { useDarkTheme = it },
         enableDynamicTheme = enableDynamicTheme,

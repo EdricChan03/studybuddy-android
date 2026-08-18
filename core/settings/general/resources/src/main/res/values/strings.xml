@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title for the open links in app setting. -->
+    <string name="pref_general_open_links_in_app_title">Open web links in-app</string>
+</resources>
