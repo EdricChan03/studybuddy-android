@@ -19,7 +19,6 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.logging.Logging
 import org.gradle.api.problems.ProblemReporter
 import org.gradle.api.problems.Problems
-import org.gradle.api.problems.Severity
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
