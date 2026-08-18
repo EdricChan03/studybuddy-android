@@ -30,4 +30,21 @@
     <!-- Subtitle for the enable dynamic theme setting. -->
     <string name="pref_dynamic_theme_subtitle">Use this device\'s wallpaper colours across the
         app</string>
+
+    <!-- Title for the font settings category. -->
+    <string name="pref_category_fonts_title">Fonts</string>
+
+    <!-- Title for the display font style setting. -->
+    <string name="pref_display_font_style_title">Display font style</string>
+
+    <!-- Info text for the display font style setting. -->
+    <string name="pref_display_font_style_info_text">The font used for headings, titles, and
+        other prominent text.</string>
+
+    <!-- Title for the body font style setting. -->
+    <string name="pref_body_font_style_title">Body font style</string>
+
+    <!-- Info text for the body font style setting. -->
+    <string name="pref_body_font_style_info_text">The font used for paragraphs and other
+        text meant for comfortable reading.</string>
 </resources>
