@@ -83,11 +83,4 @@ class LocalAppearanceSettingsDataStore @Inject constructor(
         }
     }
 
-    override val useRelativeTimestamps = dataStore.data.map { it.use_relative_timestamps }
-
-    override suspend fun setUseRelativeTimestamps(shouldUse: Boolean) {
-        dataStore.updateData {
-            it.copy(use_relative_timestamps = shouldUse)
-        }
-    }
 }

@@ -26,7 +26,6 @@ private val supportsDynamicColor get() = Build.VERSION.SDK_INT >= Build.VERSION_
  * * [AppearanceSettingsDataStore.displayTypeface]
  * * [AppearanceSettingsDataStore.bodyTypeface]
  * * [AppearanceSettingsDataStore.baseSpacing]
- * * [AppearanceSettingsDataStore.useRelativeTimestamps]
  */
 class AppearanceSettingsRepository @Inject constructor(
     private val dataStore: AppearanceSettingsDataStore,
@@ -90,15 +89,5 @@ class AppearanceSettingsRepository @Inject constructor(
 
     suspend fun setBaseSpacing(spacing: Int) {
         dataStore.setBaseSpacing(spacing)
-    }
-
-    val useRelativeTimestamps: StateFlow<Boolean> = dataStore.useRelativeTimestamps.stateIn(
-        scope = coroutineScope,
-        started = SharingStarted.WhileSubscribed(),
-        initialValue = true
-    )
-
-    suspend fun setUseRelativeTimestamps(shouldUse: Boolean) {
-        dataStore.setUseRelativeTimestamps(shouldUse)
     }
 }

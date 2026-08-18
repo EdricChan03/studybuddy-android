@@ -24,8 +24,7 @@ message AppearanceSettings {
   */
   int32 base_spacing = 5;
 
-  // Temporal-related settings
-
-  /* Whether to use relative timestamps. */
-  bool use_relative_timestamps = 100;
+  // Formerly the use_relative_timestamps setting which is now
+  // located in TemporalFormattingSettings
+  reserved 100;
 }

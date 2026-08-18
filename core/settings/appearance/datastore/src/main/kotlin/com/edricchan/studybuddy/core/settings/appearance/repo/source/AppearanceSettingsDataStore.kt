@@ -78,13 +78,4 @@ interface AppearanceSettingsDataStore {
      * (Note that there is no maximum limit but ideally this should not be too large UX-wise)
      */
     suspend fun setBaseSpacing(@IntRange(from = 0) value: Int)
-
-    /** Whether to use relative timestamps. */
-    val useRelativeTimestamps: Flow<Boolean>
-
-    /**
-     * Sets the [useRelativeTimestamps] value to be used.
-     * @param shouldUse Whether relative timestamps should be used.
-     */
-    suspend fun setUseRelativeTimestamps(shouldUse: Boolean)
 }

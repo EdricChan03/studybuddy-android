@@ -5,6 +5,9 @@ import com.edricchan.studybuddy.core.settings.general.locale.LocaleOptions
 import com.edricchan.studybuddy.core.settings.general.locale.toDomain
 import com.edricchan.studybuddy.core.settings.general.locale.toProto
 import com.edricchan.studybuddy.core.settings.general.proto.GeneralSettings
+import com.edricchan.studybuddy.core.settings.general.temporal.format.TemporalFormatOptions
+import com.edricchan.studybuddy.core.settings.general.temporal.format.toDomain
+import com.edricchan.studybuddy.core.settings.general.temporal.format.toProto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -21,6 +24,20 @@ class LocalGeneralSettingsDataSource @Inject constructor(
             val localeOptions = settings.locale_settings?.toDomain() ?: LocaleOptions()
             settings.copy(
                 locale_settings = transform(localeOptions).toProto()
+            )
+        }
+    }
+
+    override val temporalFormatOptions: Flow<TemporalFormatOptions> = dataStore.data.map {
+        it.temporal_format_settings?.toDomain() ?: TemporalFormatOptions()
+    }
+
+    override suspend fun setTemporalFormatOptions(transform: suspend (TemporalFormatOptions) -> TemporalFormatOptions) {
+        dataStore.updateData { settings ->
+            val temporalFormatOptions =
+                settings.temporal_format_settings?.toDomain() ?: TemporalFormatOptions()
+            settings.copy(
+                temporal_format_settings = transform(temporalFormatOptions).toProto()
             )
         }
     }

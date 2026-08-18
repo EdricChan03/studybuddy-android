@@ -5,10 +5,14 @@ package com.edricchan.studybuddy.core.settings.general.proto;
 option java_multiple_files = true;
 
 import "com/edricchan/studybuddy/core/settings/general/proto/settings_general_locale.proto";
+import "com/edricchan/studybuddy/core/settings/general/proto/settings_general_temporal.proto";
 
 message GeneralSettings {
   /* Locale-related settings. */
   com.edricchan.studybuddy.core.settings.general.proto.LocaleSettings locale_settings = 1;
+
+  /* Temporal formatting settings. */
+  com.edricchan.studybuddy.core.settings.general.proto.TemporalFormatSettings temporal_format_settings = 2;
 
   /*
   Whether links should be opened within the app.

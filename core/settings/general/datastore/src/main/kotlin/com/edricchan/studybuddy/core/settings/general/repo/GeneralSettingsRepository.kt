@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.core.settings.general.repo
 import com.edricchan.studybuddy.core.di.qualifiers.coroutines.ApplicationScope
 import com.edricchan.studybuddy.core.settings.general.locale.LocaleOptions
 import com.edricchan.studybuddy.core.settings.general.repo.source.GeneralSettingsDataSource
+import com.edricchan.studybuddy.core.settings.general.temporal.format.TemporalFormatOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +15,7 @@ import javax.inject.Inject
  *
  * This includes:
  * * [GeneralSettingsDataSource.localeOptions]
+ * * [GeneralSettingsDataSource.temporalFormatOptions]
  * * [GeneralSettingsDataSource.openLinksInApp]
  */
 class GeneralSettingsRepository @Inject constructor(
@@ -33,6 +35,21 @@ class GeneralSettingsRepository @Inject constructor(
 
     suspend fun setLocaleOptions(transform: suspend (LocaleOptions) -> LocaleOptions) {
         dataStore.setLocaleOptions(transform)
+    }
+
+    val temporalFormatOptions: StateFlow<TemporalFormatOptions> = dataStore.temporalFormatOptions
+        .stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = TemporalFormatOptions()
+        )
+
+    suspend fun setTemporalFormatOptions(options: TemporalFormatOptions) {
+        dataStore.setTemporalFormatOptions(options)
+    }
+
+    suspend fun setTemporalFormatOptions(transform: suspend (TemporalFormatOptions) -> TemporalFormatOptions) {
+        dataStore.setTemporalFormatOptions(transform)
     }
 
     val openLinksInApp: StateFlow<Boolean> = dataStore.openLinksInApp
