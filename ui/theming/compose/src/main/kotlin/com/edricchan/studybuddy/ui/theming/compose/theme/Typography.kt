@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.theming.compose.theme
 
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -20,9 +19,7 @@ val baloo2Family = FontFamily(
     Font(ThemingR.font.baloo2_regular, FontWeight.Normal)
 )
 
-// TODO: Remove when https://issuetracker.google.com/issues/236358112 is fixed
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-private fun Typography.defaultFontFamily(
+private fun Typography.withFontFamilies(
     displayFontFamily: FontFamily,
     bodyFontFamily: FontFamily
 ): Typography = this.copy(
@@ -67,7 +64,7 @@ private fun Typography.defaultFontFamily(
 fun StudyBuddyTypography(
     displayFontFamily: FontFamily,
     bodyFontFamily: FontFamily
-) = Typography().defaultFontFamily(displayFontFamily, bodyFontFamily)
+) = Typography().withFontFamilies(displayFontFamily, bodyFontFamily)
 
 /**
  * Creates the [Typography] styles for the app with the font-families set for the relevant styles.
@@ -76,7 +73,7 @@ fun StudyBuddyTypography(
  */
 fun StudyBuddyTypography(
     fontFamilyConfig: FontFamilyConfig
-) = Typography().defaultFontFamily(
+) = Typography().withFontFamilies(
     fontFamilyConfig.displayFontFamily, fontFamilyConfig.bodyFontFamily
 )
 
