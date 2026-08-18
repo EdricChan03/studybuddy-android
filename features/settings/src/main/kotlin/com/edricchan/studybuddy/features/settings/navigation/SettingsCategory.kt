@@ -26,6 +26,7 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Settings
 import com.edricchan.studybuddy.core.resources.icons.outlined.Task
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
+import com.edricchan.studybuddy.core.settings.general.resources.R as GeneralR
 import com.edricchan.studybuddy.core.settings.tasks.resources.R as TaskR
 import com.edricchan.studybuddy.core.settings.updates.resources.R as UpdateR
 
@@ -35,8 +36,8 @@ enum class SettingsCategory(
     val icon: @Composable (isSelected: Boolean) -> Unit
 ) {
     General(
-        nameResId = AppearanceR.string.pref_header_appearance_title,
-        descResId = AppearanceR.string.pref_header_appearance_summary,
+        nameResId = GeneralR.string.pref_header_general_title,
+        descResId = GeneralR.string.pref_header_general_summary,
         icon = {
             Icon(
                 imageVector = if (it) AppIcons.Filled.Settings else AppIcons.Outlined.Settings,

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Title for the general settings header. -->
+    <string name="pref_header_general_title">General</string>
+    <!-- Summary for the general settings header. -->
+    <string name="pref_header_general_summary">Language, open links in-app, date and
+        time formatting settings
+    </string>
+
     <!-- Title for the open links in app setting. -->
     <string name="pref_general_open_links_in_app_title">Open web links in-app</string>
 
