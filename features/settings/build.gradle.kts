@@ -64,6 +64,9 @@ dependencies {
 
     implementation(libs.flowPreferences)
 
+    // Hilt
+    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
