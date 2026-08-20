@@ -8,4 +8,7 @@ class HelpRepository @Inject constructor(
 ) {
     /** Retrieves the current list of help articles. */
     suspend fun fetchHelpArticles() = helpApi.fetchHelpArticles()
+
+    /** Searches for a list of help articles that match the given [query]. */
+    suspend fun searchHelpArticles(query: String) = helpApi.searchHelpArticles(query)
 }

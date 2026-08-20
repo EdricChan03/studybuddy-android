@@ -7,6 +7,8 @@ import com.edricchan.studybuddy.features.help.data.model.HelpArticles
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GitHubHelpApiImpl @Inject constructor(
@@ -16,5 +18,17 @@ class GitHubHelpApiImpl @Inject constructor(
     override suspend fun fetchHelpArticles(): List<HelpArticle> {
         return http.get(urlHelpFeatured).body<HelpArticles>().articles
             ?: listOf()
+    }
+
+    // TODO: Use a better implementation when a backend exposes this as an API rather
+    //   than a hard-coded list of data
+    override suspend fun searchHelpArticles(query: String): List<HelpArticle> {
+        val articles = fetchHelpArticles()
+        return withContext(Dispatchers.Default) {
+            articles.filter {
+                it.title.contains(query, ignoreCase = true) ||
+                    it.description?.contains(query, ignoreCase = true) == true
+            }
+        }
     }
 }
