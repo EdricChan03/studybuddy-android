@@ -9,12 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -237,25 +237,22 @@ fun PreferenceCategory(
     val scope: (ColumnScope) -> PreferenceCategoryScopeImpl = remember {
         { PreferenceCategoryScopeImpl(enabled, iconSpaceReserved, it) }
     }
-    Surface {
+    Column(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        title?.let {
+            PreferenceCategoryTitle(
+                title = it,
+                withHorizontalPadding = iconSpaceReserved,
+                hasInfoContent = info != null
+            )
+        }
+        info?.invoke(scope(this))
         Column(
-            modifier = modifier.fillMaxWidth()
+            modifier = Modifier.clip(listShape),
+            verticalArrangement = Arrangement.spacedBy(PreferenceCategoryItemsSpacing)
         ) {
-            title?.let {
-                PreferenceCategoryTitle(
-                    title = it,
-                    withHorizontalPadding = iconSpaceReserved,
-                    hasInfoContent = info != null
-                )
-            }
-            info?.invoke(scope(this))
-            Surface(shape = listShape) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(PreferenceCategoryItemsSpacing)
-                ) {
-                    scope(this).content()
-                }
-            }
+            scope(this).content()
         }
     }
 }

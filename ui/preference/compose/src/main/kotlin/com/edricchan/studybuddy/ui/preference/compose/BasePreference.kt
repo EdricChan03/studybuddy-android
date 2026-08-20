@@ -435,7 +435,7 @@ object PreferenceDefaults {
      */
     @Composable
     fun colors(
-        containerColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        containerColor: Color = MaterialTheme.colorScheme.surface,
         contentColor: Color = MaterialTheme.colorScheme.onSurface,
         iconColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
         disabledContainerColor: Color = containerColor.copy(alpha = 0.38f),

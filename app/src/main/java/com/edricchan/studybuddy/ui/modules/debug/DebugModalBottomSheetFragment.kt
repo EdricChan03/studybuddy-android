@@ -117,7 +117,8 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
         Scaffold(
             modifier = modifier,
             contentWindowInsets = WindowInsets.navigationBars,
-            snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
         ) { innerPadding ->
             LazyColumn(
                 modifier = Modifier.consumeWindowInsets(innerPadding),
@@ -164,10 +165,6 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
             content = {
                 Text(text = title)
             },
-            colors = ListItemDefaults.segmentedColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                contentColor = MaterialTheme.colorScheme.onSurface
-            ),
             shapes = shapes
         )
     }

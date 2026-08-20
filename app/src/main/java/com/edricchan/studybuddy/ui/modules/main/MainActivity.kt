@@ -106,6 +106,16 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
             windowInsets
         }
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, windowInsets ->
+            val statusBars = windowInsets.getInsets(
+                WindowInsetsCompat.Type.statusBars()
+            )
+
+            view.updatePadding(top = statusBars.top)
+
+            windowInsets
+        }
+
         // Create notification channels
         createNotificationChannelsCompat()
 

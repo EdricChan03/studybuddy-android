@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -67,9 +68,17 @@ class DebugActivity : BaseActivity() {
                             title = {
                                 Text(text = title)
                             },
-                            scrollBehavior = scrollBehavior
+                            scrollBehavior = scrollBehavior,
+                            colors = TopAppBarDefaults.topAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                                navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                                titleContentColor = MaterialTheme.colorScheme.onSurface,
+                                actionIconContentColor = MaterialTheme.colorScheme.onSurface,
+                                subtitleContentColor = MaterialTheme.colorScheme.onSurface
+                            )
                         )
-                    }
+                    },
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer
                 ) { innerPadding ->
                     NavHost(
                         modifier = Modifier
