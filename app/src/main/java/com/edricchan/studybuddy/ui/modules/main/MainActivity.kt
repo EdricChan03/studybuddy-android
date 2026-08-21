@@ -106,7 +106,7 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
             windowInsets
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { view, windowInsets ->
             val statusBars = windowInsets.getInsets(
                 WindowInsetsCompat.Type.statusBars()
             )
