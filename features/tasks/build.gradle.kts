@@ -36,6 +36,7 @@ dependencies {
     api(projects.features.tasks.components.taskFormFields)
     api(projects.features.tasks.components.taskMetadata)
 
+    api(projects.core.settings.tasks.datastore)
     api(projects.core.settings.tasks.model)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
