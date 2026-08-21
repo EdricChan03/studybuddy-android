@@ -91,7 +91,7 @@ fun TaskDetailColumn(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = CardDefaults.shape,
-                color = MaterialTheme.colorScheme.surfaceContainer
+                color = MaterialTheme.colorScheme.surface
             ) {
                 TaskContentMarkdownText(
                     modifier = Modifier.padding(16.dp),
