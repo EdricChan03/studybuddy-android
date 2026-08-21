@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.attrs
+package com.edricchan.studybuddy.features.tasks.components.metadata.temporal.created
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,16 +18,15 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Schedule
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeToNow
-import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
+import com.edricchan.studybuddy.features.tasks.components.metadata.R
 import java.time.Instant
 
 /**
- * Composable which displays a [TodoItem]'s [creation date][TodoItem.createdAt].
+ * Composable [Text] which displays a task's creation date.
  *
  * The [text] should be formatted to its human-readable form.
  * @param modifier [Modifier] to be used for the [Text].
- * @param text Human-readable form of [TodoItem.createdAt].
+ * @param text Human-readable form of the creation date.
  */
 @Composable
 fun TaskCreatedAtText(
@@ -40,7 +39,7 @@ fun TaskCreatedAtText(
 )
 
 /**
- * Composable which displays a [TodoItem]'s [creation date][TodoItem.createdAt].
+ * Composable [Text] which displays a task's creation date.
  *
  * The [instant] will be formatted using [appFormat].
  * @param modifier [Modifier] to be used for the [Text].
@@ -57,7 +56,7 @@ fun TaskCreatedAtText(
 )
 
 /**
- * Composable [ListItem] which displays a [TodoItem]'s [creation date][TodoItem.createdAt]
+ * Composable [ListItem] which displays a task's creation date
  * using [TaskCreatedAtText].
  * @param modifier [Modifier] to be used for the [ListItem].
  * @param textModifier [Modifier] to be used for the [TaskCreatedAtText].
@@ -79,7 +78,7 @@ fun TaskCreatedAtListItem(
         Icon(
             AppIcons.Outlined.Schedule,
             contentDescription = stringResource(
-                R.string.view_task_created_at_content_desc
+                R.string.task_created_at_content_desc
             )
         )
     },
@@ -89,7 +88,7 @@ fun TaskCreatedAtListItem(
 )
 
 /**
- * Composable which displays a [TodoItem]'s [creation date][TodoItem.createdAt]
+ * Composable which displays a task's creation date
  * using [TaskCreatedAtText]. This variant is intended to be displayed as an
  * overline for a card.
  * @param modifier [Modifier] to be used for the [Row].
@@ -110,7 +109,7 @@ fun TaskCreatedAtOverline(
     Icon(
         AppIcons.Outlined.Schedule,
         contentDescription = stringResource(
-            R.string.view_task_created_at_content_desc
+            R.string.task_created_at_content_desc
         )
     )
     TaskCreatedAtText(modifier = textModifier, text = formatDate(createdAt))

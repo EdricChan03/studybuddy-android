@@ -43,12 +43,6 @@
     <!-- Content for the "Confirm delete task" dialog. -->
     <string name="confirm_delete_task_dialog_content">This action cannot be undone!</string>
 
-    <!-- View task strings -->
-    <eat-comment />
-
-    <!-- Content description to indicate the task's created at timestamp. -->
-    <string name="view_task_created_at_content_desc">This task is created at:</string>
-
     <!-- Text-field strings -->
     <eat-comment />
 
