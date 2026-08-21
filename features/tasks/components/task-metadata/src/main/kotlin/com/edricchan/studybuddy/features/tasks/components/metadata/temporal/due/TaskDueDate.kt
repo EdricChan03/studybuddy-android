@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.attrs
+package com.edricchan.studybuddy.features.tasks.components.metadata.temporal.due
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -22,18 +22,17 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.CalendarClock
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeToNow
-import com.edricchan.studybuddy.features.tasks.R
-import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
-import com.edricchan.studybuddy.features.tasks.ui.attrs.date.TaskDateDefaults
+import com.edricchan.studybuddy.features.tasks.components.metadata.R
+import com.edricchan.studybuddy.features.tasks.components.metadata.temporal.TaskDateDefaults
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 
 /**
- * Composable to display a [TaskItem]'s [due-date][TaskItem.dueDate] as a [ListItem].
+ * Composable to display a task's due-date as a [ListItem].
  * @param modifier [Modifier] to be used for the [ListItem].
- * @param dueDate The [TaskItem]'s due-date as a [LocalDateTime].
+ * @param dueDate The task's due-date as a [LocalDateTime].
  * @param formatDate Lambda used to format the [dueDate] to its string form.
  * @param colors Colours to be used for the [ListItem].
  * @param shapes [ListItemShapes] to be used for the [ListItem].
@@ -56,9 +55,9 @@ fun TaskDueDateListItem(
 )
 
 /**
- * Composable to display a [TaskItem]'s [due-date][TaskItem.dueDate] as a [ListItem].
+ * Composable to display a task's due-date as a [ListItem].
  * @param modifier [Modifier] to be used for the [ListItem].
- * @param dueDate The [TaskItem]'s due-date as an [Instant].
+ * @param dueDate The task's due-date as an [Instant].
  * @param formatDate Lambda used to format the [dueDate] to its string form.
  * @param colors Colours to be used for the [ListItem].
  * @param shapes [ListItemShapes] to be used for the [ListItem].
@@ -86,7 +85,7 @@ private fun TaskDueDateListItemPreview() {
 }
 
 /**
- * Composable to display a [TaskItem]'s [due-date][TaskItem.dueDate] as a chip.
+ * Composable to display a task's due-date as a chip.
  * @param modifier [Modifier] to be passed to the outer [Surface].
  * @param dueDate Due date to be shown.
  * @param isOverdue Whether a red background colour should be used if this lambda returns
@@ -110,7 +109,7 @@ fun TaskDueDateChip(
     ) {
         Icon(
             AppIcons.Outlined.CalendarClock,
-            contentDescription = stringResource(R.string.view_task_due_date_content_desc)
+            contentDescription = stringResource(R.string.task_due_date_content_desc)
         )
         Text(
             text = dueDate.formatRelativeToNow(),

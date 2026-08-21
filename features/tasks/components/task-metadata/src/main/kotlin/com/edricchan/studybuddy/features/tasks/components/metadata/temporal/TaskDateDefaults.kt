@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.attrs.date
+package com.edricchan.studybuddy.features.tasks.components.metadata.temporal
 
 import androidx.compose.runtime.Stable
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime

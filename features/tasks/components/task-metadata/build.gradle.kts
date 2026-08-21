@@ -21,6 +21,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.resources.icons)
+    implementation(projects.core.resources.temporal)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.widgets.compose.markdownViewer)
 

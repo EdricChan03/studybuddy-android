@@ -4,4 +4,7 @@
     <string name="task_state_completed_desc">This task is marked as completed</string>
     <!-- State description to indicate that the task is incomplete. -->
     <string name="task_state_incomplete_desc">This task is not marked as complete</string>
+
+    <!-- Content description to indicate the task's due date timestamp. -->
+    <string name="task_due_date_content_desc">This task is due:</string>
 </resources>
