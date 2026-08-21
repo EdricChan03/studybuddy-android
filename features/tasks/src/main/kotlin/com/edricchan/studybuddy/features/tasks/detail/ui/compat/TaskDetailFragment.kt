@@ -53,7 +53,7 @@ class TaskDetailFragment : ComposableFragment() {
                 }
 
                 R.id.action_delete -> {
-                    viewModel.showConfirmDeleteDialog()
+                    viewModel.requestDelete()
                     true
                 }
 

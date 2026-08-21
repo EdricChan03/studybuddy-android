@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.edricchan.studybuddy.core.settings.tasks.repo.TasksSettingsRepository
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.data.repo.setCompletion
@@ -28,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskDetailViewModel @Inject constructor(
     private val repo: TaskRepository,
+    private val settingsRepo: TasksSettingsRepository,
     detailDataFactory: FirestoreTaskDetailData.Factory,
     savedState: SavedStateHandle,
     snackBarController: SnackBarController
@@ -141,6 +143,11 @@ class TaskDetailViewModel @Inject constructor(
 
     fun dismissConfirmDeleteDialog() {
         isConfirmDeleteDialogShown = false
+    }
+
+    fun requestDelete() {
+        if (!settingsRepo.confirmOptions.value.onDelete) return onDeleteTask()
+        showConfirmDeleteDialog()
     }
     //#endregion
 }
