@@ -32,6 +32,7 @@ dependencies {
     api(projects.features.tasks.data)
     api(projects.features.tasks.domain)
     api(projects.features.tasks.navigation)
+    api(projects.features.tasks.components.taskCard)
     api(projects.features.tasks.components.taskFormFields)
     api(projects.features.tasks.components.taskMetadata)
 
