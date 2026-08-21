@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
@@ -113,12 +112,10 @@ fun TaskDueDateChip(
             AppIcons.Outlined.CalendarClock,
             contentDescription = stringResource(R.string.view_task_due_date_content_desc)
         )
-        context(LocalContext.current) {
-            Text(
-                text = dueDate.formatRelativeToNow(),
-                style = MaterialTheme.typography.labelMedium
-            )
-        }
+        Text(
+            text = dueDate.formatRelativeToNow(),
+            style = MaterialTheme.typography.labelMedium
+        )
     }
 }
 
