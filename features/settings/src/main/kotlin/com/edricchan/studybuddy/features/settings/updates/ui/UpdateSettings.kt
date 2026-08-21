@@ -26,7 +26,7 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.NetworkCell
 import com.edricchan.studybuddy.core.resources.icons.outlined.Refresh
 import com.edricchan.studybuddy.core.resources.icons.outlined.SystemUpdateAlt
 import com.edricchan.studybuddy.core.resources.temporal.duration.format
-import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeTimeSpan
+import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeToNow
 import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
 import com.edricchan.studybuddy.features.settings.updates.model.asDuration
 import com.edricchan.studybuddy.features.settings.updates.vm.UpdateSettingsViewModel
@@ -38,12 +38,6 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyTheme
 import java.time.Duration
 import java.time.Instant
 import com.edricchan.studybuddy.core.settings.updates.resources.R as UpdateR
-
-@Composable
-private fun Instant.formatRelativeTimeSpan(
-    context: Context = LocalContext.current,
-    now: Instant = Instant.now()
-): String = context.formatRelativeTimeSpan(time = this, now = now)
 
 @Composable
 private fun Duration.formatFrequency(
@@ -84,9 +78,9 @@ fun UpdateSettingsScreen(
             Text(
                 text = stringResource(
                     UpdateR.string.pref_updates_summary,
-                    lastChecked?.formatRelativeTimeSpan()
+                    lastChecked?.formatRelativeToNow()
                         ?: stringResource(UpdateR.string.pref_updates_summary_never),
-                    lastUpdated?.formatRelativeTimeSpan()
+                    lastUpdated?.formatRelativeToNow()
                         ?: stringResource(UpdateR.string.pref_updates_summary_never)
                 )
             )

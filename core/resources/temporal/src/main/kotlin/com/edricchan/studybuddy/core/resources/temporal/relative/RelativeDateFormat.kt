@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.core.resources.temporal.relative
 
-import android.content.Context
 import android.icu.text.RelativeDateTimeFormatter
 import android.text.format.DateUtils
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
@@ -10,15 +9,14 @@ import java.time.temporal.ChronoUnit
 // Implementation shamelessly stolen from
 // https://github.com/libre-tube/LibreTube/blob/3a3b5df1a25c055a8189df2dcb938bb06e32126a/app/src/main/java/com/github/libretube/util/TextUtils.kt#L65-L94
 /**
- * Formats the [time] as a relative time-span to the [now] value.
- * @receiver [Context] to retrieve the years and months plurals resources from.
- * @param time The [Instant] to format.
- * @param now The current time to use.
+ * Formats the receiver [Instant] as a relative time-span to the [toInstant] value.
+ * @receiver The [Instant] to format.
+ * @param toInstant The current time to use.
  * @see DateUtils.getRelativeTimeSpanString
  */
-fun Context.formatRelativeTimeSpan(time: Instant, now: Instant = Instant.now()): String {
-    val date = time.toLocalDateTime()
-    val nowDateTime = now.toLocalDateTime()
+fun Instant.formatRelativeTo(toInstant: Instant): String {
+    val date = toLocalDateTime()
+    val nowDateTime = toInstant.toLocalDateTime()
     val months = date.until(nowDateTime, ChronoUnit.MONTHS)
 
     return if (months > 0) {
@@ -34,27 +32,13 @@ fun Context.formatRelativeTimeSpan(time: Instant, now: Instant = Instant.now()):
     } else {
         val weeks = date.until(nowDateTime, ChronoUnit.WEEKS)
         val minResolution = if (weeks > 0) DateUtils.WEEK_IN_MILLIS else 0L
-        DateUtils.getRelativeTimeSpanString(time.toEpochMilli(), now.toEpochMilli(), minResolution)
+        DateUtils.getRelativeTimeSpanString(toEpochMilli(), toInstant.toEpochMilli(), minResolution)
             .toString()
     }
 }
 
 /**
- * Formats the receiver [Instant] as a time-span relative to the [toInstant] value.
- * @param toInstant The time to compare against.
- * @param context [Context] to retrieve the years and months plurals resources from.
- * @see formatRelativeTimeSpan
- */
-context(context: Context)
-fun Instant.formatRelativeTo(toInstant: Instant): String =
-    context.formatRelativeTimeSpan(
-        time = this, now = toInstant
-    )
-
-/**
  * Formats the receiver [Instant] as a time-span relative to [Instant.now].
- * @param context [Context] to retrieve the years and months plurals resources from.
  * @see formatRelativeTo
  */
-context(context: Context)
 fun Instant.formatRelativeToNow(): String = formatRelativeTo(Instant.now())

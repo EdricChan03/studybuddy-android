@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Schedule
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
-import com.edricchan.studybuddy.core.resources.temporal.relative.compose.formatRelativeToNow
+import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeToNow
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import java.time.Instant
@@ -68,7 +68,7 @@ fun TaskCreatedAtListItem(
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     createdAt: Instant,
-    formatDate: @Composable (Instant) -> String = Instant::formatRelativeToNow,
+    formatDate: @Composable (Instant) -> String = { it.formatRelativeToNow() },
     shapes: ListItemShapes,
     colors: ListItemColors = ListItemDefaults.colors()
 ) = ListItem(
@@ -101,7 +101,7 @@ fun TaskCreatedAtOverline(
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     createdAt: Instant,
-    formatDate: @Composable (Instant) -> String = Instant::formatRelativeToNow,
+    formatDate: @Composable (Instant) -> String = { it.formatRelativeToNow() },
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(8.dp),
