@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.features.settings.updates.ui
 
-import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -14,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
@@ -41,11 +39,10 @@ import com.edricchan.studybuddy.core.settings.updates.resources.R as UpdateR
 
 @Composable
 private fun Duration.formatFrequency(
-    context: Context = LocalContext.current,
     manualText: String = stringResource(UpdateR.string.pref_check_for_update_freq_manual)
 ): String = remember(this) {
     if (this <= Duration.ZERO) return@remember manualText
-    format(context)
+    format()
 }
 
 @Composable

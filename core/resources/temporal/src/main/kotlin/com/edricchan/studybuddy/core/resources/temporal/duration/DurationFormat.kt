@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.core.resources.temporal.duration
 
-import android.content.Context
 import android.icu.text.MeasureFormat
 import android.icu.util.Measure
 import android.icu.util.MeasureUnit
@@ -72,6 +71,5 @@ private fun Duration.toHumanReadableIcu(
  * For example, a value of `PT1H30M` will result in "1 hour, 30 minutes".
  */
 fun Duration.format(
-    context: Context,
     locale: Locale = Locale.getDefault()
 ): String = toHumanReadableIcu(locale)
