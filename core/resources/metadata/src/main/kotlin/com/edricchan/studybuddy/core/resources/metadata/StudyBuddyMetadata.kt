@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.core.resources.metadata
 
 import android.net.Uri
-import androidx.core.net.toUri
 import java.time.Instant
 
 data object StudyBuddyMetadata {
@@ -18,63 +17,72 @@ data object StudyBuddyMetadata {
     /** The Git repository's commit SHA of `HEAD` when the app was built. */
     const val GitCommitSha: String = BuildConfig.GIT_COMMIT_SHA
 
+    /** [GitHubRepositoryMetadata] instance for the project. */
+    val GitHubRepository: GitHubRepositoryMetadata = GitHubRepositoryMetadata(
+        username = "EdricChan03",
+        repo = "studybuddy-android"
+    )
+
     /**
      * URL pointing to the author of the project.
      * @see StudyBuddyMetadata.GitHubAuthorUri
+     * @see GitHubRepositoryMetadata.authorUrl
      */
-    const val GitHubAuthorUrl: String = "https://github.com/EdricChan03"
+    val GitHubAuthorUrl: String = GitHubRepository.authorUrl()
 
     /**
      * [Uri] pointing to the author of the project.
      * @see StudyBuddyMetadata.GitHubAuthorUrl
+     * @see GitHubRepositoryMetadata.authorUri
      */
-    val GitHubAuthorUri: Uri = GitHubAuthorUrl.toUri()
+    val GitHubAuthorUri: Uri = GitHubRepository.authorUri()
 
     /**
      * URL pointing to the GitHub repository.
      * @see StudyBuddyMetadata.GitHubRepoUri
+     * @see GitHubRepositoryMetadata.repoUri
      */
-    const val GitHubRepoUrl: String = "$GitHubAuthorUrl/studybuddy-android"
+    val GitHubRepoUrl: String = GitHubRepository.repoUrl()
 
     /**
      * [Uri] pointing to the GitHub repository.
      * @see StudyBuddyMetadata.GitHubRepoUrl
      */
-    val GitHubRepoUri: Uri = GitHubRepoUrl.toUri()
+    val GitHubRepoUri: Uri = GitHubRepository.repoUri()
 
     /**
      * URL pointing to the GitHub repository's issues list.
      * @see StudyBuddyMetadata.GitHubIssuesUri
      */
-    const val GitHubIssuesUrl: String = "$GitHubRepoUrl/issues"
+    val GitHubIssuesUrl: String = GitHubRepository.issuesUrl()
 
     /**
      * [Uri] pointing to the GitHub repository's issues list.
      * @see StudyBuddyMetadata.GitHubIssuesUrl
      */
-    val GitHubIssuesUri: Uri = GitHubIssuesUrl.toUri()
+    val GitHubIssuesUri: Uri = GitHubRepository.issuesUri()
 
     /**
      * URL pointing to the specific GitHub commit metadata for [StudyBuddyMetadata.GitCommitSha].
      * @see StudyBuddyMetadata.GitHubCommitUri
      */
-    const val GitHubCommitUrl: String = "$GitHubRepoUrl/commit/$GitCommitSha"
+    val GitHubCommitUrl: String = GitHubRepository.commitUrl(sha = GitCommitSha)
 
     /**
      * [Uri] pointing to the specific GitHub commit metadata for [StudyBuddyMetadata.GitCommitSha].
      * @see StudyBuddyMetadata.GitHubCommitUrl
      */
-    val GitHubCommitUri: Uri = GitHubCommitUrl.toUri()
+    val GitHubCommitUri: Uri = GitHubRepository.commitUri(sha = GitCommitSha)
 
     /**
      * URL pointing to the GitHub repository's contributors graph.
      * @see StudyBuddyMetadata.GitHubContributorsUri
      */
-    const val GitHubContributorsUrl: String = "$GitHubRepoUrl/graphs/contributors"
+    val GitHubContributorsUrl: String = GitHubRepository.contributorsGraphUrl()
 
     /**
      * [Uri] pointing to the GitHub repository's contributors graph.
      * @see StudyBuddyMetadata.GitHubContributorsUrl
      */
-    val GitHubContributorsUri: Uri = GitHubContributorsUrl.toUri()
+    val GitHubContributorsUri: Uri = GitHubRepository.contributorsGraphUri()
 }
