@@ -1,5 +1,7 @@
 package com.edricchan.studybuddy.features.settings.main.ui.compat
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
@@ -63,22 +65,26 @@ class SettingsFragment : ComposableFragment() {
         ProvideCurrentUser(
             userFlow = userFlow
         ) {
-            SettingsListDetailScreen(
-                modifier = modifier,
-                navigator = navigator,
-                onNavigateToUpdates = navController::navigateToUpdates,
-                onNavigateToAccount = navController::navigateToAccountInfo,
-                onNavigateToAbout = navController::navigateToAbout,
-                onDynamicThemeChange = {
-                    requireActivity().apply {
-                        applyDynamicTheme(it)
-                        recreate()
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceContainer
+            ) {
+                SettingsListDetailScreen(
+                    modifier = modifier,
+                    navigator = navigator,
+                    onNavigateToUpdates = navController::navigateToUpdates,
+                    onNavigateToAccount = navController::navigateToAccountInfo,
+                    onNavigateToAbout = navController::navigateToAbout,
+                    onDynamicThemeChange = {
+                        requireActivity().apply {
+                            applyDynamicTheme(it)
+                            recreate()
+                        }
+                    },
+                    onDarkThemeChange = {
+                        requireActivity().applyDarkTheme(DarkThemeOption.fromValue(it))
                     }
-                },
-                onDarkThemeChange = {
-                    requireActivity().applyDarkTheme(DarkThemeOption.fromValue(it))
-                }
-            )
+                )
+            }
         }
     }
 }
