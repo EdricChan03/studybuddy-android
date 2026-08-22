@@ -23,21 +23,8 @@ object Constants {
     // TODO: Remove this constant
     const val notificationMediaId = 1
 
-    // URIs
-    const val urlHelpFeatured =
-        "https://edricchan03.github.io/res/studybuddy/help-featured-articles.json"
-    val uriHelpFeatured: Uri = urlHelpFeatured.toUri()
     const val urlAuthorWebsite = "https://edricchan03.github.io"
     val uriAuthorWebsite: Uri = urlAuthorWebsite.toUri()
-
-    @Deprecated(
-        "Use StudyBuddyMetadata.GitHubRepoUrl instead",
-        ReplaceWith(
-            "StudyBuddyMetadata.GitHubRepoUrl",
-            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
-        )
-    )
-    const val urlSrcCode = StudyBuddyMetadata.GitHubRepoUrl
 
     @Deprecated(
         "Use StudyBuddyMetadata.GitHubRepoUri instead",
@@ -48,41 +35,6 @@ object Constants {
     )
     val uriSrcCode: Uri = StudyBuddyMetadata.GitHubRepoUri
 
-    @Deprecated(
-        "Use StudyBuddyMetadata.GitHubIssuesUrl instead",
-        ReplaceWith(
-            "StudyBuddyMetadata.GitHubIssuesUrl",
-            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
-        )
-    )
-    const val urlSrcBugTracker = StudyBuddyMetadata.GitHubIssuesUrl
-
-    @Deprecated(
-        "Use StudyBuddyMetadata.GitHubIssuesUri instead",
-        ReplaceWith(
-            "StudyBuddyMetadata.GitHubIssuesUri",
-            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
-        )
-    )
-    val uriSrcBugTracker: Uri = StudyBuddyMetadata.GitHubIssuesUri
-
-    @Deprecated(
-        "Use StudyBuddyMetadata.GitHubContributorsUrl instead",
-        ReplaceWith(
-            "StudyBuddyMetadata.GitHubContributorsUrl",
-            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
-        )
-    )
-    const val urlSrcContributors = StudyBuddyMetadata.GitHubContributorsUrl
-
-    @Deprecated(
-        "Use StudyBuddyMetadata.GitHubContributorsUri instead",
-        ReplaceWith(
-            "StudyBuddyMetadata.GitHubContributorsUri",
-            "com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata"
-        )
-    )
-    val uriSrcContributors: Uri = StudyBuddyMetadata.GitHubContributorsUri
     const val urlSendFeedback = "https://forms.gle/S6SY7aAgTyQUuKRw6"
     val uriSendFeedback: Uri = urlSendFeedback.toUri()
     const val urlSubmitTip = "https://goo.gl/forms/0agG0ObuQGPoZor92"
