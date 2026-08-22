@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 /**
- * [TaskCard][com.edricchan.studybuddy.features.tasks.common.ui.card.TaskCard] composable for
+ * [TaskCard][com.edricchan.studybuddy.features.tasks.components.card.TaskCard] composable for
  * the [TaskItem][com.edricchan.studybuddy.features.tasks.domain.model.TaskItem] content
  * that has yet to be loaded.
  */

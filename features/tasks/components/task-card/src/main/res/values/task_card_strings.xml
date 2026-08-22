@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default text to show if the task has no title. -->
+    <string name="task_card_no_title">&lt;No title&gt;</string>
+
+    <!-- Text for the "Mark as done" button. -->
+    <string name="task_card_action_mark_complete_text">Mark as complete</string>
+    <!-- Text for the "Mark as undone" button. -->
+    <string name="task_card_action_mark_incomplete_text">Mark as incomplete</string>
+
+    <!-- Label text for the "Delete task" button. -->
+    <string name="task_card_action_delete_label">Delete task</string>
+</resources>

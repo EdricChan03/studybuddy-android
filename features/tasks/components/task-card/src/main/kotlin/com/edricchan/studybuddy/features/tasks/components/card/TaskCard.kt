@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.common.ui.card
+package com.edricchan.studybuddy.features.tasks.components.card
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
@@ -79,7 +79,6 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.CheckCircle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Circle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Delete
 import com.edricchan.studybuddy.core.resources.icons.outlined.Undo
-import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.components.metadata.description.TaskContentMarkdownText
 import com.edricchan.studybuddy.features.tasks.components.metadata.temporal.created.TaskCreatedAtOverline
 import com.edricchan.studybuddy.features.tasks.components.metadata.temporal.due.TaskDueDateChip
@@ -169,7 +168,7 @@ fun TaskCard(
                 CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.primary) {
                     TaskTitleText(
                         text = title?.takeUnless(String::isBlank)
-                            ?: stringResource(R.string.task_adapter_empty_title),
+                            ?: stringResource(R.string.task_card_no_title),
                         isDone = isDone
                     )
                 }
@@ -273,10 +272,10 @@ private fun TaskCardActions(
     onDeleteClick: () -> Unit
 ) {
     val labelToggleComplete = stringResource(
-        if (isCompleted) R.string.task_adapter_mark_as_undone_btn_text
-        else R.string.task_adapter_mark_as_done_btn_text
+        if (isCompleted) R.string.task_card_action_mark_incomplete_text
+        else R.string.task_card_action_mark_complete_text
     )
-    val labelRequestDelete = stringResource(R.string.task_adapter_delete_task_btn_text)
+    val labelRequestDelete = stringResource(R.string.task_card_action_delete_label)
 
     val compressionLimit = ButtonDefaults.ButtonWithIconContentPadding.calculateEndPadding(
         LocalLayoutDirection.current

@@ -21,7 +21,12 @@ android {
 }
 
 dependencies {
+    api(projects.features.tasks.domain)
+    implementation(projects.features.tasks.components.taskMetadata)
+
+    implementation(projects.core.resources.icons)
     implementation(projects.ui.theming.compose)
+    implementation(projects.utils.androidx.compose)
 
     api(libs.bundles.androidx.compose)
 
