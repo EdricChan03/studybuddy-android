@@ -11,8 +11,8 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
-import com.edricchan.studybuddy.features.tasks.common.ui.card.placeholder.PlaceholderTaskCard
 import com.edricchan.studybuddy.features.tasks.components.card.TaskCard
+import com.edricchan.studybuddy.features.tasks.components.card.placeholder.PlaceholderTaskCard
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.utils.compose.foundation.lazy.PaginationLoadingIndicator
 import com.valentinilk.shimmer.shimmer

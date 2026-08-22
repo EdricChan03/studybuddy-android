@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.common.ui.card.placeholder
+package com.edricchan.studybuddy.features.tasks.components.card.placeholder
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,7 +29,7 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyTheme
  * that has yet to be loaded.
  */
 @Composable
-internal fun PlaceholderTaskCard(modifier: Modifier = Modifier) {
+fun PlaceholderTaskCard(modifier: Modifier = Modifier) {
     OutlinedCard(
         modifier = modifier
     ) {
