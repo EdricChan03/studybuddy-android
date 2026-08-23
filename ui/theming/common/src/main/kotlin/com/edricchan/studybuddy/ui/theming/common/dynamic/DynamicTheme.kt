@@ -11,8 +11,18 @@ val isDynamicColorAvailable get() = DynamicColors.isDynamicColorAvailable()
 
 /** Whether the app should use Android 12's dynamic theming system. */
 var Context.prefDynamicTheme
+    @Deprecated(
+        "This getter is not backed by the new data-store implementation " +
+            "- use the appTheme StateFlow property (checking if the value is " +
+            "AppThemeSetting.Monet) from AppearanceSettingsRepository instead"
+    )
     get() = defaultSharedPreferences.getBoolean(
         keyPrefDynamicTheme, isDynamicColorAvailable
+    )
+    @Deprecated(
+        "This setter is not backed by the new data-store implementation " +
+            "- use the setAppTheme method (with the value AppThemeSetting.Monet) " +
+            "from AppearanceSettingsRepository instead"
     )
     set(value) {
         defaultSharedPreferences.edit { putBoolean(keyPrefDynamicTheme, value) }
