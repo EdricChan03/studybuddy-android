@@ -251,9 +251,9 @@ object CollapsibleListDefaults {
      */
     @Composable
     fun headerColors(
-        containerColor: Color,
+        containerColor: Color = MaterialTheme.colorScheme.surface,
         contentColor: Color = contentColorFor(containerColor),
-        iconColor: Color,
+        iconColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
         indicatorContainerColor: Color,
         indicatorContentColor: Color = contentColorFor(indicatorContainerColor),
         expandedContainerColor: Color,
@@ -301,21 +301,17 @@ object CollapsibleListDefaults {
      *
      * Token | Value
      * ---|---
-     * `containerColor` | [ExpListItemDefaults.itemContainerColor]
-     * `iconColor` | [ExpListItemDefaults.itemIconColor]
      * `indicatorContainerColor` | [androidx.compose.material3.ColorScheme.primary]
-     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.primary]
+     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.primaryContainer]
      * `expandedIndicatorContainerColor` | [androidx.compose.material3.ColorScheme.surfaceContainerHigh]
-     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onPrimary]
+     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onPrimaryContainer]
      */
     @Composable
     fun primaryHeaderColors(): CollapsibleListHeaderColors = headerColors(
-        containerColor = ExpListItemDefaults.itemContainerColor,
-        iconColor = ExpListItemDefaults.itemIconColor,
         indicatorContainerColor = MaterialTheme.colorScheme.primary,
-        expandedContainerColor = MaterialTheme.colorScheme.primary,
+        expandedContainerColor = MaterialTheme.colorScheme.primaryContainer,
         expandedIndicatorContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-        expandedIconColor = MaterialTheme.colorScheme.onPrimary
+        expandedIconColor = MaterialTheme.colorScheme.onPrimaryContainer
     )
 
     /**
@@ -325,21 +321,17 @@ object CollapsibleListDefaults {
      *
      * Token | Value
      * ---|---
-     * `containerColor` | [ExpListItemDefaults.itemContainerColor]
-     * `iconColor` | [ExpListItemDefaults.itemIconColor]
      * `indicatorContainerColor` | [androidx.compose.material3.ColorScheme.tertiary]
-     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.tertiary]
+     * `expandedContainerColor` | [androidx.compose.material3.ColorScheme.tertiaryContainer]
      * `expandedIndicatorContainerColor` | [androidx.compose.material3.ColorScheme.surfaceContainerHigh]
-     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onTertiary]
+     * `expandedIconColor` | [androidx.compose.material3.ColorScheme.onTertiaryContainer]
      */
     @Composable
     fun tertiaryHeaderColors(): CollapsibleListHeaderColors = headerColors(
-        containerColor = ExpListItemDefaults.itemContainerColor,
-        iconColor = ExpListItemDefaults.itemIconColor,
         indicatorContainerColor = MaterialTheme.colorScheme.tertiary,
-        expandedContainerColor = MaterialTheme.colorScheme.tertiary,
+        expandedContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
         expandedIndicatorContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-        expandedIconColor = MaterialTheme.colorScheme.onTertiary
+        expandedIconColor = MaterialTheme.colorScheme.onTertiaryContainer
     )
 
     /**
