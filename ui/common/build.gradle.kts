@@ -28,6 +28,7 @@ dependencies {
     api(projects.utils.network)
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
+    implementation(projects.core.resources.metadata)
     implementation(projects.exts.android.metadata)
     implementation(projects.exts.androidx.viewBinding)
     implementation(projects.exts.material)
