@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -186,23 +189,39 @@ data class CollapsibleListHeaderColors(
             ).expandIndicatorContentColor
         )
 
+    internal fun asExpListItemColors(): ExpListItemColors = ExpListItemColors(
+        containerColor = baseColors.containerColor,
+        contentColor = baseColors.contentColor,
+        iconColor = baseColors.iconColor,
+        selectedContainerColor = expandedColors.containerColor,
+        selectedContentColor = expandedColors.contentColor,
+        selectedIconColor = expandedColors.iconColor,
+        disabledContainerColor = disabledColors.containerColor,
+        disabledContentColor = disabledColors.contentColor,
+        disabledIconColor = disabledColors.iconColor,
+        disabledSelectedContainerColor = disabledExpandedColors.containerColor,
+        disabledSelectedContentColor = disabledExpandedColors.contentColor,
+        disabledSelectedIconColor = disabledExpandedColors.iconColor
+    )
+
     @Composable
-    internal fun asExpListItemColors(): ExpListItemColors {
-        return ExpListItemColors(
-            containerColor = baseColors.containerColor,
-            contentColor = baseColors.contentColor,
-            iconColor = baseColors.iconColor,
-            selectedContainerColor = expandedColors.containerColor,
-            selectedContentColor = expandedColors.contentColor,
-            selectedIconColor = expandedColors.iconColor,
-            disabledContainerColor = disabledColors.containerColor,
-            disabledContentColor = disabledColors.contentColor,
-            disabledIconColor = disabledColors.iconColor,
-            disabledSelectedContainerColor = disabledExpandedColors.containerColor,
-            disabledSelectedContentColor = disabledExpandedColors.contentColor,
-            disabledSelectedIconColor = disabledExpandedColors.iconColor
-        )
-    }
+    internal fun asListItemColors(): ListItemColors = ListItemDefaults.colors(
+        containerColor = baseColors.containerColor,
+        contentColor = baseColors.contentColor,
+        overlineContentColor = baseColors.contentColor,
+        supportingContentColor = baseColors.contentColor,
+        leadingContentColor = baseColors.iconColor,
+        disabledContainerColor = disabledColors.containerColor,
+        disabledContentColor = disabledColors.contentColor,
+        disabledOverlineContentColor = disabledColors.contentColor,
+        disabledSupportingContentColor = disabledColors.contentColor,
+        disabledLeadingContentColor = disabledColors.iconColor,
+        selectedContainerColor = expandedColors.containerColor,
+        selectedContentColor = expandedColors.contentColor,
+        selectedOverlineContentColor = expandedColors.contentColor,
+        selectedLeadingContentColor = expandedColors.iconColor,
+        selectedSupportingContentColor = expandedColors.contentColor
+    )
 }
 
 private const val DisabledAlpha = 0.38f
@@ -386,4 +405,11 @@ object CollapsibleListDefaults {
     /** The default header [CornerBasedShape] to use when the controlling list is collapsed. */
     @get:Composable
     val collapsedHeaderShape: CornerBasedShape get() = ExpListItemDefaults.baseShape
+
+    /** The default list of [ListItemShapes] to be used for the header. */
+    @Composable
+    fun headerShapes(): ListItemShapes = ListItemDefaults.shapes(
+        shape = collapsedHeaderShape,
+        selectedShape = expandedHeaderShape
+    )
 }

@@ -10,9 +10,10 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ListItemShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +32,6 @@ import androidx.compose.ui.unit.IntSize
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Build
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItem
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.BooleanPreviewParameterProvider
 
@@ -54,7 +54,6 @@ import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.Boolea
  * @param content Desired content to be shown when [isExpanded] is `true`.
  * @sample CollapsibleListSample
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun CollapsibleListColumn(
     modifier: Modifier = Modifier,
@@ -114,7 +113,7 @@ fun CollapsibleListColumn(
  * a description.
  * @param trailingContent Content to be shown on the end/right-hand side of the layout.
  * [CollapsibleListDefaults.ExpandIcon] is used if this parameter is not specified.
- * @param shape The shape of this header.
+ * @param shapes Desired [ListItemShapes] for this composable.
  * @param colors Desired [CollapsibleListHeaderColors] for this composable.
  * [CollapsibleListDefaults.headerColors] can be used to create these colours, or the opinionated
  * [CollapsibleListDefaults.primaryHeaderColors] and [CollapsibleListDefaults.tertiaryHeaderColors]
@@ -132,21 +131,21 @@ fun CollapsibleListHeader(
     headlineContent: @Composable () -> Unit,
     supportingContent: @Composable (() -> Unit)? = null,
     trailingContent: @Composable (() -> Unit)?,
-    shape: Shape = CollapsibleListDefaults.headerShape(isExpanded = isExpanded),
+    shapes: ListItemShapes,
     colors: CollapsibleListHeaderColors,
 ) {
-    ExpListItem(
+    ListItem(
         modifier = modifier,
         enabled = enabled,
         checked = isExpanded,
         onCheckedChange = onExpansionChange,
-        shape = shape,
         leadingContent = leadingContent,
         overlineContent = overlineContent,
-        headlineContent = headlineContent,
+        content = headlineContent,
         supportingContent = supportingContent,
         trailingContent = trailingContent,
-        colors = colors.asExpListItemColors()
+        shapes = shapes,
+        colors = colors.asListItemColors()
     )
 }
 
@@ -166,14 +165,13 @@ fun CollapsibleListHeader(
  * This could be used to provide a title.
  * @param supportingContent Additional content to be shown. This could be used to provide
  * a description.
- * @param shape The shape of this header.
+ * @param shapes Desired [ListItemShapes] for this composable.
  * @param colors Desired [CollapsibleListHeaderColors] for this composable.
  * [CollapsibleListDefaults.headerColors] can be used to create these colours, or the opinionated
  * [CollapsibleListDefaults.primaryHeaderColors] and [CollapsibleListDefaults.tertiaryHeaderColors]
  * methods can be used for a primary or tertiary colour palette when the header is in
  * its expanded state.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun CollapsibleListHeader(
     modifier: Modifier = Modifier,
@@ -184,7 +182,7 @@ fun CollapsibleListHeader(
     overlineContent: @Composable (() -> Unit)? = null,
     headlineContent: @Composable () -> Unit,
     supportingContent: @Composable (() -> Unit)? = null,
-    shape: Shape = CollapsibleListDefaults.headerShape(isExpanded = isExpanded),
+    shapes: ListItemShapes,
     colors: CollapsibleListHeaderColors
 ) {
     val indicatorContainerColor by colors.expandIndicatorContainerColor(
@@ -206,7 +204,7 @@ fun CollapsibleListHeader(
         enabled = enabled,
         isExpanded = isExpanded,
         onExpansionChange = onExpansionChange,
-        shape = shape,
+        shapes = shapes,
         leadingContent = leadingContent,
         overlineContent = overlineContent,
         headlineContent = headlineContent,
@@ -235,6 +233,7 @@ internal fun CollapsibleListSample(
             CollapsibleListHeader(
                 isExpanded = isExpanded,
                 onExpansionChange = onExpansionChange,
+                shapes = CollapsibleListDefaults.headerShapes(),
                 colors = CollapsibleListDefaults.primaryHeaderColors(),
                 leadingContent = {
                     Icon(AppIcons.Outlined.Build, contentDescription = null)
@@ -252,11 +251,16 @@ internal fun CollapsibleListSample(
         }
     ) {
         repeat(5) {
-            ExpListItem(
-                shape = ExpListItemDefaults.itemShape(it, 5),
-                headlineContent = {
+            ListItem(
+                modifier = Modifier,
+                enabled = true,
+                leadingContent = null,
+                overlineContent = null,
+                content = {
                     Text(text = "Item $it")
-                }
+                },
+                supportingContent = null,
+                trailingContent = null
             )
         }
     }
