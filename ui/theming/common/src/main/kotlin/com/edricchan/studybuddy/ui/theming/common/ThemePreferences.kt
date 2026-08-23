@@ -10,11 +10,19 @@ import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.fredporciuncula.flow.preferences.Preference
 import com.fredporciuncula.flow.preferences.map
 
+@Deprecated(
+    "These values don't account for the new appearance settings data-store " +
+        "- use AppearanceSettingsRepository instead"
+)
 class ThemePreferences(context: Context) {
     private val appPreferences = FlowSharedPreferences(
         sharedPreferences = context.defaultSharedPreferences
     )
 
+    @Deprecated(
+        "Use the relevant darkMode StateFlow property or setDarkMode " +
+            "method on AppearanceSettingsRepository instead"
+    )
     val prefDarkTheme: Preference<DarkThemeValue.Version2> = appPreferences.getString(
         keyPrefDarkTheme,
         defaultValue = DarkThemeValue.V2FollowSystem.value
@@ -23,6 +31,10 @@ class ThemePreferences(context: Context) {
         reverse = DarkThemeValue::value
     )
 
+    @Deprecated(
+        "Dynamic theme is now set as AppThemeSetting.Monet via the " +
+            "appTheme property on AppearanceSettingsRepository"
+    )
     val prefEnableDynamicTheme: Preference<Boolean> = appPreferences.getBoolean(
         keyPrefDynamicTheme,
         defaultValue = isDynamicColorAvailable

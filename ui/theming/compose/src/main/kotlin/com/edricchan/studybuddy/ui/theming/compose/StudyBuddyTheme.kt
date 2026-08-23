@@ -136,6 +136,10 @@ fun StudyBuddyTheme(
  * @param typography The [Typography] to use.
  */
 @Composable
+@Deprecated(
+    "This overload does not account for the new appearance settings " +
+        "data-store. Use the explicit overload instead"
+)
 fun StudyBuddyTheme(
     context: Context = LocalContext.current,
     themePrefs: ThemePreferences = ThemePreferences(context),
