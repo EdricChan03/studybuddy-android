@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -22,7 +23,7 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Sort
 import com.edricchan.studybuddy.features.settings.task.model.TaskSortOptionCompat
 import com.edricchan.studybuddy.features.settings.task.vm.TaskSettingsViewModel
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.core.settings.tasks.resources.R as TaskR
 
 @Composable
@@ -79,14 +80,13 @@ fun TaskSettingsScreen(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun TaskSettingsScreenPreview() {
     var defaultSort by remember { mutableStateOf(TaskSortOptionCompat.None) }
 
-    StudyBuddyTheme {
-        TaskSettingsScreen(
-            defaultSort = defaultSort,
-            onDefaultSortChange = { defaultSort = it }
-        )
-    }
+    TaskSettingsScreen(
+        defaultSort = defaultSort,
+        onDefaultSortChange = { defaultSort = it }
+    )
 }
