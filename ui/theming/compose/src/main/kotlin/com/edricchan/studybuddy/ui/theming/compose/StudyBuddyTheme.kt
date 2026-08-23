@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
+import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.ui.theming.common.ThemePreferences
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
@@ -184,5 +185,30 @@ fun StudyBuddyTheme(
         baseSpacing = baseSpacing,
         typography = typography,
         content = content,
+    )
+}
+
+/**
+ * Sets the [MaterialTheme] for all the Composables in [content] based on the specified [appTheme].
+ * @param darkMode The current [DarkModeSetting] which determines whether dark mode colours should
+ * be used - see [shouldApplyDarkTheme].
+ * @param appTheme The desired [AppThemeSetting] to be used - see [toAppColorScheme] for more info.
+ * @param baseSpacing Base spacing for the [SpacingTokens] to be used.
+ * @param typography Desired [typographical][Typography] styles to be used.
+ */
+@Composable
+fun StudyBuddyTheme(
+    darkMode: DarkModeSetting,
+    appTheme: AppThemeSetting,
+    baseSpacing: Dp = SpacingTokens.BaseSpacing,
+    typography: Typography = StudyBuddyTypography,
+    content: @Composable () -> Unit
+) {
+    StudyBuddyTheme(
+        enableDarkTheme = shouldApplyDarkTheme(darkMode),
+        appTheme = appTheme,
+        baseSpacing = baseSpacing,
+        typography = typography,
+        content = content
     )
 }
