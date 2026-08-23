@@ -29,8 +29,10 @@ dependencies {
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
     implementation(projects.core.resources.metadata)
+    implementation(projects.core.resources.temporal)
     implementation(projects.exts.android.metadata)
     implementation(projects.exts.androidx.viewBinding)
+    implementation(projects.exts.datetime)
     implementation(projects.exts.material)
     implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views)
@@ -50,6 +52,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.activity.ktx)
     api(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.adaptive)
 
     api(libs.aboutLibraries.core)
     api(libs.aboutLibraries.compose.material3)

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Version dialog strings -->
+    <eat-comment />
+
+    <!-- The content description for the version dialog's app icon. -->
+    <string name="version_dialog_app_icon_content_desc">App icon</string>
+
+    <!-- The text to show for the version dialog's version. -->
+    <string name="version_dialog_version_formatted">Version %1$s (%2$d)</string>
+
+    <!-- The text to show for the version dialog's commit information.
+    This string takes a format argument which would be the commit SHA. -->
+    <string name="version_dialog_commit_formatted">Commit %s</string>
+
+    <!-- The text to show for the version dialog's build time.
+    This string takes a format argument which would be the formatted version of the build time. -->
+    <string name="version_dialog_build_time_formatted">Built on %s</string>
+
+    <!-- The text for the "Copy version information" button for the version dialog. -->
+    <string name="version_dialog_copy_info_btn_text">Copy version info</string>
+
+    <!-- The content description for the button for the version dialog to show additional copy version options. -->
+    <string name="version_dialog_show_copy_info_options_content_desc">Show copy version info options</string>
+    <!-- The content description for the button for the version dialog to hide additional copy version options. -->
+    <string name="version_dialog_hide_copy_info_options_content_desc">Hide copy version info options</string>
+
+    <!-- The shown state description for the button for the version dialog to toggle additional copy version options. -->
+    <string name="version_dialog_copy_info_options_state_shown_desc">Copy version info options shown</string>
+    <!-- The hidden state description for the button for the version dialog to toggle additional copy version options. -->
+    <string name="version_dialog_copy_info_options_state_hidden_desc">Copy version info options hidden</string>
+
+    <!-- The text for the "Copy version information as plain text" button for the version dialog. -->
+    <string name="version_dialog_copy_plain_info_btn_text">Copy as plain text</string>
+    <!-- The text for the "Copy version information as Markdown" button for the version dialog. -->
+    <string name="version_dialog_copy_plain_markdown_btn_text">Copy as Markdown</string>
+
+    <!-- The text for the "View commit" button for the version dialog. -->
+    <string name="version_dialog_view_commit_btn_text">View commit</string>
+
+</resources>
