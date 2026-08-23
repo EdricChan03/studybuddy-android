@@ -11,13 +11,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.font.TypefaceSetting
 import com.edricchan.studybuddy.features.settings.appearance.vm.AppearanceSettingsViewModel
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 
 @Composable
 fun AppearanceSettingsScreen(
@@ -81,6 +82,7 @@ fun AppearanceSettingsScreen(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun AppearanceSettingsScreenPreview() {
     val (darkTheme, onDarkThemeChange) = remember { mutableStateOf(DarkModeSetting.FollowSystem) }
@@ -90,16 +92,14 @@ private fun AppearanceSettingsScreenPreview() {
     }
     val (bodyFontStyle, onBodyFontStyleChange) = remember { mutableStateOf(TypefaceSetting.Baloo2) }
 
-    StudyBuddyTheme {
-        AppearanceSettingsScreen(
-            darkTheme = darkTheme,
-            onDarkThemeChange = onDarkThemeChange,
-            appTheme = appTheme,
-            onAppThemeChange = onAppThemeChange,
-            displayFontStyle = displayFontStyle,
-            onDisplayFontStyleChange = onDisplayFontStyleChange,
-            bodyFontStyle = bodyFontStyle,
-            onBodyFontStyleChange = onBodyFontStyleChange
-        )
-    }
+    AppearanceSettingsScreen(
+        darkTheme = darkTheme,
+        onDarkThemeChange = onDarkThemeChange,
+        appTheme = appTheme,
+        onAppThemeChange = onAppThemeChange,
+        displayFontStyle = displayFontStyle,
+        onDisplayFontStyleChange = onDisplayFontStyleChange,
+        bodyFontStyle = bodyFontStyle,
+        onBodyFontStyleChange = onBodyFontStyleChange
+    )
 }

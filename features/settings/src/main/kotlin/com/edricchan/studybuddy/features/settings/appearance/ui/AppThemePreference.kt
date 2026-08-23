@@ -50,6 +50,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
@@ -62,6 +63,7 @@ import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
 import com.edricchan.studybuddy.ui.theming.compose.theme.AppThemes
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.core.settings.appearance.resources.R as AppearanceR
 
 @Composable
@@ -346,33 +348,30 @@ fun AppThemePreviewSwatchSurface(
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
 private fun AppThemePreviewSwatchPreview() {
-    StudyBuddyTheme {
-        AppThemePreviewSwatchSurface()
-    }
+    AppThemePreviewSwatchSurface()
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @PreviewLightDark
 @PreviewScreenSizes
 @Composable
 private fun AppThemePreferencePreview() {
     var selectedTheme by rememberSaveable { mutableStateOf(AppThemeSetting.Monet) }
-    StudyBuddyTheme {
-        PreferenceCategory {
-            AppThemePreference(selectedTheme = selectedTheme) { selectedTheme = it }
-        }
+    PreferenceCategory {
+        AppThemePreference(selectedTheme = selectedTheme) { selectedTheme = it }
     }
 }
 
 @Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
 private fun AppThemePreviewItemPreview() {
     var selected by rememberSaveable { mutableStateOf(false) }
-    StudyBuddyTheme {
-        AppThemePreviewItem(selected = selected) { selected = !selected }
-    }
+    AppThemePreviewItem(selected = selected) { selected = !selected }
 }
