@@ -23,6 +23,7 @@ val Context.isDarkThemeEnabled: Boolean get() = resources.isDarkThemeEnabled
  * @param isSystemInDarkTheme Whether the system is using dark theme.
  */
 @Suppress("DEPRECATION")
+@Deprecated("Use the overload which takes the proto-backed DarkModeSetting enum instead")
 fun Context.shouldApplyDarkTheme(
     themeValue: DarkThemeValue.Version2,
     isSystemInDarkTheme: Boolean = isDarkThemeEnabled

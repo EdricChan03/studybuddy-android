@@ -8,6 +8,8 @@ import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.ui.theming.common.night.shouldApplyDarkTheme as commonShouldApplyDarkTheme
 
+@Suppress("DEPRECATION")
+@Deprecated("Use the overload which takes the proto-backed DarkModeSetting enum instead")
 @Composable
 fun shouldApplyDarkTheme(
     context: Context = LocalContext.current,
