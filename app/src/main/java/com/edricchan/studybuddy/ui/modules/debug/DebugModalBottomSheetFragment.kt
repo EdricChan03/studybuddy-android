@@ -109,7 +109,6 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
 
     private val snackbarHostState = SnackbarHostState()
 
-    @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     @Composable
     override fun Content(modifier: Modifier) {
         val demos = rememberDemos()

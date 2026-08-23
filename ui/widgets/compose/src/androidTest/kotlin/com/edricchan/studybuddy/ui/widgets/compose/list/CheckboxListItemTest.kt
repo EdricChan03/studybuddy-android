@@ -1,6 +1,5 @@
 package com.edricchan.studybuddy.ui.widgets.compose.list
 
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -24,7 +23,6 @@ import kotlin.test.assertTrue
 
 // ListItemShapes in the ABI for CheckboxListItem is an experimental expressive
 // API
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 class CheckboxListItemTest {
     @get:Rule
     val composeTestRule = createComposeRule()

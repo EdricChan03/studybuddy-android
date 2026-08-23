@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.ui.widgets.compose.list
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +27,6 @@ import kotlin.test.assertTrue
 
 // ListItemShapes in the ABI for RadioButtonListItem is an experimental expressive
 // API
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 class RadioButtonListItemTest {
     @get:Rule
     val composeTestRule = createComposeRule()

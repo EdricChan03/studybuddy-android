@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.core.auth.ui.dialog
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -16,7 +15,6 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
 
 /** Shows a sign-in dialog prompting the user to log in to continue. */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AuthRequiredDialog(
     modifier: Modifier = Modifier,

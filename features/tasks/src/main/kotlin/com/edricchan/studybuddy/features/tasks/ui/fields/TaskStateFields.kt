@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.features.tasks.ui.fields
 
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -12,8 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.edricchan.studybuddy.features.tasks.R
 
-
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskMarkCompletedListItem(
     modifier: Modifier = Modifier,
@@ -42,7 +39,6 @@ fun TaskMarkCompletedListItem(
     shapes = shapes
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskMarkArchivedListItem(
     modifier: Modifier = Modifier,

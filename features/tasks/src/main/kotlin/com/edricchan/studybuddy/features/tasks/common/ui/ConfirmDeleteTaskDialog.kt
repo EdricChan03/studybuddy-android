@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.features.tasks.common.ui
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -48,7 +47,6 @@ private fun DeleteTaskDialogTitleText(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 internal fun ConfirmDeleteTaskDialog(
     modifier: Modifier = Modifier,

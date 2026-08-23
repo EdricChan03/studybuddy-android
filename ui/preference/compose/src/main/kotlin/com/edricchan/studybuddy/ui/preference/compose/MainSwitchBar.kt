@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -54,7 +53,6 @@ import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyTheme
  * @param colors Colour configuration for the switch-bar - see [MainSwitchBarColors] for additional
  * information.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun MainSwitchBar(
     modifier: Modifier = Modifier,

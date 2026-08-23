@@ -14,7 +14,6 @@ import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItemDefaults
@@ -37,7 +36,6 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionB
 
 // TODO: Move to compose module
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun <Id> CheckboxBottomSheetItem(
     modifier: Modifier = Modifier,
@@ -62,7 +60,6 @@ private fun <Id> CheckboxBottomSheetItem(
     enabled = enabled
 )
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun <Id> RadioBottomSheetItem(
     modifier: Modifier = Modifier,
@@ -87,7 +84,6 @@ private fun <Id> RadioBottomSheetItem(
     enabled = enabled
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun SelectBottomSheetActions(
     modifier: Modifier = Modifier,
@@ -124,7 +120,7 @@ private fun SelectBottomSheetHeaderText(
     style = MaterialTheme.typography.titleMedium
 )
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <Id : Any> SelectBottomSheetContent(
     modifier: Modifier = Modifier,

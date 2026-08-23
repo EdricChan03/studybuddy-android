@@ -6,11 +6,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.CollectionPreviewParameterProvider
 import androidx.core.net.toUri
 import com.edricchan.studybuddy.features.help.data.model.HelpArticle
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /** Generates a unique [Uri] for a [HelpArticle]. */
-@OptIn(ExperimentalUuidApi::class)
 internal fun generateHelpArticleUri(): Uri = "https://example.com/${Uuid.random()}".toUri()
 
 private val helpArticleMeta = listOf(

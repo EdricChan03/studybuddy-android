@@ -44,7 +44,6 @@ fun TaskProjectIconSurface(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskProjectIconButton(
     modifier: Modifier = Modifier,

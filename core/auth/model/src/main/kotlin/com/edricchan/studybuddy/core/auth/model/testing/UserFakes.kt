@@ -3,12 +3,10 @@ package com.edricchan.studybuddy.core.auth.model.testing
 import android.net.Uri
 import androidx.annotation.VisibleForTesting
 import com.edricchan.studybuddy.core.auth.model.User
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @VisibleForTesting
 object UserFakes {
-    @OptIn(ExperimentalUuidApi::class)
     private fun generateId() = Uuid.random().toString()
 
     private fun createUser(

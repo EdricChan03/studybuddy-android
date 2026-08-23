@@ -54,7 +54,6 @@ fun BackIconButton(
     onClick = onClick
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable

@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItemDefaults
@@ -35,7 +34,6 @@ import com.edricchan.studybuddy.ui.widgets.compose.list.TrailingRadioButtonListI
 import com.edricchan.studybuddy.utils.compose.foundation.lazy.PaginationLoadingIndicator
 
 @Composable
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 fun ChooseTaskProjectLazyColumn(
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
@@ -121,7 +119,6 @@ fun ChooseTaskProjectLazyColumn(
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 private fun LazyItemScope.CreateTaskProjectButton(
     modifier: Modifier = Modifier,
     onCreateProjectRequest: () -> Unit

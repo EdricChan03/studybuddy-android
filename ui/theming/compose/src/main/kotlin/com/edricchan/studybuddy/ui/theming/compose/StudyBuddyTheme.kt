@@ -7,7 +7,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LocalRippleThemeConfiguration
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
@@ -94,7 +93,6 @@ fun studyBuddyShimmerTheme(): ShimmerTheme {
  * @param spacingTokens The [SpacingTokens] to use.
  * @param typography The [Typography] to use.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun StudyBuddyTheme(
     context: Context = LocalContext.current,
@@ -166,7 +164,6 @@ fun StudyBuddyTheme(
  * @param baseSpacing Base spacing for the [SpacingTokens] to be used.
  * @param typography Desired [typographical][Typography] styles to be used.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun StudyBuddyTheme(
     enableDarkTheme: Boolean = isSystemInDarkTheme(),

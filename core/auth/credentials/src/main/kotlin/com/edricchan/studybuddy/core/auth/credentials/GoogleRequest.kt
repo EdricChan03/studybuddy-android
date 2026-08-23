@@ -12,11 +12,9 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 import com.edricchan.studybuddy.core.auth.gms.R as GmsR
 
-@OptIn(ExperimentalUuidApi::class)
 val Context.googleIdOption: GetGoogleIdOption
     get() = GetGoogleIdOption(
         filterByAuthorizedAccounts = true,

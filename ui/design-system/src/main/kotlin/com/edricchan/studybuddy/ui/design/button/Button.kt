@@ -9,14 +9,12 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonShapes
 import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Button(
     modifier: Modifier = Modifier,
@@ -40,7 +38,6 @@ fun Button(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun OutlinedButton(
     modifier: Modifier = Modifier,
@@ -66,7 +63,6 @@ fun OutlinedButton(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun FilledTonalButton(
     modifier: Modifier = Modifier,
@@ -90,7 +86,6 @@ fun FilledTonalButton(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TextButton(
     modifier: Modifier = Modifier,
@@ -114,7 +109,6 @@ fun TextButton(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ElevatedButton(
     modifier: Modifier = Modifier,

@@ -184,7 +184,6 @@ private fun TaskDetailScreenNoDataStatePreview() {
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun TaskDetailScreenErrorState(
     modifier: Modifier = Modifier,

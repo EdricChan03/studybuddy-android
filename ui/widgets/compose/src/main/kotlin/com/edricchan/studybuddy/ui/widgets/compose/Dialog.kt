@@ -11,7 +11,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItemDefaults
@@ -47,7 +46,6 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
  * @param selectedItem The current selected item.
  * @param onItemSelectionChanged Called when a new item is selected.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun <T> ListDialog(
     modifier: Modifier = Modifier,
@@ -128,7 +126,6 @@ fun <T> ListDialog(
  * @param textField Composable to be shown for the input text-field.
  * This should be a [DialogDefaults.TextField].
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun InputDialog(
     modifier: Modifier = Modifier,

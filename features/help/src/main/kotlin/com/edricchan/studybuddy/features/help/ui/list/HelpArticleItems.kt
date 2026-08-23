@@ -92,7 +92,6 @@ fun HelpArticleItem(
     onClick = onClick
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Preview
 @PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
@@ -111,7 +110,6 @@ private fun HelpArticleItemPreview() {
  * @param articles The list of articles to be displayed.
  * @param onItemClick Lambda that is invoked when an item is clicked on.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 fun LazyListScope.helpArticlesList(
     itemModifier: Modifier = Modifier,
     articles: List<HelpArticle>,
@@ -185,7 +183,6 @@ private fun HelpArticlesListLoadingStatePreview() {
     HelpArticlesListLoadingState()
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HelpArticlesListEmptyState(
     modifier: Modifier = Modifier,

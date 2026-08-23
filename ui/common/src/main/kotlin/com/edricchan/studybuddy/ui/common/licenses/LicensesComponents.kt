@@ -29,7 +29,6 @@ import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
@@ -79,7 +78,6 @@ import com.mikepenz.aboutlibraries.entity.License
 import com.mikepenz.aboutlibraries.entity.Scm
 import com.mikepenz.aboutlibraries.ui.compose.util.author
 import java.text.Collator
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @Composable
@@ -131,7 +129,6 @@ fun LicenseChipsRow(
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun LibraryItem(
     modifier: Modifier = Modifier,
@@ -328,7 +325,6 @@ fun LibraryItem(
     }
 }
 
-@OptIn(ExperimentalUuidApi::class)
 @Preview
 @PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Composable
@@ -380,10 +376,7 @@ private fun LibraryItemPreview(
     )
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LicensesSearchBar(
     modifier: Modifier = Modifier,
@@ -446,7 +439,6 @@ fun LicensesSearchBar(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LicensesFilterOptions(
     modifier: Modifier = Modifier,

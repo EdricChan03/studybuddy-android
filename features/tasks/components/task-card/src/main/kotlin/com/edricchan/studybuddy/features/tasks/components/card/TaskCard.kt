@@ -89,7 +89,6 @@ import com.edricchan.studybuddy.utils.androidx.compose.ui.tooling.preview.Boolea
 import java.time.Duration
 import java.time.Instant
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskCard(
     modifier: Modifier = Modifier,
@@ -263,8 +262,8 @@ private fun TaskCardSelectionIndicator(modifier: Modifier = Modifier, selected: 
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 private fun TaskCardActions(
     modifier: Modifier = Modifier,
     isCompleted: Boolean,
@@ -483,7 +482,6 @@ fun TaskCard(
     onDeleteClick = onDeleteClick
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Immutable
 data class TaskCardColors(
     val containerColor: Color,
@@ -520,7 +518,6 @@ data class TaskCardColors(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Immutable
 data class TaskCardBorderColors(
     val borderColor: Color,

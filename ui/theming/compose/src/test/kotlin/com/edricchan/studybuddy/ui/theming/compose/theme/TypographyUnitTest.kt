@@ -1,9 +1,7 @@
 package com.edricchan.studybuddy.ui.theming.compose.theme
 
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import io.kotest.core.spec.style.FunSpec
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 class TypographyUnitTest : FunSpec({
     test("Baloo font is applied to all body text-styles") {
         with(StudyBuddyTypography) {

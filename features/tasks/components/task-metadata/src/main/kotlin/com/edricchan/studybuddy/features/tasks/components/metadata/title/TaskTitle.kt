@@ -3,7 +3,6 @@ package com.edricchan.studybuddy.features.tasks.components.metadata.title
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -104,7 +103,6 @@ fun TaskTitleListItem(
  * @param colors Colours to be used for the [ListItem].
  * @param shapes [ListItemShapes] to be used for the [ListItem].
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TaskTitleWithCheckboxListItem(
     modifier: Modifier = Modifier,
