@@ -14,6 +14,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 /** [CompositionLocal] of the currently signed-in [User], or `null`. */
 val LocalCurrentUser: ProvidableCompositionLocal<User?> =
@@ -39,6 +40,26 @@ fun ProvideCurrentUser(
 
     CompositionLocalProvider(
         LocalCurrentUser provides user?.toUser(),
+        LocalIsSignedIn provides (user != null),
+        content = content
+    )
+}
+
+/**
+ * Provides the [LocalCurrentUser] and [LocalIsSignedIn] composition locals with the
+ * given [userFlow].
+ *
+ * The [userFlow] will be collected as a state and used for [LocalCurrentUser].
+ */
+@Composable
+fun ProvideCurrentUser(
+    userFlow: StateFlow<User?>,
+    content: @Composable () -> Unit
+) {
+    val user by userFlow.collectAsStateWithLifecycle()
+
+    CompositionLocalProvider(
+        LocalCurrentUser provides user,
         LocalIsSignedIn provides (user != null),
         content = content
     )
