@@ -51,6 +51,8 @@ class AppearanceSettingsRepository @Inject constructor(
         dataStore.setAppTheme(value)
     }
 
+    fun isMonetTheme(): Boolean = appTheme.value == AppThemeSetting.Monet
+
     // Display settings
 
     val displayTypeface: StateFlow<TypefaceSetting> = dataStore.displayTypeface.stateIn(
