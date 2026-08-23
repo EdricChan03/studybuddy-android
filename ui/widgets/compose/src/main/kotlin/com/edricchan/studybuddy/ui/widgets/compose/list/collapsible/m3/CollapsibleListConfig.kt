@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.KeyboardArrowDown
 import com.edricchan.studybuddy.ui.widgets.compose.list.collapsible.m3.CollapsibleListDefaults.headerColors
-import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemColors
 import com.edricchan.studybuddy.ui.widgets.compose.list.m3.ExpListItemDefaults
 
 /**
@@ -188,21 +187,6 @@ data class CollapsibleListHeaderColors(
                 isExpanded = isExpanded
             ).expandIndicatorContentColor
         )
-
-    internal fun asExpListItemColors(): ExpListItemColors = ExpListItemColors(
-        containerColor = baseColors.containerColor,
-        contentColor = baseColors.contentColor,
-        iconColor = baseColors.iconColor,
-        selectedContainerColor = expandedColors.containerColor,
-        selectedContentColor = expandedColors.contentColor,
-        selectedIconColor = expandedColors.iconColor,
-        disabledContainerColor = disabledColors.containerColor,
-        disabledContentColor = disabledColors.contentColor,
-        disabledIconColor = disabledColors.iconColor,
-        disabledSelectedContainerColor = disabledExpandedColors.containerColor,
-        disabledSelectedContentColor = disabledExpandedColors.contentColor,
-        disabledSelectedIconColor = disabledExpandedColors.iconColor
-    )
 
     @Composable
     internal fun asListItemColors(): ListItemColors = ListItemDefaults.colors(
