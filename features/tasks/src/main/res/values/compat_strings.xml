@@ -15,16 +15,6 @@ TODO: Remove this file
 
     <string name="select_date_chip_default_text">Select a date&#8230;</string>
 
-    <string name="todo_frag_delete_task_dialog_msg">Note that the deletion process is
-        irreversible.</string>
-
-    <string name="todo_frag_delete_task_dialog_title">Delete task?</string>
-
-    <!-- Call-to-action text for the button to be shown when all tasks are done. -->
-    <string name="todo_frag_empty_state_cta">New task</string>
-    <!-- Title to be shown when all tasks are done. -->
-    <string name="todo_frag_empty_state_head">All tasks done!</string>
-
     <string name="view_task_loading">Loading task\'s contents…</string>
     <string name="view_task_label_icon_content_desc">Label icon</string>
 
