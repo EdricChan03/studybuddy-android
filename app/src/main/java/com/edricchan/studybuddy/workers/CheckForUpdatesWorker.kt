@@ -4,12 +4,12 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
@@ -120,11 +120,11 @@ class CheckForUpdatesWorker(
         // New update
         val intentAction = buildIntent<NotificationActionReceiver>(appContext) {
             putExtras(
-                bundleOf(
-                    "action" to Constants.actionNotificationsStartDownloadReceiver,
-                    "downloadUrl" to update?.urlToDownload?.toString(),
-                    "version" to update?.latestVersion
-                )
+                Bundle().apply {
+                    putString("action", Constants.actionNotificationsStartDownloadReceiver)
+                    putString("downloadUrl", update?.urlToDownload?.toString())
+                    putString("version", update?.latestVersion)
+                }
             )
         }
 
