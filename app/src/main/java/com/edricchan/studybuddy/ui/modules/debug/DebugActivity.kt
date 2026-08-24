@@ -54,7 +54,9 @@ class DebugActivity : BaseActivity() {
             val initialTitle = stringResource(R.string.title_activity_debug)
             var title by rememberSaveable { mutableStateOf(initialTitle) }
 
-            StudyBuddyTheme {
+            StudyBuddyTheme(
+                appearancePreferences = appearancePreferences
+            ) {
                 Scaffold(
                     topBar = {
                         LargeTopAppBar(

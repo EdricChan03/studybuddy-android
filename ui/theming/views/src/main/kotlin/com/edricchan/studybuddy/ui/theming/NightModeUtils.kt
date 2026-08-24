@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.theming
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemePrefValues
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
@@ -127,4 +128,15 @@ fun Context.applyDarkTheme(newTheme: DarkThemeOption = prefDarkTheme) {
     // Update the preference value if they don't match
     if (newTheme != prefDarkTheme) prefDarkTheme = newTheme
     defaultNightMode = newTheme.mode
+}
+
+private fun DarkModeSetting.asNightMode(): NightMode = when (this) {
+    DarkModeSetting.FollowSystem -> NightMode.FollowSystem
+    DarkModeSetting.AlwaysOn -> NightMode.Yes
+    DarkModeSetting.AlwaysOff -> NightMode.No
+}
+
+fun Context.applyDarkTheme(mode: DarkModeSetting) {
+    val newNightMode = mode.asNightMode()
+    if (defaultNightMode != newNightMode) defaultNightMode = mode.asNightMode()
 }

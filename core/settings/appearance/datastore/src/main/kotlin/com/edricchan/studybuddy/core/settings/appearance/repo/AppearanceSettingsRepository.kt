@@ -8,6 +8,7 @@ import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.font.TypefaceSetting
 import com.edricchan.studybuddy.core.settings.appearance.repo.source.AppearanceSettingsDataStore
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -37,6 +38,8 @@ class AppearanceSettingsRepository @Inject constructor(
         initialValue = DarkModeSetting.FollowSystem
     )
 
+    val darkModeFlow: Flow<DarkModeSetting> = dataStore.darkMode
+
     suspend fun setDarkMode(value: DarkModeSetting) {
         dataStore.setDarkMode(value)
     }
@@ -46,6 +49,8 @@ class AppearanceSettingsRepository @Inject constructor(
         started = SharingStarted.WhileSubscribed(),
         initialValue = if (supportsDynamicColor) AppThemeSetting.Monet else AppThemeSetting.StudyBuddy
     )
+
+    val appThemeFlow: Flow<AppThemeSetting> = dataStore.appTheme
 
     suspend fun setAppTheme(value: AppThemeSetting) {
         dataStore.setAppTheme(value)

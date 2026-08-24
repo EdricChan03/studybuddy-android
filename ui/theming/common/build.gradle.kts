@@ -1,5 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`android-hilt`
     com.edricchan.studybuddy.library.testing.`kotest-junit5`
 }
 
@@ -22,8 +23,9 @@ android {
 }
 
 dependencies {
+    api(projects.core.settings.appearance.datastore)
     api(projects.core.settings.appearance.model)
-    api(projects.core.settings.appearance.datastoreProto)
+
     implementation(projects.exts.androidx.preference)
 
     implementation(libs.androidx.core.ktx)

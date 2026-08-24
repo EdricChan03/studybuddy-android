@@ -17,19 +17,24 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
+import com.edricchan.studybuddy.ui.theming.common.AppearancePreferences
 import com.edricchan.studybuddy.ui.theming.common.ThemePreferences
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.edricchan.studybuddy.ui.theming.compose.night.shouldApplyDarkTheme
 import com.edricchan.studybuddy.ui.theming.compose.spacing.LocalThemeSpacing
 import com.edricchan.studybuddy.ui.theming.compose.spacing.SpacingTokens
 import com.edricchan.studybuddy.ui.theming.compose.theme.StudyBuddyTypography
+import com.edricchan.studybuddy.ui.theming.compose.theme.font.toFontFamily
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveDarkColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.m3.expressive.StudyBuddyExpressiveLightColors
 import com.edricchan.studybuddy.ui.theming.compose.theme.supportsDynamicColor
@@ -208,6 +213,40 @@ fun StudyBuddyTheme(
         enableDarkTheme = shouldApplyDarkTheme(darkMode),
         appTheme = appTheme,
         baseSpacing = baseSpacing,
+        typography = typography,
+        content = content
+    )
+}
+
+/**
+ * Sets the [MaterialTheme] for all the Composables in [content] based on the specified [appTheme].
+ * @param appearancePreferences Desired [AppearancePreferences] object to extract the relevant
+ * appearance values from.
+ */
+@Composable
+fun StudyBuddyTheme(
+    appearancePreferences: AppearancePreferences,
+    content: @Composable () -> Unit
+) {
+    val darkMode by appearancePreferences.darkMode.collectAsStateWithLifecycle()
+    val appTheme by appearancePreferences.appTheme.collectAsStateWithLifecycle()
+    val baseSpacing by appearancePreferences.baseSpacing.collectAsStateWithLifecycle()
+
+    val displayTypeface by appearancePreferences.displayTypeface.collectAsStateWithLifecycle()
+    val bodyTypeface by appearancePreferences.bodyTypeface.collectAsStateWithLifecycle()
+    val typography by remember {
+        derivedStateOf {
+            StudyBuddyTypography(
+                displayFontFamily = displayTypeface.toFontFamily(),
+                bodyFontFamily = bodyTypeface.toFontFamily()
+            )
+        }
+    }
+
+    StudyBuddyTheme(
+        enableDarkTheme = shouldApplyDarkTheme(darkMode),
+        appTheme = appTheme,
+        baseSpacing = baseSpacing.dp,
         typography = typography,
         content = content
     )
