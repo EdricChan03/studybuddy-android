@@ -37,7 +37,7 @@ import kotlinx.coroutines.flow.flowOf
 fun ListTasksScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues,
-    windowInsets: WindowInsets = WindowInsets.navigationBars.only(WindowInsetsSides.Bottom),
+    contentWindowInsets: WindowInsets = WindowInsets.navigationBars.only(WindowInsetsSides.Bottom),
     pagedTasks: LazyPagingItems<TaskItem>,
     onItemClick: (TaskItem) -> Unit,
     onCompleteClick: (TaskItem) -> Unit,
@@ -50,7 +50,9 @@ fun ListTasksScreen(
         pagedTasks.itemSnapshotList.items.isEmpty()
 
     PullToRefreshBox(
-        modifier = modifier,
+        modifier = modifier
+            .padding(contentPadding)
+            .consumeWindowInsets(contentPadding),
         state = pullToRefreshState,
         isRefreshing = isRefreshing,
         onRefresh = onRefresh,
@@ -76,7 +78,7 @@ fun ListTasksScreen(
             } else {
                 LazyTasksColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = windowInsets.asPaddingValues() + contentPadding,
+                    contentPadding = PaddingValues(top = 16.dp) + contentWindowInsets.asPaddingValues(),
                     pagedTasks = pagedTasks,
                     onItemClick = onItemClick,
                     onCompleteClick = onCompleteClick,
