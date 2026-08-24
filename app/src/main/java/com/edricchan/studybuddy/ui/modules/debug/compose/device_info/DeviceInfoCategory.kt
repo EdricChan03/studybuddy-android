@@ -36,7 +36,6 @@ import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
-import com.edricchan.studybuddy.ui.theming.common.dynamic.prefDynamicTheme
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 private val String.orUnset get() = ifEmpty { "<Unset>" }
@@ -221,15 +220,14 @@ private fun PreferenceCategoryScope.DeviceNetworkInfoPreference(modifier: Modifi
 @Composable
 private fun DeviceDynamicThemeInfoDialog(
     modifier: Modifier = Modifier,
+    shouldUseDynamicTheme: Boolean,
     onDismissRequest: () -> Unit,
     onCopyClick: (String) -> Unit
 ) {
-    val context = LocalContext.current
-
-    val infoText = remember {
+    val infoText = remember(shouldUseDynamicTheme) {
         """
             Is dynamic colour supported? $isDynamicColorAvailable
-            Is dynamic colour preference checked? ${context.prefDynamicTheme}
+            Is Monet theme selected? $shouldUseDynamicTheme
         """.trimIndent()
     }
 
@@ -260,7 +258,10 @@ private fun DeviceDynamicThemeInfoDialog(
 }
 
 @Composable
-private fun PreferenceCategoryScope.DeviceDynamicThemePreference(modifier: Modifier = Modifier) {
+private fun PreferenceCategoryScope.DeviceDynamicThemePreference(
+    modifier: Modifier = Modifier,
+    shouldUseDynamicTheme: Boolean
+) {
     var isInfoShown by rememberSaveable { mutableStateOf(false) }
 
     val clipboardManager = LocalClipboardManager.current
@@ -282,19 +283,23 @@ private fun PreferenceCategoryScope.DeviceDynamicThemePreference(modifier: Modif
             onDismissRequest = { isInfoShown = false },
             onCopyClick = {
                 clipboardManager.setText(AnnotatedString(it))
-            }
+            },
+            shouldUseDynamicTheme = shouldUseDynamicTheme
         )
     }
 }
 
 @Composable
-fun DeviceInfoCategory(modifier: Modifier = Modifier) {
+fun DeviceInfoCategory(
+    modifier: Modifier = Modifier,
+    shouldUseDynamicTheme: Boolean
+) {
     PreferenceCategory(
         modifier = modifier,
         title = { Text(text = stringResource(R.string.debug_activity_category_device)) }
     ) {
         DeviceSdkInfoPreference()
         DeviceNetworkInfoPreference()
-        DeviceDynamicThemePreference()
+        DeviceDynamicThemePreference(shouldUseDynamicTheme = shouldUseDynamicTheme)
     }
 }

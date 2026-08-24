@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.edricchan.studybuddy.constants.Constants
 import com.edricchan.studybuddy.core.metadata.updates.source.UpdateMetadataDataSource
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
+import com.edricchan.studybuddy.ui.theming.common.AppearancePreferences
 import com.edricchan.studybuddy.utils.dev.flow.devModePreferences
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.fredporciuncula.flow.preferences.Preference
@@ -17,11 +18,14 @@ import javax.inject.Inject
 @HiltViewModel
 class DebugViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    metadataSource: UpdateMetadataDataSource
+    metadataSource: UpdateMetadataDataSource,
+    appearancePreferences: AppearancePreferences
 ) : ViewModel() {
     private val appPreferences = FlowSharedPreferences(
         sharedPreferences = context.defaultSharedPreferences
     )
+
+    val shouldUseDynamicTheme: Flow<Boolean> = appearancePreferences.isMonetTheme
 
     val customUpdateJsonUrl: Preference<String> =
         appPreferences.getString(Constants.debugSetCustomJsonUrl)

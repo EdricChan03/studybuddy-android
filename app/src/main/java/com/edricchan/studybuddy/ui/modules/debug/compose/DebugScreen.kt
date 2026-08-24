@@ -23,6 +23,7 @@ import com.edricchan.studybuddy.ui.preference.compose.MainSwitchBarDefaults
 import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
+import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
@@ -60,6 +61,8 @@ fun DebugScreen(
         .collectAsStateWithLifecycle(initialValue = null)
     val lastUpdatedInstant by viewModel.lastUpdated
         .collectAsStateWithLifecycle(initialValue = null)
+    val shouldUseDynamicTheme by viewModel.shouldUseDynamicTheme
+        .collectAsStateWithLifecycle(initialValue = isDynamicColorAvailable)
 
     val user by userFlow.collectAsStateWithLifecycle(null)
 
@@ -76,7 +79,9 @@ fun DebugScreen(
         }
 
         item {
-            DeviceInfoCategory()
+            DeviceInfoCategory(
+                shouldUseDynamicTheme = shouldUseDynamicTheme
+            )
         }
         item {
             PreferenceCategory(
