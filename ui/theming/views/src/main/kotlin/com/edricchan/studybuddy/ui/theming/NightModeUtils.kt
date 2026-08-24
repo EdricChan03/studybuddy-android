@@ -38,6 +38,7 @@ enum class NightMode(@field:NightModeAnnotation val modeId: Int) {
 }
 
 /** An enum-like class used to represent a theme setting value and its corresponding night mode value. */
+@Deprecated("Use DarkModeSetting/DarkModeSetting.asNightMode where applicable")
 enum class DarkThemeOption(val prefValue: DarkThemeValue, val mode: NightMode) {
 
     V1Always(
@@ -124,13 +125,14 @@ var Context.prefDarkTheme: DarkThemeOption
     }
 
 /** Applies the dark theme given the [newTheme]. */
+@Deprecated("Use the overload which accepts a DarkModeSetting")
 fun Context.applyDarkTheme(newTheme: DarkThemeOption = prefDarkTheme) {
     // Update the preference value if they don't match
     if (newTheme != prefDarkTheme) prefDarkTheme = newTheme
     defaultNightMode = newTheme.mode
 }
 
-private fun DarkModeSetting.asNightMode(): NightMode = when (this) {
+fun DarkModeSetting.asNightMode(): NightMode = when (this) {
     DarkModeSetting.FollowSystem -> NightMode.FollowSystem
     DarkModeSetting.AlwaysOn -> NightMode.Yes
     DarkModeSetting.AlwaysOff -> NightMode.No
