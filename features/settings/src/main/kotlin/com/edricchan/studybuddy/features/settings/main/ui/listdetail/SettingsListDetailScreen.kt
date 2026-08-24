@@ -30,7 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Info
-import com.edricchan.studybuddy.core.settings.appearance.DarkThemeValue
+import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
+import com.edricchan.studybuddy.core.settings.appearance.DarkModeSetting
 import com.edricchan.studybuddy.features.settings.R
 import com.edricchan.studybuddy.features.settings.appearance.ui.AppearanceSettingsScreen
 import com.edricchan.studybuddy.features.settings.general.ui.GeneralSettingsScreen
@@ -57,8 +58,8 @@ fun SettingsListDetailScreen(
     onNavigateToAbout: () -> Unit,
     onNavigateToAccount: () -> Unit,
     onNavigateToUpdates: () -> Unit,
-    onDynamicThemeChange: (Boolean) -> Unit = {},
-    onDarkThemeChange: (DarkThemeValue) -> Unit = {}
+    onAppThemeChange: (AppThemeSetting) -> Unit = {},
+    onDarkThemeChange: (DarkModeSetting) -> Unit = {}
 ) {
     val scope = rememberCoroutineScope()
 
@@ -93,7 +94,7 @@ fun SettingsListDetailScreen(
                     contentPadding = PaddingValues(16.dp),
                     categoryData = navigator.currentDestination?.contentKey,
                     onNavigateToUpdates = onNavigateToUpdates,
-                    onDynamicThemeChange = onDynamicThemeChange,
+                    onAppThemeChange = onAppThemeChange,
                     onDarkThemeChange = onDarkThemeChange
                 )
             }
@@ -146,8 +147,8 @@ private fun SettingsDetailScreen(
     contentPadding: PaddingValues,
     categoryData: SettingsCategory?,
     onNavigateToUpdates: () -> Unit,
-    onDynamicThemeChange: (Boolean) -> Unit,
-    onDarkThemeChange: (DarkThemeValue) -> Unit
+    onAppThemeChange: (AppThemeSetting) -> Unit,
+    onDarkThemeChange: (DarkModeSetting) -> Unit
 ) {
     Crossfade(categoryData) {
         when (it) {
@@ -160,7 +161,9 @@ private fun SettingsDetailScreen(
             SettingsCategory.Appearance -> AppearanceSettingsScreen(
                 modifier = modifier,
                 contentPadding = contentPadding,
-                viewModel = hiltViewModel()
+                viewModel = hiltViewModel(),
+                onAppThemeChange = onAppThemeChange,
+                onDarkThemeChange = onDarkThemeChange
             )
 
             SettingsCategory.Task -> TaskSettingsScreen(

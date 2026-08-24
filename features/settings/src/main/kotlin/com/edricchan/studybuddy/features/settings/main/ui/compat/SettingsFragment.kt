@@ -11,11 +11,11 @@ import androidx.compose.ui.Modifier
 import com.edricchan.studybuddy.core.auth.ProvideCurrentUser
 import com.edricchan.studybuddy.core.compat.navigation.about.navigateToAbout
 import com.edricchan.studybuddy.core.compat.navigation.navigateToUpdates
+import com.edricchan.studybuddy.core.settings.appearance.AppThemeSetting
 import com.edricchan.studybuddy.features.auth.navigation.navigateToAccountInfo
 import com.edricchan.studybuddy.features.settings.main.ui.listdetail.SettingsListDetailScreen
 import com.edricchan.studybuddy.features.settings.navigation.SettingsCategory
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
-import com.edricchan.studybuddy.ui.theming.DarkThemeOption
 import com.edricchan.studybuddy.ui.theming.applyDarkTheme
 import com.edricchan.studybuddy.ui.theming.applyDynamicTheme
 import com.edricchan.studybuddy.utils.androidx.core.menuProvider
@@ -74,14 +74,16 @@ class SettingsFragment : ComposableFragment() {
                     onNavigateToUpdates = navController::navigateToUpdates,
                     onNavigateToAccount = navController::navigateToAccountInfo,
                     onNavigateToAbout = navController::navigateToAbout,
-                    onDynamicThemeChange = {
+                    onAppThemeChange = {
+                        // TODO: Dynamically apply themes instead of just setting Monet
+                        //  styling
                         requireActivity().apply {
-                            applyDynamicTheme(it)
+                            applyDynamicTheme(it == AppThemeSetting.Monet)
                             recreate()
                         }
                     },
                     onDarkThemeChange = {
-                        requireActivity().applyDarkTheme(DarkThemeOption.fromValue(it))
+                        requireActivity().applyDarkTheme(it)
                     }
                 )
             }

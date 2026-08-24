@@ -60,7 +60,9 @@ fun AppearanceSettingsScreen(
 fun AppearanceSettingsScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    viewModel: AppearanceSettingsViewModel
+    viewModel: AppearanceSettingsViewModel,
+    onDarkThemeChange: (DarkModeSetting) -> Unit = {},
+    onAppThemeChange: (AppThemeSetting) -> Unit = {}
 ) {
     val darkTheme by viewModel.darkMode.collectAsStateWithLifecycle()
     val appTheme by viewModel.appTheme.collectAsStateWithLifecycle()
@@ -71,9 +73,15 @@ fun AppearanceSettingsScreen(
         modifier = modifier,
         contentPadding = contentPadding,
         darkTheme = darkTheme,
-        onDarkThemeChange = viewModel::onDarkThemeChange,
+        onDarkThemeChange = {
+            viewModel.onDarkThemeChange(it)
+            onDarkThemeChange(it)
+        },
         appTheme = appTheme,
-        onAppThemeChange = viewModel::onAppThemeChange,
+        onAppThemeChange = {
+            viewModel.onAppThemeChange(it)
+            onAppThemeChange(it)
+        },
         displayFontStyle = displayFontStyle,
         onDisplayFontStyleChange = viewModel::onDisplayFontStyleChange,
         bodyFontStyle = bodyFontStyle,
