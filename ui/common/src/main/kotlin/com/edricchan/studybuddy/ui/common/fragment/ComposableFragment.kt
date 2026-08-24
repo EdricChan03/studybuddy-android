@@ -15,13 +15,22 @@ import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.core.net.toUri
 import androidx.fragment.compose.content
+import com.edricchan.studybuddy.ui.theming.common.AppearancePreferences
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import javax.inject.Inject
 
 /**
  * [BaseFragment] sub-class for fragments which use Jetpack Compose for its
  * content, via the [Content] function.
+ *
+ * Note that fragments that inherit from this class **must** have the
+ * [dagger.hilt.android.AndroidEntryPoint] annotation applied.
  */
 abstract class ComposableFragment : BaseFragment() {
+    /** [AppearancePreferences] object for this fragment. */
+    @Inject
+    lateinit var appearancePreferences: AppearancePreferences
+
     /**
      * Desired composable content for this fragment.
      *
@@ -52,7 +61,9 @@ abstract class ComposableFragment : BaseFragment() {
 
         return content {
             val nestedScrollInterop = rememberNestedScrollInteropConnection()
-            StudyBuddyTheme {
+            StudyBuddyTheme(
+                appearancePreferences = appearancePreferences
+            ) {
                 CompositionLocalProvider(LocalUriHandler provides uriHandler) {
                     Content(modifier = Modifier.nestedScroll(nestedScrollInterop))
                 }
