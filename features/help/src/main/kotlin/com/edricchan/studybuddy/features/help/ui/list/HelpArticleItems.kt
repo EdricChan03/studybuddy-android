@@ -127,7 +127,6 @@ fun LazyListScope.helpArticlesList(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HelpArticlesLazyColumn(
     modifier: Modifier = Modifier,
@@ -147,7 +146,6 @@ fun HelpArticlesLazyColumn(
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Preview
 @PreviewLightDark
 @PreviewDynamicColors
