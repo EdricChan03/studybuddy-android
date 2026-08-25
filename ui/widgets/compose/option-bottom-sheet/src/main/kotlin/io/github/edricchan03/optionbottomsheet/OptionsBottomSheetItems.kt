@@ -2,6 +2,7 @@ package io.github.edricchan03.optionbottomsheet
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.PreviewWrapper
+import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOption
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup
@@ -37,6 +39,8 @@ import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup.Che
 
 /**
  * List content for an [OptionsModalBottomSheet].
+ * @param contentPadding Content [PaddingValues] to be set for the inner [LazyColumn]'s
+ * `contentPadding` parameter.
  * @param onDismissBottomSheetRequest Lambda that is invoked to indicate a request to dismiss
  * the parent [OptionsModalBottomSheet]. The [BottomSheetOption] that was clicked on is passed
  * as the `item` parameter.
@@ -45,6 +49,7 @@ import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup.Che
 @Composable
 fun OptionsBottomSheetList(
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(16.dp),
     onDismissBottomSheetRequest: (item: BottomSheetOption) -> Unit,
     group: BottomSheetOptionGroup
 ) {
@@ -55,6 +60,7 @@ fun OptionsBottomSheetList(
 
     LazyColumn(
         modifier = modifier.selectableGroup(),
+        contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(ListItemDefaults.SegmentedGap)
     ) {
         itemsIndexed(
