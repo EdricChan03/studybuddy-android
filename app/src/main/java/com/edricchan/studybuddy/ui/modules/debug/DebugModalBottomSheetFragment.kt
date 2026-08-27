@@ -46,9 +46,11 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingl
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 // TODO: Move demo class to dedicated Gradle module
+@AndroidEntryPoint
 class DebugModalBottomSheetFragment : ComposableFragment() {
 
     @Immutable
