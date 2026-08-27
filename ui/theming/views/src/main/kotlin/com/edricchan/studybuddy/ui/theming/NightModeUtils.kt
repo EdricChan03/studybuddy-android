@@ -111,6 +111,10 @@ var defaultNightMode: NightMode
     set(value) = AppCompatDelegate.setDefaultNightMode(value.modeId)
 
 /** The currently selected dark theme. */
+@Deprecated(
+    "Use the proto-backed DarkModeSetting value from " +
+        "AppearanceSettingsRepository instead"
+)
 var Context.prefDarkTheme: DarkThemeOption
     get() = DarkThemeOption.fromValue(
         defaultSharedPreferences.getString(
