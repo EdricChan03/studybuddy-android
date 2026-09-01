@@ -10,13 +10,12 @@
     <string name="forgot_password_title">Forgot password?</string>
 
     <!-- Body text for the forgot password screen. -->
-    <string name="forgot_password_msg">Enter your email address in the input below and click
-        the \"Reset password\" button to reset your password.\nYou\'ll be sent an email with a
-        link to reset your password.
+    <string name="forgot_password_msg">Enter your email address and we\'ll send you
+        a link to reset your password.
     </string>
 
     <!-- Text for the (call-to-action) reset password button in the forgot password screen. -->
-    <string name="btn_reset_password">Reset password</string>
+    <string name="btn_reset_password">Send password reset email</string>
 
     <!-- Text for the back button in the forgot password screen. -->
     <string name="btn_back">&lt; Go back</string>
