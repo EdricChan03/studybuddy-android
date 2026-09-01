@@ -21,6 +21,10 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.resources)
+    implementation(projects.exts.android.metadata)
+    implementation(projects.ui.widgets.compose)
+
     // Compose
     implementation(libs.bundles.androidx.compose)
 
