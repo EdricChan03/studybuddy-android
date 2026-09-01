@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ListItemShapes
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedListItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -401,10 +400,7 @@ fun SegmentedListColumn(
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(ListItemDefaults.SegmentedGap),
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
-    listItemColors: ListItemColors = ListItemDefaults.segmentedColors(
-        containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        contentColor = MaterialTheme.colorScheme.onSurface
-    ),
+    listItemColors: ListItemColors = ListItemDefaults.segmentedColors(),
     itemsInit: SegmentedListScope.() -> Unit
 ) {
     val listScope = remember { SegmentedListScopeImpl().apply(itemsInit) }
