@@ -271,6 +271,18 @@ interface SegmentedListScope {
 
 @Stable
 interface SegmentedListItemScope : ColumnScope {
+    /** Current index for this list item. */
+    val index: Int
+
+    /** Number of items added to the surrounding [SegmentedListScope]. */
+    val itemsCount: Int
+
+    /** Whether this item is the first list item. */
+    val isFirst: Boolean get() = index == 0
+
+    /** Whether this item is the last list item. */
+    val isLast: Boolean get() = index == itemsCount - 1
+
     /** Desired [ListItemShapes] for this list item. */
     val shapes: ListItemShapes
 
@@ -280,6 +292,8 @@ interface SegmentedListItemScope : ColumnScope {
 
 @Immutable
 private class SegmentedListItemScopeImpl(
+    override val index: Int,
+    override val itemsCount: Int,
     override val shapes: ListItemShapes,
     override val colors: ListItemColors,
     val columnScope: ColumnScope
@@ -418,6 +432,8 @@ fun SegmentedListColumn(
             key(i) {
                 val item = items[i]
                 val itemScope = SegmentedListItemScopeImpl(
+                    index = i,
+                    itemsCount = items.size,
                     shapes = ListItemDefaults.segmentedShapes(
                         position = SegmentedListItemPosition.fromIndex(i, listScope.items.size)
                     ),
