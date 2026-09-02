@@ -8,7 +8,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
-import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.exts.material.textfield.inputValue
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragRegisterBinding
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
@@ -36,59 +36,26 @@ class RegisterFragment : ViewBindingFragment<FragRegisterBinding>(FragRegisterBi
             }
 
             signUpBtn.setOnClickListener {
-                val email = emailTextInputLayout.editTextStrValue
-                val password = passwordTextInputLayout.editTextStrValue
+                val email = emailTextInputLayout.inputValue
+                val password = passwordTextInputLayout.inputValue
 
-                emailTextInputLayout.apply {
-                    if (email.isBlank()) {
-                        if (
-                            error.isNullOrEmpty() ||
-                            error == getString(R.string.edittext_errors_invalid_email)
-                        ) {
-                            error = getString(R.string.edittext_errors_empty_email)
-                        }
-                    } else if (email.isInvalidEmail()) {
-                        if (
-                            error.isNullOrEmpty() ||
-                            error == getString(R.string.edittext_errors_empty_email)
-                        ) {
-                            error =
-                                getString(R.string.edittext_errors_invalid_email)
-                        }
-                    } else {
-                        error?.let {
-                            if (it.isNotEmpty()) error = null
-                        }
+                if (email.isNullOrBlank() || password.isNullOrBlank()) {
+                    emailTextInputLayout.error = when {
+                        email.isNullOrBlank() -> getString(R.string.edittext_errors_empty_email)
+                        email.isInvalidEmail() -> getString(R.string.edittext_errors_invalid_email)
+                        else -> null
                     }
-                }
-                passwordTextInputLayout.apply {
-                    if (password.isEmpty()) {
-                        if (
-                            error.isNullOrEmpty() ||
-                            error == getString(R.string.edittext_errors_invalid_password)
-                        ) {
-                            error =
+                    passwordTextInputLayout.apply {
+                        error = when {
+                            password.isNullOrBlank() ->
                                 getString(R.string.edittext_errors_empty_password)
-                        }
-                    } else if (password.length < 6) {
-                        if (
-                            error.isNullOrEmpty() ||
-                            error == getString(R.string.edittext_errors_empty_password)
-                        ) {
-                            error =
-                                getString(R.string.edittext_errors_invalid_password)
-                        }
-                    } else {
-                        error?.let {
-                            if (it.isNotEmpty()) error = null
+
+                            password.length < 6 -> getString(R.string.edittext_errors_invalid_password)
+                            else -> null
                         }
                     }
-                    if (
-                        !passwordTextInputLayout.error.isNullOrEmpty() ||
-                        !emailTextInputLayout.error.isNullOrEmpty()
-                    ) {
-                        return@setOnClickListener
-                    }
+
+                    return@setOnClickListener
                 }
 
                 progressBar.isVisible = true
