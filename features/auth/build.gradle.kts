@@ -42,9 +42,11 @@ dependencies {
     implementation(projects.exts.material)
     implementation(projects.utils.androidx.core)
     implementation(projects.ui.common)
+    implementation(projects.ui.theming.compose)
     implementation(projects.ui.theming.views) {
         because("We need XML theming for the activity manifest declaration")
     }
+    implementation(projects.ui.widgets.compose)
     implementation(projects.ui.widgets.views)
     implementation(projects.utils.androidx.compose)
     implementation(projects.utils.network)
