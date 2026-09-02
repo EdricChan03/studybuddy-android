@@ -23,7 +23,9 @@ android {
 dependencies {
     implementation(projects.core.resources)
     implementation(projects.exts.android.metadata)
+    implementation(projects.ui.theming.compose)
     implementation(projects.ui.widgets.compose)
+    implementation(projects.ui.widgets.compose.segmentedList)
 
     // Compose
     implementation(libs.bundles.androidx.compose)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- About screen strings -->
+    <eat-comment />
+
+    <!-- Links section -->
+    <eat-comment />
+
+    <!-- The app links section's title. -->
+    <string name="about_links_section_subheader">Links</string>
+
+    <!-- The open app info list item's title. -->
+    <string name="about_open_app_info_title">Open app info</string>
+    <!-- The open app info list item's subtitle. -->
+    <string name="about_open_app_info_subtitle">Open the app\'s info page in
+        Settings</string>
+    <!-- The view source list item's title. -->
+    <string name="about_view_source_code_title">View source code</string>
+    <!-- The view source list item's subtitle. -->
+    <string name="about_view_source_code_subtitle">Opens the app\'s source code
+        in a new tab</string>
+    <!-- The view bug tracker list item's title. -->
+    <string name="about_view_bug_tracker_title">View bug tracker</string>
+    <!-- The view bug tracker list item's subtitle. -->
+    <string name="about_view_bug_tracker_subtitle">Opens the app\'s bug tracker (GitHub Issues)
+        in a new tab</string>
+    <!-- The view open-source licenses list item's title. -->
+    <string name="about_source_licenses_title">Open-source licenses</string>
+</resources>
