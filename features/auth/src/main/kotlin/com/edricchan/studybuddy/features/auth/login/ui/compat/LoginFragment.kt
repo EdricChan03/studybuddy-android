@@ -21,7 +21,7 @@ import com.edricchan.studybuddy.core.auth.credentials.signInWithGoogleCredential
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithEmailAndPassword
 import com.edricchan.studybuddy.exts.firebase.auth.awaitSignInWithGoogle
-import com.edricchan.studybuddy.exts.material.textfield.editTextStrValue
+import com.edricchan.studybuddy.exts.material.textfield.inputValue
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.databinding.FragLoginBinding
 import com.edricchan.studybuddy.features.auth.navigation.navigateToRecovery
@@ -85,17 +85,17 @@ class LoginFragment : ViewBindingFragment<FragLoginBinding>(FragLoginBinding::in
             }
 
             loginBtn.setOnClickListener {
-                val email = emailLogin.editTextStrValue
-                val password = passwordLogin.editTextStrValue
+                val email = emailLogin.inputValue
+                val password = passwordLogin.inputValue
 
                 // Clear any previous errors
                 emailLogin.error = null
                 passwordLogin.error = null
-                if (email.isEmpty() || password.isEmpty()) {
-                    if (email.isEmpty()) {
+                if (email.isNullOrBlank() || password.isNullOrBlank()) {
+                    if (email.isNullOrBlank()) {
                         emailLogin.error = "Please enter a valid email address"
                     }
-                    if (password.isEmpty()) {
+                    if (password.isNullOrBlank()) {
                         passwordLogin.error = "Please enter a password"
                     }
                     return@setOnClickListener
