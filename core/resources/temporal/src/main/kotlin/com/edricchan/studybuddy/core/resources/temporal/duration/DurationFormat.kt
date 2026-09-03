@@ -40,7 +40,8 @@ private val Duration.secondsPart: Int
     )
 
 private fun Duration.toHumanReadableIcu(
-    locale: Locale = Locale.getDefault()
+    locale: Locale = Locale.getDefault(),
+    formatWidth: MeasureFormat.FormatWidth = MeasureFormat.FormatWidth.WIDE
 ): String {
     val measures = buildList {
         daysPart.takeIfPositive()?.let {
@@ -58,8 +59,8 @@ private fun Duration.toHumanReadableIcu(
     }
 
     val formatter = MeasureFormat.getInstance(
-        locale,
-        MeasureFormat.FormatWidth.WIDE
+        /* locale = */ locale,
+        /* formatWidth = */ formatWidth
     )
 
     return formatter.formatMeasures(*measures.toTypedArray())
@@ -69,7 +70,12 @@ private fun Duration.toHumanReadableIcu(
  * Formats the receiver [Duration] to its human-readable equivalent.
  *
  * For example, a value of `PT1H30M` will result in "1 hour, 30 minutes".
+ * @param locale [Locale] to be used when retrieving an instance of [MeasureFormat] -
+ * see [MeasureFormat.getInstance].
+ * @param formatWidth [MeasureFormat.FormatWidth] to be used when retrieving an
+ * instance of [MeasureFormat] - see [MeasureFormat.getInstance].
  */
 fun Duration.format(
-    locale: Locale = Locale.getDefault()
+    locale: Locale = Locale.getDefault(),
+    formatWidth: MeasureFormat.FormatWidth = MeasureFormat.FormatWidth.WIDE
 ): String = toHumanReadableIcu(locale)
