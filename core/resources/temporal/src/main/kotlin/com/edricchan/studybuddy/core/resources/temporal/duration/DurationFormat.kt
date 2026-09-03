@@ -78,4 +78,4 @@ private fun Duration.toHumanReadableIcu(
 fun Duration.format(
     locale: Locale = Locale.getDefault(),
     formatWidth: MeasureFormat.FormatWidth = MeasureFormat.FormatWidth.WIDE
-): String = toHumanReadableIcu(locale)
+): String = toHumanReadableIcu(locale = locale, formatWidth = formatWidth)
