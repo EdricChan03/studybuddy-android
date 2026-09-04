@@ -25,8 +25,8 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
-import androidx.compose.material3.SplitButton
 import androidx.compose.material3.SplitButtonDefaults
+import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
@@ -295,7 +295,7 @@ private fun CopySplitButton(
     val dismissMenu = { isExpanded = false }
 
     Box {
-        SplitButton(
+        SplitButtonLayout(
             modifier = modifier,
             leadingButton = {
                 SplitButtonDefaults.OutlinedLeadingButton(
