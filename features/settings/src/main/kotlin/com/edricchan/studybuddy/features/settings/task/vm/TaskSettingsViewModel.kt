@@ -3,8 +3,8 @@ package com.edricchan.studybuddy.features.settings.task.vm
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.edricchan.studybuddy.core.settings.tasks.keyPrefTaskDefaultSort
+import com.edricchan.studybuddy.core.settings.tasks.model.sort.compat.TaskSortOptionCompat
 import com.edricchan.studybuddy.exts.androidx.preference.defaultSharedPreferences
-import com.edricchan.studybuddy.features.settings.task.model.TaskSortOptionCompat
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.fredporciuncula.flow.preferences.Preference
 import com.fredporciuncula.flow.preferences.map

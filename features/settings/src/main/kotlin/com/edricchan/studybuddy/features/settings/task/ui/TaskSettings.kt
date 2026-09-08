@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Sort
-import com.edricchan.studybuddy.features.settings.task.model.TaskSortOptionCompat
+import com.edricchan.studybuddy.core.settings.tasks.model.sort.compat.TaskSortOptionCompat
+import com.edricchan.studybuddy.core.settings.tasks.ui.sort.compat.labelResource
 import com.edricchan.studybuddy.features.settings.task.vm.TaskSettingsViewModel
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
@@ -36,11 +37,11 @@ private fun TaskDefaultSortPreference(
         modifier = modifier,
         icon = { Icon(AppIcons.Outlined.Sort, contentDescription = null) },
         title = { Text(text = stringResource(TaskR.string.pref_task_default_sort_title)) },
-        subtitle = { Text(text = stringResource(defaultSort.stringResource)) },
+        subtitle = { Text(text = stringResource(defaultSort.labelResource)) },
         values = TaskSortOptionCompat.entries,
         value = defaultSort,
         onValueChanged = onDefaultSortChange,
-        valueLabel = { Text(text = stringResource(it.stringResource)) }
+        valueLabel = { Text(text = stringResource(it.labelResource)) }
     )
 }
 

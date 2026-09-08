@@ -34,6 +34,7 @@ dependencies {
     implementation(projects.core.settings.general.resources)
     implementation(projects.core.settings.tasks.model)
     implementation(projects.core.settings.tasks.resources)
+    implementation(projects.core.settings.tasks.ui)
     implementation(projects.core.settings.tracking)
     implementation(projects.core.settings.updates.datastore)
     implementation(projects.core.settings.updates.model)
