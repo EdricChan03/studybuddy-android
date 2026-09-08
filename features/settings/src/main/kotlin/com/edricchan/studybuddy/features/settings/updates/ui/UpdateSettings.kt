@@ -25,8 +25,7 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Refresh
 import com.edricchan.studybuddy.core.resources.icons.outlined.SystemUpdateAlt
 import com.edricchan.studybuddy.core.resources.temporal.duration.format
 import com.edricchan.studybuddy.core.resources.temporal.relative.formatRelativeToNow
-import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
-import com.edricchan.studybuddy.features.settings.updates.model.asDuration
+import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyPreset
 import com.edricchan.studybuddy.features.settings.updates.vm.UpdateSettingsViewModel
 import com.edricchan.studybuddy.ui.preference.compose.ListDialogPreference
 import com.edricchan.studybuddy.ui.preference.compose.Preference
@@ -88,13 +87,11 @@ fun UpdateSettingsScreen(
     PreferenceCategory(
         title = { Text(text = stringResource(UpdateR.string.pref_updates_options_title)) }
     ) {
-        // TODO: Create a more versatile version that allows for an arbitrary duration
-        //  to be set
         ListDialogPreference(
             icon = { Icon(AppIcons.Outlined.Refresh, contentDescription = null) },
             title = { Text(text = stringResource(UpdateR.string.pref_check_for_update_frequency_title)) },
             subtitle = { Text(text = checkFrequency.formatFrequency()) },
-            values = CheckFrequencyCompat.entries.map(CheckFrequencyCompat::asDuration),
+            values = CheckFrequencyPreset.entries.map(CheckFrequencyPreset::duration),
             valueLabel = { Text(text = it.formatFrequency()) },
             value = checkFrequency,
             onValueChanged = onCheckFrequencyChange
@@ -134,7 +131,7 @@ fun UpdateSettingsScreen(
     onUpdatesClick: () -> Unit
 ) {
     val checkFrequency by viewModel.prefCheckFrequency
-        .collectAsStateWithLifecycle(initialValue = CheckFrequencyCompat.SixHours.asDuration())
+        .collectAsStateWithLifecycle(initialValue = CheckFrequencyPreset.SixHours.duration)
 
     val canDownloadMetered by viewModel.prefCanDownloadMetered
         .collectAsStateWithLifecycle(initialValue = false)

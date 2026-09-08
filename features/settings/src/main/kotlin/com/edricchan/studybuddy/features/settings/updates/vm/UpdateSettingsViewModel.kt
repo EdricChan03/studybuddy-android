@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edricchan.studybuddy.core.metadata.updates.source.UpdateMetadataDataSource
 import com.edricchan.studybuddy.core.settings.updates.source.UpdateSettingsDataSource
-import com.edricchan.studybuddy.features.settings.updates.model.CheckFrequencyCompat
-import com.edricchan.studybuddy.features.settings.updates.model.asDuration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -21,10 +19,6 @@ class UpdateSettingsViewModel @Inject constructor(
     val prefCheckFrequency: Flow<Duration> = settingsSource.checkFrequency
     fun setPrefCheckFrequency(frequency: Duration) = viewModelScope.launch {
         settingsSource.setCheckFrequency(frequency)
-    }
-
-    fun setPrefCheckFrequency(frequency: CheckFrequencyCompat) = viewModelScope.launch {
-        setPrefCheckFrequency(frequency.asDuration())
     }
 
     val prefCanDownloadMetered: Flow<Boolean> = settingsSource.canDownloadMetered
