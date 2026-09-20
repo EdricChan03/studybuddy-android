@@ -98,7 +98,7 @@ materialComponents = "com.google.android.material:material:1.14.0"
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
 androidx-credentials-playServices = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "androidx-credentials" }
-google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.2.0"
+google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.2.1"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
