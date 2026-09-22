@@ -136,6 +136,9 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
         }
 
         val SigningConfigAllAction = Action<ApplicationVariant> {
+            // Let AGP auto-generate and use the debug keystore for debug builds
+            if (buildType == "debug") return@Action
+
             val config = getExtension(StudyBuddyVariantExtension::class.java)?.signingConfig
                 ?: run {
                     logger.info(
