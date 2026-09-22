@@ -84,7 +84,11 @@ develocity.buildScan {
 
 android {
     buildToolsVersion = "37.0.0"
-    compileSdk = 37
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
     minSdk = 26
 }
 
