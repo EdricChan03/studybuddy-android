@@ -1,41 +1,42 @@
 package com.edricchan.studybuddy.plugin.app.signing
 
 import com.android.build.api.dsl.SigningConfig
-import org.gradle.api.Named
+import com.android.build.api.variant.SigningConfigInfo
+import com.edricchan.studybuddy.plugin.app.StringVars
+import com.edricchan.studybuddy.plugin.app.data.SecretsConfig
+import com.edricchan.studybuddy.plugin.app.data.SigningConfigData
+import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
+import org.gradle.api.provider.ProviderFactory
+import org.gradle.kotlin.dsl.of
 import java.io.File
 import java.security.KeyStore
-import kotlin.reflect.KProperty
+import javax.inject.Inject
 
-// Gradle's Kotlin DSL does have existing getValue/setValue extension functions, but:
-// * getValue calls get() internally which throws an error if the provider
-//   doesn't have a value set
-// * setValue expects a non-null value to be set
-private operator fun <T : Any> Property<T>.getValue(thisRef: Any, kProperty: KProperty<*>) =
-    orNull
-
-private operator fun <T : Any> Property<T>.setValue(
-    thisRef: Any,
-    kProperty: KProperty<*>,
-    value: T?
+/** Specifies the signing configuration for a specific build variant. */
+abstract class AppSigningConfig @Inject constructor(
+    private val providerFactory: ProviderFactory
 ) {
-    set(value)
-}
+    /** Uses the signing configuration from the automatically generated `debug` keystore. */
+    fun useDebugKeystore() {
+        // Values from https://cs.android.com/android-studio/platform/tools/adt/idea/+/mirror-goog-studio-main:android-templates/src/com/android/tools/idea/templates/KeystoreUtils.kt
+        // Keystore name: "debug.keystore"
+        // Keystore password: "android"
+        // Keystore alias: "androiddebugkey"
+        // Key password: "android"
+        storeFile.fileProvider(
+            // $HOME/.android/debug.keystore
+            providerFactory.systemProperty("user.home")
+                .map { File(it, ".android/debug.keystore") }
+        )
+        storePassword.set("android")
+        keyAlias.set("androiddebugkey")
+        keyPassword.set("android")
+        storeType.set(DEFAULT_STORE_TYPE)
+    }
 
-private operator fun RegularFileProperty.getValue(thisRef: Any, kProperty: KProperty<*>): File? =
-    orNull?.asFile
-
-private operator fun RegularFileProperty.setValue(
-    thisRef: Any,
-    kProperty: KProperty<*>,
-    value: File?
-) {
-    set(value)
-}
-
-abstract class AppSigningConfig : Named {
     /**
      * Path to the keystore file.
      * @see SigningConfig.storeFile
@@ -118,28 +119,17 @@ abstract class AppSigningConfig : Named {
             "storeType=${storeType.orNull})"
     }
 
-    /**
-     * Converts this [AppSigningConfig] DSL to its Android Gradle Plugin [SigningConfig]
-     * equivalent, with its values backed by Gradle's managed properties.
-     */
-    val asAgpConfig: SigningConfig by lazy {
-        object : SigningConfig {
-            override var keyAlias: String? by this@AppSigningConfig.keyAlias
-            override var keyPassword: String? by this@AppSigningConfig.keyPassword
-            override var storeFile: File? by this@AppSigningConfig.storeFile
-            override var storePassword: String? by this@AppSigningConfig.storePassword
-            override var storeType: String? by this@AppSigningConfig.storeType
-
-            override fun initWith(that: SigningConfig) {
-                keyAlias = that.keyAlias
-                keyPassword = that.keyPassword
-                storeFile = that.storeFile
-                storePassword = that.storePassword
-                storeType = that.storeType
+    /** Converts this [AppSigningConfig] DSL to its [SigningConfigInfo] equivalent. */
+    fun asSigningInfo(): Provider<SigningConfigInfo> =
+        providerFactory.of(SigningConfigValueSource::class) {
+            parameters {
+                this.storeFile.set(this@AppSigningConfig.storeFile)
+                this.storePassword.set(this@AppSigningConfig.storePassword)
+                this.keyAlias.set(this@AppSigningConfig.keyAlias)
+                this.keyPassword.set(this@AppSigningConfig.keyPassword)
+                this.storeType.set(this@AppSigningConfig.storeType)
             }
-
         }
-    }
 
     companion object {
         /** Default name of the [keystore file][storeFile] to be used. */
@@ -153,10 +143,34 @@ abstract class AppSigningConfig : Named {
     }
 }
 
-fun SigningConfig.configure(appSigningConfig: AppSigningConfig) {
-    keyAlias = appSigningConfig.keyAlias.orNull
-    keyPassword = appSigningConfig.keyPassword.orNull
-    storeFile = appSigningConfig.storeFile.orNull?.asFile
-    storePassword = appSigningConfig.storePassword.orNull
-    storeType = appSigningConfig.storeType.orNull
+/** Sets the convention values for the lazy properties in the receiver [AppSigningConfig]. */
+fun AppSigningConfig.setDefaults(
+    projectDirectory: Directory,
+    secretsConfig: Provider<SecretsConfig>,
+    provideEnvVar: (String) -> Provider<String>
+) {
+    storeFile.convention(
+        projectDirectory.file(
+            AppSigningConfig.DEFAULT_KEYSTORE_FILE
+        )
+    )
+    secretsFile.convention(
+        projectDirectory.file(
+            AppSigningConfig.DEFAULT_SECRETS_CONFIG_FILE
+        )
+    )
+    val credentialsProperties = secretsConfig.map { it.signing }
+    storePassword.convention(
+        credentialsProperties.map(SigningConfigData::storePassword)
+            .orElse(provideEnvVar(StringVars.ciEnvKeystorePassword))
+    )
+    keyAlias.convention(
+        credentialsProperties.map(SigningConfigData::keyAlias)
+            .orElse(provideEnvVar(StringVars.ciEnvKeystoreAlias))
+    )
+    keyPassword.convention(
+        credentialsProperties.map(SigningConfigData::storeAliasPassword)
+            .orElse(provideEnvVar(StringVars.ciEnvKeystoreAliasPassword))
+    )
+    storeType.convention(AppSigningConfig.DEFAULT_STORE_TYPE)
 }

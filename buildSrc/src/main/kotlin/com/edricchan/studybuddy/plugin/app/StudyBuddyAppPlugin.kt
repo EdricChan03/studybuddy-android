@@ -6,13 +6,14 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.variant.ApplicationVariant
 import com.android.build.api.variant.BuildConfigField
+import com.android.build.api.variant.DslExtension
 import com.edricchan.studybuddy.plugin.app.data.SecretsConfig
-import com.edricchan.studybuddy.plugin.app.data.SigningConfigData
 import com.edricchan.studybuddy.plugin.app.signing.AppSigningConfig
-import com.edricchan.studybuddy.plugin.app.signing.configure
+import com.edricchan.studybuddy.plugin.app.signing.setDefaults
+import com.edricchan.studybuddy.plugin.app.variant.StudyBuddyBuildTypeExtension
+import com.edricchan.studybuddy.plugin.app.variant.StudyBuddyVariantExtension
 import com.edricchan.studybuddy.plugin.properties.metadata.StudyBuddyAppMetadata
 import org.gradle.api.Action
-import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.RegularFile
@@ -22,8 +23,9 @@ import org.gradle.api.problems.Problems
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
-import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.newInstance
+import org.slf4j.MarkerFactory
 import java.time.Instant
 import javax.inject.Inject
 
@@ -31,6 +33,7 @@ import javax.inject.Inject
 abstract class StudyBuddyAppPlugin : Plugin<Project> {
     companion object {
         private val logger = Logging.getLogger(StudyBuddyAppPlugin::class.java)
+        private val signingLogMarker = MarkerFactory.getMarker("SIGNING")
     }
 
     private lateinit var agpAppExtension: ApplicationExtension
@@ -63,48 +66,19 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
         project: Project
     ) {
         ci.convention(project.providers.environmentVariable("CI").map { it.toBoolean() })
-        buildTypesSigning.convention(StudyBuddyAppExtension.DEFAULT_BUILD_TYPES)
         metadata.setDefaults(project)
 
-        with(signingConfigs) {
-            configureEach {
-                storeFile.convention(
-                    project.rootProject.layout.projectDirectory.file(
-                        AppSigningConfig.DEFAULT_KEYSTORE_FILE
-                    )
-                )
-                secretsFile.convention(
-                    project.rootProject.layout.projectDirectory.file(
-                        AppSigningConfig.DEFAULT_SECRETS_CONFIG_FILE
-                    )
-                )
-                val secretsConfig =
-                    secretsFile.map { it.parseSecretsConfigOrNull() }
-                val credentialsProperties = secretsConfig.map { it.signing }
-                storePassword.convention(
-                    credentialsProperties.map(SigningConfigData::storePassword)
-                        .orElse(project.providers.environmentVariable(StringVars.ciEnvKeystorePassword))
-                )
-                keyAlias.convention(
-                    credentialsProperties.map(SigningConfigData::keyAlias)
-                        .orElse(project.providers.environmentVariable(StringVars.ciEnvKeystoreAlias))
-                )
-                keyPassword.convention(
-                    credentialsProperties.map(SigningConfigData::storeAliasPassword)
-                        .orElse(project.providers.environmentVariable(StringVars.ciEnvKeystoreAliasPassword))
-                )
-                storeType.convention(AppSigningConfig.DEFAULT_STORE_TYPE)
-            }
+        signing.defaultConfig.setDefaults(project)
+    }
 
-            try {
-                register(StudyBuddyAppExtension.DEFAULT_SIGNING_CONFIG_NAME)
-            } catch (e: InvalidUserDataException) {
-                logger.info(
-                    "Default signing config " +
-                        "${StudyBuddyAppExtension.DEFAULT_SIGNING_CONFIG_NAME} found, skipping registration"
-                )
-            }
-        }
+    private fun AppSigningConfig.setDefaults(
+        project: Project
+    ) {
+        setDefaults(
+            projectDirectory = project.rootProject.layout.projectDirectory,
+            secretsConfig = secretsFile.map { it.parseSecretsConfigOrNull() },
+            provideEnvVar = project.providers::environmentVariable,
+        )
     }
 
     private fun StudyBuddyAppMetadata.setDefaults(
@@ -136,25 +110,43 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
                     abortOnError = false
                     baseline = project.file("lint-baseline.xml")
                 }
-
-                signingConfigs {
-                    extension.signingConfigs.forEach {
-                        register(it.name) {
-                            configure(it)
-                        }
-                    }
-                }
             }
         }
 
-        val SigningConfigVariantAction = Action<ApplicationVariant> {
-            val appSignConfig = agpAppExtension.signingConfigs.findByName(name)
-                ?: agpAppExtension.signingConfigs[StudyBuddyAppExtension.DEFAULT_SIGNING_CONFIG_NAME]
-            signingConfig.setConfig(appSignConfig)
+        registerExtension(
+            DslExtension.Builder(StudyBuddyBuildTypeExtension.EXTENSION_NAME)
+                .extendBuildTypeWith(StudyBuddyBuildTypeExtension::class.java)
+                .build()
+        ) {
+            project.objects.newInstance(StudyBuddyVariantExtension::class).apply {
+                val buildTypeExt =
+                    it.buildTypeExtension(StudyBuddyBuildTypeExtension::class.java)
+                buildTypeExt.signingConfig.setDefaults(project)
+
+                if (it.variant.buildType == "debug") {
+                    logger.info(
+                        signingLogMarker,
+                        "Using default debug keystore for debug build-type"
+                    )
+                    buildTypeExt.signingConfig.useDebugKeystore()
+                }
+
+                signingConfig.initWith(buildTypeExt.signingConfig)
+            }
         }
 
-        // This Action will be called regardless of whether the build type is
-        // specified in `extension.buildTypesSigning`
+        val SigningConfigAllAction = Action<ApplicationVariant> {
+            val config = getExtension(StudyBuddyVariantExtension::class.java)?.signingConfig
+                ?: run {
+                    logger.info(
+                        signingLogMarker,
+                        "Signing config $name does not exist, falling back to the default config"
+                    )
+                    extension.signing.defaultConfig
+                }
+            signingConfig.from(config.asSigningInfo())
+        }
+
         val AllAction = Action<ApplicationVariant> {
             buildConfigFields?.apply {
                 put(
@@ -184,14 +176,8 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
             lifecycleTasks.registerPreBuild(project.rootProject.tasks.named("writeStudyBuddyMetadata"))
         }
 
-        extension.buildTypesSigning.getOrElse(emptySet()).forEach {
-            onVariants(
-                selector = selector().withBuildType(it),
-                callback = SigningConfigVariantAction
-            )
-        }
-
         onVariants(callback = AllAction)
+        onVariants(callback = SigningConfigAllAction)
     }
 
     private fun RegularFile.parseSecretsConfigOrNull(): SecretsConfig? =

@@ -1,11 +1,9 @@
 package com.edricchan.studybuddy.plugin.app
 
-import com.edricchan.studybuddy.plugin.app.signing.AppSigningConfig
+import com.edricchan.studybuddy.plugin.app.signing.StudyBuddyAppSigning
 import com.edricchan.studybuddy.plugin.properties.metadata.StudyBuddyAppMetadata
 import org.gradle.api.Action
-import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.Nested
 
 abstract class StudyBuddyAppExtension {
@@ -20,11 +18,14 @@ abstract class StudyBuddyAppExtension {
     // TODO: Rename to isCi
     abstract val ci: Property<Boolean>
 
-    /** Signing configs per build variant. */
-    abstract val signingConfigs: NamedDomainObjectContainer<AppSigningConfig>
+    /** Signing configuration for the application. */
+    @get:Nested
+    abstract val signing: StudyBuddyAppSigning
 
-    /** Build types to configure the signing config for. */
-    abstract val buildTypesSigning: SetProperty<String>
+    /** Configures the signing configuration for the application. */
+    fun signing(action: Action<in StudyBuddyAppSigning>) {
+        action.execute(signing)
+    }
 
     /** Metadata to be applied to the build artifacts. */
     @get:Nested
@@ -34,10 +35,6 @@ abstract class StudyBuddyAppExtension {
     fun metadata(action: Action<in StudyBuddyAppMetadata>) = action.execute(metadata)
 
     companion object {
-        /** Default [AppSigningConfig] name to use for [signingConfigs]. */
-        const val DEFAULT_SIGNING_CONFIG_NAME = "release"
         const val EXTENSION_NAME = "studybuddyApp"
-
-        val DEFAULT_BUILD_TYPES = setOf("release", "nightly", "benchmark")
     }
 }
