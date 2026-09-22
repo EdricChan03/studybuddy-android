@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title for the task description text field. -->
+    <string name="task_description_text_field_label">Task description</string>
+
+    <!-- Helper text to be shown for text fields that support Markdown. -->
+    <string name="task_description_text_field_supporting_text">Markdown is supported</string>
+</resources>
