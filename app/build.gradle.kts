@@ -94,6 +94,7 @@ dependencies {
     implementation(projects.ui.widgets.compose.navigation)
     implementation(projects.ui.widgets.views)
     implementation(projects.ui.widgets.modalBottomSheet)
+    implementation(projects.core.auth.ui.compose)
     implementation(projects.core.auth.gms)
     implementation(projects.core.compat.navigation)
     implementation(projects.core.deeplink)
