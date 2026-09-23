@@ -261,4 +261,4 @@ dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.19.2"
 
 # TODO: Remove when we migrate to AGP 9.5.0+ which adds support for test aggregation
 # https://developer.android.com/studio/test/coverage-report#unified
-testAggregation-results = "io.github.gmazzo.test.aggregation.results:2.5.1"
+testAggregation-results = "io.github.gmazzo.test.aggregation.results:3.0.4"
