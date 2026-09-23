@@ -45,16 +45,9 @@
 
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_action_clear">Clear</string>
-    <string name="dialog_action_close">Close</string>
-    <string name="dialog_action_confirm">Confirm</string>
-    <string name="dialog_action_create">Create</string>
     <string name="dialog_action_disable">Disable</string>
-    <string name="dialog_action_dismiss">Dismiss</string>
     <string name="dialog_action_enable">Enable</string>
-    <string name="dialog_action_no">No</string>
-    <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_retry">Retry</string>
-    <string name="dialog_action_yes">Yes</string>
     <string name="download_apk_name">com.edricchan.studybuddy-v%s.apk</string>
 
     <string name="frag_calendar_coming_soon">Calendar feature coming soon!</string>
@@ -66,19 +59,6 @@
     <string name="notification_new_update_title">New update available!</string>
 
     <string name="notification_no_updates">No updates available</string>
-    <string name="notification_updates_error_unknown_text">An error occurred while checking for
-        updates. Try again later</string>
-    <string name="notification_updates_error_unknown_title">Update error</string>
-    <string name="notification_updates_error_no_internet_text">You are not connected to the
-        internet. Check your network connection before retrying.
-    </string>
-
-    <string name="notification_updates_error_no_internet_title">No internet connection</string>
-
-    <string name="notification_updates_error_not_found_text">The file specified does not exist.
-        Please check that you have enabled the Storage permission.
-    </string>
-    <string name="notification_updates_error_not_found_title">File not found</string>
 
     <string name="share_content">Check out yet another open-source app by @EdricChan03! Source code
         available at https://github.com/EdricChan03/StudyBuddy
@@ -90,7 +70,6 @@
     <string name="shortcut_todo_short_msg">New todo</string>
 
     <string name="title_activity_about">About</string>
-    <string name="title_activity_account">Account</string>
     <string name="title_activity_debug">Debug</string>
     <string name="title_activity_debug_modal_bottom_sheet">Modal Bottom Sheet Debug</string>
     <string name="title_activity_help">Help</string>
