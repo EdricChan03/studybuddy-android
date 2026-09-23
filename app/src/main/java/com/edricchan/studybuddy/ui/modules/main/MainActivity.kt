@@ -249,11 +249,6 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         navController.handleDeepLink(intent)
     }
 
-    private val navViewIdsMap = mapOf(
-        CompatDestination.Calendar::class to R.id.navigation_calendar,
-        TaskDestination.TaskGraphRoot::class to R.id.navigation_todos
-    )
-
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
             navController.navigateToSettings()
