@@ -26,10 +26,6 @@
     <!-- Task adapter strings -->
     <eat-comment />
 
-    <!-- Default text to show if the task has no content. -->
-    <string name="task_adapter_empty_content">&lt;No content&gt;</string>
-    <!-- Default text to show if the task has no title. -->
-    <string name="task_adapter_empty_title">&lt;No title&gt;</string>
     <!-- Text for the "Delete task" button. -->
     <string name="task_adapter_delete_task_btn_text">Delete task</string>
     <!-- Title for the "Confirm delete task" dialog. -->
