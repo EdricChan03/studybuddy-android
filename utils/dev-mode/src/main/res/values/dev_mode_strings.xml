@@ -9,8 +9,6 @@
     <string name="dev_mode_disabled">Successfully disabled developer mode!</string>
     <!-- The message to indicate that developer mode is on. -->
     <string name="dev_mode_on">You\'re now a developer!</string>
-    <!-- The message to indicate that developer mode is off. -->
-    <string name="dev_mode_off">Successfully turned off developer mode!</string>
     <!-- The message to indicate that developer mode has already been enabled. -->
     <string name="dev_mode_already">Stop clicking - you\'re already a developer!</string>
     <!-- The dialog's title to confirm whether to enable developer mode. -->
