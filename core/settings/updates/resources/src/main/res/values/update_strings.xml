@@ -34,8 +34,6 @@
 
     <!-- Display text for the manual frequency option. -->
     <string name="pref_check_for_update_freq_manual">Manual</string>
-    <!-- Display text for the 3 hour frequency option. -->
-    <string name="pref_check_for_update_freq_three_hour">Every 3 hours</string>
     <!-- Display text for the 6 hour frequency option. -->
     <string name="pref_check_for_update_freq_six_hour">Every 6 hours</string>
     <!-- Display text for the 12 hour frequency option. -->
