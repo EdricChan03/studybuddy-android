@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -95,11 +94,11 @@ private constructor() : BottomSheetDialogFragment() {
             headerTitle: String? = null,
             hideDragHandle: Boolean = false
         ) = ModalBottomSheetFragment().apply {
-            arguments = bundleOf(
-                TAG_HEADER_TITLE to headerTitle,
-                TAG_ITEMS to items,
-                TAG_HIDE_DRAG_HANDLE to hideDragHandle
-            )
+            arguments = Bundle().apply {
+                putString(TAG_HEADER_TITLE, headerTitle)
+                putParcelableArrayList(TAG_ITEMS, ArrayList(items))
+                putBoolean(TAG_HIDE_DRAG_HANDLE, hideDragHandle)
+            }
         }
     }
 }

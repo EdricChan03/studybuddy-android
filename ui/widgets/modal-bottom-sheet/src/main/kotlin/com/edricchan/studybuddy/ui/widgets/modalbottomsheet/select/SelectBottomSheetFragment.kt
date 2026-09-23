@@ -13,7 +13,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.core.os.BundleCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
@@ -133,11 +132,11 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
             itemsData: OptionBottomSheetGroup<Id>,
             headerTitle: String,
             hideDragHandle: Boolean = false
-        ) = bundleOf(
-            TAG_ITEMS_DATA to itemsData,
-            TAG_HEADER_TITLE to headerTitle,
-            TAG_HIDE_DRAG_HANDLE to hideDragHandle
-        )
+        ) = Bundle().apply {
+            putParcelable(TAG_ITEMS_DATA, itemsData)
+            putString(TAG_HEADER_TITLE, headerTitle)
+            putBoolean(TAG_HIDE_DRAG_HANDLE, hideDragHandle)
+        }
 
         const val RESULT_KEY = "select-sheet:result"
 
@@ -156,7 +155,7 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
         val isCanceled: Boolean,
         val selectedItems: Set<OptionBottomSheetItem<Id>>? = null
     ) : Parcelable {
-        fun toBundle() = bundleOf(RESULT_DATA_KEY to this)
+        fun toBundle() = Bundle().apply { putParcelable(RESULT_DATA_KEY, this@FragmentResult) }
 
         companion object {
             @Suppress("UNCHECKED_CAST")

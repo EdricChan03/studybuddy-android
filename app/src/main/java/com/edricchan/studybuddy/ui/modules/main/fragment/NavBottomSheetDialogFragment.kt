@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -82,12 +81,12 @@ class NavBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putAll(
-            bundleOf(
-                IS_LOGGED_IN_TAG to isLoggedIn,
-                USER_NAME_TAG to displayName,
-                USER_EMAIL_TAG to email,
-                USER_PHOTO_URL_TAG to photoUrl
-            )
+            Bundle().apply {
+                putBoolean(IS_LOGGED_IN_TAG, isLoggedIn)
+                putString(USER_NAME_TAG, displayName)
+                putString(USER_EMAIL_TAG, email)
+                putParcelable(USER_PHOTO_URL_TAG, photoUrl)
+            }
         )
         super.onSaveInstanceState(outState)
     }

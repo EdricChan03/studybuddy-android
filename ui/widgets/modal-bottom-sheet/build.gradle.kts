@@ -51,6 +51,7 @@ dependencies {
     api(libs.androidx.lifecycle.viewmodel.savedstate)
     api(libs.androidx.recyclerview.core)
     api(libs.materialComponents)
+    implementation(libs.androidx.core.ktx)
 
     //#region Compose dependencies
     implementation(projects.ui.theming.compose)
