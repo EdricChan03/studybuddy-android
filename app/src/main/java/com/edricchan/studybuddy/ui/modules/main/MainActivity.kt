@@ -49,7 +49,10 @@ import com.edricchan.studybuddy.navigation.compat.compatGraphs
 import com.edricchan.studybuddy.ui.common.BaseActivity
 import com.edricchan.studybuddy.ui.common.MainViewModel
 import com.edricchan.studybuddy.ui.common.fab.setupFabController
-import com.edricchan.studybuddy.ui.modules.main.fragment.showNavBottomSheet
+import com.edricchan.studybuddy.ui.modules.main.nav.NavItem
+import com.edricchan.studybuddy.ui.modules.main.nav.compat.fragment.asUserData
+import com.edricchan.studybuddy.ui.modules.main.nav.compat.fragment.showNavBottomSheet
+import com.edricchan.studybuddy.ui.modules.main.nav.currentNavItem
 import com.edricchan.studybuddy.utils.createNotificationChannelsCompat
 import com.edricchan.studybuddy.utils.firebase.enableCrashlyticsTracking
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -286,33 +289,19 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
     }
 
     private fun onShowNavBottomSheet() {
-        showNavBottomSheet {
-            navigationViewListener = {
-                when (it.itemId) {
-                    R.id.navigation_calendar -> {
-                        navController.navigateToCalendar()
-                        true
-                    }
+        showNavBottomSheet(
+            selectedItem = navController.currentNavItem(),
+            userData = authService.currentUser.asUserData()
+        ) {
+            when (it) {
+                NavItem.Calendar -> {
+                    navController.navigateToCalendar()
+                }
 
-                    R.id.navigation_todos -> {
-                        navController.navigateToTasksList()
-                        true
-                    }
-
-                    else -> false
+                NavItem.Tasks -> {
+                    navController.navigateToTasksList()
                 }
             }
-
-            authService.currentUser?.let {
-                isLoggedIn = true
-                displayName = it.displayName
-                email = it.email
-                photoUrl = it.photoUri
-            }
-
-            navigationViewCheckedItemId = navViewIdsMap.entries
-                .find { navController.currentDestination?.hasRoute(it.key) == true }
-                ?.value
         }
     }
 
