@@ -1,6 +1,7 @@
 plugins {
     com.android.application
     kotlin("plugin.serialization")
+    org.jetbrains.kotlin.plugin.parcelize
 
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
