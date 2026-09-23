@@ -24,12 +24,6 @@
     <!-- Entry text for the never dark theme option for the dark theme setting. -->
     <string name="pref_dark_theme_entry_never">Never</string>
 
-    <!-- Title for the enable dynamic theme setting. -->
-    <string name="pref_dynamic_theme_title">Material You</string>
-    <!-- Subtitle for the enable dynamic theme setting. -->
-    <string name="pref_dynamic_theme_subtitle">Use this device\'s wallpaper colours across the
-        app</string>
-
     <!-- Title for the font settings category. -->
     <string name="pref_category_fonts_title">Fonts</string>
 
