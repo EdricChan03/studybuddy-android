@@ -3,9 +3,6 @@
     <!-- Forgot password screen strings -->
     <eat-comment />
 
-    <!-- Title for the forgot password screen. -->
-    <string name="title_activity_reset_password">Reset password</string>
-
     <!-- Header text for the forgot password screen. -->
     <string name="forgot_password_title">Forgot password?</string>
 

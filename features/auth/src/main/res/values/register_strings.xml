@@ -3,9 +3,6 @@
     <!-- Register screen strings -->
     <eat-comment />
 
-    <!-- Title for the register screen. -->
-    <string name="title_activity_register">Register</string>
-
     <!-- Header title for the register authentication card. -->
     <string name="register_sign_up_header_text">Create Account</string>
 
