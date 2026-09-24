@@ -1,5 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.`android-compose`
+    org.jetbrains.kotlin.plugin.parcelize
 }
 
 android {
@@ -22,6 +23,7 @@ android {
 
 dependencies {
     api(projects.data.forms.compose)
+    api(projects.ui.widgets.compose.chipFormField)
     implementation(projects.core.resources)
     implementation(projects.ui.theming.compose)
     implementation(projects.utils.androidx.compose)
