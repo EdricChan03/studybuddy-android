@@ -105,6 +105,7 @@ include(
     ":ui:widgets:compose",
     ":ui:widgets:views",
     ":ui:widgets:views:markdown-viewer",
+    ":ui:widgets:compose:chip-form-field",
     ":ui:widgets:compose:markdown-viewer",
     ":ui:widgets:compose:navigation",
     ":ui:widgets:compose:option-bottom-sheet",
