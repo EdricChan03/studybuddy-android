@@ -31,9 +31,10 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
 fun TaskDescriptionTextArea(
     modifier: Modifier = Modifier,
     state: TextFieldState,
-    validator: InputValidator<TaskDescriptionValidationError> = TaskDescriptionValidator
+    validator: InputValidator<TaskDescriptionValidationError> = TaskDescriptionValidator,
+    interactionSource: MutableInteractionSource? = null
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
     val validationError by state.validationErrorAsState(
         interactionSource = interactionSource,
         validator = validator
