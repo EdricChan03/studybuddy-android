@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.common.ui.AuthCardHeader
 import com.edricchan.studybuddy.features.auth.common.ui.fields.EmailTextField
+import com.edricchan.studybuddy.features.auth.recovery.RecoveryViewModel
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.utils.compose.foundation.layout.CenteredBox
 
@@ -101,6 +102,20 @@ fun RecoveryScreen(
             onRequestResetClick = onRequestResetClick
         )
     }
+}
+
+@Composable
+fun RecoveryScreen(
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(16.dp),
+    viewModel: RecoveryViewModel
+) {
+    RecoveryScreen(
+        modifier = modifier,
+        contentPadding = contentPadding,
+        emailState = viewModel.emailState,
+        onRequestResetClick = viewModel::onRequestSubmitClick
+    )
 }
 
 @Preview(showSystemUi = true)

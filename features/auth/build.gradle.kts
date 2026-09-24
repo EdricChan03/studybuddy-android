@@ -63,6 +63,7 @@ dependencies {
     api(libs.bundles.androidx.compose)
     implementation(libs.androidx.compose.animation.graphics)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Compose Tooling
     debugImplementation(libs.bundles.androidx.compose.tooling)
