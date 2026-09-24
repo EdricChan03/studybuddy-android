@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -49,29 +50,37 @@ fun RecoveryContent(
             headerText = stringResource(R.string.forgot_password_title)
         )
 
-        Text(
-            text = stringResource(R.string.forgot_password_msg),
-            textAlign = TextAlign.Center
-        )
+        ElevatedCard {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(R.string.forgot_password_msg),
+                    textAlign = TextAlign.Center
+                )
 
-        EmailTextField(
-            state = emailState
-        )
+                EmailTextField(
+                    state = emailState
+                )
 
-        val size = ButtonDefaults.MediumContainerHeight
-        Button(
-            modifier = Modifier.heightIn(size),
-            contentPadding = ButtonDefaults.contentPaddingFor(
-                buttonHeight = size
-            ),
-            onClick = onRequestResetClick,
-            shapes = ButtonDefaults.shapes(),
-            enabled = submitEnabled
-        ) {
-            Text(
-                text = stringResource(R.string.btn_reset_password),
-                style = ButtonDefaults.textStyleFor(size)
-            )
+                val size = ButtonDefaults.MediumContainerHeight
+                Button(
+                    modifier = Modifier.heightIn(size),
+                    contentPadding = ButtonDefaults.contentPaddingFor(
+                        buttonHeight = size
+                    ),
+                    onClick = onRequestResetClick,
+                    shapes = ButtonDefaults.shapes(),
+                    enabled = submitEnabled
+                ) {
+                    Text(
+                        text = stringResource(R.string.btn_reset_password),
+                        style = ButtonDefaults.textStyleFor(size)
+                    )
+                }
+            }
         }
     }
 }
