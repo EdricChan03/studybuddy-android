@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.compose.saveable
 import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.auth.R
+import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.snackbar.SnackBarController
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,9 +30,13 @@ class RecoveryViewModel @Inject constructor(
     )
 
     fun onRequestSubmitClick() {
+        val email = emailState.text.toString()
+
+        if (email.isInvalidEmail()) return
+
         viewModelScope.launch {
             try {
-                authService.requestPasswordReset(emailState.text.toString())
+                authService.requestPasswordReset(email)
                 snackBarController.showSnackBar(
                     R.string.forgot_pwd_confirmed_msg,
                     SnackBarData.Duration.Long
