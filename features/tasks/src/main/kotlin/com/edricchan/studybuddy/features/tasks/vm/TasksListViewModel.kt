@@ -9,11 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.edricchan.studybuddy.core.settings.tasks.repo.TasksSettingsRepository
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
-import com.edricchan.studybuddy.features.tasks.data.repo.toggleCompleted
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.toDomain
+import com.edricchan.studybuddy.features.tasks.domain.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
+import com.edricchan.studybuddy.features.tasks.domain.repo.toggleCompleted
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel

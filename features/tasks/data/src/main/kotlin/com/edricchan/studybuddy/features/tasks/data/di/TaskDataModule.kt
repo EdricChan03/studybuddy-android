@@ -1,12 +1,12 @@
 package com.edricchan.studybuddy.features.tasks.data.di
 
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
+import com.edricchan.studybuddy.features.tasks.data.repo.FirebaseTaskRepositoryImpl
 import com.edricchan.studybuddy.features.tasks.data.repo.project.FirebaseTaskProjectRepositoryImpl
 import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.source.FirestoreTaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskProjectDataSource
-import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
+import com.edricchan.studybuddy.features.tasks.domain.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.project.TaskProjectRepository
 import dagger.Binds
 import dagger.Module
@@ -29,8 +29,8 @@ abstract class TaskDataModule {
 
     @Binds
     abstract fun bindTaskRepository(
-        repo: TaskRepository
-    ): ITaskRepository
+        repo: FirebaseTaskRepositoryImpl
+    ): TaskRepository
 
     @Binds
     abstract fun bindTaskProjectRepository(

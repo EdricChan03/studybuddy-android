@@ -2,8 +2,8 @@ package com.edricchan.studybuddy.features.tasks.create.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
+import com.edricchan.studybuddy.features.tasks.domain.repo.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

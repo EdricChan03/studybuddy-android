@@ -7,7 +7,6 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.edricchan.studybuddy.data.paging.firestore.firestorePagingSource
 import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
-import com.edricchan.studybuddy.domain.common.updater.setField
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
@@ -18,7 +17,7 @@ import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskProjectDataS
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import com.edricchan.studybuddy.features.tasks.domain.model.update.UpdateTaskItemInput
-import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
+import com.edricchan.studybuddy.features.tasks.domain.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -29,10 +28,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class TaskRepository @Inject constructor(
+class FirebaseTaskRepositoryImpl @Inject constructor(
     private val source: TaskDataSource,
     private val projectsSource: TaskProjectDataSource
-) : ITaskRepository {
+) : TaskRepository {
     //#region New ITaskRepository interface implementations
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun observeTaskById(id: String): Flow<TaskItem?> {
@@ -153,27 +152,3 @@ class TaskRepository @Inject constructor(
     }
     //#endregion
 }
-
-/** Sets the item's [completion status][TodoItem.done] to the new [isCompleted] value. */
-suspend fun TaskRepository.setCompletion(id: String, isCompleted: Boolean) =
-    updateTask(
-        id, UpdateTaskItemInput(
-            isCompleted = setField(isCompleted)
-        )
-    )
-
-/** Toggles the [item]'s [completion status][TaskItem.isCompleted]. */
-suspend fun TaskRepository.toggleCompleted(item: TaskItem) =
-    setCompletion(item.id, !item.isCompleted)
-
-/** Sets the item's [archival status][TaskItem.isArchived] to the new [isArchived] value. */
-suspend fun TaskRepository.setArchival(id: String, isArchived: Boolean) =
-    updateTask(
-        id, UpdateTaskItemInput(
-            isArchived = setField(isArchived)
-        )
-    )
-
-/** Toggles the [item]'s [archival status][TodoItem.archived]. */
-suspend fun TaskRepository.toggleArchived(item: TaskItem) =
-    setArchival(item.id, !item.isArchived)

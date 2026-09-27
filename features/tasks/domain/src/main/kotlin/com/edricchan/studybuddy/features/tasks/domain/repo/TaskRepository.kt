@@ -1,13 +1,14 @@
 package com.edricchan.studybuddy.features.tasks.domain.repo
 
 import androidx.paging.PagingData
+import com.edricchan.studybuddy.domain.common.updater.setField
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
 import com.edricchan.studybuddy.features.tasks.domain.model.update.UpdateTaskItemInput
 import kotlinx.coroutines.flow.Flow
 
 /** Repository interface for CRUD operations related to the tasks feature. */
-interface ITaskRepository {
+interface TaskRepository {
     /** Gets the task by its [id] as a [Flow]. */
     fun observeTaskById(id: String): Flow<TaskItem?>
 
@@ -57,3 +58,27 @@ interface ITaskRepository {
         deleteTasksById(tasks.map { it.id }.toSet())
     }
 }
+
+/** Sets the item's [archival status][TaskItem.isArchived] to the new [isArchived] value. */
+suspend fun TaskRepository.setArchival(id: String, isArchived: Boolean) =
+    updateTask(
+        id, UpdateTaskItemInput(
+            isArchived = setField(isArchived)
+        )
+    )
+
+/** Toggles the [item]'s [archival status][TaskItem.isArchived]. */
+suspend fun TaskRepository.toggleArchived(item: TaskItem) =
+    setArchival(item.id, !item.isArchived)
+
+/** Sets the item's [completion status][TaskItem.isCompleted] to the new [isCompleted] value. */
+suspend fun TaskRepository.setCompletion(id: String, isCompleted: Boolean) =
+    updateTask(
+        id, UpdateTaskItemInput(
+            isCompleted = setField(isCompleted)
+        )
+    )
+
+/** Toggles the [item]'s [completion status][TaskItem.isCompleted]. */
+suspend fun TaskRepository.toggleCompleted(item: TaskItem) =
+    setCompletion(item.id, !item.isCompleted)

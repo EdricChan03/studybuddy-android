@@ -1,8 +1,8 @@
 package com.edricchan.studybuddy.features.tasks.detail.data.impl
 
-import com.edricchan.studybuddy.features.tasks.data.repo.TaskRepository
 import com.edricchan.studybuddy.features.tasks.detail.data.TaskDetailData
 import com.edricchan.studybuddy.features.tasks.detail.data.state.TaskDetailState
+import com.edricchan.studybuddy.features.tasks.domain.repo.TaskRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

@@ -6,7 +6,7 @@ import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * Configuration options for [ITaskRepository.observeTasks].
+ * Configuration options for [TaskRepository.observeTasks].
  * @property cachedCoroutineScope Desired [CoroutineScope] to cache the paging data in
  * (see [androidx.paging.cachedIn] for more info).
  * @property includeArchived Whether archived tasks should be included in the list.
