@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.ui.modules.debug.compose.device_info
 
 import android.Manifest
+import android.content.ClipData
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
@@ -17,13 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.toClipEntry
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
@@ -36,6 +38,7 @@ import com.edricchan.studybuddy.ui.preference.compose.Preference
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategory
 import com.edricchan.studybuddy.ui.preference.compose.PreferenceCategoryScope
 import com.edricchan.studybuddy.ui.theming.common.dynamic.isDynamicColorAvailable
+import kotlinx.coroutines.launch
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 private val String.orUnset get() = ifEmpty { "<Unset>" }
@@ -108,10 +111,11 @@ private fun DeviceSdkInfoDialog(
 }
 
 @Composable
-private fun PreferenceCategoryScope.DeviceSdkInfoPreference(modifier: Modifier = Modifier) {
+private fun PreferenceCategoryScope.DeviceSdkInfoPreference(
+    modifier: Modifier = Modifier,
+    onCopyClick: (String) -> Unit
+) {
     var isDeviceInfoShown by rememberSaveable { mutableStateOf(false) }
-
-    val clipboardManager = LocalClipboardManager.current
 
     Preference(
         modifier = modifier,
@@ -128,9 +132,7 @@ private fun PreferenceCategoryScope.DeviceSdkInfoPreference(modifier: Modifier =
     if (isDeviceInfoShown) {
         DeviceSdkInfoDialog(
             onDismissRequest = { isDeviceInfoShown = false },
-            onCopyClick = {
-                clipboardManager.setText(AnnotatedString(it))
-            }
+            onCopyClick = onCopyClick
         )
     }
 }
@@ -190,10 +192,11 @@ private fun DeviceNetworkInfoDialog(
 }
 
 @Composable
-private fun PreferenceCategoryScope.DeviceNetworkInfoPreference(modifier: Modifier = Modifier) {
+private fun PreferenceCategoryScope.DeviceNetworkInfoPreference(
+    modifier: Modifier = Modifier,
+    onCopyClick: (String) -> Unit
+) {
     var isNetworkInfoShown by rememberSaveable { mutableStateOf(false) }
-
-    val clipboardManager = LocalClipboardManager.current
 
     Preference(
         modifier = modifier,
@@ -210,9 +213,7 @@ private fun PreferenceCategoryScope.DeviceNetworkInfoPreference(modifier: Modifi
     if (isNetworkInfoShown) {
         DeviceNetworkInfoDialog(
             onDismissRequest = { isNetworkInfoShown = false },
-            onCopyClick = {
-                clipboardManager.setText(AnnotatedString(it))
-            }
+            onCopyClick = onCopyClick
         )
     }
 }
@@ -260,11 +261,10 @@ private fun DeviceDynamicThemeInfoDialog(
 @Composable
 private fun PreferenceCategoryScope.DeviceDynamicThemePreference(
     modifier: Modifier = Modifier,
-    shouldUseDynamicTheme: Boolean
+    shouldUseDynamicTheme: Boolean,
+    onCopyClick: (String) -> Unit
 ) {
     var isInfoShown by rememberSaveable { mutableStateOf(false) }
-
-    val clipboardManager = LocalClipboardManager.current
 
     Preference(
         modifier = modifier,
@@ -281,9 +281,7 @@ private fun PreferenceCategoryScope.DeviceDynamicThemePreference(
     if (isInfoShown) {
         DeviceDynamicThemeInfoDialog(
             onDismissRequest = { isInfoShown = false },
-            onCopyClick = {
-                clipboardManager.setText(AnnotatedString(it))
-            },
+            onCopyClick = onCopyClick,
             shouldUseDynamicTheme = shouldUseDynamicTheme
         )
     }
@@ -294,12 +292,24 @@ fun DeviceInfoCategory(
     modifier: Modifier = Modifier,
     shouldUseDynamicTheme: Boolean
 ) {
+    val scope = rememberCoroutineScope()
+    val clipboard = LocalClipboard.current
+
+    fun onCopyClick(text: String) {
+        scope.launch {
+            clipboard.setClipEntry(ClipData.newPlainText(text, text).toClipEntry())
+        }
+    }
+
     PreferenceCategory(
         modifier = modifier,
         title = { Text(text = stringResource(R.string.debug_activity_category_device)) }
     ) {
-        DeviceSdkInfoPreference()
-        DeviceNetworkInfoPreference()
-        DeviceDynamicThemePreference(shouldUseDynamicTheme = shouldUseDynamicTheme)
+        DeviceSdkInfoPreference(onCopyClick = ::onCopyClick)
+        DeviceNetworkInfoPreference(onCopyClick = ::onCopyClick)
+        DeviceDynamicThemePreference(
+            shouldUseDynamicTheme = shouldUseDynamicTheme,
+            onCopyClick = ::onCopyClick
+        )
     }
 }
