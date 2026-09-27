@@ -28,6 +28,9 @@ fun TaskItem.FieldValue.ArchivedDate.toDto(): TodoItem.FieldValue.ArchivedDate =
 fun TaskItem.FieldValue.Project.toDto(): TodoItem.FieldValue.ProjectId =
     TodoItem.FieldValue.ProjectId(value?.id)
 
+fun TaskItem.FieldValue.ProjectId.toDto(): TodoItem.FieldValue.ProjectId =
+    TodoItem.FieldValue.ProjectId(value)
+
 fun TaskItem.FieldValue.Priority.toDto(): TodoItem.FieldValue.Priority =
     TodoItem.FieldValue.Priority(value)
 
@@ -47,6 +50,7 @@ fun TaskItem.FieldValue<*>.toDto(): TodoItem.FieldValue<*> = when (this) {
     is TaskItem.FieldValue.ArchivedDate -> toDto()
     is TaskItem.FieldValue.DeletedDate -> toDto()
     is TaskItem.FieldValue.Project -> toDto()
+    is TaskItem.FieldValue.ProjectId -> toDto()
     is TaskItem.FieldValue.Tags -> toDto()
     is TaskItem.FieldValue.Priority -> toDto()
 }
