@@ -126,5 +126,10 @@ data class TaskItem(
             field = Field.Project,
             value = value
         )
+
+        data class ProjectId(override val value: String?) : FieldValue<String?>(
+            field = Field.Project,
+            value = value
+        )
     }
 }
