@@ -59,7 +59,7 @@ androidx-recyclerview-core = "androidx.recyclerview:recyclerview:1.4.0"
 androidx-recyclerview-selection = "androidx.recyclerview:recyclerview-selection:1.2.0"
 androidx-savedstate-ktx = "androidx.savedstate:savedstate-ktx:1.5.0"
 androidx-swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0"
-androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.11.2"
+androidx-work-runtime-ktx = "androidx.work:work-runtime-ktx:2.12.0"
 
 # Jetpack Compose
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
