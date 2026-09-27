@@ -1,12 +1,10 @@
 package com.edricchan.studybuddy.features.tasks.data.repo
 
-import androidx.annotation.Discouraged
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.edricchan.studybuddy.data.common.QueryMapper
 import com.edricchan.studybuddy.data.paging.firestore.firestorePagingSource
 import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
@@ -34,34 +32,6 @@ class TaskRepository @Inject constructor(
     private val source: TaskDataSource,
     private val projectsSource: TaskProjectDataSource
 ) : ITaskRepository {
-    /** Retrieves the user's list of tasks as a [Flow] of updates. */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Deprecated("Use the observeTasks method instead which returns a paginated list of tasks")
-    val tasksFlow: Flow<List<TodoItem>> = source.items
-
-    /** Retrieves the user's list of tasks given the specified [query] as a [Flow]. */
-    @Discouraged(
-        "Low-level querying is unsupported, use the abstracted " +
-            "observeTasks method instead"
-    )
-    fun observeQueryTasks(query: QueryMapper): Flow<List<TodoItem>> = source.findAll(query)
-
-    /** Removes the specified [task]. */
-    @Deprecated(
-        "Use deleteTask instead, which takes the domain TaskItem model",
-        ReplaceWith("this.deleteTaskById(task.id)")
-    )
-    suspend fun removeTask(task: TodoItem) = deleteTaskById(task.id)
-
-    /** Removes the specified task given its [id]. */
-    @Deprecated(
-        "Use deleteTaskById instead",
-        ReplaceWith("this.deleteTaskById(id)")
-    )
-    suspend fun removeTask(id: String) {
-        source.removeById(id)
-    }
-
     //#region New ITaskRepository interface implementations
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun observeTaskById(id: String): Flow<TaskItem?> {
