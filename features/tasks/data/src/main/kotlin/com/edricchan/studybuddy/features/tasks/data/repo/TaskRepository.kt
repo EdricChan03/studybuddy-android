@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.edricchan.studybuddy.data.paging.firestore.firestorePagingSource
 import com.edricchan.studybuddy.domain.common.sorting.toFirestoreDirection
+import com.edricchan.studybuddy.domain.common.updater.setField
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
@@ -155,7 +156,11 @@ class TaskRepository @Inject constructor(
 
 /** Sets the item's [completion status][TodoItem.done] to the new [isCompleted] value. */
 suspend fun TaskRepository.setCompletion(id: String, isCompleted: Boolean) =
-    updateTask(id, TaskItem.FieldValue.IsCompleted(isCompleted))
+    updateTask(
+        id, UpdateTaskItemInput(
+            isCompleted = setField(isCompleted)
+        )
+    )
 
 /** Toggles the [item]'s [completion status][TaskItem.isCompleted]. */
 suspend fun TaskRepository.toggleCompleted(item: TaskItem) =
@@ -163,7 +168,11 @@ suspend fun TaskRepository.toggleCompleted(item: TaskItem) =
 
 /** Sets the item's [archival status][TaskItem.isArchived] to the new [isArchived] value. */
 suspend fun TaskRepository.setArchival(id: String, isArchived: Boolean) =
-    updateTask(id, TaskItem.FieldValue.IsArchived(isArchived))
+    updateTask(
+        id, UpdateTaskItemInput(
+            isArchived = setField(isArchived)
+        )
+    )
 
 /** Toggles the [item]'s [archival status][TodoItem.archived]. */
 suspend fun TaskRepository.toggleArchived(item: TaskItem) =
