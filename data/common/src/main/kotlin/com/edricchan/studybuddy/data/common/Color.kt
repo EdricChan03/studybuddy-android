@@ -281,3 +281,6 @@ fun Color(
         )
     ) or 0xff000000.toInt()
 )
+
+/** Convert the receiver colour integer to its [Color] equivalent. */
+fun @receiver:ColorInt Int.toColor(): Color = Color(this)
