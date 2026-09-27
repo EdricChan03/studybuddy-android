@@ -157,11 +157,6 @@ class TaskRepository @Inject constructor(
 suspend fun TaskRepository.setCompletion(id: String, isCompleted: Boolean) =
     updateTask(id, TaskItem.FieldValue.IsCompleted(isCompleted))
 
-/** Toggles the [item]'s [completion status][TodoItem.done]. */
-@Deprecated("Use the overload which takes the domain-specific TaskItem class")
-suspend fun TaskRepository.toggleCompleted(item: TodoItem) =
-    setCompletion(item.id, !(item.done ?: false))
-
 /** Toggles the [item]'s [completion status][TaskItem.isCompleted]. */
 suspend fun TaskRepository.toggleCompleted(item: TaskItem) =
     setCompletion(item.id, !item.isCompleted)
