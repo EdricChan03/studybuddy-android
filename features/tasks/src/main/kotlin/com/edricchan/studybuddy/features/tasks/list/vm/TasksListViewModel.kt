@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.vm
+package com.edricchan.studybuddy.features.tasks.list.vm
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edricchan.studybuddy.core.settings.tasks.repo.TasksSettingsRepository
 import com.edricchan.studybuddy.exts.common.TAG
-import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.toDomain
 import com.edricchan.studybuddy.features.tasks.domain.repo.TaskRepository
@@ -50,7 +49,7 @@ class TasksListViewModel @Inject constructor(
         refreshRequests.trySend(Unit)
     }
 
-    /** Toggles and updates the specified [task][item]'s [done][TodoItem.done] status. */
+    /** Toggles and updates the specified [task][item]'s [done][TaskItem.isCompleted] status. */
     suspend fun toggleTaskDone(item: TaskItem) {
         repository.toggleCompleted(item)
     }

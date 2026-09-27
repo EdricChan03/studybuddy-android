@@ -27,10 +27,10 @@ import com.edricchan.studybuddy.features.auth.navigation.navigateToLogin
 import com.edricchan.studybuddy.features.auth.navigation.navigateToRegister
 import com.edricchan.studybuddy.features.tasks.R
 import com.edricchan.studybuddy.features.tasks.list.ui.ListTasksScreen
+import com.edricchan.studybuddy.features.tasks.list.vm.TasksListViewModel
 import com.edricchan.studybuddy.features.tasks.migrations.TasksMigrator
 import com.edricchan.studybuddy.features.tasks.navigation.navigateToCreateTask
 import com.edricchan.studybuddy.features.tasks.navigation.navigateToViewTask
-import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.common.dialogs.showAuthRequiredDialog
 import com.edricchan.studybuddy.ui.common.fab.FabConfig
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment

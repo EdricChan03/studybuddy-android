@@ -34,7 +34,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.edricchan.studybuddy.features.tasks.common.ui.ConfirmDeleteTaskDialog
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.sample.SampleTaskItems
-import com.edricchan.studybuddy.features.tasks.vm.TasksListViewModel
+import com.edricchan.studybuddy.features.tasks.list.vm.TasksListViewModel
 import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import kotlinx.coroutines.flow.flowOf
 
