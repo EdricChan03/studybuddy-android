@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.features.tasks.domain.repo
 import androidx.paging.PagingData
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
+import com.edricchan.studybuddy.features.tasks.domain.model.update.UpdateTaskItemInput
 import kotlinx.coroutines.flow.Flow
 
 /** Repository interface for CRUD operations related to the tasks feature. */
@@ -27,10 +28,18 @@ interface ITaskRepository {
     suspend fun updateTask(id: String, valueMap: Map<TaskItem.Field, Any?>)
 
     /** Updates the specified task with the given list of [values]. */
+    @Deprecated("Use the overload which accepts a concrete input data class")
     suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>)
 
+    /** Updates the specified task with the given [input]. */
+    suspend fun updateTask(id: String, input: UpdateTaskItemInput)
+
     /** Update the specified tasks with the given list of [values]. */
+    @Deprecated("Use the overload which accepts a concrete input data class")
     suspend fun updateTasks(ids: Set<String>, vararg values: TaskItem.FieldValue<*>)
+
+    /** Updates the specified tasks with the given [input]. */
+    suspend fun updateTasks(ids: Set<String>, input: UpdateTaskItemInput)
 
     /** Deletes the specified task from the database. */
     suspend fun deleteTaskById(id: String)

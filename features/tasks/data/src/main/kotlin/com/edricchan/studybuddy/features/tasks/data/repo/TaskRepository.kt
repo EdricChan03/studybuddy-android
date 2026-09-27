@@ -13,10 +13,12 @@ import com.edricchan.studybuddy.features.tasks.data.mapper.toDomain
 import com.edricchan.studybuddy.features.tasks.data.mapper.toDto
 import com.edricchan.studybuddy.features.tasks.data.model.TodoItem
 import com.edricchan.studybuddy.features.tasks.data.model.create.toDto
+import com.edricchan.studybuddy.features.tasks.data.model.update.toFields
 import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskDataSource
 import com.edricchan.studybuddy.features.tasks.data.repo.source.TaskProjectDataSource
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.create.CreateTaskItemInput
+import com.edricchan.studybuddy.features.tasks.domain.model.update.UpdateTaskItemInput
 import com.edricchan.studybuddy.features.tasks.domain.repo.ITaskRepository
 import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -127,13 +129,17 @@ class TaskRepository @Inject constructor(
         source.update(id, valueMap.mapKeys { it.key.toDto().fieldName })
     }
 
-    private suspend fun Array<out TaskItem.FieldValue<*>>.toUpdateDto(): Map<String, Any?> =
+    private suspend fun Iterable<TaskItem.FieldValue<*>>.toUpdateDto(): Map<String, Any?> =
         fold(emptyMap()) { acc, fieldValue ->
             context(source, projectsSource) {
                 acc + fieldValue.toDto().toMap()
             }
         }
 
+    private suspend fun Array<out TaskItem.FieldValue<*>>.toUpdateDto(): Map<String, Any?> =
+        asIterable().toUpdateDto()
+
+    @Deprecated("Use the overload which accepts a concrete input data class")
     override suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>) {
         source.update(
             id = id,
@@ -141,8 +147,24 @@ class TaskRepository @Inject constructor(
         )
     }
 
+    override suspend fun updateTask(id: String, input: UpdateTaskItemInput) {
+        source.update(
+            id = id,
+            data = input.toFields().toUpdateDto()
+        )
+    }
+
+    @Deprecated("Use the overload which accepts a concrete input data class")
     override suspend fun updateTasks(ids: Set<String>, vararg values: TaskItem.FieldValue<*>) {
         val updatedData = values.toUpdateDto()
+
+        source.runBatch {
+            updateAll(ids, updatedData)
+        }
+    }
+
+    override suspend fun updateTasks(ids: Set<String>, input: UpdateTaskItemInput) {
+        val updatedData = input.toFields().toUpdateDto()
 
         source.runBatch {
             updateAll(ids, updatedData)
