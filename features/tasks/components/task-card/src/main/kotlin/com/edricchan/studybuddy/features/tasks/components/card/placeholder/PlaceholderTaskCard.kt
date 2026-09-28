@@ -85,7 +85,7 @@ fun PlaceholderTaskCard(
                         .weight(1f)
                         .clip(ToggleButtonDefaults.shape)
                         .border(ButtonDefaults.outlinedButtonBorder(), ToggleButtonDefaults.shape)
-                        .background(MaterialTheme.colorScheme.primary)
+                        .background(MaterialTheme.colorScheme.surfaceContainer)
                         .padding(16.dp)
                 )
                 Box(
