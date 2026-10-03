@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.exts.datetime.format
 import com.edricchan.studybuddy.exts.datetime.toLocalDateTime
@@ -23,7 +24,6 @@ import com.edricchan.studybuddy.features.tasks.edit.vm.EditTaskViewModel.TaskSta
 import com.edricchan.studybuddy.ui.common.fragment.ViewBindingFragment
 import com.edricchan.studybuddy.utils.androidx.core.menuProvider
 import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -39,7 +39,7 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
     private val viewModel by viewModels<EditTaskViewModel>()
 
     @Inject
-    lateinit var auth: FirebaseAuth
+    lateinit var authService: AuthService
 
     private var taskInstant: Instant? = null
     private lateinit var taskItem: TaskItem
@@ -47,7 +47,7 @@ class EditTaskFragment : ViewBindingFragment<FragEditTaskBinding>(FragEditTaskBi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (auth.currentUser == null) {
+        if (!authService.isSignedIn) {
             Log.e(TAG, "User isn't logged in. Exiting...")
             showToast(
                 "An error occurred while attempting to retrieve the task item's " +

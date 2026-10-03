@@ -38,6 +38,9 @@ dependencies {
 
     api(projects.core.settings.tasks.datastore)
     api(projects.core.settings.tasks.model)
+
+    api(projects.core.auth.service)
+
     implementation(projects.core.resources)
     implementation(projects.core.resources.icons)
     implementation(projects.core.resources.temporal)
