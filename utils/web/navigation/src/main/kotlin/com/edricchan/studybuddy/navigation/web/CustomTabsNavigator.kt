@@ -160,7 +160,7 @@ class CustomTabsNavigator(
         /** Sets an existing session to use, if any. */
         var session: CustomTabsSession? = null
 
-        private val builder = customTabsIntentBuilder(session)
+        private val builder = customTabsIntentBuilder()
 
         /** Configures the [CustomTabsIntent] using DSL syntax. */
         fun configureCustomTabsIntent(builderInit: CustomTabsIntent.Builder.() -> Unit = {}) {
@@ -169,6 +169,7 @@ class CustomTabsNavigator(
 
         internal fun buildCustomTabsIntent(): CustomTabsIntent {
             configureCustomTabsIntent {
+                session?.let { setSession(it) }
                 setDefaultColorSchemeParams(
                     toolbarColor = toolbarColor,
                     secondaryToolbarColor = secondaryToolbarColor,
