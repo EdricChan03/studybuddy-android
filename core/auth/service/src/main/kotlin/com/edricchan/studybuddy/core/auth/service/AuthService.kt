@@ -21,6 +21,9 @@ interface AuthService {
      */
     fun getCurrentUserFlow(scope: CoroutineScope): StateFlow<User?>
 
+    /** The currently signed-in user's [User.AuthState] as an observable [StateFlow]. */
+    fun getUserAuthStateFlow(scope: CoroutineScope): StateFlow<User.AuthState>
+
     /** The current signed-in [User] data, or `null` if not signed in. */
     val currentUser: User?
 

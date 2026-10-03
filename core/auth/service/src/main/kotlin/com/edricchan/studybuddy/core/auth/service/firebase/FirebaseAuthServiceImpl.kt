@@ -9,6 +9,7 @@ import androidx.credentials.CredentialOption
 import androidx.credentials.exceptions.ClearCredentialException
 import com.edricchan.studybuddy.core.auth.credentials.signInWithGoogleCredentials
 import com.edricchan.studybuddy.core.auth.model.User
+import com.edricchan.studybuddy.core.auth.model.firebase.collectAsAuthState
 import com.edricchan.studybuddy.core.auth.model.firebase.toUser
 import com.edricchan.studybuddy.core.auth.service.AuthService
 import com.edricchan.studybuddy.exts.common.TAG
@@ -42,6 +43,9 @@ class FirebaseAuthServiceImpl @Inject constructor(
     override fun getCurrentUserFlow(scope: CoroutineScope): StateFlow<User?> =
         auth.currentUserFlow.map { user -> user?.toUser() }
             .stateIn(scope, SharingStarted.WhileSubscribed(), currentUser)
+
+    override fun getUserAuthStateFlow(scope: CoroutineScope): StateFlow<User.AuthState> =
+        auth.currentUserFlow.collectAsAuthState(scope = scope)
 
     override val currentUser: User?
         get() = auth.currentUser?.toUser()
