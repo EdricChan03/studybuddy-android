@@ -23,8 +23,8 @@ data class TaskDraft(
 fun TaskDraft.toCreateInput(): CreateTaskItemInput = CreateTaskItemInput(
     title = title,
     description = description,
-    // TODO: Separate to dueTime as well when we migrate away from Firestore at some point
-    //  and to a proper SQL-based database which supports storing times separately from dates
+    // TODO: Decouple the due-time from the due-date when we migrate away from Firestore at some
+    //  point to a proper SQL-based database which supports storing times separately from dates
     dueDate = dueDate?.atTime(dueTime ?: LocalTime.MIDNIGHT)?.toInstant(),
     isCompleted = isCompleted,
     isArchived = isArchived,
@@ -37,8 +37,8 @@ fun TaskDraft.toUpdateInput(
 ): UpdateTaskItemInput = UpdateTaskItemInput(
     title = compareFields(sourceItem.title, title),
     description = compareFields(sourceItem.content, description),
-    // TODO: Separate to dueTime as well when we migrate away from Firestore at some point
-    //  and to a proper SQL-based database which supports storing times separately from dates
+    // TODO: Decouple the due-time from the due-date when we migrate away from Firestore at some
+    //  point to a proper SQL-based database which supports storing times separately from dates
     dueDate = compareFields(
         sourceItem.dueDate,
         dueDate?.atTime(dueTime ?: LocalTime.now())?.toInstant()
