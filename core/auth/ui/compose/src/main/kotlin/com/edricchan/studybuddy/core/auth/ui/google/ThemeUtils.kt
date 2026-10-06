@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.luminance
 
 /** Retrieves the associated [ButtonColors] for the receiver [GoogleSignInButtonTheme]. */
 @Composable
-fun GoogleSignInButtonTheme.getColors(): ButtonColors = when (this) {
+fun GoogleSignInButtonTheme.colors(): ButtonColors = when (this) {
     GoogleSignInButtonTheme.Light -> GoogleSignInButtonDefaults.lightColors
     GoogleSignInButtonTheme.Dark -> GoogleSignInButtonDefaults.darkColors
     GoogleSignInButtonTheme.Neutral -> GoogleSignInButtonDefaults.neutralColors
@@ -19,7 +19,7 @@ fun GoogleSignInButtonTheme.getColors(): ButtonColors = when (this) {
 
 /** Retrieves the associated [BorderStroke] for the receiver [GoogleSignInButtonTheme]. */
 @Composable
-fun GoogleSignInButtonTheme.getBorder(): BorderStroke? = when (this) {
+fun GoogleSignInButtonTheme.border(): BorderStroke? = when (this) {
     GoogleSignInButtonTheme.Light -> GoogleSignInButtonDefaults.lightBorderStroke
     GoogleSignInButtonTheme.Dark -> GoogleSignInButtonDefaults.darkBorderStroke
     GoogleSignInButtonTheme.Neutral -> null

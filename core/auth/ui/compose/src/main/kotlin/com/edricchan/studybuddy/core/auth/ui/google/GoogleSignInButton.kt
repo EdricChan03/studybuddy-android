@@ -61,8 +61,8 @@ fun GoogleSignInButton(
 ) = GoogleSignInButton(
     modifier = modifier,
     enabled = enabled,
-    colors = theme.getColors(),
-    border = theme.getBorder(),
+    colors = theme.colors(),
+    border = theme.border(),
     text = text,
     onClick = onClick
 )
