@@ -61,6 +61,8 @@ dependencies {
 
     // Compose
     api(libs.bundles.androidx.compose)
+    api(libs.androidx.compose.material3.adaptive)
+    api(libs.androidx.window.core)
     implementation(libs.androidx.compose.animation.graphics)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
