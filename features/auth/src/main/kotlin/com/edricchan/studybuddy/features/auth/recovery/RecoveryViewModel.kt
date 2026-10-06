@@ -14,6 +14,8 @@ import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.ui.common.SnackBarData
 import com.edricchan.studybuddy.ui.common.snackbar.SnackBarController
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,6 +44,7 @@ class RecoveryViewModel @Inject constructor(
                     SnackBarData.Duration.Long
                 )
             } catch (e: Exception) {
+                currentCoroutineContext().ensureActive()
                 snackBarController.showSnackBar(
                     R.string.forgot_pwd_error_msg,
                     SnackBarData.Duration.Long
