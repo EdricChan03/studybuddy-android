@@ -38,8 +38,6 @@ fun RecoveryContent(
     emailState: TextFieldState,
     onRequestResetClick: () -> Unit
 ) {
-    val submitEnabled = emailState.text.isNotBlank()
-
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -73,8 +71,7 @@ fun RecoveryContent(
                         buttonHeight = size
                     ),
                     onClick = onRequestResetClick,
-                    shapes = ButtonDefaults.shapes(),
-                    enabled = submitEnabled
+                    shapes = ButtonDefaults.shapes()
                 ) {
                     Text(
                         text = stringResource(R.string.btn_reset_password),
