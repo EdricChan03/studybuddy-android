@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.core.auth.credentials
 
 import android.content.Context
+import android.content.MutableContextWrapper
 import androidx.annotation.UiContext
 import androidx.credentials.Credential
 import androidx.credentials.CredentialManager
@@ -55,7 +56,7 @@ suspend fun @receiver:UiContext Context.requestGoogleCredential(
     val getCredentialRequest = GetCredentialRequest(credentialOptions = credentialOptions)
 
     val getCredentialResponse = credentialManager.getCredential(
-        context = this,
+        context = MutableContextWrapper(this),
         request = getCredentialRequest
     )
 
