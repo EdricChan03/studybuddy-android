@@ -13,6 +13,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.coroutineScope
 import kotlin.uuid.Uuid
 import com.edricchan.studybuddy.core.auth.gms.R as GmsR
 
@@ -52,15 +53,15 @@ fun Credential.asGoogleIdTokenCredential(): GoogleIdTokenCredential = when (this
 suspend fun @receiver:UiContext Context.requestGoogleCredential(
     credentialOptions: List<CredentialOption> = listOf(googleIdOption),
     credentialManager: CredentialManager = CredentialManager.create(this)
-): GoogleIdTokenCredential {
+): GoogleIdTokenCredential = coroutineScope {
     val getCredentialRequest = GetCredentialRequest(credentialOptions = credentialOptions)
 
     val getCredentialResponse = credentialManager.getCredential(
-        context = MutableContextWrapper(this),
+        context = MutableContextWrapper(this@requestGoogleCredential),
         request = getCredentialRequest
     )
 
-    return getCredentialResponse.credential.asGoogleIdTokenCredential()
+    getCredentialResponse.credential.asGoogleIdTokenCredential()
 }
 
 /**
