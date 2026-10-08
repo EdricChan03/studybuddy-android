@@ -18,15 +18,17 @@ import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
+import com.edricchan.studybuddy.ui.theming.common.AppearancePreferences
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
-import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.SelectBottomSheetFragment.Companion.newInstance
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.selectedItems
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.vm.SelectBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.parcelize.Parcelize
+import javax.inject.Inject
 
 /**
  * Modal bottom sheet dialog which allows for a desired item or a list of items
@@ -35,14 +37,18 @@ import kotlinx.parcelize.Parcelize
  * The [newInstance] companion object function should be used to instantiate an instance
  * of this class.
  */
+@AndroidEntryPoint
 class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
+    @Inject
+    lateinit var appearancePreferences: AppearancePreferences
+
     private val viewModel by viewModels<SelectBottomSheetViewModel<Id>>()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ) = content {
-        StudyBuddyTheme {
+        StudyBuddyTheme(appearancePreferences = appearancePreferences) {
             Surface(
                 color = BottomSheetDefaults.ContainerColor
             ) {
