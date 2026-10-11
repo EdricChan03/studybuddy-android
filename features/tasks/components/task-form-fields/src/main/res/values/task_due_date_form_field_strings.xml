@@ -2,4 +2,7 @@
 <resources>
     <!-- Title for the task due-date text field. -->
     <string name="task_due_date_text_field_label">Due date</string>
+
+    <!-- Content description for the task due-date text field's clear icon button. -->
+    <string name="task_due_date_text_field_action_clear_content_desc">Clear current date</string>
 </resources>
