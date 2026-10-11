@@ -25,7 +25,9 @@ dependencies {
     api(projects.data.forms.compose)
     api(projects.ui.widgets.compose.chipFormField)
     implementation(projects.core.resources)
+    implementation(projects.core.resources.temporal)
     implementation(projects.ui.theming.compose)
+    implementation(projects.ui.widgets.compose)
     implementation(projects.utils.androidx.compose)
 
     api(libs.bundles.androidx.compose)
