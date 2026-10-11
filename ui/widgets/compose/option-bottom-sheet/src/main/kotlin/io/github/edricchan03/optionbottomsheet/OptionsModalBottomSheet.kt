@@ -3,7 +3,8 @@ package io.github.edricchan03.optionbottomsheet
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.SheetValue
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOption
@@ -19,7 +20,7 @@ fun OptionsModalBottomSheet(
     group: BottomSheetOptionGroup,
     onDismissRequest: () -> Unit = {},
     onOptionDismissRequest: (BottomSheetOption) -> Unit = { onDismissRequest() },
-    state: SheetState = rememberModalBottomSheetState()
+    state: SheetState = rememberBottomSheetState(initialValue = SheetValue.Hidden)
 ) = ModalBottomSheet(
     modifier = sheetModifier,
     onDismissRequest = onDismissRequest,
@@ -41,7 +42,7 @@ fun OptionsModalBottomSheet(
     items: List<BottomSheetOption>,
     onDismissRequest: () -> Unit = {},
     onOptionDismissRequest: (BottomSheetOption) -> Unit = { onDismissRequest() },
-    state: SheetState = rememberModalBottomSheetState()
+    state: SheetState = rememberBottomSheetState(initialValue = SheetValue.Hidden)
 ) = ModalBottomSheet(
     modifier = sheetModifier,
     onDismissRequest = onDismissRequest,
@@ -62,7 +63,7 @@ fun OptionsModalBottomSheet(
     sheetModifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
     onOptionDismissRequest: (BottomSheetOption) -> Unit = { onDismissRequest() },
-    state: SheetState = rememberModalBottomSheetState(),
+    state: SheetState = rememberBottomSheetState(initialValue = SheetValue.Hidden),
     group: @Composable BottomSheetOptionGroupBuilder.() -> Unit
 ) = OptionsModalBottomSheet(
     modifier = modifier,
