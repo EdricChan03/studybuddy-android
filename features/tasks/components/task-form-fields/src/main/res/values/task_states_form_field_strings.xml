@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Label text for the task's completion status action. -->
+    <string name="task_state_completion_field_label">Mark task as completed</string>
+    <!-- Label text for the task's archival status action. -->
+    <string name="task_state_archival_field_label">Mark task as archived</string>
+</resources>

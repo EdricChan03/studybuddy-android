@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.fields
+package com.edricchan.studybuddy.features.tasks.components.form.state
 
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ListItem
@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.features.tasks.components.form.R
 
 @Composable
 fun TaskMarkCompletedListItem(
@@ -32,7 +32,7 @@ fun TaskMarkCompletedListItem(
     },
     content = {
         Text(
-            text = stringResource(R.string.action_mark_task_as_done)
+            text = stringResource(R.string.task_state_completion_field_label)
         )
     },
     colors = colors,
@@ -60,7 +60,7 @@ fun TaskMarkArchivedListItem(
     },
     content = {
         Text(
-            text = stringResource(R.string.action_mark_task_as_archived)
+            text = stringResource(R.string.task_state_archival_field_label)
         )
     },
     colors = colors,
