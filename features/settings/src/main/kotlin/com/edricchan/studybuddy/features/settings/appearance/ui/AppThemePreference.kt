@@ -184,12 +184,12 @@ fun AppThemePreviewItem(
                 androidx.compose.animation.AnimatedVisibility(
                     visible = selected,
                     enter = fadeIn(
-                        animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
+                        animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()
                     ) + scaleIn(
                         animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
                     ),
                     exit = fadeOut(
-                        animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
+                        animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()
                     ) + scaleOut(
                         animationSpec = MaterialTheme.motionScheme.fastSpatialSpec()
                     ),
