@@ -41,7 +41,7 @@ fun TaskDraft.toUpdateInput(
     //  point to a proper SQL-based database which supports storing times separately from dates
     dueDate = compareFields(
         sourceItem.dueDate,
-        dueDate?.atTime(dueTime ?: LocalTime.now())?.toInstant()
+        dueDate?.atTime(dueTime ?: LocalTime.MIDNIGHT)?.toInstant()
     ),
     isCompleted = compareFields(sourceItem.isCompleted, isCompleted),
     isArchived = compareFields(sourceItem.isArchived, isArchived),
