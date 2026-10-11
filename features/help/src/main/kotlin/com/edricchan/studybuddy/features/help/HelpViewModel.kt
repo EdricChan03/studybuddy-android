@@ -3,13 +3,11 @@ package com.edricchan.studybuddy.features.help
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edricchan.studybuddy.features.help.data.HelpRepository
-import com.edricchan.studybuddy.features.help.data.model.HelpArticle
 import com.edricchan.studybuddy.features.help.ui.HelpArticlesState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
