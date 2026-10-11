@@ -95,7 +95,6 @@ private fun TaskProjectIconSurfacePreview() {
     TaskProjectIconSurface(color = null)
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
 @Preview
 @Composable
