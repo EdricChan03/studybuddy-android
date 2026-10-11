@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.ui.widgets.compose.textfield
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -31,13 +30,12 @@ private fun OutlinedTextFieldBoxContent(
     trailingIcon: @Composable (() -> Unit)?,
 ) = ListItem(
     modifier = modifier,
-    headlineContent = headlineText,
+    content = headlineText,
     supportingContent = supportingText,
     leadingContent = leadingIcon,
     trailingContent = trailingIcon
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun OutlinedTextFieldBoxContent(
     modifier: Modifier,
