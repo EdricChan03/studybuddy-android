@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/action_more_options"
+        android:icon="@drawable/ic_more_vert_24dp"
+        android:title="@string/abc_action_menu_overflow_description"
+        tools:ignore="PrivateResource" />
+</menu>
