@@ -4,10 +4,8 @@ import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import java.time.Duration
 import java.time.Instant
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalUuidApi::class)
 private fun generateId() = Uuid.random().toString()
 
 private fun generateTask(

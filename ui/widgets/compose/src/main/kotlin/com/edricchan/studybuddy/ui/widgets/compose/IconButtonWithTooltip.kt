@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.ui.widgets.compose
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.TooltipAnchorPosition
@@ -25,7 +24,7 @@ import androidx.compose.ui.window.PopupPositionProvider
  * [androidx.compose.material3.RichTooltip].
  * @param icon Composable to be used for the icon button's icon
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IconButtonWithTooltip(
     modifier: Modifier = Modifier,

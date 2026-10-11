@@ -75,7 +75,6 @@ fun HelpArticleItem(
     }
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HelpArticleItem(
     modifier: Modifier = Modifier,

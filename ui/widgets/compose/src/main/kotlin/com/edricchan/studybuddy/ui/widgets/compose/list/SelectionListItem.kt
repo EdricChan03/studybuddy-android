@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -41,7 +40,6 @@ fun RadioButtonRow(
     text()
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun RadioButtonListItem(
     modifier: Modifier = Modifier,
@@ -76,7 +74,6 @@ fun RadioButtonListItem(
     trailingContent = trailingContent
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TrailingRadioButtonListItem(
     modifier: Modifier = Modifier,
@@ -138,7 +135,6 @@ fun CheckboxRow(
     text()
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun CheckboxListItem(
     modifier: Modifier = Modifier,
@@ -173,7 +169,6 @@ fun CheckboxListItem(
     trailingContent = trailingContent
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun TrailingCheckboxListItem(
     modifier: Modifier = Modifier,

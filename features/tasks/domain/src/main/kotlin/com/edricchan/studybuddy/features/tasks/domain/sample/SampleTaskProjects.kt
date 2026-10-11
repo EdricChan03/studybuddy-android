@@ -3,10 +3,8 @@ package com.edricchan.studybuddy.features.tasks.domain.sample
 import com.edricchan.studybuddy.data.common.Color
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
 import java.time.Instant
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalUuidApi::class)
 private fun generateId() = Uuid.random().toString()
 
 private fun generateProject(
