@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Title for the task due-date text field. -->
+    <string name="task_due_date_text_field_label">Due date</string>
+</resources>
