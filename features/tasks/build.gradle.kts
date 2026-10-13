@@ -35,6 +35,7 @@ dependencies {
     api(projects.features.tasks.components.taskCard)
     api(projects.features.tasks.components.taskFormFields)
     api(projects.features.tasks.components.taskMetadata)
+    api(projects.features.tasks.components.taskProject)
 
     api(projects.core.settings.tasks.datastore)
     api(projects.core.settings.tasks.model)

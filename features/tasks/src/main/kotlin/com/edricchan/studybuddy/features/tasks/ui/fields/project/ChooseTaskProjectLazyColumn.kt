@@ -27,9 +27,9 @@ import com.edricchan.studybuddy.core.resources.icons.outlined.Add
 import com.edricchan.studybuddy.core.resources.icons.outlined.Block
 import com.edricchan.studybuddy.data.common.compose.toComposeColor
 import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.features.tasks.components.project.TaskProjectFieldDefaults
+import com.edricchan.studybuddy.features.tasks.components.project.TaskProjectIconSurface
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
-import com.edricchan.studybuddy.features.tasks.ui.fields.TaskProjectFieldDefaults
-import com.edricchan.studybuddy.features.tasks.ui.fields.TaskProjectIconSurface
 import com.edricchan.studybuddy.ui.widgets.compose.list.TrailingRadioButtonListItem
 import com.edricchan.studybuddy.utils.compose.foundation.lazy.PaginationLoadingIndicator
 

@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.fields
+package com.edricchan.studybuddy.features.tasks.components.project
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues

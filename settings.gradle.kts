@@ -191,5 +191,6 @@ include(
     ":features:tasks:components:task-card",
     ":features:tasks:components:task-form-fields",
     ":features:tasks:components:task-metadata",
+    ":features:tasks:components:task-project",
     ":app"
 )
