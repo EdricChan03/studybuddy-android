@@ -21,11 +21,17 @@ android {
 }
 
 dependencies {
+    api(projects.features.tasks.domain)
+
     implementation(projects.core.resources.icons)
+    implementation(projects.data.common.compose)
     implementation(projects.ui.theming.compose)
+    implementation(projects.ui.widgets.compose)
     implementation(projects.utils.androidx.compose)
 
     api(libs.bundles.androidx.compose)
+    api(libs.androidx.paging.common)
+    api(libs.androidx.paging.compose)
 
     debugImplementation(libs.bundles.androidx.compose.tooling)
 
