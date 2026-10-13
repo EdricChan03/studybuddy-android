@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.features.tasks.ui.fields.project
+package com.edricchan.studybuddy.features.tasks.components.project.chooser
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,7 +26,7 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Add
 import com.edricchan.studybuddy.core.resources.icons.outlined.Block
 import com.edricchan.studybuddy.data.common.compose.toComposeColor
-import com.edricchan.studybuddy.features.tasks.R
+import com.edricchan.studybuddy.features.tasks.components.project.R
 import com.edricchan.studybuddy.features.tasks.components.project.TaskProjectFieldDefaults
 import com.edricchan.studybuddy.features.tasks.components.project.TaskProjectIconSurface
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskProject
@@ -56,7 +56,7 @@ fun ChooseTaskProjectLazyColumn(
                 selected = selectedProjectId == null,
                 onSelected = { onSelectProjectId(null) },
                 text = {
-                    Text(text = stringResource(R.string.text_field_task_project_option_none))
+                    Text(text = stringResource(R.string.task_project_chooser_option_none))
                 },
                 leadingContent = {
                     TaskProjectIconSurface(
@@ -149,7 +149,7 @@ private fun LazyItemScope.CreateTaskProjectButton(
             modifier = Modifier.size(ButtonDefaults.iconSpacingFor(height))
         )
         Text(
-            text = stringResource(R.string.text_field_choose_task_project_action_create_project),
+            text = stringResource(R.string.task_project_chooser_action_create_project),
             style = ButtonDefaults.textStyleFor(height)
         )
     }

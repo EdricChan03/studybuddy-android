@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Option to select none in the task project chooser. -->
+    <string name="task_project_chooser_option_none">(None)</string>
+
+    <!-- Title for the create button in the task project chooser. -->
+    <string name="task_project_chooser_action_create_project">Create project</string>
+</resources>
