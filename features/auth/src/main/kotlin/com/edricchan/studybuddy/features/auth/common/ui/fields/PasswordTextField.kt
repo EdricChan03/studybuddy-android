@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.features.auth.common.ui.fields
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,6 +21,7 @@ import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -68,7 +70,8 @@ fun PasswordTextField(
         Text(text = stringResource(R.string.account_password_field_label))
     },
     supportingText: @Composable (() -> Unit)? = null,
-    isError: Boolean
+    isError: Boolean,
+    interactionSource: MutableInteractionSource? = null
 ) {
     var isTextObfuscated by rememberSaveable { mutableStateOf(false) }
     val obfuscatedStateDesc = stringResource(
@@ -112,7 +115,8 @@ fun PasswordTextField(
         },
         supportingText = supportingText,
         isError = isError,
-        textObfuscationMode = if (isTextObfuscated) TextObfuscationMode.Visible else TextObfuscationMode.RevealLastTyped
+        textObfuscationMode = if (isTextObfuscated) TextObfuscationMode.Visible else TextObfuscationMode.RevealLastTyped,
+        interactionSource = interactionSource
     )
 }
 
@@ -169,9 +173,14 @@ fun PasswordTextField(
     label: @Composable (TextFieldLabelScope.() -> Unit)? = {
         Text(text = stringResource(R.string.account_password_field_label))
     },
-    passwordValidator: InputValidator<PasswordValidationError> = PasswordValidator
+    passwordValidator: InputValidator<PasswordValidationError> = PasswordValidator,
+    interactionSource: MutableInteractionSource? = null
 ) {
-    val validationError by state.validationErrorAsState(validator = passwordValidator)
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    val validationError by state.validationErrorAsState(
+        validator = passwordValidator,
+        interactionSource = interactionSource
+    )
 
     val errorSemantics = validationError?.getSemanticsMessage(state.text)
 
@@ -194,6 +203,7 @@ fun PasswordTextField(
                 }
             }
         },
-        isError = validationError != null
+        isError = validationError != null,
+        interactionSource = interactionSource
     )
 }
