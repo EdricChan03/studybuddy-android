@@ -2,6 +2,7 @@ package com.edricchan.studybuddy.features.auth.common.ui.fields
 
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
@@ -11,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.autofill.contentType
@@ -33,13 +35,14 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
 fun EmailTextField(
     modifier: Modifier = Modifier,
     state: TextFieldState,
+    isError: Boolean,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     label: @Composable (TextFieldLabelScope.() -> Unit)? = {
         Text(text = stringResource(R.string.account_email_field_label))
     },
     supportingText: @Composable (() -> Unit)? = null,
-    isError: Boolean
+    interactionSource: MutableInteractionSource? = null
 ) = OutlinedTextField(
     modifier = modifier.contentType(ContentType.EmailAddress),
     state = state,
@@ -52,7 +55,8 @@ fun EmailTextField(
     supportingText = supportingText,
     isError = isError,
     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-    lineLimits = TextFieldLineLimits.SingleLine
+    lineLimits = TextFieldLineLimits.SingleLine,
+    interactionSource = interactionSource
 )
 
 enum class EmailValidationError(@field:StringRes override val messageRes: Int) :
@@ -80,9 +84,14 @@ fun EmailTextField(
     label: @Composable (TextFieldLabelScope.() -> Unit)? = {
         Text(text = stringResource(R.string.account_email_field_label))
     },
-    emailValidator: InputValidator<EmailValidationError> = EmailValidator
+    emailValidator: InputValidator<EmailValidationError> = EmailValidator,
+    interactionSource: MutableInteractionSource? = null
 ) {
-    val validationError by state.validationErrorAsState(validator = emailValidator)
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    val validationError by state.validationErrorAsState(
+        interactionSource = interactionSource,
+        validator = emailValidator
+    )
 
     val errorSemantics = validationError?.getSemanticsMessage(state.text)
 
@@ -91,6 +100,7 @@ fun EmailTextField(
             errorSemantics?.let(::error)
         },
         state = state,
+        isError = validationError != null,
         enabled = enabled,
         readOnly = readOnly,
         label = label,
@@ -105,6 +115,6 @@ fun EmailTextField(
                 }
             }
         },
-        isError = validationError != null
+        interactionSource = interactionSource
     )
 }
