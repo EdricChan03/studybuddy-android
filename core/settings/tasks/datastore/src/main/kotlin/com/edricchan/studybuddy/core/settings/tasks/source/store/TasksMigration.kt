@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.edricchan.studybuddy.core.settings.tasks.source.store
 
 import android.content.Context

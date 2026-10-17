@@ -1,7 +1,6 @@
 package com.edricchan.studybuddy.features.tasks.constants.sharedprefs
 
 import androidx.annotation.StringDef
-import com.edricchan.studybuddy.features.tasks.constants.sharedprefs.TodoOptionsPrefConstants.PREF_DEFAULT_SORT
 
 /**
  * Constants to be used for shared preferences regarding the task fragment's options
@@ -103,6 +102,7 @@ object TodoOptionsPrefConstants {
     /**
      * Annotation for indicating the accepted values of the [PREF_DEFAULT_SORT] preference
      */
+    @Suppress("DEPRECATION")
     @StringDef(
         TodoSortValues.TITLE_DESC,
         TodoSortValues.TITLE_ASC,
