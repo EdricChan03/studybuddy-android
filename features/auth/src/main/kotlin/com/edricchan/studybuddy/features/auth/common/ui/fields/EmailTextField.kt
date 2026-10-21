@@ -28,7 +28,6 @@ import com.edricchan.studybuddy.data.forms.validationErrorAsState
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations
-import kotlinx.coroutines.FlowPreview
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
 @Composable
@@ -74,24 +73,19 @@ fun CharSequence.validateEmail(): EmailValidationError? = when {
 val EmailValidator: InputValidator<EmailValidationError> =
     InputValidator(CharSequence::validateEmail)
 
-@OptIn(FlowPreview::class)
 @Composable
 fun EmailTextField(
     modifier: Modifier = Modifier,
     state: TextFieldState,
+    validationError: EmailValidationError?,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     label: @Composable (TextFieldLabelScope.() -> Unit)? = {
         Text(text = stringResource(R.string.account_email_field_label))
     },
-    emailValidator: InputValidator<EmailValidationError> = EmailValidator,
     interactionSource: MutableInteractionSource? = null
 ) {
     val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
-    val validationError by state.validationErrorAsState(
-        interactionSource = interactionSource,
-        validator = emailValidator
-    )
 
     val errorSemantics = validationError?.getSemanticsMessage(state.text)
 
@@ -115,6 +109,35 @@ fun EmailTextField(
                 }
             }
         },
+        interactionSource = interactionSource
+    )
+}
+
+@Composable
+fun EmailTextField(
+    modifier: Modifier = Modifier,
+    state: TextFieldState,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
+        Text(text = stringResource(R.string.account_email_field_label))
+    },
+    emailValidator: InputValidator<EmailValidationError> = EmailValidator,
+    interactionSource: MutableInteractionSource? = null
+) {
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    val validationError by state.validationErrorAsState(
+        interactionSource = interactionSource,
+        validator = emailValidator
+    )
+
+    EmailTextField(
+        modifier = modifier,
+        state = state,
+        validationError = validationError,
+        enabled = enabled,
+        readOnly = readOnly,
+        label = label,
         interactionSource = interactionSource
     )
 }
