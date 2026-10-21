@@ -27,7 +27,7 @@ import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Mail
 import com.edricchan.studybuddy.data.forms.InputValidator
 import com.edricchan.studybuddy.data.forms.compose.InputValidationError
-import com.edricchan.studybuddy.data.forms.validationErrorAsState
+import com.edricchan.studybuddy.data.forms.compose.validationErrorAsState
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations

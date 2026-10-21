@@ -1,4 +1,4 @@
-package com.edricchan.studybuddy.data.forms
+package com.edricchan.studybuddy.data.forms.compose
 
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.InteractionSource
@@ -8,7 +8,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.edricchan.studybuddy.data.forms.compose.InputValidationError
+import com.edricchan.studybuddy.data.forms.InputValidator
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce

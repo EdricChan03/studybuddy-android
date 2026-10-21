@@ -13,7 +13,7 @@ import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
 import com.edricchan.studybuddy.data.forms.InputValidator
-import com.edricchan.studybuddy.data.forms.validationErrorAsState
+import com.edricchan.studybuddy.data.forms.compose.validationErrorAsState
 import com.edricchan.studybuddy.features.tasks.components.form.R
 import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleMaxLength
 import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleValidationError

@@ -39,7 +39,7 @@ import com.edricchan.studybuddy.core.resources.icons.animated.VisibilityToggle
 import com.edricchan.studybuddy.core.resources.icons.outlined.Password
 import com.edricchan.studybuddy.data.forms.InputValidator
 import com.edricchan.studybuddy.data.forms.compose.InputValidationError
-import com.edricchan.studybuddy.data.forms.validationErrorAsState
+import com.edricchan.studybuddy.data.forms.compose.validationErrorAsState
 import com.edricchan.studybuddy.features.auth.R
 import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations
 import com.edricchan.studybuddy.core.resources.R as CoreResR
