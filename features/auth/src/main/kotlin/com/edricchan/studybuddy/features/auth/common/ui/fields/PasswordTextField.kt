@@ -169,6 +169,44 @@ fun PasswordTextField(
     modifier: Modifier = Modifier,
     contentType: ContentType = ContentType.Password,
     state: TextFieldState,
+    validationError: PasswordValidationError?,
+    enabled: Boolean = true,
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
+        Text(text = stringResource(R.string.account_password_field_label))
+    },
+    interactionSource: MutableInteractionSource? = null
+) {
+    val errorSemantics = validationError?.getSemanticsMessage(state.text)
+
+    PasswordTextField(
+        modifier = modifier.semantics {
+            errorSemantics?.let(::error)
+        },
+        contentType = contentType,
+        state = state,
+        enabled = enabled,
+        label = label,
+        supportingText = {
+            AnimatedContent(
+                label = "Password form field supporting text",
+                targetState = validationError,
+                transitionSpec = TextFieldAnimations.supportingTextTransitionSpec()
+            ) { type ->
+                type?.let {
+                    Text(text = it.getMessage(state.text))
+                }
+            }
+        },
+        isError = validationError != null,
+        interactionSource = interactionSource
+    )
+}
+
+@Composable
+fun PasswordTextField(
+    modifier: Modifier = Modifier,
+    contentType: ContentType = ContentType.Password,
+    state: TextFieldState,
     enabled: Boolean = true,
     label: @Composable (TextFieldLabelScope.() -> Unit)? = {
         Text(text = stringResource(R.string.account_password_field_label))
@@ -182,12 +220,8 @@ fun PasswordTextField(
         interactionSource = interactionSource
     )
 
-    val errorSemantics = validationError?.getSemanticsMessage(state.text)
-
     PasswordTextField(
-        modifier = modifier.semantics {
-            errorSemantics?.let(::error)
-        },
+        modifier = modifier,
         contentType = contentType,
         state = state,
         enabled = enabled,
