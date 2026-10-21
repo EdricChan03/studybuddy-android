@@ -8,7 +8,9 @@ import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.material3.TextFieldLabelScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -60,6 +62,9 @@ fun EmailTextField(
     supportingText = supportingText,
     isError = isError,
     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+    shape = OutlinedTextFieldDefaults.roundedShape,
+    colors = OutlinedTextFieldDefaults.tonalColors(),
+    labelPosition = TextFieldLabelPosition.Inside(),
     lineLimits = TextFieldLineLimits.SingleLine,
     interactionSource = interactionSource
 )

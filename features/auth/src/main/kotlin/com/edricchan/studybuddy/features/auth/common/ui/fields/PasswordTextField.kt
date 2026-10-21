@@ -7,12 +7,14 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalIconToggleButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.OutlinedSecureTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.material3.TextFieldLabelScope
 import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipBox
@@ -108,7 +110,7 @@ fun PasswordTextField(
                     }
                 }
             ) {
-                IconToggleButton(
+                FilledTonalIconToggleButton(
                     modifier = Modifier.semantics {
                         stateDescription = obfuscatedStateDesc
                     },
@@ -122,6 +124,9 @@ fun PasswordTextField(
         },
         supportingText = supportingText,
         isError = isError,
+        shape = OutlinedTextFieldDefaults.roundedShape,
+        colors = OutlinedTextFieldDefaults.tonalColors(),
+        labelPosition = TextFieldLabelPosition.Inside(),
         textObfuscationMode = if (isTextObfuscated) TextObfuscationMode.Visible else TextObfuscationMode.RevealLastTyped,
         interactionSource = interactionSource
     )
