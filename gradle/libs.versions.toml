@@ -99,7 +99,8 @@ materialComponents = "com.google.android.material:material:1.14.0"
 # Credential Manager
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials" }
 androidx-credentials-playServices = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "androidx-credentials" }
-google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.2.1"
+#noinspection GradleDependency - 1.2.1 causes a runtime NoSuchMethodError when using any of its constructors
+google-identity-googleId = "com.google.android.libraries.identity.googleid:googleid:1.2.0"
 
 # DeepLinkDispatcher
 deepLinkDispatch-core = { module = "com.airbnb:deeplinkdispatch", version.ref = "deep-link-dispatch" }
