@@ -19,6 +19,7 @@ import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,16 +60,22 @@ fun VisibilityIcon(isVisible: Boolean) {
     )
 }
 
+@Stable
+object PasswordTextFieldDefaults {
+    val contentType: ContentType = ContentType.Password
+    val Label: @Composable (TextFieldLabelScope.() -> Unit) = {
+        Text(text = stringResource(R.string.account_password_field_label))
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordTextField(
     modifier: Modifier = Modifier,
-    contentType: ContentType = ContentType.Password,
+    contentType: ContentType = PasswordTextFieldDefaults.contentType,
     state: TextFieldState,
     enabled: Boolean = true,
-    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
-        Text(text = stringResource(R.string.account_password_field_label))
-    },
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = PasswordTextFieldDefaults.Label,
     supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean,
     interactionSource: MutableInteractionSource? = null
@@ -167,13 +174,11 @@ val PasswordValidator: InputValidator<PasswordValidationError> =
 @Composable
 fun PasswordTextField(
     modifier: Modifier = Modifier,
-    contentType: ContentType = ContentType.Password,
+    contentType: ContentType = PasswordTextFieldDefaults.contentType,
     state: TextFieldState,
     validationError: PasswordValidationError?,
     enabled: Boolean = true,
-    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
-        Text(text = stringResource(R.string.account_password_field_label))
-    },
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = PasswordTextFieldDefaults.Label,
     interactionSource: MutableInteractionSource? = null
 ) {
     val errorSemantics = validationError?.getSemanticsMessage(state.text)
@@ -205,12 +210,10 @@ fun PasswordTextField(
 @Composable
 fun PasswordTextField(
     modifier: Modifier = Modifier,
-    contentType: ContentType = ContentType.Password,
+    contentType: ContentType = PasswordTextFieldDefaults.contentType,
     state: TextFieldState,
     enabled: Boolean = true,
-    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
-        Text(text = stringResource(R.string.account_password_field_label))
-    },
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = PasswordTextFieldDefaults.Label,
     passwordValidator: InputValidator<PasswordValidationError> = PasswordValidator,
     interactionSource: MutableInteractionSource? = null
 ) {
