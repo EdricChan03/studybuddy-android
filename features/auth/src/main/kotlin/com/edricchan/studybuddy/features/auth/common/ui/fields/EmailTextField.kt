@@ -11,6 +11,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -30,6 +31,13 @@ import com.edricchan.studybuddy.features.auth.exts.isInvalidEmail
 import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
+@Stable
+object EmailTextFieldDefaults {
+    val Label: @Composable (TextFieldLabelScope.() -> Unit) = {
+        Text(text = stringResource(R.string.account_email_field_label))
+    }
+}
+
 @Composable
 fun EmailTextField(
     modifier: Modifier = Modifier,
@@ -37,9 +45,7 @@ fun EmailTextField(
     isError: Boolean,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
-        Text(text = stringResource(R.string.account_email_field_label))
-    },
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = EmailTextFieldDefaults.Label,
     supportingText: @Composable (() -> Unit)? = null,
     interactionSource: MutableInteractionSource? = null
 ) = OutlinedTextField(
@@ -80,9 +86,7 @@ fun EmailTextField(
     validationError: EmailValidationError?,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
-        Text(text = stringResource(R.string.account_email_field_label))
-    },
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = EmailTextFieldDefaults.Label,
     interactionSource: MutableInteractionSource? = null
 ) {
     val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
@@ -119,9 +123,7 @@ fun EmailTextField(
     state: TextFieldState,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    label: @Composable (TextFieldLabelScope.() -> Unit)? = {
-        Text(text = stringResource(R.string.account_email_field_label))
-    },
+    label: @Composable (TextFieldLabelScope.() -> Unit)? = EmailTextFieldDefaults.Label,
     emailValidator: InputValidator<EmailValidationError> = EmailValidator,
     interactionSource: MutableInteractionSource? = null
 ) {
