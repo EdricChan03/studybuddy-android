@@ -1,6 +1,7 @@
 plugins {
     // Compose interop for selection bottom sheet
     com.edricchan.studybuddy.library.`android-compose`
+    com.edricchan.studybuddy.library.`android-hilt`
     com.edricchan.studybuddy.library.testing.`kotest-junit5`
     `kotlin-parcelize`
 }
