@@ -22,7 +22,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class GeneralSettingsModule {
+abstract class GeneralSettingsModule {
     @Binds
     abstract fun bindGeneralDataStore(
         datastoreImpl: LocalGeneralSettingsDataSource

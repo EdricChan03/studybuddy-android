@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal abstract class HelpModule {
+abstract class HelpModule {
     @Binds
     abstract fun bindHelpApi(
         helpApiImpl: GitHubHelpApiImpl

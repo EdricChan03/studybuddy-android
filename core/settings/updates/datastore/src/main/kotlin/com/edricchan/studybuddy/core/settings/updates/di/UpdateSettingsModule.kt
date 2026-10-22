@@ -22,7 +22,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class UpdateSettingsModule {
+abstract class UpdateSettingsModule {
     @Singleton
     @Binds
     abstract fun bindUpdateSettingsDataSource(

@@ -21,7 +21,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class AppearanceSettingsModule {
+abstract class AppearanceSettingsModule {
     @Binds
     abstract fun bindAppearanceDataStore(
         datastoreImpl: LocalAppearanceSettingsDataStore

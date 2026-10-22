@@ -23,7 +23,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class UpdateMetadataModule {
+abstract class UpdateMetadataModule {
     @Singleton
     @Binds
     abstract fun bindUpdateMetadataDataSource(

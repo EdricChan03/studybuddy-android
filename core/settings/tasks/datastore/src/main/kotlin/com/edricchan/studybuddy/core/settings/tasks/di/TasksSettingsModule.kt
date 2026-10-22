@@ -23,7 +23,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class TasksSettingsModule {
+abstract class TasksSettingsModule {
     @Singleton
     @Binds
     abstract fun bindTaskSettingsDataSource(
