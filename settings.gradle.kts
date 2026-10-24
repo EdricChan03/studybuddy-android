@@ -121,6 +121,7 @@ include(
     ":core:deeplink",
     ":core:di",
     ":core:di:qualifiers",
+    ":core:di:testing",
     ":core:resources",
     ":core:resources:icons:common",
     ":core:resources:icons",
