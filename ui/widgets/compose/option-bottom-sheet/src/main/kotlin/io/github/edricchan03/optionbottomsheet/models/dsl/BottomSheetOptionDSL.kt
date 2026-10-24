@@ -112,7 +112,6 @@ class BottomSheetOptionGroupBuilder {
 }
 
 /** Creates a new [BottomSheetOptionGroup] given the specified parameters. */
-@OptionBottomSheetDsl
 @Composable
 fun optionGroup(init: @Composable BottomSheetOptionGroupBuilder.() -> Unit) =
     BottomSheetOptionGroupBuilder().apply { init() }.build()
