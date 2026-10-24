@@ -43,6 +43,7 @@ import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.enumIdSerializer
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.intIdSerializer
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.serializedIdOrNull
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
@@ -107,7 +108,9 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
             // New select bottom sheet demos
             DemoItem("Select bottom sheet (multi)", ::showMultiSelect),
 
-            DemoItem("Select bottom sheet (single)", ::showSingleSelect)
+            DemoItem("Select bottom sheet (single)", ::showSingleSelect),
+            DemoItem("Select bottom sheet (single, enum IDs)", ::showEnumSingleSelect),
+            DemoItem("Select bottom sheet (multi, enum IDs)", ::showEnumMultipleSelect),
         )
     }
 
@@ -421,4 +424,79 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
         }
     }
 
+    private enum class DessertOption(
+        val title: String
+    ) {
+        IceCream(title = "Ice Cream"),
+        ChocolateLavaCake(title = "Chocolate Lava Cake"),
+        Brownies(title = "Brownies"),
+        MacadamiaCookies(title = "Macadamia Nut Cookies"),
+        CheeseCake(title = "Cheesecake"),
+        Tiramisu(title = "Tiramisu"),
+        Chendol(title = "Chendol"),
+        PandanChiffonCake(title = "Pandan Chiffon Cake"),
+        MangoStickyRice(title = "Mango Sticky Rice"),
+    }
+
+    private fun showEnumSingleSelect() {
+        val idSerializer = enumIdSerializer<DessertOption>()
+        showSingleSelectBottomSheet(
+            idSerializer = idSerializer,
+            headerTitle = "Select a desert",
+            onCanceled = {
+                showSnackbar(
+                    "Enum single-select bottom sheet was cancelled",
+                    SnackbarDuration.Short
+                )
+            },
+            onConfirm = {
+                with(idSerializer) {
+                    showSnackbar(
+                        "Item ${it.serializedIdOrNull()} selected",
+                        SnackbarDuration.Long
+                    )
+                }
+            }
+        ) {
+            DessertOption.entries.forEach {
+                addItem(
+                    id = it,
+                    title = it.title
+                )
+            }
+        }
+    }
+
+    private fun showEnumMultipleSelect() {
+        val idSerializer = enumIdSerializer<DessertOption>()
+        showMultiSelectBottomSheet(
+            idSerializer = idSerializer,
+            headerTitle = "Select desserts",
+            onCanceled = {
+                showSnackbar(
+                    "Enum multi-select bottom sheet was cancelled",
+                    SnackbarDuration.Short
+                )
+            },
+            onConfirm = { items ->
+                with(idSerializer) {
+                    showSnackbar(
+                        "Items ${
+                            items.joinToString {
+                                it.serializedIdOrNull().toString()
+                            }
+                        } selected",
+                        SnackbarDuration.Long
+                    )
+                }
+            }
+        ) {
+            DessertOption.entries.forEach {
+                addItem(
+                    id = it,
+                    title = it.title
+                )
+            }
+        }
+    }
 }
