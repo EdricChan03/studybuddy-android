@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl
 import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.IdSerializer
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
 
@@ -15,8 +16,8 @@ annotation class SelectableBottomSheetDsl
  * @property title The title to be displayed for this item.
  */
 @SelectableBottomSheetDsl
-class SelectBottomSheetItemBuilder<Id>(
-    val id: Id,
+class SelectBottomSheetItemBuilder(
+    val id: String,
     val title: String
 ) {
     /** The icon's resource, or `null` to not show any icon. */
@@ -27,7 +28,7 @@ class SelectBottomSheetItemBuilder<Id>(
     var enabled: Boolean = true
 
     /** Creates the [OptionBottomSheetItem] with the specified options from this builder. */
-    fun build(): OptionBottomSheetItem<Id> = OptionBottomSheetItem(
+    fun build(): OptionBottomSheetItem = OptionBottomSheetItem(
         id = id,
         title = title,
         icon = iconRes,
@@ -37,22 +38,25 @@ class SelectBottomSheetItemBuilder<Id>(
 
 /**
  * Creates a [OptionBottomSheetItem] with the specified arguments.
- * @param id Unique ID for this item. This value should be [android.os.Parcelable].
+ * @param id Unique ID for this item.
  * @param title Title to be displayed for this item.
  * @param init Options for the [OptionBottomSheetItem].
  * @see SelectBottomSheetItemBuilder
  */
-fun <Id> item(
-    id: Id,
+fun item(
+    id: String,
     title: String,
-    init: SelectBottomSheetItemBuilder<Id>.() -> Unit
-): OptionBottomSheetItem<Id> =
+    init: SelectBottomSheetItemBuilder.() -> Unit
+): OptionBottomSheetItem =
     SelectBottomSheetItemBuilder(id, title).apply(init).build()
 
 @SelectableBottomSheetDsl
-sealed class SelectBottomSheetGroupBuilder<Id, T : OptionBottomSheetGroup<Id>> {
+sealed class SelectBottomSheetGroupBuilder<Id : Any, T : OptionBottomSheetGroup>(
+    /** [IdSerializer] to be used when serialising `id`s to their [String] equivalent. */
+    val idSerializer: IdSerializer<Id>
+) {
     /** The items to be used for this [OptionBottomSheetGroup]. */
-    val items = mutableListOf<OptionBottomSheetItem<Id>>()
+    val items = mutableListOf<OptionBottomSheetItem>()
 
     /** Whether the items in this group are selectable. */
     var enabled: Boolean = true
@@ -65,7 +69,7 @@ sealed class SelectBottomSheetGroupBuilder<Id, T : OptionBottomSheetGroup<Id>> {
      * `true` when passed to this lambda, the first item that returns `true` will be used
      * as the selected item.
      */
-    var isSelected: ((item: OptionBottomSheetItem<Id>, index: Int) -> Boolean)? = null
+    var isSelected: ((item: OptionBottomSheetItem, index: Int) -> Boolean)? = null
 
     /**
      * Adds an item to this group with the specified arguments.
@@ -78,8 +82,8 @@ sealed class SelectBottomSheetGroupBuilder<Id, T : OptionBottomSheetGroup<Id>> {
      */
     abstract fun addItem(
         selected: Boolean? = false,
-        item: OptionBottomSheetItem<Id>
-    ): OptionBottomSheetItem<Id>
+        item: OptionBottomSheetItem
+    ): OptionBottomSheetItem
 
     /**
      * Adds an item to this group with the specified arguments.
@@ -96,10 +100,11 @@ sealed class SelectBottomSheetGroupBuilder<Id, T : OptionBottomSheetGroup<Id>> {
         id: Id,
         title: String,
         selected: Boolean? = false,
-        itemInit: SelectBottomSheetItemBuilder<Id>.() -> Unit = {}
-    ): OptionBottomSheetItem<Id> {
-        return addItem(selected, item(id, title, itemInit))
-    }
+        itemInit: SelectBottomSheetItemBuilder.() -> Unit = {}
+    ): OptionBottomSheetItem = addItem(
+        selected = selected,
+        item = item(idSerializer.serialize(id), title, itemInit)
+    )
 
     /**
      * Adds an item to this group with the specified arguments.
@@ -120,10 +125,11 @@ sealed class SelectBottomSheetGroupBuilder<Id, T : OptionBottomSheetGroup<Id>> {
         @StringRes
         titleRes: Int,
         selected: Boolean? = false,
-        itemInit: SelectBottomSheetItemBuilder<Id>.() -> Unit = {}
-    ): OptionBottomSheetItem<Id> {
-        return addItem(selected, item(id, context.getString(titleRes), itemInit))
-    }
+        itemInit: SelectBottomSheetItemBuilder.() -> Unit = {}
+    ): OptionBottomSheetItem = addItem(
+        selected = selected,
+        item = item(idSerializer.serialize(id), context.getString(titleRes), itemInit)
+    )
 
     /**
      * Adds the list of items with their selection status.
@@ -141,16 +147,16 @@ sealed class SelectBottomSheetGroupBuilder<Id, T : OptionBottomSheetGroup<Id>> {
      * @see addItem
      */
     open fun addItems(
-        vararg items: Pair<OptionBottomSheetItem<Id>, Boolean>
-    ): List<OptionBottomSheetItem<Id>> = items.map {
+        vararg items: Pair<OptionBottomSheetItem, Boolean>
+    ): List<OptionBottomSheetItem> = items.map {
         addItem(it.second, it.first)
     }
 
     /** Removes the [item] from this group. */
-    abstract fun removeItem(item: OptionBottomSheetItem<Id>)
+    abstract fun removeItem(item: OptionBottomSheetItem)
 
     /** Removes the set of [items] from this group. */
-    open fun removeItems(vararg items: OptionBottomSheetItem<Id>) {
+    open fun removeItems(vararg items: OptionBottomSheetItem) {
         items.forEach(::removeItem)
     }
 

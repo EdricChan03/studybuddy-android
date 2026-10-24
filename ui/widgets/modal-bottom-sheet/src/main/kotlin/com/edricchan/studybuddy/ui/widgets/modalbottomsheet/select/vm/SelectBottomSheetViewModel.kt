@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.vm
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.serialization.saved
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.SelectBottomSheetFragment
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
@@ -13,15 +14,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class SelectBottomSheetViewModel<Id>(
+class SelectBottomSheetViewModel(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val _items: MutableStateFlow<OptionBottomSheetGroup<Id>> =
-        savedStateHandle.getMutableStateFlow(
-            SelectBottomSheetFragment.TAG_ITEMS_DATA,
-            OptionBottomSheetGroup.SingleSelect(listOf())
-        )
-    val items: StateFlow<OptionBottomSheetGroup<Id>> = _items.asStateFlow()
+    private val _items by savedStateHandle.saved(key = SelectBottomSheetFragment.TAG_ITEMS_DATA) {
+        MutableStateFlow<OptionBottomSheetGroup>(OptionBottomSheetGroup.SingleSelect(listOf()))
+    }
+    val items: StateFlow<OptionBottomSheetGroup> = _items.asStateFlow()
 
     val headerTitle: StateFlow<String?> = savedStateHandle.getStateFlow(
         SelectBottomSheetFragment.TAG_HEADER_TITLE,
@@ -33,7 +32,7 @@ class SelectBottomSheetViewModel<Id>(
         false
     )
 
-    fun toggleSelectedItem(item: OptionBottomSheetItem<Id>, isSelected: Boolean) {
+    fun toggleSelectedItem(item: OptionBottomSheetItem, isSelected: Boolean) {
         Log.d("SelectSheetViewModel", "New item to be selected: $item")
         Log.d("SelectSheetViewModel", "Current items: ${items.value}")
         _items.update { items ->

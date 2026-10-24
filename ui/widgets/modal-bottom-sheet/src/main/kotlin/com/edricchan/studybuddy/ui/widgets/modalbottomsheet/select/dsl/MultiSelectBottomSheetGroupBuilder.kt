@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.SelectBottomSheetFragment
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.IdSerializer
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.selectBottomSheet
@@ -20,14 +21,17 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.setSelectShee
  * Consumers should use the relevant [multiSelectGroup] and [multiSelectBottomSheet]
  * methods where appropriate.
  */
-class MultiSelectBottomSheetGroupBuilder<Id> :
-    SelectBottomSheetGroupBuilder<Id, OptionBottomSheetGroup.MultiSelect<Id>>() {
+class MultiSelectBottomSheetGroupBuilder<Id : Any>(
+    idSerializer: IdSerializer<Id>
+) : SelectBottomSheetGroupBuilder<Id, OptionBottomSheetGroup.MultiSelect>(
+    idSerializer = idSerializer
+) {
     val selectedIndices = mutableSetOf<Int>()
 
     override fun addItem(
         selected: Boolean?,
-        item: OptionBottomSheetItem<Id>
-    ): OptionBottomSheetItem<Id> {
+        item: OptionBottomSheetItem
+    ): OptionBottomSheetItem {
         items += item
 
         val index = items.indexOf(item)
@@ -38,7 +42,7 @@ class MultiSelectBottomSheetGroupBuilder<Id> :
     }
 
     override fun removeItem(
-        item: OptionBottomSheetItem<Id>
+        item: OptionBottomSheetItem
     ) {
         val index = items.indexOf(item)
         selectedIndices -= index
@@ -46,8 +50,8 @@ class MultiSelectBottomSheetGroupBuilder<Id> :
         items -= item
     }
 
-    override fun build(): OptionBottomSheetGroup.MultiSelect<Id> =
-        OptionBottomSheetGroup.MultiSelect<Id>(
+    override fun build(): OptionBottomSheetGroup.MultiSelect =
+        OptionBottomSheetGroup.MultiSelect(
             items = items.toList(),
             enabled = enabled,
             selectedIndices = selectedIndices.toSet()
@@ -55,8 +59,9 @@ class MultiSelectBottomSheetGroupBuilder<Id> :
 }
 
 /**
- * Shows a [com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.SelectBottomSheetFragment] set to **multi**-selection mode with
- * the specified options, bound to the receiver [androidx.fragment.app.Fragment]'s [androidx.fragment.app.Fragment.getParentFragmentManager].
+ * Shows a [SelectBottomSheetFragment] set to **multi**-selection mode with
+ * the specified options, bound to the receiver [androidx.fragment.app.Fragment]'s
+ * [androidx.fragment.app.Fragment.getParentFragmentManager].
  *
  * Use [showSingleSelectBottomSheet] instead if single-selection is desired.
  * @param headerTitle Header title to be displayed at the top of the bottom sheet.
@@ -75,13 +80,15 @@ class MultiSelectBottomSheetGroupBuilder<Id> :
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> Fragment.showMultiSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = viewLifecycleOwner,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<Id>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit
 ) = parentFragmentManager.showMultiSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
     lifecycleOwner = lifecycleOwner,
@@ -91,9 +98,8 @@ inline fun <Id : Any> Fragment.showMultiSelectBottomSheet(
 )
 
 /**
- * Shows a [com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.SelectBottomSheetFragment] set to **multi**-selection mode with
- * the specified options, bound to the receiver [Fragment]'s
- * [Fragment.getParentFragmentManager].
+ * Shows a [SelectBottomSheetFragment] set to **multi**-selection mode with the specified options,
+ * bound to the receiver [Fragment]'s [Fragment.getParentFragmentManager].
  *
  * Use [showSingleSelectBottomSheet] instead if single-selection is desired.
  *
@@ -115,19 +121,21 @@ inline fun <Id : Any> Fragment.showMultiSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> Fragment.showMultiSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     @StringRes headerTitleRes: Int,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = viewLifecycleOwner,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<Id>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit
 ) = parentFragmentManager.showMultiSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = getString(headerTitleRes),
     hideDragHandle = hideDragHandle,
     lifecycleOwner = lifecycleOwner,
     onConfirm = onConfirm,
     onCanceled = onCanceled,
-    groupInit = groupInit
+    groupInit = groupInit,
 )
 
 /**
@@ -152,19 +160,21 @@ inline fun <Id : Any> Fragment.showMultiSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> FragmentActivity.showMultiSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = this,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<Id>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit
 ) = supportFragmentManager.showMultiSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
     lifecycleOwner = lifecycleOwner,
     onConfirm = onConfirm,
     onCanceled = onCanceled,
-    groupInit = groupInit
+    groupInit = groupInit,
 )
 
 /**
@@ -192,19 +202,21 @@ inline fun <Id : Any> FragmentActivity.showMultiSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> FragmentActivity.showMultiSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     @StringRes headerTitleRes: Int,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = this,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<Id>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit
 ) = supportFragmentManager.showMultiSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = getString(headerTitleRes),
     hideDragHandle = hideDragHandle,
     lifecycleOwner = lifecycleOwner,
     onConfirm = onConfirm,
     onCanceled = onCanceled,
-    groupInit = groupInit
+    groupInit = groupInit,
 )
 
 /**
@@ -228,13 +240,15 @@ inline fun <Id : Any> FragmentActivity.showMultiSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> FragmentManager.showMultiSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<Id>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
-    groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit
+    groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit,
 ) = multiSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
     groupInit = groupInit
@@ -258,18 +272,19 @@ inline fun <Id : Any> FragmentManager.showMultiSelectBottomSheet(
  * to be used.
  */
 inline fun <Id : Any> multiSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
-    groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): SelectBottomSheetFragment<Id> = selectBottomSheet(
+    groupInit: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit,
+): SelectBottomSheetFragment = selectBottomSheet(
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
-    items = multiSelectGroup(groupInit)
+    items = multiSelectGroup(idSerializer = idSerializer, init = groupInit)
 )
 
 /** Adds the existing [group]'s items to the receiver [MultiSelectBottomSheetGroupBuilder]. */
-fun <Id> MultiSelectBottomSheetGroupBuilder<Id>.addItems(
-    group: OptionBottomSheetGroup.MultiSelect<Id>
+fun MultiSelectBottomSheetGroupBuilder<*>.addItems(
+    group: OptionBottomSheetGroup.MultiSelect
 ) {
     group.forEach {
         addItem(group.isChecked(it), it)
@@ -277,7 +292,8 @@ fun <Id> MultiSelectBottomSheetGroupBuilder<Id>.addItems(
 }
 
 /** Creates a [OptionBottomSheetGroup.MultiSelect] using the specified [init] options. */
-inline fun <Id> multiSelectGroup(
+inline fun <Id : Any> multiSelectGroup(
+    idSerializer: IdSerializer<Id>,
     init: MultiSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): OptionBottomSheetGroup.MultiSelect<Id> =
-    MultiSelectBottomSheetGroupBuilder<Id>().apply(init).build()
+): OptionBottomSheetGroup.MultiSelect =
+    MultiSelectBottomSheetGroupBuilder(idSerializer = idSerializer).apply(init).build()

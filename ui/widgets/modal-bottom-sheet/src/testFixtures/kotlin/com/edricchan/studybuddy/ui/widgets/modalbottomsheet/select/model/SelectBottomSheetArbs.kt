@@ -9,12 +9,12 @@ import io.kotest.property.arbitrary.orNull
 import io.kotest.property.arbitrary.set
 import io.kotest.property.arbitrary.string
 
-fun <Id> Arb.Companion.optionBottomSheetItem(
-    idArb: Arb<Id>,
+fun Arb.Companion.optionBottomSheetItem(
+    idArb: Arb<String>,
     titleArb: Arb<String> = Arb.string(),
     iconArb: Arb<Int?> = Arb.int().orNull(),
     enabledArb: Arb<Boolean> = Arb.boolean()
-): Arb<OptionBottomSheetItem<Id>> = arbitrary {
+): Arb<OptionBottomSheetItem> = arbitrary {
     OptionBottomSheetItem(
         id = idArb.bind(),
         title = titleArb.bind(),
@@ -23,21 +23,21 @@ fun <Id> Arb.Companion.optionBottomSheetItem(
     )
 }
 
-fun <Id> Arb.Companion.multiSelectGroup(
-    itemsArb: Arb<Map<OptionBottomSheetItem<Id>, Boolean>>,
+fun Arb.Companion.multiSelectGroup(
+    itemsArb: Arb<Map<OptionBottomSheetItem, Boolean>>,
     enabledArb: Arb<Boolean> = Arb.boolean()
-): Arb<OptionBottomSheetGroup.MultiSelect<Id>> = arbitrary {
+): Arb<OptionBottomSheetGroup.MultiSelect> = arbitrary {
     OptionBottomSheetGroup.MultiSelect(
         itemsSelectionMap = itemsArb.bind(),
         enabled = enabledArb.bind()
     )
 }
 
-fun <Id> Arb.Companion.multiSelectGroup(
-    itemsArb: Arb<List<OptionBottomSheetItem<Id>>>,
+fun Arb.Companion.multiSelectGroup(
+    itemsArb: Arb<List<OptionBottomSheetItem>>,
     selectedIndicesArb: Arb<Set<Int>> = Arb.set(Arb.int()),
     enabledArb: Arb<Boolean> = Arb.boolean()
-): Arb<OptionBottomSheetGroup.MultiSelect<Id>> = arbitrary {
+): Arb<OptionBottomSheetGroup.MultiSelect> = arbitrary {
     OptionBottomSheetGroup.MultiSelect(
         items = itemsArb.bind(),
         selectedIndices = selectedIndicesArb.bind(),
@@ -45,11 +45,11 @@ fun <Id> Arb.Companion.multiSelectGroup(
     )
 }
 
-fun <Id> Arb.Companion.singleSelectGroup(
-    itemsArb: Arb<List<OptionBottomSheetItem<Id>>>,
+fun Arb.Companion.singleSelectGroup(
+    itemsArb: Arb<List<OptionBottomSheetItem>>,
     enabledArb: Arb<Boolean> = Arb.boolean(),
     selectedIndexArb: Arb<Int?> = Arb.int().orNull()
-): Arb<OptionBottomSheetGroup.SingleSelect<Id>> = arbitrary {
+): Arb<OptionBottomSheetGroup.SingleSelect> = arbitrary {
     OptionBottomSheetGroup.SingleSelect(
         items = itemsArb.bind(),
         enabled = enabledArb.bind(),
@@ -57,12 +57,12 @@ fun <Id> Arb.Companion.singleSelectGroup(
     )
 }
 
-fun <Id> Arb.Companion.singleSelectGroup(
-    itemIdArb: Arb<Id>,
-    itemsArb: Arb<List<OptionBottomSheetItem<Id>>> = Arb.list(Arb.optionBottomSheetItem(idArb = itemIdArb)),
+fun Arb.Companion.singleSelectGroup(
+    itemIdArb: Arb<String>,
+    itemsArb: Arb<List<OptionBottomSheetItem>> = Arb.list(Arb.optionBottomSheetItem(idArb = itemIdArb)),
     enabledArb: Arb<Boolean> = Arb.boolean(),
     selectedIndexArb: Arb<Int?> = Arb.int().orNull()
-): Arb<OptionBottomSheetGroup.SingleSelect<Id>> = arbitrary {
+): Arb<OptionBottomSheetGroup.SingleSelect> = arbitrary {
     OptionBottomSheetGroup.SingleSelect(
         items = itemsArb.bind(),
         enabled = enabledArb.bind(),

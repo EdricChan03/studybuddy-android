@@ -7,24 +7,24 @@ import androidx.lifecycle.LifecycleOwner
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
 
-inline fun <Id : Any> selectBottomSheet(
+inline fun selectBottomSheet(
     headerTitle: String,
     hideDragHandle: Boolean = false,
-    items: OptionBottomSheetGroup<Id>
-): SelectBottomSheetFragment<Id> = SelectBottomSheetFragment.newInstance(
+    items: OptionBottomSheetGroup
+): SelectBottomSheetFragment = SelectBottomSheetFragment.newInstance(
     items, headerTitle, hideDragHandle
 )
 
-inline fun <Id : Any> FragmentManager.setSelectSheetFragmentResultListeners(
+inline fun FragmentManager.setSelectSheetFragmentResultListeners(
     lifecycleOwner: LifecycleOwner,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<Id>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {}
 ) {
     setFragmentResultListener(
         SelectBottomSheetFragment.RESULT_KEY,
         lifecycleOwner
     ) { _, bundle ->
-        val result = SelectBottomSheetFragment.FragmentResult.fromBundle<Id>(bundle)
+        val result = SelectBottomSheetFragment.FragmentResult.fromBundle(bundle)
             ?: return@setFragmentResultListener
 
         if (result.isCanceled) {
@@ -38,28 +38,28 @@ inline fun <Id : Any> FragmentManager.setSelectSheetFragmentResultListeners(
     }
 }
 
-inline fun <Id : Any> FragmentManager.showSelectionBottomSheet(
+inline fun FragmentManager.showSelectionBottomSheet(
     headerTitle: String,
     hideDragHandle: Boolean = false,
-    items: OptionBottomSheetGroup<Id>,
+    items: OptionBottomSheetGroup,
     lifecycleOwner: LifecycleOwner,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<*>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {}
-): SelectBottomSheetFragment<Id> = selectBottomSheet(headerTitle, hideDragHandle, items).apply {
+): SelectBottomSheetFragment = selectBottomSheet(headerTitle, hideDragHandle, items).apply {
     show(this@showSelectionBottomSheet, tag)
-    setSelectSheetFragmentResultListeners<Id>(
+    setSelectSheetFragmentResultListeners(
         lifecycleOwner = lifecycleOwner,
         onConfirm = onConfirm,
         onCanceled = onCanceled
     )
 }
 
-inline fun <Id : Any> Fragment.showSelectionBottomSheet(
+inline fun Fragment.showSelectionBottomSheet(
     headerTitle: String,
     hideDragHandle: Boolean = false,
-    items: OptionBottomSheetGroup<Id>,
+    items: OptionBottomSheetGroup,
     lifecycleOwner: LifecycleOwner = viewLifecycleOwner,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<*>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {}
 ) = parentFragmentManager.showSelectionBottomSheet(
     headerTitle = headerTitle,
@@ -70,12 +70,12 @@ inline fun <Id : Any> Fragment.showSelectionBottomSheet(
     onCanceled = onCanceled
 )
 
-inline fun <Id : Any> FragmentActivity.showSelectionBottomSheet(
+inline fun FragmentActivity.showSelectionBottomSheet(
     headerTitle: String,
     hideDragHandle: Boolean = false,
-    items: OptionBottomSheetGroup<Id>,
+    items: OptionBottomSheetGroup,
     lifecycleOwner: LifecycleOwner = this,
-    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem<*>>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit = {},
     crossinline onCanceled: () -> Unit = {}
 ) = supportFragmentManager.showSelectionBottomSheet(
     headerTitle = headerTitle,

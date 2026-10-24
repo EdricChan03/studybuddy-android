@@ -2,6 +2,7 @@ plugins {
     // Compose interop for selection bottom sheet
     com.edricchan.studybuddy.library.`android-compose`
     com.edricchan.studybuddy.library.`android-hilt`
+    com.edricchan.studybuddy.library.`kotlinx-serialization`
     com.edricchan.studybuddy.library.testing.`kotest-junit5`
     `kotlin-parcelize`
 }
@@ -11,6 +12,7 @@ android {
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = "com.edricchan.studybuddy.core.di.testing.DaggerTestRunner"
     }
 
     buildTypes {
@@ -51,6 +53,7 @@ dependencies {
     api(libs.androidx.fragment.ktx)
     api(libs.androidx.lifecycle.viewmodel.savedstate)
     api(libs.androidx.recyclerview.core)
+    api(libs.androidx.savedstate.ktx)
     api(libs.materialComponents)
     implementation(libs.androidx.core.ktx)
 
@@ -78,6 +81,14 @@ dependencies {
     // Compose rule support
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // Hilt testing support
+    androidTestImplementation(projects.core.di)
+    androidTestImplementation(projects.core.di.testing)
+    androidTestImplementation(testFixtures(projects.core.settings.appearance.datastore))
+    androidTestImplementation(projects.ui.theming.views)
+    androidTestImplementation(libs.dagger.hilt.android.testing)
+    kspAndroidTest(libs.dagger.hilt.compiler)
 
     testFixturesApi(libs.kotlin.test)
     testFixturesApi(libs.kotest.assertion.core)

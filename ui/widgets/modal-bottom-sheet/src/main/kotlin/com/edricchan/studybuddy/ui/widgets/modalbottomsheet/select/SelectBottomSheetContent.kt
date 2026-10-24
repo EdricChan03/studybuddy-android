@@ -37,9 +37,9 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionB
 // TODO: Move to compose module
 
 @Composable
-private fun <Id> CheckboxBottomSheetItem(
+private fun CheckboxBottomSheetItem(
     modifier: Modifier = Modifier,
-    item: OptionBottomSheetItem<Id>,
+    item: OptionBottomSheetItem,
     shapes: ListItemShapes,
     isSelected: Boolean,
     enabled: Boolean,
@@ -61,9 +61,9 @@ private fun <Id> CheckboxBottomSheetItem(
 )
 
 @Composable
-private fun <Id> RadioBottomSheetItem(
+private fun RadioBottomSheetItem(
     modifier: Modifier = Modifier,
-    item: OptionBottomSheetItem<Id>,
+    item: OptionBottomSheetItem,
     shapes: ListItemShapes,
     isSelected: Boolean,
     enabled: Boolean,
@@ -122,13 +122,13 @@ private fun SelectBottomSheetHeaderText(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Id : Any> SelectBottomSheetContent(
+fun SelectBottomSheetContent(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp),
     headerTitle: String?,
     hideDragHandle: Boolean = false,
-    itemsList: OptionBottomSheetGroup<Id>,
-    onItemClick: (item: OptionBottomSheetItem<Id>, isSelected: Boolean) -> Unit,
+    itemsList: OptionBottomSheetGroup,
+    onItemClick: (item: OptionBottomSheetItem, isSelected: Boolean) -> Unit,
     onCancelClick: () -> Unit,
     onConfirmClick: () -> Unit,
     confirmEnabled: Boolean

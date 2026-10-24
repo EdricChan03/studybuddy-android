@@ -1,18 +1,25 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select
 
 import android.content.Context
-import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.fragment.app.testing.EmptyFragmentActivity
-import androidx.fragment.app.testing.launchFragment
-import androidx.fragment.app.testing.withFragment
 import androidx.test.core.app.launchActivity
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.edricchan.studybuddy.core.di.testing.HiltTestActivity
+import com.edricchan.studybuddy.core.di.testing.fragment.launchHiltFragment
+import com.edricchan.studybuddy.core.di.testing.fragment.launchHiltFragmentInContainer
+import com.edricchan.studybuddy.core.settings.appearance.di.AppearanceSettingsModule
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.singleSelectGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.intIdSerializer
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.serializedIdOrNull
+import com.google.android.material.R
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Rule
@@ -23,9 +30,16 @@ import kotlin.test.assertTrue
 
 // TODO: This needs moar tests. Moooaaaarrr!
 @MediumTest
+@HiltAndroidTest
+@UninstallModules(
+    value = [AppearanceSettingsModule::class]
+)
 class SingleSelectBottomSheetFragmentTest {
-    @get:Rule
-    val composeTestRule = createEmptyComposeRule()
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val composeTestRule = createAndroidComposeRule<HiltTestActivity>()
 
     private lateinit var targetContext: Context
 
@@ -42,17 +56,17 @@ class SingleSelectBottomSheetFragmentTest {
 
     @Test
     fun singleFragment_creates() {
-        launchFragment<SelectBottomSheetFragment<Any>>(
-            fragmentArgs = SelectBottomSheetFragment.getArguments<Any>(
-                itemsData = singleSelectGroup {},
+        launchHiltFragment<SelectBottomSheetFragment>(
+            fragmentArgs = SelectBottomSheetFragment.getArguments(
+                itemsData = singleSelectGroup(
+                    idSerializer = intIdSerializer()
+                ) {},
                 headerTitle = "Select something"
             ),
-            themeResId = com.google.android.material.R.style.Theme_Material3_DayNight
-        ).use { scenario ->
-            scenario.withFragment {
-                assertNotNull(dialog) {
-                    assertTrue(it.isShowing)
-                }
+            themeResId = R.style.Theme_Material3_DayNight,
+        ) {
+            assertNotNull(dialog) {
+                assertTrue(it.isShowing)
             }
         }
     }
@@ -61,15 +75,17 @@ class SingleSelectBottomSheetFragmentTest {
     fun singleFragment_confirm() {
         val title1 = "Unselected item"
         val title2 = "Selected item"
-        launchFragment<SelectBottomSheetFragment<Any>>(
+        launchHiltFragmentInContainer<SelectBottomSheetFragment>(
             fragmentArgs = SelectBottomSheetFragment.getArguments(
-                itemsData = singleSelectGroup {
+                itemsData = singleSelectGroup(
+                    idSerializer = intIdSerializer()
+                ) {
                     addItem(1, title1, false)
                     addItem(2, title2, true)
                 },
                 headerTitle = "Select something"
             )
-        ).use {
+        ) {
             with(composeTestRule) {
                 with(onNodeWithText(confirmStr)) {
                     assertExists()
@@ -87,12 +103,15 @@ class SingleSelectBottomSheetFragmentTest {
     @Test
     fun singleFragment_resultConfirm() {
         val onCanceled: () -> Unit = mockk(relaxed = true)
-        val onConfirm: (selectedItems: OptionBottomSheetItem<Int>) -> Unit = mockk(relaxed = true)
+        val onConfirm: (selectedItems: OptionBottomSheetItem) -> Unit = mockk(relaxed = true)
 
-        launchActivity<EmptyFragmentActivity>().use { scenario ->
+        val idSerializer = intIdSerializer()
+
+        launchActivity<HiltTestActivity>().use { scenario ->
             scenario.onActivity { activity ->
                 activity.showSingleSelectBottomSheet(
-                    "Select something",
+                    idSerializer = idSerializer,
+                    headerTitle = "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm
                 ) {
@@ -117,19 +136,22 @@ class SingleSelectBottomSheetFragmentTest {
             }
 
             verify(exactly = 0) { onCanceled() }
-            verify(exactly = 1) { onConfirm(match { it.id == 2 }) }
+            with(idSerializer) {
+                verify(exactly = 1) { onConfirm(match { it.serializedIdOrNull() == 2 }) }
+            }
         }
     }
 
     @Test
     fun singleFragment_resultCancel() {
         val onCanceled: () -> Unit = mockk(relaxed = true)
-        val onConfirm: (selectedItems: OptionBottomSheetItem<*>) -> Unit = mockk(relaxed = true)
+        val onConfirm: (selectedItems: OptionBottomSheetItem) -> Unit = mockk(relaxed = true)
 
-        launchActivity<EmptyFragmentActivity>().use { scenario ->
+        launchActivity<HiltTestActivity>().use { scenario ->
             scenario.onActivity { activity ->
                 activity.showSingleSelectBottomSheet(
-                    "Select something",
+                    idSerializer = intIdSerializer(),
+                    headerTitle = "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm
                 ) {

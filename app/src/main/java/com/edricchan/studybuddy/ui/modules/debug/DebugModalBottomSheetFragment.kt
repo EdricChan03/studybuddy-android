@@ -43,6 +43,8 @@ import com.edricchan.studybuddy.exts.android.showToast
 import com.edricchan.studybuddy.ui.common.fragment.ComposableFragment
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showSingleSelectBottomSheet
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.intIdSerializer
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.serializedIdOrNull
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.ModalBottomSheetAdapter
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.interfaces.ModalBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.views.showModalBottomSheet
@@ -351,7 +353,8 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
     }
 
     private fun showMultiSelect() {
-        showMultiSelectBottomSheet<Int>(
+        showMultiSelectBottomSheet(
+            idSerializer = intIdSerializer(),
             headerTitle = "Select something",
             onCanceled = {
                 showSnackbar(
@@ -361,7 +364,7 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
             },
             onConfirm = { items ->
                 showSnackbar(
-                    "Items ${items.joinToString { it.id.toString() }} selected",
+                    "Items ${items.joinToString { it.id }} selected",
                     SnackbarDuration.Long
                 )
             }
@@ -385,7 +388,8 @@ class DebugModalBottomSheetFragment : ComposableFragment() {
     }
 
     private fun showSingleSelect() {
-        showSingleSelectBottomSheet<Int>(
+        showSingleSelectBottomSheet(
+            idSerializer = intIdSerializer(),
             headerTitle = "Select something",
             onCanceled = {
                 showSnackbar(

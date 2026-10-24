@@ -2,7 +2,6 @@ package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select
 
 import android.app.Dialog
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,13 @@ import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
-import androidx.core.os.BundleCompat
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.savedstate.savedState
+import androidx.savedstate.serialization.decodeFromSavedState
+import androidx.savedstate.serialization.encodeToSavedState
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.edricchan.studybuddy.ui.theming.common.AppearancePreferences
 import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
@@ -27,7 +28,7 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.vm.SelectBott
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 import javax.inject.Inject
 
 /**
@@ -38,11 +39,11 @@ import javax.inject.Inject
  * of this class.
  */
 @AndroidEntryPoint
-class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
+class SelectBottomSheetFragment : BottomSheetDialogFragment() {
     @Inject
     lateinit var appearancePreferences: AppearancePreferences
 
-    private val viewModel by viewModels<SelectBottomSheetViewModel<Id>>()
+    private val viewModel by viewModels<SelectBottomSheetViewModel>()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
@@ -71,7 +72,7 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
 
     private fun dismissWithResult(
         isCanceled: Boolean,
-        selectedItems: Set<OptionBottomSheetItem<Id>>? = null
+        selectedItems: Set<OptionBottomSheetItem>? = null
     ) {
         setFragmentResult(
             requestKey = RESULT_KEY,
@@ -99,7 +100,7 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val parentLayout =
-            (dialog as BottomSheetDialog).findViewById<ViewGroup>(com.google.android.material.R.id.design_bottom_sheet)
+            (dialog as? BottomSheetDialog)?.findViewById<ViewGroup>(com.google.android.material.R.id.design_bottom_sheet)
         parentLayout?.apply {
             // Clip the background such that the corners are rounded
             outlineProvider = ViewOutlineProvider.BACKGROUND
@@ -125,28 +126,26 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
          * @param headerTitle The bottom sheet's header title.
          * @param hideDragHandle Whether the bottom sheet's drag handle should be hidden.
          */
-        fun <Id : Any> newInstance(
-            itemsData: OptionBottomSheetGroup<*>,
+        fun newInstance(
+            itemsData: OptionBottomSheetGroup,
             headerTitle: String,
             hideDragHandle: Boolean = false
-        ): SelectBottomSheetFragment<Id> = SelectBottomSheetFragment<Id>().apply {
+        ): SelectBottomSheetFragment = SelectBottomSheetFragment().apply {
             arguments = getArguments(itemsData, headerTitle, hideDragHandle)
         }
 
         @VisibleForTesting
-        fun <Id> getArguments(
-            itemsData: OptionBottomSheetGroup<Id>,
+        fun getArguments(
+            itemsData: OptionBottomSheetGroup,
             headerTitle: String,
             hideDragHandle: Boolean = false
-        ) = Bundle().apply {
-            putParcelable(TAG_ITEMS_DATA, itemsData)
+        ) = savedState {
+            putSavedState(TAG_ITEMS_DATA, encodeToSavedState(itemsData))
             putString(TAG_HEADER_TITLE, headerTitle)
             putBoolean(TAG_HIDE_DRAG_HANDLE, hideDragHandle)
         }
 
         const val RESULT_KEY = "select-sheet:result"
-
-        const val RESULT_DATA_KEY = "select-sheet:result-data"
     }
 
     /**
@@ -156,21 +155,17 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
      * @property selectedItems The set of selected items, or a single item if
      * [OptionBottomSheetGroup.SingleSelect] was used.
      */
-    @Parcelize
-    data class FragmentResult<Id>(
+    @Serializable
+    data class FragmentResult(
         val isCanceled: Boolean,
-        val selectedItems: Set<OptionBottomSheetItem<Id>>? = null
-    ) : Parcelable {
-        fun toBundle() = Bundle().apply { putParcelable(RESULT_DATA_KEY, this@FragmentResult) }
+        val selectedItems: Set<OptionBottomSheetItem>? = null
+    ) {
+        fun toBundle(): androidx.savedstate.SavedState = encodeToSavedState(this)
 
         companion object {
-            @Suppress("UNCHECKED_CAST")
-            fun <Id> fromBundle(bundle: Bundle): FragmentResult<Id>? =
-                BundleCompat.getParcelable(
-                    bundle,
-                    RESULT_DATA_KEY,
-                    FragmentResult::class.java
-                ) as? FragmentResult<Id>
+            fun fromBundle(bundle: Bundle): FragmentResult? = decodeFromSavedState(
+                savedState = bundle
+            )
         }
     }
 
@@ -178,6 +173,6 @@ class SelectBottomSheetFragment<Id : Any> : BottomSheetDialogFragment() {
      * Gets the single selected item, or null if no item was selected.
      * @see Iterable.single
      */
-    val <Id> FragmentResult<Id>.selectedItem: OptionBottomSheetItem<Id>?
+    val FragmentResult.selectedItem: OptionBottomSheetItem?
         get() = selectedItems?.single()
 }

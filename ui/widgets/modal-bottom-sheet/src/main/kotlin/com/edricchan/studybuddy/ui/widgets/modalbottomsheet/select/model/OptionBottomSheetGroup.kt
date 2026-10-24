@@ -1,9 +1,8 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model
 
-import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 // TODO: Move to common bottom-sheet module
 /**
@@ -14,15 +13,15 @@ import kotlinx.parcelize.Parcelize
  * @property enabled Whether this group's items are selectable.
  * @property checkableBehavior [CheckableBehavior] for this group.
  */
-@Parcelize
+@Serializable
 @Immutable
-sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheetItem<Id>> {
-    val items: List<OptionBottomSheetItem<Id>>
+sealed interface OptionBottomSheetGroup : List<OptionBottomSheetItem> {
+    val items: List<OptionBottomSheetItem>
     val enabled: Boolean
     val checkableBehavior: CheckableBehavior
 
     /** Whether the specified [item] has been marked as selected in this group. */
-    fun isChecked(item: OptionBottomSheetItem<Id>): Boolean
+    fun isChecked(item: OptionBottomSheetItem): Boolean
 
     @IgnoredOnParcel
         /** Whether any items have been selected. */
@@ -33,13 +32,13 @@ sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheet
      * i.e. only one item can be selected, typically represented by a selected radio button.
      * @property selectedIndex Selected index, if any, which should be an existing index in [items].
      */
-    @Parcelize
+    @Serializable
     @Immutable
-    data class SingleSelect<Id>(
-        override val items: List<OptionBottomSheetItem<Id>>,
+    data class SingleSelect(
+        override val items: List<OptionBottomSheetItem>,
         override val enabled: Boolean = true,
         val selectedIndex: Int? = null
-    ) : OptionBottomSheetGroup<Id>, List<OptionBottomSheetItem<Id>> by items {
+    ) : OptionBottomSheetGroup, List<OptionBottomSheetItem> by items {
         /** Indicates that this group supports [CheckableBehavior.Single] selection. */
         @IgnoredOnParcel
         override val checkableBehavior: CheckableBehavior = CheckableBehavior.Single
@@ -50,7 +49,7 @@ sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheet
         /** Retrieves the selected item of this group, or `null` if no selection was made. */
         val selectedItem get() = selectedIndex?.let { items[it] }
 
-        override fun isChecked(item: OptionBottomSheetItem<Id>): Boolean {
+        override fun isChecked(item: OptionBottomSheetItem): Boolean {
             // Don't perform a lookup if no index was set in the first place
             if (selectedIndex == null) return false
 
@@ -64,15 +63,15 @@ sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheet
      * @property selectedIndices The [Set] of selected indices, if any. Each index in this set
      * should exist in [items].
      */
-    @Parcelize
+    @Serializable
     @Immutable
-    data class MultiSelect<Id>(
-        override val items: List<OptionBottomSheetItem<Id>>,
+    data class MultiSelect(
+        override val items: List<OptionBottomSheetItem>,
         override val enabled: Boolean = true,
         val selectedIndices: Set<Int> = setOf()
-    ) : OptionBottomSheetGroup<Id>, List<OptionBottomSheetItem<Id>> by items {
+    ) : OptionBottomSheetGroup, List<OptionBottomSheetItem> by items {
         constructor(
-            itemsSelectionMap: Map<OptionBottomSheetItem<Id>, Boolean>,
+            itemsSelectionMap: Map<OptionBottomSheetItem, Boolean>,
             enabled: Boolean = true
         ) : this(
             items = itemsSelectionMap.keys.toList(),
@@ -90,29 +89,36 @@ sealed interface OptionBottomSheetGroup<Id> : Parcelable, List<OptionBottomSheet
         override val hasSelection: Boolean = selectedItems.isNotEmpty()
 
         /** Retrieves the [Set] of selected items of this group. */
-        val selectedItems: Set<OptionBottomSheetItem<Id>>
+        val selectedItems: Set<OptionBottomSheetItem>
             get() = items.filterIndexed { index, _ -> index in selectedIndices }
                 .toSet()
 
-        override fun isChecked(item: OptionBottomSheetItem<Id>): Boolean = item in selectedItems
+        override fun isChecked(item: OptionBottomSheetItem): Boolean = item in selectedItems
     }
 }
 
 // For copy extension function
-private val <Id> OptionBottomSheetGroup<Id>.selectedIndices: Set<Int>
+private val OptionBottomSheetGroup.selectedIndices: Set<Int>
     get() = when (this) {
         is OptionBottomSheetGroup.SingleSelect -> setOfNotNull(selectedIndex)
         is OptionBottomSheetGroup.MultiSelect -> selectedIndices
+    }
+
+// For copy extension function
+private val OptionBottomSheetGroup.selectedIndex: Int?
+    get() = when (this) {
+        is OptionBottomSheetGroup.SingleSelect -> selectedIndex
+        is OptionBottomSheetGroup.MultiSelect -> selectedIndices.firstOrNull()
     }
 
 /**
  * Creates a copy of the receiver [OptionBottomSheetGroup.MultiSelect]
  * with the specified [item] toggled.
  */
-fun <Id> OptionBottomSheetGroup.MultiSelect<Id>.toggleSelectedItem(
-    item: OptionBottomSheetItem<Id>,
+fun OptionBottomSheetGroup.MultiSelect.toggleSelectedItem(
+    item: OptionBottomSheetItem,
     isSelected: Boolean
-): OptionBottomSheetGroup.MultiSelect<Id> {
+): OptionBottomSheetGroup.MultiSelect {
     require(item in items) { "Specified item does not exist in this group's items" }
     val isChecked = isChecked(item)
     // Nothing to do if the item was not selected in the first place
@@ -128,8 +134,8 @@ fun <Id> OptionBottomSheetGroup.MultiSelect<Id>.toggleSelectedItem(
  * Creates a copy of the receiver [OptionBottomSheetGroup.SingleSelect]
  * with the specified [item] selected.
  */
-fun <Id> OptionBottomSheetGroup.SingleSelect<Id>.withSelectedItem(
-    item: OptionBottomSheetItem<Id>
+fun OptionBottomSheetGroup.SingleSelect.withSelectedItem(
+    item: OptionBottomSheetItem
 ) = copy(
     selectedIndex = items.indexOf(item)
 )
@@ -146,18 +152,18 @@ fun <Id> OptionBottomSheetGroup.SingleSelect<Id>.withSelectedItem(
  * which will be passed to [OptionBottomSheetGroup.SingleSelect.selectedIndex].)
  */
 @JvmName("copyWithIndices")
-fun <Id> OptionBottomSheetGroup<Id>.copy(
-    items: List<OptionBottomSheetItem<Id>> = this.items,
+fun OptionBottomSheetGroup.copy(
+    items: List<OptionBottomSheetItem> = this.items,
     enabled: Boolean = this.enabled,
     selectedIndices: Set<Int> = this.selectedIndices
-): OptionBottomSheetGroup<Id> = when (this) {
-    is OptionBottomSheetGroup.SingleSelect<Id> -> copy(
+): OptionBottomSheetGroup = when (this) {
+    is OptionBottomSheetGroup.SingleSelect -> copy(
         items = items,
         enabled = enabled,
         selectedIndex = selectedIndices.single()
     )
 
-    is OptionBottomSheetGroup.MultiSelect<Id> -> copy(
+    is OptionBottomSheetGroup.MultiSelect -> copy(
         items = items,
         enabled = enabled,
         selectedIndices = selectedIndices
@@ -175,18 +181,18 @@ fun <Id> OptionBottomSheetGroup<Id>.copy(
  * [OptionBottomSheetGroup.MultiSelect.selectedIndices], or the original value will
  * be used.)
  */
-fun <Id> OptionBottomSheetGroup<Id>.copy(
-    items: List<OptionBottomSheetItem<Id>> = this.items,
+fun OptionBottomSheetGroup.copy(
+    items: List<OptionBottomSheetItem> = this.items,
     enabled: Boolean = this.enabled,
-    selectedIndex: Int? = null
-): OptionBottomSheetGroup<Id> = when (this) {
-    is OptionBottomSheetGroup.SingleSelect<Id> -> copy(
+    selectedIndex: Int? = this.selectedIndex
+): OptionBottomSheetGroup = when (this) {
+    is OptionBottomSheetGroup.SingleSelect -> copy(
         items = items,
         enabled = enabled,
         selectedIndex = selectedIndex
     )
 
-    is OptionBottomSheetGroup.MultiSelect<Id> -> copy(
+    is OptionBottomSheetGroup.MultiSelect -> copy(
         items = items,
         enabled = enabled,
         selectedIndices = selectedIndex?.let { selectedIndices + it } ?: selectedIndices
@@ -204,11 +210,11 @@ fun <Id> OptionBottomSheetGroup<Id>.copy(
  * [selectedItems] is assumed to **only** contain a single item with [Iterable.single],
  * which will be passed to [OptionBottomSheetGroup.SingleSelect.selectedIndex].)
  */
-fun <Id> OptionBottomSheetGroup<Id>.copy(
-    items: List<OptionBottomSheetItem<Id>> = this.items,
+fun OptionBottomSheetGroup.copy(
+    items: List<OptionBottomSheetItem> = this.items,
     enabled: Boolean = this.enabled,
-    selectedItems: Set<OptionBottomSheetItem<Id>> = setOf()
-): OptionBottomSheetGroup<Id> = copy(
+    selectedItems: Set<OptionBottomSheetItem> = this.selectedItems
+): OptionBottomSheetGroup = copy(
     items = items,
     enabled = enabled,
     selectedIndices = items.withIndex()
@@ -227,17 +233,17 @@ fun <Id> OptionBottomSheetGroup<Id>.copy(
  * [OptionBottomSheetGroup.MultiSelect.selectedIndices], or the original value will
  * be used.)
  */
-fun <Id> OptionBottomSheetGroup<Id>.copy(
-    items: List<OptionBottomSheetItem<Id>> = this.items,
+fun OptionBottomSheetGroup.copy(
+    items: List<OptionBottomSheetItem> = this.items,
     enabled: Boolean = this.enabled,
-    selectedItem: OptionBottomSheetItem<Id>? = null
-): OptionBottomSheetGroup<Id> = copy(
+    selectedItem: OptionBottomSheetItem? = this.selectedItem
+): OptionBottomSheetGroup = copy(
     items = items,
     enabled = enabled,
     selectedIndices =
-        if (this is OptionBottomSheetGroup.MultiSelect<Id>) selectedIndices else setOf<Int>()
+        if (this is OptionBottomSheetGroup.MultiSelect) selectedIndices else setOf<Int>()
             + items.withIndex()
-            .mapNotNull { (index, value) -> index.takeIf { value in selectedItems } }
+            .mapNotNull { (index, value) -> index.takeIf { value == selectedItem } }
             .toSet()
 )
 
@@ -249,10 +255,10 @@ fun <Id> OptionBottomSheetGroup<Id>.copy(
  * or an empty set if no value was selected.
  * @see selectedItem
  */
-val <Id> OptionBottomSheetGroup<Id>.selectedItems: Set<OptionBottomSheetItem<Id>>
+val OptionBottomSheetGroup.selectedItems: Set<OptionBottomSheetItem>
     get() = when (this) {
-        is OptionBottomSheetGroup.SingleSelect<Id> -> setOfNotNull(selectedItem)
-        is OptionBottomSheetGroup.MultiSelect<Id> -> selectedItems
+        is OptionBottomSheetGroup.SingleSelect -> setOfNotNull(selectedItem)
+        is OptionBottomSheetGroup.MultiSelect -> selectedItems
     }
 
 /**
@@ -263,8 +269,8 @@ val <Id> OptionBottomSheetGroup<Id>.selectedItems: Set<OptionBottomSheetItem<Id>
  * is not desired, use [selectedItems] instead.
  * @see selectedItems
  */
-val <Id> OptionBottomSheetGroup<Id>.selectedItem: OptionBottomSheetItem<Id>?
+val OptionBottomSheetGroup.selectedItem: OptionBottomSheetItem?
     get() = when (this) {
-        is OptionBottomSheetGroup.SingleSelect<Id> -> selectedItem
-        is OptionBottomSheetGroup.MultiSelect<Id> -> selectedItems.firstOrNull()
+        is OptionBottomSheetGroup.SingleSelect -> selectedItem
+        is OptionBottomSheetGroup.MultiSelect -> selectedItems.firstOrNull()
     }

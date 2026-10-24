@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.SelectBottomSheetFragment
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.IdSerializer
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.selectBottomSheet
@@ -20,8 +21,11 @@ import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.setSelectShee
  * Consumers should use the relevant [singleSelectGroup] and [singleSelectBottomSheet]
  * methods where appropriate.
  */
-class SingleSelectBottomSheetGroupBuilder<Id> :
-    SelectBottomSheetGroupBuilder<Id, OptionBottomSheetGroup.SingleSelect<Id>>() {
+class SingleSelectBottomSheetGroupBuilder<Id : Any>(
+    idSerializer: IdSerializer<Id>
+) : SelectBottomSheetGroupBuilder<Id, OptionBottomSheetGroup.SingleSelect>(
+    idSerializer = idSerializer
+) {
     /**
      * The item's index in this group which should be initially selected,
      * or `null` for no initial selection.
@@ -30,8 +34,8 @@ class SingleSelectBottomSheetGroupBuilder<Id> :
 
     override fun addItem(
         selected: Boolean?,
-        item: OptionBottomSheetItem<Id>
-    ): OptionBottomSheetItem<Id> {
+        item: OptionBottomSheetItem
+    ): OptionBottomSheetItem {
         items += item
         val index = items.indexOf(item)
 
@@ -41,7 +45,7 @@ class SingleSelectBottomSheetGroupBuilder<Id> :
     }
 
     override fun removeItem(
-        item: OptionBottomSheetItem<Id>
+        item: OptionBottomSheetItem
     ) {
         if (selectedIndex != null && selectedIndex == items.indexOf(item)) {
             selectedIndex = null
@@ -51,7 +55,7 @@ class SingleSelectBottomSheetGroupBuilder<Id> :
     }
 
     /** Creates a [OptionBottomSheetGroup.SingleSelect] with the options from this builder. */
-    override fun build(): OptionBottomSheetGroup.SingleSelect<Id> =
+    override fun build(): OptionBottomSheetGroup.SingleSelect =
         OptionBottomSheetGroup.SingleSelect(
             items = items.toList(),
             enabled = enabled,
@@ -59,15 +63,16 @@ class SingleSelectBottomSheetGroupBuilder<Id> :
         )
 }
 
-/** Creates a [com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetGroup.SingleSelect] using the specified [init] options. */
-inline fun <Id> singleSelectGroup(
+/** Creates a [OptionBottomSheetGroup.SingleSelect] using the specified [init] options. */
+inline fun <Id : Any> singleSelectGroup(
+    idSerializer: IdSerializer<Id>,
     init: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): OptionBottomSheetGroup.SingleSelect<Id> =
-    SingleSelectBottomSheetGroupBuilder<Id>().apply(init).build()
+): OptionBottomSheetGroup.SingleSelect =
+    SingleSelectBottomSheetGroupBuilder(idSerializer = idSerializer).apply(init).build()
 
 /** Adds the existing [group]'s items to the receiver [SingleSelectBottomSheetGroupBuilder]. */
-fun <Id> SingleSelectBottomSheetGroupBuilder<Id>.addItems(
-    group: OptionBottomSheetGroup.SingleSelect<Id>
+fun SingleSelectBottomSheetGroupBuilder<*>.addItems(
+    group: OptionBottomSheetGroup.SingleSelect
 ) {
     group.forEach {
         addItem(group.isChecked(it), it)
@@ -75,7 +80,7 @@ fun <Id> SingleSelectBottomSheetGroupBuilder<Id>.addItems(
 }
 
 /**
- * Creates a [com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.SelectBottomSheetFragment] set to **single**-selection mode with
+ * Creates a [SelectBottomSheetFragment] set to **single**-selection mode with
  * the specified options.
  *
  * If multi-selection is desired, use [multiSelectBottomSheet] instead.
@@ -88,13 +93,14 @@ fun <Id> SingleSelectBottomSheetGroupBuilder<Id>.addItems(
  * @see showSingleSelectBottomSheet
  */
 inline fun <Id : Any> singleSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
-    groupInit: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): SelectBottomSheetFragment<Id> = selectBottomSheet(
+    groupInit: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit,
+): SelectBottomSheetFragment = selectBottomSheet(
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
-    items = singleSelectGroup(groupInit)
+    items = singleSelectGroup(idSerializer = idSerializer, init = groupInit)
 )
 
 /**
@@ -118,13 +124,15 @@ inline fun <Id : Any> singleSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> FragmentManager.showSingleSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner,
-    crossinline onConfirm: (selectedItem: OptionBottomSheetItem<Id>) -> Unit = {},
+    crossinline onConfirm: (selectedItem: OptionBottomSheetItem) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit,
-): SelectBottomSheetFragment<Id> = singleSelectBottomSheet(
+): SelectBottomSheetFragment = singleSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
     groupInit = groupInit
@@ -162,17 +170,19 @@ inline fun <Id : Any> FragmentManager.showSingleSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> FragmentActivity.showSingleSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     @StringRes headerTitleRes: Int,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = this,
-    crossinline onConfirm: (selectedItems: OptionBottomSheetItem<Id>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: OptionBottomSheetItem) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): SelectBottomSheetFragment<Id> = supportFragmentManager.showSingleSelectBottomSheet(
+): SelectBottomSheetFragment = supportFragmentManager.showSingleSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = getString(headerTitleRes),
     hideDragHandle = hideDragHandle,
-    groupInit = groupInit,
-    lifecycleOwner = lifecycleOwner, onConfirm = onConfirm, onCanceled = onCanceled
+    lifecycleOwner = lifecycleOwner,
+    onConfirm = onConfirm, onCanceled = onCanceled, groupInit = groupInit,
 )
 
 /**
@@ -197,13 +207,15 @@ inline fun <Id : Any> FragmentActivity.showSingleSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> FragmentActivity.showSingleSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = this,
-    crossinline onConfirm: (selectedItems: OptionBottomSheetItem<Id>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: OptionBottomSheetItem) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): SelectBottomSheetFragment<Id> = supportFragmentManager.showSingleSelectBottomSheet(
+): SelectBottomSheetFragment = supportFragmentManager.showSingleSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
     lifecycleOwner = lifecycleOwner,
@@ -214,7 +226,8 @@ inline fun <Id : Any> FragmentActivity.showSingleSelectBottomSheet(
 
 /**
  * Shows a [SelectBottomSheetFragment] set to **single**-selection mode with
- * the specified options, bound to the receiver [androidx.fragment.app.Fragment]'s [androidx.fragment.app.Fragment.getParentFragmentManager].
+ * the specified options, bound to the receiver [androidx.fragment.app.Fragment]'s
+ * [androidx.fragment.app.Fragment.getParentFragmentManager].
  *
  * Use [showMultiSelectBottomSheet] instead if multi-selection is desired.
  *
@@ -236,17 +249,19 @@ inline fun <Id : Any> FragmentActivity.showSingleSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> Fragment.showSingleSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     @StringRes headerTitleRes: Int,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = viewLifecycleOwner,
-    crossinline onConfirm: (selectedItems: OptionBottomSheetItem<Id>) -> Unit = {},
+    crossinline onConfirm: (selectedItems: OptionBottomSheetItem) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): SelectBottomSheetFragment<Id> = parentFragmentManager.showSingleSelectBottomSheet(
+): SelectBottomSheetFragment = parentFragmentManager.showSingleSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = getString(headerTitleRes),
     hideDragHandle = hideDragHandle,
-    groupInit = groupInit,
-    lifecycleOwner = lifecycleOwner, onConfirm = onConfirm, onCanceled = onCanceled
+    lifecycleOwner = lifecycleOwner,
+    onConfirm = onConfirm, onCanceled = onCanceled, groupInit = groupInit,
 )
 
 /**
@@ -271,13 +286,15 @@ inline fun <Id : Any> Fragment.showSingleSelectBottomSheet(
  * @see setSelectSheetFragmentResultListeners
  */
 inline fun <Id : Any> Fragment.showSingleSelectBottomSheet(
+    idSerializer: IdSerializer<Id>,
     headerTitle: String,
     hideDragHandle: Boolean = false,
     lifecycleOwner: LifecycleOwner = viewLifecycleOwner,
-    crossinline onConfirm: (selectedItem: OptionBottomSheetItem<Id>) -> Unit = {},
+    crossinline onConfirm: (selectedItem: OptionBottomSheetItem) -> Unit = {},
     crossinline onCanceled: () -> Unit = {},
     groupInit: SingleSelectBottomSheetGroupBuilder<Id>.() -> Unit
-): SelectBottomSheetFragment<Id> = parentFragmentManager.showSingleSelectBottomSheet(
+): SelectBottomSheetFragment = parentFragmentManager.showSingleSelectBottomSheet(
+    idSerializer = idSerializer,
     headerTitle = headerTitle,
     hideDragHandle = hideDragHandle,
     lifecycleOwner = lifecycleOwner,

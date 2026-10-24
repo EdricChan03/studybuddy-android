@@ -10,6 +10,7 @@ import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.positiveInt
 import io.kotest.property.arbitrary.set
+import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
 class MultiSelectOptionBottomSheetGroupTest : DescribeSpec({
@@ -19,13 +20,15 @@ class MultiSelectOptionBottomSheetGroupTest : DescribeSpec({
                 Arb.multiSelectGroup(
                     itemsArb = Arb.map(
                         Arb.optionBottomSheetItem(
-                            Arb.int()
+                            Arb.string()
                         ), Arb.boolean()
                     )
                 )
             ) { group ->
                 if (group.isEmpty()) {
-                    group.isChecked(Arb.optionBottomSheetItem(Arb.int()).bind()) shouldBeEqual false
+                    group.isChecked(
+                        Arb.optionBottomSheetItem(Arb.string()).bind()
+                    ) shouldBeEqual false
                     return@checkAll
                 }
                 val selectedItems =
@@ -47,14 +50,16 @@ class MultiSelectOptionBottomSheetGroupTest : DescribeSpec({
                 Arb.multiSelectGroup(
                     itemsArb = Arb.list(
                         Arb.optionBottomSheetItem(
-                            Arb.int()
+                            Arb.string()
                         )
                     ),
                     selectedIndicesArb = Arb.set(Arb.int(), 0)
                 )
             ) { group ->
                 if (group.isEmpty()) {
-                    group.isChecked(Arb.optionBottomSheetItem(Arb.int()).bind()) shouldBeEqual false
+                    group.isChecked(
+                        Arb.optionBottomSheetItem(Arb.string()).bind()
+                    ) shouldBeEqual false
                     return@checkAll
                 }
 
@@ -71,7 +76,7 @@ class MultiSelectOptionBottomSheetGroupTest : DescribeSpec({
                 Arb.multiSelectGroup(
                     itemsArb = Arb.map(
                         Arb.optionBottomSheetItem(
-                            Arb.int()
+                            Arb.string()
                         ),
                         Arb.boolean()
                     )
@@ -88,7 +93,7 @@ class MultiSelectOptionBottomSheetGroupTest : DescribeSpec({
                 Arb.multiSelectGroup(
                     itemsArb = Arb.map(
                         Arb.optionBottomSheetItem(
-                            Arb.int()
+                            Arb.string()
                         ),
                         Arb.boolean()
                     )
@@ -105,7 +110,7 @@ class MultiSelectOptionBottomSheetGroupTest : DescribeSpec({
                 Arb.multiSelectGroup(
                     itemsArb = Arb.list(
                         Arb.optionBottomSheetItem(
-                            Arb.int()
+                            Arb.string()
                         )
                     )
                 )

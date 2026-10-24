@@ -1,19 +1,24 @@
 package com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select
 
 import android.content.Context
-import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.fragment.app.testing.EmptyFragmentActivity
-import androidx.fragment.app.testing.launchFragment
-import androidx.fragment.app.testing.withFragment
 import androidx.test.core.app.launchActivity
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.edricchan.studybuddy.core.di.testing.HiltTestActivity
+import com.edricchan.studybuddy.core.di.testing.fragment.launchHiltFragment
+import com.edricchan.studybuddy.core.di.testing.fragment.launchHiltFragmentInContainer
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.multiSelectGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.showMultiSelectBottomSheet
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.dsl.singleSelectGroup
 import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.OptionBottomSheetItem
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.intIdSerializer
+import com.edricchan.studybuddy.ui.widgets.modalbottomsheet.select.model.serializedIdOrNull
+import com.google.android.material.R
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Rule
@@ -23,10 +28,14 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 // TODO: This needs moar tests. Moooaaaarrr!
+@HiltAndroidTest
 @MediumTest
 class MultiSelectBottomSheetFragmentTest {
-    @get:Rule
-    val composeTestRule = createEmptyComposeRule()
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val composeTestRule = createAndroidComposeRule<HiltTestActivity>()
 
     private lateinit var targetContext: Context
 
@@ -43,17 +52,17 @@ class MultiSelectBottomSheetFragmentTest {
 
     @Test
     fun multiFragment_creates() {
-        launchFragment<SelectBottomSheetFragment<Any>>(
-            fragmentArgs = SelectBottomSheetFragment.getArguments<Any>(
-                itemsData = multiSelectGroup {},
+        launchHiltFragment<SelectBottomSheetFragment>(
+            fragmentArgs = SelectBottomSheetFragment.getArguments(
+                itemsData = multiSelectGroup(
+                    idSerializer = intIdSerializer()
+                ) {},
                 headerTitle = "Select something"
             ),
-            themeResId = com.google.android.material.R.style.Theme_Material3_DayNight
-        ).use { scenario ->
-            scenario.withFragment {
-                assertNotNull(dialog) {
-                    assertTrue(it.isShowing)
-                }
+            themeResId = R.style.Theme_Material3_DayNight
+        ) {
+            assertNotNull(dialog) {
+                assertTrue(it.isShowing)
             }
         }
     }
@@ -62,15 +71,17 @@ class MultiSelectBottomSheetFragmentTest {
     fun multiFragment_confirm() {
         val title1 = "Unselected item"
         val title2 = "Selected item"
-        launchFragment<SelectBottomSheetFragment<Any>>(
+        launchHiltFragmentInContainer<SelectBottomSheetFragment>(
             fragmentArgs = SelectBottomSheetFragment.getArguments(
-                itemsData = singleSelectGroup {
+                itemsData = singleSelectGroup(
+                    idSerializer = intIdSerializer()
+                ) {
                     addItem(1, title1, false)
                     addItem(2, title2, true)
                 },
                 headerTitle = "Select something"
             )
-        ).use {
+        ) {
             with(composeTestRule) {
                 with(onNodeWithText(confirmStr)) {
                     assertExists()
@@ -88,13 +99,16 @@ class MultiSelectBottomSheetFragmentTest {
     @Test
     fun multiFragment_resultConfirm() {
         val onCanceled: () -> Unit = mockk(relaxed = true)
-        val onConfirm: (selectedItems: Set<OptionBottomSheetItem<Int>>) -> Unit =
+        val onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit =
             mockk(relaxed = true)
 
-        launchActivity<EmptyFragmentActivity>().use { scenario ->
+        val idSerializer = intIdSerializer()
+
+        launchActivity<HiltTestActivity>().use { scenario ->
             scenario.onActivity { activity ->
                 activity.showMultiSelectBottomSheet(
-                    "Select something",
+                    idSerializer = idSerializer,
+                    headerTitle = "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm
                 ) {
@@ -132,12 +146,14 @@ class MultiSelectBottomSheetFragmentTest {
 
             verify(exactly = 0) { onCanceled() }
             verify(exactly = 1) {
-                onConfirm(
-                    match { items ->
-                        items.size == 3 && items.map(OptionBottomSheetItem<Int>::id)
-                            .all { it in setOf(1, 2, 4) }
-                    }
-                )
+                with(idSerializer) {
+                    onConfirm(
+                        match { items ->
+                            items.size == 3 && items.map { it.serializedIdOrNull() }
+                                .all { it in setOf(1, 2, 4) }
+                        }
+                    )
+                }
             }
         }
     }
@@ -145,13 +161,14 @@ class MultiSelectBottomSheetFragmentTest {
     @Test
     fun multiFragment_resultCancel() {
         val onCanceled: () -> Unit = mockk(relaxed = true)
-        val onConfirm: (selectedItems: Set<OptionBottomSheetItem<*>>) -> Unit =
+        val onConfirm: (selectedItems: Set<OptionBottomSheetItem>) -> Unit =
             mockk(relaxed = true)
 
-        launchActivity<EmptyFragmentActivity>().use { scenario ->
+        launchActivity<HiltTestActivity>().use { scenario ->
             scenario.onActivity { activity ->
                 activity.showMultiSelectBottomSheet(
-                    "Select something",
+                    idSerializer = intIdSerializer(),
+                    headerTitle = "Select something",
                     onCanceled = onCanceled,
                     onConfirm = onConfirm
                 ) {
