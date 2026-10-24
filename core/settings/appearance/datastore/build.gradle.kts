@@ -19,6 +19,8 @@ android {
             )
         }
     }
+
+    testFixtures.enable = true
 }
 
 dependencies {
