@@ -131,6 +131,8 @@ fun <C : ChipItem> OutlinedChipTextField(
                     }
 
                     Key.Backspace -> {
+                        if (newChipState.text.isNotEmpty()) return@onPreviewKeyEvent false
+
                         onRemoveLastTag()
                         true
                     }
