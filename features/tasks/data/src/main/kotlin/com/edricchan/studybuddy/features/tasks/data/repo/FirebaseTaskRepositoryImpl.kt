@@ -94,11 +94,6 @@ class FirebaseTaskRepositoryImpl @Inject constructor(
         source.add(input.toDto { projectsSource.getRef(it) })
     }
 
-    @Deprecated("Use the type-safe overload which uses FieldValue rather than a Map")
-    override suspend fun updateTask(id: String, valueMap: Map<TaskItem.Field, Any?>) {
-        source.update(id, valueMap.mapKeys { it.key.toDto().fieldName })
-    }
-
     private suspend fun Iterable<TaskItem.FieldValue<*>>.toUpdateDto(): Map<String, Any?> =
         fold(emptyMap()) { acc, fieldValue ->
             context(source, projectsSource) {

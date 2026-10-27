@@ -24,10 +24,6 @@ interface TaskRepository {
     /** Adds the specified task to the database. */
     suspend fun addTask(input: CreateTaskItemInput)
 
-    /** Updates the specified task with the given [valueMap]. */
-    @Deprecated("Use the type-safe overload which uses FieldValue rather than a Map")
-    suspend fun updateTask(id: String, valueMap: Map<TaskItem.Field, Any?>)
-
     /** Updates the specified task with the given list of [values]. */
     @Deprecated("Use the overload which accepts a concrete input data class")
     suspend fun updateTask(id: String, vararg values: TaskItem.FieldValue<*>)
