@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.ui.design.textfield
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.rememberScrollState
@@ -40,6 +41,7 @@ fun <ValidationError : InputValidationError> OutlinedFormField(
     trailingIcon: @Composable (() -> Unit)? = null,
     prefix: @Composable (() -> Unit)? = null,
     suffix: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (AnimatedContentScope.() -> Unit)? = null,
     inputTransformation: InputTransformation? = null,
     outputTransformation: OutputTransformation? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -73,7 +75,7 @@ fun <ValidationError : InputValidationError> OutlinedFormField(
             ) { type ->
                 type?.let {
                     Text(text = stringResource(it.messageRes))
-                }
+                } ?: supportingText?.invoke(this)
             }
         },
         inputTransformation = inputTransformation,
@@ -100,6 +102,7 @@ fun <ValidationError : InputValidationError> OutlinedFormField(
     trailingIcon: @Composable (() -> Unit)? = null,
     prefix: @Composable (() -> Unit)? = null,
     suffix: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (AnimatedContentScope.() -> Unit)? = null,
     inputTransformation: InputTransformation? = null,
     outputTransformation: OutputTransformation? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -122,6 +125,7 @@ fun <ValidationError : InputValidationError> OutlinedFormField(
         enabled = enabled,
         readOnly = readOnly,
         label = label,
+        supportingText = supportingText,
         placeholder = placeholder,
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
