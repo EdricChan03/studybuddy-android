@@ -14,7 +14,7 @@ import androidx.compose.ui.test.assertIsToggleable
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import com.edricchan.studybuddy.ui.widgets.compose.assertExistsAndIsDisplayed
 import org.junit.Rule
 import kotlin.test.Test
@@ -32,7 +32,7 @@ class CheckboxListItemTest {
         var checked by mutableStateOf(false)
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     CheckboxListItem(
                         modifier = listItemModifier,
                         checkboxModifier = checkboxModifier,
@@ -80,7 +80,7 @@ class CheckboxListItemTest {
     fun checkboxListItem_withTrailingContent() {
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     CheckboxListItem(
                         modifier = listItemModifier,
                         checkboxModifier = checkboxModifier,
@@ -104,7 +104,7 @@ class CheckboxListItemTest {
         var checked by mutableStateOf(false)
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     CheckboxListItem(
                         modifier = listItemModifier,
                         checkboxModifier = checkboxModifier,

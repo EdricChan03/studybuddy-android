@@ -15,7 +15,7 @@ import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import io.github.edricchan03.optionbottomsheet.OptionsBottomSheetSelectableItem
 import org.junit.Rule
 import kotlin.test.Test
@@ -35,7 +35,7 @@ class OptionsBottomSheetSelectableItemTest {
         composeTestRule.apply {
             var selectedItem by mutableStateOf(SelectedItem.One)
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     LazyColumn(
                         modifier = Modifier.selectableGroup()
                     ) {
@@ -68,7 +68,7 @@ class OptionsBottomSheetSelectableItemTest {
         composeTestRule.apply {
             var selectedItem = SelectedItem.One
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     LazyColumn(
                         modifier = Modifier.selectableGroup()
                     ) {

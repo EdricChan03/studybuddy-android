@@ -11,7 +11,7 @@ import androidx.compose.ui.test.assertIsToggleable
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import io.github.edricchan03.optionbottomsheet.OptionsBottomSheetCheckableItem
 import org.junit.Rule
 import kotlin.test.Test
@@ -28,7 +28,7 @@ class OptionsBottomSheetCheckableItemTest {
             val itemText = "Item 1"
             var checked by mutableStateOf(false)
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     OptionsBottomSheetCheckableItem(
                         title = itemText,
                         checked = checked,
@@ -59,7 +59,7 @@ class OptionsBottomSheetCheckableItemTest {
             val itemText = "Item 1"
             var checked by mutableStateOf(false)
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     OptionsBottomSheetCheckableItem(
                         title = itemText,
                         checked = checked,

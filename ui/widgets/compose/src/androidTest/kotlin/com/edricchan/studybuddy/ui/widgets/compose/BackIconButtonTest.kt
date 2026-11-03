@@ -15,7 +15,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.printToLog
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import org.junit.Rule
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -41,7 +41,7 @@ class BackIconButtonTest {
 
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     BackIconButton(onClick = { clicked = true })
                 }
             }
@@ -65,7 +65,7 @@ class BackIconButtonTest {
 
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     BackIconButton(
                         tooltipModifier = Modifier.testTag(tooltipTag),
                         tooltipTextModifier = Modifier.testTag(tooltipTextTag),

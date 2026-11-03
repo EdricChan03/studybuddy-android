@@ -11,7 +11,7 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import com.edricchan.studybuddy.ui.widgets.compose.assertExistsAndIsDisplayed
 import org.junit.Rule
 import kotlin.test.Test
@@ -25,7 +25,7 @@ class OutlinedTextFieldBoxTest {
     fun outlinedTextFieldBox() {
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     OutlinedTextFieldBox(
                         modifier = boxModifier,
                         headlineText = { OutlinedTextFieldBoxText() },
@@ -56,7 +56,7 @@ class OutlinedTextFieldBoxTest {
 
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     OutlinedTextFieldBox(
                         modifier = boxModifier,
                         onClick = { hasClicked = true },

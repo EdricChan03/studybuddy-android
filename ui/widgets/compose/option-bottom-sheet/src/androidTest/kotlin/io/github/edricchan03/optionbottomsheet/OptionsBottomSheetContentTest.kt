@@ -13,7 +13,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOption
 import io.github.edricchan03.optionbottomsheet.models.BottomSheetOptionGroup
 import org.junit.Ignore
@@ -43,7 +43,7 @@ class OptionsBottomSheetContentTest {
 
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     OptionsBottomSheetContent(
                         onDismissBottomSheetRequest = { called = true }, // No-op
                         group = BottomSheetOptionGroup(
@@ -85,7 +85,7 @@ class OptionsBottomSheetContentTest {
     fun content_nullHeaderTitle() {
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     OptionsBottomSheetContent(
                         header = null,
                         onDismissBottomSheetRequest = {}, // No-op
@@ -109,7 +109,7 @@ class OptionsBottomSheetContentTest {
         }
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     OptionsBottomSheetContent(
                         modifier = Modifier.testTag(contentTag),
                         onDismissBottomSheetRequest = {}, // No-op

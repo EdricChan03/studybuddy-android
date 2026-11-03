@@ -8,7 +8,7 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import io.github.edricchan03.optionbottomsheet.OptionsBottomSheetItem
 import org.junit.Rule
 import kotlin.test.Test
@@ -28,7 +28,7 @@ class OptionsBottomSheetItemTest {
         var currItem = BottomSheetItem.Three
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     LazyColumn {
                         items(BottomSheetItem.entries) {
                             OptionsBottomSheetItem(title = it.name, onClick = { currItem = it })
@@ -53,7 +53,7 @@ class OptionsBottomSheetItemTest {
         var currItem = BottomSheetItem.Two
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     LazyColumn {
                         items(BottomSheetItem.entries) {
                             OptionsBottomSheetItem(

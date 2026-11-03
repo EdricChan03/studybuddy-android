@@ -19,14 +19,12 @@ import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyTheme
+import com.edricchan.studybuddy.ui.theming.compose.StudyBuddyPreviewTheme
 import com.edricchan.studybuddy.ui.widgets.compose.assertExistsAndIsDisplayed
 import org.junit.Rule
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-// ListItemShapes in the ABI for RadioButtonListItem is an experimental expressive
-// API
 class RadioButtonListItemTest {
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -50,7 +48,7 @@ class RadioButtonListItemTest {
         var selected by mutableStateOf(false)
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     RadioButtonListItem(
                         modifier = listItemModifier,
                         radioButtonModifier = radioButtonModifier,
@@ -98,7 +96,7 @@ class RadioButtonListItemTest {
     fun radioButtonListItem_withTrailingContent() {
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     RadioButtonListItem(
                         modifier = listItemModifier,
                         radioButtonModifier = radioButtonModifier,
@@ -122,7 +120,7 @@ class RadioButtonListItemTest {
         var selected by mutableStateOf(false)
         composeTestRule.apply {
             setContent {
-                StudyBuddyTheme {
+                StudyBuddyPreviewTheme {
                     RadioButtonListItem(
                         modifier = listItemModifier,
                         radioButtonModifier = radioButtonModifier,
