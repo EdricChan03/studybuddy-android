@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -77,6 +79,9 @@ fun TaskDescriptionTextArea(
                 Text(text = counterText)
             }
         },
-        isError = validationError != null
+        isError = validationError != null,
+        labelPosition = TextFieldLabelPosition.Inside(),
+        shape = OutlinedTextFieldDefaults.roundedShape,
+        colors = OutlinedTextFieldDefaults.tonalColors()
     )
 }
