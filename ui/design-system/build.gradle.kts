@@ -21,6 +21,7 @@ android {
 }
 
 dependencies {
+    api(projects.data.forms.compose)
     implementation(projects.ui.theming.compose)
     implementation(projects.core.resources)
     implementation(projects.utils.androidx.compose)
