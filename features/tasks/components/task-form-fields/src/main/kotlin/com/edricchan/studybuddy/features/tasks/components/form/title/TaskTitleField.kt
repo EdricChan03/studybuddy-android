@@ -3,6 +3,7 @@ package com.edricchan.studybuddy.features.tasks.components.form.title
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,12 +13,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.data.forms.InputValidator
 import com.edricchan.studybuddy.data.forms.compose.validationErrorAsState
 import com.edricchan.studybuddy.features.tasks.components.form.R
 import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleMaxLength
 import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleValidationError
 import com.edricchan.studybuddy.features.tasks.components.form.title.validation.TaskTitleValidator
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.utils.compose.material3.textfield.TextFieldAnimations
 import com.edricchan.studybuddy.core.resources.R as CoreResR
 
@@ -60,5 +64,15 @@ fun TaskTitleTextField(
         },
         isError = validationError != null,
         lineLimits = TextFieldLineLimits.SingleLine
+    )
+}
+
+@Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
+private fun TaskTitleTextFieldPreview() {
+    val state = rememberTextFieldState()
+    TaskTitleTextField(
+        state = state
     )
 }
