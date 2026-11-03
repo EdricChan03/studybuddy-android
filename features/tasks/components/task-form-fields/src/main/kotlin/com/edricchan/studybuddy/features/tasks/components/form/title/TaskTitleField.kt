@@ -77,6 +77,7 @@ fun TaskTitleTextField(
 @Composable
 private fun TaskTitleTextFieldPreview() {
     val state = rememberTextFieldState()
+
     TaskTitleTextField(
         state = state
     )
