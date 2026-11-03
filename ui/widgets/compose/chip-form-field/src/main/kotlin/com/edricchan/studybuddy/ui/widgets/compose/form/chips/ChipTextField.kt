@@ -113,8 +113,9 @@ fun <C : ChipItem> OutlinedChipTextField(
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
     fun onSubmit() {
-        state.onSubmit(newChipState.text.toString())
-        if (state.chipsState.any { it.text == newChipState.text.toString() }) newChipState.clearText()
+        val newChipText = newChipState.text.toString().takeIf(String::isNotBlank) ?: return
+        state.onSubmit(newChipText)
+        if (state.chipsState.any { it.text == newChipText }) newChipState.clearText()
     }
 
     fun onRemoveLastTag() {
