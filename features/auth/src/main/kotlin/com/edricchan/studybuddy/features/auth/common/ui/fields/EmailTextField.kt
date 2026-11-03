@@ -94,8 +94,6 @@ fun EmailTextField(
     label: @Composable (TextFieldLabelScope.() -> Unit)? = EmailTextFieldDefaults.Label,
     interactionSource: MutableInteractionSource? = null
 ) {
-    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
-
     val errorSemantics = validationError?.getSemanticsMessage(state.text)
 
     EmailTextField(
