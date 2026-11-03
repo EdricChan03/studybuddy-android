@@ -219,7 +219,7 @@ fun StudyBuddyTheme(
 }
 
 /**
- * Sets the [MaterialTheme] for all the Composables in [content] based on the specified [appTheme].
+ * Sets the [MaterialTheme] for all the Composables in [content] based on the specified app theme.
  * @param appearancePreferences Desired [AppearancePreferences] object to extract the relevant
  * appearance values from.
  */
@@ -249,5 +249,20 @@ fun StudyBuddyTheme(
         baseSpacing = baseSpacing.dp,
         typography = typography,
         content = content
+    )
+}
+
+/**
+ * Sets the [MaterialTheme] for all the Composables in [content].
+ *
+ * This variant of [StudyBuddyTheme] is intended for previews.
+ */
+@Composable
+fun StudyBuddyPreviewTheme(
+    content: @Composable () -> Unit
+) {
+    StudyBuddyTheme(
+        content = content,
+        useDynamicTheme = isDynamicColorAvailable
     )
 }
