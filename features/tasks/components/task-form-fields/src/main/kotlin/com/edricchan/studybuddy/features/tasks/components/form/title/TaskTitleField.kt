@@ -5,7 +5,9 @@ import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -63,7 +65,10 @@ fun TaskTitleTextField(
             }
         },
         isError = validationError != null,
-        lineLimits = TextFieldLineLimits.SingleLine
+        lineLimits = TextFieldLineLimits.SingleLine,
+        labelPosition = TextFieldLabelPosition.Inside(),
+        shape = OutlinedTextFieldDefaults.roundedShape,
+        colors = OutlinedTextFieldDefaults.tonalColors()
     )
 }
 
