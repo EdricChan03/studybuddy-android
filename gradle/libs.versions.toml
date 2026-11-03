@@ -1,7 +1,7 @@
 [versions]
 aboutLibraries = "15.2.0"
 accompanist = "0.37.3"
-android-compose-screenshotTest = "0.0.1-alpha16"
+android-compose-screenshotTest = "0.0.1-alpha17"
 android-desugar = "2.1.5"
 android-gradle = "9.5.0"
 androidx-activity = "1.13.0"
@@ -244,7 +244,6 @@ ktor = [
 [plugins]
 android-gradle-application = { id = "com.android.application", version.ref = "android-gradle" }
 android-gradle-library = { id = "com.android.library", version.ref = "android-gradle" }
-android-compose-screenshotTest = { id = "com.android.compose.screenshot", version.ref = "android-compose-screenshotTest" }
 
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 

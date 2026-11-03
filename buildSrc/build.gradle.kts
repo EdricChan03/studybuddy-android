@@ -27,7 +27,6 @@ dependencies {
     }
     implementation(libs.kotlin.gradle)
     implementation(libs.kotlin.composeCompiler.gradle)
-    implementation(libs.plugins.android.compose.screenshotTest.text())
     implementation(libs.plugins.wire.text())
     implementation(libs.plugins.ksp.text())
     implementation(libs.plugins.dagger.hilt.text())
@@ -66,12 +65,6 @@ gradlePlugin {
             displayName = "StudyBuddy Properties producer plugin"
             description = "Gradle plugin to write the app's properties for use by " +
                 "com.edricchan.studybuddy.properties"
-        }
-
-        // Convention plugins
-        register("com.edricchan.studybuddy.library.compose.android-screenshot-testing") {
-            implementationClass =
-                "com.edricchan.studybuddy.library.compose.AndroidScreenshotTestingConventionPlugin"
         }
     }
 }
