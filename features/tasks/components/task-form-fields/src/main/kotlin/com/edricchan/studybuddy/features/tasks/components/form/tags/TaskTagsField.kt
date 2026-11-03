@@ -5,13 +5,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Label
 import com.edricchan.studybuddy.features.tasks.components.form.R
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.form.chips.OutlinedChipTextField
 import com.edricchan.studybuddy.ui.widgets.compose.form.chips.data.ChipItem
 import com.edricchan.studybuddy.ui.widgets.compose.form.chips.data.ChipTextFieldState
 import com.edricchan.studybuddy.ui.widgets.compose.form.chips.data.chipItemFactory
+import com.edricchan.studybuddy.ui.widgets.compose.form.chips.data.rememberChipTextFieldState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -40,5 +44,16 @@ fun TaskTagsTextField(
             )
         },
         label = { Text(text = stringResource(R.string.task_tags_text_field_label)) },
+    )
+}
+
+@Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
+private fun TaskTagsTextFieldPreview() {
+    val state = rememberChipTextFieldState(chipFactory = TaskTagItem.Factory)
+
+    TaskTagsTextField(
+        tagsState = state
     )
 }
