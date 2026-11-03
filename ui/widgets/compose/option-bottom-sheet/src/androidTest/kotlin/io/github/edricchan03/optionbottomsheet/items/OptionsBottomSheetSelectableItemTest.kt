@@ -1,8 +1,9 @@
 package io.github.edricchan03.optionbottomsheet.items
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -39,11 +40,15 @@ class OptionsBottomSheetSelectableItemTest {
                     LazyColumn(
                         modifier = Modifier.selectableGroup()
                     ) {
-                        items(SelectedItem.entries) {
+                        itemsIndexed(SelectedItem.entries) { i, item ->
                             OptionsBottomSheetSelectableItem(
-                                title = it.name,
-                                selected = it == selectedItem,
-                                onClick = { selectedItem = it }
+                                title = item.name,
+                                selected = item == selectedItem,
+                                onClick = { selectedItem = item },
+                                shapes = ListItemDefaults.segmentedShapes(
+                                    index = i,
+                                    count = SelectedItem.entries.size
+                                )
                             )
                         }
                     }
@@ -72,12 +77,16 @@ class OptionsBottomSheetSelectableItemTest {
                     LazyColumn(
                         modifier = Modifier.selectableGroup()
                     ) {
-                        items(SelectedItem.entries) {
+                        itemsIndexed(SelectedItem.entries) { i, item ->
                             OptionsBottomSheetSelectableItem(
-                                title = it.name,
-                                selected = it == selectedItem,
-                                onClick = { selectedItem = it },
-                                enabled = false
+                                title = item.name,
+                                selected = item == selectedItem,
+                                onClick = { selectedItem = item },
+                                enabled = false,
+                                shapes = ListItemDefaults.segmentedShapes(
+                                    index = i,
+                                    count = SelectedItem.entries.size
+                                )
                             )
                         }
                     }

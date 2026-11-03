@@ -1,5 +1,6 @@
 package io.github.edricchan03.optionbottomsheet.items
 
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -32,7 +33,8 @@ class OptionsBottomSheetCheckableItemTest {
                     OptionsBottomSheetCheckableItem(
                         title = itemText,
                         checked = checked,
-                        onCheckedChange = { checked = it }
+                        onCheckedChange = { checked = it },
+                        shapes = ListItemDefaults.shapes()
                     )
                 }
             }
@@ -64,7 +66,8 @@ class OptionsBottomSheetCheckableItemTest {
                         title = itemText,
                         checked = checked,
                         onCheckedChange = { checked = it },
-                        enabled = false
+                        enabled = false,
+                        shapes = ListItemDefaults.shapes()
                     )
                 }
             }

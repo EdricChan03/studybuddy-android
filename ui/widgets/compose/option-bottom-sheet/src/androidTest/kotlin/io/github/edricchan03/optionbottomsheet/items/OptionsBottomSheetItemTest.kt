@@ -1,7 +1,8 @@
 package io.github.edricchan03.optionbottomsheet.items
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -30,8 +31,15 @@ class OptionsBottomSheetItemTest {
             setContent {
                 StudyBuddyPreviewTheme {
                     LazyColumn {
-                        items(BottomSheetItem.entries) {
-                            OptionsBottomSheetItem(title = it.name, onClick = { currItem = it })
+                        itemsIndexed(BottomSheetItem.entries) { i, item ->
+                            OptionsBottomSheetItem(
+                                title = item.name,
+                                onClick = { currItem = item },
+                                shapes = ListItemDefaults.segmentedShapes(
+                                    index = i,
+                                    count = BottomSheetItem.entries.size
+                                )
+                            )
                         }
                     }
                 }
@@ -55,11 +63,15 @@ class OptionsBottomSheetItemTest {
             setContent {
                 StudyBuddyPreviewTheme {
                     LazyColumn {
-                        items(BottomSheetItem.entries) {
+                        itemsIndexed(BottomSheetItem.entries) { i, item ->
                             OptionsBottomSheetItem(
-                                title = it.name,
-                                onClick = { currItem = it },
-                                enabled = false
+                                title = item.name,
+                                onClick = { currItem = item },
+                                enabled = false,
+                                shapes = ListItemDefaults.segmentedShapes(
+                                    index = i,
+                                    count = BottomSheetItem.entries.size
+                                )
                             )
                         }
                     }
