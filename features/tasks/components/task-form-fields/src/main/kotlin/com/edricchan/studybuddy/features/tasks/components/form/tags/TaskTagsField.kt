@@ -1,7 +1,9 @@
 package com.edricchan.studybuddy.features.tasks.components.form.tags
 
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -44,6 +46,9 @@ fun TaskTagsTextField(
             )
         },
         label = { Text(text = stringResource(R.string.task_tags_text_field_label)) },
+        labelPosition = TextFieldLabelPosition.Inside(isAlwaysMinimized = true),
+        shape = OutlinedTextFieldDefaults.roundedShape,
+        colors = OutlinedTextFieldDefaults.tonalColors()
     )
 }
 
