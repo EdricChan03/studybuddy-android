@@ -36,6 +36,7 @@ dependencies {
     implementation(projects.core.deeplink)
     implementation(projects.core.di)
     implementation(projects.core.resources)
+    implementation(projects.core.resources.metadata)
     implementation(projects.data.serialization.android)
     implementation(projects.exts.android.metadata)
     implementation(projects.exts.androidx.preference)

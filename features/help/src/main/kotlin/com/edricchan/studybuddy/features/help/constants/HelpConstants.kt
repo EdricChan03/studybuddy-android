@@ -1,9 +1,10 @@
 package com.edricchan.studybuddy.features.help.constants
 
 import androidx.core.net.toUri
+import com.edricchan.studybuddy.core.resources.metadata.StudyBuddyMetadata
 
-const val urlSrcCode = "https://github.com/EdricChan03/StudyBuddy-android"
-val uriSrcCode = urlSrcCode.toUri()
+val urlSrcCode = StudyBuddyMetadata.GitHubRepoUrl
+val uriSrcCode = StudyBuddyMetadata.GitHubRepoUri
 
 const val urlSendFeedback = "https://forms.gle/S6SY7aAgTyQUuKRw6"
 val uriSendFeedback = urlSendFeedback.toUri()
