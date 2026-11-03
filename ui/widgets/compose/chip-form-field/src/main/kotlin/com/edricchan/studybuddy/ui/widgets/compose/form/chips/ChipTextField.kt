@@ -85,6 +85,7 @@ fun <C : ChipItem> OutlinedChipTextField(
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
+    labelPosition: TextFieldLabelPosition = TextFieldLabelPosition.Cutout(isAlwaysMinimized = true),
     label: @Composable (TextFieldLabelScope.() -> Unit)? = null,
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -159,7 +160,7 @@ fun <C : ChipItem> OutlinedChipTextField(
                     state = newChipState,
                     enabled = enabled,
                     label = label,
-                    labelPosition = TextFieldLabelPosition.Cutout(isAlwaysMinimized = true),
+                    labelPosition = labelPosition,
                     placeholder = placeholder,
                     leadingIcon = leadingIcon,
                     trailingIcon = trailingIcon,
@@ -169,8 +170,10 @@ fun <C : ChipItem> OutlinedChipTextField(
                     lineLimits = TextFieldLineLimits.SingleLine,
                     outputTransformation = outputTransformation,
                     interactionSource = interactionSource,
+                    colors = colors,
                     container = {
                         OutlinedTextFieldDefaults.Container(
+                            colors = colors,
                             shape = shape,
                             enabled = enabled,
                             isError = isError,
