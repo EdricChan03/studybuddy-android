@@ -20,15 +20,19 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Close
 import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.tasks.components.form.R
+import com.edricchan.studybuddy.ui.theming.compose.theme.preview.StudyBuddyThemeWrapperProvider
 import com.edricchan.studybuddy.ui.widgets.compose.textfield.OutlinedTextFieldBox
 import com.edricchan.studybuddy.ui.widgets.compose.textfield.OutlinedTextFieldBoxDefaults
 import java.time.LocalDate
@@ -115,4 +119,16 @@ fun TaskDueDateField(
             DatePicker(state = datePickerState)
         }
     }
+}
+
+@Preview
+@PreviewWrapper(StudyBuddyThemeWrapperProvider::class)
+@Composable
+private fun TaskDueDateFieldPreview() {
+    var dueDate by remember { mutableStateOf(LocalDate.now()) }
+
+    TaskDueDateField(
+        selectedDate = dueDate,
+        onSelectedDateChange = { dueDate = it }
+    )
 }
