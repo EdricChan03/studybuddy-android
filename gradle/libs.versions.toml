@@ -1,33 +1,33 @@
 [versions]
-aboutLibraries = "15.2.0"
+aboutLibraries = "15.3.0"
 accompanist = "0.37.3"
 android-compose-screenshotTest = "0.0.1-alpha17"
 android-desugar = "2.1.5"
 android-gradle = "9.5.0"
 androidx-activity = "1.13.0"
-androidx-compose = "1.13.0-beta01"
-androidx-compose-material3 = "1.5.0-beta01"
+androidx-compose = "1.13.0-rc01"
+androidx-compose-material3 = "1.5.0-rc01"
 androidx-compose-material3-adaptive = "1.4.0-alpha03"
 androidx-credentials = "1.7.0-alpha03"
-androidx-datastore = "1.3.0-rc01"
+androidx-datastore = "1.3.0"
 androidx-fragment = "1.9.1"
 androidx-lifecycle = "2.11.0"
 androidx-navigation = "2.10.2"
 androidx-paging = "3.5.3"
 coil = "3.6.3"
 dagger = "2.60.1"
-deep-link-dispatch = "7.2.2"
-firebase-bom = "35.0.1"
+deep-link-dispatch = "7.3.1"
+firebase-bom = "35.2.0"
 gradle-versions = "0.56.0"
 hilt = "1.4.0"
-kotest = "6.2.5"
+kotest = "6.2.7"
 kotlin = "2.4.21"
 kotlinx-coroutines = "1.11.0"
-kotlinx-serialization = "1.11.0"
+kotlinx-serialization = "1.13.0"
 ktoml = "0.7.1"
-ktor = "3.6.0"
-mockk = "1.14.11"
-wire = "7.1.0"
+ktor = "3.6.1"
+mockk = "1.14.12"
+wire = "7.2.2"
 
 [libraries]
 # AndroidX dependencies
@@ -251,7 +251,7 @@ ksp = "com.google.devtools.ksp:2.3.12"
 
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.8"
 firebase-perf = "com.google.firebase.firebase-perf:2.0.2"
-googleServices = "com.google.gms.google-services:4.5.0"
+googleServices = "com.google.gms.google-services:4.6.0"
 
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 
@@ -259,7 +259,7 @@ wire = { id = "com.squareup.wire", version.ref = "wire" }
 
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 
-dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.19.2"
+dependencyAnalysis = "com.autonomousapps.dependency-analysis:3.20.4"
 
 # TODO: Remove when we migrate to AGP 9.5.0+ which adds support for test aggregation
 # https://developer.android.com/studio/test/coverage-report#unified
