@@ -4,6 +4,7 @@ package com.edricchan.studybuddy.core.settings.tasks.proto;
 
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
+import "com/edricchan/studybuddy/data/common/temporal/proto/time_of_day.proto";
 
 option java_multiple_files = true;
 
@@ -30,5 +31,18 @@ message TasksDefaultDataOptions {
     google.protobuf.Timestamp due_date_fixed_instant = 101;
     /* Default due date in the future as specified by the duration, if any. */
     google.protobuf.Duration due_date_future_duration = 102;
+  }
+
+  /* Default due time to use, if any. */
+  oneof due_time {
+    /* No default due time should be specified. (This is a marker field; its value will be ignored) */
+    bool due_time_no_default = 200;
+    /*
+    Default due time as a fixed HH:mm value, if any.
+    Note that the seconds and nanoseconds fields will be ignored.
+    */
+    com.edricchan.studybuddy.data.common.temporal.proto.TimeOfDay due_time_fixed = 201;
+    /* Use the current time as the due time. (This is a marker field; its value will be ignored) */
+    bool due_time_current = 202;
   }
 }

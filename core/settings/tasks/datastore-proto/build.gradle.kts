@@ -7,4 +7,6 @@ dependencies {
     // result in a build-time error where the SortDirection enum is generated twice
     protoPath(projects.features.tasks.domainProto)
     api(projects.features.tasks.domainProto)
+    protoPath(projects.data.common.protobuf)
+    api(projects.data.common.protobuf)
 }
