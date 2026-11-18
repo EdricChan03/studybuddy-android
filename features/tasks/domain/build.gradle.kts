@@ -1,5 +1,6 @@
 plugins {
     com.edricchan.studybuddy.library.android
+    com.edricchan.studybuddy.library.`android-hilt`
     com.edricchan.studybuddy.library.`kotlinx-serialization`
 }
 
@@ -22,6 +23,7 @@ android {
 }
 
 dependencies {
+    api(projects.core.settings.tasks.datastore)
     api(projects.data.common)
     api(projects.features.tasks.domainProto)
     implementation(projects.data.serialization.android)

@@ -6,41 +6,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.edricchan.studybuddy.core.settings.tasks.repo.TasksSettingsRepository
 import com.edricchan.studybuddy.exts.common.TAG
 import com.edricchan.studybuddy.features.tasks.domain.model.TaskItem
-import com.edricchan.studybuddy.features.tasks.domain.model.toDomain
 import com.edricchan.studybuddy.features.tasks.domain.repo.TaskRepository
-import com.edricchan.studybuddy.features.tasks.domain.repo.TasksPaginationConfig
 import com.edricchan.studybuddy.features.tasks.domain.repo.toggleCompleted
+import com.edricchan.studybuddy.features.tasks.domain.usecase.GetPagedTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TasksListViewModel @Inject constructor(
     private val repository: TaskRepository,
-    settingsRepo: TasksSettingsRepository
+    getPagedTasks: GetPagedTasksUseCase
 ) : ViewModel() {
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val pagedTasks = settingsRepo.filterOptions.flatMapLatest {
-        val ordering = it.orderByFields.mapKeysTo(LinkedHashMap()) { (field, dir) ->
-            field.protoValue.toDomain()
-        }
-
-        // TODO: Hook up ordering support when we migrate off of Firestore. (Firestore requires a
-        //   composite index to be added for *every* new sort-direction order that would be added
-        //   to a query)
-        repository.observeTasks(
-            TasksPaginationConfig(
-                cachedCoroutineScope = viewModelScope
-            )
-        )
-    }
+    val pagedTasks = getPagedTasks(viewModelScope)
 
     val refreshRequests: ReceiveChannel<Unit>
         field = Channel<Unit>()
