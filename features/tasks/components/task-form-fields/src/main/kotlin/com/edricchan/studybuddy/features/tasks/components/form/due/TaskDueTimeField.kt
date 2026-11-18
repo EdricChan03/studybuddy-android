@@ -26,6 +26,7 @@ import com.edricchan.studybuddy.core.resources.temporal.compose.LocalTimeFormatt
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.tasks.components.form.R
 import com.edricchan.studybuddy.ui.widgets.compose.textfield.OutlinedTextFieldBox
+import com.edricchan.studybuddy.ui.widgets.compose.textfield.OutlinedTextFieldBoxDefaults
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -54,6 +55,9 @@ fun TaskDueTimeField(
 
     OutlinedTextFieldBox(
         modifier = modifier,
+        shape = OutlinedTextFieldBoxDefaults.roundedShape,
+        colors = OutlinedTextFieldBoxDefaults.tonalColors(),
+        border = OutlinedTextFieldBoxDefaults.tonalBorder(),
         onClick = showTimePicker,
         headlineText = {
             Text(text = stringResource(R.string.task_due_time_text_field_label))
