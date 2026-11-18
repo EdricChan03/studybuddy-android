@@ -47,6 +47,8 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
 
     private val reporter: ProblemReporter get() = problems.reporter
 
+    private val problemIds by lazy { StudyBuddyAppProblemIds(problems.groups) }
+
     override fun apply(target: Project) {
         with(target) {
             val appExtension =
@@ -186,7 +188,7 @@ abstract class StudyBuddyAppPlugin : Plugin<Project> {
     private fun RegularFile.parseSecretsConfigOrNull(): SecretsConfig? =
         asFile.let { file ->
             runCatching { toml.decodeFromStream<SecretsConfig>(file.inputStream()) }.onFailure {
-                reporter.report(StudyBuddyAppProblemIds.MissingSecretsConfig) {
+                reporter.report(problemIds.missingSecretsConfig) {
                     details("The requested secrets configuration file at $file is missing or could not be read")
                     solution("Create a secrets-config.toml file at the specified directory, or ensure that you have the relevant read permissions")
                     fileLocation(file.path)
