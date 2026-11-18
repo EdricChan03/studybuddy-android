@@ -1,0 +1,22 @@
+// Based on https://github.com/googleapis/googleapis/blob/master/google/type/timeofday.proto
+syntax = "proto3";
+
+package com.edricchan.studybuddy.data.common.temporal.proto;
+
+option java_multiple_files = true;
+
+/* Enclosed type for a specific time of a day. */
+message TimeOfDay {
+  /*
+  Hours of a day in 24-hour format.
+  Must be from 0-23; all other values will be truncated to 0.
+  */
+  int32 hours = 1;
+  /* Minutes of an hour. Must be from 0-59; all other values will be truncated to 0. */
+  int32 minutes = 2;
+  /* Seconds of a minute. Must be from 0-59; all other values will be truncated to 0. */
+  int32 seconds = 3;
+  /* Fractions of seconds, in nanoseconds. Must be greater than or equal to 0 and less than or
+  equal to 999,999,999. */
+  int32 nanos = 4;
+}
