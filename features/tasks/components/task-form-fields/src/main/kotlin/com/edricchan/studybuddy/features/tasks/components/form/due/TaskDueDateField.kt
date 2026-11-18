@@ -30,6 +30,7 @@ import com.edricchan.studybuddy.core.resources.temporal.appFormat
 import com.edricchan.studybuddy.exts.androidx.compose.runtime.letComposable
 import com.edricchan.studybuddy.features.tasks.components.form.R
 import com.edricchan.studybuddy.ui.widgets.compose.textfield.OutlinedTextFieldBox
+import com.edricchan.studybuddy.ui.widgets.compose.textfield.OutlinedTextFieldBoxDefaults
 import java.time.LocalDate
 
 @Composable
@@ -49,6 +50,9 @@ fun TaskDueDateField(
 
     OutlinedTextFieldBox(
         modifier = modifier,
+        shape = OutlinedTextFieldBoxDefaults.roundedShape,
+        colors = OutlinedTextFieldBoxDefaults.tonalColors(),
+        border = OutlinedTextFieldBoxDefaults.tonalBorder(),
         onClick = showDatePicker,
         headlineText = {
             Text(text = stringResource(R.string.task_due_date_text_field_label))
