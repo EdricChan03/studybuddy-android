@@ -10,8 +10,10 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,7 +27,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.CheckableDropdownMenuItem
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,7 +38,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -46,7 +46,9 @@ import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.contentColorFor
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.rememberTooltipState
+import androidx.compose.material3.ripple
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
@@ -72,7 +74,6 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.edricchan.studybuddy.core.resources.icons.AppIcons
 import com.edricchan.studybuddy.core.resources.icons.outlined.Check
@@ -97,7 +98,6 @@ fun TaskCard(
     shape: Shape = TaskCardDefaults.shape,
     colors: TaskCardColors = TaskCardDefaults.colors(),
     borderColors: TaskCardBorderColors = TaskCardDefaults.borderColors(),
-    elevation: CardElevation = TaskCardDefaults.cardElevation(),
     interactionSource: MutableInteractionSource? = null,
     inSelectionMode: Boolean = false,
     selected: Boolean = false,
@@ -114,6 +114,8 @@ fun TaskCard(
     onMarkAsDoneClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
+    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+
     val selectionModifier = if (inSelectionMode) Modifier
         .combinedClickable(
             interactionSource = interactionSource,
@@ -140,21 +142,28 @@ fun TaskCard(
     val contentColor by colors.contentColor(enabled = enabled, selected = isSelected)
     val borderColor by borderColors.borderColor(enabled = enabled, selected = isSelected)
 
-    OutlinedCard(
-        modifier = modifier.clip(shape) then selectionModifier,
-        shape = shape,
-        colors = CardDefaults.outlinedCardColors(
-            containerColor = containerColor,
-            contentColor = contentColor,
-            disabledContainerColor = colors.disabledContainerColor,
-            disabledContentColor = colors.disabledContentColor
-        ),
-        border = BorderStroke(1.dp, borderColor),
-        elevation = elevation
-    ) {
-        // Use an inner Box such that the selected icon can stack on top of the
-        // task information
-        Box {
+    CompositionLocalProvider(LocalContentColor provides contentColor) {
+        // We're specifying manual selection behaviour, so we're using Box directly rather than
+        // Surface
+        Box(
+            modifier = modifier
+                .minimumInteractiveComponentSize()
+                // Specify the focus ring manually before the border and clipping so that the ring
+                // does not get clipped
+                .indication(
+                    interactionSource = interactionSource,
+                    indication = ripple(
+                        focusRingShape = shape,
+                        enablePressIndication = false,
+                        enableFocusIndication = true,
+                        enableDragIndication = false,
+                        enableHoverIndication = false,
+                    ),
+                )
+                .border(border = BorderStroke(1.dp, borderColor), shape = shape)
+                .background(color = containerColor, shape = shape)
+                .clip(shape) then selectionModifier
+        ) {
             // Task details
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -209,7 +218,7 @@ fun TaskCard(
             // ColumnScope.AnimatedVisibility variant - see
             // https://stackoverflow.com/q/67975569/ for more info
             // Selection icon
-            this@OutlinedCard.AnimatedVisibility(
+            AnimatedVisibility(
                 visible = inSelectionMode,
                 modifier = Modifier.align(Alignment.TopEnd),
                 label = "selected icon animated visibility",
@@ -584,34 +593,6 @@ object TaskCardDefaults {
         selectedBorderColor = selectedBorderColor,
         disabledBorderColor = disabledBorderColor,
         disabledSelectedBorderColor = disabledSelectedBorderColor
-    )
-
-    /**
-     * Creates a [CardElevation] that will animate between the provided values according to the
-     * Material specification for an [OutlinedCard].
-     *
-     * @param defaultElevation the elevation used when the [OutlinedCard] is has no other
-     * [Interaction]s.
-     * @param pressedElevation the elevation used when the [OutlinedCard] is pressed.
-     * @param focusedElevation the elevation used when the [OutlinedCard] is focused.
-     * @param hoveredElevation the elevation used when the [OutlinedCard] is hovered.
-     * @param draggedElevation the elevation used when the [OutlinedCard] is dragged.
-     */
-    @Composable
-    fun cardElevation(
-        defaultElevation: Dp = /* OutlinedCardTokens.ContainerElevation */ 0.dp,
-        pressedElevation: Dp = defaultElevation,
-        focusedElevation: Dp = defaultElevation,
-        hoveredElevation: Dp = defaultElevation,
-        draggedElevation: Dp = /* OutlinedCardTokens.DraggedContainerElevation */ 6.dp,
-        disabledElevation: Dp = /* OutlinedCardTokens.DisabledContainerElevation */ 0.dp
-    ): CardElevation = CardDefaults.outlinedCardElevation(
-        defaultElevation = defaultElevation,
-        pressedElevation = pressedElevation,
-        focusedElevation = focusedElevation,
-        hoveredElevation = hoveredElevation,
-        draggedElevation = draggedElevation,
-        disabledElevation = disabledElevation
     )
 
     /** Default shape for a [TaskCard]. */
