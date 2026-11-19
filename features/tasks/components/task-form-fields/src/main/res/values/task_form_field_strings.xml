@@ -2,4 +2,7 @@
 <resources>
     <!-- Label text for the task title text-field. -->
     <string name="task_title_text_field_label">Title</string>
+
+    <!-- Title for the task due time text field. -->
+    <string name="task_due_time_text_field_label">Due time</string>
 </resources>
