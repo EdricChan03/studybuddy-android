@@ -1,6 +1,7 @@
 package com.edricchan.studybuddy.features.tasks.components.form.title
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -15,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.maxTextLength
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.edricchan.studybuddy.data.forms.InputValidator
@@ -31,7 +33,10 @@ import com.edricchan.studybuddy.core.resources.R as CoreResR
 fun TaskTitleTextField(
     modifier: Modifier = Modifier,
     state: TextFieldState,
-    validator: InputValidator<TaskTitleValidationError> = TaskTitleValidator
+    validator: InputValidator<TaskTitleValidationError> = TaskTitleValidator,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(
+        imeAction = ImeAction.Next
+    )
 ) {
     val requiredMsg = stringResource(CoreResR.string.text_field_error_required)
 
@@ -68,7 +73,8 @@ fun TaskTitleTextField(
         lineLimits = TextFieldLineLimits.SingleLine,
         labelPosition = TextFieldLabelPosition.Inside(),
         shape = OutlinedTextFieldDefaults.roundedShape,
-        colors = OutlinedTextFieldDefaults.tonalColors()
+        colors = OutlinedTextFieldDefaults.tonalColors(),
+        keyboardOptions = keyboardOptions
     )
 }
 
