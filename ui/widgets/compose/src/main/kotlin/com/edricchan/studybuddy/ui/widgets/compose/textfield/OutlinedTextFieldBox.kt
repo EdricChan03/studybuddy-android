@@ -261,7 +261,7 @@ object OutlinedTextFieldBoxDefaults {
     @Composable
     fun tonalColors(): OutlinedTextFieldBoxColors {
         val borderColor = MaterialTheme.colorScheme.outlineVariant
-        val containerColor = MaterialTheme.colorScheme.onPrimary
+        val containerColor = Color.Transparent
         val contentColor = MaterialTheme.colorScheme.onSurface
         val leadingContentColor = MaterialTheme.colorScheme.onSurfaceVariant
         val trailingContentColor = MaterialTheme.colorScheme.onSurfaceVariant
