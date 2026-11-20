@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.stringResource
+import androidx.core.os.getParcelableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -27,7 +28,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import com.edricchan.studybuddy.core.auth.model.User
-import com.edricchan.studybuddy.exts.android.getParcelableCompat
 import com.edricchan.studybuddy.features.auth.navigation.navigateToAccountInfo
 import com.edricchan.studybuddy.ui.insets.enableEdgeToEdge
 import com.edricchan.studybuddy.ui.modules.main.nav.NavItem
