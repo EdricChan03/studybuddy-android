@@ -189,6 +189,7 @@ include(
     ":features:tasks:domain",
     ":features:tasks:domain-proto",
     ":features:tasks:navigation",
+    ":features:tasks:resources",
     ":features:tasks:components:task-card",
     ":features:tasks:components:task-form-fields",
     ":features:tasks:components:task-metadata",
