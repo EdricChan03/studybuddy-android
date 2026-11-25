@@ -24,6 +24,8 @@ dependencies {
     api(projects.core.settings.tasks.model)
     api(projects.core.settings.tasks.resources)
 
+    implementation(projects.features.tasks.resources)
+
     api(libs.androidx.annotation)
 
     testImplementation(libs.junit)
