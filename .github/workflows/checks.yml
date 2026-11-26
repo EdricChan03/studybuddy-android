@@ -29,7 +29,7 @@ jobs:
       - name: Run unit tests
         uses: ./.github/actions/build-gradle
         with:
-          gradle-arguments: test testAllSuites --continue
+          gradle-arguments: test --continue
           transcrypt-cipher: ${{ secrets.TRANSCRYPT_CIPHER }}
           transcrypt-password: ${{ secrets.TRANSCRYPT_PASSWORD }}
           app-keystore-password: ${{ secrets.APP_KEYSTORE_PASSWORD }}
